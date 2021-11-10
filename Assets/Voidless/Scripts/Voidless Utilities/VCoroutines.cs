@@ -47,6 +47,12 @@ public static class VCoroutines
 	/// <param name="_coroutine">Coroutine to dispatch and to initialize.</param>
 	public static Coroutine StartCoroutine(this MonoBehaviour _monoBehaviour, IEnumerator _iterator, ref Coroutine _coroutine)
 	{
+		if(!_monoBehaviour.enabled)
+		{
+			_coroutine = null;
+			return null;
+		}
+
 		if(_coroutine != null)
 		{
 			_monoBehaviour.StopCoroutine(_coroutine);

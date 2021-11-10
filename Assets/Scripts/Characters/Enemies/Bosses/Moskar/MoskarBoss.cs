@@ -387,6 +387,7 @@ public class MoskarBoss : Boss
 	protected override void OnDeathRoutineEnds()
 	{
 		OnObjectDeactivation();
+		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
 	}
 
 	/// <summary>Callback invoked when this FOV Sight leaves another collider.</summary>

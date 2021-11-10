@@ -42,6 +42,12 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	[SerializeField] private int _sampleJumping; 					/// <summary>Sample Jumping by each iteration.</summary>
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _moskarSFXVolume; 			/// <summary>Volume for Moskar's SFXs.</summary>
+	[Space(5f)]
+	[Header("Mandala's Attributes:")]
+	[SerializeField] private Mandala _enterMandala;					/// <summary>Enter Mandala's Reference.</summary>
+	[SerializeField] private Mandala _exitMandala;					/// <summary>Exit Mandala's Reference.</summary>
+	[SerializeField] private Vector3 _enterMandalaSpawnPosition; 	/// <summary>Enter Mandala's spawn Position.</summary>
+	[SerializeField] private Vector3 _exitMandalaSpawnPosition; 	/// <summary>Exit Mandala's spawn Position.</summary>
 	private Boundaries2DContainer _moskarBoundaries; 				/// <summary>Moskar's Boundaries.</summary>
 	private HashSet<MoskarBoss> _moskarReproductions; 				/// <summary>Moskar's Reproductions.</summary>
 #if UNITY_EDITOR
@@ -172,7 +178,29 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		get { return _moskarsDestroyed; }
 		set { _moskarsDestroyed = value; }
 	}
+
+	/// <summary>Gets enterMandala property.</summary>
+	public Mandala enterMandala { get { return _enterMandala; } }
+
+	/// <summary>Gets exitMandala property.</summary>
+	public Mandala exitMandala { get { return _exitMandala; } }
+
+	/// <summary>Gets enterMandalaSpawnPosition property.</summary>
+	public Vector3 enterMandalaSpawnPosition { get { return _enterMandalaSpawnPosition; } }
+
+	/// <summary>Gets exitMandalaSpawnPosition property.</summary>
+	public Vector3 exitMandalaSpawnPosition { get { return _exitMandalaSpawnPosition; } }
 #endregion
+
+#if UNITY_EDITOR
+	/// <summary>Draws Gizmos on Editor mode when MoskarSceneController's instance is selected.</summary>
+	private void OnDrawGizmosSelected()
+	{
+		Gizmos.color = gizmosColor;
+		Gizmos.DrawWireSphere(enterMandalaSpawnPosition, 0.5f);
+		Gizmos.DrawWireSphere(exitMandalaSpawnPosition, 0.5f);
+	}
+#endif
 
 	/// <summary>Callback internally invoked after Awake.</summary>
 	protected override void OnAwake()
@@ -192,6 +220,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 				totalMoskars += Mathf.Pow(2.0f, i);
 			}
 		}
+
+		enterMandala.gameObject.SetActive(false);
+		exitMandala.gameObject.SetActive(false);
 
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
 // --- Ends New Implementation: ---
@@ -257,6 +288,17 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 				if(!moskar.HasStates(Enemy.ID_STATE_ATTACK))
 				moskar.AddStates(Enemy.ID_STATE_ATTACK);
 			}
+			break;
+
+			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
+			/*Debug.Log("[MoskarSceneController] Moskar Died. Destroyed: " + moskarsDestroyed + ", Total: " + totalMoskars);
+			if(moskarsDestroyed < totalMoskars) return;
+
+			Game.EnablePlayerControl(false);
+			Game.mateo.Meditate(true);
+			exitMandala.gameObject.SetActive(true);
+			exitMandala.transform.position = exitMandalaSpawnPosition;
+			exitMandala.enabled = true;*/
 			break;
 		}
 	}
@@ -341,6 +383,11 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		if(moskarsDestroyed >= totalMoskars)
 		{
 			AudioController.Stop(SourceType.Scenario, 0);
+			Game.EnablePlayerControl(false);
+			Game.mateo.Meditate(true);
+			exitMandala.gameObject.SetActive(true);
+			exitMandala.transform.position = exitMandalaSpawnPosition;
+			exitMandala.enabled = true;
 			Debug.Log("[MoskarSceneController] Finished!!!");
 		}
 
