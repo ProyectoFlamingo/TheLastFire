@@ -20,6 +20,7 @@ public class Character : PoolGameObject, IStateMachine
 	public const int ID_STATE_IDLE = 1 << 1; 		/// <summary>Idle State's ID.</summary>
 	public const int ID_STATE_HURT = 1 << 2; 		/// <summary>Hurt State's ID.</summary>
 	public const int ID_STATE_COLLIDED = 1 << 3; 	/// <summary>Collider State's ID.</summary>
+	public const int ID_STATE_ATTACKING = 1 << 4; 	/// <summary>Attacking's State's ID.</summary>
 
 	private int _state; 							/// <summary>Character's Current State.</summary>
 	private int _previousState; 					/// <summary>Character's Previous Current State.</summary>

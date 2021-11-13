@@ -74,8 +74,8 @@ public static class AsynchronousSceneLoader
 		}
 
 		action(1.0f);
-		if(onLoadEnds != null) onLoadEnds();
 		AllowSceneActivation();
+		if(onLoadEnds != null) onLoadEnds();
 	}
 
 	/// <summary>Loads Scene Asunchronously and executes an action taking the loading progress as parameter.</summary>

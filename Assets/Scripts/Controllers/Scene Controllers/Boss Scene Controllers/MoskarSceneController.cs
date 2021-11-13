@@ -24,6 +24,8 @@ namespace Flamingo
 public class MoskarSceneController : Singleton<MoskarSceneController>
 {
 	[Space(5f)]
+	[SerializeField] private float _fadeOutDuration; 				/// <summary>Fade-Out's Duration.</summary>
+	[Space(5f)]
 	[SerializeField] private MoskarBoss _main; 						/// <summary>Initial Moskar's Reference.</summary>
 	[Space(5f)]
 	[Header("Reproductions' Atrributes:")]
@@ -61,6 +63,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	private float _moskarsDestroyed; 								/// <summary>Moskars Destroyed.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets fadeOutDuration property.</summary>
+	public float fadeOutDuration { get { return _fadeOutDuration; } }
+
 	/// <summary>Gets and Sets main property.</summary>
 	public MoskarBoss main
 	{
@@ -248,6 +253,13 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 
 		AudioController.Play(SourceType.Scenario, 0, flyLoop, true);
 		AudioController.SetVolume(SourceType.SFX, main.sourceIndex, moskarSFXVolume);
+
+		Game.EnablePlayerControl(false);
+		Game.FadeOutScreen(Color.black, fadeOutDuration,
+		()=>
+		{
+			Game.EnablePlayerControl(true);
+		});		
 	}
 
 	/// <summary>Callback invoked when MoskarSceneController's instance is going to be destroyed and passed to the Garbage Collector.</summary>

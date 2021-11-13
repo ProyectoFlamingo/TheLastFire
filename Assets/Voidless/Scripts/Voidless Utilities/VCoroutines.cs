@@ -845,6 +845,26 @@ public static class VCoroutines
 		}
 	}
 
+	/// <summary>Plays Animator's State and waits for that state to end.</summary>
+	/// <param name="_animator">Animator's Reference.</param>
+	/// <param name="_animationHash">State's Hash.</param>
+	/// <param name="_layer">AnimatorController's Layer.</param>
+	/// <param name="_additionalWait">AdditionalWait [0.0f by default].</param>
+	/// <param name="onWaitEnds">Callback invoked when the wait ends [null by default].</param>
+	public static IEnumerator PlayAndWait(this Animator _animator, int _animationHash, int _layer, float _normalizedTime = 0.0f, float _additionalWait = 0.0f, Action onWaitEnds = null)
+	{
+		_animator.Play(_animationHash, _layer, _normalizedTime);
+
+		yield return null;
+
+		AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(_layer);
+		SecondsDelayWait wait = new SecondsDelayWait(state.length + _additionalWait);
+
+		while(wait.MoveNext()) yield return null;
+
+		if(onWaitEnds != null) onWaitEnds();
+	}
+
 	/// \TODO Well....do it...
 	/* Sources:
 		- https://answers.unity.com/questions/628200/get-length-of-animator-statetransition.html

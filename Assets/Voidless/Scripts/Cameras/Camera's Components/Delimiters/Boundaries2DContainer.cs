@@ -61,13 +61,14 @@ public class Boundaries2DContainer : MonoBehaviour
 		Gizmos.DrawLine(bottomLeftPoint, topLeftPoint);
 		Gizmos.DrawLine(topLeftPoint, topRightPoint);
 		Gizmos.DrawLine(bottomRightPoint, topRightPoint);
+		Gizmos.DrawCube(center, size);
 	}
 
 	/// <summary>Resets VCamera2DBoundariesContainer's instance to its default values.</summary>
 	private void Reset()
 	{
 		space = Space.Self;
-		color = Color.white;
+		color = Color.white.WithAlpha(0.5f);
 	}
 #endif
 

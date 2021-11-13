@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,7 +46,8 @@ public class Game : Singleton<Game>
 	[Header("Game's Data:")]
 	[SerializeField] private GameData _data; 								/// <summary>Game's Data.</summary>
 	[Space(5f)]
-	[SerializeField] private PlayerController _mateoController; 			/// <summary>Mateo's Controller.</summary>
+	//[SerializeField] private PlayerController _mateoController; 			/// <summary>Mateo's Controller.</summary>
+	[SerializeField] private MateoController _mateoController; 				/// <summary>Mateo's Controller.</summary>
 	[SerializeField] private Mateo _mateo; 									/// <summary>Mateo's Reference.</summary>
 	[SerializeField] private GameplayCameraController _cameraController; 	/// <summary>Gameplay's Camera Controller.</summary>
 	[SerializeField] private Camera _UICamera; 								/// <summary>UI's Camera.</summary>
@@ -54,6 +56,7 @@ public class Game : Singleton<Game>
 	private FloatRange _defaultDistanceRange; 								/// <summary>Default Camera's Distance Range.</summary>
 	private GameState _state; 												/// <summary>Game's State.</summary>
 	private bool _onTransition; 											/// <summary>Is the Game on a transition?.</summary>
+	private HashSet<Camera2DBoundariesModifier> _boundariesModifiers; 		/// <summary>Boundaries2DContainers for the Gameplay Camera.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets data property.</summary>
@@ -71,7 +74,7 @@ public class Game : Singleton<Game>
 	}
 
 	/// <summary>Gets and Sets mateoController property.</summary>
-	public static PlayerController mateoController
+	public static MateoController mateoController
 	{
 		get { return Instance._mateoController; }
 		set { Instance._mateoController = value; }
@@ -126,6 +129,13 @@ public class Game : Singleton<Game>
 		get { return Instance._onTransition; }
 		set { Instance._onTransition = value; }
 	}
+
+	/// <summary>Gets and Sets boundariesModifiers property.</summary>
+	public static HashSet<Camera2DBoundariesModifier> boundariesModifiers
+	{
+		get { return Instance._boundariesModifiers; }
+		set { Instance._boundariesModifiers = value; }
+	}
 #endregion
 
 	/// <summary>Callback internally called immediately after Awake.</summary>
@@ -135,6 +145,7 @@ public class Game : Singleton<Game>
 
 		defaultCameraBoundaries = cameraController.boundariesContainer.ToBoundaries2D();
 		defaultDistanceRange = cameraController.distanceAdjuster.distanceRange;
+		boundariesModifiers = new HashSet<Camera2DBoundariesModifier>();
 
 		if(mateo != null)
 		{
@@ -248,10 +259,24 @@ public class Game : Singleton<Game>
 
 	/// <summary>Loads Scene.</summary>
 	/// <param name="_scene">Scene's Name.</param>
-	public static void LoadScene(string _scene)
+	public static void LoadScene(string _scene, bool _fadeIn = true)
 	{
 		PlayerPrefs.SetString(GameData.PATH_SCENE_TOLOAD, _scene);
-		SceneManager.LoadScene(GameData.PATH_SCENE_LOADING);
+		
+		switch(_fadeIn)
+		{
+			case true:
+			FadeInScreen(Color.black, gameplayGUIController.screenFaderGUI.inDuration,
+			()=>
+			{
+				SceneManager.LoadScene(GameData.PATH_SCENE_LOADING);
+			});
+			break;
+
+			case false:
+			SceneManager.LoadScene(GameData.PATH_SCENE_LOADING);
+			break;
+		}
 	}
 
 	/// <summary>Resets current Scene.</summary>
@@ -259,6 +284,73 @@ public class Game : Singleton<Game>
 	{
 		Scene scene = SceneManager.GetActiveScene();
 		LoadScene(scene.name);
+	}
+
+	/// <summary>Fades-In Screen and invokes callback afterwards.</summary>
+	/// <param name="_color">Fade Color.</param>
+	/// <param name="_duration">Fade-In's Duration.</param>
+	/// <param name="onFadeEnds">Optional callback invoked when the Fade-In ends.</param>
+	public static void FadeInScreen(Color _color, float _duration, Action onFadeEnds)
+	{
+		gameplayGUIController.screenFaderGUI.FadeIn(_color, _duration, onFadeEnds);
+	}
+
+	/// <summary>Fades-Out Screen and invokes callback afterwards.</summary>
+	/// <param name="_color">Fade Color.</param>
+	/// <param name="_duration">Fade-Out's Duration.</param>
+	/// <param name="onFadeEnds">Optional callback invoked when the Fade-Out ends.</param>
+	public static void FadeOutScreen(Color _color, float _duration, Action onFadeEnds)
+	{
+		gameplayGUIController.screenFaderGUI.FadeOut(_color, _duration, onFadeEnds);
+	}
+
+	/// <summary>Callback invoked when a Camera2DBoundariesModifier is entered.</summary>
+	/// <param name="_modifier">Camera2DBoundariesModifier that invoked the event.</param>
+	public static void OnCamera2DBoundariesModifierEnter(Camera2DBoundariesModifier _modifier)
+	{
+		if(boundariesModifiers.Contains(_modifier)) return;
+
+		boundariesModifiers.Add(_modifier);
+
+		if(boundariesModifiers.Count > 0) return;
+
+		cameraController.boundariesContainer.InterpolateTowards(_modifier.boundariesContainer.ToBoundaries2D(), _modifier.interpolationDuration);
+
+		if(_modifier.setDistance) cameraController.distanceAdjuster.distanceRange = _modifier.distanceRange;
+
+	}
+
+	/// <summary>Callback invoked when a Camera2DBoundariesModifier is left.</summary>
+	/// <param name="_modifier">Camera2DBoundariesModifier that invoked the event.</param>
+	public static void OnCamera2DBoundariesModifierExit(Camera2DBoundariesModifier _modifier)
+	{
+		if(!boundariesModifiers.Contains(_modifier)) return;
+
+		boundariesModifiers.Remove(_modifier);
+
+		_modifier.boundariesContainer.OnInterpolationEnds();
+
+		if(boundariesModifiers.Count == 0)
+		{
+			SetDefaultCameraBoundaries2D();
+			SetDefaultCameraDistanceRange();
+		}
+		else
+		{
+			Camera2DBoundariesModifier modifier = boundariesModifiers.First();
+
+			cameraController.boundariesContainer.InterpolateTowards(modifier.boundariesContainer.ToBoundaries2D(), modifier.interpolationDuration);
+			
+			if(modifier.setDistance) Game.cameraController.distanceAdjuster.distanceRange = modifier.distanceRange;
+		}
+	}
+
+	/// <summary>Activates Mateo.</summary>
+	/// <param name="_activate">Activate? true by default.</param>
+	public static void ActivateMateo(bool _activate = true)
+	{
+		EnablePlayerControl(_activate);
+		mateo.gameObject.SetActive(_activate);
 	}
 
 	/// <summary>Callback invoked when a pause is requested.</summary>
@@ -297,7 +389,7 @@ public class Game : Singleton<Game>
 		switch(_ID)
 		{
 			case Mateo.ID_EVENT_DEAD:
-			//ResetScene();
+			ResetScene();
 			break;
 		}
 	}
@@ -327,7 +419,7 @@ public class Game : Singleton<Game>
 			break;
 		}
 
-		Debug.Log("[Game] OnMateoHealthEvent called with Event Type: " + _event.ToString());
+		//Debug.Log("[Game] OnMateoHealthEvent called with Event Type: " + _event.ToString());
 	}
 
 	/// <summary>Callback invoked when the GUI invokes an Event.</summary>
@@ -378,7 +470,7 @@ public class Game : Singleton<Game>
 		while((s == 1.0f) ? (timeScale < _timeScale) : (timeScale > _timeScale))
 		{
 			timeScale += (t * s);
-			t += (a * Time.deltaTime);
+			t += (a * Time.unscaledDeltaTime);
 
 			SetTimeScale(timeScale, _changeAudioPitch, false);
 

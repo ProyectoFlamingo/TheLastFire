@@ -1534,15 +1534,6 @@ MonoBehaviour:
   _dashXThreshold: 0.5
   _animatorParent: {fileID: 6544736471894580627}
   _animator: {fileID: 8963642933051975932}
-  _initialPoseCredential:
-    _tag: PerformInitialPose
-    _ID: 1889077454
-  _initialPoseIDCredential:
-    _tag: StationaryPoseID
-    _ID: -8259328
-  _vitalityIDCredential:
-    _tag: VitalityID
-    _ID: -1493647759
   _leftAxisXCredential:
     _tag: LeftAxisX
     _ID: -741505348
@@ -1555,39 +1546,87 @@ MonoBehaviour:
   _rightAxisYCredential:
     _tag: RightAxisY
     _ID: -959174837
-  _jumpStateIDCredential:
-    _tag: JumpStateID
-    _ID: -1830034179
-  _jumpingIDCredential:
-    _tag: JumpLevel
-    _ID: 894383661
-  _groundedCredential:
-    _tag: OnGround
-    _ID: 1602690925
-  _attackIDCredential:
-    _tag: AttackID
-    _ID: -1849100831
-  _attackCredential:
-    _tag: Attacking
-    _ID: -2123461723
-  _shootingStateIDCredential:
-    _tag: FlameConjuringStateID
-    _ID: 1460152461
-  _dashingCredential:
-    _tag: Dashing
-    _ID: -1043442331
-  _brakingCredential:
-    _tag: Braking
-    _ID: 801733478
-  _walledCredential:
-    _tag: Walled
-    _ID: 1718847309
-  _impactedWithWallCredential:
-    _tag: BouncingOffWall
-    _ID: 1259035308
+  _mainAnimationLayer: 1
+  _locomotionAnimationLayer: 2
+  _fireConjuringAnimationLayer: 3
+  _jumpingAnimationLayer: 4
+  _attackAnimationLayer: 5
+  _idleCredential:
+    _tag: Idle
+    _ID: 2081823275
+  _crouchCredential:
+    _tag: Crouch
+    _ID: -2015693266
+  _normalMeditationCredential:
+    _tag: Meditation
+    _ID: 190868099
+  _brakeCredential:
+    _tag: Brake
+    _ID: -672984433
+  _hitCredential:
+    _tag: Hit
+    _ID: 1654612129
+  _crashCredential:
+    _tag: Crash
+    _ID: 371843035
+  _deadCredential:
+    _tag: Dead
+    _ID: 1293411866
+  _swordMeditationCredential:
+    _tag: SwordMeditation
+    _ID: 780165990
+  _fireMeditationCredential:
+    _tag: FireMeditation
+    _ID: -524406062
+  _normalStandingCredential:
+    _tag: NormalStanding
+    _ID: 1486305936
+  _jumpStandingCredential:
+    _tag: JumpStanding
+    _ID: 125836477
+  _normalJumpCredential:
+    _tag: NormalJump
+    _ID: 1570282079
+  _additionalJumpCredential:
+    _tag: AdditionalJump
+    _ID: -1492809865
+  _fallingCredential:
+    _tag: Falling
+    _ID: 998495048
+  _softLandingCredential:
+    _tag: SoftLanding
+    _ID: 280959623
+  _hardLandingCredential:
+    _tag: HardLanding
+    _ID: 238439405
+  _fireConjuringCredential:
+    _tag: FireConjuring
+    _ID: 905947631
+  _fireMaxChargedCredential:
+    _tag: FireMaxCharge
+    _ID: 964272371
+  _fireThrowCredential:
+    _tag: FireThrow
+    _ID: -275049610
+  _swordObtentionCredential:
+    _tag: SwordObtention
+    _ID: 1998546338
+  _fireObtentionCredential:
+    _tag: FireObtention
+    _ID: 682249941
+  _groundSwordAttackCredential:
+    _tag: GroundAttacks_TEMP
+    _ID: 711543485
+  _normalJumpSwordAttackCredential:
+    _tag: NormalJumpAttacks_TEMP
+    _ID: -221871803
+  _additionalJumpSwordAttackCredential:
+    _tag: AdditionalJumpAttacks_TEMP
+    _ID: -1105924142
   _extraJumpTrailRenderer: {fileID: 8758690135221398651}
   _swordParticleEffect: {fileID: 0}
-  _meditationWaitDuration: 10
+  _meditationWaitDuration: 6
+  _normalStandingAdditionalWait: 0
 --- !u!114 &5122952807910987792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2497,7 +2536,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: c62bc82e9a47d7442b39418c6fb3e851, type: 2}
+      objectReference: {fileID: 9100000, guid: ec96b931383eb054ea81bf7f43bbf7e7, type: 2}
     - target: {fileID: 5866666021909216657, guid: e1ade64200512ac48bc85bb7446c6516,
         type: 3}
       propertyPath: m_ApplyRootMotion

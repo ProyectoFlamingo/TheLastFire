@@ -12,8 +12,6 @@ namespace Flamingo
 //[ExecuteInEditMode]
 public class Camera2DBoundariesModifier : MonoBehaviour
 {
-	protected static HashSet<Camera2DBoundariesModifier> boundariesModifiers; 	/// <summary>Boundaries' Modifiers.</summary>
-
 	[SerializeField] private GameObjectTag _playerTag; 							/// <summary>Player's Tag.</summary>
 	[Space(5f)]
 	[SerializeField] private float _interpolationDuration; 						/// <summary>Interpolation's Duration.</summary>
@@ -86,7 +84,6 @@ public class Camera2DBoundariesModifier : MonoBehaviour
 	private void Awake()
 	{
 		entered = false;
-		if(boundariesModifiers == null) boundariesModifiers = new HashSet<Camera2DBoundariesModifier>();
 	}
 
 	/// <summary>Draws Gizmos on Editor mode.</summary>
@@ -118,6 +115,7 @@ public class Camera2DBoundariesModifier : MonoBehaviour
 	private void UpdateBoxCollider()
 	{
 		boxCollider.size = boundariesContainer.size;
+		//boundariesContainer.size = boxCollider.size;
 	}
 
 	/// <summary>Event triggered when this Collider2D enters another Collider2D trigger.</summary>
@@ -130,14 +128,10 @@ public class Camera2DBoundariesModifier : MonoBehaviour
 	
 		if(obj.CompareTag(playerTag))
 		{
-			Boundaries2DContainer cameraBoundariesContainer = Game.cameraController.boundariesContainer;
-
-			if(cameraBoundariesContainer == null) return;
-
-			cameraBoundariesContainer.InterpolateTowards(boundariesContainer.ToBoundaries2D(), interpolationDuration);
-			if(setDistance) Game.cameraController.distanceAdjuster.distanceRange = distanceRange;
-			boundariesModifiers.Add(this);
 			entered = true;
+			Game.OnCamera2DBoundariesModifierEnter(this);
+
+			return;
 		}
 	}
 
@@ -151,30 +145,10 @@ public class Camera2DBoundariesModifier : MonoBehaviour
 	
 		if(obj.CompareTag(playerTag))
 		{
-			Boundaries2DContainer cameraBoundariesContainer = Game.cameraController.boundariesContainer;
-
-			if(cameraBoundariesContainer == null || !boundariesModifiers.Contains(this)) return;
-
-			boundariesModifiers.Remove(this);
 			entered = false;
-			boundariesContainer.OnInterpolationEnds();
+			Game.OnCamera2DBoundariesModifierExit(this);
 
-			/// If this was the last container registered upon the object exit, make its default parameters return
-			if(boundariesModifiers.Count == 0)
-			{
-				Game.SetDefaultCameraBoundaries2D();
-				Game.SetDefaultCameraDistanceRange();
-			}
-			else
-			{
-				Camera2DBoundariesModifier modifier = boundariesModifiers.First();
-
-				if(modifier.entered) return;
-
-				Boundaries2DContainer boundaries = modifier.boundariesContainer;
-				cameraBoundariesContainer.InterpolateTowards(boundaries.ToBoundaries2D(), interpolationDuration);
-				if(modifier.setDistance) Game.cameraController.distanceAdjuster.distanceRange = modifier.distanceRange;
-			}
+			return;
 		}
 	}
 }

@@ -11,6 +11,14 @@ public enum StareTarget
 	Player
 }
 
+public enum MeditationType
+{
+	Normal,
+	Sword,
+	Fire,
+	Jump
+}
+
 namespace Flamingo
 {
 [RequireComponent(typeof(RigidbodyMovementAbility))]
@@ -26,90 +34,113 @@ namespace Flamingo
 [RequireComponent(typeof(VCameraTarget))]
 public class Mateo : Character
 {
-	public const int ID_INITIALPOSE_STARRINGATPLAYER = 0; 						/// <summary>Starring At Player's Initial Pose's ID.</summary>
-	public const int ID_INITIALPOSE_STARRINGATBACKGROUND = 2; 					/// <summary>Starring At Background's Initial Pose's ID.</summary>
-	public const int ID_INITIALPOSE_MEDITATING = 1; 							/// <summary>Meditation Initial Pose's ID.</summary>
-	public const int ID_STATE_INITIALPOSE = 1 << 4; 							/// <summary>Initial Pose's State ID.</summary>
-	public const int ID_STATE_MEDITATING = 1 << 4; 								/// <summary>Meditating's State ID.</summary>
-	public const int ID_EVENT_INITIALPOSE_BEGINS = 0; 							/// <summary>Mateo Initial-Pose-Begins's Event ID.</summary>
-	public const int ID_EVENT_INITIALPOSE_ENDED = 1; 							/// <summary>Mateo Initial-Pose-Finished's Event ID.</summary>
-	public const int ID_EVENT_MEDITATION_BEGINS = 2; 							/// <summary>Meditation Begins' Event.</summary>
-	public const int ID_EVENT_MEDITATION_ENDS = 3; 								/// <summary>Meditation Ends' Event.</summary>
-	public const int ID_EVENT_HURT = 4; 										/// <summary>Mateo's Hurt Event.</summary>
-	public const int ID_EVENT_DEAD = 5; 										/// <summary>Mateo's Dead Event.</summary>
+	public const int ID_INITIALPOSE_STARRINGATPLAYER = 0; 								/// <summary>Starring At Player's Initial Pose's ID.</summary>
+	public const int ID_INITIALPOSE_STARRINGATBACKGROUND = 2; 							/// <summary>Starring At Background's Initial Pose's ID.</summary>
+	public const int ID_INITIALPOSE_MEDITATING = 1; 									/// <summary>Meditation Initial Pose's ID.</summary>
+	public const int ID_STATE_INITIALPOSE = 1 << 5; 									/// <summary>Initial Pose's State ID.</summary>
+	public const int ID_STATE_MEDITATING = 1 << 5; 										/// <summary>Meditating's State ID.</summary>
+	public const int ID_EVENT_INITIALPOSE_BEGINS = 0; 									/// <summary>Mateo Initial-Pose-Begins's Event ID.</summary>
+	public const int ID_EVENT_INITIALPOSE_ENDED = 1; 									/// <summary>Mateo Initial-Pose-Finished's Event ID.</summary>
+	public const int ID_EVENT_MEDITATION_BEGINS = 2; 									/// <summary>Meditation Begins' Event.</summary>
+	public const int ID_EVENT_MEDITATION_ENDS = 3; 										/// <summary>Meditation Ends' Event.</summary>
+	public const int ID_EVENT_HURT = 4; 												/// <summary>Mateo's Hurt Event.</summary>
+	public const int ID_EVENT_DEAD = 5; 												/// <summary>Mateo's Dead Event.</summary>
 
-	[SerializeField] private GameObject hurtBox; 								/// <summary>HurtBox's Container.</summary>
+	[SerializeField] private GameObject hurtBox; 										/// <summary>HurtBox's Container.</summary>
 	[Header("Rotations:")]
-	[SerializeField] private EulerRotation _stareAtBossRotation; 				/// <summary>Stare at Boss's Rotation.</summary>
-	[SerializeField] private EulerRotation _stareAtPlayerRotation; 				/// <summary>SSStare At Player's Rotation.</summary>
+	[SerializeField] private EulerRotation _stareAtBossRotation; 						/// <summary>Stare at Boss's Rotation.</summary>
+	[SerializeField] private EulerRotation _stareAtPlayerRotation; 						/// <summary>SSStare At Player's Rotation.</summary>
 	[Header("Hands:")]
-	[SerializeField] private Transform _leftHand; 								/// <summary>Left Hand's reference [Fire caster].</summary>
-	[SerializeField] private Transform _rightHand; 								/// <summary>Right Hand's reference [Sword holder].</summary>
+	[SerializeField] private Transform _leftHand; 										/// <summary>Left Hand's reference [Fire caster].</summary>
+	[SerializeField] private Transform _rightHand; 										/// <summary>Right Hand's reference [Sword holder].</summary>
 	[Space(5f)]
-	[SerializeField] private float _postMeditationDuration; 					/// <summary>Post-Meditation's Duration.</summary>
+	[SerializeField] private float _postMeditationDuration; 							/// <summary>Post-Meditation's Duration.</summary>
 	[Space(5f)]
 	[Header("Sword's Attributes:")]
-	[SerializeField] private Sword _sword; 										/// <summary>Mateo's Sword.</summary>
-	[SerializeField] private int _groundedNeutralComboIndex; 					/// <summary>Grounded Neutral Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _groundedDirectionalComboIndex; 				/// <summary>Grounded Directional Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _airNeutralComboIndex; 						/// <summary>Air Neutral Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _airDirectionalComboIndex; 					/// <summary>Air Directional Combo's index on the AnimationAttacksHandler.</summary>
+	[SerializeField] private Sword _sword; 												/// <summary>Mateo's Sword.</summary>
+	[SerializeField] private int _groundedNeutralComboIndex; 							/// <summary>Grounded Neutral Combo's index on the AnimationAttacksHandler.</summary>
+	[SerializeField] private int _groundedDirectionalComboIndex; 						/// <summary>Grounded Directional Combo's index on the AnimationAttacksHandler.</summary>
+	[SerializeField] private int _airNeutralComboIndex; 								/// <summary>Air Neutral Combo's index on the AnimationAttacksHandler.</summary>
+	[SerializeField] private int _airDirectionalComboIndex; 							/// <summary>Air Directional Combo's index on the AnimationAttacksHandler.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _animationStateProgress; 					/// <summary>Minimum Animation State Progress to open the next attack's window.</summary>
-	[SerializeField] private float _attackDurationWindow; 						/// <summary>Duration Window's for next sword attack.</summary>
+	[Range(0.0f, 1.0f)] private float _animationStateProgress; 							/// <summary>Minimum Animation State Progress to open the next attack's window.</summary>
+	[SerializeField] private float _attackDurationWindow; 								/// <summary>Duration Window's for next sword attack.</summary>
 	[Space(5f)]
-	[SerializeField] private FloatRange _directionalThresholdX; 				/// <summary>Directional Threhold on the X's Axis to perform directional attacks.</summary>
-	[SerializeField] private FloatRange _directionalThresholdY; 				/// <summary>Directional Threhold on the Y's Axis to perform directional attacks.</summary>
+	[SerializeField] private FloatRange _directionalThresholdX; 						/// <summary>Directional Threhold on the X's Axis to perform directional attacks.</summary>
+	[SerializeField] private FloatRange _directionalThresholdY; 						/// <summary>Directional Threhold on the Y's Axis to perform directional attacks.</summary>
 	[Space(5f)]
-	[SerializeField] private float _gravityScale; 								/// <summary>Gravity Scale applied when attacking.</summary>
-	[SerializeField] private int _scaleChangePriority; 							/// <summary>Gravity Scale's Change Priority.</summary>
+	[SerializeField] private float _gravityScale; 										/// <summary>Gravity Scale applied when attacking.</summary>
+	[SerializeField] private int _scaleChangePriority; 									/// <summary>Gravity Scale's Change Priority.</summary>
 	[Space(5f)]
-	[SerializeField] private float _jumpingMovementScale; 						/// <summary>Movement's Scale when Mateo is Jumping.</summary>
+	[SerializeField] private float _jumpingMovementScale; 								/// <summary>Movement's Scale when Mateo is Jumping.</summary>
 	[Space(5f)]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _dashXThreshold; 							/// <summary>Minimum left axis' X [absolute] value to be able to perform dash.</summary>
+	[Range(0.0f, 1.0f)] private float _dashXThreshold; 									/// <summary>Minimum left axis' X [absolute] value to be able to perform dash.</summary>
 	[Space(5f)]
-	[Header("Animator's Attributes:")]
-	[SerializeField] private Transform _animatorParent; 						/// <summary>Animator's Parent.</summary>
-	[SerializeField] private Animator _animator; 								/// <summary>Animator's Component.</summary>
-	[SerializeField] private AnimatorCredential _initialPoseCredential; 		/// <summary>Initial Pose's Credential.</summary>
-	[SerializeField] private AnimatorCredential _initialPoseIDCredential; 		/// <summary>Initial Pose Id's Credential.</summary>
-	[SerializeField] private AnimatorCredential _vitalityIDCredential; 			/// <summary>Vitality ID's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _leftAxisXCredential; 			/// <summary>Left Axis X's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _leftAxisYCredential; 			/// <summary>Left Axis Y's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _rightAxisXCredential; 			/// <summary>Right Axis X's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _rightAxisYCredential; 			/// <summary>Right Axis Y's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _jumpStateIDCredential; 		/// <summary>Jump State ID's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _jumpingIDCredential; 			/// <summary>Jumping ID's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _groundedCredential; 			/// <summary>Grounded's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _attackIDCredential; 			/// <summary>Attack ID's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _attackCredential; 				/// <summary>Attack's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _shootingStateIDCredential; 	/// <summary>Shooting State ID's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _dashingCredential; 			/// <summary>Dashing's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _brakingCredential; 			/// <summary>Brakin'g Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _walledCredential; 				/// <summary>Walled's Animator Credential.</summary>
-	[SerializeField] private AnimatorCredential _impactedWithWallCredential; 	/// <summary>Impacted w/ Wall's Animator Credential.</summary>
+	[SerializeField] private Transform _animatorParent; 								/// <summary>Animator's Parent.</summary>
+	[SerializeField] private Animator _animator; 										/// <summary>Animator's Component.</summary>
 	[Space(5f)]
-	[SerializeField] private TrailRenderer _extraJumpTrailRenderer; 			/// <summary>Extra-Jump's Trail Renderer.</summary>
+	[Header("AnimatorController's Parameters:")]
+	[SerializeField] private AnimatorCredential _leftAxisXCredential; 					/// <summary>Left Axis X's Animator Credential.</summary>
+	[SerializeField] private AnimatorCredential _leftAxisYCredential; 					/// <summary>Left Axis Y's Animator Credential.</summary>
+	[SerializeField] private AnimatorCredential _rightAxisXCredential; 					/// <summary>Right Axis X's Animator Credential.</summary>
+	[SerializeField] private AnimatorCredential _rightAxisYCredential; 					/// <summary>Right Axis Y's Animator Credential.</summary>
 	[Space(5f)]
-	[SerializeField] private ParticleEffect _swordParticleEffect; 				/// <summary>Sword's Particle Effect when slashing.</summary>
+	[Header("Animation Layers:")]
+	[SerializeField] private int _mainAnimationLayer; 									/// <summary>Main's Animation Layer.</summary>
+	[SerializeField] private int _locomotionAnimationLayer; 							/// <summary>Locomotion's Animation Layer.</summary>
+	[SerializeField] private int _fireConjuringAnimationLayer; 							/// <summary>Fire Conjuring's Animation Layer.</summary>
+	[SerializeField] private int _jumpingAnimationLayer; 								/// <summary>Jumping's Animation Layer.</summary>
+	[SerializeField] private int _attackAnimationLayer; 								/// <summary>Attack's Animation Layer.</summary>
+	[Space(5f)]
+	[Header("Animation Clips' Credentials:")]
+	[SerializeField] private AnimatorCredential _idleCredential; 						/// <summary>Idle's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _crouchCredential; 						/// <summary>Crouch's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _normalMeditationCredential; 			/// <summary>Normal Meditaiton's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _brakeCredential; 						/// <summary>Brake's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _hitCredential; 						/// <summary>Hit's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _crashCredential; 						/// <summary>Crash's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _deadCredential; 						/// <summary>Dead's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _swordMeditationCredential; 			/// <summary>Sword Meditaiton's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fireMeditationCredential; 				/// <summary>Fire Meditaiton's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _normalStandingCredential; 				/// <summary>Normal Standing's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _jumpStandingCredential; 				/// <summary>Jump Standing's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _normalJumpCredential; 					/// <summary>Normal Jump's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _additionalJumpCredential; 				/// <summary>Additional Jump's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fallingCredential; 					/// <summary>Falling's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _softLandingCredential; 				/// <summary>Soft Landing's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _hardLandingCredential; 				/// <summary>Hard Landing's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fireConjuringCredential; 				/// <summary>Fire Conjuring's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fireMaxChargedCredential; 				/// <summary>Fire's Max Charged's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fireThrowCredential; 					/// <summary>Fire Throw's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _swordObtentionCredential; 				/// <summary>Sword Obtention's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _fireObtentionCredential; 				/// <summary>Fire Obtention's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _groundSwordAttackCredential; 			/// <summary>Ground Sword Attack's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _normalJumpSwordAttackCredential; 		/// <summary>Normal Jump Sowrd Attack's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _additionalJumpSwordAttackCredential; 	/// <summary>Additional Jump Sowrd Attack's AnimatorCredential.</summary>
+	[Space(5f)]
+	[SerializeField] private TrailRenderer _extraJumpTrailRenderer; 					/// <summary>Extra-Jump's Trail Renderer.</summary>
+	[Space(5f)]
+	[SerializeField] private ParticleEffect _swordParticleEffect; 						/// <summary>Sword's Particle Effect when slashing.</summary>
 	[Header("Meditation's Attributes:")]
-	[SerializeField] private float _meditationWaitDuration; 					/// <summary>Meditation Wait's Duration.</summary>
-	private float _meditationWaitTime; 											/// <summary>Current Meditation's Time.</summary>
-	private RigidbodyMovementAbility _movementAbility; 							/// <summary>RigidbodyMovementAbility's Component.</summary>
-	private RotationAbility _rotationAbility; 									/// <summary>RotationAbility's Component.</summary>
-	private JumpAbility _jumpAbility; 											/// <summary>JumpAbility's Component.</summary>
-	private ShootChargedProjectile _shootProjectile; 							/// <summary>ShootChargedProjectile's Component.</summary>
-	private DashAbility _dashAbility; 											/// <summary>DashAbility's Component.</summary>
-	private TransformDeltaCalculator _deltaCalculator; 							/// <summary>TransformDeltaCalculator's Component.</summary>
-	private SensorSystem2D _sensorSystem; 										/// <summary>SensorSystem2D's Component.</summary>
-	private WallEvaluator _wallEvaluator; 										/// <summary>WallEvaluator's Component.</summary>
-	private AnimationAttacksHandler _attacksHandler; 							/// <summary>AnimationAttacksHandler's Component.</summary>
-	private SlopeEvaluator _slopeEvaluator; 									/// <summary>SlopeEvaluator's Component.</summary>
-	private VCameraTarget _cameraTarget; 										/// <summary>VCameraTarget's Component.</summary>
-	private Vector3 _orientation; 												/// <summary>Mateo's Orientation.</summary>
-	private Vector2 _leftAxes; 													/// <summary>Left Axes' Value.</summary>
-	private Cooldown _postInitialPoseCooldown; 									/// <summary>Post-Meditation's Cooldown.</summary>
+	[SerializeField] private float _meditationWaitDuration; 							/// <summary>Meditation Wait's Duration.</summary>
+	[SerializeField] private float _normalStandingAdditionalWait; 						/// <summary>Normal Meditation's Standing Additional Wait Duration.</summary>
+	private float _meditationWaitTime; 													/// <summary>Current Meditation's Time.</summary>
+	private RigidbodyMovementAbility _movementAbility; 									/// <summary>RigidbodyMovementAbility's Component.</summary>
+	private RotationAbility _rotationAbility; 											/// <summary>RotationAbility's Component.</summary>
+	private JumpAbility _jumpAbility; 													/// <summary>JumpAbility's Component.</summary>
+	private ShootChargedProjectile _shootProjectile; 									/// <summary>ShootChargedProjectile's Component.</summary>
+	private DashAbility _dashAbility; 													/// <summary>DashAbility's Component.</summary>
+	private TransformDeltaCalculator _deltaCalculator; 									/// <summary>TransformDeltaCalculator's Component.</summary>
+	private SensorSystem2D _sensorSystem; 												/// <summary>SensorSystem2D's Component.</summary>
+	private WallEvaluator _wallEvaluator; 												/// <summary>WallEvaluator's Component.</summary>
+	private AnimationAttacksHandler _attacksHandler; 									/// <summary>AnimationAttacksHandler's Component.</summary>
+	private SlopeEvaluator _slopeEvaluator; 											/// <summary>SlopeEvaluator's Component.</summary>
+	private VCameraTarget _cameraTarget; 												/// <summary>VCameraTarget's Component.</summary>
+	private Vector3 _orientation; 														/// <summary>Mateo's Orientation.</summary>
+	private Vector2 _leftAxes; 															/// <summary>Left Axes' Value.</summary>
+	private Cooldown _postInitialPoseCooldown; 											/// <summary>Post-Meditation's Cooldown.</summary>
+	private Coroutine meditationStanding; 												/// <summary>Meditation's Standing Coroutine's Reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets stareAtBossRotation property.</summary>
@@ -151,6 +182,9 @@ public class Mateo : Character
 	/// <summary>Gets meditationWaitDuration property.</summary>
 	public float meditationWaitDuration { get { return _meditationWaitDuration; } }
 
+	/// <summary>Gets normalStandingAdditionalWait property.</summary>
+	public float normalStandingAdditionalWait { get { return _normalStandingAdditionalWait; } }
+
 	/// <summary>Gets and Sets meditationWaitTime property.</summary>
 	public float meditationWaitTime
 	{
@@ -179,15 +213,6 @@ public class Mateo : Character
 	/// <summary>Gets scaleChangePriority property.</summary>
 	public int scaleChangePriority { get { return _scaleChangePriority; } }
 
-	/// <summary>Gets initialPoseCredential property.</summary>
-	public AnimatorCredential initialPoseCredential { get { return _initialPoseCredential; } }
-
-	/// <summary>Gets initialPoseIDCredential property.</summary>
-	public AnimatorCredential initialPoseIDCredential { get { return _initialPoseIDCredential; } }
-
-	/// <summary>Gets vitalityIDCredential property.</summary>
-	public AnimatorCredential vitalityIDCredential { get { return _vitalityIDCredential; } }
-
 	/// <summary>Gets leftAxisXCredential property.</summary>
 	public AnimatorCredential leftAxisXCredential { get { return _leftAxisXCredential; } }
 
@@ -199,36 +224,6 @@ public class Mateo : Character
 
 	/// <summary>Gets rightAxisYCredential property.</summary>
 	public AnimatorCredential rightAxisYCredential { get { return _rightAxisYCredential; } }
-
-	/// <summary>Gets jumpStateIDCredential property.</summary>
-	public AnimatorCredential jumpStateIDCredential { get { return _jumpStateIDCredential; } }
-
-	/// <summary>Gets jumpingIDCredential property.</summary>
-	public AnimatorCredential jumpingIDCredential { get { return _jumpingIDCredential; } }
-
-	/// <summary>Gets groundedCredential property.</summary>
-	public AnimatorCredential groundedCredential { get { return _groundedCredential; } }
-
-	/// <summary>Gets attackIDCredential property.</summary>
-	public AnimatorCredential attackIDCredential { get { return _attackIDCredential; } }
-	
-	/// <summary>Gets attackCredential property.</summary>
-	public AnimatorCredential attackCredential { get { return _attackCredential; } }
-
-	/// <summary>Gets shootingStateIDCredential property.</summary>
-	public AnimatorCredential shootingStateIDCredential { get { return _shootingStateIDCredential; } }
-
-	/// <summary>Gets dashingCredential property.</summary>
-	public AnimatorCredential dashingCredential { get { return _dashingCredential; } }
-
-	/// <summary>Gets brakingCredential property.</summary>
-	public AnimatorCredential brakingCredential { get { return _brakingCredential; } }
-
-	/// <summary>Gets impactedWithWallCredential property.</summary>
-	public AnimatorCredential impactedWithWallCredential { get { return _impactedWithWallCredential; } }
-
-	/// <summary>Gets walledCredential property.</summary>
-	public AnimatorCredential walledCredential { get { return _walledCredential; } }
 
 	/// <summary>Gets swordParticleEffect property.</summary>
 	public ParticleEffect swordParticleEffect { get { return _swordParticleEffect; } }
@@ -393,9 +388,13 @@ public class Mateo : Character
 		jumpAbility.onJumpStateChange += OnJumpStateChange;
 		wallEvaluator.onWallEvaluatorEvent += OnWallEvaluatorEvent;
 		dashAbility.onDashStateChange += OnDashStateChange;
-		attacksHandler.onAnimationAttackEvent += OnAnimationAttackEvent;
+		//attacksHandler.onAnimationAttackEvent += OnAnimationAttackEvent;
 
 		postInitialPoseCooldown = new Cooldown(this, postMeditationDuration, OnPostMeditationEnds);
+
+		animator.SetLayerWeight(_fireConjuringAnimationLayer, 0.0f);
+
+		Meditate(true);
 	}
 
 	/// <summary>Updates Mateo's instance at each frame.</summary>
@@ -417,8 +416,10 @@ public class Mateo : Character
 
 		if(animator == null) return;
 
-		//animator.SetBool(walledCredential, wallEvaluator.walled);
-		animator.SetBool(brakingCredential, movementAbility.braking);
+		if(movementAbility.braking)
+		{
+			animator.CrossFade(_brakeCredential, 0.3f);
+		}
 
 		MeditationEvaluation();
 	}
@@ -467,24 +468,31 @@ public class Mateo : Character
 		switch(_stateID)
 		{
 			case JumpAbility.STATE_ID_GROUNDED:
-			animator.SetInteger(jumpStateIDCredential, JumpAbility.STATE_FLAG_GROUNDED);
+			animator.SetLayerWeight(_jumpingAnimationLayer, 0.0f);
+			if(!this.HasStates(ID_STATE_MEDITATING)) animator.SetLayerWeight(_locomotionAnimationLayer, 1.0f);
 			CancelSwordAttack();
 			if(extraJumpTrailRenderer != null) extraJumpTrailRenderer.enabled = false;
 			break;
 
 			case JumpAbility.STATE_ID_JUMPING:
-			animator.SetInteger(jumpStateIDCredential, JumpAbility.STATE_FLAG_JUMPING);
+			int animationHash = _normalJumpCredential;
 			
 			if(jumpAbility.GetJumpIndex() > 0 && extraJumpTrailRenderer != null)
 			{
+				animationHash = _additionalJumpCredential;
 				extraJumpTrailRenderer.Clear();
 				extraJumpTrailRenderer.enabled = true;
 			}
+
+			animator.SetLayerWeight(_jumpingAnimationLayer, 1.0f);
+			animator.SetLayerWeight(_locomotionAnimationLayer, 0.0f);
+			animator.CrossFade(animationHash, 0.3f, _jumpingAnimationLayer);
 			break;
 
 			case JumpAbility.STATE_ID_FALLING:
 			//if(_jumpLevel <= 0) jumpAbility.AdvanceJumpIndex();
-			animator.SetInteger(jumpStateIDCredential, JumpAbility.STATE_FLAG_FALLING);
+			animator.SetLayerWeight(_locomotionAnimationLayer, 0.0f);
+			animator.CrossFade(_fallingCredential, 0.3f, _jumpingAnimationLayer);
 			if(extraJumpTrailRenderer != null)
 			{
 				extraJumpTrailRenderer.enabled = false;
@@ -493,14 +501,13 @@ public class Mateo : Character
 			break;
 
 			case JumpAbility.STATE_ID_LANDING:
-			animator.SetInteger(jumpStateIDCredential, JumpAbility.STATE_FLAG_LANDING);
+			animator.CrossFade(_softLandingCredential, 0.3f, _jumpingAnimationLayer);
 			break;
 	
 			default:
 			break;
 		}
 
-		animator.SetInteger(jumpingIDCredential, _jumpLevel);
 	}
 
 	/// <summary>Callback invoked when a WallEvaluator's event occurs.</summary>
@@ -519,12 +526,10 @@ public class Mateo : Character
 			{
 				dashAbility.CancelDash();
 				wallEvaluator.BounceOffWall(-orientation);
-				animator.SetBool(impactedWithWallCredential, true);
 			}
 			break;
 
 			case WallEvaluationEvent.BounceEnds:
-			animator.SetBool(impactedWithWallCredential, false);
 			break;
 		}
 
@@ -537,7 +542,6 @@ public class Mateo : Character
 	{
 		if(!this.HasStates(ID_STATE_ALIVE)) return;
 
-		animator.SetBool(dashingCredential, _state == DashState.Dashing);
 	}
 
 	/// <summary>Callback invoked whan an Animation Attack event occurs.</summary>
@@ -594,29 +598,29 @@ public class Mateo : Character
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			animator.SetInteger(vitalityIDCredential, STATE_FLAG_HURT);
+			animator.CrossFade(_hitCredential, 0.3f);
 			Game.SetTimeScale(Game.data.hurtTimeScale);
 			break;
 
 			case HealthEvent.Replenished:
-			animator.SetInteger(vitalityIDCredential, STATE_FLAG_ALIVE);
+			animator.CrossFade(_idleCredential, 0.3f);
 			break;
 
 			case HealthEvent.HitStunEnds:
 			if(health.hp > 0.0f)
-			animator.SetInteger(vitalityIDCredential, STATE_FLAG_ALIVE);
+			animator.CrossFade(_idleCredential, 0.3f);
 			Game.SetTimeScale(1.0f);
 			break;
 
 			case HealthEvent.InvincibilityEnds:
 			if(health.hp > 0.0f)
-			animator.SetInteger(vitalityIDCredential, STATE_FLAG_ALIVE);
+			animator.CrossFade(_idleCredential, 0.3f);
 			break;
 
 			case HealthEvent.FullyDepleted:
 			animator.SetAllLayersWeight(0.0f);
 			animator.SetLayerWeight(1, 1.0f);
-			animator.SetInteger(vitalityIDCredential, STATE_FLAG_DEAD);
+			animator.CrossFade(_deadCredential, 0.3f);
 			CancelSwordAttack();
 			CancelJump();
 			dashAbility.CancelDash();
@@ -624,12 +628,11 @@ public class Mateo : Character
 			Move(Vector2.zero);
 			leftAxes = Vector2.zero;
 			this.ChangeState(ID_STATE_DEAD);
-			this.StartCoroutine(animator.WaitForAnimatorState(0, 0.1f,
+			this.StartCoroutine(animator.PlayAndWait(_deadCredential, _mainAnimationLayer, 0.0f, 0.0f,
 			()=>
 			{
 				InvokeIDEvent(ID_EVENT_DEAD);
 			}));
-			//animator.SetAllLayersWeight(0.0f);
 			break;
 		}
 	}
@@ -648,7 +651,11 @@ public class Mateo : Character
 			if(meditating) return;
 
 			this.AddStates(ID_STATE_MEDITATING);
-			animator.SetInteger(initialPoseIDCredential, ID_INITIALPOSE_MEDITATING);
+			animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+			animator.SetLayerWeight(_locomotionAnimationLayer, 0.0f);
+			animator.CrossFade(_normalMeditationCredential, 0.5f, _mainAnimationLayer);
+			leftAxes = Vector2.zero;
+			CancelSwordAttack();
 			InvokeIDEvent(ID_EVENT_MEDITATION_BEGINS);
 			break;
 
@@ -657,13 +664,21 @@ public class Mateo : Character
 			
 			if(!meditating) return;
 
-			this.RemoveStates(ID_STATE_MEDITATING);
-			animator.SetInteger(initialPoseIDCredential, 0);
-			InvokeIDEvent(ID_EVENT_MEDITATION_ENDS);
+			animator.CrossFade(_normalStandingCredential, 0.3f, _mainAnimationLayer);
+			this.StartCoroutine(animator.PlayAndWait(_normalStandingCredential, _mainAnimationLayer, 0.0f, normalStandingAdditionalWait,
+			()=>
+			{
+				animator.SetLayerWeight(_locomotionAnimationLayer, 1.0f);
+				animator.SetLayerWeight(_mainAnimationLayer, 0.0f);
+				this.RemoveStates(ID_STATE_MEDITATING);
+				InvokeIDEvent(ID_EVENT_MEDITATION_ENDS);
+				this.DispatchCoroutine(ref meditationStanding);
+
+			}), ref meditationStanding);
 
 			/// Perform post-meditation cooldown:
-			if(postInitialPoseCooldown != null && !postInitialPoseCooldown.onCooldown)
-			postInitialPoseCooldown.Begin();
+			/*if(postInitialPoseCooldown != null && !postInitialPoseCooldown.onCooldown)
+			postInitialPoseCooldown.Begin();*/
 			break;
 		}
 	}
@@ -676,13 +691,11 @@ public class Mateo : Character
 		if(_perform)
 		{
 			this.AddStates(ID_STATE_MEDITATING);
-			animator.SetInteger(initialPoseIDCredential, _initialPoseID);
 			InvokeIDEvent(ID_EVENT_INITIALPOSE_BEGINS);
 		}
 		else
 		{
 			this.RemoveStates(ID_STATE_MEDITATING);
-			animator.SetInteger(initialPoseIDCredential, 0);
 			InvokeIDEvent(ID_EVENT_INITIALPOSE_ENDED);
 			
 			if(postInitialPoseCooldown != null && !postInitialPoseCooldown.onCooldown)
@@ -708,18 +721,18 @@ public class Mateo : Character
 		*/
 		if(this.HasStates(ID_STATE_HURT)
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
-		|| (jumpAbility.grounded && attacksHandler.state != AttackState.None)
+		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None)*/ this.HasStates(ID_STATE_ATTACKING))
 		|| dashAbility.state == DashState.Dashing
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| (wallEvaluator.walled && Mathf.Sign(_axes.x) == Mathf.Sign(direction.x))
-		|| postInitialPoseCooldown.onCooldown) return;
+		|| /*postInitialPoseCooldown.onCooldown*/ meditationStanding != null) return;
 
 		Meditate(false);
 
 		float scale = (jumpAbility.HasStates(JumpAbility.STATE_ID_JUMPING) ? jumpingMovementScale : 1.0f) * _scale;
 
 		//transform.rotation = Quaternion.Euler(0.0f, _axes.x < 0.0f ? 180.0f : 0.0f, 0.0f);
-		movementAbility.Move(slopeEvaluator.normalAdjuster.right.normalized * _axes.magnitude, scale, Space.World);
+		if(!this.HasStates(ID_STATE_MEDITATING)) movementAbility.Move(slopeEvaluator.normalAdjuster.right.normalized * _axes.magnitude, scale, Space.World);
 		slopeEvaluator.normalAdjuster.forward = _axes.x > 0.0f ? Vector3.forward : Vector3.back;
 		orientation = _axes.x > 0.0f ? Vector3.right : Vector3.left;
 	}
@@ -730,7 +743,7 @@ public class Mateo : Character
 	{
 		if(this.HasStates(ID_STATE_HURT)
 		|| !this.HasStates(ID_STATE_ALIVE)
-		|| (jumpAbility.grounded && attacksHandler.state != AttackState.None)) return;
+		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None*/this.HasStates(ID_STATE_ATTACKING))) return;
 
 		Meditate(false);
 
@@ -770,8 +783,9 @@ public class Mateo : Character
 			- Mateo is not landing.
 		*/
 		if(this.HasStates(ID_STATE_HURT)
-		|| attacksHandler.state == AttackState.Attacking
-		|| attacksHandler.state == AttackState.Waiting
+		/*|| attacksHandler.state == AttackState.Attacking
+		|| attacksHandler.state == AttackState.Waiting*/
+		|| this.HasStates(ID_STATE_ATTACKING)
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)) return;
 		
@@ -780,18 +794,34 @@ public class Mateo : Character
 		Meditate(false);
 
 		int index = 0;
+		int animationHash = 0;
 		bool applyDirectional = directionalThresholdX.ValueOutside(leftAxes.x) || directionalThresholdY.ValueOutside(leftAxes.y);
 		bool grounded = jumpAbility.grounded;
+
+		if(grounded) animationHash = _groundSwordAttackCredential;
+		else animationHash = jumpAbility.GetJumpIndex() > 0 ? _additionalJumpSwordAttackCredential : _normalJumpSwordAttackCredential;
 
 		if(grounded) index = applyDirectional ? groundedDirectionalComboIndex : groundedNeutralComboIndex;
 		else index = applyDirectional ? airDirectionalComboIndex : airNeutralComboIndex;
 
-		if(attacksHandler.BeginAttack(index))
+		/*if(attacksHandler.BeginAttack(index))
 		{
 			sword.ActivateHitBoxes(true);
 			animator.SetBool(attackCredential, true);
 			animator.SetInteger(attackIDCredential, attacksHandler.attackID);
-		}
+
+			//// OH BOY
+		}*/
+
+		this.AddStates(ID_STATE_ATTACKING);
+
+		sword.ActivateHitBoxes(true);
+		animator.SetLayerWeight(_attackAnimationLayer, 1.0f);
+		this.StartCoroutine(animator.PlayAndWait(animationHash, _attackAnimationLayer, 0.0f, 0.0f,
+		()=>
+		{
+			CancelSwordAttack();
+		}));
 	}
 
 	/// <summary>Cancels Attacks.</summary>
@@ -800,11 +830,13 @@ public class Mateo : Character
 		//hurtBox.SetActive(true);
 		health.OnInvincibilityCooldownEnds();
 		if(swordParticleEffect != null) swordParticleEffect.gameObject.SetActive(false);
-		attacksHandler.CancelAttack();
+		//attacksHandler.CancelAttack();
 		sword.ActivateHitBoxes(false);
+		this.RemoveStates(ID_STATE_ATTACKING);
+		animator.SetLayerWeight(_attackAnimationLayer, 0.0f);
 		jumpAbility.gravityApplier.RejectScaleChange(GetInstanceID());
-		animator.SetBool(attackCredential, false);
-		animator.SetInteger(attackIDCredential, attacksHandler.attackID);
+		/*animator.SetBool(attackCredential, false);
+		animator.SetInteger(attackIDCredential, attacksHandler.attackID);*/
 	}
 
 	/// <summary>Charges Fire.</summary>
@@ -814,12 +846,32 @@ public class Mateo : Character
 		if(this.HasStates(ID_STATE_HURT) || !this.HasStates(ID_STATE_ALIVE)) return;
 
 		Meditate(false);
+		animator.SetLayerWeight(_fireConjuringAnimationLayer, 1.0f);
 		
 		int chargeStateID = shootProjectile.OnCharge(_axes);
-		animator.SetInteger(shootingStateIDCredential, chargeStateID);
+		int animationHash = 0;
+
+		switch(chargeStateID)
+		{
+			case ShootChargedProjectile.STATE_ID_UNCHARGED:
+			break;
+
+			case ShootChargedProjectile.STATE_ID_CHARGING:
+			animationHash = _fireConjuringCredential;
+			break;
+
+			case ShootChargedProjectile.STATE_ID_CHARGED:
+			animationHash = _fireMaxChargedCredential;
+			break;
+
+			case ShootChargedProjectile.STATE_ID_RELEASED:
+			break;
+		}
+
+		animator.CrossFade(animationHash, 0.3f, _fireConjuringAnimationLayer);
 	}
 
-	/// <summary>Charges Fire.</summary>
+	/// <summary>Discharges Fire.</summary>
 	/// <param name="_shootResult">Was the shoot made? false by default.</param>
 	public void DischargeFire(bool _shootResult = false)
 	{
@@ -827,7 +879,7 @@ public class Mateo : Character
 
 		shootProjectile.OnDischarge();
 		int stateID = _shootResult ? ShootChargedProjectile.STATE_ID_RELEASED : ShootChargedProjectile.STATE_ID_UNCHARGED;
-		animator.SetInteger(shootingStateIDCredential, stateID);
+		animator.CrossFade(_fireThrowCredential, 0.3f, _fireConjuringAnimationLayer);
 	}
 
 	/// <summary>Releases Fire.</summary>
@@ -837,7 +889,16 @@ public class Mateo : Character
 		if(this.HasStates(ID_STATE_HURT) || !this.HasStates(ID_STATE_ALIVE)) return;
 
 		bool result = shootProjectile.Shoot(leftHand.position, _axes);
-		if(result) animator.SetInteger(shootingStateIDCredential, ShootChargedProjectile.STATE_ID_RELEASED);
+		//if(result) animator.SetInteger(shootingStateIDCredential, ShootChargedProjectile.STATE_ID_RELEASED);
+		if(result)
+		{
+			animator.CrossFade(_fireThrowCredential, 0.3f, _fireConjuringAnimationLayer);
+			this.StartCoroutine(animator.PlayAndWait(_fireThrowCredential, _fireConjuringAnimationLayer, 0.0f, 0.0f,
+			()=>
+			{
+				animator.SetLayerWeight(_fireConjuringAnimationLayer, 0.0f);
+			}));
+		}
 		DischargeFire(result);
 	}
 
@@ -845,7 +906,6 @@ public class Mateo : Character
 	private void OnPostMeditationEnds()
 	{
 		this.RemoveStates(ID_STATE_MEDITATING);
-		//animator.SetAllLayersWeight(1.0f);
 	}
 
 	/// <summary>Changes rotation towards given target.</summary>
@@ -861,7 +921,7 @@ public class Mateo : Character
 	{
 		if(jumpAbility.HasStates(JumpAbility.STATE_ID_GROUNDED)
 		&& deltaCalculator.velocity.sqrMagnitude == 0.0f
-		&& !postInitialPoseCooldown.onCooldown)
+		&& /*!postInitialPoseCooldown.onCooldown*/ meditationStanding == null)
 		{
 			meditationWaitTime += Time.deltaTime;
 

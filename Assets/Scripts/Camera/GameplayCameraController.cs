@@ -62,6 +62,8 @@ public class GameplayCameraController : VCamera
 	/// <summary>Updates Camera.</summary>
 	protected override void CameraUpdate()
 	{
+		if(!middlePointTargetRetriever.HasActiveTargets()) return;
+
 		Vector3 target = targetRetriever.GetTargetPosition();
 
 		if(delimiters != null) foreach(VCameraDelimiter delimiter in delimiters.Values)

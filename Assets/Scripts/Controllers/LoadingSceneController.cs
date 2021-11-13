@@ -12,12 +12,20 @@ public class LoadingSceneController : MonoBehaviour
 {
 	[SerializeField] private RectTransform _loadingBar; 	/// <summary>Loading Bar's UI.</summary>
 	[SerializeField] private float _additionalWait; 		/// <summary>Additional Wait.</summary>
+	[SerializeField] private float _fadeInDuration; 		/// <summary>Fade-In's Duration.</summary>
+	[SerializeField] private float _fadeOutDuration; 		/// <summary>Fade-Out's Duration.</summary>
 
 	/// <summary>Gets loadingBar property.</summary>
 	public RectTransform loadingBar { get { return _loadingBar; } }
 
 	/// <summary>Gets additionalWait property.</summary>
 	public float additionalWait { get { return _additionalWait; } }
+
+	/// <summary>Gets fadeInDuration property.</summary>
+	public float fadeInDuration { get { return _fadeInDuration; } }
+
+	/// <summary>Gets fadeOutDuration property.</summary>
+	public float fadeOutDuration { get { return _fadeOutDuration; } }
 
 	/// <summary>LoadingSceneController's instance initialization.</summary>
 	private void Awake()
@@ -30,14 +38,20 @@ public class LoadingSceneController : MonoBehaviour
 	{
 		string scenePath = PlayerPrefs.GetString(GameData.PATH_SCENE_TOLOAD, GameData.PATH_SCENE_DEFAULT);
 
+		Game.ActivateMateo(false);
+		Game.FadeOutScreen(Color.black, fadeOutDuration,
+		()=>
+		{
+			this.StartCoroutine(AsynchronousSceneLoader.LoadSceneAndDoWhileWaiting(
+				scenePath,
+				OnSceneLoading,
+				OnLoadEnds,
+				LoadSceneMode.Single,
+				additionalWait
+			));
+		});
+
 		//AsynchronousSceneLoader.LoadScene(scenePath);		
-		this.StartCoroutine(AsynchronousSceneLoader.LoadSceneAndDoWhileWaiting(
-			scenePath,
-			OnSceneLoading,
-			null,
-			LoadSceneMode.Single,
-			additionalWait
-		));
 	}
 	
 	/// <summary>LoadingSceneController's tick at each frame.</summary>
@@ -49,6 +63,17 @@ public class LoadingSceneController : MonoBehaviour
 		Vector3 scale = loadingBar.localScale;
 		scale.x = progress;
 		loadingBar.localScale = scale;
+	}
+
+	/// <summary>Callback invoked when scene loads at 90%.</summary>
+	private void OnLoadEnds()
+	{
+		AsynchronousSceneLoader.AllowSceneActivation(false);
+		Game.FadeInScreen(Color.black, fadeInDuration,
+		()=>
+		{
+			AsynchronousSceneLoader.AllowSceneActivation(true);
+		});
 	}
 }
 }

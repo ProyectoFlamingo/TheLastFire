@@ -146,6 +146,20 @@ public class MiddlePointBetweenTransformsTargetRetriever : VCameraTargetRetrieve
 		targets.Remove(instanceID);
 	}
 
+	/// <returns>True if has any active targets.</returns>
+	public bool HasActiveTargets()
+	{
+		if(targets == null || targets.Count == 0) return false;
+
+		foreach(VCameraTarget target in targets.Values)
+		{
+			if(targets != null && target.gameObject.activeSelf)
+			return true;
+		}
+
+		return false;
+	}
+
 	/// <returns>Camera's Target.</returns>
 	public override Vector3 GetTargetPosition()
 	{
