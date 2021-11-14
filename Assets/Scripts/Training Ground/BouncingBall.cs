@@ -79,7 +79,7 @@ public class BouncingBall : MonoBehaviour
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	private void OnImpactEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		Debug.Log("[BouncingBall] " + gameObject.name + " impacted with: " + _info.collider.gameObject.name);
+		//Debug.Log("[BouncingBall] " + gameObject.name + " impacted with: " + _info.collider.gameObject.name);
 		if(impactTags == null || impactTags.Length == 0 || _eventType != HitColliderEventTypes.Enter) return;
 
 		GameObject obj = _info.collider.gameObject;

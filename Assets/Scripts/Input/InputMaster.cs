@@ -59,6 +59,14 @@ namespace Flamingo
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""91efcaaa-db60-471e-b985-1cd5ff9a307a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -545,6 +553,39 @@ namespace Flamingo
                     ""action"": ""RightAxes"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d1724e4-28d7-446d-a794-01593384ffee"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""ControlScheme_Keyboard&Mouse"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""50862e63-55c4-432d-b5f9-ca8d34c0cb07"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""ControllerScheme_Xbox360"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6041239a-8d57-4c35-a403-9b2a1e459bd1"",
+                    ""path"": ""<NPad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""ControllerScheme_NintendoSwitch"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1060,6 +1101,7 @@ namespace Flamingo
             m_Player_Mateo_Attack_Sword = m_Player_Mateo.FindAction("Attack_Sword", throwIfNotFound: true);
             m_Player_Mateo_LeftAxes = m_Player_Mateo.FindAction("LeftAxes", throwIfNotFound: true);
             m_Player_Mateo_RightAxes = m_Player_Mateo.FindAction("RightAxes", throwIfNotFound: true);
+            m_Player_Mateo_Pause = m_Player_Mateo.FindAction("Pause", throwIfNotFound: true);
             // Character_Destino
             m_Character_Destino = asset.FindActionMap("Character_Destino", throwIfNotFound: true);
             m_Character_Destino_Jump = m_Character_Destino.FindAction("Jump", throwIfNotFound: true);
@@ -1123,6 +1165,7 @@ namespace Flamingo
         private readonly InputAction m_Player_Mateo_Attack_Sword;
         private readonly InputAction m_Player_Mateo_LeftAxes;
         private readonly InputAction m_Player_Mateo_RightAxes;
+        private readonly InputAction m_Player_Mateo_Pause;
         public struct Player_MateoActions
         {
             private InputMaster m_Wrapper;
@@ -1132,6 +1175,7 @@ namespace Flamingo
             public InputAction @Attack_Sword => m_Wrapper.m_Player_Mateo_Attack_Sword;
             public InputAction @LeftAxes => m_Wrapper.m_Player_Mateo_LeftAxes;
             public InputAction @RightAxes => m_Wrapper.m_Player_Mateo_RightAxes;
+            public InputAction @Pause => m_Wrapper.m_Player_Mateo_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player_Mateo; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1156,6 +1200,9 @@ namespace Flamingo
                     RightAxes.started -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnRightAxes;
                     RightAxes.performed -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnRightAxes;
                     RightAxes.canceled -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnRightAxes;
+                    Pause.started -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnPause;
+                    Pause.performed -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnPause;
+                    Pause.canceled -= m_Wrapper.m_Player_MateoActionsCallbackInterface.OnPause;
                 }
                 m_Wrapper.m_Player_MateoActionsCallbackInterface = instance;
                 if (instance != null)
@@ -1175,6 +1222,9 @@ namespace Flamingo
                     RightAxes.started += instance.OnRightAxes;
                     RightAxes.performed += instance.OnRightAxes;
                     RightAxes.canceled += instance.OnRightAxes;
+                    Pause.started += instance.OnPause;
+                    Pause.performed += instance.OnPause;
+                    Pause.canceled += instance.OnPause;
                 }
             }
         }
@@ -1303,6 +1353,7 @@ namespace Flamingo
             void OnAttack_Sword(InputAction.CallbackContext context);
             void OnLeftAxes(InputAction.CallbackContext context);
             void OnRightAxes(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface ICharacter_DestinoActions
         {

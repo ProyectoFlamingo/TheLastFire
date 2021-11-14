@@ -166,6 +166,7 @@ public class Game : Singleton<Game>
 	private void Start()
 	{
 		if(mateo != null) AddTargetToCamera(mateo.cameraTarget);
+		mateoController = PlayerInputsManager.Get().mateoController;
 	}
 
 #region TEMPORAL
@@ -354,10 +355,14 @@ public class Game : Singleton<Game>
 	}
 
 	/// <summary>Callback invoked when a pause is requested.</summary>
-	public static void OnPause()
+	public static void OnPause(int _playerID = 0)
 	{
+		return; 	/// Fuckl ya's all
 		//LoadScene("Scene_ChangeScenes");
 		bool pause = gameplayGUIController.state != GUIState.Pause;
+		PlayerInputController controller = PlayerInputsManager.Get(_playerID);
+
+		controller.mateoController.ChangeControllerScheme(pause ? ControllerSchemeType.UI : ControllerSchemeType.Character);
 		state = pause ? GameState.Paused : GameState.Playing;
 		gameplayGUIController.EnablePauseMenu(pause);
 		if(pause) Time.timeScale = 0.0f;

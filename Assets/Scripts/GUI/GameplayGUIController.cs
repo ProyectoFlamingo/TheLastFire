@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.UI;
 using Voidless;
 
 namespace Flamingo
@@ -17,26 +19,35 @@ public enum GUIState
 [RequireComponent(typeof(Canvas))]
 public class GameplayGUIController : MonoBehaviour
 {
-	public const int ID_STATE_PAUSED = 0; 					/// <summary>Paused's Event's ID.</summary>
-	public const int ID_STATE_UNPAUSED = 1; 				/// <summary>Un-Paused's Event's ID.</summary>
+	public const int ID_STATE_PAUSED = 0; 								/// <summary>Paused's Event's ID.</summary>
+	public const int ID_STATE_UNPAUSED = 1; 							/// <summary>Un-Paused's Event's ID.</summary>
 
-	public event OnIDEvent onIDEvent; 						/// <summary>OnIDEvent's Delegate.</summary>
+	public event OnIDEvent onIDEvent; 									/// <summary>OnIDEvent's Delegate.</summary>
 
+	[SerializeField] private InputSystemUIInputModule _inputModule; 	/// <summary>Input's Module.</summary>
+	[Space(5f)]
 	[Header("General Settings:")]
-	[SerializeField] private float _scaleUpDuration; 		/// <summary>Scale-Up's Duration.</summary>
-	[SerializeField] private float _scaleDownDuration; 		/// <summary>Scale-Down's Duration.</summary>
+	[SerializeField] private float _scaleUpDuration; 					/// <summary>Scale-Up's Duration.</summary>
+	[SerializeField] private float _scaleDownDuration; 					/// <summary>Scale-Down's Duration.</summary>
 	[Space(5f)]
 	[Header("Pause UI's Attributes:")]
-	[SerializeField] private GameObject _pauseMenuGroup; 	/// <summary>Pause Menu's Group.</summary>
-	[SerializeField] private Button _pauseSettingsButton; 	/// <summary>Pause Menu's Settings' Button.</summary>
-	[SerializeField] private Button _pauseContinueButton; 	/// <summary>Pause Menu's Continue's Button.</summary>
-	[SerializeField] private Button _pauseExitButton; 		/// <summary>Pause Menu's Exit's Button.</summary>
-	private ScreenFaderGUI _screenFaderGUI; 				/// <summary>ScreenFaderGUI's Component.</summary>
-	private Canvas _canvas; 								/// <summary>Canvas' Component.</summary>
-	private Coroutine coroutine; 							/// <summary>Coroutine's Reference.</summary>
-	private GUIState _state; 								/// <summary>Current State.</summary>
+	[SerializeField] private GameObject _pauseMenuGroup; 				/// <summary>Pause Menu's Group.</summary>
+	[SerializeField] private Button _pauseSettingsButton; 				/// <summary>Pause Menu's Settings' Button.</summary>
+	[SerializeField] private Button _pauseContinueButton; 				/// <summary>Pause Menu's Continue's Button.</summary>
+	[SerializeField] private Button _pauseExitButton; 					/// <summary>Pause Menu's Exit's Button.</summary>
+	private ScreenFaderGUI _screenFaderGUI; 							/// <summary>ScreenFaderGUI's Component.</summary>
+	private Canvas _canvas; 											/// <summary>Canvas' Component.</summary>
+	private Coroutine coroutine; 										/// <summary>Coroutine's Reference.</summary>
+	private GUIState _state; 											/// <summary>Current State.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets and Sets inputModule property.</summary>
+	public InputSystemUIInputModule inputModule
+	{
+		get { return _inputModule; }
+		set { _inputModule = value; }
+	}
+
 	/// <summary>Gets scaleUpDuration property.</summary>
 	public float scaleUpDuration { get { return _scaleUpDuration; } }
 
@@ -97,7 +108,7 @@ public class GameplayGUIController : MonoBehaviour
 	/// <summary>GameplayGUIController's starting actions before 1st Update frame.</summary>
 	private void Start ()
 	{
-		
+		inputModule.ActivateModule();
 	}
 
 	/// <summary>Enables Pause's Menu.</summary>
@@ -158,6 +169,7 @@ public class GameplayGUIController : MonoBehaviour
 		{
 			case true:
 			EnableElements(true, pauseSettingsButton, pauseContinueButton, pauseExitButton);
+			EventSystem.current.SetSelectedGameObject(pauseContinueButton.gameObject);
 			break;
 
 			case false:

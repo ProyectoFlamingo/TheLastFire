@@ -588,12 +588,12 @@ public class Mateo : Character
 	{
 		base.OnHealthEvent(_event, _amount);
 
-		Debug.Log(
+		/*Debug.Log(
 			"[Mateo] Received HealthEvent: "
 			+ _event.ToString()
 			+ " , from: "
 			+ (_object != null ? _object.name : "NONE")
-		);
+		);*/
 
 		switch(_event)
 		{

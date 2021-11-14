@@ -7,11 +7,27 @@ using Voidless;
 
 namespace Flamingo
 {
-[RequireComponent(typeof(PlayerInput))]
-public class CharacterController<T> : MonoBehaviour
+public enum ControllerSchemeType
 {
+	Character,
+	UI
+}
+
+//[RequireComponent(typeof(PlayerInput))]
+public class CharacterController<T> : MonoBehaviour where T : Character
+{
+	[SerializeField] private PlayerInput _playerInput; 		/// <summary>PlayerInput's Component.</summary>
+	[Space(5f)]
+	[Header("UI Input's Attributes")]
+	[SerializeField] private string _UIActionMapName; 		/// <summary>UI's ActionMap's Name.</summary>
+	[SerializeField] private string _UIMoveID; 				/// <summary>UI Move's Input's ID.</summary>
+	[SerializeField] private string _UISubmitID; 			/// <summary>UI Submit's Input's ID.</summary>
+	[SerializeField] private string _UICancelID; 			/// <summary>UI Cancel's Input's ID.</summary>
+	[Space(5f)]
 	[SerializeField] private T _character; 					/// <summary>Character controlled by this CharacterController.</summary>
 	[SerializeField] private string _actionMapName; 		/// <summary>Assigned InputActionMap's name.</summary>
+	[Space(5f)]
+	[SerializeField] private string _pauseID; 				/// <summary>Pause's ID.</summary>
 	[Space(5f)]
 	[Header("Axes' Input Actions:")]
 	[SerializeField] private string _leftAxesID; 			/// <summary>Left-Axes' Input's ID.</summary>
@@ -23,15 +39,19 @@ public class CharacterController<T> : MonoBehaviour
 	[Range(0.0f, 0.9f)]
 	[SerializeField] private float _rightDeadZoneRadius; 	/// <summary>Right-Axes' Dead-Zone's Radius.</summary>
 	private InputActionMap _actionMap; 						/// <summary>Input's ActionMap.</summary>
+	private InputActionMap _UIActionMap; 					/// <summary>UI's ActionMap.</summary>
+	private InputAction _UIMoveAction; 						/// <summary>UI's Move Input's Action.</summary>
+	private InputAction _UISubmitAction; 					/// <summary>UI's Submit Input's Action.</summary>
+	private InputAction _UICancelAction; 					/// <summary>UI's Cancel Input's Action.</summary>
 	private InputAction _leftAxesAction; 					/// <summary>Left-Axes' Input's Action.</summary>
 	private InputAction _rightAxesAction; 					/// <summary>Right-Axes' Input's Action.</summary>
+	private InputAction _pauseAction; 						/// <summary>Pause's Input Action.</summary>
 	private Vector2 _leftAxes; 								/// <summary>Left-Axes.</summary>
 	private Vector2 _rightAxes; 							/// <summary>Right-Axes.</summary>
 	private Vector2 _previousLeftAxes; 						/// <summary>Previous' Left-Axes.</summary>
 	private Vector2 _previousRightAxes; 					/// <summary>Previous' Right-Axes.</summary>
 	private int _inputFlags; 								/// <summary>Input's Flags.</summary>
 	private float _rightAxesMagnitude; 						/// <summary>Right-Axes' Magnitude.</summary>
-	private PlayerInput _playerInput; 						/// <summary>PlayerInput's Component.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets character property.</summary>
@@ -43,6 +63,21 @@ public class CharacterController<T> : MonoBehaviour
 
 	/// <summary>Gets actionMapName property.</summary>
 	public string actionMapName { get { return _actionMapName; } }
+
+	/// <summary>Gets UIActionMapName property.</summary>
+	public string UIActionMapName { get { return _UIActionMapName; } }
+
+	/// <summary>Gets UIMoveID property.</summary>
+	public string UIMoveID { get { return _UIMoveID; } }
+
+	/// <summary>Gets UISubmitID property.</summary>
+	public string UISubmitID { get { return _UISubmitID; } }
+
+	/// <summary>Gets UICancelID property.</summary>
+	public string UICancelID { get { return _UICancelID; } }
+
+	/// <summary>Gets pauseID property.</summary>
+	public string pauseID { get { return _pauseID; } }
 
 	/// <summary>Gets leftAxesID property.</summary>
 	public string leftAxesID { get { return _leftAxesID; } }
@@ -70,6 +105,34 @@ public class CharacterController<T> : MonoBehaviour
 		protected set { _actionMap = value; }
 	}
 
+	/// <summary>Gets and Sets UIActionMap property.</summary>
+	public InputActionMap UIActionMap
+	{
+		get { return _UIActionMap; }
+		protected set { _UIActionMap = value; }
+	}
+
+	/// <summary>Gets and Sets UIMoveAction property.</summary>
+	public InputAction UIMoveAction
+	{
+		get { return _UIMoveAction; }
+		protected set { _UIMoveAction = value; }
+	}
+
+	/// <summary>Gets and Sets UISubmitAction property.</summary>
+	public InputAction UISubmitAction
+	{
+		get { return _UISubmitAction; }
+		protected set { _UISubmitAction = value; }
+	}
+
+	/// <summary>Gets and Sets UICancelAction property.</summary>
+	public InputAction UICancelAction
+	{
+		get { return _UICancelAction; }
+		protected set { _UICancelAction = value; }
+	}
+
 	/// <summary>Gets and Sets leftAxesAction property.</summary>
 	public InputAction leftAxesAction
 	{
@@ -82,6 +145,13 @@ public class CharacterController<T> : MonoBehaviour
 	{
 		get { return _rightAxesAction; }
 		protected set { _rightAxesAction = value; }
+	}
+
+	/// <summary>Gets and Sets pauseAction property.</summary>
+	public InputAction pauseAction
+	{
+		get { return _pauseAction; }
+		protected set { _pauseAction = value; }
 	}
 
 	/// <summary>Gets and Sets leftAxes property.</summary>
@@ -119,7 +189,7 @@ public class CharacterController<T> : MonoBehaviour
 		protected set { _inputFlags = value; }
 	}
 
-	/// <summary>Gets playerInput Component.</summary>
+	/// <summary>Gets and Sets playerInput Component.</summary>
 	public PlayerInput playerInput
 	{ 
 		get
@@ -127,6 +197,7 @@ public class CharacterController<T> : MonoBehaviour
 			if(_playerInput == null) _playerInput = GetComponent<PlayerInput>();
 			return _playerInput;
 		}
+		set { _playerInput = value; }
 	}
 #endregion
 
@@ -193,14 +264,48 @@ public class CharacterController<T> : MonoBehaviour
 	{
 		playerInput.SwitchCurrentActionMap(actionMapName);
 		playerInput.defaultActionMap = actionMapName;
-		actionMap = playerInput.currentActionMap;
+		actionMap = playerInput.actions.FindActionMap(actionMapName, true);;
+		UIActionMap = playerInput.actions.FindActionMap(UIActionMapName, true);
+	}
+
+	/// <summary>Changes Controller Scheme.</summary>
+	/// <param name="_type">Type of Controller Scheme.</param>
+	public void ChangeControllerScheme(ControllerSchemeType _type)
+	{
+		string actionMapID = string.Empty;
+
+		switch(_type)
+		{
+			case ControllerSchemeType.Character:
+			actionMapID = actionMapName;
+			break;
+
+			case ControllerSchemeType.UI:
+			actionMapID = UIActionMapName;
+			break;
+		}
+
+		playerInput.SwitchCurrentActionMap(actionMapID);
 	}
 
 	/// <summary>Sets Input's Actions.</summary>
 	protected virtual void SetInputActions()
 	{
+		UIMoveAction = UIActionMap.FindAction(UIMoveID, true);
+		UISubmitAction = UIActionMap.FindAction(UISubmitID, true);
+		UICancelAction = UIActionMap.FindAction(UICancelID, true);
 		leftAxesAction = actionMap.FindAction(leftAxesID, true);
 		rightAxesAction = actionMap.FindAction(rightAxesID, true);
+		pauseAction = actionMap.FindAction(pauseID, true);
+
+		pauseAction.performed += OnPauseActionPerformed;
+	}
+
+	/// <summary>Callback invoked when the Jump's InputAction is Performed.</summary>
+	/// <param name="_context">Callback's Context.</param>
+	protected virtual void OnPauseActionPerformed(InputAction.CallbackContext _context)
+	{
+		Game.OnPause();
 	}
 }
 }

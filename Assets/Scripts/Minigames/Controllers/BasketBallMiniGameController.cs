@@ -8,6 +8,7 @@ namespace Flamingo
 {
 public class BasketBallMiniGameController : MonoBehaviour
 {
+    [SerializeField] private Mateo _mateo;                             /// <summary>Mateo's Reference.</summary>
     [SerializeField] private BasketBallMiniGame _basketMiniGame;    /// <summary> Reference to BasketMiniGame that initialize the minigame       
     [SerializeField] private Vector3 _ballInitialPos;               /// <summary>Spawn Position to reset the ball on ring passed.</summary>
     [Space(5f)]
@@ -62,6 +63,17 @@ public class BasketBallMiniGameController : MonoBehaviour
     private void Awake()
     {
         BeginMiniGame();
+    }
+
+    /// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
+    private void Start()
+    {
+        if(_mateo == null) return;
+
+        PlayerInputController controller = PlayerInputsManager.Get(1);
+        controller.AssignCharacterToMateoController(_mateo);
+
+        Game.AddTargetToCamera(_mateo.cameraTarget);
     }
 
     /// <summary>Updates BaskatBallMiniGameController's instance at each frame.</summary>

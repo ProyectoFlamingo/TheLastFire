@@ -33,6 +33,7 @@ public class MateoController : CharacterController<Mateo>
 	private InputAction _swordAttackAction; 						/// <summary>Sword Attack's Input Action.</summary>
 	private InputAction _frontalFireConjuringAction; 				/// <summary>Frontal Fire's Conjuring's Input Action.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets jumpID property.</summary>
 	public string jumpID { get { return _jumpID; } }
 
@@ -71,6 +72,7 @@ public class MateoController : CharacterController<Mateo>
 		get { return _frontalFireConjuringAction; }
 		protected set { _frontalFireConjuringAction = value; }
 	}
+#endregion
 
 	/// <summary>Sets Input's Actions.</summary>
 	protected override void SetInputActions()
@@ -86,14 +88,12 @@ public class MateoController : CharacterController<Mateo>
 		swordAttackAction.performed += OnSwordAttackActionPerformed;
 		frontalFireConjuringAction.performed += OnFrontalFireConjuringActionPerformed;
 		frontalFireConjuringAction.canceled += OnFrontalFireConjuringActionCanceled;
-
-		Debug.Log("[MateoController] SETTED INPUT ACTIONS");
 	}
 
 	/// <summary>Callback internally invoked when the Axes are updated, but before the previous axes' values get updated.</summary>
 	protected override void OnAxesUpdated()
 	{
-		if(character == null) return;
+		if(character == null || Game.state != GameState.Playing) return;
 
 		if((inputFlags | FLAG_INPUT_JUMP) == inputFlags)
 		{
@@ -132,6 +132,8 @@ public class MateoController : CharacterController<Mateo>
 	/// <summary>Updates CharacterController's instance at each Physics Thread's frame.</summary>
 	protected virtual void FixedUpdate()
 	{
+		if(character == null || Game.state != GameState.Playing) return;
+
 		Vector2 movement = leftAxes.WithY(0.0f);
 		
 		if(movement.x != 0.0f)
@@ -143,6 +145,8 @@ public class MateoController : CharacterController<Mateo>
 	/// <param name="_context">Callback's Context.</param>
 	private void OnJumpActionPerformed(InputAction.CallbackContext _context)
 	{
+		if(Game.state != GameState.Playing) return;
+		//Debug.Log("[MateoController] Jump Performed....");
 		inputFlags |= FLAG_INPUT_JUMP;
 	}
 
@@ -150,7 +154,9 @@ public class MateoController : CharacterController<Mateo>
 	/// <param name="_context">Callback's Context.</param>
 	private void OnJumpActionCanceled(InputAction.CallbackContext _context)
 	{
-		if((inputFlags | FLAG_INPUT_JUMP) == inputFlags && character != null)
+		//if(Game.state != GameState.Playing) return;
+
+		if(character != null)
 		character.CancelJump();
 		
 		inputFlags &= ~FLAG_INPUT_JUMP;
@@ -160,6 +166,8 @@ public class MateoController : CharacterController<Mateo>
 	/// <param name="_context">Callback's Context.</param>
 	private void OnSwordAttackActionPerformed(InputAction.CallbackContext _context)
 	{
+		if(Game.state != GameState.Playing) return;
+
 		if(character != null) character.SwordAttack(leftAxes);
 	}
 
@@ -167,6 +175,8 @@ public class MateoController : CharacterController<Mateo>
 	/// <param name="_context">Callback's Context.</param>
 	private void OnFrontalFireConjuringActionPerformed(InputAction.CallbackContext _context)
 	{
+		if(Game.state != GameState.Playing) return;
+
 		if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags
 		&& rightAxesMagnitude < rightDeadZoneRadius
 		&& character != null)
@@ -180,6 +190,8 @@ public class MateoController : CharacterController<Mateo>
 	/// <param name="_context">Callback's Context.</param>
 	private void OnFrontalFireConjuringActionCanceled(InputAction.CallbackContext _context)
 	{
+		//if(Game.state != GameState.Playing) return;
+
 		if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags && character != null)
 		character.ReleaseFire(character.directionTowardsBackground);
 		

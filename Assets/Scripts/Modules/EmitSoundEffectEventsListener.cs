@@ -94,7 +94,6 @@ public class EmitSoundEffectEventsListener : EventsListener
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	protected override void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		Debug.Log("[EmitSoundEffectEventsListener] hola LIf");
 		string tag = _info.collider.tag;
 
 		if(!impactEventsDic.ContainsKey(tag)) return;
