@@ -77,6 +77,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _2ndNormalPower: 1
+    - _AlphaCutoff: 0.5
     - _BlendNormals: 1
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -89,6 +90,10 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LayerContrast: 0
+    - _LayerPosition: 0
+    - _LayerPower: 0.012
+    - _LayerThreshold: 50
     - _Metallic: 0
     - _MetallicPower: 0
     - _Mode: 0
@@ -96,9 +101,9 @@ Material:
     - _OcclusionPower: 0.5
     - _OcclusionStrength: 0.5
     - _Parallax: 0.02
-    - _SecondNormalPower: 1
+    - _SecondNormalPower: 0.986
     - _SeeVertexColors: 0
-    - _SmoothnessPower: 0.396
+    - _SmoothnessPower: 0.46
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
