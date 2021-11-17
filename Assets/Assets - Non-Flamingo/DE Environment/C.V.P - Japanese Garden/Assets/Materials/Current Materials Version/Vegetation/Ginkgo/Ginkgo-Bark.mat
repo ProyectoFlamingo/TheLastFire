@@ -151,4 +151,3 @@ Material:
     - _ColorDetail: {r: 0.213, g: 0.18182927, b: 0.13767073, a: 1}
     - _DetailColor1: {r: 0.322, g: 0.276, b: 0.207, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
