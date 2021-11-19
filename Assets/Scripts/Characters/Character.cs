@@ -8,25 +8,56 @@ namespace Flamingo
 {
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(EventsHandler))]
+[RequireComponent(typeof(Skeleton))]
 public class Character : PoolGameObject, IStateMachine
 {
-	public event OnIDEvent onIDEvent; 				/// <summary>OnIDEvent's delegate.</summary>
+	public event OnIDEvent onIDEvent; 						/// <summary>OnIDEvent's delegate.</summary>
 
-	public const int STATE_FLAG_ALIVE = 0; 			/// <summary>Alive's State Flag.</summary>
-	public const int STATE_FLAG_HURT = 1; 			/// <summary>Hurt's State Flag.</summary>
-	public const int STATE_FLAG_DEAD = 2; 			/// <summary>Dead's State Flag.</summary>
-	public const int ID_STATE_DEAD = 0; 			/// <summary>Dead State's ID.</summary>
-	public const int ID_STATE_ALIVE = 1 << 0; 		/// <summary>Alive State's ID.</summary>
-	public const int ID_STATE_IDLE = 1 << 1; 		/// <summary>Idle State's ID.</summary>
-	public const int ID_STATE_HURT = 1 << 2; 		/// <summary>Hurt State's ID.</summary>
-	public const int ID_STATE_COLLIDED = 1 << 3; 	/// <summary>Collider State's ID.</summary>
-	public const int ID_STATE_ATTACKING = 1 << 4; 	/// <summary>Attacking's State's ID.</summary>
+	public const int STATE_FLAG_ALIVE = 0; 					/// <summary>Alive's State Flag.</summary>
+	public const int STATE_FLAG_HURT = 1; 					/// <summary>Hurt's State Flag.</summary>
+	public const int STATE_FLAG_DEAD = 2; 					/// <summary>Dead's State Flag.</summary>
+	public const int ID_STATE_DEAD = 0; 					/// <summary>Dead State's ID.</summary>
+	public const int ID_STATE_ALIVE = 1 << 0; 				/// <summary>Alive State's ID.</summary>
+	public const int ID_STATE_IDLE = 1 << 1; 				/// <summary>Idle State's ID.</summary>
+	public const int ID_STATE_HURT = 1 << 2; 				/// <summary>Hurt State's ID.</summary>
+	public const int ID_STATE_COLLIDED = 1 << 3; 			/// <summary>Collider State's ID.</summary>
+	public const int ID_STATE_ATTACKING = 1 << 4; 			/// <summary>Attacking's State's ID.</summary>
 
-	private int _state; 							/// <summary>Character's Current State.</summary>
-	private int _previousState; 					/// <summary>Character's Previous Current State.</summary>
-	public int ignoreResetMask { get; set; } 		/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
-	private Health _health; 						/// <summary>Health's Component.</summary>
-	private EventsHandler _eventsHandler; 			/// <summary>EventsHandler's Component.</summary>
+	[Header("Animator's Attributes:")]
+	[SerializeField] private Transform _animatorParent; 	/// <summary>Animator's Parent.</summary>
+	[SerializeField] private Animator _animator; 			/// <summary>Animator's Component.</summary>
+	[SerializeField] private float _clipFadeDuration; 		/// <summary>Default's AnimationClip Fade's Duration.</summary>
+	private int _state; 									/// <summary>Character's Current State.</summary>
+	private int _previousState; 							/// <summary>Character's Previous Current State.</summary>
+	public int ignoreResetMask { get; set; } 				/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
+	private Health _health; 								/// <summary>Health's Component.</summary>
+	private EventsHandler _eventsHandler; 					/// <summary>EventsHandler's Component.</summary>
+	private Skeleton _skeleton; 							/// <summary>Skeleton's Component.</summary>
+
+#region Getters/Setters:
+	/// <summary>Gets and Sets animatorParent property.</summary>
+	public Transform animatorParent
+	{
+		get { return _animatorParent; }
+		set { _animatorParent = value; }
+	}
+
+	/// <summary>Gets animator Component.</summary>
+	public Animator animator
+	{ 
+		get
+		{
+			if(_animator == null) _animator = GetComponent<Animator>();
+			return _animator;
+		}
+	}
+
+	/// <summary>Gets and Sets clipFadeDuration property.</summary>
+	public float clipFadeDuration
+	{
+		get { return _clipFadeDuration; }
+		set { _clipFadeDuration = value; }
+	}
 
 	/// <summary>Gets and Sets state property.</summary>
 	public int state
@@ -61,6 +92,17 @@ public class Character : PoolGameObject, IStateMachine
 			return _eventsHandler;
 		}
 	}
+
+	/// <summary>Gets skeleton Component.</summary>
+	public Skeleton skeleton
+	{ 
+		get
+		{
+			if(_skeleton == null) _skeleton = GetComponent<Skeleton>();
+			return _skeleton;
+		}
+	}
+#endregion
 
 	/// <summary>Callback invoked when Enemy's script is instantiated.</summary>
 	protected virtual void Awake()

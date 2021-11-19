@@ -11,7 +11,7 @@ public class DestinoBossController : MonoBehaviour
 {
 	public const int FLAG_INPUT_JUMP = 1 << 0; 			/// <summary>Input Flag for Jumping Action.</summary>
 
-	[SerializeField] private InputMaster _inputMaster; 	/// <summary>InputMaster's reference.</summary>
+	//[SerializeField] private InputMaster _inputMaster; 	/// <summary>InputMaster's reference.</summary>
 	[SerializeField] private DestinoBoss _destino; 		/// <summary>Destino's reference.</summary>
 	[Space(5f)]
 	[Header("Inputs' IDs:")]
@@ -20,7 +20,7 @@ public class DestinoBossController : MonoBehaviour
 	private int _actionFlags; 							/// <summary>Actions' Flags.</summary>
 
 #region Getters/Setters:
-	/// <summary>Gets and Sets inputMaster property.</summary>
+	/*/// <summary>Gets and Sets inputMaster property.</summary>
 	public InputMaster inputMaster
 	{
 		get
@@ -29,7 +29,7 @@ public class DestinoBossController : MonoBehaviour
 			return _inputMaster;
 		}
 		set { _inputMaster = value; }
-	}
+	}*/
 
 	/// <summary>Gets and Sets destino property.</summary>
 	public DestinoBoss destino
@@ -64,13 +64,13 @@ public class DestinoBossController : MonoBehaviour
 	/// <summary>Callback invoked when DestinoBossController's instance is enabled.</summary>
 	private void OnEnable()
 	{
-		inputMaster.Enable();
+		//inputMaster.Enable();
 	}
 
 	/// <summary>Callback invoked when DestinoBossController's instance is disabled.</summary>
 	private void OnDisable()
 	{
-		inputMaster.Disable();
+		//inputMaster.Disable();
 	}
 
 	/// <summary>DestinoBossController's instance initialization.</summary>
@@ -78,10 +78,10 @@ public class DestinoBossController : MonoBehaviour
 	{
 		if(destino != null) destino.EnablePhysics(true);
 
-		inputMaster.Character_Destino.Jump.performed += OnJumpInputPerformed;
+		/*inputMaster.Character_Destino.Jump.performed += OnJumpInputPerformed;
 		inputMaster.Character_Destino.Jump.canceled += OnJumpInputCanceled;
 		inputMaster.Character_Destino.LeftAxes.performed += OnLeftAxes;
-		inputMaster.Character_Destino.LeftAxes.canceled += OnLeftAxesCanceled;
+		inputMaster.Character_Destino.LeftAxes.canceled += OnLeftAxesCanceled;*/
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>

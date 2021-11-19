@@ -13,17 +13,17 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 	private Dictionary<int, PlayerInputController> _playerControllersMap; 	/// <summary>PlayerInputControllers' Dictionary.</summary>
 
 	/// <summary>Gets and Sets playerControllers property.</summary>
-	public PlayerInputController[] playerControllers
+	public static PlayerInputController[] playerControllers
 	{
-		get { return _playerControllers; }
-		set { _playerControllers = value; }
+		get { return Instance._playerControllers; }
+		set { Instance._playerControllers = value; }
 	}
 
 	/// <summary>Gets and Sets playerControllersMap property.</summary>
-	public Dictionary<int, PlayerInputController> playerControllersMap
+	public static Dictionary<int, PlayerInputController> playerControllersMap
 	{
-		get { return _playerControllersMap; }
-		private set { _playerControllersMap = value; }
+		get { return Instance._playerControllersMap; }
+		private set { Instance._playerControllersMap = value; }
 	}
 
 	/// <summary>PlayerInputsManager's instance initialization.</summary>
@@ -49,15 +49,38 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 		}
 
 		Debug.Log(builder.ToString());
+
+		EnableAll(false);
+		Enable(0, true);
 	}
 
 	/// <summary>Gets PlayerInputController with specified index.</summary>
 	/// <param name="_index">Player's Index [0 by default].</param>
 	public static PlayerInputController Get(int _index = 0)
 	{
-		_index = Mathf.Clamp(_index, 0, Instance.playerControllers.Length - 1);
+		_index = Mathf.Clamp(_index, 0, playerControllers.Length - 1);
 
-		return Instance.playerControllersMap[_index];
+		return playerControllersMap[_index];
+	}
+
+	/// <summary>Enables Specific PlayerInputController.</summary>
+	/// <param name="_index">Player's Index [0 by default].</param>
+	/// <param name="_enable">Enable? True by default.</param>
+	public static void Enable(int _index = 0, bool _enable = true)
+	{
+		_index = Mathf.Clamp(_index, 0, playerControllers.Length - 1);
+
+		playerControllersMap[_index].EnableAll(_enable);
+	}
+
+	/// <summary>Enables All PlayerInputControllers.</summary>
+	/// <param name="_enable">Enable? True by default.</param>
+	public static void EnableAll(bool _enable = true)
+	{
+		foreach(PlayerInputController controller in playerControllers)
+		{
+			controller.EnableAll(_enable);
+		}
 	}
 }
 }

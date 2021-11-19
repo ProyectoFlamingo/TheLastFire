@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: acf69e55d68e56c4ea448b3c034f7326
+guid: 4da3d439f5f9836478986e9aa9664f06
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -8,7 +8,7 @@ ScriptedImporter:
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: 8404be70184654265930450def6a9037, type: 3}
-  generateWrapperCode: 1
+  generateWrapperCode: 0
   wrapperCodePath: Assets/Scripts/Input/InputMaster.cs
   wrapperClassName: InputMaster
   wrapperCodeNamespace: Flamingo

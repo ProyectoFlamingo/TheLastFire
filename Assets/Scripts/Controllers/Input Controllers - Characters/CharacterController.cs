@@ -30,8 +30,10 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	[SerializeField] private string _pauseID; 				/// <summary>Pause's ID.</summary>
 	[Space(5f)]
 	[Header("Axes' Input Actions:")]
-	[SerializeField] private string _leftAxesID; 			/// <summary>Left-Axes' Input's ID.</summary>
-	[SerializeField] private string _rightAxesID; 			/// <summary>Right-Axes' Input's ID.</summary>
+	[SerializeField] private string _leftAxisXID; 			/// <summary>Left-Axes' X's ID.</summary>
+	[SerializeField] private string _leftAxisYID; 			/// <summary>Left-Axes' Y's ID.</summary>
+	[SerializeField] private string _rightAxisXID; 			/// <summary>Right-Axes' X's Input's ID.</summary>
+	[SerializeField] private string _rightAxisYID; 			/// <summary>Right-Axes' Y's Input's ID.</summary>
 	[Space(5f)]
 	[Header("Axes' Settings:")]
 	[Range(0.0f, 0.9f)]
@@ -43,14 +45,17 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	private InputAction _UIMoveAction; 						/// <summary>UI's Move Input's Action.</summary>
 	private InputAction _UISubmitAction; 					/// <summary>UI's Submit Input's Action.</summary>
 	private InputAction _UICancelAction; 					/// <summary>UI's Cancel Input's Action.</summary>
-	private InputAction _leftAxesAction; 					/// <summary>Left-Axes' Input's Action.</summary>
-	private InputAction _rightAxesAction; 					/// <summary>Right-Axes' Input's Action.</summary>
+	private InputAction _leftAxisXAction; 					/// <summary>Left-Axes' X's Input's Action.</summary>
+	private InputAction _leftAxisYAction; 					/// <summary>Left-Axes' Y's Input's Action.</summary>
+	private InputAction _rightAxisXAction; 					/// <summary>Right-Axes' X's Input's Action.</summary>
+	private InputAction _rightAxisYAction; 					/// <summary>Right-Axes' Y's Input's Action.</summary>
 	private InputAction _pauseAction; 						/// <summary>Pause's Input Action.</summary>
 	private Vector2 _leftAxes; 								/// <summary>Left-Axes.</summary>
 	private Vector2 _rightAxes; 							/// <summary>Right-Axes.</summary>
 	private Vector2 _previousLeftAxes; 						/// <summary>Previous' Left-Axes.</summary>
 	private Vector2 _previousRightAxes; 					/// <summary>Previous' Right-Axes.</summary>
 	private int _inputFlags; 								/// <summary>Input's Flags.</summary>
+	private float _leftAxesMagnitude; 						/// <summary>Left-Axes' Magnitude.</summary>
 	private float _rightAxesMagnitude; 						/// <summary>Right-Axes' Magnitude.</summary>
 
 #region Getters/Setters:
@@ -79,17 +84,30 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	/// <summary>Gets pauseID property.</summary>
 	public string pauseID { get { return _pauseID; } }
 
-	/// <summary>Gets leftAxesID property.</summary>
-	public string leftAxesID { get { return _leftAxesID; } }
+	/// <summary>Gets leftAxisXID property.</summary>
+	public string leftAxisXID { get { return _leftAxisXID; } }
 
-	/// <summary>Gets rightAxesID property.</summary>
-	public string rightAxesID { get { return _rightAxesID; } }
+	/// <summary>Gets leftAxisYID property.</summary>
+	public string leftAxisYID { get { return _leftAxisYID; } }
+
+	/// <summary>Gets rightAxisXID property.</summary>
+	public string rightAxisXID { get { return _rightAxisXID; } }
+
+	/// <summary>Gets rightAxisYID property.</summary>
+	public string rightAxisYID { get { return _rightAxisYID; } }
 
 	/// <summary>Gets leftDeadZoneRadius property.</summary>
 	public float leftDeadZoneRadius { get { return _leftDeadZoneRadius; } }
 
 	/// <summary>Gets rightDeadZoneRadius property.</summary>
 	public float rightDeadZoneRadius { get { return _rightDeadZoneRadius; } }
+
+	/// <summary>Gets and Sets leftAxesMagnitude property.</summary>
+	public float leftAxesMagnitude
+	{
+		get { return _leftAxesMagnitude; }
+		protected set { _leftAxesMagnitude = value; }
+	}
 
 	/// <summary>Gets and Sets rightAxesMagnitude property.</summary>
 	public float rightAxesMagnitude
@@ -133,18 +151,32 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 		protected set { _UICancelAction = value; }
 	}
 
-	/// <summary>Gets and Sets leftAxesAction property.</summary>
-	public InputAction leftAxesAction
+	/// <summary>Gets and Sets leftAxisXAction property.</summary>
+	public InputAction leftAxisXAction
 	{
-		get { return _leftAxesAction; }
-		protected set { _leftAxesAction = value; }
+		get { return _leftAxisXAction; }
+		protected set { _leftAxisXAction = value; }
 	}
 
-	/// <summary>Gets and Sets rightAxesAction property.</summary>
-	public InputAction rightAxesAction
+	/// <summary>Gets and Sets leftAxisYAction property.</summary>
+	public InputAction leftAxisYAction
 	{
-		get { return _rightAxesAction; }
-		protected set { _rightAxesAction = value; }
+		get { return _leftAxisYAction; }
+		protected set { _leftAxisYAction = value; }
+	}
+
+	/// <summary>Gets and Sets rightAxisXAction property.</summary>
+	public InputAction rightAxisXAction
+	{
+		get { return _rightAxisXAction; }
+		protected set { _rightAxisXAction = value; }
+	}
+
+	/// <summary>Gets and Sets rightAxisYAction property.</summary>
+	public InputAction rightAxisYAction
+	{
+		get { return _rightAxisYAction; }
+		protected set { _rightAxisYAction = value; }
 	}
 
 	/// <summary>Gets and Sets pauseAction property.</summary>
@@ -227,17 +259,26 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	/// <summary>CharacterController's instance initialization.</summary>
 	protected virtual void Awake()
 	{
-		SetInputActionMap();
-		SetInputActions();
+		Initialize();
 	}
 	
 	/// <summary>CharacterController's tick at each frame.</summary>
 	protected virtual void Update ()
 	{
-		if(leftAxesAction != null) leftAxes = leftAxesAction.ReadValue<Vector2>();
-		if(rightAxesAction != null)
+		if(leftAxisXAction != null && leftAxisYAction != null)
 		{
-			rightAxes = rightAxesAction.ReadValue<Vector2>();
+			leftAxes = new Vector2(
+				leftAxisXAction.ReadValue<float>(),
+				leftAxisYAction.ReadValue<float>()
+			);
+			leftAxesMagnitude = leftAxes.magnitude;
+		}
+		if(rightAxisXAction != null && rightAxisYAction != null)
+		{
+			rightAxes = new Vector2(
+				rightAxisXAction.ReadValue<float>(),
+				rightAxisYAction.ReadValue<float>()
+			);
 			rightAxesMagnitude = rightAxes.magnitude;
 		}
 
@@ -268,6 +309,13 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 		UIActionMap = playerInput.actions.FindActionMap(UIActionMapName, true);
 	}
 
+	/// <summary>Initializes CharacterController.</summary>
+	public void Initialize()
+	{
+		SetInputActionMap();
+		SetInputActions();
+	}
+
 	/// <summary>Changes Controller Scheme.</summary>
 	/// <param name="_type">Type of Controller Scheme.</param>
 	public void ChangeControllerScheme(ControllerSchemeType _type)
@@ -294,8 +342,10 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 		UIMoveAction = UIActionMap.FindAction(UIMoveID, true);
 		UISubmitAction = UIActionMap.FindAction(UISubmitID, true);
 		UICancelAction = UIActionMap.FindAction(UICancelID, true);
-		leftAxesAction = actionMap.FindAction(leftAxesID, true);
-		rightAxesAction = actionMap.FindAction(rightAxesID, true);
+		leftAxisXAction = actionMap.FindAction(leftAxisXID, true);
+		leftAxisYAction = actionMap.FindAction(leftAxisYID, true);
+		rightAxisXAction = actionMap.FindAction(rightAxisXID, true);
+		rightAxisYAction = actionMap.FindAction(rightAxisYID, true);
 		pauseAction = actionMap.FindAction(pauseID, true);
 
 		pauseAction.performed += OnPauseActionPerformed;

@@ -11,6 +11,13 @@ public class VTuple<T1, T2>
 	public T1 Item1; 	/// <summary>Item 1.</summary>
 	public T2 Item2; 	/// <summary>Item 2.</summary>
 
+	/// <summary>Parameterless VTuple's Constructor.</summary>
+	public VTuple()
+	{
+		Item1 = default(T1);
+		Item2 = default(T2);
+	}
+
 	/// <summary>Tuple default constructor.</summary>
 	/// <param name="_Item1">Item 1.</param>
 	/// <param name="_Item2">Item 2.</param>

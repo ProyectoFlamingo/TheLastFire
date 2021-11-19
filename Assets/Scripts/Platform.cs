@@ -63,16 +63,15 @@ public class Platform : MonoBehaviour
 	{
 		if(bodies != null)
 		{
-			Vector3 delta = deltaCalculator.velocity;
-			float idt = 1.0f / Time.fixedDeltaTime;
+			Vector3 velocity = deltaCalculator.velocity;
 
-			if(delta.sqrMagnitude == 0.0f) return;
+			if(velocity.sqrMagnitude == 0.0f) return;
 
 			foreach(DisplacementAccumulator2D body in bodies)
 			{
-				//body.MovePosition(body.transform.position + delta);
+				//body.MovePosition(body.transform.position + velocity);
 				Debug.Log("[Platform] Adding Displacement to: " + body.gameObject.name);
-				body.AddDisplacement(delta * idt);
+				body.AddDisplacement(velocity);
 			}
 		}
 	}

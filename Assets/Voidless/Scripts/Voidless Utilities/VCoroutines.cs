@@ -849,9 +849,10 @@ public static class VCoroutines
 	/// <param name="_animator">Animator's Reference.</param>
 	/// <param name="_animationHash">State's Hash.</param>
 	/// <param name="_layer">AnimatorController's Layer.</param>
+	/// <param name="_normalizedTime">Normalized Time Offset [where does the Animation start].</param>
 	/// <param name="_additionalWait">AdditionalWait [0.0f by default].</param>
 	/// <param name="onWaitEnds">Callback invoked when the wait ends [null by default].</param>
-	public static IEnumerator PlayAndWait(this Animator _animator, int _animationHash, int _layer, float _normalizedTime = 0.0f, float _additionalWait = 0.0f, Action onWaitEnds = null)
+	public static IEnumerator PlayAndWait(this Animator _animator, int _animationHash, int _layer, float _normalizedTime = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onWaitEnds = null)
 	{
 		_animator.Play(_animationHash, _layer, _normalizedTime);
 
@@ -865,13 +866,36 @@ public static class VCoroutines
 		if(onWaitEnds != null) onWaitEnds();
 	}
 
+	/// <summary>Cross-Fades towards Animation and waits till that next animation is finished.</summary>
+	/// <param name="_animator">Animator's Reference.</param>
+	/// <param name="_animationHash">AnimationState's Hash.</param>
+	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
+	/// <param name="_layerIndex">Layer's Index [0 by default].</param>
+	/// <param name="_normalizedTime">Normalized Time Offset [where does the Animation start].</param>
+	/// <param name="_additionalWait">Optional Additional Wait [0.0f by default].</param>
+	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
+	public static IEnumerator CrossFadeAnimationAndWait(this Animator _animator, int _animationHash, float _fadeDuration = 0.3f, int _layerIndex = -1, float _normalizedTime = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
+	{
+		_animator.CrossFade(_animationHash, _fadeDuration,_layerIndex, _normalizedTime);
+
+		yield return null;
+
+		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
+		SecondsDelayWait wait = new SecondsDelayWait(info.length);
+
+		while(wait.MoveNext()) yield return null;
+
+		if(onAnimationEnds != null) onAnimationEnds();
+	}
+
 	/// \TODO Well....do it...
 	/* Sources:
 		- https://answers.unity.com/questions/628200/get-length-of-animator-statetransition.html
 		- https://docs.unity3d.com/ScriptReference/Animator.GetCurrentAnimatorClipInfo.html
 		- https://docs.unity3d.com/ScriptReference/AnimatorClipInfo.html
 	*/
-	public static IEnumerator WaitForAnimatorState(this Animator _animator, int _layerIndex = 0, float _additionalWait = 0.0f, Action onAnimatorStateEnds = null)
+	
+	public static IEnumerator WaitForAnimatorState(this Animator _animator, int _layerIndex = -1, float _additionalWait = 0.0f, Action onAnimatorStateEnds = null)
 	{
 		/// Wait one frame after changing the Animator's parameters.
 		yield return null;

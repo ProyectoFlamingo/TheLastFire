@@ -18,8 +18,9 @@ public class PlayerInputController : MonoBehaviour
 {
 	[Space(5f)]
 	[Header("Character Controllers:")]
-	[SerializeField] private MateoController _mateoController; 	/// <summary>Mateo's Controller.</summary>
-	private PlayerInput _playerInput; 							/// <summary>PlayerInput's Component.</summary>
+	[SerializeField] private MateoController _mateoController; 				/// <summary>Mateo's Controller.</summary>
+	private PlayerInput _playerInput; 										/// <summary>PlayerInput's Component.</summary>
+	private CharacterControllerMap _currentCharacterControl; 				/// <summary>Current Character's Control.</summary>
 
 	/// <summary>Gets mateoController property.</summary>
 	public MateoController mateoController { get { return _mateoController; } }
@@ -34,10 +35,18 @@ public class PlayerInputController : MonoBehaviour
 		}
 	}
 
+	/// <summary>Gets and Sets currentCharacterControl property.</summary>
+	public CharacterControllerMap currentCharacterControl
+	{
+		get { return _currentCharacterControl; }
+		protected set { _currentCharacterControl = value; }
+	}
+
 	/// <summary>TheLastFirePlayerInput's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()
 	{
 		mateoController.playerInput = playerInput;
+		mateoController.Initialize();
 	}
 
 	/*/// <returns>Current Character's Controller.</returns>
@@ -60,6 +69,8 @@ public class PlayerInputController : MonoBehaviour
 	/// <param name="_map">CharacterControllerMap's enum.</param>
 	public void ChangeControllerMap(CharacterControllerMap _map)
 	{
+		EnableAll(false);
+
 		switch(_map)
 		{
 			case CharacterControllerMap.Mateo:
@@ -67,6 +78,15 @@ public class PlayerInputController : MonoBehaviour
 			mateoController.enabled = true;
 			break;
 		}
+
+		currentCharacterControl = _map;
+	}
+
+	/// <summary>Enables all controllers.</summary>
+	/// <param name="_enable">Enable? True by default.</param>
+	public void EnableAll(bool _enable = true)
+	{
+		mateoController.enabled = _enable;
 	}
 }
 }

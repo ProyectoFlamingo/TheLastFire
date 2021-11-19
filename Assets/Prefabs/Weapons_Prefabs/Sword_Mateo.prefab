@@ -134,7 +134,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.0001
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &651161812346605171
@@ -271,7 +271,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.0001
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &2058240810324924643
@@ -408,7 +408,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.0001
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &2568594551513213720
@@ -537,7 +537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2546781144615022773
 Transform:
   m_ObjectHideFlags: 0
@@ -655,7 +655,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.0001
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &6304514497280337725
@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _meshContainer: {fileID: 0}
   _healthAffectableTags:
   - _tag: Enemy
     index: 8
@@ -870,6 +871,7 @@ MonoBehaviour:
   - {fileID: 3464174111372927975}
   - {fileID: 3163101675458325416}
   - {fileID: 7609798353161321838}
+  - {fileID: 4320462331528295388}
   _particleEffects:
   - {fileID: 8310175681698422969}
 --- !u!114 &-5859031260856870635
@@ -1060,7 +1062,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.0001
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1001 &6741169835624230288

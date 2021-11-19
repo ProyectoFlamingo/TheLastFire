@@ -14,12 +14,14 @@ public class MateoController : CharacterController<Mateo>
 	public const int FLAG_INPUT_ATTACK_SWORD = 1 << 2; 				/// <summary>Input flag for the sword attacking.</summary>
 	public const int FLAG_INPUT_CHARGING_FIRE_FRONTAL = 1 << 3; 	/// <summary>Input flag for the frontal fire charging.</summary>
 	public const int FLAG_INPUT_CHARGING_FIRE = 1 << 4; 			/// <summary>Input flag for the fire charging.</summary>
+	public const int FLAG_INPUT_CROUCH = 1 << 5; 					/// <summary>Input flag for the crouching.</summary>
 
 	[Space(5f)]
 	[Header("Input's Actions:")]
 	[SerializeField] private string _jumpID; 						/// <summary>Jump's Input Action's ID.</summary>
 	[SerializeField] private string _swordAttackID; 				/// <summary>Sword Attack's Input Action's ID.</summary>
-	[SerializeField] private string _frontalFireConjuringID; 		/// <summary>Frontal Fire's Conjuring's ID.</summary>
+	[SerializeField] private string _frontalFireConjuringID; 		/// <summary>Frontal Fire's Conjuring's Input Action's ID.</summary>
+	[SerializeField] private string _crouchActionID; 				/// <summary>Crouch's Input Action's ID.</summary>
 	[Space(5f)]
 	[Header("Axes' Thresholds:")]
 	[Range(0.0f, 0.9f)]
@@ -32,6 +34,7 @@ public class MateoController : CharacterController<Mateo>
 	private InputAction _jumpAction; 								/// <summary>Jump's Input Action.</summary>
 	private InputAction _swordAttackAction; 						/// <summary>Sword Attack's Input Action.</summary>
 	private InputAction _frontalFireConjuringAction; 				/// <summary>Frontal Fire's Conjuring's Input Action.</summary>
+	private InputAction _crouchAction; 								/// <summary>Crouch's Input Action.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets jumpID property.</summary>
@@ -42,6 +45,9 @@ public class MateoController : CharacterController<Mateo>
 
 	/// <summary>Gets frontalFireConjuringID property.</summary>
 	public string frontalFireConjuringID { get { return _frontalFireConjuringID; } }
+
+	/// <summary>Gets crouchActionID property.</summary>
+	public string crouchActionID { get { return _crouchActionID; } }
 
 	/// <summary>Gets movementAxesThreshold property.</summary>
 	public float movementAxesThreshold { get { return _movementAxesThreshold; } }
@@ -72,6 +78,13 @@ public class MateoController : CharacterController<Mateo>
 		get { return _frontalFireConjuringAction; }
 		protected set { _frontalFireConjuringAction = value; }
 	}
+
+	/// <summary>Gets and Sets crouchAction property.</summary>
+	public InputAction crouchAction
+	{
+		get { return _crouchAction; }
+		protected set { _crouchAction = value; }
+	}
 #endregion
 
 	/// <summary>Sets Input's Actions.</summary>
@@ -82,12 +95,14 @@ public class MateoController : CharacterController<Mateo>
 		jumpAction = actionMap.FindAction(jumpID, true);
 		swordAttackAction = actionMap.FindAction(swordAttackID, true);
 		frontalFireConjuringAction = actionMap.FindAction(frontalFireConjuringID, true);
+		crouchAction = actionMap.FindAction(crouchActionID, true);
 
 		jumpAction.performed += OnJumpActionPerformed;
 		jumpAction.canceled += OnJumpActionCanceled;
 		swordAttackAction.performed += OnSwordAttackActionPerformed;
 		frontalFireConjuringAction.performed += OnFrontalFireConjuringActionPerformed;
 		frontalFireConjuringAction.canceled += OnFrontalFireConjuringActionCanceled;
+		crouchAction.performed += OnCrouchActionPerformed;
 	}
 
 	/// <summary>Callback internally invoked when the Axes are updated, but before the previous axes' values get updated.</summary>
@@ -105,6 +120,8 @@ public class MateoController : CharacterController<Mateo>
 		{
 			inputFlags |= FLAG_INPUT_CHARGING_FIRE;
 			character.ChargeFire(rightAxes);
+
+			previousRightAxes = rightAxes;
 		}
 		else
 		{
@@ -196,6 +213,16 @@ public class MateoController : CharacterController<Mateo>
 		character.ReleaseFire(character.directionTowardsBackground);
 		
 		inputFlags &= ~FLAG_INPUT_CHARGING_FIRE_FRONTAL;
+	}
+
+	/// <summary>Callback invoked when the Crouch's InputAction is Performed.</summary>
+	/// <param name="_context">Callback's Context.</param>
+	private void OnCrouchActionPerformed(InputAction.CallbackContext _context)
+	{
+		if(Game.state != GameState.Playing) return;
+
+		character.Crouch();
+		inputFlags |= FLAG_INPUT_CROUCH;
 	}
 #endregion
 }

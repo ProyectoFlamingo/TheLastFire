@@ -12,10 +12,12 @@ public class TransformDeltaCalculator : MonoBehaviour
 	//[SerializeField] private Distance _magnitudeToChangeScale; 		/// <summary>Minimum magnitude to register a change in scale.</summary>
 	private Vector3 _velocity; 										/// <summary>TransformDeltaCalculator's Velocity.</summary>
 	private Vector3 _angularVelocity; 								/// <summary>TransformDeltaCalculator's Angular Velocity.</summary>
-	private Vector3 _accumulatedVelocity; 							/// <summary>Accumulated's Velocity.</summary>
-	private Vector3	_accumulatedAngularVelocity; 					/// <summary>Accumulated's Angular Velocity.</summary>
 	private Vector3 _lastPosition; 									/// <summary>TransformDeltaCalculator's Last Position.</summary>
 	private Vector3 _lastEulerRotation; 							/// <summary>TransformDeltaCalculator's Last Euler Rotation.</summary>
+	private Vector3 _deltaPosition; 								/// <summary>Position's Delta.</summary>
+	private Vector3 _accumulatedDeltaPosition; 						/// <summary>Accumulated Position's Delta.</summary>
+	private Vector3 _deltaRotation; 								/// <summary>Rotation's Delta.</summary>
+	private Vector3 _accumulatedDeltaRotation; 						/// <summary>Accumulated Rotation's Delta.</summary>
 
 #if UNITY_EDITOR
 	[Space(5f)]
@@ -77,20 +79,6 @@ public class TransformDeltaCalculator : MonoBehaviour
 		set { _angularVelocity = value; }
 	}
 
-	/// <summary>Gets and Sets accumulatedVelocity property.</summary>
-	public Vector3 accumulatedVelocity
-	{
-		get { return _accumulatedVelocity; }
-		private set { _accumulatedVelocity = value; }
-	}
-
-	/// <summary>Gets and Sets accumulatedAngularVelocity property.</summary>
-	public Vector3 accumulatedAngularVelocity
-	{
-		get { return _accumulatedAngularVelocity; }
-		set { _accumulatedAngularVelocity = value; }
-	}
-
 	/// <summary>Gets and Sets lastPosition property.</summary>
 	public Vector3 lastPosition
 	{
@@ -104,6 +92,34 @@ public class TransformDeltaCalculator : MonoBehaviour
 		get { return _lastEulerRotation; }
 		private set { _lastEulerRotation = value; }
 	}
+
+	/// <summary>Gets and Sets deltaPosition property.</summary>
+	public Vector3 deltaPosition
+	{
+		get { return _deltaPosition; }
+		private set { _deltaPosition = value; }
+	}
+
+	/// <summary>Gets and Sets accumulatedDeltaPosition property.</summary>
+	public Vector3 accumulatedDeltaPosition
+	{
+		get { return _accumulatedDeltaPosition; }
+		private set { _accumulatedDeltaPosition = value; }
+	}
+
+	/// <summary>Gets and Sets deltaRotation property.</summary>
+	public Vector3 deltaRotation
+	{
+		get { return _deltaRotation; }
+		private set { _deltaRotation = value; }
+	}
+
+	/// <summary>Gets and Sets accumulatedDeltaRotation property.</summary>
+	public Vector3 accumulatedDeltaRotation
+	{
+		get { return _accumulatedDeltaRotation; }
+		private set { _accumulatedDeltaRotation = value; }
+	}
 #endregion
 
 	/// <summary>Resets TransformDeltaCalculator's Data.</summary>
@@ -111,7 +127,8 @@ public class TransformDeltaCalculator : MonoBehaviour
 	{
 		lastPosition = transform.localPosition;
 		lastEulerRotation = transform.localRotation.eulerAngles;
-		accumulatedVelocity = Vector3.zero;
+		accumulatedDeltaPosition = Vector3.zero;
+		accumulatedDeltaRotation = Vector3.zero;
 	}
 
 	/// <summary>Callback invoked when TransformDeltaCalculator's instance is disabled.</summary>
@@ -138,28 +155,30 @@ public class TransformDeltaCalculator : MonoBehaviour
 	/// <summary>Updates Velocity's Data.</summary>
 	private void UpdateVelocity()
 	{
-		velocity = (transform.localPosition - lastPosition);
-		if(velocity.sqrMagnitude >= magnitudeToChangePosition * Time.deltaTime)
-		accumulatedVelocity += velocity;
-		else accumulatedVelocity = Vector3.zero;
+		deltaPosition = (transform.localPosition - lastPosition);
+		if(deltaPosition.sqrMagnitude >= magnitudeToChangePosition * Time.deltaTime)
+		accumulatedDeltaPosition += deltaPosition;
+		else accumulatedDeltaPosition = Vector3.zero;
 		lastPosition = transform.localPosition;
+		velocity = deltaPosition * Application.targetFrameRate;
 	}
 
 	/// <summary>Updates Angular velocity's Data.</summary>
 	private void UpdateAngularVelocity()
 	{
-		angularVelocity = (transform.localRotation.eulerAngles - lastEulerRotation);
+		deltaRotation = (transform.localRotation.eulerAngles - lastEulerRotation);
 		if(velocity.sqrMagnitude >= magnitudeToChangeRotation * Time.deltaTime)
-		accumulatedAngularVelocity = angularVelocity;
-		else accumulatedAngularVelocity = Vector3.zero;
+		accumulatedDeltaRotation = deltaRotation;
+		else accumulatedDeltaRotation = Vector3.zero;
 		lastEulerRotation = transform.localRotation.eulerAngles;
+		angularVelocity = deltaRotation * Application.targetFrameRate;
 	}
 
 #if UNITY_EDITOR
 	/// <summary>Debug TransformDeltaCalculator's Velocities [Only in Editor Mode].</summary>
 	private void DebugTransformDeltaCalculator()
 	{
-		if(detectionType.HasFlag(TransformProperties.Position)) Debug.DrawRay(transform.position, velocity, positionRayColor, rayDuration);
+		if(detectionType.HasFlag(TransformProperties.Position)) Debug.DrawRay(transform.position, deltaPosition, positionRayColor, rayDuration);
 	}
 #endif
 }

@@ -21,6 +21,13 @@ public enum GameState
 	Paused
 }
 
+public enum GameContext
+{
+	Gameplay,
+	MiniGame,
+	NonSerious
+}
+
 [Flags]
 public enum SurfaceType
 {
@@ -55,6 +62,7 @@ public class Game : Singleton<Game>
 	private Boundaries2D _defaultCameraBoundaries; 							/// <summary>Default Camera's Boundaries2D.</summary>
 	private FloatRange _defaultDistanceRange; 								/// <summary>Default Camera's Distance Range.</summary>
 	private GameState _state; 												/// <summary>Game's State.</summary>
+	private GameContext _context; 											/// <summary>Current Game's Context.</summary>
 	private bool _onTransition; 											/// <summary>Is the Game on a transition?.</summary>
 	private HashSet<Camera2DBoundariesModifier> _boundariesModifiers; 		/// <summary>Boundaries2DContainers for the Gameplay Camera.</summary>
 
@@ -71,6 +79,13 @@ public class Game : Singleton<Game>
 	{
 		get { return Instance._state; }
 		set { Instance._state = value; }
+	}
+
+	/// <summary>Gets and Sets context property.</summary>
+	public static GameContext context
+	{
+		get { return Instance._context; }
+		set { Instance._context = value; }
 	}
 
 	/// <summary>Gets and Sets mateoController property.</summary>
@@ -166,7 +181,9 @@ public class Game : Singleton<Game>
 	private void Start()
 	{
 		if(mateo != null) AddTargetToCamera(mateo.cameraTarget);
-		mateoController = PlayerInputsManager.Get().mateoController;
+		PlayerInputController controller = PlayerInputsManager.Get();
+		mateoController = controller.mateoController;
+		controller.AssignCharacterToMateoController(mateo);
 	}
 
 #region TEMPORAL
@@ -206,7 +223,7 @@ public class Game : Singleton<Game>
 	/// <returns>Mateo's Projected Position.</returns>
 	public static Vector2 ProjectMateoPosition(float t)
 	{
-		return mateo != null ? mateo.transform.position + (mateo.deltaCalculator.velocity * t) : Vector3.zero;
+		return mateo != null ? mateo.transform.position + (mateo.deltaCalculator.deltaPosition * t) : Vector3.zero;
 	}
 
 	/// <summary>Enables player control.</summary>
