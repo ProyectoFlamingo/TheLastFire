@@ -103,6 +103,7 @@ public class MateoController : CharacterController<Mateo>
 		frontalFireConjuringAction.performed += OnFrontalFireConjuringActionPerformed;
 		frontalFireConjuringAction.canceled += OnFrontalFireConjuringActionCanceled;
 		crouchAction.performed += OnCrouchActionPerformed;
+		crouchAction.canceled += OnCrouchActionCanceled;
 	}
 
 	/// <summary>Callback internally invoked when the Axes are updated, but before the previous axes' values get updated.</summary>
@@ -223,6 +224,15 @@ public class MateoController : CharacterController<Mateo>
 
 		character.Crouch();
 		inputFlags |= FLAG_INPUT_CROUCH;
+	}
+
+	/// <summary>Callback invoked when the Crouch's InputAction is Canceled.</summary>
+	/// <param name="_context">Callback's Context.</param>
+	private void OnCrouchActionCanceled(InputAction.CallbackContext _context)
+	{
+		//if(Game.state != GameState.Playing) return;
+
+		inputFlags &= ~FLAG_INPUT_CROUCH;
 	}
 #endregion
 }

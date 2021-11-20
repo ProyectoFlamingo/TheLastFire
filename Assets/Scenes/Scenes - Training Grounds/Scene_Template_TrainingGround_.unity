@@ -25686,6 +25686,16 @@ PrefabInstance:
       propertyPath: _sword
       value: 
       objectReference: {fileID: 1649011163}
+    - target: {fileID: 1357492255315632415, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _attackAnimationLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632415, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _crouchDuration
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2477414715707991570, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_IsActive
