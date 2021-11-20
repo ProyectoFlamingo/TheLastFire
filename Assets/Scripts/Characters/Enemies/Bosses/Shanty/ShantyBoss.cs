@@ -775,7 +775,7 @@ public class ShantyBoss : Boss
 	{
 		this.DispatchCoroutine(ref behaviorCoroutine);
 
-		this.StartCoroutine(animation.CrossFadeAnimationAndWait(untiedAnnimation, 0.3f, PlayMode.StopSameLayer, 0.0f,
+		this.StartCoroutine(animation.CrossFadeAndWait(untiedAnnimation, 0.3f, PlayMode.StopSameLayer, 0.0f,
 		()=>
 		{
 			this.AddStates(ID_STATE_ATTACK);

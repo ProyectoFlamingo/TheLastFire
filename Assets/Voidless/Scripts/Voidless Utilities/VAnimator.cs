@@ -122,6 +122,49 @@ public static class VAnimator
 		return string.Empty;
 	}
 
+	/// <summary>Evaluates if Animator is Playing on given layer.</summary>
+	/// <param name="_animator">Animator to evaluate.</param>
+	/// <param name="_layer">Layer to evaluate [0 by default].</param>
+	public static bool IsPlaying(this Animator _animator, int _layer = 0)
+	{
+		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layer);
+		return info.length > info.normalizedTime;
+	}
+
+	/// <summary>Evaluates if Animator's Layer is on given AnimatorCredential.</summary>
+	/// <param name="_animator">Animator's Component.</param>
+	/// <param name="_credential">Animator's Credential.</param>
+	/// <param name="_layer">Animation's Layer [0 by default].</param>
+	/// <returns>True if current AnimationState is on given name.</returns>
+	public static bool IsOnAnimation(this Animator _animator, AnimatorCredential _credential, int _layer = 0, bool _fullPathHash = false)
+	{
+		/*string animation = _fullPathHash ? _animator.GetLayerName(_layer) + "." + _credential.tag : _credential.tag;
+		return  _animator.IsPlaying() && _animator.GetCurrentAnimatorStateInfo(_layer).IsName(animation);*/
+
+		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layer);
+		return _fullPathHash ? info.HasFullHash(_credential.ID) : info.HasShortHash(_credential.ID);
+	}
+
+	/// <summary>Evaluates if Animator's Layer is on Animation with Tag.</summary>
+	/// <param name="_animator">Animator's Component.</param>
+	/// <param name="_credential">Animation's Tag.</param>
+	/// <param name="_layer">Animation's Layer [0 by default].</param>
+	/// <returns>True if current AnimationState is on given tag.</returns>
+	public static bool IsOnAnimationWithTag(this Animator _animator, string _tag, int _layer = 0)
+	{
+		return _animator.GetCurrentAnimatorStateInfo(_layer).IsTag(_tag);
+	}
+
+	public static bool HasFullHash(this AnimatorStateInfo _info, int _fullPathHash)
+	{
+		return _info.fullPathHash == _fullPathHash;
+	}
+
+	public static bool HasShortHash(this AnimatorStateInfo _info, int _shortNameHash)
+	{
+		return _info.shortNameHash == _shortNameHash;
+	}
+
 	/// <summary>Creates a string that shows all the Animator State's Info.</summary>
 	/// <param name="_info">Animator State's Info.</param>
 	/// <returns>Animator State Info into a string.</returns>

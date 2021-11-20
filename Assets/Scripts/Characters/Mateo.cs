@@ -41,12 +41,13 @@ public class Mateo : Character
 	public const int ID_STATE_INITIALPOSE = 1 << 5; 																	/// <summary>Initial Pose's State ID.</summary>
 	public const int ID_STATE_MEDITATING = 1 << 5; 																		/// <summary>Meditating's State ID.</summary>
 	public const int ID_STATE_SWORDEQUIPPED = 1 << 6; 																	/// <summary>Sword's Equipped's State ID.</summary>
-	public const int ID_STATE_JUMPING = 1 << 7; 																		/// <summary>Jumping's State ID.</summary>
+	public const int ID_STATE_FIRECONJURINGCAPACITY = 1 << 7; 															/// <summary>Mire Conjuring's Capacity State's ID.</summary>
+	public const int ID_STATE_JUMPING = 1 << 8; 																		/// <summary>Jumping's State ID.</summary>
 	public const int ID_STATE_CHARGINGFIRE = 1 << 8; 																	/// <summary>Fire Conjuring's State ID.</summary>
-	public const int ID_STATE_CROUCHING = 1 << 9; 																		/// <summary>Crouching's State ID.</summary>
-	public const int ID_STATE_MOVING = 1 << 10; 																		/// <summary>Moving's State ID.</summary>
-	public const int ID_STATE_BRAKING = 1 << 11; 																		/// <summary>Braking's State ID.</summary>
-	public const int ID_STATE_STANDINGUP = 1 << 12; 																	/// <summary>Standing Up's State ID.</summary>
+	public const int ID_STATE_CROUCHING = 1 << 10; 																		/// <summary>Crouching's State ID.</summary>
+	public const int ID_STATE_MOVING = 1 << 11; 																		/// <summary>Moving's State ID.</summary>
+	public const int ID_STATE_BRAKING = 1 << 12; 																		/// <summary>Braking's State ID.</summary>
+	public const int ID_STATE_STANDINGUP = 1 << 13; 																	/// <summary>Standing Up's State ID.</summary>
 	public const int ID_EVENT_INITIALPOSE_BEGINS = 0; 																	/// <summary>Mateo Initial-Pose-Begins's Event ID.</summary>
 	public const int ID_EVENT_INITIALPOSE_ENDED = 1; 																	/// <summary>Mateo Initial-Pose-Finished's Event ID.</summary>
 	public const int ID_EVENT_MEDITATION_BEGINS = 2; 																	/// <summary>Meditation Begins' Event.</summary>
@@ -415,6 +416,8 @@ public class Mateo : Character
 
 		Meditate(true);
 		EquipSword(true);
+		state |= ID_STATE_FIRECONJURINGCAPACITY;
+		shootProjectile.muzzle = skeleton.leftHand;
 
 		this.DispatchCoroutine(ref mainLayerRoutine);
 		this.DispatchCoroutine(ref jumpingLayerRoutine);
@@ -429,8 +432,9 @@ public class Mateo : Character
 
 		if(animator == null) return;
 
-		if(!this.HasStates(ID_STATE_MEDITATING) && animator.GetLayerWeight(_mainAnimationLayer) > 0.0f && animator.GetCurrentAnimatorStateInfo(_mainAnimationLayer).IsName(_emptyCredential.tag))
-		GoToLocomotionAnimation();
+		/*bool x = this.HasAnyOfTheStates(ID_STATE_JUMPING | ID_STATE_MEDITATING | ID_STATE_STANDINGUP | ID_STATE_HURT | ID_STATE_DEAD | ID_STATE_ATTACKING | ID_STATE_BRAKING | ID_STATE_CROUCHING);
+		if(!this.HasStates(ID_STATE_MEDITATING) && animator.GetLayerWeight(_mainAnimationLayer) > 0.0f && !x)
+		GoToLocomotionAnimation();*/
 
 		BrakingEvaluation();
 		MeditationEvaluation();
@@ -486,7 +490,7 @@ public class Mateo : Character
 		{
 			state |=  ID_STATE_BRAKING;
 			this.StartCoroutine(
-				animator.CrossFadeAnimationAndWait(
+				animator.CrossFadeAndWait(
 					_brakeCredential,
 					clipFadeDuration,
 					_mainAnimationLayer,
@@ -545,7 +549,8 @@ public class Mateo : Character
 			else standingHash = _normalStandingCredential;
 
 			state |= ID_STATE_STANDINGUP;
-			this.StartCoroutine(animator.CrossFadeAnimationAndWait(standingHash, clipFadeDuration, _mainAnimationLayer, 0.0f, normalStandingAdditionalWait,
+			Debug.Log("[Mateo] Standing...");
+			this.StartCoroutine(animator.CrossFadeAndWait(standingHash, clipFadeDuration, _mainAnimationLayer, 0.0f, normalStandingAdditionalWait,
 			()=>
 			{
 				state &= ~ID_STATE_MEDITATING;
@@ -562,10 +567,40 @@ public class Mateo : Character
 
 	/// <summary>Changes Meditation's Pose.</summary>
 	/// <param name="_animatonHas">Meditation Pose's Animation Hash.</param>
-	public void ChangeMeditationPose(int _animationHash)
+	public void ChangeMeditationPose(AnimatorCredential _animationCredential)
 	{
-		AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(_mainAnimationLayer);
-		animator.CrossFade(_animationHash, _mainAnimationLayer);
+		/* Perform Meditation Pose if:
+			- Is meditating and not already playing another meditation pose
+			- Have Fire Connjuring's capacity if the meditation pose is that of the fire
+			- Have the Sword equipped if the meditation pose is that of the sword
+		*/
+		if((!this.HasStates(ID_STATE_MEDITATING) || mainLayerRoutine != null)
+		|| (_animationCredential == _fireMeditationCredential && !this.HasStates(ID_STATE_FIRECONJURINGCAPACITY))
+		|| (_animationCredential == _swordMeditationCredential && !this.HasStates(ID_STATE_SWORDEQUIPPED))
+		|| animator.IsOnAnimation(_animationCredential, _mainAnimationLayer)) return;
+
+		if(_animationCredential == _fireMeditationCredential && this.HasStates(ID_STATE_FIRECONJURINGCAPACITY))
+		{
+			shootProjectile.ID = shootProjectile.chargedProjectileID;
+			shootProjectile.CreateProjectile();	
+		}
+
+		this.StartCoroutine(
+			animator.CrossFadeAndWait(
+				_animationCredential,
+				clipFadeDuration,
+				_mainAnimationLayer,
+				0.0f,
+				0.0f,
+				()=>
+				{
+					shootProjectile.OnDischarge();
+					animator.CrossFade(_normalMeditationCredential, clipFadeDuration, _mainAnimationLayer, 0.0f);
+					this.DispatchCoroutine(ref mainLayerRoutine);
+				}
+			),
+			ref mainLayerRoutine
+		);
 	}
 
 	/// <summary>Evaluates for Meditation.</summary>
@@ -625,9 +660,15 @@ public class Mateo : Character
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)) return;
 		
+		if(this.HasStates(ID_STATE_MEDITATING))
+		{
+			ChangeMeditationPose(_swordMeditationCredential);
+			return;
+		}
+
 		//hurtBox.SetActive(false);
-		health.BeginInvincibilityCooldown();
 		Meditate(false);
+		health.BeginInvincibilityCooldown(); 	/// THIS IS GAY AND TEMPORAL
 
 		int index = 0;
 		int animationHash = 0;
@@ -677,7 +718,18 @@ public class Mateo : Character
 	/// <param name="_axes">Axes' Argument.</param>
 	public void ChargeFire(Vector3 _axes)
 	{
-		if(this.HasStates(ID_STATE_HURT) || !this.HasStates(ID_STATE_ALIVE)) return;
+		/* Charge Fire if:
+			- Has Fire Conjuring's Capacity.
+			- Is not hurt.
+			- It is alive.
+		*/
+		if(!this.HasStates(ID_STATE_FIRECONJURINGCAPACITY) || this.HasStates(ID_STATE_HURT) || !this.HasStates(ID_STATE_ALIVE)) return;
+
+		if(this.HasStates(ID_STATE_MEDITATING))
+		{
+			ChangeMeditationPose(_fireMeditationCredential);
+			return;
+		}
 
 		Meditate(false);
 		animator.SetLayerWeight(_fireConjuringAnimationLayer, 1.0f);
@@ -709,26 +761,34 @@ public class Mateo : Character
 	/// <param name="_shootResult">Was the shoot made? false by default.</param>
 	public void DischargeFire(bool _shootResult = false)
 	{
-		if(shootProjectile.onCooldown || !this.HasStates(ID_STATE_ALIVE)) return;
+		/* Discharge Fire if:
+			- Has Fire Conjuring's Capacity.
+			- Shooting is not on cooldown.
+			- It is alive.
+		*/
+		if(!this.HasStates(ID_STATE_FIRECONJURINGCAPACITY) || shootProjectile.onCooldown || !this.HasStates(ID_STATE_ALIVE)) return;
 
 		shootProjectile.OnDischarge();
-		int stateID = _shootResult ? ShootChargedProjectile.STATE_ID_RELEASED : ShootChargedProjectile.STATE_ID_UNCHARGED;
-		animator.CrossFade(_fireThrowCredential, clipFadeDuration, _fireConjuringAnimationLayer);
+		OnFireConjuringLayerAnimationFinished();
 	}
 
 	/// <summary>Releases Fire.</summary>
 	/// <param name="_axes">Axes' Argument.</param>
 	public void ReleaseFire(Vector3 _axes)
 	{
-		if(this.HasStates(ID_STATE_HURT) || !this.HasStates(ID_STATE_ALIVE)) return;
+		/* Release Fire if:
+			- Has Fire Conjuring's Capacity.
+			- Is not hurt or meditating.
+			- It is alive.
+		*/
+		if(!this.HasStates(ID_STATE_FIRECONJURINGCAPACITY) || this.HasAnyOfTheStates(ID_STATE_HURT | ID_STATE_MEDITATING) || !this.HasStates(ID_STATE_ALIVE)) return;
 
 		bool result = shootProjectile.Shoot(skeleton.leftHand.position, _axes);
-		//if(result) animator.SetInteger(shootingStateIDCredential, ShootChargedProjectile.STATE_ID_RELEASED);
+
 		if(result)
 		{
-			animator.CrossFade(_fireThrowCredential, clipFadeDuration, _fireConjuringAnimationLayer);
 			this.StartCoroutine(
-				animator.CrossFadeAnimationAndWait(
+				animator.CrossFadeAndWait(
 					_fireThrowCredential,
 					clipFadeDuration,
 					_fireConjuringAnimationLayer,
@@ -748,7 +808,12 @@ public class Mateo : Character
 	/// <param name="_axes">Additional Direction's Axes.</param>
 	public void Jump(Vector2 _axes)
 	{
-		if(this.HasStates(ID_STATE_HURT)
+		/* Jump if:
+			- Not meditating or hurt.
+			- Alive.
+			- Grounded, but not attacking.
+		*/
+		if(this.HasStates(ID_STATE_HURT | ID_STATE_MEDITATING)
 		|| !this.HasStates(ID_STATE_ALIVE)
 		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None*/this.HasStates(ID_STATE_ATTACKING))) return;
 
@@ -773,7 +838,7 @@ public class Mateo : Character
 
 		state |= ID_STATE_CROUCHING;
 		this.StartCoroutine(
-			animator.CrossFadeAnimationAndWait(
+			animator.CrossFadeAndWait(
 				_crouchCredential,
 				clipFadeDuration,
 				_mainAnimationLayer,
@@ -781,7 +846,6 @@ public class Mateo : Character
 				crouchDuration,
 				()=>
 				{
-					Debug.Log("[Mateo] Crouch Finished...");
 					state &= ~ID_STATE_CROUCHING;
 					OnMainLayerAnimationFinished();
 				}
@@ -923,7 +987,17 @@ public class Mateo : Character
 			case JumpAbility.STATE_ID_LANDING:
 				if(!this.HasStates(ID_STATE_MEDITATING))
 				{
-					animator.CrossFade(_softLandingCredential, clipFadeDuration, _mainAnimationLayer, 0.0f);
+					this.StartCoroutine(
+						animator.CrossFadeAndWait(
+							_softLandingCredential,
+							clipFadeDuration,
+							_mainAnimationLayer,
+							0.0f,
+							0.0f,
+							OnMainLayerAnimationFinished
+						),
+						ref mainLayerRoutine
+					);
 					softLandingParticleEffect.EmitParticleEffects();
 				}
 			break;
@@ -1034,7 +1108,7 @@ public class Mateo : Character
 				animator.CrossFade(_deadCredential, clipFadeDuration, _mainAnimationLayer);
 				this.ChangeState(ID_STATE_DEAD);
 				this.StartCoroutine(
-					animator.CrossFadeAnimationAndWait(
+					animator.CrossFadeAndWait(
 						_deadCredential,
 						clipFadeDuration,
 						_mainAnimationLayer,
@@ -1052,15 +1126,25 @@ public class Mateo : Character
 	}
 #endregion
 
-#region AnimationLayerCallbacks:
+#region AnimationMethods&Callbacks:
+	/// <summary>Goes directly to Locomotion's State.</summary>
+	private void GoToLocomotionAnimation()
+	{
+		//if(this.HasStates(ID_STATE_MOVING)) return;
+
+		state |= ID_STATE_MOVING;
+		
+		AnimatorCredential animationHash = this.HasStates(ID_STATE_SWORDEQUIPPED) ? _swordLocomotionCredential : _noSwordLocomotionCredential;
+		animator.CrossFade(animationHash, clipFadeDuration, _mainAnimationLayer, 0.0f);
+	}
+
 	/// <summary>Callback internally invoked after an animation from the Main Layer is finished.</summary>
 	private void OnMainLayerAnimationFinished()
 	{
 		this.DispatchCoroutine(ref mainLayerRoutine);
 		animator.Play(_emptyCredential, _mainAnimationLayer);
 		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
-		if(jumpAbility.grounded) GoToLocomotionAnimation();
-		//if(jumpAbility.grounded) //animator.SetLayerWeight(_locomotionAnimationLayer, 1.0f);
+		if(jumpAbility.grounded && !this.HasStates(ID_STATE_MEDITATING)) GoToLocomotionAnimation();
 	}
 
 	/// <summary>Callback internally invoked after an animation from the Attack Layer is finished.</summary>
@@ -1069,6 +1153,7 @@ public class Mateo : Character
 		//this.DispatchCoroutine(ref attackLayerRoutine);
 		animator.SetLayerWeight(_attackAnimationLayer, 0.0f);
 		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+		GoToLocomotionAnimation();
 	}
 
 	/// <summary>Callback internally invoked after an animation from the Fire Conjuring's Layer is finished.</summary>
@@ -1077,17 +1162,7 @@ public class Mateo : Character
 		this.DispatchCoroutine(ref fireConjuringLayerRoutine);
 		animator.Play(_emptyCredential, _fireConjuringAnimationLayer);
 		animator.SetLayerWeight(_fireConjuringAnimationLayer, 0.0f);
-	}
-
-	/// <summary>Goes directly to Locomotion's State.</summary>
-	private void GoToLocomotionAnimation()
-	{
-		/*if(this.HasStates(ID_STATE_MOVING)) return;
-
-		state |= ID_STATE_MOVING;*/
-
-		animator.CrossFade(this.HasStates(ID_STATE_SWORDEQUIPPED) ? _swordLocomotionCredential : _noSwordLocomotionCredential, clipFadeDuration, _mainAnimationLayer, 0.0f);
-		//animator.Play(this.HasStates(ID_STATE_SWORDEQUIPPED) ? _swordLocomotionCredential : _noSwordLocomotionCredential, _mainAnimationLayer);
+		state &= ~ID_STATE_MOVING;
 	}
 #endregion
 }

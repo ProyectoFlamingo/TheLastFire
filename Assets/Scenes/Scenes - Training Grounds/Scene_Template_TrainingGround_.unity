@@ -25466,6 +25466,21 @@ PrefabInstance:
       propertyPath: _mapping._localizationTexts.Array.data[0].englishText
       value: Error
       objectReference: {fileID: 0}
+    - target: {fileID: 4543492281493123361, guid: a91b324e496313e43b96e7d1fff41622,
+        type: 3}
+      propertyPath: _mapping._localizationTexts.Array.data[0].portugueseText
+      value: Siiiiiiiiiiiiiiiiiiii
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543492281493123361, guid: a91b324e496313e43b96e7d1fff41622,
+        type: 3}
+      propertyPath: _mapping._localizationTexts.Array.data[0].russianText
+      value: Peterinsky
+      objectReference: {fileID: 0}
+    - target: {fileID: 4543492281493123361, guid: a91b324e496313e43b96e7d1fff41622,
+        type: 3}
+      propertyPath: _mapping._localizationTexts.Array.data[0].spanishText
+      value: Taco
+      objectReference: {fileID: 0}
     - target: {fileID: 4543492281493123362, guid: a91b324e496313e43b96e7d1fff41622,
         type: 3}
       propertyPath: m_Name
@@ -26020,6 +26035,11 @@ PrefabInstance:
       propertyPath: _mateoController
       value: 
       objectReference: {fileID: 2086560116}
+    - target: {fileID: 8039413010954172583, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8355561775677501171, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_IsActive

@@ -245,39 +245,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Right-Stick Y [Xbox Controller]",
-                    "id": "69ae77d0-4004-4975-a7b6-0ae4ed9df5a9",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightAxisX",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "4aeb873f-e9e6-4cc6-915a-6f8562d44b93",
-                    "path": "<XInputController>/rightStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControllerScheme_Xbox360",
-                    "action": "RightAxisX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "866b79d3-379a-4c21-bb3a-ba85f18632a0",
-                    "path": "<XInputController>/rightStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControllerScheme_Xbox360",
-                    "action": "RightAxisX",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Right-Stick Y [Switch Controller]",
                     "id": "79689b8a-6e10-4b8d-9eec-136c8dfa7c97",
                     "path": "1DAxis",
@@ -306,39 +273,6 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "ControllerScheme_NintendoSwitch",
-                    "action": "RightAxisY",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "Right-Stick X [Xbox Controller]",
-                    "id": "2ab91164-6830-4af4-9bcd-9145c3af1754",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RightAxisY",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "bb19e650-8489-425a-ba07-a86970ebd723",
-                    "path": "<XInputController>/rightStick/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControllerScheme_Xbox360",
-                    "action": "RightAxisY",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "521f8d10-d502-4978-b1c3-2d60c973635f",
-                    "path": "<XInputController>/rightStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "ControllerScheme_Xbox360",
                     "action": "RightAxisY",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -478,7 +412,7 @@
                 {
                     "name": "",
                     "id": "072aa467-304d-45e9-84e6-fe4d9991be16",
-                    "path": "<XInputController>/leftStick/down",
+                    "path": "<XInputController>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControllerScheme_Xbox360",
@@ -489,7 +423,7 @@
                 {
                     "name": "",
                     "id": "200192d3-b8c4-4dee-8213-e064dd9bd4f8",
-                    "path": "<NPad>/leftStick/down",
+                    "path": "<NPad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControllerScheme_NintendoSwitch",
@@ -500,7 +434,7 @@
                 {
                     "name": "",
                     "id": "1c585ca1-3621-4c17-a0a0-17323cac72f3",
-                    "path": "<Keyboard>/downArrow",
+                    "path": "<Keyboard>/z",
                     "interactions": "",
                     "processors": "",
                     "groups": "ControlScheme_Keyboard&Mouse",
@@ -509,15 +443,70 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "e52e0c94-c828-4a8f-82e1-310efc07ddbb",
-                    "path": "<Keyboard>/s",
+                    "name": "Right-Stick Y [Xbox Controller]",
+                    "id": "ca35e6f6-b878-4f72-9e1c-f70cf7ee2286",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
-                    "groups": "ControlScheme_Keyboard&Mouse",
-                    "action": "Crouch",
-                    "isComposite": false,
+                    "groups": "",
+                    "action": "RightAxisY",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "149ddc4e-3c58-487b-a0d6-84bea1dab835",
+                    "path": "<XInputController>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_Xbox360",
+                    "action": "RightAxisY",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "99874397-da1f-4efd-8f54-c17ad65ec2e6",
+                    "path": "<XInputController>/rightStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_Xbox360",
+                    "action": "RightAxisY",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right-Stick X [Xbox Controller]",
+                    "id": "ed75deb9-6fc3-4b5d-ad63-d008b009d4a5",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightAxisX",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "25d4a4dc-8413-4e17-a4ad-b69b5b616438",
+                    "path": "<XInputController>/rightStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_Xbox360",
+                    "action": "RightAxisX",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c7b16ae0-1832-4844-9808-81a0f5ab05b5",
+                    "path": "<XInputController>/rightStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_Xbox360",
+                    "action": "RightAxisX",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

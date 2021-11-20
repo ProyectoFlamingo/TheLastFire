@@ -874,7 +874,7 @@ public static class VCoroutines
 	/// <param name="_normalizedTime">Normalized Time Offset [where does the Animation start].</param>
 	/// <param name="_additionalWait">Optional Additional Wait [0.0f by default].</param>
 	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
-	public static IEnumerator CrossFadeAnimationAndWait(this Animator _animator, int _animationHash, float _fadeDuration = 0.3f, int _layerIndex = -1, float _normalizedTime = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
+	public static IEnumerator CrossFadeAndWait(this Animator _animator, int _animationHash, float _fadeDuration = 0.3f, int _layerIndex = -1, float _normalizedTime = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
 	{
 		_animator.CrossFade(_animationHash, _fadeDuration,_layerIndex, _normalizedTime);
 
@@ -933,7 +933,7 @@ public static class VCoroutines
 	/// <param name="_mode">PlayMode [PlayMode.StopSameLayer bu default].</param>
 	/// <param name="_additionalWait">Additional Wait [0.0f by default].</param>
 	/// <param name="onAnimationEnds">Callback invoked when animation ends.</param>
-	public static IEnumerator CrossFadeAnimationAndWait(this Animation _animation, AnimationClip _clip, float _fadeDuration = 0.3f, PlayMode _mode = PlayMode.StopSameLayer, float _additionalWait = 0.0f, Action onAnimationEnds = null)
+	public static IEnumerator CrossFadeAndWait(this Animation _animation, AnimationClip _clip, float _fadeDuration = 0.3f, PlayMode _mode = PlayMode.StopSameLayer, float _additionalWait = 0.0f, Action onAnimationEnds = null)
 	{
 		_animation.CrossFade(_clip, _fadeDuration,_mode);
 

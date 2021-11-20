@@ -3553,6 +3553,7 @@ MonoBehaviour:
   _stareAtPlayerRotation:
     _eulerAngles: {x: 0, y: 180, z: 0}
     _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  _crouchDuration: 0
   _sword: {fileID: 0}
   _groundedNeutralComboIndex: 0
   _groundedDirectionalComboIndex: 1
@@ -3583,10 +3584,12 @@ MonoBehaviour:
     _tag: RightAxisY
     _ID: -959174837
   _mainAnimationLayer: 1
-  _locomotionAnimationLayer: 2
   _fireConjuringAnimationLayer: 3
   _jumpingAnimationLayer: 4
   _attackAnimationLayer: 5
+  _emptyCredential:
+    _tag: 
+    _ID: 0
   _noSwordLocomotionCredential:
     _tag: GroundLocomotion_NoSword
     _ID: -1812641946

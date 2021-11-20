@@ -123,8 +123,7 @@ public static class VInterfaces
 	/// <returns>True, false otherwise.</returns>
 	public static bool HasAnyOfTheStates(this IStateMachine _sm, int _states)
 	{
-		int states = _sm.state;
-		return (states | (states & _states)) == states;
+		return (_sm.state & _states) != 0;
 	}
 
 	/// <summary>Adds State to a State Machine.</summary>

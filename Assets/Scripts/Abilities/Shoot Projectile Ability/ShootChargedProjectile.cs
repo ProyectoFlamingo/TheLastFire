@@ -175,7 +175,7 @@ public class ShootChargedProjectile : ShootProjectile
 	}
 
 	/// <summary>Creates Projectile and parents it to the muzzle [if such exists].</summary>
-	private void CreateProjectile()
+	public void CreateProjectile()
 	{
 		if(ID == projectileID) AudioController.PlayOneShot(SourceType.SFX, 0, projectileCreationSoundIndex);
 		else if(ID == chargedProjectileID) AudioController.PlayOneShot(SourceType.SFX, 0, maxChargeSoundIndex);

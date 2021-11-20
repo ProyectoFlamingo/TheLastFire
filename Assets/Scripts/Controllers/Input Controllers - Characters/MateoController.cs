@@ -35,6 +35,7 @@ public class MateoController : CharacterController<Mateo>
 	private InputAction _swordAttackAction; 						/// <summary>Sword Attack's Input Action.</summary>
 	private InputAction _frontalFireConjuringAction; 				/// <summary>Frontal Fire's Conjuring's Input Action.</summary>
 	private InputAction _crouchAction; 								/// <summary>Crouch's Input Action.</summary>
+	private Vector2 _fireDirection; 								/// <summary>Fire's Direction.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets jumpID property.</summary>
@@ -85,6 +86,13 @@ public class MateoController : CharacterController<Mateo>
 		get { return _crouchAction; }
 		protected set { _crouchAction = value; }
 	}
+
+	/// <summary>Gets and Sets fireDirection property.</summary>
+	public Vector2 fireDirection
+	{
+		get { return _fireDirection; }
+		protected set { _fireDirection = value; }
+	}
 #endregion
 
 	/// <summary>Sets Input's Actions.</summary>
@@ -122,7 +130,7 @@ public class MateoController : CharacterController<Mateo>
 			inputFlags |= FLAG_INPUT_CHARGING_FIRE;
 			character.ChargeFire(rightAxes);
 
-			previousRightAxes = rightAxes;
+			fireDirection = rightAxes;
 		}
 		else
 		{
@@ -133,7 +141,7 @@ public class MateoController : CharacterController<Mateo>
 			} else if((inputFlags | FLAG_INPUT_CHARGING_FIRE) == inputFlags)
 			{
 				inputFlags &= ~FLAG_INPUT_CHARGING_FIRE;
-				character.ReleaseFire(previousRightAxes.normalized);
+				character.ReleaseFire(fireDirection.normalized);
 			
 			} else if((inputFlags | FLAG_INPUT_CHARGING_FIRE) != inputFlags)
 			{
@@ -142,6 +150,8 @@ public class MateoController : CharacterController<Mateo>
 			
 			}
 		}
+
+		Debug.DrawRay(character.transform.position, fireDirection * 10f, Color.cyan);
 
 		character.OnLeftAxesChange(leftAxes);
 		character.OnRightAxesChange(rightAxes);

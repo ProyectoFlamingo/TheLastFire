@@ -26,6 +26,12 @@ public struct AnimatorCredential : ISerializationCallbackReceiver
 		set { _ID = value; }
 	}
 
+	/// <summary>Implicit AnimatorCredential equals AnimatorCredential value bool operator.</summary>
+	public static bool operator == (AnimatorCredential a, AnimatorCredential b) { return a.ID == b.ID; }
+
+	/// <summary>Implicit AnimatorCredential not-equals AnimatorCredential value bool operator.</summary>
+	public static bool operator != (AnimatorCredential a, AnimatorCredential b) { return a.ID != b.ID; }
+
 	/// <summary>Implicit string to AnimatorCredential.</summary>
 	public static implicit operator AnimatorCredential(string _tag) { return new AnimatorCredential(_tag); }
 
