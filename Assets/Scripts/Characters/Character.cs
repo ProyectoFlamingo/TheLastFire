@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
@@ -11,25 +12,26 @@ namespace Flamingo
 [RequireComponent(typeof(Skeleton))]
 public class Character : PoolGameObject, IStateMachine
 {
-	public event OnIDEvent onIDEvent; 						/// <summary>OnIDEvent's delegate.</summary>
-
-	public const int ID_STATE_DEAD = 0; 					/// <summary>Dead State's ID.</summary>
-	public const int ID_STATE_ALIVE = 1 << 0; 				/// <summary>Alive State's ID.</summary>
-	public const int ID_STATE_IDLE = 1 << 1; 				/// <summary>Idle State's ID.</summary>
-	public const int ID_STATE_HURT = 1 << 2; 				/// <summary>Hurt State's ID.</summary>
-	public const int ID_STATE_COLLIDED = 1 << 3; 			/// <summary>Collider State's ID.</summary>
-	public const int ID_STATE_ATTACKING = 1 << 4; 			/// <summary>Attacking's State's ID.</summary>
+	public event OnIDEvent onIDEvent; 															/// <summary>OnIDEvent's delegate.</summary>
+	
+	public const int ID_STATE_DEAD = 0; 														/// <summary>Dead State's ID.</summary>
+	public const int ID_STATE_ALIVE = 1 << 0; 													/// <summary>Alive State's ID.</summary>
+	public const int ID_STATE_IDLE = 1 << 1; 													/// <summary>Idle State's ID.</summary>
+	public const int ID_STATE_HURT = 1 << 2; 													/// <summary>Hurt State's ID.</summary>
+	public const int ID_STATE_COLLIDED = 1 << 3; 												/// <summary>Collider State's ID.</summary>
+	public const int ID_STATE_ATTACKING = 1 << 4; 												/// <summary>Attacking's State's ID.</summary>
 
 	[Header("Animator's Attributes:")]
-	[SerializeField] private Transform _animatorParent; 	/// <summary>Animator's Parent.</summary>
-	[SerializeField] private Animator _animator; 			/// <summary>Animator's Component.</summary>
-	[SerializeField] private float _clipFadeDuration; 		/// <summary>Default's AnimationClip Fade's Duration.</summary>
-	private int _state; 									/// <summary>Character's Current State.</summary>
-	private int _previousState; 							/// <summary>Character's Previous Current State.</summary>
-	public int ignoreResetMask { get; set; } 				/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
-	private Health _health; 								/// <summary>Health's Component.</summary>
-	private EventsHandler _eventsHandler; 					/// <summary>EventsHandler's Component.</summary>
-	private Skeleton _skeleton; 							/// <summary>Skeleton's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 				/// <summary>Animator's Parent.</summary>
+	[TabGroup("Animations")][SerializeField] private Animator _animator; 						/// <summary>Animator's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 	/// <summary>VAnimatorController's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 					/// <summary>Default's AnimationClip Fade's Duration.</summary>
+	private int _state; 																		/// <summary>Character's Current State.</summary>
+	private int _previousState; 																/// <summary>Character's Previous Current State.</summary>
+	public int ignoreResetMask { get; set; } 													/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
+	private Health _health; 																	/// <summary>Health's Component.</summary>
+	private EventsHandler _eventsHandler; 														/// <summary>EventsHandler's Component.</summary>
+	private Skeleton _skeleton; 																/// <summary>Skeleton's Component.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets animatorParent property.</summary>
@@ -46,6 +48,16 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			if(_animator == null) _animator = GetComponent<Animator>();
 			return _animator;
+		}
+	}
+
+	/// <summary>Gets animatorController Component.</summary>
+	public VAnimatorController animatorController
+	{ 
+		get
+		{
+			if(_animatorController == null) _animatorController = GetComponent<VAnimatorController>();
+			return _animatorController;
 		}
 	}
 

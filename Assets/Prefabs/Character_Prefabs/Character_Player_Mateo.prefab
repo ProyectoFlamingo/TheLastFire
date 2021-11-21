@@ -3543,8 +3543,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _animatorParent: {fileID: 0}
-  _animator: {fileID: 0}
+  _animatorParent: {fileID: 6544736471894580627}
+  _animator: {fileID: 3138014061218544716}
+  _animatorController: {fileID: 3537191631708047769}
   _clipFadeDuration: 0.5
   hurtBox: {fileID: 7886282707592371948}
   _stareAtBossRotation:
@@ -3677,7 +3678,7 @@ MonoBehaviour:
     _points:
     - {x: 0, y: -1.45, z: 0}
   _additionalJumpParticleEffect:
-    _transform: {fileID: 0}
+    _transform: {fileID: 5122952807910987803}
     _particleEffectIndex:
       index: 3
       objectIndex: 0
@@ -3685,7 +3686,7 @@ MonoBehaviour:
     _points:
     - {x: 0, y: -1.45, z: 0}
   _softLandingParticleEffect:
-    _transform: {fileID: 0}
+    _transform: {fileID: 5122952807910987803}
     _particleEffectIndex:
       index: 6
       objectIndex: 0
@@ -3693,7 +3694,7 @@ MonoBehaviour:
     _points:
     - {x: 0, y: -1.45, z: 0}
   _hardLandingParticleEffect:
-    _transform: {fileID: 0}
+    _transform: {fileID: 5122952807910987803}
     _particleEffectIndex:
       index: 38
       objectIndex: 0
@@ -6305,6 +6306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9037699695188731446}
   - component: {fileID: 3138014061218544716}
+  - component: {fileID: 3537191631708047769}
   m_Layer: 0
   m_Name: Mateo_PoseT_v2
   m_TagString: Untagged
@@ -6350,6 +6352,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3537191631708047769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8513926803609435276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c111f547837c448976f06f7f111f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8523770676301694013
 GameObject:
   m_ObjectHideFlags: 0

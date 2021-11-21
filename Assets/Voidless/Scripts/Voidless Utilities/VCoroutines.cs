@@ -861,6 +861,8 @@ public static class VCoroutines
 		AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(_layer);
 		SecondsDelayWait wait = new SecondsDelayWait(state.length + _additionalWait);
 
+		Debug.Log("[VCoroutines] Play will wait: " + (state.length + _additionalWait));
+
 		while(wait.MoveNext()) yield return null;
 
 		if(onWaitEnds != null) onWaitEnds();
@@ -880,8 +882,24 @@ public static class VCoroutines
 
 		yield return null;
 
+		/*
+			When it cross-fades, it first begins from the actual state.
+			We need to wait the actual states's duration * fadeDuration.
+			Then after that wait, we can finally wait for the next animation.
+		*/
+
 		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
-		SecondsDelayWait wait = new SecondsDelayWait(info.length);
+		AnimatorTransitionInfo transitionInfo = _animator.GetAnimatorTransitionInfo(_layerIndex);
+		/*Debug.Log("[VCoroutines] StateInfo Length: " + info.length);
+		Debug.Log("[VCoroutines] TransitionInfo Length: " + transitionInfo.duration);*/
+		SecondsDelayWait wait = new SecondsDelayWait(transitionInfo.duration * info.length);
+
+		while(wait.MoveNext()) yield return null;
+
+		info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
+		wait.ChangeDurationAndReset(info.length);
+
+		//Debug.Log("[VCoroutines] StateInfo Length [After Waiting]: " + info.length);
 
 		while(wait.MoveNext()) yield return null;
 

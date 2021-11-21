@@ -298,7 +298,7 @@ public class Projectile : ContactWeapon
 	/// <summary>Callback invoked when Projectile's instance is disabled.</summary>
 	private void OnDisable()
 	{
-		Debug.Log("[Projectile] Projectile Disabled!");
+		//Debug.Log("[Projectile] Projectile Disabled!");
 	}
 
 	/// <summary>Resets Projectile's instance to its default values.</summary>
