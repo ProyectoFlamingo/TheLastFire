@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Material_Mateo_Body
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP _OCCLUSIONMAP
+  m_Shader: {fileID: 4800000, guid: 0f96a2937f6bace459a5fdaac39c0fb3, type: 3}
+  m_ShaderKeywords: _BASEWINDCHANNEL_B _BLENDNORMALS_ON _METALLICSPECGLOSSMAP _MICROWINDCHANNEL_R
+    _NORMALMAP _OCCLUSIONMAP _VERTEXCOLORCHANNEL_B
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -39,6 +39,34 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 6dff2f3b6b2c39e47af7eb143b2059b1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ColorVariationNoise:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap2:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Diffuse:
+        m_Texture: {fileID: 2800000, guid: f1802795a41f03846a8cdbad382eb8af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -57,14 +85,31 @@ Material:
         m_Texture: {fileID: 2800000, guid: a987d11303de26147ba54c48c9abd525, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SecondAlbedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TerrainHolesTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _2ndNormalPower: 1
     - _AlphaClip: 0
+    - _AlphaCutoff: 0.5
+    - _BaseWindChannel: 2
     - _Blend: 0
+    - _BlendNormals: 1
     - _BumpScale: 1
+    - _ColorVariationPower: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
@@ -72,19 +117,57 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GradientFalloff: 2
+    - _GradientPosition: 0.43
+    - _HidePower: 2.5
+    - _HideSides: 0
+    - _InvertGradient: 0
+    - _LayerContrast: 0
+    - _LayerPosition: 0
+    - _LayerPower: 0.5
+    - _LayerThreshold: 50
     - _Metallic: 0
+    - _MetallicPower: 0
+    - _MicroWindChannel: 0
+    - _MicroWindMultiplier: 1
+    - _NoiseScale: 0.5
+    - _NormalPower: 1
+    - _OcclusionPower: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _Scattering: 1
+    - _SecondNormalPower: 1
+    - _SeeVertexColor: 0
+    - _SeeVertexColors: 0
     - _Smoothness: 0.039
+    - _SmoothnessPower: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _Tiling: 1
+    - _Tiling2: 1
+    - _TransAmbient: 0.1
+    - _TransDirect: 0.9
+    - _TransNormal: 0.5
+    - _TransScattering: 2
+    - _TransShadow: 0.5
+    - _TransStrength: 1
+    - _UseVertexColor: 0
+    - _VertexColorChannel: 2
+    - _WindDebugView: 0
+    - _WindMultiplier: 0
+    - _WindTrunkContrast: 10
+    - _WindTrunkPosition: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - _2ndColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _ColorVariation: {r: 0.7924528, g: 0.25792095, b: 0.25792095, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GradientColor: {r: 0.9150943, g: 0.8955558, b: 0.876246, a: 0}
+    - _MainColor: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

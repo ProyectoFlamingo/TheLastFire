@@ -101,7 +101,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: FireThrow
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -1744,7 +1744,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: NormalJump
-  m_Speed: 1
+  m_Speed: 4
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -2313,7 +2313,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Falling
-  m_Speed: 1
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -3639,7 +3639,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 4ce60dd514a8a4942af1b6ff69455379, type: 2}
     m_Threshold: -1
     m_Position: {x: 1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3647,15 +3647,15 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: fc952aae569430b4c80332877ff3244d, type: 2}
     m_Threshold: -0.5
     m_Position: {x: 0.5, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: c0828dbc946e10c4a97d864b558a7806, type: 2}
     m_Threshold: -0.2
-    m_Position: {x: 0.3, y: 0}
-    m_TimeScale: 1
+    m_Position: {x: 0.1, y: 0}
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3670,8 +3670,8 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: c0828dbc946e10c4a97d864b558a7806, type: 2}
     m_Threshold: 0.2
-    m_Position: {x: -0.3, y: 0}
-    m_TimeScale: 1
+    m_Position: {x: -0.1, y: 0}
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3680,7 +3680,7 @@ BlendTree:
       type: 3}
     m_Threshold: 0.5
     m_Position: {x: -0.5, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3688,7 +3688,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 4ce60dd514a8a4942af1b6ff69455379, type: 2}
     m_Threshold: 1
     m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3764,7 +3764,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 0dc78df9938aa1d4b9000735af0bbe69, type: 2}
     m_Threshold: -1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3772,7 +3772,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 00e5920ca734ff44e95cf26ecf54a0b0, type: 2}
     m_Threshold: -0.3
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3780,7 +3780,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 00e5920ca734ff44e95cf26ecf54a0b0, type: 2}
     m_Threshold: 0.3
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -3788,7 +3788,7 @@ BlendTree:
     m_Motion: {fileID: 7400000, guid: 0dc78df9938aa1d4b9000735af0bbe69, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 1
+    m_TimeScale: 2
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -4155,7 +4155,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: JumpStanding
-  m_Speed: 1
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -4260,7 +4260,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: NormalStanding
-  m_Speed: 2
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -4618,7 +4618,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: SoftLanding
-  m_Speed: 2
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -4962,8 +4962,16 @@ BlendTree:
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: d00748c29ce7076439b68e6e1db29362, type: 2}
+    m_Threshold: -0.5
+    m_Position: {x: 0, y: -0.105}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: LeftAxisX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 17365395cfbebb742aa8708271e72de7, type: 2}
     m_Threshold: 0
-    m_Position: {x: 0, y: -1}
+    m_Position: {x: 0.583, y: -0.013}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
@@ -4971,34 +4979,26 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 17365395cfbebb742aa8708271e72de7, type: 2}
     m_Threshold: 0.33333334
-    m_Position: {x: -1, y: 0}
-    m_TimeScale: 1
-    m_CycleOffset: 0
-    m_DirectBlendParameter: LeftAxisX
-    m_Mirror: 0
-  - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 17365395cfbebb742aa8708271e72de7, type: 2}
-    m_Threshold: 0.6666667
-    m_Position: {x: 1, y: 0}
+    m_Position: {x: -0.524, y: 0.004}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 2d075b1cf7bd0eb4581df492d59c0953, type: 2}
-    m_Threshold: 1
-    m_Position: {x: 0, y: 1}
+    m_Threshold: 0.5
+    m_Position: {x: 0, y: 0.096}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
-  m_BlendParameter: LeftAxisX
+  m_BlendParameter: LeftAxisY
   m_BlendParameterY: LeftAxisY
-  m_MinThreshold: 0
-  m_MaxThreshold: 1
+  m_MinThreshold: -0.5
+  m_MaxThreshold: 0.5
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 2
+  m_BlendType: 0
 --- !u!1102 &6140211922782320959
 AnimatorState:
   serializedVersion: 5
