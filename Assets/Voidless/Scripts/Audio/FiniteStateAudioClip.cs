@@ -86,16 +86,12 @@ public class FiniteStateAudioClip : ScriptableObject
 		ChangeState(state);
 
 #if UNITY_EDITOR
-		StringBuilder builder = new StringBuilder();
-
-		/*builder.Append("Current Game Time: ");
-		builder.AppendLine(Time.time.ToString());*/
-		builder.Append("Clip: ");
-		builder.AppendLine(clip.name);
-		builder.Append("Current Time: ");
-		builder.Append(time.ToString());
-
-		Debug.Log(builder.ToString());
+		VDebug.Log(
+			"Clip: ",
+			clip.name,
+			"Current Time: ",
+			time.ToString()
+		);
 #endif
 	}
 

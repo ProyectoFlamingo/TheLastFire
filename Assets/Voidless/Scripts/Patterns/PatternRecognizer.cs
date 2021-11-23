@@ -284,7 +284,6 @@ public class PatternRecognizer : MonoBehaviour
 
 	private void OnPatternRecognized(Command _command)
 	{
-		Debug.Log("PATTERN FOUND: " + _command.ToString());
 		if(onPatternRecognized != null) onPatternRecognized(_command);
 
 		/*if(!user.hasPaddles) this.DispatchCoroutine(ref patternEvaluator);

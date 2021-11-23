@@ -551,8 +551,6 @@ public class Mateo : Character
 			});
 			break;
 		}
-
-		Debug.Log("[Mateo] Meditate: " + _meditate);
 	}
 
 	/// <summary>Changes Meditation's Pose.</summary>
@@ -896,7 +894,6 @@ public class Mateo : Character
 	/// <param name="_axes">Left's Axes.</param>
 	public void OnLeftAxesChange(Vector2 _axes)
 	{
-		//Debug.Log("[Mateo] Left-Axes: " + _axes.ToString());
 		if(!this.HasStates(ID_STATE_ALIVE)) return;
 
 		if(!this.HasStates(ID_STATE_ATTACKING))
@@ -914,7 +911,6 @@ public class Mateo : Character
 	/// <param name="_axes">Right's Axes.</param>
 	public void OnRightAxesChange(Vector2 _axes)
 	{
-		//Debug.Log("[Mateo] Right-Axes: " + _axes.ToString());
 		if(!this.HasStates(ID_STATE_ALIVE)) return;
 
 		animator.SetFloat(rightAxisXCredential, _axes.x);
@@ -1011,8 +1007,6 @@ public class Mateo : Character
 			case WallEvaluationEvent.BounceEnds:
 			break;
 		}
-
-		//Debug.Log("[Mateo] WallEvaluator Event invoked: " + _event.ToString());
 	}
 
 	/// <summary>Callback invoked whn a Dash State changes.</summary>

@@ -14,6 +14,7 @@ public class TESTDoesItTrigger2D : MonoBehaviour
 	{
 		GameObject obj = col.gameObject;
 	
+#if UNITY_EDITOR
 		StringBuilder builder = new StringBuilder();
 		builder.Append("Triggered with GameObject: ");
 		builder.AppendLine(obj.name);
@@ -23,6 +24,7 @@ public class TESTDoesItTrigger2D : MonoBehaviour
 		builder.Append(obj.layer);
 
 		Debug.Log(builder.ToString());
+#endif
 	}
 }
 }

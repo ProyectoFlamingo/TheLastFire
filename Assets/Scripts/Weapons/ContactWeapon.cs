@@ -169,26 +169,6 @@ public class ContactWeapon : PoolGameObject
 		GameObject obj = _info.collider.gameObject;
 		int instanceID = obj.GetInstanceID();
 
-		//Debug.Log("[ContactWeapon] OnTriggerEvent. " + gameObject.name + " Against " + obj.name);
-
-/// \TODO Soon to delete (regarding the debugging. I hope at least...)
-/*#region Debug:
-		StringBuilder builder = new StringBuilder();
-
-		builder.Append("OnTriggerEvent invoked to class ");
-		builder.AppendLine(name);
-		builder.Append("Triggered with: ");
-		builder.AppendLine(obj.name);
-		builder.Append("Tag: ");
-		builder.AppendLine(obj.tag);
-		builder.Append("Layer: ");
-		builder.AppendLine(obj.layer.ToString());
-		builder.Append("Event Type: ");
-		builder.AppendLine(_eventType.ToString());
-
-		Debug.Log(builder.ToString());
-#endregion*/
-
 		/// \TODO Maybe separate into its own DamageApplier class?
 		if(healthAffectableTags != null) foreach(GameObjectTag tag in healthAffectableTags)
 		{
@@ -198,8 +178,6 @@ public class ContactWeapon : PoolGameObject
 				if(obj.CompareTag(tag))
 				{
 					if(objectsIDs.Contains(instanceID)) return;
-					
-					Debug.Log("[ContactWeapon] GameObject " + obj.name + " has tag " + tag);
 
 					objectsIDs.Add(instanceID);
 
@@ -207,14 +185,12 @@ public class ContactWeapon : PoolGameObject
 					
 					if(health == null)
 					{
-						Debug.Log("[ContactWeapon] Did not have Health, trying to get HealthLinker");
 						HealthLinker linker = obj.GetComponent<HealthLinker>();
 						if(linker != null) health = linker.component;
 					}
 
 					if(health != null)
 					{
-						Debug.Log("[ContactWeapon] " + name + " should apply damage to " + health.name);
 						float damageScale = damageScales != null ? damageScales[Mathf.Clamp(_ID, 0, damageScales.Length)] : 1.0f;
 						float damageApplied = damage * damageScale;
 						
@@ -223,7 +199,6 @@ public class ContactWeapon : PoolGameObject
 
 						break;
 					}
-					else Debug.Log("[ContactWeapon] Health is NULL");
 				}
 				break;
 

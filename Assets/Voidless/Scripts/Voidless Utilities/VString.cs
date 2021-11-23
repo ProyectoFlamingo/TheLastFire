@@ -2,9 +2,22 @@ using System.Text;
 using System.Reflection;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
+
+using UnityRandom = UnityEngine.Random;
+using Random = System.Random;
 
 namespace Voidless
 {
+public enum Format
+{
+	Normal = 1,
+	Bold = 2,
+	Italic = 4,
+
+	BoldAndItalic = Bold | Italic,
+}
+
 public static class VString
 {
 	public const int SIZE_BITS_SHORT = sizeof(short) * 8; 													/// <summary>Size in Bits of Short Integer.</summary>
@@ -15,6 +28,35 @@ public static class VString
 	public const string PATH_ROOT_VOIDLESS_TOOLS = "Voidless Tools"; 										/// <summary>Voidless Tools' Root Path.</summary>
 	public const string PATH_SCRIPTABLE_OBJECTS = PATH_ROOT_VOIDLESS_UTILITIES + "/Scriptable Objects"; 	/// <summary>Scriptable Objects' Path.</summary>
 	public const string EDITOR_DATA_KEY_MAPPING_PATH = "Path_InputMapping_File";  							/// <summary>Input Mapping File's path for Editor's Data.</summary>
+
+	/// <summary>Converts Text into Rich Text [also for Debugs].</summary>
+	/// <param name="_text">Text to convert into rich text.</param>
+	/// <param name="_format">Text's Format [Normal by default].</param>
+	/// <param name="_color">Text's Color [Color.gray by default].</param>
+	/// <param name="_size">Text's Size [12 by default, since it seems to be the size Debug.Log's uses].</param>
+	/// <returns>Enriched Text's string.</returns>
+	public static string RichText(this string _text, Format _format = Format.Normal, Color _color = default(Color), int _size = 12)
+	{
+		StringBuilder builder = new StringBuilder();
+
+		if(_color == default(Color)) _color = Color.gray;
+
+		builder.Append("<color=#");
+		builder.Append(ColorUtility.ToHtmlStringRGBA(_color));
+		builder.Append(">");
+		builder.Append("<size=");
+		builder.Append(_size.ToString());
+		builder.Append(">");
+		if((_format | Format.Bold) == _format) builder.Append("<b>");
+		if((_format | Format.Italic) == _format) builder.Append("<i>");
+		builder.Append(_text);
+		if((_format | Format.Bold) == _format) builder.Append("</b>");
+		if((_format | Format.Italic) == _format) builder.Append("</i>");
+		builder.Append("</size>");
+		builder.Append("</color>");
+
+		return builder.ToString();
+	}
 
 	/// <summary>Converts given string into the format on inspector [spaced upper camel case].</summary>
 	/// <param name="_string">String to convert.</param>

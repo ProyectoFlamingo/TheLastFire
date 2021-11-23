@@ -393,7 +393,9 @@ public static class VRigidbody
 	/// <param name="_color">Debug's Color.</param>
 	public static void Debug(this Rigidbody _body, Color _color)
 	{
+#if UNITY_EDITOR
 		UnityEngine.Debug.DrawRay(_body.position, _body.velocity, _color);
+#endif
 	}
 
 	/// <summary>Debugs IVehicle's implementer.</summary>
@@ -401,7 +403,9 @@ public static class VRigidbody
 	/// <param name="_color">Debug's Color.</param>
 	public static void Debug<T>(this T _vehicle, Color _color) where T : MonoBehaviour, IVehicle
 	{
+#if UNITY_EDITOR
 		UnityEngine.Debug.DrawRay(_vehicle.transform.position, _vehicle.body.velocity, _color);
+#endif
 	}
 #endregion
 

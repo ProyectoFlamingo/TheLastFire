@@ -27,7 +27,9 @@ public static class TESTFindMeHideFlags
 			GetDontSaveFlagsOnObject(obj, builder);
 		}
 
+#if UNITY_EDITOR
 		Debug.Log(builder.ToString());
+#endif
 	}
 
 	private static void GetDontSaveFlagsOnObject(GameObject _gameObject, StringBuilder _builder)

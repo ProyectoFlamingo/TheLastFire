@@ -100,7 +100,6 @@ public class HitCollider2D : MonoBehaviour
 	/// <param name="col">The other Collider2D involved in this Event.</param>
 	private void OnTriggerEnter2D(Collider2D col)
 	{
-		//Debug.Log("[HitCollider2D] GameObject " + gameObject.name + " entered trigger...");
 		if(!detectableHitEvents.HasFlag(HitColliderEventTypes.Enter)) return;
 		if(onTriggerEvent2D != null) onTriggerEvent2D(col, HitColliderEventTypes.Enter, ID);
 		if(onTriggerInstanceEvent2D != null) onTriggerInstanceEvent2D(collider, col, HitColliderEventTypes.Enter, ID);

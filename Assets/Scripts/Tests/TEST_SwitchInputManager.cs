@@ -226,6 +226,7 @@ public class TEST_SwitchInputManager : MonoBehaviour
 
 	private void CompareEnums()
 	{
+#if UNITY_SWITCH
 		StringBuilder b = new StringBuilder();
 		b.AppendLine();
 
@@ -244,6 +245,7 @@ public class TEST_SwitchInputManager : MonoBehaviour
 		}
 
 		Debug.Log("[TEST_SwitchInputManager] Evaluating 2 different Enums: " + b.ToString());
+#endif
 	}
 
 	public override string ToString()

@@ -303,8 +303,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 			break;
 
 			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
-			/*Debug.Log("[MoskarSceneController] Moskar Died. Destroyed: " + moskarsDestroyed + ", Total: " + totalMoskars);
-			if(moskarsDestroyed < totalMoskars) return;
+			/*if(moskarsDestroyed < totalMoskars) return;
 
 			Game.EnablePlayerControl(false);
 			Game.mateo.Meditate(true);
@@ -380,8 +379,6 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 			AudioController.SetVolume(SourceType.Loop, i, 1.0f);
 		}
 
-		Debug.Log("[MoskarSceneController] Total Moskars Remaining: " + totalMoskars);
-
 		if(Mathf.Abs(moskarsDestroyed - totalMoskars) <= remainingMoskarsForSpeedScale)
 		{
 			foreach(MoskarBoss reproduction in moskarReproductions)
@@ -400,7 +397,6 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 			exitMandala.gameObject.SetActive(true);
 			exitMandala.transform.position = exitMandalaSpawnPosition;
 			exitMandala.enabled = true;
-			Debug.Log("[MoskarSceneController] Finished!!!");
 		}
 
 // --- Ends New Implementation ---
@@ -409,7 +405,6 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		/*if(moskarReproductions.Count <= 0)
 		{
 			this.DispatchCoroutine(ref moskarReproductionsCountdown);
-			Debug.Log("[MoskarSceneController] Finished!!");
 		}*/
 // --- Ends Old Implementation: ---
 	}
@@ -421,7 +416,6 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		switch(_ID)
 		{
 			case Mateo.ID_EVENT_MEDITATION_BEGINS:
-			Debug.Log("[MoskarSceneController] Mateo Is Meditating!");
 			foreach(MoskarBoss moskar in moskarReproductions)
 			{
 				//moskar.ChangeState(Enemy.ID_STATE_IDLE);
@@ -491,7 +485,6 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		while(true)
 		{
 			while(wait.MoveNext()) yield return null;
-			Debug.Log("[MoskarSceneController] Should Reproduce");
 			MoskarBoss firstMoskar = moskarReproductions.First();
 			int remainingMoskars = moskarReproductions.Count;
 			int moskarsToReproduce = 0;

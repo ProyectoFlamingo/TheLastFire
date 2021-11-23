@@ -267,15 +267,12 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 		switch(_type)
 		{
 			case DebugMessageType.None:
-			Debug.Log(builder.ToString());
 			break;
 
 			case DebugMessageType.Warning:
-			Debug.LogWarning(builder.ToString());
 			break;
 
 			case DebugMessageType.Error:
-			Debug.LogError(builder.ToString());
 			break;
 		}
 	}

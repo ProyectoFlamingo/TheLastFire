@@ -65,7 +65,7 @@ public abstract class SceneController : Singleton<SceneController>
 			{
 				for(int i = 0; i < loadableObjects.Length; i++)
 				{
-					Debug.Log("[SceneController]" + loadableObjects[i].gameObject.name + " Loaded: " + _loadables[i].Loaded);	
+					
 				}
 				yield return null;
 			}

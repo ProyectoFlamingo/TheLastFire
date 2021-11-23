@@ -106,7 +106,7 @@ public class DestinoCard : MonoBehaviour
 	/// <summary>Callback invoked when DestinoCard's instance is disabled.</summary>
 	private void OnDisable()
 	{
-		//Debug.Log("[DestinoCard] Disabled...! Coroutine playing: " + (fallenTolerance != null));
+		
 	}
 
 	/// <summary>DestinoCard's instance initialization when loaded [Before scene loads].</summary>
@@ -133,8 +133,6 @@ public class DestinoCard : MonoBehaviour
 	{
 		if(hurtBox == null) return;
 
-		Debug.Log("[DestinoCard] Card Falled, tolerance will last " + fallenDuration + " seconds.");
-
 		Vector3 hurtBoxPosition = transform.position;
 		hurtBoxPosition.z = 0.0f;
 
@@ -147,7 +145,6 @@ public class DestinoCard : MonoBehaviour
 	/// <summary>Callback invoked when the Fallen tolerance finishes.</summary>
 	private void OnFallenToleranceFinished()
 	{
-		Debug.Log("[DestinoCard] Card tolerance finished. coming back to Destino...");
 		hurtBox.Activate(false);
 		if(onCardEvent != null) onCardEvent(this, DestinoCardEvent.FallenToleranceFinished);
 	}

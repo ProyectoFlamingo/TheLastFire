@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -226,6 +226,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1357492255315632402, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _projectileID.index
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632402, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _chargedProjectileID.index
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2440752674727153257, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_Color.a
@@ -464,7 +474,7 @@ GameObject:
   - component: {fileID: 1809673369}
   - component: {fileID: 1809673370}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SplashScreenController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,6 +506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab6930787efe3147b97b20ac23a02f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sceneName: Scene_Template_TrainingGround
   _fadeOutDuration: 3
   _defaultWait: 3
 --- !u!1 &2030660789

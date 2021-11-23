@@ -6,18 +6,32 @@ using Voidless;
 
 namespace Flamingo
 {
+public enum CameraFollowingConstraints
+{
+	Unconstrained,
+	BoundaryConstrained
+}
+
 [RequireComponent(typeof(VCameraDisplacementFollow))]
 [RequireComponent(typeof(Boundaries2DDelimiter))]
 [RequireComponent(typeof(MiddlePointBetweenTransformsTargetRetriever))]
 [RequireComponent(typeof(Boundaries2DContainer))]
 public class GameplayCameraController : VCamera
 {
+	private CameraFollowingConstraints _constraints; 									/// <summary>Camera's Constraints.</summary>
 	private VCameraDisplacementFollow _displacementFollow; 								/// <summary>VCameraDisplacementFollow's Component.</summary>
 	private Boundaries2DDelimiter _boundariesDelimiter; 								/// <summary>Boundaries2DDelimiter's Component.</summary>
 	private MiddlePointBetweenTransformsTargetRetriever _middlePointTargetRetriever; 	/// <summary>MiddlePointBetweenTransformsTargetRetriever's Component.</summary>
 	private Boundaries2DContainer _boundariesContainer; 								/// <summary>Boundaries2DContainer's Component.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets and Sets constraints property.</summary>
+	public CameraFollowingConstraints constraints
+	{
+		get { return _constraints; }
+		set { _constraints = value; }
+	}
+
 	/// <summary>Gets displacementFollow Component.</summary>
 	public VCameraDisplacementFollow displacementFollow
 	{ 
@@ -66,7 +80,7 @@ public class GameplayCameraController : VCamera
 
 		Vector3 target = targetRetriever.GetTargetPosition();
 
-		if(delimiters != null) foreach(VCameraDelimiter delimiter in delimiters.Values)
+		if(delimiters != null && constraints == CameraFollowingConstraints.BoundaryConstrained) foreach(VCameraDelimiter delimiter in delimiters.Values)
 		{
 			target = delimiter.Delimited(target);
 		}

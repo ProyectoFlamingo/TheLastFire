@@ -151,12 +151,10 @@ namespace Flamingo
                    
                 if (Physics2D.OverlapCircle(new Vector2(new_x,new_y),overlapRadius,ringMask)) 
                 {
-                    Debug.Log("One has overlapping ");
                     continue;
                 }
                 else
                 {
-                    Debug.Log("Good To go");
                     PoolGameObject TempRing = PoolManager.RequestPoolGameObject(ringIndex, spawnPoint, Quaternion.Euler(0f, 0f, RandomRotation()));
                     ringList.Add(TempRing);
 

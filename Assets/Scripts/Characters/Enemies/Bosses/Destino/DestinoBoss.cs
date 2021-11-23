@@ -406,8 +406,6 @@ public class DestinoBoss : Boss
 			case ID_EVENT_NONE:
 			break;
 		}
-		
-		//Debug.Log("[DestinoBoss] Invoked Build-Up Rotation Event " + _event.ToString() + " with ID: " + _ID);
 	}
 
 	/// <summary>Callback invoked whan an Animation Attack event occurs.</summary>
@@ -483,7 +481,6 @@ public class DestinoBoss : Boss
 	/// <summary>Throws Removable Head into floor.</summary>
 	private void ThrowHeadIntoFloor()
 	{
-		Debug.Log("[DestinoBoss] Throwing Head...");
 		rigHead.gameObject.SetActive(false);
 		removableHead.gameObject.SetActive(true);
 		removableHead.SetParent(null);
@@ -570,8 +567,6 @@ public class DestinoBoss : Boss
 			lookRotation = Quaternion.LookRotation(rigHead.up);
 			_card.transform.rotation = Quaternion.Slerp(_card.transform.rotation, lookRotation, Time.deltaTime * _card.rotationDuration);
 			_card.transform.position += (direction.normalized * _card.slashSpeed * Time.deltaTime);
-
-			//Debug.Log("[DestinoBoss] Card close to head: " + (!activatedEvent && distance <= minDistance));
 
 			if(!activatedEvent && distance <= minDistance)
 			{ /// Call the head's throwing routine just once:

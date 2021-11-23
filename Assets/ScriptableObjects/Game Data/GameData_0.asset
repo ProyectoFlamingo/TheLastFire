@@ -77,12 +77,23 @@ MonoBehaviour:
     _value: 8
     _name: Surface
     index: 5
-  _projectiles: []
-  _playerProjectiles:
-  - {fileID: 6441458002429525075, guid: cceb42b80d7bb4d42ad1cb6e830c5a4b, type: 3}
-  - {fileID: 8271858034072766596, guid: 6410736574034c8419a8afe9766e808e, type: 3}
-  - {fileID: 8271858034072766596, guid: 69bd56b9b3c584c49b741e1ce57113e8, type: 3}
+  _projectiles:
   - {fileID: 8271858034072766596, guid: 95723413e0f437d4e93f5798e3121470, type: 3}
+  - {fileID: 8271858034072766596, guid: 69bd56b9b3c584c49b741e1ce57113e8, type: 3}
+  - {fileID: 7381935805205219674, guid: 0dfb82171f0f48a439f888291821ed6d, type: 3}
+  - {fileID: 3776002058642984422, guid: d3af5c0f01cb90642b38554e3254f35d, type: 3}
+  - {fileID: 2306116881200870646, guid: f51e2828ef1fa8b4d853a93e53bfb622, type: 3}
+  - {fileID: 3776002058642984422, guid: 0ad5472267bf0cd4f93b3848dddd2929, type: 3}
+  - {fileID: 2632912931191212319, guid: d34c65e5215495749b3c218e3d5a7d4b, type: 3}
+  - {fileID: 3571803949416437869, guid: bdf44366f21f2ee47bd94b1b19e29f1e, type: 3}
+  - {fileID: 1822210689705678102, guid: 0dfbc17cfc0cf934a8c089f8df53bb4d, type: 3}
+  - {fileID: 7807340246942760897, guid: 725cffea4e893ff489930583db4101d6, type: 3}
+  - {fileID: 7807340246942760897, guid: 2ad02a0b9d3e89248ba013e0175113d2, type: 3}
+  - {fileID: 5051148109742244886, guid: 679901165b16f984c96a28bfb1cb3396, type: 3}
+  - {fileID: 653572736473320296, guid: 028be9ba5f0684a4cb4619f942c4f6e9, type: 3}
+  _playerProjectiles:
+  - {fileID: 8271858034072766596, guid: 95723413e0f437d4e93f5798e3121470, type: 3}
+  - {fileID: 8271858034072766596, guid: 69bd56b9b3c584c49b741e1ce57113e8, type: 3}
   _enemyProjectiles:
   - {fileID: 7381935805205219674, guid: 0dfb82171f0f48a439f888291821ed6d, type: 3}
   - {fileID: 3776002058642984422, guid: d3af5c0f01cb90642b38554e3254f35d, type: 3}

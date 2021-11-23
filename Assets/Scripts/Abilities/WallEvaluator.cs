@@ -130,7 +130,6 @@ public class WallEvaluator : MonoBehaviour
 		{
 			SurfaceType surfaceType = Game.EvaluateSurfaceType(wallInfo.normal);
 			walled = surfaceType == SurfaceType.Wall;
-			//Debug.Log("[WallEvaluator] SurfaceType: " + surfaceType.ToString());
 		}
 		else walled = false;
 

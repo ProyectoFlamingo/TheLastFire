@@ -50,7 +50,6 @@ public class RandomDistributionSystem
 	/// <returns>Random Index.</returns>
 	public int GetRandomIndex()
 	{
-		StringBuilder builder = new StringBuilder();
 		ProbabilityRange probabilityRange = default(ProbabilityRange);
 		int length = probabilityRanges.Length;
 		float min = Mathf.Infinity;
@@ -71,20 +70,10 @@ public class RandomDistributionSystem
 			probabilityRange.scale = (min + 1.0f) / (probabilityRange.repetitions + 1.0f);
 			max += (probabilityRange.range.GetLength() * probabilityRange.scale);
 			probabilityRanges[i] = probabilityRange;
-
-			builder.Append("Max's current value at iteration #" );
-			builder.Append(i.ToString());
-			builder.Append(": ");
-			builder.AppendLine(max.ToString());
 		}
 
 		random = Random.Range(0.0f, max);
 		min = 0.0f;
-
-		builder.AppendLine();
-		builder.Append("Random Value: ");
-		builder.AppendLine(random.ToString());
-		builder.AppendLine();
 
 		/// Evaluate if the random value is within any of the ProbabilityRanges:
 		for(int i = 0; i < length; i++)
@@ -92,18 +81,6 @@ public class RandomDistributionSystem
 			probabilityRange = probabilityRanges[i];
 			float scale = probabilityRange.scale;
 			max = (min + (probabilityRange.range.GetLength() * scale));
-
-			builder.Append("Evaluation at iteration #");
-			builder.Append(i.ToString());
-			builder.AppendLine(": ");
-			builder.Append(min.ToString());
-			builder.Append(" >= ");
-			builder.Append(random.ToString());
-			builder.Append(" <= ");
-			builder.Append(max.ToString());
-			builder.Append(" ? ");
-
-			//Debug.Log(builder.ToString());
 
 			if(random >= min && random <= max)
 			{
@@ -121,14 +98,6 @@ public class RandomDistributionSystem
 		probabilityRange =  probabilityRanges[gayRandom];
 		probabilityRange.repetitions++;
 		probabilityRanges[gayRandom] = probabilityRange;
-
-		//StringBuilder builder = new StringBuilder();
-
-		/*builder.AppendLine("ERROR REPORT: ");
-		builder.AppendLine*/
-		//Debug.LogError("[RandomDistributionSystem] YOUR CODE IS TRASH. PLEASE VERIFY THE ALGORITHM IS CORRECT...MAX: " + max + ", RANDOM: " + random + ", PROBABILITY MAX: " + probabilityRange.max + ", SCALE: " + probabilityRange.scale);
-
-		Debug.LogError("[RandomDistributionSystem] ERROR: " + builder.ToString());
 
 		return gayRandom;
 	}

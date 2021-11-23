@@ -97,6 +97,12 @@ public class GameplayGUIController : MonoBehaviour
 	public bool onTransition { get { return coroutine != null; } }
 #endregion
 
+	/// <summary>Callback invoked when GameplayGUIController's instance is disabled.</summary>
+	private void OnDisable()
+	{
+		
+	}
+
 	/// <summary>GameplayGUIController's instance initialization.</summary>
 	private void Awake()
 	{

@@ -72,7 +72,6 @@ public class RingMadnessSceneController : Singleton<RingMadnessSceneController>
 	{
 		int index = soundEffectIndex;
 		AudioController.PlayOneShot(SourceType.Scenario, 0, index);
-		Debug.Log("[RingMadnessSceneController] Score completed, bring *Out* the umbrellas, I am wet.");
 		/// Do what it must be made in order for the players (a.k.a. Rodo's friends) know they are champs.
 	}
 }

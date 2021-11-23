@@ -11,9 +11,7 @@ public static class VLineRenderer
 	{
 		int points = 3;
 	    float radian = a * Mathf.Deg2Rad;
-	    //Debug.Log("Rad:\t" + radian + " Angle:\t" + (Mathf.Rad2Deg * radian) );
 	    float radianFract = radian / (float)points;
-	    //Debug.Log("Fract:\t" + radianFract);
 	    Vector3 center = _lineRenderer.transform.position;    //Where unit stands
 	     
 	    _lineRenderer.SetVertexCount(points + 3);    //Add start/finish points

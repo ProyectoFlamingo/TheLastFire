@@ -359,8 +359,6 @@ public class ShantySceneController : Singleton<ShantySceneController>
 				}));
 				break;
 			}
-
-			Debug.Log("[ShantySceneController] Shanty Stage Changed to: " + stageID);
 			break;
 
 			case Boss.ID_EVENT_BOSS_DEATHROUTINE_BEGINS:

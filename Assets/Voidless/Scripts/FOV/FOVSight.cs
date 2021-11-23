@@ -141,7 +141,6 @@ public class FOVSight : MonoBehaviour
 
 		GameObject obj = col.gameObject;
 
-		//Debug.Log("[FOVSight] TAG: " + obj.tag);
 		/*if(obj.layer == masks)
 		{
 			if(onTriggeredWithGameObject != null) onTriggeredWithGameObject(obj);

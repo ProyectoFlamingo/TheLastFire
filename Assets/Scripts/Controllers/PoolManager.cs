@@ -79,9 +79,11 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested Projectile.</returns>
 	public static Projectile RequestProjectile(Faction _faction, int _ID, Vector3 _position, Vector3 _direction, GameObject _object = null)
 	{
-		GameObjectPool<Projectile> factionPool = _faction == Faction.Ally ?
+		/*GameObjectPool<Projectile> factionPool = _faction == Faction.Ally ?
 			Instance.playerProjectilesPools[_ID] : Instance.enemyProjectilesPools[_ID];
-		Projectile projectile = factionPool.Recycle(_position, Quaternion.identity);
+		Projectile projectile = factionPool.Recycle(_position, Quaternion.identity);*/
+		GameObjectPool<Projectile> pool = Instance.projectilesPools[_ID];
+		Projectile projectile = pool.Recycle(_position, Quaternion.identity);
 		string tag = _faction == Faction.Ally ? Game.data.playerProjectileTag : Game.data.enemyProjectileTag;
 
 		if(projectile == null) return null;
@@ -93,6 +95,7 @@ public class PoolManager : Singleton<PoolManager>
 		projectile.direction = _direction.normalized;
 		projectile.gameObject.tag = tag;
 		projectile.owner = _object;
+		if(projectile.transform.parent != pool.poolGroup) projectile.transform.parent = null;
 
 		foreach(HitCollider2D hitBox in projectile.impactEventHandler.hitBoxes)
 		{

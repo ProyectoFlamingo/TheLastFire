@@ -160,7 +160,7 @@ public class ParticleEffect : MonoBehaviour, IPoolObject
 	/// <summary>Updates ParticleEffect's instance at each frame.</summary>
 	private void Update()
 	{
-		//Debug.Log("[ParticleEffect] GameObject " + gameObject.name + " States: " + statesMask.GetBitChain());
+		
 	}
 
 #region ParticleSystemMethods:

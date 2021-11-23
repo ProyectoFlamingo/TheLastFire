@@ -109,17 +109,14 @@ public class Camera2DBoundariesModifierDebugger : MonoBehaviour
 
 		} else if (difference < 0)
 		{
-			//Debug.Log("[Camera2DBoundariesModifierDebugger] Count " + count + ", difference " + difference);
 			difference = Mathf.Abs(difference);
 			int x = Mathf.Max(count - difference - 1, 0);
 
 			for(int i = count - 1; i > x - 1; i--)
 			{
-				//Debug.Log("[Camera2DBoundariesModifierDebugger] Destroying...");
 				DestroyImmediate(lineRenderers[i].gameObject);
 			}
 				
-			//Debug.Log("[Camera2DBoundariesModifierDebugger] From " + x);
 			lineRenderers.RemoveRange(x, difference);
 		}
 

@@ -542,7 +542,6 @@ public static class VMath
 		if(minAMaxBMax < maxAMinBMin) return SpatialRelationship.NonIntersection;
 		if(minAMaxBMax == maxAMinBMin) return SpatialRelationship.Contact;
 
-		Debug.LogWarning("[VMath] Spatial Relationship's calculations went wrong, returning undefined relationship...");
 		return SpatialRelationship.Undefined;
 	}
 
@@ -606,7 +605,6 @@ public static class VMath
 			return sizeA + sizeB;
 
 			default:
-			Debug.LogWarning("[VMath] Something went wring, returning '0.0f'...");
 			return 0.0f;
 		}
 	}

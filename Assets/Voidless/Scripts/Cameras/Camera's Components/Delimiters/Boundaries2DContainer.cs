@@ -127,6 +127,7 @@ public class Boundaries2DContainer : MonoBehaviour
 	/// <param name="d">Duration.</param>
 	public void InterpolateTowards(Boundaries2D b, float d)
 	{
+		VDebug.Log("Invoking InterpolateTowards(", b, ", ", d, ");");
 		this.StartCoroutine(InterpolateTowardsBoundaries(b, d, OnInterpolationEnds), ref boundaries2DInterpolation);
 	}
 

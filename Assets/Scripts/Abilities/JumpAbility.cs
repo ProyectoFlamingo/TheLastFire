@@ -272,9 +272,6 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 			default:
 			break;
 		}
-
-		//Debug.Log("[JumpAbility] State: " + state.GetBitChain());
-		//Debug.Log("[JumpAbility] Entrered State: " + _state.GetBitChain());
 	}
 	
 	/// <summary>Leaves int State.</summary>

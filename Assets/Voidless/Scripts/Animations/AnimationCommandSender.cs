@@ -197,15 +197,6 @@ public class AnimationCommandSender : AnimationStateSender
         if(invokeRecovery) state |= FLAG_RECOVERY;
         if(invokeEnd) state |= FLAG_END;
 
-        /*Debug.Log("[AnimationCommandSender] Animation status: \nActive: "
-            + invokeActive
-            + "\nRecovery: "
-            + invokeRecovery
-            + "\nEnd: "
-            + invokeEnd
-            + "\nNormalized Time: "
-            + t);*/
-
         foreach(IAnimationCommandListener listener in commandListeners)
         {
             if(!invokeEnd) listener.OnStateUpdate(_animator, _stateInfo, _layerID);
@@ -270,26 +261,6 @@ public class AnimationCommandSender : AnimationStateSender
             _listener.OnStateEnd(_animator, _stateInfo, _layerID);
             break;
         }
-
-/*#if UNITY_EDITOR
-        StringBuilder builder = new StringBuilder();
-
-        builder.Append("[AnimationCommandSender] Invoking State: ");
-        builder.Append(state);
-        builder.Append(", with the following arguments: { Animator's GameObject = ");
-        builder.Append(_animator != null ? _animator.gameObject.name : "NULL Animator");
-        builder.Append(", AnimatorStateInfo = ");
-        builder.Append(_stateInfo.StateInfoToString());
-        builder.Append(", Animation Flags = ");
-        builder.Append(_flags.ToString());
-        builder.Append(", Sub-ID = ");
-        builder.Append(_subID.ToString());
-        builder.Append(", Layer's Index = ");
-        builder.Append(_layerID.ToString());
-        builder.Append(" }");
-
-        Debug.Log(builder.ToString());
-#endif*/
     }
 }
 }

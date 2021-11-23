@@ -89,7 +89,6 @@ public class PatternClassificationResult : IEnumerator<UserPatternWaypoints>
 	/// <summary>Has the Wait toleration ended?.</summary>
 	public bool TolerationEnded()
 	{
-		//Debug.Log("[PatternClassificationResult] Current Wait: " + wait.currentWait);
 		return !wait.MoveNext();
 	}
 

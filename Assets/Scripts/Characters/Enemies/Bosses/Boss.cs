@@ -139,7 +139,6 @@ public class Boss : Enemy
 	/// <summary>Begins Death's Routine.</summary>
 	protected virtual void BeginDeathRoutine()
 	{
-		Debug.Log("[Boss] Beginning Death's Routine...");
 		this.RemoveStates(ID_STATE_ALIVE);
 		if(onIDEvent != null) onIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
 		
@@ -161,8 +160,6 @@ public class Boss : Enemy
 	/// <param name="_object">GameObject that caused the event, null be default.</param>
 	protected override void OnHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
 	{
-		Debug.Log("[Boss] Health Event: " + _event.ToString() + ", at Stage: " + currentStage);
-
 		switch(_event)
 		{
 			case HealthEvent.FullyDepleted:

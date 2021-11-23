@@ -298,7 +298,6 @@ public class Projectile : ContactWeapon
 	/// <summary>Callback invoked when Projectile's instance is disabled.</summary>
 	private void OnDisable()
 	{
-		//Debug.Log("[Projectile] Projectile Disabled!");
 	}
 
 	/// <summary>Resets Projectile's instance to its default values.</summary>
@@ -403,15 +402,6 @@ public class Projectile : ContactWeapon
 	/// <param name="_ID">ID of the HitCollider2D.</param>
 	protected override void OnImpact(Trigger2DInformation _info, int _ID = 0)
 	{
-		/*Debug.Log
-		(
-			"[Projectile] "
-			+ gameObject.name
-			+ " OnImpact Invoked with ID "
-			+ _ID.ToString()
-			+ ". "
-			+ _info.ToString()
-		);*/
 		InvokeDeactivationEvent(DeactivationCause.Impacted, _info);
 	}
 
@@ -436,14 +426,6 @@ public class Projectile : ContactWeapon
 	{
 		ContactWeapon weapon = _requester.GetComponentInParent<ContactWeapon>();
 		GameObject newOwner = weapon != null  && weapon.owner != null ? weapon.owner : _requester;
-
-		Debug.Log(
-			"[Projectile] Repel Requested { Requester: "
-			+ newOwner.name
-			+ ", Current Owner: "
-			+ (owner != null ? owner.name : "NONE")
-			+ " }"
-		);
 
 		if(newOwner == null || newOwner == owner) return;
 
@@ -472,7 +454,6 @@ public class Projectile : ContactWeapon
 				velocity /= magnitude; // Normalize
 				direction = velocity;
 				speed = magnitude;
-				//Debug.DrawRay(transform.position, direction * speed, Color.magenta, 5.0f);
 			}
 			break;
 
@@ -578,8 +559,6 @@ public class Projectile : ContactWeapon
 	/// <param name="_info">Trigger2D's Information.</param>
 	public virtual void InvokeDeactivationEvent(DeactivationCause _cause, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
-		//Debug.Log("[Projectile] " + gameObject.name + " Deactivation Event. Cause: " + _cause.ToString());
-
 		switch(_cause)
 		{
 			case DeactivationCause.Impacted:

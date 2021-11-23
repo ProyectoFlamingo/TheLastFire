@@ -277,6 +277,7 @@ public class GameData : ScriptableObject
 		allWeaponsTags = new GameObjectTag[] { playerWeaponTag, enemyWeaponTag };
 		allProjectilesTags = new GameObjectTag[] { playerProjectileTag, enemyProjectileTag };
 
+/*#if UNITY_EDITOR
 		StringBuilder builder = new StringBuilder();
 
 		builder.AppendLine("Initializing Game's Data...");
@@ -287,7 +288,8 @@ public class GameData : ScriptableObject
 		builder.Append("Fixed Delta Time: ");
 		builder.Append(Time.fixedDeltaTime);
 
-		//Debug.Log(builder.ToString());
+		VDebug.Log(builder.ToString());
+#endif*/
 	}
 
 	/// <summary>Resets FSM Loop's States.</summary>

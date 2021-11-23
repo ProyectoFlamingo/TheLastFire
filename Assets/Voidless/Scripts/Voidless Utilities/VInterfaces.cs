@@ -36,7 +36,6 @@ public static class VInterfaces
 	/// <param name="_state">New State to enter.</param>
 	public static void ChangeState<T>(this IFiniteStateMachine<T> _fsm, T _state)
 	{
-		//Debug.Log("[VInterfaces] Calling IFiniteStateMachine<T>'s ChangeState(T)...");
 		_fsm.previousState = _fsm.state;
 		_fsm.OnExitState(_fsm.state);
 		_fsm.OnEnterState(_fsm.state = _state);
@@ -61,16 +60,6 @@ public static class VInterfaces
 		int states = _sm.state;
 		int addedStates = (~states & _state);
 		int removedStates = (states & ~_state);
-
-		/*Debug.Log(
-		"[VInterfaces] State Chain: "
-		+ states.GetBitChain()
-		+ "\nNew State: "
-		+ _state.GetBitChain()
-		+ "\nStates Added: "
-		+ addedStates.GetBitChain()
-		+ "\nStates Removed: "
-		+ removedStates.GetBitChain());*/
 
 		_sm.previousState = states;
 		_sm.state = _state;
@@ -132,11 +121,11 @@ public static class VInterfaces
 	public static void AddStates(this IStateMachine _sm, int _states)
 	{
 		int states = _sm.state;
+		int addedStates = ~states & _states;
 
 		_sm.previousState = states;
 		_sm.state |= _states;
 
-		int addedStates = ~states & _states;
 		if(addedStates != 0) _sm.OnStatesAdded(addedStates); /// Get Added [not previously on] Flags: ~a & b 
 	}
 
@@ -146,12 +135,12 @@ public static class VInterfaces
 	public static void RemoveStates(this IStateMachine _sm, int _states)
 	{
 		int states = _sm.state;
+		int removedStates = states & _states;
 
 		_sm.previousState = states;
 		states &= ~_states; /// Remove flags: a & ~b
 		_sm.state = states;
-
-		int removedStates = states & _states;
+		
 		if(removedStates != 0) _sm.OnStatesRemoved(removedStates); /// Get Removed [previously on] Flags: a & b
 	}
 

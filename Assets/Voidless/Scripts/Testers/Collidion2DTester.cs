@@ -75,8 +75,9 @@ public class Collidion2DTester : MonoBehaviour
 		builder.Append(", GameObject: ");
 		builder.Append(collision.gameObject.name);
 		builder.Append(" }");
-
+#if UNITY_EDITOR
 		Debug.Log(builder.ToString());
+#endif
 	}
 }
 }

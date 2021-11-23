@@ -151,8 +151,6 @@ public class MateoController : CharacterController<Mateo>
 			}
 		}
 
-		Debug.DrawRay(character.transform.position, fireDirection * 10f, Color.cyan);
-
 		character.OnLeftAxesChange(leftAxes);
 		character.OnRightAxesChange(rightAxes);
 	}
@@ -174,7 +172,6 @@ public class MateoController : CharacterController<Mateo>
 	private void OnJumpActionPerformed(InputAction.CallbackContext _context)
 	{
 		if(Game.state != GameState.Playing) return;
-		//Debug.Log("[MateoController] Jump Performed....");
 		inputFlags |= FLAG_INPUT_JUMP;
 	}
 

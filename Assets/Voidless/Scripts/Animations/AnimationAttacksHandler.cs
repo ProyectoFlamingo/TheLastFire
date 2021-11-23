@@ -114,15 +114,12 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 		previousComboIndex = _index;
 		CancelAttackWindow();
 
-		//Debug.Log("[AnimationAttacksHandler] Accepted Attack, State: " + state.ToString() + ", and ID: " + attackID);
-
 		return true;
 	}
 
 	/// <summary>Cancels Attack.</summary>
 	public void CancelAttack()
 	{
-		//Debug.Log("[AnimationAttacksHandler] Cancelling Attack...");
 		CancelAttackWindow();
 		CancelAttackHandler();
 		state = AttackState.None;
@@ -132,20 +129,12 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 	/// <summary>Cancels Attack's Window.</summary>
 	private void CancelAttackWindow()
 	{
-		/*Debug.Log("[AnimationAttacksHandler] Canceling Attack Window at Attack ID: "
-			+ attackID
-			+ " and State: "
-			+ state.ToString());*/
 		this.DispatchCoroutine(ref attackWindow);
 	}
 
 	/// <summary>Cancels Attack's Handler.</summary>
 	private void CancelAttackHandler()
 	{
-		/*Debug.Log("[AnimationAttacksHandler] Canceling Attack Handler at Attack ID: "
-			+ attackID
-			+ " and State: "
-			+ state.ToString());*/
 		this.DispatchCoroutine(ref attackHandler);
 	}
 
@@ -176,16 +165,7 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 	/// <param name="_layerID">Layer's Index on the State Machine.</param>
     public void OnStateEnter(Animator _animator, AnimatorStateInfo _stateInfo, int _layerID)
 	{
-		/*Debug.Log("[AnimationAttacksHandler] Entering State: "
-			+ _stateInfo.GetAnimatorStateName(names)
-			+ " with Attack ID "
-			+ attackID
-			+ " and state (before Attacking) "
-			+ state.ToString()
-			+ ", normalized time: "
-			+ _stateInfo.normalizedTime);
-		state = AttackState.Attacking;
-		CancelAttackWindow();*/
+
 	}
 
     /// <summary>OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks.</summary>
@@ -194,10 +174,7 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 	/// <param name="_layerID">Layer's Index on the State Machine.</param>
     public void OnStateUpdate(Animator _animator, AnimatorStateInfo _stateInfo, int _layerID)
 	{
-		/*Debug.Log("[AnimationAttacksHandler] Updating State: "
-			+ _stateInfo.GetAnimatorStateName(names)
-			+ " And State: "
-			+ state.ToString());*/
+
 	}
 
     /// <summary>OnStateExit is called when a transition ends and the state machine finishes evaluating this state.</summary>
@@ -206,13 +183,7 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 	/// <param name="_layerID">Layer's Index on the State Machine.</param>
     public void OnStateExit(Animator _animator, AnimatorStateInfo _stateInfo, int _layerID)
     {
-    	/*Debug.Log("[AnimationAttacksHandler] Leaving State: "
-			+ _stateInfo.GetAnimatorStateName(names)
-			+ ", with Attack ID "
-			+ attackID
-			+ ", normalized time: "
-			+ _stateInfo.normalizedTime);*/
-    	//CancelAttackWindow();
+
     }
 
     /// <summary>OnStateEnd is called when an animation ends.</summary>
@@ -221,7 +192,6 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
     /// <param name="_layerID">Layer's Index on the State Machine.</param>
     public void OnStateEnd(Animator _animator, AnimatorStateInfo _stateInfo, int _layerID)
     {
-    	Debug.Log("[AnimationAttacksHandler] Calling End with ID: " + attackID);
     	CancelAttack();
     	InvokeAnimationAttackEvent(AnimationCommandState.End);
     }
@@ -287,7 +257,6 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
     /// <param name="_layerID">Layer's Index on the State Machine.</param>
     public void OnAdditionalWindow(Animator _animator, AnimatorStateInfo _stateInfo, float _duration, AnimationFlags _flags, int _subID, int _layerID)
     {
-    	Debug.Log("[AnimationAttacksHandler] Calling Window with ID: " + attackID);
     	state = AttackState.AttackWindow;
     	this.StartCoroutine(AttackWindow(_duration, attackID), ref attackWindow);
     }
@@ -351,7 +320,6 @@ public class AnimationAttacksHandler : MonoBehaviour, IAnimationCommandListener
 		while(wait.MoveNext()) yield return null;
 		if(state == AttackState.AttackWindow || attackID == _ID)
 		{
-			Debug.Log("[AnimationAttacksHandler] Cancelling and invoking End inside Window's Coroutine...");
 			CancelAttack();
 			InvokeAnimationAttackEvent(AnimationCommandState.End);
 		}

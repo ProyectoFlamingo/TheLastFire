@@ -196,7 +196,6 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 				}));
 
-				Debug.Log("[DevilBehavior] GameObject " + _health.name + "'s Health was depleted.");
 				break;
 			}
 		};

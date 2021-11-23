@@ -97,11 +97,7 @@ public class HPBarGUI : BaseGUI<IVitality>
 			scaleAxes.HasFlag(Axes3D.Z) ? normalizedScale : 1.0f
 		);
 
-			if (healthGauge == null) {
-				Debug.LogWarningFormat("{0} no tiene asignado healthGauge.", name);
-			} else {
-				healthGauge.localScale = newScale;
-			}
+		if (healthGauge != null) healthGauge.localScale = newScale;
 
 		if(displaceHealthBar != null) displaceHealthBar.EndBehavior();
 		displaceHealthBar = new Behavior(this, DisplaceHealthBar(_HPData.HP));
@@ -116,9 +112,7 @@ public class HPBarGUI : BaseGUI<IVitality>
 
 		while(normalizedTime < 1.0f)
 		{
-				if (healthGauge != null) {
-					bloodGauge.localScale = Vector3.Lerp(originalBloodScale, healthGauge.localScale, normalizedTime);
-				}
+			if (healthGauge != null) bloodGauge.localScale = Vector3.Lerp(originalBloodScale, healthGauge.localScale, normalizedTime);
 			normalizedTime += ((Time.deltaTime / bloodDisplacementSpeed) * normalizedSpeed);
 			yield return null;
 		}

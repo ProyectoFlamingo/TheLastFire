@@ -66,8 +66,6 @@ public class TEST_TrigonometicFunctions : MonoBehaviour
                 float vSin = VMath.SinInterpolation(i);
                 float mSin = Mathf.Sin(i * Mathf.Deg2Rad);
                 float dif = Mathf.Abs(mSin - vSin);
-                
-                Debug.Log("SIN difference in value : " + i + " : \n" + dif);
             }
            
     }
@@ -79,8 +77,6 @@ public class TEST_TrigonometicFunctions : MonoBehaviour
                 float vCos = VMath.CosInterpolation(i);
                 float mCos = Mathf.Cos(i * Mathf.Deg2Rad);
                 float dif = Mathf.Abs(mCos - vCos);
-
-                Debug.Log("COS difference in value : " + i + " : \n" + dif);
             }
     }
 
@@ -91,8 +87,6 @@ public class TEST_TrigonometicFunctions : MonoBehaviour
             float vTan = VMath.TanInterpolation(i);
             float mTan = Mathf.Tan(i * Mathf.Deg2Rad);
             float dif = Mathf.Abs(mTan - vTan);
-
-            Debug.Log("TAN difference in value : " + i + " : \n" + dif);
         }
     }
     }

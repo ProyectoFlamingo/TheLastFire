@@ -29,14 +29,16 @@ public class EnemyEventsHandler : EventsHandler
 	/// <param name="_info">Trigger2D's Information.</param>
 	public void InvokeEnemyDeactivationEvent(Enemy _enemy, DeactivationCause _cause, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
-		Debug.Log(
-			"[EnemyEventsHandler] "
-			+ gameObject.name
-			+ " invoked Deactivation Event. Cause: "
-			+ _cause.ToString()
-			+ ", "
-			+ _info.ToString()
+#if UNITY_EDITOR
+		VDebug.Log(
+			"[EnemyEventsHandler] ",
+			gameObject.name,
+			" invoked Deactivation Event. Cause: ",
+			_cause.ToString(),
+			", ",
+			_info.ToString()
 		);
+#endif
 		if(onEnemyDeactivated != null) onEnemyDeactivated(_enemy, _cause, _info);
 	}
 
@@ -46,14 +48,16 @@ public class EnemyEventsHandler : EventsHandler
 	/// <param name="_info">Trigger2D's Information.</param>
 	protected void InvokeEnemyEvent(Enemy _enemy, int _ID, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
-		Debug.Log(
-			"[EnemyEventsHandler] "
-			+ gameObject.name
-			+ " invoked Enemy Event. ID: "
-			+ _ID.ToString()
-			+ ", "
-			+ _info.ToString()
+#if UNITY_EDITOR
+		VDebug.Log(
+			"[EnemyEventsHandler] ",
+			gameObject.name,
+			" invoked Enemy Event. ID: ",
+			_ID.ToString(),
+			", ",
+			_info.ToString()
 		);
+#endif
 		if(onEnemyEvent != null) onEnemyEvent(_enemy, _ID, _info);
 	}
 }

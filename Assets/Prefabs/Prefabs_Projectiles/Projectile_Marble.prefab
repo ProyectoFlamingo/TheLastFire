@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7381935805205219674}
   - component: {fileID: -886662376399747577}
   - component: {fileID: 2288381669426326840}
+  - component: {fileID: -346516117526479650}
+  - component: {fileID: -7789350023202376534}
   m_Layer: 0
   m_Name: Projectile_Marble
   m_TagString: Projectile/Enemy
@@ -87,6 +89,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _meshContainer: {fileID: 0}
   _healthAffectableTags:
   - _tag: Player
     index: 5
@@ -98,7 +101,15 @@ MonoBehaviour:
     index: 5
   - _tag: Weapon/Player
     index: 9
+  - _tag: Surface/Floor
+    index: 13
+  - _tag: Surface/Wall
+    index: 14
+  - _tag: Surface/Ceiling
+    index: 15
   _trailRenderers: []
+  _particleEffects: []
+  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
@@ -116,12 +127,13 @@ MonoBehaviour:
     index: 6
     objectIndex: 0
     collectionIndex: 6
+  _sourceIndex: 0
   _impactSoundEffectIndex:
-    index: 37
+    index: 18
     objectIndex: 0
     collectionIndex: 5
   _destroyedSoundEffectIndex:
-    index: 37
+    index: 18
     objectIndex: 0
     collectionIndex: 5
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -151,7 +163,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
+--- !u!114 &-346516117526479650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001964287644889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors: []
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.1
+--- !u!114 &-7789350023202376534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001964287644889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 0, y: 0, z: 0}
+  _centerOffset: {x: 0, y: 0, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &6142866956978619754
 GameObject:
   m_ObjectHideFlags: 0

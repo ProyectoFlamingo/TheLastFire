@@ -161,7 +161,6 @@ public class GravityApplier : MonoBehaviour
 		{
 			SurfaceType surfaceType = Game.EvaluateSurfaceType(hitInfo.normal);
 			grounded = surfaceType == SurfaceType.Floor;
-			//Debug.Log("[GravityApplier] Surface Type: " + surfaceType.ToString());
 		}
 		else grounded = false;
 

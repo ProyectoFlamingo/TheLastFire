@@ -21,7 +21,6 @@ namespace Flamingo {
 
         public void MiniGameEvent(MiniGame miniGame, int ID)
         {
-            Debug.Log("Initialize");
 
         }
 

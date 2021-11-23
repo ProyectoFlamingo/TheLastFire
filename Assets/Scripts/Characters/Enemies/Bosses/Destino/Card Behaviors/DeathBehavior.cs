@@ -132,7 +132,6 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			yield break;
 		}
 
-		Debug.Log("[DeathBehavior] Playing...");
 		bool scytheAttackEnded = false;
 		ContactWeapon scythe = boss.scythe;
 		Animator scytheAnimator = scythe.GetComponent<Animator>();
@@ -204,15 +203,12 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			    scytheAttackEnded = true;
 			    break;
 			}
-
-			//Debug.Log("[DeathBehavior] Animation Attack Event: " + _state.ToString());
 		};
 
 		scythe.gameObject.SetActive(true);
 
 		scytheAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		scytheAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;
-		Debug.Log("[DeathBehavior] Destino current stage: " + dataSetIndex);
 		scytheAttacksHandler.BeginAttack(dataSetIndex);
 		scytheAnimator.SetInteger(scytheAttackIDCredential, dataSetIndex);
 

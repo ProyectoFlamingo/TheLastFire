@@ -505,7 +505,6 @@ public class InputController : Singleton<InputController>
 		return Physics.Raycast(ray, out _hit, _distance, _layerMask);
 #else
 		_hit = default(RaycastHit);
-		Debug.LogWarning("[InputController] Cannot detect click on this platform.");
 		return false;
 #endif  
 	}
@@ -716,7 +715,6 @@ public class InputController : Singleton<InputController>
 		return Physics.Raycast(ray, out _hit, _distance, _layerMask);
 #else
 		_hit = default(RaycastHit);
-		Debug.LogWarning("[InputController] Cannot detect touch on this platform.");
 		return false;
 #endif
 	}
@@ -743,7 +741,6 @@ public class InputController : Singleton<InputController>
 		return (_hit.collider != null);
 #else
 		_hit = default(RaycastHit2D);
-		Debug.LogWarning("[InputController] Cannot detect touch on this platform.");
 		return false;
 #endif
 	}
@@ -788,16 +785,6 @@ public class InputController : Singleton<InputController>
 		NpadId ID = _playerID.ToNpadID();
 		NpadButton remappedButton = VNintendoSwitch.IDStyleToNpadButton(ID, button);
 
-		/*Debug.Log
-		(
-			"[InputController] Button Begin Debug: "
-			+ "\nPrevious Buttons DOES NOT INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.preButtons | remappedButton) != state.preButtons)
-			+ "\nCurrent Buttons INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.buttons | remappedButton) == state.buttons)
-			+ "\nReturning: " + ((state.preButtons | remappedButton) != state.preButtons && (state.buttons | remappedButton) == state.buttons)
-		);*/
-
 		return state.GetButtonDown(remappedButton);
 		return (state.preButtons | remappedButton) != state.preButtons
 		&& (state.buttons | remappedButton) == state.buttons;
@@ -810,16 +797,6 @@ public class InputController : Singleton<InputController>
 		NpadId ID = _playerID.ToNpadID();
 		NpadButton remappedButton = VNintendoSwitch.IDStyleToNpadButton(ID, button);
 
-		/*Debug.Log
-		(
-			"[InputController] Button Stay Debug: "
-			+ "\nPrevious Buttons INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.preButtons | remappedButton) == state.preButtons)
-			+ "\nCurrent Buttons INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.buttons | remappedButton) == state.buttons)
-			+ "\nReturning: " + ((state.preButtons | remappedButton) == state.preButtons && (state.buttons | remappedButton) == state.buttons)
-		);*/
-
 		return state.GetButton(remappedButton);
 		return (state.preButtons | remappedButton) == state.preButtons
 		&& (state.buttons | remappedButton) == state.buttons;
@@ -831,16 +808,6 @@ public class InputController : Singleton<InputController>
 		NintendoSwitchButton button = Instance.inputMapping.NintendoSwitchControllerSetup.keyMapping[_inputID];
 		NpadId ID = _playerID.ToNpadID();
 		NpadButton remappedButton = VNintendoSwitch.IDStyleToNpadButton(ID, button);
-
-		/*Debug.Log
-		(
-			"[InputController] Button End Debug: "
-			+ "\nPrevious Buttons INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.preButtons | remappedButton) == state.preButtons)
-			+ "\nCurrent Buttons DOES NOT INCLUDE " + remappedButton.ToString() + "? "
-			+ ((state.buttons | remappedButton) != state.buttons)
-			+ "\nReturning: " + ((state.preButtons | remappedButton) == state.preButtons && (state.buttons | remappedButton) != state.buttons)
-		);*/
 
 		return state.GetButtonUp(remappedButton);
 		return (state.preButtons | remappedButton) == state.preButtons

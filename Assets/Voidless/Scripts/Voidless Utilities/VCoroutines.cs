@@ -312,7 +312,6 @@ public static class VCoroutines
 	{
 		while(true)
 		{
-			Debug.Log("[VCoroutines] ROTATING");
 			_transform.Rotate(_axis, _rotation * Time.deltaTime, _space);
 			yield return null;
 		}
@@ -861,8 +860,6 @@ public static class VCoroutines
 		AnimatorStateInfo state = _animator.GetCurrentAnimatorStateInfo(_layer);
 		SecondsDelayWait wait = new SecondsDelayWait(state.length + _additionalWait);
 
-		Debug.Log("[VCoroutines] Play will wait: " + (state.length + _additionalWait));
-
 		while(wait.MoveNext()) yield return null;
 
 		if(onWaitEnds != null) onWaitEnds();
@@ -890,8 +887,7 @@ public static class VCoroutines
 
 		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
 		AnimatorTransitionInfo transitionInfo = _animator.GetAnimatorTransitionInfo(_layerIndex);
-		/*Debug.Log("[VCoroutines] StateInfo Length: " + info.length);
-		Debug.Log("[VCoroutines] TransitionInfo Length: " + transitionInfo.duration);*/
+
 		SecondsDelayWait wait = new SecondsDelayWait(transitionInfo.duration * info.length);
 
 		while(wait.MoveNext()) yield return null;
@@ -899,7 +895,6 @@ public static class VCoroutines
 		info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
 		wait.ChangeDurationAndReset(info.length);
 
-		//Debug.Log("[VCoroutines] StateInfo Length [After Waiting]: " + info.length);
 
 		while(wait.MoveNext()) yield return null;
 
@@ -979,12 +974,6 @@ public static class VCoroutines
 
 		while(animationState.normalizedTime < 1.0f)
 		{
-			Debug.Log(
-				"[VCoroutines] AnimationClip "
-				+ animationState.clip.name
-				+ " Normalized Time: "
-				+ animationState.normalizedTime
-			);
 			yield return null;
 		}
 
@@ -1010,37 +999,16 @@ public static class VCoroutines
 		float time = (f * dt) / state.speed; 					/// Time in frames it will take to reach the desired frame.
 		float difference = _duration - time;
 
-		/*Debug.Log(
-			"[VCoroutines] Frame:"
-			+ f
-			+ ", Frame Rate: "
-			+ _clip.frameRate
-			+ ", Delta Time (1.0/fr): "
-			+ dt
-			+ ", Time ([f * dt / speed]): "
-			+ time
-			+ ", Duration: "
-			+ _duration
-			+ ", Difference: "
-			+ difference
-			+ ", Speed: "
-			+ state.speed
-		);*/
-
 		if(difference > 0.0f)
 		{ /// Duration lasts more than the desired frame.
-			//Debug.Log("[VCoroutines] Time before wait: " + Time.time);
 			wait.ChangeDurationAndReset(difference - Time.deltaTime);
 			while(wait.MoveNext()) yield return null;
-			//Debug.Log("[VCoroutines] Time after wait: " + Time.time);
 
 		} else if(difference < 0.0f)
 		{ /// Time towards desired frame lasts more than duration.
 			state.speed = time / _duration; 					/// Make speed faster so it synchs with time.
-			//Debug.Log("[VCoroutines] Speed adjusted to " + state.speed.ToString());
 		}
 
-		//Debug.Log("[VCoroutines] Time before playing animation: " + Time.time);
 		_animation.Play(_clip);
 		wait.ChangeDurationAndReset(state.length * state.speed);
 		while(wait.MoveNext()) yield return null;

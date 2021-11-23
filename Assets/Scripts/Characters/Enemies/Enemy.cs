@@ -191,15 +191,6 @@ public class Enemy : PoolGameObject, IStateMachine
 			//OnObjectDeactivation();
 			break;
 		}
-
-		Debug.Log(
-		"[Enemy] Invoked Health Event: "
-		+ _event.ToString()
-		+ "\nWith amount: "
-		+ _amount
-		+ "\nDamaged by: "
-		+ _object.name
-		);
 	}
 #endregion
 

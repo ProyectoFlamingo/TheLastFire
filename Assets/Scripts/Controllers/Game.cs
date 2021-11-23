@@ -53,7 +53,6 @@ public class Game : Singleton<Game>
 	[Header("Game's Data:")]
 	[SerializeField] private GameData _data; 								/// <summary>Game's Data.</summary>
 	[Space(5f)]
-	//[SerializeField] private PlayerController _mateoController; 			/// <summary>Mateo's Controller.</summary>
 	[SerializeField] private MateoController _mateoController; 				/// <summary>Mateo's Controller.</summary>
 	[SerializeField] private Mateo _mateo; 									/// <summary>Mateo's Reference.</summary>
 	[SerializeField] private GameplayCameraController _cameraController; 	/// <summary>Gameplay's Camera Controller.</summary>
@@ -164,7 +163,6 @@ public class Game : Singleton<Game>
 
 		if(mateo != null)
 		{
-			AddTargetToCamera(mateo.cameraTarget);
 			mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
 			mateo.health.onHealthEvent += OnMateoHealthEvent;
 		}
@@ -182,8 +180,12 @@ public class Game : Singleton<Game>
 	{
 		if(mateo != null) AddTargetToCamera(mateo.cameraTarget);
 		PlayerInputController controller = PlayerInputsManager.Get();
-		mateoController = controller.mateoController;
-		controller.AssignCharacterToMateoController(mateo);
+
+		if(controller != null)
+		{
+			mateoController = controller.mateoController;
+			controller.AssignCharacterToMateoController(mateo);
+		}
 	}
 
 #region TEMPORAL
@@ -327,12 +329,14 @@ public class Game : Singleton<Game>
 	public static void OnCamera2DBoundariesModifierEnter(Camera2DBoundariesModifier _modifier)
 	{
 		if(boundariesModifiers.Contains(_modifier)) return;
-
+		
 		boundariesModifiers.Add(_modifier);
 
-		if(boundariesModifiers.Count > 0) return;
+		if(boundariesModifiers.Count > 1) return;
 
-		cameraController.boundariesContainer.InterpolateTowards(_modifier.boundariesContainer.ToBoundaries2D(), _modifier.interpolationDuration);
+		cameraController.constraints = CameraFollowingConstraints.BoundaryConstrained;
+		cameraController.boundariesContainer.Set(_modifier.boundariesContainer.ToBoundaries2D());
+		//cameraController.boundariesContainer.InterpolateTowards(_modifier.boundariesContainer.ToBoundaries2D(), _modifier.interpolationDuration);
 
 		if(_modifier.setDistance) cameraController.distanceAdjuster.distanceRange = _modifier.distanceRange;
 
@@ -350,17 +354,33 @@ public class Game : Singleton<Game>
 
 		if(boundariesModifiers.Count == 0)
 		{
-			SetDefaultCameraBoundaries2D();
+			cameraController.constraints = CameraFollowingConstraints.Unconstrained;
+			//SetDefaultCameraBoundaries2D();
 			SetDefaultCameraDistanceRange();
 		}
 		else
 		{
 			Camera2DBoundariesModifier modifier = boundariesModifiers.First();
 
-			cameraController.boundariesContainer.InterpolateTowards(modifier.boundariesContainer.ToBoundaries2D(), modifier.interpolationDuration);
+			cameraController.boundariesContainer.Set(modifier.boundariesContainer.ToBoundaries2D());
+			//cameraController.boundariesContainer.InterpolateTowards(modifier.boundariesContainer.ToBoundaries2D(), modifier.interpolationDuration);
 			
 			if(modifier.setDistance) Game.cameraController.distanceAdjuster.distanceRange = modifier.distanceRange;
 		}
+	}
+
+	/// <summary>Activates Gameplay's Camera.</summary>
+	/// <param name="_activate">Activate? true by default.</param>
+	public static void ActivateGameplayCamera(bool _activate = true)
+	{
+		cameraController.gameObject.SetActive(_activate);
+	}
+
+	/// <summary>Activates UI's Camera.</summary>
+	/// <param name="_activate">Activate? true by default.</param>
+	public static void ActivateUICamera(bool _activate = true)
+	{
+		UICamera.gameObject.SetActive(_activate);
 	}
 
 	/// <summary>Activates Mateo.</summary>
@@ -375,13 +395,14 @@ public class Game : Singleton<Game>
 	public static void OnPause(int _playerID = 0)
 	{
 		return; 	/// Fuckl ya's all
-		//LoadScene("Scene_ChangeScenes");
 		bool pause = gameplayGUIController.state != GUIState.Pause;
 		PlayerInputController controller = PlayerInputsManager.Get(_playerID);
 
 		controller.mateoController.ChangeControllerScheme(pause ? ControllerSchemeType.UI : ControllerSchemeType.Character);
 		state = pause ? GameState.Paused : GameState.Playing;
+		UICamera.gameObject.SetActive(pause);
 		gameplayGUIController.EnablePauseMenu(pause);
+
 		if(pause) Time.timeScale = 0.0f;
 	}
 
@@ -440,8 +461,6 @@ public class Game : Singleton<Game>
 			cameraController.distanceAdjuster.distanceRange = data.deathZoom;
 			break;
 		}
-
-		//Debug.Log("[Game] OnMateoHealthEvent called with Event Type: " + _event.ToString());
 	}
 
 	/// <summary>Callback invoked when the GUI invokes an Event.</summary>
@@ -493,6 +512,7 @@ public class Game : Singleton<Game>
 		{
 			timeScale += (t * s);
 			t += (a * Time.unscaledDeltaTime);
+			t = Mathf.Clamp(t, 0.0f, 1.0f);
 
 			SetTimeScale(timeScale, _changeAudioPitch, false);
 

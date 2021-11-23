@@ -106,13 +106,6 @@ public class ArrowProjectile : Projectile
 	/// <summary>Callback internally invoked inside Update.</summary>
 	protected override void Update()
 	{
-		/*switch(state)
-		{
-			case ArrowProjectileState.Incrusted:
-			base.Update(); /// Only tick its lifespan when it is incrusted
-			break;
-		}*/
-
 		if(incrusted) base.Update();
 		UpdateChain();
 	}
@@ -120,7 +113,6 @@ public class ArrowProjectile : Projectile
 	/// <summary>Callback internally invoked inside FixedUpdate.</summary>
 	protected override void FixedUpdate()
 	{
-		//if(state == ArrowProjectileState.Incrusted) return;
 		if(incrusted) return;
 
 		base.FixedUpdate();
@@ -132,16 +124,14 @@ public class ArrowProjectile : Projectile
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	public override void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-#region Debug:
-		StringBuilder builder = new StringBuilder();
-
-		builder.Append("OnTriggerEvent invoked to class ");
-		builder.AppendLine(name);
-		builder.Append("Incrusted: ");
-		builder.Append(incrusted.ToString());
-
-		Debug.Log(builder.ToString());
-#endregion
+/*#if UNITY_EDITOR
+		VDebug.Log(
+			"OnTriggerEvent invoked to class ",
+			name,
+			"Incrusted: ",
+			incrusted.ToString();
+		);
+#enfif*/
 
 		if(incrusted) return;
 
@@ -163,20 +153,7 @@ public class ArrowProjectile : Projectile
 					tipHitBox.SetTrigger(false);
 				}
 
-				/// Ye old one:
-				/*switch(state)
-				{
-					case ArrowProjectileState.NotIntersectedWithIncrustable:
-					state = ArrowProjectileState.IntersectedWithFirstIncrustable;
-					break;
-
-					case ArrowProjectileState.IntersectedWithFirstIncrustable:
-					state = ArrowProjectileState.Incrusted;
-					tipHitBox.SetTrigger(false);
-					break;
-				}*/
-
-				Debug.Log("[ArrowProjectile] Interacted with uncrustable object, new state: " + state.ToString());
+				return;
 			}
 		}
 	}

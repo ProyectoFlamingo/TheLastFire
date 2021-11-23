@@ -379,7 +379,6 @@ public class ShantyBoss : Boss
 
 		if(tiedAnimations != null) foreach(AnimationClip clip in tiedAnimations)
 		{
-			Debug.Log("[ShantyBoss] Adding Animation: " + clip.ToString());
 			animation.AddClip(clip);
 		}
 
@@ -475,7 +474,6 @@ public class ShantyBoss : Boss
 				state = animation.GetAnimationState(throwBarrelAnimation);
 				//if(!state.enabled)
 				{
-					Debug.Log("[ShantyBoss] SHOULD THROW TNT");
 					BeginTNTThrowingRoutine();
 				}
 			}
@@ -484,7 +482,6 @@ public class ShantyBoss : Boss
 				state = animation.GetAnimationState(throwBombAnimation);
 				//if(!state.enabled)
 				{
-					Debug.Log("[ShantyBoss] SHOULD THROW BOMB");
 					BeginBombThrowingRoutine();
 				}
 			}
@@ -508,7 +505,6 @@ public class ShantyBoss : Boss
 	/// <summary>Begins the Bomb Throwing Animations.</summary>
 	public void BeginBombThrowingRoutine()
 	{
-		//Debug.Log("[ShantyBoss] Beggining Bombing Routine...");
 		ActivateSword(false);
 		animation.CrossFade(throwBombAnimation);
 		animation.PlayQueued(idleAnimation);
@@ -520,8 +516,6 @@ public class ShantyBoss : Boss
 	/// <summary>Picks Bomb.</summary>
 	public void PickBomb()
 	{
-		Debug.Log("[ShantyBoss] Picking up Bomb...");
-
 		int index = 0;
 		float time = 0.0f;
 
@@ -631,7 +625,6 @@ public class ShantyBoss : Boss
 	/// <summary>Picks TNT.</summary>
 	public void PickTNT()
 	{
-		//Debug.Log("[ShantyBoss] Picking TNT...");
 		Vector3 anchoredPosition = Vector3.zero;
 
 		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTIndex, skeleton.rightHand.position, Game.mateo.transform.position, TNTProjectionTime, gameObject);
@@ -650,7 +643,6 @@ public class ShantyBoss : Boss
 	{
 		if(TNT == null) return;
 
-		//Debug.Log("[ShantyBoss] Throwing TNT");
 		Vector3 anchoredPosition = Vector3.zero;
 		Vector3 p = Vector3.zero;
 		GameObjectTag[] impactTags = null;
@@ -803,12 +795,9 @@ public class ShantyBoss : Boss
 			/*this.StartCoroutine(animator.WaitForAnimatorState(0, 0.0f,
 			()=>
 			{
-				Debug.Log("[ShantyBoss] Hurt Animation Ended...");
 				this.AddStates(ID_STATE_ATTACK);
 			}));*/
 		}
-
-		Debug.Log("[ShantyBoss] States: " + StatesToString());
 	}
 
 	/// <summary>Callback invoked when new state's flags are removed.</summary>
@@ -864,11 +853,8 @@ public class ShantyBoss : Boss
 			break;
 
 			case 10:
-			//Debug.Log("[ShantyBoss] Time when animation starts: " + Time.time);
 			break;
 		}
-
-		//Debug.Log("[ShantyBoss] Invoked AnimationEvent with ID: " + _ID);
 	}
 
 	/// <summary>Callback invoked when a Bomb Event occurs.</summary>
@@ -909,7 +895,6 @@ public class ShantyBoss : Boss
 			switch(_cause)
 			{
 				default:
-				Debug.Log("[ShantyBoss] ATTACK NO MATTER WHAT!!");
 				BeginAttackRoutine();
 				break;
 			}
@@ -918,22 +903,11 @@ public class ShantyBoss : Boss
 			case STAGE_2:
 			if(_projectile == TNT)
 			{
-				Debug.Log("[ShantyBoss] TNT DEACTIVATED!!");
 				tntActive = false;
 				this.DispatchCoroutine(ref TNTRotationCoroutine);
 			}
 			break;
 		}
-
-		Debug.Log(
-			"[ShantyBoss] Bomb "
-			+ _projectile.gameObject.name
-			+" deactivation event: "
-			+ "\nCause: "
-			+ _cause.ToString()
-			+ ", \n"
-			+ _info.ToString()
-		);
 	}
 
 	/// <summary>Callback invoked when a TNT Event occurs.</summary>
@@ -945,7 +919,6 @@ public class ShantyBoss : Boss
 		switch(_eventID)
 		{
 			case Projectile.ID_EVENT_REPELLED:
-			Debug.Log("[ShantyBoss] TNT Repelled...");
 			/*Projectile projectile = _info.collider.GetComponentInParent<Projectile>();
 			
 			if(projectile == null) return;*/
@@ -957,7 +930,6 @@ public class ShantyBoss : Boss
 			this.StartCoroutine(this.WaitSeconds(durationBeforeSwordSwing, 
 			()=>
 			{
-				Debug.Log("[ShantyBoss] Swing!!");
 				//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 				//animator.SetInteger(attackIDCredential, ID_ATTACL_HIT_TENNIS);
 				//animation.CrossFade(tenninsHitAnimation);
@@ -1076,7 +1048,6 @@ public class ShantyBoss : Boss
 	/// <summary>TNT's Routine when it is thrown [for Stage 2].</summary>
 	private IEnumerator Stage2TNTRoutine()
 	{
-		Debug.Log("[ShantyBoss] Entering Stage 2's TNT Routine");
 		SecondsDelayWait wait = new SecondsDelayWait(stairParabolaTime);
 		Vector3 a = line.a;
 		Vector3 b = line.b;
@@ -1106,8 +1077,6 @@ public class ShantyBoss : Boss
 			d = (b - a).normalized;
 			TNT.transform.position = b;
 			TNT.transform.rotation = Quaternion.LookRotation(d);
-
-			Debug.DrawRay(TNT.transform.position, d * 5f, Color.magenta, 5.0f);
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
@@ -1334,7 +1303,6 @@ public class ShantyBoss : Boss
 		AnimationState animationState = null;
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 
-		Debug.DrawRay(transform.position, direction * 2.0f, Color.magenta, 2.0f);
 
 		animation.CrossFade(normalAttackAnimation);
 		animationState = animation.GetAnimationState(normalAttackAnimation);
@@ -1352,7 +1320,6 @@ public class ShantyBoss : Boss
 
 		while(wait.MoveNext())
 		{
-			Debug.Log("[ShantyBoss] Regressing with direction: " + direction);
 			Move(-direction);
 			yield return null;
 		}

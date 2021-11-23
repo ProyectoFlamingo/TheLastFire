@@ -21,6 +21,7 @@ public class Character : PoolGameObject, IStateMachine
 	public const int ID_STATE_COLLIDED = 1 << 3; 												/// <summary>Collider State's ID.</summary>
 	public const int ID_STATE_ATTACKING = 1 << 4; 												/// <summary>Attacking's State's ID.</summary>
 
+	[SerializeField] private Faction _faction; 													/// <summary>Character's Faction.</summary>
 	[Header("Animator's Attributes:")]
 	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 				/// <summary>Animator's Parent.</summary>
 	[TabGroup("Animations")][SerializeField] private Animator _animator; 						/// <summary>Animator's Component.</summary>
@@ -34,6 +35,13 @@ public class Character : PoolGameObject, IStateMachine
 	private Skeleton _skeleton; 																/// <summary>Skeleton's Component.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets and Sets faction property.</summary>
+	public Faction faction
+	{
+		get { return _faction; }
+		set { _faction = value; }
+	}
+
 	/// <summary>Gets and Sets animatorParent property.</summary>
 	public Transform animatorParent
 	{
@@ -173,8 +181,6 @@ public class Character : PoolGameObject, IStateMachine
 			//OnObjectDeactivation();
 			break;
 		}
-
-		//Debug.Log(name + " Received Health Event: " + _event.ToString());
 	}
 
 	/// <summary>Invokes onIDEvent's delegate.</summary>

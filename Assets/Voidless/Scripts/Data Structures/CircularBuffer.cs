@@ -189,17 +189,15 @@ public class CircularBuffer<T> : IEnumerable<T>, ICollection
 		int currentIndex = _index;
 		int iterations = 0;
 
-		//do
 		if(occupiedSlots > 0)
 		while(iterations < occupiedSlots)
 		{
-			//Debug.Log("[CircularBuffer] Current Index: " + currentIndex);
 			yield return current;
 			currentIndex = IncreaseIndex(currentIndex, occupiedSlots);
 			current = list[currentIndex];
 			iterations++;
 
-		} //;
+		}
 	}
 
 	/// <summary>Iterates through the buffer regressively [Counter-Clockwise].</summary>
@@ -212,17 +210,15 @@ public class CircularBuffer<T> : IEnumerable<T>, ICollection
 		int currentIndex = _index;
 		int iterations = 0;
 
-		//do
 		if(occupiedSlots > 0)
 		while(iterations < occupiedSlots)
 		{
-			//Debug.Log("[CircularBuffer] Current Index: " + currentIndex);
 			yield return current;
 			currentIndex = DecreaseIndex(currentIndex, occupiedSlots);
 			current = list[currentIndex];
 			iterations++;
 
-		} //;
+		}
 	}
 
 	/// <returns>Returns an enumerator that iterates through the List's items.</returns>

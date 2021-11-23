@@ -326,8 +326,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		int index = 0;
 		bool drumstickAttackFinished = false;
 
-		Debug.Log("[StrengthBehavior] Combos: " + drumstickCombo.CollectionToString());
-
 		OnAnimationAttackEvent onAnimationAttackEvent = (_state)=>
 		{
 			switch(_state)
@@ -360,8 +358,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			    }
 			    break;
 			}
-
-			Debug.Log("[StrengthBehavior] Animation Attack Event for Drumstick: " + _state.ToString());
 		};
 
 		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_NOTE_LALA);
@@ -489,8 +485,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 				trumpetAttackFinished = true;
 				break;
 			}
-
-			Debug.Log("[StrengthBehavior] Animation attack Event for Trumpet: " + _state.ToString());
 		};
 
 		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_NOTE_LALA);

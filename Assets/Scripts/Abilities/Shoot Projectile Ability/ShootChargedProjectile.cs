@@ -209,7 +209,6 @@ public class ShootChargedProjectile : ShootProjectile
 		AudioController.PlayOneShot(SourceType.SFX, 0, releaseSoundIndex);
 
 		float t = currentSpeedCharge / speedChargeDuration;
-		//Debug.Log("[ShootChargedProjectile] Speed: " + speedRange.Lerp(t) + " with t = " + t);
 
 		return Shoot(ID, _origin, _direction, speedRange.Lerp(t));
 	}

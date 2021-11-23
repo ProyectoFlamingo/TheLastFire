@@ -39,6 +39,7 @@ public class LoadingSceneController : MonoBehaviour
 		string scenePath = PlayerPrefs.GetString(GameData.PATH_SCENE_TOLOAD, GameData.PATH_SCENE_DEFAULT);
 
 		Game.ActivateMateo(false);
+		//Game.ActivateGameplayCamera(false);
 		Game.FadeOutScreen(Color.black, fadeOutDuration,
 		()=>
 		{

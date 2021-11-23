@@ -156,8 +156,6 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 			explosion = PoolManager.RequestExplodable(explodableIndex, transform.position, transform.rotation);
 			break;
 		}
-
-		Debug.Log("[BombParabolaProjectile] Entered State: " + state.ToString());
 	}
 
 	/// <summary>Exits T State.</summary>
@@ -208,7 +206,6 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	public override void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		//Debug.Log("[BombParabolaProjectile] Enter " + gameObject.name);
 		if(state == BombState.Exploding) return;
 
 		base.OnTriggerEvent(_info, _eventType, _ID);

@@ -278,8 +278,6 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
 			break;
 		}
-
-		//Debug.Log("[DestinoSceneController] On Destino's ID Event with #" + _ID);
 	}
 
 	/// <summary>Callback invoked when Mateo invokes an ID's Event.</summary>

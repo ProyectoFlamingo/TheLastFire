@@ -118,7 +118,6 @@ namespace Flamingo
 
                     if (Physics2D.OverlapCircle(new Vector2(new_x, new_y), overlapRadius, targetMask))
                     {
-                        Debug.Log("Overlaping");
                         continue;
                     }
                     else
@@ -158,7 +157,6 @@ namespace Flamingo
             {
                 InvokeEvent(ID_EVENT_MINIGAME_ENDED);
                 running = false;
-                Debug.Log("Ended");
             }
         }
 

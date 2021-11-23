@@ -29,14 +29,16 @@ public class ProjectileEventsHandler : EventsHandler
 	/// <param name="_info">Trigger2D's Information.</param>
 	public void InvokeProjectileDeactivationEvent(Projectile _projectile, DeactivationCause _cause, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
-		/*Debug.Log(
-			"[ProjectileEventsHandler] "
-			+ gameObject.name
-			+ " invoked Deactivation Event. Cause: "
-			+ _cause.ToString()
-			+ ", "
-			+ _info.ToString()
-		);*/
+#if UNITY_EDITOR
+		if(debug) VDebug.Log(
+			"[ProjectileEventsHandler] ",
+			gameObject.name,
+			" invoked Deactivation Event. Cause: ",
+			_cause.ToString(),
+			", ",
+			_info.ToString()
+		);
+#endif
 		if(onProjectileDeactivated != null) onProjectileDeactivated(_projectile, _cause, _info);
 	}
 
@@ -46,14 +48,16 @@ public class ProjectileEventsHandler : EventsHandler
 	/// <param name="_info">Trigger2D's Information.</param>
 	public void InvokeProjectileEvent(Projectile _projectile, int _ID, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
-		Debug.Log(
-			"[ProjectileEventsHandler] "
-			+ gameObject.name
-			+ " invoked Projectile Event. ID: "
-			+ _ID.ToString()
-			+ ", "
-			+ _info.ToString()
+#if UNITY_EDITOR
+		if(debug) VDebug.Log(
+			"[ProjectileEventsHandler] ",
+			gameObject.name,
+			" invoked Projectile Event. ID: ",
+			_ID.ToString(),
+			", ",
+			_info.ToString()
 		);
+#endif
 		if(onProjectileEvent != null) onProjectileEvent(_projectile, _ID, _info);
 	}
 }

@@ -225,7 +225,9 @@ public class SteeringVehicle2D : MonoBehaviour
 
 		target = circleCenter + displacement;
 
+#if UNITY_EDITOR
 		Debug.DrawRay(target, Vector3.back * 5.0f, Color.cyan, 5.0f);
+#endif
 
 		/*displacement = Vector2.ClampMagnitude(displacement, f);
 

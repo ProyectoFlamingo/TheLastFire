@@ -35,6 +35,7 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 			playerControllersMap.Add(controller.playerInput.playerIndex, controller);
 		}
 
+#if UNITY_EDITOR
 		StringBuilder builder = new StringBuilder();
 
 		builder.AppendLine("PlayerInputs' Map:\n");
@@ -48,7 +49,8 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 			builder.AppendLine();
 		}
 
-		Debug.Log(builder.ToString());
+		VDebug.Log(builder.ToString());
+#endif
 
 		EnableAll(false);
 		Enable(0, true);

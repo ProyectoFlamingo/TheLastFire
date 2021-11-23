@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8121818084978278044}
   - component: {fileID: 2678788741357419136}
   - component: {fileID: 1822210689705678102}
+  - component: {fileID: 8981402180648373686}
   m_Layer: 10
   m_Name: Projectile_Parabola_Wine
   m_TagString: Untagged
@@ -100,6 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &2678788741357419136
 MonoBehaviour:
@@ -132,14 +135,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _meshContainer: {fileID: 0}
   _healthAffectableTags:
   - _tag: Player
     index: 5
   _damage: 1
   _damageScales:
   - 1
-  _impactTags: []
+  _impactTags:
+  - _tag: Surface/Floor
+    index: 13
+  - _tag: Surface/Wall
+    index: 14
+  - _tag: Surface/Ceiling
+    index: 15
+  - _tag: Player
+    index: 5
   _trailRenderers: []
+  _particleEffects: []
+  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
@@ -157,6 +171,7 @@ MonoBehaviour:
     index: 0
     objectIndex: 0
     collectionIndex: 0
+  _sourceIndex: 0
   _impactSoundEffectIndex:
     index: 0
     objectIndex: 0
@@ -166,6 +181,21 @@ MonoBehaviour:
     objectIndex: 0
     collectionIndex: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8981402180648373686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216174275417893227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors: []
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.1
 --- !u!1 &5204140035691060338
 GameObject:
   m_ObjectHideFlags: 0

@@ -349,8 +349,6 @@ public class MoskarBoss : Boss
 		Game.AddTargetToCamera(cameraTarget);
 		sightSensor.onSightEvent += OnSightEvent;
 		eventsHandler.onTriggerEvent += OnTriggerEvent;
-
-		//animator.GetComponent<AnimationEventInvoker>().AddActionListener(()=>{ Debug.Log("[MoskarBoss] Animation ended, position: " + transform.position); });
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
@@ -442,13 +440,11 @@ public class MoskarBoss : Boss
 		&& (state | ID_STATE_IDLE) != state
 		&& sightSensor.enabled)
 		{ /// If the Player got out of sight, but Moskar is not Attacking and not on Wander:
-			Debug.Log("[MoskarBoss] Returning to Wander State because Mateo is out of sight.");
 			EnterWanderState();
 		}
 
 		if((_state | ID_STATE_ALIVE) == _state)
 		{
-			Debug.Log("[MoskarBoss] Shush all behaviors");
 			this.DispatchCoroutine(ref behaviorCoroutine);
 			this.DispatchCoroutine(ref attackCoroutine);
 		}
@@ -528,8 +524,6 @@ public class MoskarBoss : Boss
 	/// <summary>Enters Wander State.</summary>
 	private void EnterWanderState()
 	{
-		Debug.Log("[MoskarBoss] Entered Wander State.");
-
 		this.DispatchCoroutine(ref attackCoroutine);
 
 		vehicle.maxSpeed = wanderSpeed.Lerp(phaseProgress) * speedScale;
@@ -543,8 +537,6 @@ public class MoskarBoss : Boss
 	/// <summary>Enters Warning State.</summary>
 	private void EnterWarningState()
 	{
-		Debug.Log("[MoskarBoss] Entered Warning State.");
-
 		vehicle.maxSpeed = warningSpeed  * speedScale;
 
 		this.DispatchCoroutine(ref attackCoroutine);
@@ -556,8 +548,6 @@ public class MoskarBoss : Boss
 	/// <summary>Enters Attack State.</summary>
 	private void EnterAttackState()
 	{
-		Debug.Log("[MoskarBoss] Entered Attack State.");
-
 		vehicle.maxSpeed = evasionSpeed.Lerp(phaseProgress) * speedScale;
 		sightSensor.gameObject.SetActive(false);
 		animator.SetInteger(locomotionIDCredential, ID_LOCOMOTION_FLY);

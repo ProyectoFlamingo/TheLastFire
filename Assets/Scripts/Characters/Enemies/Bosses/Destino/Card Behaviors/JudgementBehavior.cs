@@ -383,7 +383,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 					projectile.direction = -projectile.direction;
 					projectile.activated = true;
 					projectile.transform.position += (projectile.direction * 3.0f);
-					//Debug.DrawRay(ray.origin, ray.direction * 5.0f, Color.cyan, 5.0f);*/
 					break;
 
 					default:
@@ -393,8 +392,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				}
 				projectileSet.Add(ID);
 			}
-
-			Debug.Log("[JudgementBehavior] Targets: " + targetsPerRound + ", Targets Destroyed: " + targetsDestroyed);
 		};
 
 		while(signDisplacement.MoveNext()) yield return null;
@@ -418,7 +415,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		}
 
 		while(wait.MoveNext() && count < targetsPerRound) yield return null;
-		Debug.Log("[JudgementBehavior] Clip reached its end...");
 		wait.Reset();
 
 		AudioController.Stop(SourceType.Loop, 0);
@@ -429,7 +425,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
 		}
 
-		Debug.Log("[JudgementBehavior] Targets Destroyed: " + targetsDestroyed);
 		showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, fireShowSuccessPercentage);
 
 		while(showJudgement.MoveNext()) yield return null;
@@ -497,8 +492,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				}
 			projectileSet.Add(ID);
 			}
-
-			Debug.Log("[JudgementBehavior] Targets: " + targetsPerRound + ", Targets Destroyed: " + targetsDestroyed);
 		};
 
 		while(signDisplacement.MoveNext()) yield return null;
@@ -545,7 +538,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
 			}
 
-			Debug.Log("[JudgementBehavior] Targets Destroyed: " + targetsDestroyed);
 			showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, swordShowSuccessPercentage);
 
 			while(showJudgement.MoveNext()) yield return null;
@@ -591,8 +583,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			float x = 0.0f;
 			float y = 0.0f;
 			Ring ring = null;
-
-			Debug.DrawRay(Game.mateo.transform.position + (Vector3)maxJumpForce, Vector3.up * 5.0f, Color.cyan, 5.0f);
 
 			/// Create and store some values:
 			for(int j = 0; j < ringsPR; j++)
@@ -672,8 +662,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	{
 		float ratio  = _achieved / _count;
 
-		Debug.Log("[JudgementBehavior] Round consisted of: " + _count + " counts. You achieved " + _achieved + ". You've achieved a ratio of " + ratio + ".");
-
 		if(ratio >= _achievePercentageForSuccess)
 		{
 			/// Here yo play the cheer sounds:
@@ -749,8 +737,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				targetsDestroyed++;
 				break;
 			}
-
-			Debug.Log("[JudgementBehavior] Cause of Target deactivation: " + cause.ToString());
 		};
 
 		while(signDisplacement.MoveNext()) yield return null;
@@ -780,7 +766,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
 			}
 
-			Debug.Log("[JudgementBehavior] Targets Destroyed: " + targetsDestroyed);
 			showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, _successPercentage);
 
 			while(showJudgement.MoveNext()) yield return null;

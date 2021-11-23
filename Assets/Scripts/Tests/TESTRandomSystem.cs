@@ -19,8 +19,6 @@ public class TESTRandomSystem : MonoBehaviour
 		{
 			system.GetRandomIndex();
 		}
-
-		Debug.Log("[TESTRandomSystem] System: " + system.ToString());
 	}
 
 	private IEnumerator Test()
@@ -30,9 +28,6 @@ public class TESTRandomSystem : MonoBehaviour
 		while(true)
 		{
 			int index = system.GetRandomIndex();
-
-			Debug.Log("[TESTRandomSystem] Index Obtained: " + index);
-			Debug.Log("[TESTRandomSystem] System: " + system.ToString());
 
 			while(wait.MoveNext()) yield return null;
 			wait.Reset();

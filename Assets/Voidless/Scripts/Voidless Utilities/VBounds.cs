@@ -70,7 +70,9 @@ public static class VBounds
 
 		if(_bounds == null || length == 0)
 		{
+#if UNITY_EDITOR
 			Debug.Log("[VBounds] No Bounds provided as argument, returning a default Bounds' structure...");
+#endif
 			return new Bounds();
 
 		} else if(length == 1) return _bounds[0];
@@ -96,7 +98,9 @@ public static class VBounds
 
 		if(_renderers == null || length == 0)
 		{
+#if UNITY_EDITOR
 			Debug.Log("[VBounds] No Bounds provided as argument, returning a default Bounds' structure...");
+#endif
 			return new Bounds();
 
 		} else if(length == 1) return _renderers[0].bounds;
@@ -124,7 +128,9 @@ public static class VBounds
 
 		if(_colliders == null || length == 0)
 		{
+#if UNITY_EDITOR
 			Debug.Log("[VBounds] No Bounds provided as argument, returning a default Bounds' structure...");
+#endif
 			return new Bounds();
 
 		} else if(length == 1) return _colliders[0].bounds;

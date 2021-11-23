@@ -122,8 +122,6 @@ public class MinionEnemy : Enemy
 				this.RemoveStates(ID_STATE_PLAYERONSIGHT);
 				break;
 			}
-
-			Debug.Log("[MinionEnemy] Player on Sight: " + _eventType.ToString());
 		}
 	}
 
@@ -141,9 +139,8 @@ public class MinionEnemy : Enemy
 	/// <param name="_state">State's flags that were removed.</param>
 	public override void OnStatesRemoved(int _state)
 	{
-		if((_state | ID_STATE_PLAYERONSIGHT) != _state)
+		if((_state | ID_STATE_PLAYERONSIGHT) == _state)
 		{
-			Debug.Log("[MinionEnemy] Coroutine Dispatched...");
 			this.DispatchCoroutine(ref stateCoroutine);
 		}
 	}

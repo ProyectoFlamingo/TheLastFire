@@ -90,19 +90,19 @@ public class ImpactEventHandler : MonoBehaviour
 		GameObject obj = _collider.gameObject;
 		Collider2D collider = hitBoxes[Mathf.Clamp(_ID, 0, hitBoxes.Length - 1)].collider;
 
-#region Debug:
-		/*Debug.Log(
-			"[ImpactEventHandler]"
-			+ gameObject.name 
-			+ " Had Interaction with "
-			+ obj.name
-			+ ", with tag: "
-			+ obj.tag
-			+ ", Event's ID: "
-			+ _ID
-			+ "."
-		);*/
-#endregion	
+/*#if UNITY_EDITOR
+		VDebug.Log(
+			"[ImpactEventHandler]",
+			gameObject.name, 
+			" Had Interaction with ",
+			obj.name,
+			", with tag: ",
+			obj.tag,
+			", Event's ID: ",
+			_ID,
+			"."
+		);
+#endif*/
 
 		Trigger2DInformation info = new Trigger2DInformation(collider, _collider);
 		eventsHandler.InvokeTriggerEvent(info, _eventType, _ID);

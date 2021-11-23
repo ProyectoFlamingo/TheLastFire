@@ -70,7 +70,6 @@ public class Platform : MonoBehaviour
 			foreach(DisplacementAccumulator2D body in bodies)
 			{
 				//body.MovePosition(body.transform.position + velocity);
-				Debug.Log("[Platform] Adding Displacement to: " + body.gameObject.name);
 				body.AddDisplacement(velocity);
 			}
 		}
@@ -111,38 +110,5 @@ public class Platform : MonoBehaviour
 			}
 		}
 	}
-
-	/*/// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionEnter2D(Collision2D col)
-	{
-		GameObject obj = col.gameObject;
-	
-		foreach(GameObjectTag tag in tags)
-		{
-			if(obj.CompareTag(tag))
-			{
-				obj.transform.parent = transform;
-				return;
-			}
-		}
-	}
-
-	/// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionExit2D(Collision2D col)
-	{
-		GameObject obj = col.gameObject;
-	
-		foreach(GameObjectTag tag in tags)
-		{
-			if(obj.CompareTag(tag))
-			{
-				Debug.Log("[Platform] GET OUT!!");
-				obj.transform.parent = null;
-				return;
-			}
-		}
-	}*/
 }
 }

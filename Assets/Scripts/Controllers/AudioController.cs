@@ -183,19 +183,18 @@ public class AudioController : Singleton<AudioController>
 		AudioMixer mixer = source.outputAudioMixerGroup.audioMixer;
 
 #if UNITY_EDITOR
-		StringBuilder builder = new StringBuilder();
-		builder.AppendLine("PlayFSM()'s Report: ");
-		builder.Append("Source's Index: ");
-		builder.AppendLine(_sourceIndex.ToString());
-		builder.Append("FSM AudioClip's Index: ");
-		builder.AppendLine(_index.ToString());
-		builder.AppendLine();
-		builder.Append("FSM's AudioClip: ");
-		builder.AppendLine(FSMClip.ToString());
-		builder.Append("Source's current AudioClip: ");
-		builder.Append(source.clip != null ? source.clip.name : "NONE");
-
-		Debug.Log(builder.ToString());
+		VDebug.Log(
+			"PlayFSM()'s Report: ",
+			"\n",
+			"Source's Index: \n",
+			_sourceIndex.ToString(),
+			"\n",
+			"FSM's AudioClip: ",
+			FSMClip.ToString(),
+			"\n",
+			"Source's current AudioClip: ",
+			source.clip != null ? source.clip.name : "NONE"
+		);
 #endif
 
 		if(mixer != null && (source.clip != null && source.clip != clip))
@@ -355,8 +354,6 @@ public class AudioController : Singleton<AudioController>
 	{
 		AudioClip clip = Game.data.soundEffects[_index];
 		GetAudioSource(_type, _sourceIndex).PlayOneShot(clip, _volumeScale);
-
-		//Debug.Log("[AudioController] Playing One-Shot: " + clip.name);
 
 		return clip;
 	}
