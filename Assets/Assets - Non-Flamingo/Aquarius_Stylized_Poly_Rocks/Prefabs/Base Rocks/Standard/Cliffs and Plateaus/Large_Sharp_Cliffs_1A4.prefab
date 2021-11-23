@@ -170,7 +170,6 @@ GameObject:
   - component: {fileID: 1365179226154189022}
   - component: {fileID: 7543744697316141583}
   - component: {fileID: 3695883568174683683}
-  - component: {fileID: 6818392740913924050}
   m_Layer: 0
   m_Name: Large_Sharp_Cliffs_1A4
   m_TagString: Untagged
@@ -255,30 +254,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2402383694485592612, guid: 8dfbfafd7cda53a459eab1c6a145077e, type: 3}
---- !u!205 &6818392740913924050
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6818392740913924045}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 1.0347528, y: 10.567584, z: 0.15911913}
-  m_Size: 24.06172
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.5029
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7543744697316141583}
-  - screenRelativeHeight: 0.19708768
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 3774470212795616872}
-  - screenRelativeHeight: 0.028525887
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 377053764412019552}
-  m_Enabled: 1
