@@ -6,19 +6,26 @@ using Voidless;
 
 namespace Flamingo
 {
+/// <summary>Event invoked when braking (or not) happens.</summary>
+/// <param name="_braking">Did it brake?.</param>
+public delegate void OnBraking(bool _braking);
+
 public class MovementAbility : MonoBehaviour
 {
-	[SerializeField] private float _speed; 				/// <summary>Movement's Speed.</summary>
-	[SerializeField] private float _airScalar; 			/// <summary>Movement's scalar applied when the movement is made on air.</summary>
+	public event OnBraking onBraking; 						/// <summary>OnBraking's delegate.</summary>
+
+	[SerializeField] private float _speed; 					/// <summary>Movement's Speed.</summary>
+	[SerializeField] private float _airScalar; 				/// <summary>Movement's scalar applied when the movement is made on air.</summary>
 	[Space(5f)]
 	[Header("Braking's Attributes:")]
-	[SerializeField] private float _maxBrakingSpeed; 	/// <summary>Maximum's Displacement speed to provoke brakinf if moving on an opposite direction.</summary>
-	[SerializeField] private float _brakingDuration; 	/// <summary>Braking's duration.</summary>
+	[SerializeField] private float _minSpeedForBraking; 	/// <summary>Min Speed's magnitude required for braking when changing to a contrary direction.</summary>
+	[SerializeField] private float _maxBrakingSpeed; 		/// <summary>Maximum's Displacement speed to provoke brakinf if moving on an opposite direction.</summary>
+	[SerializeField] private float _brakingDuration; 		/// <summary>Braking's duration.</summary>
 	[SerializeField]
-	[Range(-1.0f, 0.0f)] private float _dotTolerance; 	/// <summary>Dot product tolerance between the accumulated displacement and the current displacement to consider whether to perform brake.</summary>
-	private Vector2 _accumulatedDisplacement; 			/// <summary>Accumulated's Movement displacement.</summary>
-	private bool _braking; 								/// <summary>Is the movement on Braking State?.</summary>
-	protected Coroutine brakingRoutine; 				/// <summary>Braking's Coroutine reference.</summary>
+	[Range(-1.0f, 0.0f)] private float _dotTolerance; 		/// <summary>Dot product tolerance between the accumulated displacement and the current displacement to consider whether to perform brake.</summary>
+	private Vector2 _accumulatedDisplacement; 				/// <summary>Accumulated's Movement displacement.</summary>
+	private bool _braking; 									/// <summary>Is the movement on Braking State?.</summary>
+	protected Coroutine brakingRoutine; 					/// <summary>Braking's Coroutine reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets speed property.</summary>
@@ -33,6 +40,13 @@ public class MovementAbility : MonoBehaviour
 	{
 		get { return _airScalar; }
 		set { _airScalar = value; }
+	}
+
+	/// <summary>Gets and Sets minSpeedForBraking property.</summary>
+	public float minSpeedForBraking
+	{
+		get { return _minSpeedForBraking; }
+		set { _minSpeedForBraking = value; }
 	}
 
 	/// <summary>Gets and Sets maxBrakingSpeed property.</summary>
@@ -93,6 +107,7 @@ public class MovementAbility : MonoBehaviour
 		this.DispatchCoroutine(ref brakingRoutine);
 		braking = false;
 		Stop();
+		if(onBraking != null) onBraking(false);
 	}
 
 	/// <summary>Calculates ideal displacement.</summary>
@@ -107,10 +122,12 @@ public class MovementAbility : MonoBehaviour
 		if(!braking)
 		{
 			float dot = Vector2.Dot(displacement.normalized, accumulatedDisplacement.normalized);
+			float minMagnitude = minSpeedForBraking * minSpeedForBraking;
 
-			if(accumulatedDisplacement.sqrMagnitude >= (maxBrakingSpeed * maxBrakingSpeed) && dot <= dotTolerance)
+			if(accumulatedDisplacement.sqrMagnitude >= minMagnitude && dot <= dotTolerance)
 			{
 				braking = true;
+				if(onBraking != null) onBraking(true);
 				this.StartCoroutine(DiminishAccumulatedDisplacement(), ref brakingRoutine);
 			}
 

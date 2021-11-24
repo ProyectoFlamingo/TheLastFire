@@ -73,7 +73,7 @@ public class Projectile : ContactWeapon
 	[Space(5f)]
 	[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
 #endif
-	private bool _activated; 													/// <summary>Can the projectile be activated?.</summary>
+	
 	private float _currentLifeTime; 											/// <summary>Current Life Time.</summary>
 	private float _parabolaTime; 												/// <summary>Time parameter used for the projectile parabola's formula.</summary>
 	private Vector3 _lastPosition; 												/// <summary>Last Position reference [for the Steering Snake].</summary>
@@ -203,13 +203,6 @@ public class Projectile : ContactWeapon
 	{
 		get { return _rotateTowardsDirection; }
 		set { _rotateTowardsDirection = value; }
-	}
-
-	/// <summary>Gets and Sets activated property.</summary>
-	public bool activated
-	{
-		get { return _activated; }
-		set { _activated = value; }
 	}
 
 	/// <summary>Gets and Sets sourceIndex property.</summary>

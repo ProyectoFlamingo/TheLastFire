@@ -9,7 +9,8 @@ namespace Flamingo
 public enum CameraFollowingConstraints
 {
 	Unconstrained,
-	BoundaryConstrained
+	BoundaryConstrained,
+	FullyConstrained
 }
 
 [RequireComponent(typeof(VCameraDisplacementFollow))]
@@ -76,6 +77,8 @@ public class GameplayCameraController : VCamera
 	/// <summary>Updates Camera.</summary>
 	protected override void CameraUpdate()
 	{
+		if(constraints == CameraFollowingConstraints.FullyConstrained) return;
+
 		if(!middlePointTargetRetriever.HasActiveTargets()) return;
 
 		Vector3 target = targetRetriever.GetTargetPosition();

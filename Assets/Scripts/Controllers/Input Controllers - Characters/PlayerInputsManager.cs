@@ -49,7 +49,7 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 			builder.AppendLine();
 		}
 
-		VDebug.Log(builder.ToString());
+		VDebug.Log(builder.ToString(), Format.Normal, Color.cyan);
 #endif
 
 		EnableAll(false);

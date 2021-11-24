@@ -406,6 +406,7 @@ public class Mateo : Character
 		jumpAbility.onJumpStateChange += OnJumpStateChange;
 		wallEvaluator.onWallEvaluatorEvent += OnWallEvaluatorEvent;
 		dashAbility.onDashStateChange += OnDashStateChange;
+		movementAbility.onBraking += OnMovementBraking;
 		//attacksHandler.onAnimationAttackEvent += OnAnimationAttackEvent;
 
 		animator.SetAllLayersWeight(0.0f); 						/// Just in case...
@@ -430,7 +431,7 @@ public class Mateo : Character
 		if(!this.HasStates(ID_STATE_MEDITATING) && animator.GetLayerWeight(_mainAnimationLayer) > 0.0f && !x)
 		GoToLocomotionAnimation();*/
 
-		BrakingEvaluation();
+		//BrakingEvaluation();
 		MeditationEvaluation();
 	}
 
@@ -477,6 +478,7 @@ public class Mateo : Character
 		//if(jumpAbility.grounded) GoToLocomotionAnimation();
 	}
 
+	/// \TODO DEPRECATE. Now it is made on a callback...
 	/// <summary>Braking's Evaluation.</summary>
 	private void BrakingEvaluation()
 	{
@@ -1014,7 +1016,27 @@ public class Mateo : Character
 	private void OnDashStateChange(DashState _state)
 	{
 		if(!this.HasStates(ID_STATE_ALIVE)) return;
+	}
 
+	/// <summary>Callback invoked when the MovementAbility does a brake.</summary>
+	/// <param name="_braking">Did it brake?.</param>
+	private void OnMovementBraking(bool _braking)
+	{
+		if(!_braking || this.HasStates(ID_STATE_BRAKING)) return;
+		
+		state |=  ID_STATE_BRAKING;
+		animatorController.CrossFadeAndWait(
+			_brakeCredential,
+			clipFadeDuration,
+			_mainAnimationLayer,
+			0.0f,
+			0.0f,
+			()=>
+			{	
+				OnMainLayerAnimationFinished();
+				state &=  ~ID_STATE_BRAKING;
+			}
+		);
 	}
 
 	/// <summary>Callback invoked whan an Animation Attack event occurs.</summary>

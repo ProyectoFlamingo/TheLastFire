@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Voidless
 {
-public class SensorSystem2D : MonoBehaviour
+public class SensorSystem2D : SerializedMonoBehaviour
 {
 	private const float RADIUS_SPHERE = 0.025f; 				/// <summary>Gizmos's sphere Radius.</summary>
 

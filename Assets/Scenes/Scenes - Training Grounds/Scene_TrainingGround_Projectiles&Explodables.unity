@@ -50726,11 +50726,38 @@ PrefabInstance:
       propertyPath: _chargedProjectileID.index
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
     - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -26.5
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _brakingDuration
+      value: 0.458
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _maxBrakingSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _minSpeedForBraking
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5087381339462405753, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 5087381339462405753, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
     - target: {fileID: 5192313067124398979, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_RenderShadows
@@ -50810,6 +50837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Group_Essentials
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671235110824878048, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Weapon/Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e8b33e1bd6457045935992270f9958b, type: 3}
