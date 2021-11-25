@@ -8,17 +8,27 @@ using UnityEngine.SceneManagement;
 
 namespace Flamingo
 {
+public enum StareTarget
+{
+	Background,
+	Player
+}
+	
 public enum Faction
 {
 	Ally,
-	Enemy
+	Enemy,
+	Player1 = Ally,
+	Player2 = Enemy
 }
 
 public enum GameState
 {
 	None,
 	Playing,
-	Paused
+	Cutscene,
+	Paused,
+	Transitioning
 }
 
 public enum GameContext

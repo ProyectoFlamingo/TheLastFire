@@ -318,7 +318,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	/// <param name="_enemy">Enemy that invoked the event.</param>
 	/// <param name="_cause">Cause of the deactivation.</param>
 	/// <param name="_info">Additional Trigger2D's information.</param>
-	public void OnMoskarDeactivated(Enemy _enemy, DeactivationCause _cause, Trigger2DInformation _info)
+	public void OnMoskarDeactivated(Character _enemy, DeactivationCause _cause, Trigger2DInformation _info)
 	{
 		if(_cause != DeactivationCause.Destroyed) return;
 
@@ -433,14 +433,14 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	{
 		if(_moskar == null) return;
 
-		EnemyEventsHandler eventsHandler = _moskar.eventsHandler;
+		EventsHandler eventsHandler = _moskar.eventsHandler;
 
-		eventsHandler.onEnemyDeactivated -= OnMoskarDeactivated;
+		eventsHandler.onCharacterDeactivated -= OnMoskarDeactivated;
 		eventsHandler.onIDEvent -= OnMoskarIDEvent;
 
 		if(!_subscribe) return;
 
-		eventsHandler.onEnemyDeactivated += OnMoskarDeactivated;
+		eventsHandler.onCharacterDeactivated += OnMoskarDeactivated;
 		eventsHandler.onIDEvent += OnMoskarIDEvent;
 	}
 

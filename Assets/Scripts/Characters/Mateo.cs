@@ -6,12 +6,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
 
-public enum StareTarget
-{
-	Boss,
-	Player
-}
-
 public enum MeditationType
 {
 	Normal,
@@ -32,147 +26,128 @@ namespace Flamingo
 [RequireComponent(typeof(WallEvaluator))]
 [RequireComponent(typeof(AnimationAttacksHandler))]
 [RequireComponent(typeof(SlopeEvaluator))]
-[RequireComponent(typeof(VCameraTarget))]
 public class Mateo : Character
 {
-	public const int ID_INITIALPOSE_STARRINGATPLAYER = 0; 																/// <summary>Starring At Player's Initial Pose's ID.</summary>
-	public const int ID_INITIALPOSE_STARRINGATBACKGROUND = 2; 															/// <summary>Starring At Background's Initial Pose's ID.</summary>
-	public const int ID_INITIALPOSE_MEDITATING = 1; 																	/// <summary>Meditation Initial Pose's ID.</summary>
-	public const int ID_STATE_INITIALPOSE = 1 << 5; 																	/// <summary>Initial Pose's State ID.</summary>
-	public const int ID_STATE_MEDITATING = 1 << 5; 																		/// <summary>Meditating's State ID.</summary>
-	public const int ID_STATE_SWORDEQUIPPED = 1 << 6; 																	/// <summary>Sword's Equipped's State ID.</summary>
-	public const int ID_STATE_FIRECONJURINGCAPACITY = 1 << 7; 															/// <summary>Mire Conjuring's Capacity State's ID.</summary>
-	public const int ID_STATE_JUMPING = 1 << 8; 																		/// <summary>Jumping's State ID.</summary>
-	public const int ID_STATE_CHARGINGFIRE = 1 << 8; 																	/// <summary>Fire Conjuring's State ID.</summary>
-	public const int ID_STATE_CROUCHING = 1 << 10; 																		/// <summary>Crouching's State ID.</summary>
-	public const int ID_STATE_MOVING = 1 << 11; 																		/// <summary>Moving's State ID.</summary>
-	public const int ID_STATE_BRAKING = 1 << 12; 																		/// <summary>Braking's State ID.</summary>
-	public const int ID_STATE_STANDINGUP = 1 << 13; 																	/// <summary>Standing Up's State ID.</summary>
-	public const int ID_EVENT_INITIALPOSE_BEGINS = 0; 																	/// <summary>Mateo Initial-Pose-Begins's Event ID.</summary>
-	public const int ID_EVENT_INITIALPOSE_ENDED = 1; 																	/// <summary>Mateo Initial-Pose-Finished's Event ID.</summary>
-	public const int ID_EVENT_MEDITATION_BEGINS = 2; 																	/// <summary>Meditation Begins' Event.</summary>
-	public const int ID_EVENT_MEDITATION_ENDS = 3; 																		/// <summary>Meditation Ends' Event.</summary>
-	public const int ID_EVENT_HURT = 4; 																				/// <summary>Mateo's Hurt Event.</summary>
-	public const int ID_EVENT_DEAD = 5; 																				/// <summary>Mateo's Dead Event.</summary>
+	public const int ID_INITIALPOSE_STARRINGATPLAYER = 0; 																			/// <summary>Starring At Player's Initial Pose's ID.</summary>
+	public const int ID_INITIALPOSE_STARRINGATBACKGROUND = 2; 																		/// <summary>Starring At Background's Initial Pose's ID.</summary>
+	public const int ID_INITIALPOSE_MEDITATING = 1; 																				/// <summary>Meditation Initial Pose's ID.</summary>
+	public const int ID_STATE_INITIALPOSE = 1 << 5; 																				/// <summary>Initial Pose's State ID.</summary>
+	public const int ID_STATE_MEDITATING = 1 << 5; 																					/// <summary>Meditating's State ID.</summary>
+	public const int ID_STATE_SWORDEQUIPPED = 1 << 6; 																				/// <summary>Sword's Equipped's State ID.</summary>
+	public const int ID_STATE_FIRECONJURINGCAPACITY = 1 << 7; 																		/// <summary>Mire Conjuring's Capacity State's ID.</summary>
+	public const int ID_STATE_JUMPING = 1 << 8; 																					/// <summary>Jumping's State ID.</summary>
+	public const int ID_STATE_CHARGINGFIRE = 1 << 8; 																				/// <summary>Fire Conjuring's State ID.</summary>
+	public const int ID_STATE_CROUCHING = 1 << 10; 																					/// <summary>Crouching's State ID.</summary>
+	public const int ID_STATE_MOVING = 1 << 11; 																					/// <summary>Moving's State ID.</summary>
+	public const int ID_STATE_BRAKING = 1 << 12; 																					/// <summary>Braking's State ID.</summary>
+	public const int ID_STATE_STANDINGUP = 1 << 13; 																				/// <summary>Standing Up's State ID.</summary>
+	public const int ID_EVENT_INITIALPOSE_BEGINS = 0; 																				/// <summary>Mateo Initial-Pose-Begins's Event ID.</summary>
+	public const int ID_EVENT_INITIALPOSE_ENDED = 1; 																				/// <summary>Mateo Initial-Pose-Finished's Event ID.</summary>
+	public const int ID_EVENT_MEDITATION_BEGINS = 2; 																				/// <summary>Meditation Begins' Event.</summary>
+	public const int ID_EVENT_MEDITATION_ENDS = 3; 																					/// <summary>Meditation Ends' Event.</summary>
+	public const int ID_EVENT_HURT = 4; 																							/// <summary>Mateo's Hurt Event.</summary>
+	public const int ID_EVENT_DEAD = 5; 																							/// <summary>Mateo's Dead Event.</summary>
 
-	[Space(5f)]
-	[SerializeField] private GameObject hurtBox; 																		/// <summary>HurtBox's Container.</summary>
-	[Header("Rotations:")]
-	[SerializeField] private EulerRotation _stareAtBossRotation; 														/// <summary>Stare at Boss's Rotation.</summary>
-	[SerializeField] private EulerRotation _stareAtPlayerRotation; 														/// <summary>Stare At Player's Rotation.</summary>
-	[Space(5f)]
-	[SerializeField] private float _crouchDuration; 																	/// <summary>Crouch's Duration.</summary>
-	[Space(5f)]
-	[Header("Sword's Attributes:")]
-	[TabGroup("Sword Attacks")][SerializeField] private Sword _sword; 													/// <summary>Mateo's Sword.</summary>
-	[SerializeField] private int _groundedNeutralComboIndex; 															/// <summary>Grounded Neutral Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _groundedDirectionalComboIndex; 														/// <summary>Grounded Directional Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _airNeutralComboIndex; 																/// <summary>Air Neutral Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField] private int _airDirectionalComboIndex; 															/// <summary>Air Directional Combo's index on the AnimationAttacksHandler.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _animationStateProgress; 															/// <summary>Minimum Animation State Progress to open the next attack's window.</summary>
-	[SerializeField] private float _attackDurationWindow; 																/// <summary>Duration Window's for next sword attack.</summary>
-	[Space(5f)]
-	[TabGroup("Sword Attacks")][SerializeField] private FloatRange _directionalThresholdX; 								/// <summary>Directional Threhold on the X's Axis to perform directional attacks.</summary>
-	[TabGroup("Sword Attacks")][SerializeField] private FloatRange _directionalThresholdY; 								/// <summary>Directional Threhold on the Y's Axis to perform directional attacks.</summary>
-	[Space(5f)]
-	[SerializeField] private float _gravityScale; 																		/// <summary>Gravity Scale applied when attacking.</summary>
-	[SerializeField] private int _scaleChangePriority; 																	/// <summary>Gravity Scale's Change Priority.</summary>
-	[Space(5f)]
-	[SerializeField] private float _jumpingMovementScale; 																/// <summary>Movement's Scale when Mateo is Jumping.</summary>
-	[Space(5f)]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _dashXThreshold; 																	/// <summary>Minimum left axis' X [absolute] value to be able to perform dash.</summary>
 	[Space(5f)]
 	[Header("AnimatorController's Parameters:")]
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisXCredential; 							/// <summary>Left Axis X's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisYCredential; 							/// <summary>Left Axis Y's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisXCredential; 							/// <summary>Right Axis X's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisYCredential; 							/// <summary>Right Axis Y's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisXCredential; 										/// <summary>Left Axis X's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisYCredential; 										/// <summary>Left Axis Y's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisXCredential; 										/// <summary>Right Axis X's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisYCredential; 										/// <summary>Right Axis Y's Animator Credential.</summary>
 	[Space(5f)]
 	[Header("Animation Layers:")]
-	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 											/// <summary>Main's Animation Layer.</summary>
-	[TabGroup("Animations")][SerializeField] private int _fireConjuringAnimationLayer; 									/// <summary>Fire Conjuring's Animation Layer.</summary>
-	[TabGroup("Animations")][SerializeField] private int _jumpingAnimationLayer; 										/// <summary>Jumping's Animation Layer.</summary>
-	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 										/// <summary>Attack's Animation Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 														/// <summary>Main's Animation Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _fireConjuringAnimationLayer; 												/// <summary>Fire Conjuring's Animation Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _jumpingAnimationLayer; 													/// <summary>Jumping's Animation Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 													/// <summary>Attack's Animation Layer.</summary>
 	[Space(5f)]
 	[Header("Animation Clips' Credentials:")]
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _emptyCredential; 								/// <summary>Empty State's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _noSwordLocomotionCredential; 					/// <summary>No-Sword's Locomotion's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordLocomotionCredential; 					/// <summary>Sword's Locomotion's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crouchCredential; 								/// <summary>Crouch's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalMeditationCredential; 					/// <summary>Normal Meditaiton's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _brakeCredential; 								/// <summary>Brake's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lightHitCredential; 							/// <summary>Light-Hit's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongHitCredential; 							/// <summary>Strong-Hit's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crashCredential; 								/// <summary>Crash's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 								/// <summary>Dead's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordMeditationCredential; 					/// <summary>Sword Meditaiton's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireMeditationCredential; 						/// <summary>Fire Meditaiton's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalStandingCredential; 						/// <summary>Normal Standing's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _jumpStandingCredential; 						/// <summary>Jump Standing's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalJumpCredential; 							/// <summary>Normal Jump's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _additionalJumpCredential; 						/// <summary>Additional Jump's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fallingCredential; 							/// <summary>Falling's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _softLandingCredential; 						/// <summary>Soft Landing's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hardLandingCredential; 						/// <summary>Hard Landing's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireConjuringCredential; 						/// <summary>Fire Conjuring's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireHoldingCredential; 						/// <summary>Fire Holding's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireMaxChargedCredential; 						/// <summary>Fire's Max Charged's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireThrowCredential; 							/// <summary>Fire Throw's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordObtentionCredential; 						/// <summary>Sword Obtention's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireObtentionCredential; 						/// <summary>Fire Obtention's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _groundSwordAttackCredential; 					/// <summary>Ground Sword Attack's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalJumpSwordAttackCredential; 				/// <summary>Normal Jump Sword Attack's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _additionalJumpSwordAttackCredential; 			/// <summary>Additional Jump Sword Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _emptyCredential; 											/// <summary>Empty State's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _noSwordLocomotionCredential; 								/// <summary>No-Sword's Locomotion's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordLocomotionCredential; 								/// <summary>Sword's Locomotion's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crouchCredential; 											/// <summary>Crouch's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalMeditationCredential; 								/// <summary>Normal Meditaiton's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _brakeCredential; 											/// <summary>Brake's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lightHitCredential; 										/// <summary>Light-Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongHitCredential; 										/// <summary>Strong-Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crashCredential; 											/// <summary>Crash's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 											/// <summary>Dead's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordMeditationCredential; 								/// <summary>Sword Meditaiton's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireMeditationCredential; 									/// <summary>Fire Meditaiton's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalStandingCredential; 									/// <summary>Normal Standing's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _jumpStandingCredential; 									/// <summary>Jump Standing's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalJumpCredential; 										/// <summary>Normal Jump's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _additionalJumpCredential; 									/// <summary>Additional Jump's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fallingCredential; 										/// <summary>Falling's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _softLandingCredential; 									/// <summary>Soft Landing's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hardLandingCredential; 									/// <summary>Hard Landing's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireConjuringCredential; 									/// <summary>Fire Conjuring's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireHoldingCredential; 									/// <summary>Fire Holding's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireMaxChargedCredential; 									/// <summary>Fire's Max Charged's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireThrowCredential; 										/// <summary>Fire Throw's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordObtentionCredential; 									/// <summary>Sword Obtention's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _fireObtentionCredential; 									/// <summary>Fire Obtention's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _groundSwordAttackCredential; 								/// <summary>Ground Sword Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalJumpSwordAttackCredential; 							/// <summary>Normal Jump Sword Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _additionalJumpSwordAttackCredential; 						/// <summary>Additional Jump Sword Attack's AnimatorCredential.</summary>
+	[Space(5f)]
+	[Range(0.0f, 0.9f)]
+	[TabGroup("Group A", "Movement")][SerializeField] private float _movementAxesThreshold; 										/// <summary>Movement Axes' Magnitude Threshold.</summary>
+	[Space(5f)]
+	[TabGroup("Group A", "Movement")][SerializeField] private float _crouchDuration; 												/// <summary>Crouch's Duration.</summary>
+	[Space(5f)]
+	[Header("Sword's Attributes:")]
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private Sword _sword; 													/// <summary>Mateo's Sword.</summary>
+	[Space(5f)]
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private FloatRange _directionalThresholdX; 								/// <summary>Directional Threhold on the X's Axis to perform directional attacks.</summary>
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private FloatRange _directionalThresholdY; 								/// <summary>Directional Threhold on the Y's Axis to perform directional attacks.</summary>
+	[Space(5f)]
+	[Header("Jumping's Attributes:")]
+	[TabGroup("Group A", "Jumping")][SerializeField] private TrailRenderer _extraJumpTrailRenderer; 								/// <summary>Extra-Jump's Trail Renderer.</summary>
+	[TabGroup("Group A", "Jumping")][SerializeField] private float _gravityScale; 													/// <summary>Gravity Scale applied when attacking.</summary>
+	[TabGroup("Group A", "Jumping")][SerializeField] private int _scaleChangePriority; 												/// <summary>Gravity Scale's Change Priority.</summary>
+	[Space(5f)]
+	[TabGroup("Group A", "Jumping")][SerializeField] private float _jumpingMovementScale; 											/// <summary>Movement's Scale when Mateo is Jumping.</summary>
+	[Space(5f)]
+	[Header("Meditation's Attributes:")]
+	[TabGroup("Group A", "Meditation")][SerializeField] private float _meditationWaitDuration; 										/// <summary>Meditation Wait's Duration.</summary>
+	[TabGroup("Group A", "Meditation")][SerializeField] private float _normalStandingAdditionalWait; 								/// <summary>Normal Meditation's Standing Additional Wait Duration.</summary>
+	[Space(5f)]
+	[SerializeField]
+	[TabGroup("Group A", "Dash")][Range(0.0f, 1.0f)] private float _dashXThreshold; 												/// <summary>Minimum left axis' X [absolute] value to be able to perform dash.</summary>
 	[Space(5f)]
 	[Header("Particle Effects:")]
-	[TabGroup("Particle Effects")][SerializeField] private ParticleEffectEmissionData _initialJumpParticleEffect; 		/// <summary>Initial Jump's ParticleEffect's Emission Data.</summary>
-	[TabGroup("Particle Effects")][SerializeField] private ParticleEffectEmissionData _additionalJumpParticleEffect; 	/// <summary>Additional Jump's ParticleEffect's Emission Data.</summary>
-	[TabGroup("Particle Effects")][SerializeField] private ParticleEffectEmissionData _softLandingParticleEffect; 		/// <summary>Soft-Landing's ParticleEffect's Emission Data.</summary>
-	[TabGroup("Particle Effects")][SerializeField] private ParticleEffectEmissionData _hardLandingParticleEffect; 		/// <summary>Hard-Landing's ParticleEffect's Emission Data.</summary>
-	[Space(5f)]
-	[SerializeField] private TrailRenderer _extraJumpTrailRenderer; 													/// <summary>Extra-Jump's Trail Renderer.</summary>
+	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _initialJumpParticleEffect; 		/// <summary>Initial Jump's ParticleEffect's Emission Data.</summary>
+	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _additionalJumpParticleEffect; 	/// <summary>Additional Jump's ParticleEffect's Emission Data.</summary>
+	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _softLandingParticleEffect; 		/// <summary>Soft-Landing's ParticleEffect's Emission Data.</summary>
+	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _hardLandingParticleEffect; 		/// <summary>Hard-Landing's ParticleEffect's Emission Data.</summary>
 	[Space(5f)]
 	[Header("Sound Effect's:")]
-	[TabGroup("Sound Effects")][SerializeField] private CollectionIndex _initialJumpSoundEffectIndex; 					/// <summary>Initial Jump Sound Effect's Index.</summary>
-	[TabGroup("Sound Effects")][SerializeField] private CollectionIndex _additionalJumpSoundEffectIndex; 				/// <summary>Additional Jump Sound Effect's Index.</summary>
-	[Header("Meditation's Attributes:")]
-	[SerializeField] private float _meditationWaitDuration; 															/// <summary>Meditation Wait's Duration.</summary>
-	[SerializeField] private float _normalStandingAdditionalWait; 														/// <summary>Normal Meditation's Standing Additional Wait Duration.</summary>
-	private float _meditationWaitTime; 																					/// <summary>Current Meditation's Time.</summary>
-	private RigidbodyMovementAbility _movementAbility; 																	/// <summary>RigidbodyMovementAbility's Component.</summary>
-	private RotationAbility _rotationAbility; 																			/// <summary>RotationAbility's Component.</summary>
-	private JumpAbility _jumpAbility; 																					/// <summary>JumpAbility's Component.</summary>
-	private ShootChargedProjectile _shootProjectile; 																	/// <summary>ShootChargedProjectile's Component.</summary>
-	private DashAbility _dashAbility; 																					/// <summary>DashAbility's Component.</summary>
-	private TransformDeltaCalculator _deltaCalculator; 																	/// <summary>TransformDeltaCalculator's Component.</summary>
-	private SensorSystem2D _sensorSystem; 																				/// <summary>SensorSystem2D's Component.</summary>
-	private WallEvaluator _wallEvaluator; 																				/// <summary>WallEvaluator's Component.</summary>
-	private AnimationAttacksHandler _attacksHandler; 																	/// <summary>AnimationAttacksHandler's Component.</summary>
-	private SlopeEvaluator _slopeEvaluator; 																			/// <summary>SlopeEvaluator's Component.</summary>
-	private VCameraTarget _cameraTarget; 																				/// <summary>VCameraTarget's Component.</summary>
-	private Vector3 _orientation; 																						/// <summary>Mateo's Orientation.</summary>
-	private Vector2 _leftAxes; 																							/// <summary>Left Axes' Value.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _initialJumpSoundEffectIndex; 					/// <summary>Initial Jump Sound Effect's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _additionalJumpSoundEffectIndex; 				/// <summary>Additional Jump Sound Effect's Index.</summary>
+	private float _meditationWaitTime; 																								/// <summary>Current Meditation's Time.</summary>
+	private RigidbodyMovementAbility _movementAbility; 																				/// <summary>RigidbodyMovementAbility's Component.</summary>
+	private RotationAbility _rotationAbility; 																						/// <summary>RotationAbility's Component.</summary>
+	private JumpAbility _jumpAbility; 																								/// <summary>JumpAbility's Component.</summary>
+	private ShootChargedProjectile _shootProjectile; 																				/// <summary>ShootChargedProjectile's Component.</summary>
+	private DashAbility _dashAbility; 																								/// <summary>DashAbility's Component.</summary>
+	private TransformDeltaCalculator _deltaCalculator; 																				/// <summary>TransformDeltaCalculator's Component.</summary>
+	private SensorSystem2D _sensorSystem; 																							/// <summary>SensorSystem2D's Component.</summary>
+	private WallEvaluator _wallEvaluator; 																							/// <summary>WallEvaluator's Component.</summary>
+	private AnimationAttacksHandler _attacksHandler; 																				/// <summary>AnimationAttacksHandler's Component.</summary>
+	private SlopeEvaluator _slopeEvaluator; 																						/// <summary>SlopeEvaluator's Component.</summary>
+	private Vector3 _orientation; 																									/// <summary>Mateo's Orientation.</summary>
+	private Vector2 _leftAxes; 																										/// <summary>Left Axes' Value.</summary>
 
 #region Getters/Setters:
-	/// <summary>Gets stareAtBossRotation property.</summary>
-	public EulerRotation stareAtBossRotation { get { return _stareAtBossRotation; } }
-
-	/// <summary>Gets stareAtPlayerRotation property.</summary>
-	public EulerRotation stareAtPlayerRotation { get { return _stareAtPlayerRotation; } }
-
 	/// <summary>Gets sword property.</summary>
 	public Sword sword { get { return _sword; } }
 
+	/// <summary>Gets movementAxesThreshold property.</summary>
+	public float movementAxesThreshold { get { return _movementAxesThreshold; } }
+
 	/// <summary>Gets crouchDuration property.</summary>
 	public float crouchDuration { get { return _crouchDuration; } }
-
-	/// <summary>Gets animationStateProgress property.</summary>
-	public float animationStateProgress { get { return _animationStateProgress; } }
-
-	/// <summary>Gets attackDurationWindow property.</summary>
-	public float attackDurationWindow { get { return _attackDurationWindow; } }
 
 	/// <summary>Gets gravityScale property.</summary>
 	public float gravityScale { get { return _gravityScale; } }
@@ -201,18 +176,6 @@ public class Mateo : Character
 
 	/// <summary>Gets directionalThresholdY property.</summary>
 	public FloatRange directionalThresholdY { get { return _directionalThresholdY; } }
-
-	/// <summary>Gets groundedNeutralComboIndex property.</summary>
-	public int groundedNeutralComboIndex { get { return _groundedNeutralComboIndex; } }
-
-	/// <summary>Gets groundedDirectionalComboIndex property.</summary>
-	public int groundedDirectionalComboIndex { get { return _groundedDirectionalComboIndex; } }
-
-	/// <summary>Gets airNeutralComboIndex property.</summary>
-	public int airNeutralComboIndex { get { return _airNeutralComboIndex; } }
-
-	/// <summary>Gets airDirectionalComboIndex property.</summary>
-	public int airDirectionalComboIndex { get { return _airDirectionalComboIndex; } }
 
 	/// <summary>Gets scaleChangePriority property.</summary>
 	public int scaleChangePriority { get { return _scaleChangePriority; } }
@@ -350,16 +313,6 @@ public class Mateo : Character
 		}
 	}
 
-	/// <summary>Gets cameraTarget Component.</summary>
-	public VCameraTarget cameraTarget
-	{ 
-		get
-		{
-			if(_cameraTarget == null) _cameraTarget = GetComponent<VCameraTarget>();
-			return _cameraTarget;
-		}
-	}
-
 	/// <summary>Gets and Sets orientation property.</summary>
 	public Vector3 orientation
 	{
@@ -373,9 +326,6 @@ public class Mateo : Character
 		get { return _leftAxes; }
 		private set { _leftAxes = value; }
 	}
-
-	/// <summary>Gets directionTowardsBackground property.</summary>
-	public Vector3 directionTowardsBackground { get { return stareAtBossRotation * Vector3.forward; } }
 #endregion
 
 //---------------------------------------
@@ -465,6 +415,7 @@ public class Mateo : Character
 
 		if(this.HasStates(ID_STATE_MEDITATING)) return;
 
+		_scale = VMath.RemapValueToNormalizedRange(Mathf.Abs(_axes.x), 0.0f, movementAxesThreshold);
 		float scale = (jumpAbility.HasStates(JumpAbility.STATE_ID_JUMPING) ? jumpingMovementScale : 1.0f) * _scale;
 
 		//transform.rotation = Quaternion.Euler(0.0f, _axes.x < 0.0f ? 180.0f : 0.0f, 0.0f);
@@ -664,10 +615,10 @@ public class Mateo : Character
 		if(grounded) animationHash = _groundSwordAttackCredential;
 		else animationHash = jumpAbility.GetJumpIndex() > 0 ? _additionalJumpSwordAttackCredential : _normalJumpSwordAttackCredential;
 
-		if(grounded) index = applyDirectional ? groundedDirectionalComboIndex : groundedNeutralComboIndex;
+		/*if(grounded) index = applyDirectional ? groundedDirectionalComboIndex : groundedNeutralComboIndex;
 		else index = applyDirectional ? airDirectionalComboIndex : airNeutralComboIndex;
 
-		/*if(attacksHandler.BeginAttack(index))
+		if(attacksHandler.BeginAttack(index))
 		{
 			sword.ActivateHitBoxes(true);
 			animator.SetBool(attackCredential, true);
@@ -854,9 +805,9 @@ public class Mateo : Character
 
 	/// <summary>Changes rotation towards given target.</summary>
 	/// <param name="_target">Target to stare at.</param>
-	public void StareTowards(StareTarget _target = StareTarget.Boss)
+	public void StareTowards(StareTarget _target = StareTarget.Background)
 	{
-		if(animator != null) animator.transform.rotation = _target == StareTarget.Boss ? stareAtBossRotation : stareAtPlayerRotation;
+		if(animator != null) animator.transform.rotation = _target == StareTarget.Background ? Game.data.stareAtBackgroundRotation : Game.data.stareAtPlayerRotation;
 	}
 #endregion
 

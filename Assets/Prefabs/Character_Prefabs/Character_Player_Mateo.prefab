@@ -3555,34 +3555,17 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   _faction: 0
   _animatorParent: {fileID: 6544736471894580627}
+  _meshParent: {fileID: 7762893346261307157}
   _animator: {fileID: 3138014061218544716}
   _animatorController: {fileID: 3537191631708047769}
   _clipFadeDuration: 0.5
-  hurtBox: {fileID: 7886282707592371948}
-  _stareAtBossRotation:
-    _eulerAngles: {x: 0, y: 0, z: 0}
-    _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _stareAtPlayerRotation:
-    _eulerAngles: {x: 0, y: 180, z: 0}
-    _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  _crouchDuration: 0
-  _sword: {fileID: 0}
-  _groundedNeutralComboIndex: 0
-  _groundedDirectionalComboIndex: 1
-  _airNeutralComboIndex: 2
-  _airDirectionalComboIndex: 3
-  _animationStateProgress: 0.85
-  _attackDurationWindow: 0.25
-  _directionalThresholdX:
-    _min: -0.5
-    _max: 0.5
-  _directionalThresholdY:
-    _min: -0.5
-    _max: 0.5
-  _gravityScale: 1
-  _scaleChangePriority: 1
-  _jumpingMovementScale: 1
-  _dashXThreshold: 0.5
+  _hurtBoxes: []
+  _physicalColliders:
+  - {fileID: 282407272}
+  _triggerColliders:
+  - {fileID: 8824936104475289404}
+  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmosRadius: 0.25
   _leftAxisXCredential:
     _tag: LeftAxisX
     _ID: -741505348
@@ -3683,8 +3666,24 @@ MonoBehaviour:
   _additionalJumpSwordAttackCredential:
     _tag: AdditionalJumpAttacks
     _ID: 1473887127
+  _movementAxesThreshold: 0.8
+  _crouchDuration: 0
+  _sword: {fileID: 0}
+  _directionalThresholdX:
+    _min: -0.5
+    _max: 0.5
+  _directionalThresholdY:
+    _min: -0.5
+    _max: 0.5
+  _extraJumpTrailRenderer: {fileID: 0}
+  _gravityScale: 1
+  _scaleChangePriority: 1
+  _jumpingMovementScale: 1
+  _meditationWaitDuration: 6
+  _normalStandingAdditionalWait: 0
+  _dashXThreshold: 0.5
   _initialJumpParticleEffect:
-    _transform: {fileID: 0}
+    _transform: {fileID: 5122952807910987803}
     _particleEffectIndex:
       index: 8
       objectIndex: 0
@@ -3715,17 +3714,14 @@ MonoBehaviour:
       collectionIndex: 7
     _points:
     - {x: 0, y: 1.45, z: 0}
-  _extraJumpTrailRenderer: {fileID: 0}
   _initialJumpSoundEffectIndex:
     index: 18
     objectIndex: 0
     collectionIndex: 6
   _additionalJumpSoundEffectIndex:
-    index: 43
+    index: 16
     objectIndex: 0
     collectionIndex: 6
-  _meditationWaitDuration: 6
-  _normalStandingAdditionalWait: 0
 --- !u!114 &5122952807910987792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6704,46 +6700,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5500891184063728168}
     m_Modifications:
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.000000022350953
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.000000019289239
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.073715866
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.034366343
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.000000017376612
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: -2687330380540867451, guid: 27391677e3f089e478f2a2654744e91f,
         type: 3}
       propertyPath: m_Name
@@ -6803,6 +6759,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.000000022350953
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.000000019289239
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.073715866
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.034366343
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000000017376612
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9, type: 3}

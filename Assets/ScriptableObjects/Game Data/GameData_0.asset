@@ -26,6 +26,12 @@ MonoBehaviour:
   _rinocircusSceneName: Scene_Boss_Rinocircus
   _moctechzumaSceneName: Scene_Boss_Moctechzuma
   _trainingGroundScenesNames: []
+  _stareAtBackgroundRotation:
+    _eulerAngles: {x: 0, y: 0, z: 0}
+    _rotation: {x: 0, y: 0, z: 0, w: 1}
+  _stareAtPlayerRotation:
+    _eulerAngles: {x: 0, y: 180, z: 0}
+    _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   _deathZoom: 7
   _damageCameraShakeDuration:
     _min: 0.1

@@ -31,6 +31,10 @@ public class GameData : ScriptableObject
 	[SerializeField] private string _moctechzumaSceneName; 						/// <summary>Moctechzuma Scene's Name.</summary>
 	[SerializeField] private string[] _trainingGroundScenesNames; 				/// <summary>Training Grounds' Scenes' Names.</summary>
 	[Space(5f)]
+	[Header("Rotations:")]
+	[SerializeField] private EulerRotation _stareAtBackgroundRotation; 				/// <summary>Stare at Boss's Rotation.</summary>
+	[SerializeField] private EulerRotation _stareAtPlayerRotation; 				/// <summary>Stare At Player's Rotation.</summary>
+	[Space(5f)]
 	[Header("Camera Configurations:")]
 	[SerializeField] private float _deathZoom; 									/// <summary>Death's Zoom.</summary>
 	[Header("Camera Shaking's Attributes:")]
@@ -142,6 +146,12 @@ public class GameData : ScriptableObject
 
 	/// <summary>Gets trainingGroundScenesNames property.</summary>
 	public string[] trainingGroundScenesNames { get { return _trainingGroundScenesNames; } }
+
+	/// <summary>Gets stareAtBackgroundRotation property.</summary>
+	public EulerRotation stareAtBackgroundRotation { get { return _stareAtBackgroundRotation; } }
+
+	/// <summary>Gets stareAtPlayerRotation property.</summary>
+	public EulerRotation stareAtPlayerRotation { get { return _stareAtPlayerRotation; } }
 
 	/// <summary>Gets frameRate property.</summary>
 	public int frameRate { get { return _frameRate; } }
@@ -263,6 +273,12 @@ public class GameData : ScriptableObject
 		get { return _allProjectilesTags; }
 		private set { _allProjectilesTags = value; }
 	}
+
+	/// <summary>Gets directionTowardsBackground property.</summary>
+	public Vector3 directionTowardsBackground { get { return stareAtBackgroundRotation * Vector3.forward; } }
+
+	/// <summary>Gets directionTowardsPlayer property.</summary>
+	public Vector3 directionTowardsPlayer { get { return stareAtPlayerRotation * Vector3.forward; } }
 #endregion
 
 	/// This finally fixed the camera issues: https://docs.unity3d.com/ScriptReference/Time-maximumDeltaTime.html

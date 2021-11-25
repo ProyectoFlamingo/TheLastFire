@@ -183,7 +183,7 @@ public class PlayerController : Singleton<PlayerController>
 		&& (InputController.InputEnds(frontalFireConjuringID0) || InputController.InputEnds(frontalFireConjuringID1)))
 		{
 			if(((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags) && (rightAxesMagnitude <= rightDeadZoneThreshold))
-			mateo.ReleaseFire(mateo.directionTowardsBackground);
+			mateo.ReleaseFire(Game.data.directionTowardsBackground);
 
 			inputFlags &= ~FLAG_INPUT_CHARGING_FIRE_FRONTAL;
 		}
@@ -223,7 +223,7 @@ public class PlayerController : Singleton<PlayerController>
 		{
 			if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags)
 			{
-				mateo.ChargeFire(mateo.directionTowardsBackground);
+				mateo.ChargeFire(Game.data.directionTowardsBackground);
 			
 			} else if((inputFlags | FLAG_INPUT_CHARGING_FIRE) == inputFlags)
 			{

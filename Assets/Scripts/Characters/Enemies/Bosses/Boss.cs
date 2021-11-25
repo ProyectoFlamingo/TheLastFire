@@ -28,7 +28,6 @@ public class Boss : Enemy
 	[SerializeField] private int _stages; 									/// <summary>Boss' Stages.</summary>
 	[SerializeField] private float[] _healthDistribution; 					/// <summary>Health Distribution across the Stages.</summary>
 	[SerializeField] private RandomDistributionSystem _distributionSystem; 	/// <summary>Distribution System.</summary>
-	[SerializeField] private Animator _animator; 							/// <summary>Animator's Component.</summary>
 	[SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
 	[SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
 #if UNITY_EDITOR
@@ -59,16 +58,6 @@ public class Boss : Enemy
 	{
 		get { return _healthDistribution; }
 		set { _healthDistribution = value; }
-	}
-
-	/// <summary>Gets animator Component.</summary>
-	public Animator animator
-	{ 
-		get
-		{
-			if(_animator == null) _animator = GetComponent<Animator>();
-			return _animator;
-		}
 	}
 
 	/// <summary>Gets animation Component.</summary>
@@ -151,7 +140,7 @@ public class Boss : Enemy
 	{
 		//OnObjectDeactivation();
 		if(onIDEvent != null) onIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
-		eventsHandler.InvokeEnemyDeactivationEvent(this, DeactivationCause.Destroyed);
+		eventsHandler.InvokeCharacterDeactivationEvent( DeactivationCause.Destroyed);
 	} 
 
 	/// <summary>Callback invoked when a Health's event has occured.</summary>

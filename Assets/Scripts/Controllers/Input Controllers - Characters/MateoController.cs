@@ -136,7 +136,7 @@ public class MateoController : CharacterController<Mateo>
 		{
 			if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags)
 			{
-				character.ChargeFire(character.directionTowardsBackground);
+				character.ChargeFire(Game.data.directionTowardsBackground);
 			
 			} else if((inputFlags | FLAG_INPUT_CHARGING_FIRE) == inputFlags)
 			{
@@ -163,7 +163,8 @@ public class MateoController : CharacterController<Mateo>
 		Vector2 movement = leftAxes.WithY(0.0f);
 		
 		if(movement.x != 0.0f)
-		character.Move(movement, Mathf.Abs(movement.x) > movementAxesThreshold ? 1.0f : lowSpeedScalar);
+		character.Move(movement);
+		//character.Move(movement, Mathf.Abs(movement.x) > movementAxesThreshold ? 1.0f : lowSpeedScalar);
 	}
 
 #region Callbacks:
@@ -205,7 +206,7 @@ public class MateoController : CharacterController<Mateo>
 		if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags
 		&& rightAxesMagnitude < rightDeadZoneRadius
 		&& character != null)
-		character.ChargeFire(character.directionTowardsBackground);
+		character.ChargeFire(Game.data.directionTowardsBackground);
 		
 		inputFlags |= FLAG_INPUT_CHARGING_FIRE_FRONTAL;
 
@@ -218,7 +219,7 @@ public class MateoController : CharacterController<Mateo>
 		//if(Game.state != GameState.Playing) return;
 
 		if((inputFlags | FLAG_INPUT_CHARGING_FIRE_FRONTAL) == inputFlags && character != null)
-		character.ReleaseFire(character.directionTowardsBackground);
+		character.ReleaseFire(Game.data.directionTowardsBackground);
 		
 		inputFlags &= ~FLAG_INPUT_CHARGING_FIRE_FRONTAL;
 	}
