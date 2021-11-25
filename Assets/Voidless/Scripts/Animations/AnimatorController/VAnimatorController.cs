@@ -126,7 +126,7 @@ public class VAnimatorController : MonoBehaviour
 		return true;
 	}
 
-	/// <summary>Cross-Fades towards Animation and waits till that next animation is finished.</summary>
+	/// <summary>Cross-Fades towards Animation and waits until that next animation is finished.</summary>
 	/// <param name="_hash">AnimationState's Hash.</param>
 	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
 	/// <param name="_layerIndex">Layer's Index [0 by default].</param>

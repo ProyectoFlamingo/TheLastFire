@@ -103,7 +103,8 @@ public class Mateo : Character
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crouchCredential; 								/// <summary>Crouch's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalMeditationCredential; 					/// <summary>Normal Meditaiton's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _brakeCredential; 								/// <summary>Brake's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitCredential; 								/// <summary>Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lightHitCredential; 							/// <summary>Light-Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongHitCredential; 							/// <summary>Strong-Hit's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _crashCredential; 								/// <summary>Crash's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 								/// <summary>Dead's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _swordMeditationCredential; 					/// <summary>Sword Meditaiton's AnimatorCredential.</summary>
@@ -132,8 +133,6 @@ public class Mateo : Character
 	[TabGroup("Particle Effects")][SerializeField] private ParticleEffectEmissionData _hardLandingParticleEffect; 		/// <summary>Hard-Landing's ParticleEffect's Emission Data.</summary>
 	[Space(5f)]
 	[SerializeField] private TrailRenderer _extraJumpTrailRenderer; 													/// <summary>Extra-Jump's Trail Renderer.</summary>
-	[Space(5f)]
-	[SerializeField] private ParticleEffect _swordParticleEffect; 														/// <summary>Sword's Particle Effect when slashing.</summary>
 	[Space(5f)]
 	[Header("Sound Effect's:")]
 	[TabGroup("Sound Effects")][SerializeField] private CollectionIndex _initialJumpSoundEffectIndex; 					/// <summary>Initial Jump Sound Effect's Index.</summary>
@@ -241,9 +240,6 @@ public class Mateo : Character
 
 	/// <summary>Gets hardLandingParticleEffect property.</summary>
 	public ParticleEffectEmissionData hardLandingParticleEffect { get { return _hardLandingParticleEffect; } }
-
-	/// <summary>Gets swordParticleEffect property.</summary>
-	public ParticleEffect swordParticleEffect { get { return _swordParticleEffect; } }
 
 	/// <summary>Gets initialJumpSoundEffectIndex property.</summary>
 	public CollectionIndex initialJumpSoundEffectIndex { get { return _initialJumpSoundEffectIndex; } }
@@ -456,7 +452,8 @@ public class Mateo : Character
 			- Mateo is not walled and not trying to walk towards the wall.
 			- Mateo is not on its initial pose.
 		*/
-		if(this.HasStates(ID_STATE_HURT)
+		if(!this.HasStates(ID_STATE_ALIVE)
+		|| this.HasStates(ID_STATE_HURT)
 		|| this.HasStates(ID_STATE_CROUCHING)
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
 		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None)*/ this.HasStates(ID_STATE_ATTACKING))
@@ -547,6 +544,7 @@ public class Mateo : Character
 			{
 				state &= ~ID_STATE_MEDITATING;
 				state &= ~ID_STATE_STANDINGUP;
+				CancelJump();
 				InvokeIDEvent(ID_EVENT_MEDITATION_ENDS);
 				OnMainLayerAnimationFinished();
 
@@ -640,7 +638,8 @@ public class Mateo : Character
 			- Mateo is not bouncing from a wall.
 			- Mateo is not landing.
 		*/
-		if(this.HasStates(ID_STATE_HURT)
+		if(!this.HasStates(ID_STATE_ALIVE)
+		|| this.HasStates(ID_STATE_HURT)
 		/*|| attacksHandler.state == AttackState.Attacking
 		|| attacksHandler.state == AttackState.Waiting*/
 		|| this.HasStates(ID_STATE_ATTACKING)
@@ -690,7 +689,6 @@ public class Mateo : Character
 	{
 		//hurtBox.SetActive(true);
 		health.OnInvincibilityCooldownEnds();
-		if(swordParticleEffect != null) swordParticleEffect.gameObject.SetActive(false);
 		//attacksHandler.CancelAttack();
 		sword.ActivateHitBoxes(false);
 		state &= ~ID_STATE_ATTACKING;
@@ -797,7 +795,7 @@ public class Mateo : Character
 			- Alive.
 			- Grounded, but not attacking.
 		*/
-		if(this.HasStates(ID_STATE_HURT | ID_STATE_MEDITATING)
+		if(this.HasAnyOfTheStates(ID_STATE_HURT | ID_STATE_STANDINGUP)
 		|| !this.HasStates(ID_STATE_ALIVE)
 		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None*/this.HasStates(ID_STATE_ATTACKING))) return;
 
@@ -818,7 +816,7 @@ public class Mateo : Character
 	public void Crouch()
 	{
 		if(!this.HasStates(ID_STATE_ALIVE)
-		|| (this.HasStates(ID_STATE_CROUCHING) || this.HasAnyOfTheStates(ID_STATE_JUMPING | ID_STATE_ATTACKING | ID_STATE_MEDITATING | ID_STATE_HURT))) return;
+		|| this.HasAnyOfTheStates(ID_STATE_CROUCHING | ID_STATE_JUMPING | ID_STATE_ATTACKING | ID_STATE_MEDITATING | ID_STATE_HURT | ID_STATE_STANDINGUP)) return;
 
 		state |= ID_STATE_CROUCHING;
 		animatorController.CrossFadeAndWait(
@@ -842,7 +840,7 @@ public class Mateo : Character
 			- Not Meditating
 			- Not Attacking
 		*/
-		if(this.HasAnyOfTheStates(ID_STATE_MEDITATING | ID_STATE_HURT)) return;
+		if(!this.HasStates(ID_STATE_ALIVE) || this.HasAnyOfTheStates(ID_STATE_MEDITATING | ID_STATE_HURT | ID_STATE_STANDINGUP)) return;
 
 		Vector3 direction = new Vector3(
 			leftAxes.x,
@@ -970,8 +968,12 @@ public class Mateo : Character
 			break;
 
 			case JumpAbility.STATE_ID_LANDING:
-				if(!this.HasStates(ID_STATE_MEDITATING))
+				if(!this.HasStates(ID_STATE_MEDITATING) || this.HasStates(ID_STATE_STANDINGUP))
 				{
+					if(animatorController.CancelCrossFading(_mainAnimationLayer))
+					{
+						state &= ~(ID_STATE_MEDITATING | ID_STATE_STANDINGUP);
+					}
 					animatorController.CrossFadeAndWait(
 						_softLandingCredential,
 						clipFadeDuration,
@@ -1022,7 +1024,7 @@ public class Mateo : Character
 	/// <param name="_braking">Did it brake?.</param>
 	private void OnMovementBraking(bool _braking)
 	{
-		if(!_braking || this.HasStates(ID_STATE_BRAKING)) return;
+		if(!this.HasStates(ID_STATE_ALIVE) || !_braking || this.HasStates(ID_STATE_BRAKING)) return;
 		
 		state |=  ID_STATE_BRAKING;
 		animatorController.CrossFadeAndWait(
@@ -1053,7 +1055,6 @@ public class Mateo : Character
 
 		    case AnimationCommandState.Startup:
 		    	sword.ActivateHitBoxes(false);
-		    	if(swordParticleEffect != null) swordParticleEffect.gameObject.SetActive(true);
 		    	//jumpAbility.gravityApplier.RequestScaleChange(GetInstanceID(), gravityScale, scaleChangePriority);
 		    break;
 
@@ -1075,12 +1076,12 @@ public class Mateo : Character
 	/// <param name="_object">GameObject that caused the event, null be default.</param>
 	protected override void OnHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
 	{
-		base.OnHealthEvent(_event, _amount);
-
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-				animatorController.CrossFade(_hitCredential, clipFadeDuration, _mainAnimationLayer, 0.0f);
+				int animationHash = _amount > 1.0f ? _strongHitCredential : _lightHitCredential;
+				state |= ID_STATE_HURT;
+				animatorController.CrossFade(animationHash, clipFadeDuration, _mainAnimationLayer, 0.0f);
 				Game.SetTimeScale(Game.data.hurtTimeScale);
 			break;
 
@@ -1099,11 +1100,14 @@ public class Mateo : Character
 			break;
 
 			case HealthEvent.InvincibilityEnds:
+				state &= ~ID_STATE_HURT;
 				if(health.hp > 0.0f)
 				ResetAxes();
 			break;
 
 			case HealthEvent.FullyDepleted:
+				if(!this.HasStates(ID_STATE_ALIVE)) return;
+
 				CancelAllActions();
 				this.ChangeState(ID_STATE_DEAD);
 				animatorController.CrossFadeAndWait(

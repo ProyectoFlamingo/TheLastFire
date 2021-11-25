@@ -165,19 +165,19 @@ public class Character : PoolGameObject, IStateMachine
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			this.AddStates(ID_STATE_HURT);
+				this.AddStates(ID_STATE_HURT);
 			break;
 
 			case HealthEvent.HitStunEnds:
-			this.RemoveStates(ID_STATE_HURT);
+				this.RemoveStates(ID_STATE_HURT);
 			break;
 
 			case HealthEvent.InvincibilityEnds:
-			this.RemoveStates(ID_STATE_HURT);
+				this.RemoveStates(ID_STATE_HURT);
 			break;
 
 			case HealthEvent.FullyDepleted:
-			this.RemoveStates(ID_STATE_ALIVE);
+				this.RemoveStates(ID_STATE_ALIVE);
 			//OnObjectDeactivation();
 			break;
 		}

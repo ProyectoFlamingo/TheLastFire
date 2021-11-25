@@ -30,6 +30,7 @@ public class StaticGrouper : MonoBehaviour
 	/// <summary>Updates StaticGrouper's instance at each frame.</summary>
 	private void Update()
 	{
+		if(gameObject.scene == null) return;
 		EvaluateGrouper();
 	}
 

@@ -19,7 +19,7 @@ public enum CameraFollowingConstraints
 [RequireComponent(typeof(Boundaries2DContainer))]
 public class GameplayCameraController : VCamera
 {
-	private CameraFollowingConstraints _constraints; 									/// <summary>Camera's Constraints.</summary>
+	[SerializeField] private CameraFollowingConstraints _constraints; 					/// <summary>Camera's Constraints.</summary>
 	private VCameraDisplacementFollow _displacementFollow; 								/// <summary>VCameraDisplacementFollow's Component.</summary>
 	private Boundaries2DDelimiter _boundariesDelimiter; 								/// <summary>Boundaries2DDelimiter's Component.</summary>
 	private MiddlePointBetweenTransformsTargetRetriever _middlePointTargetRetriever; 	/// <summary>MiddlePointBetweenTransformsTargetRetriever's Component.</summary>
