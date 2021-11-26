@@ -448,8 +448,8 @@ public class ShantyBoss : Boss
 	{
 		if(Game.onTransition) return;
 
-		this.RemoveStates(ID_STATE_IDLE);
-		this.AddStates(ID_STATE_ATTACK);
+		this.RemoveStates(IDs.STATE_IDLE);
+		this.AddStates(IDs.STATE_ATTACKING);
 		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 
 		switch(currentStage)
@@ -758,7 +758,7 @@ public class ShantyBoss : Boss
 		this.StartCoroutine(animation.CrossFadeAndWait(untiedAnnimation, 0.3f, PlayMode.StopSameLayer, 0.0f,
 		()=>
 		{
-			this.AddStates(ID_STATE_ATTACK);
+			this.AddStates(IDs.STATE_ATTACKING);
 		}));
 	}
 
@@ -766,24 +766,24 @@ public class ShantyBoss : Boss
 	/// <param name="_state">State's flags that were added.</param>
 	public override void OnStatesAdded(int _state)
 	{
-		if((_state | ID_STATE_IDLE) == _state)
+		if((_state | IDs.STATE_IDLE) == _state)
 		{
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
 			animation.CrossFade(idleAnimation);
 
-		} else if((_state | ID_STATE_ATTACK) == _state)
+		} else if((_state | IDs.STATE_ATTACKING) == _state)
 		{
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 			BeginAttackRoutine();
 
-		} else if((_state | ID_STATE_HURT) == _state)
+		} else if((_state | IDs.STATE_HURT) == _state)
 		{
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_DAMAGE);
-			this.RemoveStates(ID_STATE_ATTACK);
+			this.RemoveStates(IDs.STATE_ATTACKING);
 			/*this.StartCoroutine(animator.WaitForAnimatorState(0, 0.0f,
 			()=>
 			{
-				this.AddStates(ID_STATE_ATTACK);
+				this.AddStates(IDs.STATE_ATTACKING);
 			}));*/
 		}
 	}
@@ -792,7 +792,7 @@ public class ShantyBoss : Boss
 	/// <param name="_state">State's flags that were removed.</param>
 	public override void OnStatesRemoved(int _state)
 	{
-		if((_state | ID_STATE_HURT) == _state) BeginAttackRoutine();
+		if((_state | IDs.STATE_HURT) == _state) BeginAttackRoutine();
 	}
 
 	/// <summary>Callback invoked when an Animation Event is invoked.</summary>
@@ -856,7 +856,7 @@ public class ShantyBoss : Boss
 			case STAGE_1:
 			switch(_eventID)
 			{
-				case Projectile.ID_EVENT_REPELLED:
+				case IDs.EVENT_REPELLED:
 				if(_projectile.owner == gameObject) return;
 
 				ActivateSword(false);
@@ -906,7 +906,7 @@ public class ShantyBoss : Boss
 	{
 		switch(_eventID)
 		{
-			case Projectile.ID_EVENT_REPELLED:
+			case IDs.EVENT_REPELLED:
 			/*Projectile projectile = _info.collider.GetComponentInParent<Projectile>();
 			
 			if(projectile == null) return;*/
@@ -965,8 +965,8 @@ public class ShantyBoss : Boss
 
 				//animator.SetInteger(vitalityIDCredential, damageID);
 				animation.CrossFade(damageClip);
-				this.RemoveStates(ID_STATE_ATTACK);
-				this.AddStates(ID_STATE_HURT);
+				this.RemoveStates(IDs.STATE_ATTACKING);
+				this.AddStates(IDs.STATE_HURT);
 				break;
 			}
 			break;
@@ -981,13 +981,13 @@ public class ShantyBoss : Boss
 				this.DispatchCoroutine(ref behaviorCoroutine);
 				this.DispatchCoroutine(ref coroutine);
 				animation.CrossFade(cryAnimation);
-				this.ChangeState(ID_STATE_DEAD);
+				this.ChangeState(IDs.STATE_DEAD);
 				BeginDeathRoutine();
 			}
 			break;
 
 			case HealthEvent.HitStunEnds:
-			this.RemoveStates(ID_STATE_HURT);
+			this.RemoveStates(IDs.STATE_HURT);
 			this.ReturnToPreviousState();
 			break;
 		}

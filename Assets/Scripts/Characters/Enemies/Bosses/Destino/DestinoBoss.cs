@@ -427,7 +427,7 @@ public class DestinoBoss : Boss
 
 		switch(_ID)
 		{
-			case ID_EVENT_NONE:
+			case IDs.EVENT_NONE:
 			break;
 		}
 	}

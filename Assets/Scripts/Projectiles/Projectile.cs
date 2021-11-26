@@ -42,8 +42,6 @@ Events:
 [RequireComponent(typeof(ProjectileEventsHandler))]
 public class Projectile : ContactWeapon
 {
-	public const int ID_EVENT_REPELLED = 0; 									/// <summary>Repelled's Event ID.</summary>
-
 	public event OnDeactivated onDeactivated; 									/// <summary>OnDeactivated's Event Delegate.</summary>
 
 	[SerializeField] private ParticleEffect effect; 	/// <summary>Description.</summary>
@@ -458,7 +456,7 @@ public class Projectile : ContactWeapon
 		}
 
 		owner = newOwner;
-		projectileEventsHandler.InvokeProjectileEvent(this, ID_EVENT_REPELLED);
+		projectileEventsHandler.InvokeProjectileEvent(this, IDs.EVENT_REPELLED);
 	}
 
 	/// <returns>Projectile's Position.</returns>

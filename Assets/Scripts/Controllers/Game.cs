@@ -441,7 +441,7 @@ public class Game : Singleton<Game>
 	{
 		switch(_ID)
 		{
-			case Mateo.ID_EVENT_DEAD:
+			case IDs.EVENT_DEAD:
 			ResetScene();
 			break;
 		}

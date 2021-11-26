@@ -272,7 +272,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	{
 		switch(_ID)
 		{
-			case Boss.ID_EVENT_STAGE_CHANGED:
+			case IDs.EVENT_STAGECHANGED:
 			int stageID = shanty.currentStage;
 
 			/* Things modified per-stage:
@@ -297,7 +297,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 				case Boss.STAGE_2:
 				ParticleEffect effect = null;
 				
-				shanty.ChangeState(Enemy.ID_STATE_ALIVE | Enemy.ID_STATE_IDLE);
+				shanty.ChangeState(IDs.STATE_ALIVE | IDs.STATE_IDLE);
 				Game.EnablePlayerControl(false);
 				Game.onTransition = true;
 				Game.RemoveTargetToCamera(shanty.cameraTarget);
@@ -361,11 +361,11 @@ public class ShantySceneController : Singleton<ShantySceneController>
 			}
 			break;
 
-			case Boss.ID_EVENT_BOSS_DEATHROUTINE_BEGINS:
+			case IDs.EVENT_DEATHROUTINE_BEGINS:
 			Game.EnablePlayerControl(false);
 			break;
 
-			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
+			case IDs.EVENT_DEATHROUTINE_ENDS:
 			break;
 		}
 	}

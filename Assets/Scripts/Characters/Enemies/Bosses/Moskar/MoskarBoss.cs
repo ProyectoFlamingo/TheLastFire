@@ -335,14 +335,14 @@ public class MoskarBoss : Boss
 	{
 		base.Awake();
 
-		this.AddStates(ID_STATE_ALIVE);
+		this.AddStates(IDs.STATE_ALIVE);
 
 		speedScale = 1.0f;
 
 		animator.SetAllLayersWeight(0.0f);
 		
 		this.StartCoroutine(IntroductionRoutine(), ref behaviorCoroutine);
-		/*animator.SetInteger(vitalityIDCredential, ID_STATE_ALIVE);
+		/*animator.SetInteger(vitalityIDCredential, IDs.STATE_ALIVE);
 		animator.SetInteger(locomotionIDCredential, ID_LOCOMOTION_IDLE);
 		animator.SetBool(attackingIDCredential, false);*/
 
@@ -357,7 +357,7 @@ public class MoskarBoss : Boss
 		base.Start();
 
 		/*if(currentPhase == 0)
-		this.AddStates(ID_STATE_IDLE);*/
+		this.AddStates(IDs.STATE_IDLE);*/
 	}
 
 	/// <summary>Callback invoked when the health of the character is depleted.</summary>
@@ -374,7 +374,7 @@ public class MoskarBoss : Boss
 			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, hurtSoundIndex);
 			BeginDeathRoutine();
 			base.OnDeathRoutineEnds();
-			this.RemoveStates(ID_STATE_ALIVE);
+			this.RemoveStates(IDs.STATE_ALIVE);
 			this.DispatchCoroutine(ref behaviorCoroutine);
 			this.DispatchCoroutine(ref attackCoroutine);
 			break;
@@ -385,7 +385,7 @@ public class MoskarBoss : Boss
 	protected override void OnDeathRoutineEnds()
 	{
 		OnObjectDeactivation();
-		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
+		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_ENDS);
 	}
 
 	/// <summary>Callback invoked when this FOV Sight leaves another collider.</summary>
@@ -400,13 +400,11 @@ public class MoskarBoss : Boss
 			switch(_eventType)
 			{
 				case HitColliderEventTypes.Enter:
-				this.AddStates(ID_STATE_PLAYERONSIGHT);
-				eventsHandler.InvokeIDEvent(ID_EVENT_PLAYERSIGHTED_BEGINS);
+				this.AddStates(IDs.STATE_TARGETONSIGHT);
 				break;
 
 				case HitColliderEventTypes.Exit:
-				this.RemoveStates(ID_STATE_PLAYERONSIGHT);
-				//eventsHandler.InvokeIDEvent(ID_EVENT_PLAYERSIGHTED_ENDS);
+				this.RemoveStates(IDs.STATE_TARGETONSIGHT);
 				break;
 			}
 		}
@@ -416,16 +414,16 @@ public class MoskarBoss : Boss
 	/// <param name="_state">State's flags that were added.</param>
 	public override void OnStatesAdded(int _state)
 	{
-		if((_state | ID_STATE_IDLE) == _state)
+		if((_state | IDs.STATE_IDLE) == _state)
 		{ /// Wander Coroutine:
 			EnterWanderState();
 		
-		} else if((_state | ID_STATE_PLAYERONSIGHT) == _state)
+		} else if((_state | IDs.STATE_TARGETONSIGHT) == _state)
 		{ /// Warning Coroutine:
 			EnterAttackState();
 			//EnterWarningState();
 
-		} else if((_state | ID_STATE_ATTACK) == _state)
+		} else if((_state | IDs.STATE_ATTACKING) == _state)
 		{ /// Attack Coroutine:
 			EnterAttackState();
 		} 
@@ -435,21 +433,21 @@ public class MoskarBoss : Boss
 	/// <param name="_state">State's flags that were removed.</param>
 	public override void OnStatesRemoved(int _state)
 	{
-		if((_state | ID_STATE_PLAYERONSIGHT) == _state
-		&& (state | ID_STATE_ATTACK) != state
-		&& (state | ID_STATE_IDLE) != state
+		if((_state | IDs.STATE_TARGETONSIGHT) == _state
+		&& (state | IDs.STATE_ATTACKING) != state
+		&& (state | IDs.STATE_IDLE) != state
 		&& sightSensor.enabled)
 		{ /// If the Player got out of sight, but Moskar is not Attacking and not on Wander:
 			EnterWanderState();
 		}
 
-		if((_state | ID_STATE_ALIVE) == _state)
+		if((_state | IDs.STATE_ALIVE) == _state)
 		{
 			this.DispatchCoroutine(ref behaviorCoroutine);
 			this.DispatchCoroutine(ref attackCoroutine);
 		}
 
-		if((_state | ID_STATE_ATTACK) == _state)
+		if((_state | IDs.STATE_ATTACKING) == _state)
 		{
 			animator.SetBool(attackingIDCredential, false);
 			animator.SetLayerWeight(attackAnimationLayer, 0.0f);
@@ -464,7 +462,7 @@ public class MoskarBoss : Boss
 		rigidbody.gravityScale = 0.0f;
 		rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		animator.SetAllLayersWeight(0.0f);
-		animator.SetInteger(vitalityIDCredential, ID_STATE_ALIVE);
+		animator.SetInteger(vitalityIDCredential, IDs.STATE_ALIVE);
 		animator.SetInteger(locomotionIDCredential, ID_LOCOMOTION_IDLE);
 		animator.SetBool(attackingIDCredential, false);
 	}
@@ -486,7 +484,7 @@ public class MoskarBoss : Boss
 
 		GameObject obj = _info.collider.gameObject;
 
-		switch(this.HasStates(ID_STATE_ALIVE))
+		switch(this.HasStates(IDs.STATE_ALIVE))
 		{
 			case true:
 			if(health.invincibilityCooldown.onCooldown) return;
@@ -566,7 +564,7 @@ public class MoskarBoss : Boss
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 
 		animator.SetLayerWeight(introAnimationLayer, 1.0f);
-		animator.SetInteger(vitalityIDCredential, ID_STATE_ALIVE);
+		animator.SetInteger(vitalityIDCredential, IDs.STATE_ALIVE);
 		animator.SetInteger(locomotionIDCredential, ID_LOCOMOTION_FLY);
 	
 		wait.ChangeDurationAndReset(waitBeforeTaunt);
@@ -586,13 +584,13 @@ public class MoskarBoss : Boss
 		while(wait.MoveNext()) yield return null;
 
 		animator.SetAllLayersWeight(0.0f);
-		this.AddStates(ID_STATE_IDLE);
+		this.AddStates(IDs.STATE_IDLE);
 		animator.SetInteger(locomotionIDCredential, ID_LOCOMOTION_IDLE);
 		animator.SetBool(attackingIDCredential, false);
 
 		/// Previously called inside Start():
 		if(currentPhase == 0)
-		this.AddStates(ID_STATE_IDLE);
+		this.AddStates(IDs.STATE_IDLE);
 
 		transform.position = animator.transform.position;
 		animator.transform.localPosition = Vector3.zero;
@@ -615,7 +613,7 @@ public class MoskarBoss : Boss
 				{
 					Vector3 force = vehicle.GetSeekForce(wanderForce);
 
-					/*if(this.HasState(ID_STATE_PLAYERONSIGHT))
+					/*if(this.HasState(IDs.STATE_TARGETONSIGHT))
 					{
 						Vector3 projectedMateoPosition = Game.ProjectMateoPosition(projectionTime * Time.fixedDeltaTime);
 						force += (Vector3)vehicle.GetFleeForce(projectedMateoPosition);
@@ -661,7 +659,7 @@ public class MoskarBoss : Boss
 				transform.rotation = Quaternion.RotateTowards(transform.rotation, VQuaternion.LookRotation(fleeForce), rotationSpeed * Time.deltaTime);
 			}
 
-			if(magnitude <= (dangerRadius * dangerRadius)) this.AddStates(ID_STATE_ATTACK);
+			if(magnitude <= (dangerRadius * dangerRadius)) this.AddStates(IDs.STATE_ATTACKING);
 
 			yield return VCoroutines.WAIT_PHYSICS_THREAD;
 		}
@@ -699,7 +697,7 @@ public class MoskarBoss : Boss
 			}
 		}	
 
-		this.AddStates(ID_STATE_IDLE);
+		this.AddStates(IDs.STATE_IDLE);
 	}
 
 	/// <summary>Attack Behavior's Coroutine.</summary>
@@ -746,7 +744,7 @@ public class MoskarBoss : Boss
 		this.StartCoroutine(meshParent.PivotToRotation(walkingRotation, rotationDuration, TransformRelativeness.Local), ref rotationCoroutine);
 
 		animator.SetAllLayersWeight(0.0f);
-		animator.SetInteger(vitalityIDCredential, ID_STATE_DEAD);
+		animator.SetInteger(vitalityIDCredential, IDs.STATE_DEAD);
 
 		if(currentPhase < (phases - 1) && onDeathRoutineEnds != null)
 		{

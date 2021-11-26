@@ -115,11 +115,11 @@ public class MinionEnemy : Enemy
 			switch(_eventType)
 			{
 				case HitColliderEventTypes.Enter:
-				this.AddStates(ID_STATE_PLAYERONSIGHT);
+				this.AddStates(IDs.STATE_TARGETONSIGHT);
 				break;
 
 				case HitColliderEventTypes.Exit:
-				this.RemoveStates(ID_STATE_PLAYERONSIGHT);
+				this.RemoveStates(IDs.STATE_TARGETONSIGHT);
 				break;
 			}
 		}
@@ -129,7 +129,7 @@ public class MinionEnemy : Enemy
 	/// <param name="_state">State's flags that were added.</param>
 	public override void OnStatesAdded(int _state)
 	{
-		if((_state | ID_STATE_PLAYERONSIGHT) == _state)
+		if((_state | IDs.STATE_TARGETONSIGHT) == _state)
 		{
 			this.StartCoroutine(AttackCoroutine(), ref stateCoroutine);
 		}
@@ -139,7 +139,7 @@ public class MinionEnemy : Enemy
 	/// <param name="_state">State's flags that were removed.</param>
 	public override void OnStatesRemoved(int _state)
 	{
-		if((_state | ID_STATE_PLAYERONSIGHT) == _state)
+		if((_state | IDs.STATE_TARGETONSIGHT) == _state)
 		{
 			this.DispatchCoroutine(ref stateCoroutine);
 		}

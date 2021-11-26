@@ -246,7 +246,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	{
 		switch(_ID)
 		{
-			case Boss.ID_EVENT_STAGE_CHANGED:
+			case IDs.EVENT_STAGECHANGED:
 			int stageID = destino.currentStage;
 
 			switch(stageID)
@@ -279,10 +279,10 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			}
 			break;
 
-			case Boss.ID_EVENT_BOSS_DEATHROUTINE_BEGINS:
+			case IDs.EVENT_DEATHROUTINE_BEGINS:
 			break;
 
-			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
+			case IDs.EVENT_DEATHROUTINE_ENDS:
 			break;
 		}
 	}
@@ -293,7 +293,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	{
 		switch(_ID)
 		{
-			case Mateo.ID_EVENT_MEDITATION_ENDS:
+			case IDs.EVENT_MEDITATION_ENDS:
 			if(curtainOpened) return;
 
 			curtainOpened = true;

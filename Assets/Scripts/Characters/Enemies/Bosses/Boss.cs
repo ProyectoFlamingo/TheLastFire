@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,11 +10,6 @@ namespace Flamingo
 {
 public class Boss : Enemy
 {
-	public const int ID_EVENT_STAGE_CHANGED = 0; 																	/// <summary>Stage Changed's Event ID.</summary>
-	public const int ID_EVENT_BOSS_DEATHROUTINE_BEGINS = 1; 														/// <summary>Death Routine Begins' Event ID.</summary>
-	public const int ID_EVENT_BOSS_DEATHROUTINE_ENDS = 2; 															/// <summary>Death Routine Ends' Event ID.</summary>
-	public const int ID_EVENT_PLAYERSIGHTED_BEGINS = 3; 															/// <summary>Player Sighted Begin's Event ID.</summary>
-	public const int ID_EVENT_PLAYERSIGHTED_ENDS = 4; 																/// <summary>Player Sighted Ends's Event ID.</summary>
 	public const int STAGE_1 = 1; 																					/// <summary>Stage 1's ID.</summary>
 	public const int STAGE_2 = 2; 																					/// <summary>Stage 2's ID.</summary>
 	public const int STAGE_3 = 3; 																					/// <summary>Stage 3's ID.</summary>
@@ -102,14 +97,14 @@ public class Boss : Enemy
 	/// <summary>Callback internally called when the Boss advances stage.</summary>
 	protected virtual void OnStageChanged()
 	{
-		eventsHandler.InvokeIDEvent(ID_EVENT_STAGE_CHANGED);
+		eventsHandler.InvokeIDEvent(IDs.EVENT_STAGECHANGED);
 	}
 
 	/// <summary>Begins Death's Routine.</summary>
 	protected virtual void BeginDeathRoutine()
 	{
-		this.RemoveStates(ID_STATE_ALIVE);
-		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
+		this.RemoveStates(IDs.STATE_ALIVE);
+		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_BEGINS);
 		
 		this.StartCoroutine(DeathRoutine(OnDeathRoutineEnds));
 
@@ -119,8 +114,8 @@ public class Boss : Enemy
 	protected virtual void OnDeathRoutineEnds()
 	{
 		//OnObjectDeactivation();
-		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
-		eventsHandler.InvokeCharacterDeactivationEvent( DeactivationCause.Destroyed);
+		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_ENDS);
+		eventsHandler.InvokeCharacterDeactivationEvent(DeactivationCause.Destroyed);
 	} 
 
 	/// <summary>Callback invoked when a Health's event has occured.</summary>

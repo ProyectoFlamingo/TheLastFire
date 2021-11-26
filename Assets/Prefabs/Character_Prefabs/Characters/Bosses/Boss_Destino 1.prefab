@@ -8961,26 +8961,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _faction: 0
-  _animatorParent: {fileID: 0}
-  _meshParent: {fileID: 0}
+  _faction: 1
+  _animatorParent: {fileID: 4669273665055311036}
+  _meshParent: {fileID: 4669273665055311036}
   _animator: {fileID: 5135843920122945988}
-  _animatorController: {fileID: 0}
-  _clipFadeDuration: 0
+  _animatorController: {fileID: 1337931729}
+  _animationEventInvoker: {fileID: 1337931728}
+  _animation: {fileID: 0}
+  _clipFadeDuration: 0.1
   _hurtBoxes: []
   _physicalColliders: []
   _triggerColliders: []
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
-  _stages: 3
   _healthDistribution:
   - 20
   - 50
   - 30
-  _distributionSystem:
-    _probabilityRanges: []
-  _animation: {fileID: 0}
-  _animationEventInvoker: {fileID: 0}
   forceStageTesting: 0
   testStage: 0
   _emptyCredential:
@@ -8996,20 +8993,17 @@ MonoBehaviour:
     _tag: Laugh
     _ID: -481006462
   _lalaCredential:
-    _tag: Lala
-    _ID: 1248783595
+    _tag: LalaSoundBite
+    _ID: 1573381047
   _laaaCredential:
-    _tag: Laaa
-    _ID: -4156762
+    _tag: LaaaSoundBite
+    _ID: -1772900688
   _deadCredential:
     _tag: Dead
     _ID: 1293411866
   _laughFrequency:
     _min: 0
     _max: 0
-  _stateIDCredential:
-    _tag: StateID
-    _ID: 1106997947
   _headPivot: {fileID: 5135843920326141278}
   _rigHead: {fileID: 5135843920947809607}
   _removableHead: {fileID: 3963963623717799471}
@@ -12895,6 +12889,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4669273665055311036}
   - component: {fileID: 5135843920122945988}
+  - component: {fileID: 1337931728}
+  - component: {fileID: 1337931729}
   m_Layer: 0
   m_Name: Mesh_Character_Destino
   m_TagString: Untagged
@@ -12947,6 +12943,30 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1337931728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442396758514933254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f9cfc0b8c1b904ba71e57978632732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1337931729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5442396758514933254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c111f547837c448976f06f7f111f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5449246523668985819
 GameObject:
   m_ObjectHideFlags: 0

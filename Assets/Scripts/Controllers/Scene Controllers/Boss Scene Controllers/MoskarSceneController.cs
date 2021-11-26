@@ -294,15 +294,15 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	{
 		switch(_ID)
 		{
-			case Boss.ID_EVENT_PLAYERSIGHTED_BEGINS:
+			/*case Boss.ID_EVENT_PLAYERSIGHTED_BEGINS:
 			foreach(MoskarBoss moskar in moskarReproductions)
 			{
-				if(!moskar.HasStates(Enemy.ID_STATE_ATTACK))
-				moskar.AddStates(Enemy.ID_STATE_ATTACK);
+				if(!moskar.HasStates(IDs.STATE_ATTACKING))
+				moskar.AddStates(IDs.STATE_ATTACKING);
 			}
-			break;
+			break;*/
 
-			case Boss.ID_EVENT_BOSS_DEATHROUTINE_ENDS:
+			case IDs.EVENT_DEATHROUTINE_ENDS:
 			/*if(moskarsDestroyed < totalMoskars) return;
 
 			Game.EnablePlayerControl(false);
@@ -353,8 +353,8 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 				reproduction = PoolManager.RequestPoolGameObject(moskarIndex, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
 				SubscribeToMoskarEvents(reproduction);
 				reproduction.state = 0;
-				reproduction.AddStates(Enemy.ID_STATE_ATTACK);
-				reproduction.AddStates(Enemy.ID_STATE_ALIVE);
+				reproduction.AddStates(IDs.STATE_ATTACKING);
+				reproduction.AddStates(IDs.STATE_ALIVE);
 				reproduction.currentPhase = phase;
 				reproduction.health.BeginInvincibilityCooldown();
 				reproduction.meshParent.localScale = scale;
@@ -415,12 +415,12 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	{
 		switch(_ID)
 		{
-			case Mateo.ID_EVENT_MEDITATION_BEGINS:
+			case IDs.EVENT_MEDITATION_BEGINS:
 			foreach(MoskarBoss moskar in moskarReproductions)
 			{
-				//moskar.ChangeState(Enemy.ID_STATE_IDLE);
-				moskar.RemoveStates(Enemy.ID_STATE_ATTACK);
-				moskar.AddStates(Enemy.ID_STATE_IDLE);
+				//moskar.ChangeState(IDs.STATE_IDLE);
+				moskar.RemoveStates(IDs.STATE_ATTACKING);
+				moskar.AddStates(IDs.STATE_IDLE);
 			}
 			break;
 		}
@@ -522,7 +522,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 
 					SubscribeToMoskarEvents(moskar);
 					moskar.state = 0;
-					moskar.AddStates(Enemy.ID_STATE_IDLE);
+					moskar.AddStates(IDs.STATE_IDLE);
 					moskarReproductions.Add(moskar);
 				}
 

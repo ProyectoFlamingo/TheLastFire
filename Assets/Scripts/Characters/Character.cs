@@ -13,14 +13,7 @@ namespace Flamingo
 [RequireComponent(typeof(Skeleton))]
 [RequireComponent(typeof(VCameraTarget))]
 public class Character : PoolGameObject, IStateMachine
-{		
-	public const int ID_STATE_DEAD = 0; 															/// <summary>Dead State's ID.</summary>
-	public const int ID_STATE_ALIVE = 1 << 0; 														/// <summary>Alive State's ID.</summary>
-	public const int ID_STATE_IDLE = 1 << 1; 														/// <summary>Idle State's ID.</summary>
-	public const int ID_STATE_HURT = 1 << 2; 														/// <summary>Hurt State's ID.</summary>
-	public const int ID_STATE_COLLIDED = 1 << 3; 													/// <summary>Collider State's ID.</summary>
-	public const int ID_STATE_ATTACKING = 1 << 4; 													/// <summary>Attacking's State's ID.</summary>
-	
+{			
 	[SerializeField] private Faction _faction; 														/// <summary>Character's Faction.</summary>
 	[Header("Animation's Attributes:")]	
 	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 					/// <summary>Animator's Parent.</summary>
@@ -223,7 +216,7 @@ public class Character : PoolGameObject, IStateMachine
 		gizmosColor = Color.cyan;
 		gizmosRadius = 0.25f;
 #endif
-		this.ChangeState(ID_STATE_ALIVE);
+		this.ChangeState(IDs.STATE_ALIVE);
 		health.Reset();
 	}
 
@@ -231,7 +224,7 @@ public class Character : PoolGameObject, IStateMachine
 	protected virtual void Awake()
 	{
 		health.onHealthEvent += OnHealthEvent;
-		this.AddStates(ID_STATE_ALIVE);
+		this.AddStates(IDs.STATE_ALIVE);
 
 		/// Add Character reference to self-contained EventsHandler:
 		eventsHandler.character = this;
@@ -326,19 +319,19 @@ public class Character : PoolGameObject, IStateMachine
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-				this.AddStates(ID_STATE_HURT);
+				this.AddStates(IDs.STATE_HURT);
 			break;
 
 			case HealthEvent.HitStunEnds:
-				this.RemoveStates(ID_STATE_HURT);
+				this.RemoveStates(IDs.STATE_HURT);
 			break;
 
 			case HealthEvent.InvincibilityEnds:
-				this.RemoveStates(ID_STATE_HURT);
+				this.RemoveStates(IDs.STATE_HURT);
 			break;
 
 			case HealthEvent.FullyDepleted:
-				this.RemoveStates(ID_STATE_ALIVE);
+				this.RemoveStates(IDs.STATE_ALIVE);
 			//OnObjectDeactivation();
 			break;
 		}
@@ -376,21 +369,21 @@ public class Character : PoolGameObject, IStateMachine
 	{
 		StringBuilder builder = new StringBuilder();
 
-		/*builder.AppendLine("State Mask:");
+		builder.AppendLine("State Mask:");
 		builder.Append("Alive: ");
-		builder.AppendLine(this.HasState(ID_STATE_ALIVE).ToString());
+		builder.AppendLine(this.HasState(IDs.STATE_ALIVE).ToString());
 		builder.Append("Idle: ");
-		builder.AppendLine(this.HasState(ID_STATE_IDLE).ToString());
+		builder.AppendLine(this.HasState(IDs.STATE_IDLE).ToString());
 		builder.Append("PlayerOnSight: ");
-		builder.AppendLine(this.HasState(ID_STATE_PLAYERONSIGHT).ToString());
+		builder.AppendLine(this.HasState(IDs.STATE_TARGETONSIGHT).ToString());
 		builder.Append("FollowPlayer: ");
-		builder.AppendLine(this.HasState(ID_STATE_FOLLOWPLAYER).ToString());
+		builder.AppendLine(this.HasState(IDs.STATE_FOLLOWTARGET).ToString());
 		builder.Append("Attack: ");
-		builder.AppendLine(this.HasState(ID_STATE_ATTACK).ToString());
+		builder.AppendLine(this.HasState(IDs.STATE_ATTACKING).ToString());
 		builder.Append("Vulnerable: ");
-		builder.Append(this.HasState(ID_STATE_VULNERABLE).ToString());
+		builder.Append(this.HasState(IDs.STATE_VULNERABLE).ToString());
 		builder.Append("Hurt: ");
-		builder.Append(this.HasState(ID_STATE_HURT).ToString());*/
+		builder.Append(this.HasState(IDs.STATE_HURT).ToString());
 
 		return builder.ToString();
 	}
