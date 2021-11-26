@@ -13,9 +13,7 @@ namespace Flamingo
 [RequireComponent(typeof(Skeleton))]
 [RequireComponent(typeof(VCameraTarget))]
 public class Character : PoolGameObject, IStateMachine
-{
-	public event OnIDEvent onIDEvent; 																/// <summary>OnIDEvent's delegate.</summary>
-		
+{		
 	public const int ID_STATE_DEAD = 0; 															/// <summary>Dead State's ID.</summary>
 	public const int ID_STATE_ALIVE = 1 << 0; 														/// <summary>Alive State's ID.</summary>
 	public const int ID_STATE_IDLE = 1 << 1; 														/// <summary>Idle State's ID.</summary>
@@ -29,6 +27,8 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Animations")][SerializeField] private Transform _meshParent; 						/// <summary>Mesh's Parent.</summary>
 	[TabGroup("Animations")][SerializeField] private Animator _animator; 							/// <summary>Animator's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 		/// <summary>VAnimatorController's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
 	[Space(5f)]
 	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 						/// <summary>Default's AnimationClip Fade's Duration.</summary>
 	[Space(5f)]
@@ -112,6 +112,23 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			if(_animatorController == null) _animatorController = GetComponent<VAnimatorController>();
 			return _animatorController;
+		}
+	}
+
+	/// <summary>Gets and Sets animationEventInvoker property.</summary>
+	public AnimationEventInvoker animationEventInvoker
+	{
+		get { return _animationEventInvoker; }
+		set { _animationEventInvoker = value; }
+	}
+
+	/// <summary>Gets animation Component.</summary>
+	public Animation animation
+	{ 
+		get
+		{
+			if(_animation == null) _animation = GetComponent<Animation>();
+			return _animation;
 		}
 	}
 
@@ -221,7 +238,10 @@ public class Character : PoolGameObject, IStateMachine
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
-	protected virtual void Start() { /*...*/ }
+	protected virtual void Start()
+	{
+		if(animationEventInvoker != null) animationEventInvoker.AddIntActionListener(OnAnimationIntEvent);
+	}
 
 	/// <summary>Updates Character's instance at each frame.</summary>
 	protected virtual void Update() { /*...*/ }
@@ -323,6 +343,10 @@ public class Character : PoolGameObject, IStateMachine
 			break;
 		}
 	}
+
+	/// <summary>Callback invoked when an Animation Event is invoked.</summary>
+	/// <param name="_ID">Int argument.</param>
+	protected virtual void OnAnimationIntEvent(int _ID) { /*...*/ }
 #endregion
 
 #region EventInvoking:

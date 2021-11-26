@@ -31,6 +31,7 @@ public class ProjectileEventsHandler : EventsHandler
 	{
 #if UNITY_EDITOR
 		if(debug) VDebug.Log(
+			LogType.Log,
 			"[ProjectileEventsHandler] ",
 			gameObject.name,
 			" invoked Deactivation Event. Cause: ",
@@ -50,6 +51,7 @@ public class ProjectileEventsHandler : EventsHandler
 	{
 #if UNITY_EDITOR
 		if(debug) VDebug.Log(
+			LogType.Log,
 			"[ProjectileEventsHandler] ",
 			gameObject.name,
 			" invoked Projectile Event. ID: ",

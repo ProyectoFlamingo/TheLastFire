@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
@@ -21,78 +22,98 @@ namespace Flamingo
 [RequireComponent(typeof(SteeringSnake))]
 public class DestinoBoss : Boss
 {
-	public const int ID_EVENT_NONE = 0; 								/// <summary>Null Event's ID.</summary>
-	public const int ID_STATE_IDLE_NORMAL = 0; 							/// <summary>Normal Idle's State ID on the AnimatorController.</summary>
-	public const int ID_STATE_IDLE_LAUGH = 1; 							/// <summary>Laugh Idle's State ID on the AnimatorController.</summary>
-	public const int ID_STATE_CHANT = 2; 								/// <summary>Chant's State ID on the AnimatorController.</summary>
-	public const int ID_STATE_NOTE_LALA = 3; 							/// <summary>Lala Note's State ID on the AnimatorController.</summary>
-	public const int ID_STATE_NOTE_LAAA = 4; 							/// <summary>Laaa Note's State ID on the AnimatorController.</summary>
-	public const int ID_STATE_DEAD = 5; 								/// <summary>Dead's State ID on the AnimatorController.</summary>
-
-	[SerializeField] private FloatRange _laughFrequency; 				/// <summary>Laughing's Frequency.</summary>
-	[SerializeField] private AnimatorCredential _stateIDCredential; 	/// <summary>State ID's Credential.</summary>
-	[Header("Heads' Attributes:")]
-	[SerializeField] private Transform _headPivot; 						/// <summary>Head's Pivot [for both Heads].</summary>
-	[SerializeField] private Transform _rigHead; 						/// <summary>Destino's Rig Head.</summary>
-	[SerializeField] private Transform _removableHead; 					/// <summary>Destino's Removable Head.</summary>
-	[SerializeField] private HitCollider2D _headHurtBox; 				/// <summary>Removable Head's HutrBox.</summary>
-	[SerializeField] private TransformData _headFallPointData; 			/// <summary>Fall Point's TransformData for the Removable Head.</summary>
-	[SerializeField] private float _fallDuration; 						/// <summary>Removable Head's Falling Duration.</summary>
-	[SerializeField] private float _fallenDuration; 					/// <summary>Duration Destino's Head is on the floor after it falls.</summary>
-	[SerializeField] private float _headReturnDuration; 				/// <summary>Removable Head's return duration.</summary>
 	[Space(5f)]
-	[SerializeField] private DestinoDeckController _deckController; 	/// <summary>Deck's Controller.</summary>
-	[SerializeField] private DestinoCard[] _cards; 						/// <summary>Destino's Cards.</summary>
+	[Header("Animator's Credentials:")]
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _emptyCredential; 							/// <summary>Empty's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 							/// <summary>Idle's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _singCredential; 							/// <summary>Sing's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 							/// <summary>Laugh's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lalaCredential; 							/// <summary>Lala's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laaaCredential; 							/// <summary>Laaa's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 							/// <summary>Dead's Animator Credential.</summary>
+	[Space(5f)]
+	[TabGroup("Animations")][SerializeField] private FloatRange _laughFrequency; 									/// <summary>Laughing's Frequency.</summary>
+	[Header("Heads' Attributes:")]
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _headPivot; 									/// <summary>Head's Pivot [for both Heads].</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _rigHead; 										/// <summary>Destino's Rig Head.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _removableHead; 								/// <summary>Destino's Removable Head.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private HitCollider2D _headHurtBox; 								/// <summary>Removable Head's HutrBox.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private TransformData _headFallPointData; 						/// <summary>Fall Point's TransformData for the Removable Head.</summary>
+	[Space(5f)]
+	[TabGroup("Group A", "Head")][SerializeField] private float _fallDuration; 										/// <summary>Removable Head's Falling Duration.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private float _fallenDuration; 									/// <summary>Duration Destino's Head is on the floor after it falls.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private float _headReturnDuration; 								/// <summary>Removable Head's return duration.</summary>
+	[Space(5f)]
+	[TabGroup("Group A", "Deck")][SerializeField] private DestinoDeckController _deckController; 					/// <summary>Deck's Controller.</summary>
+	[TabGroup("Group A", "Deck")][SerializeField] private DestinoCard[] _cards; 									/// <summary>Destino's Cards.</summary>
 	[Space(5f)]
 	[Header("Props:")]
-	[SerializeField] private ContactWeapon _scythe; 					/// <summary>Scythe's reference.</summary>
-	[SerializeField] private ContactWeapon _leftDrumstick; 				/// <summary>Left Drumstick's renderer.</summary>
-	[SerializeField] private ContactWeapon _rightDrumstick; 			/// <summary>Right Drumstick's renderer.</summary>
-	[SerializeField] private ContactWeapon _trumpet; 					/// <summary>Trumpet's reference.</summary>
-	[SerializeField] private ContactWeapon _cymbals; 					/// <summary>Cymbals' Reference.</summary>
+	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _scythe; 									/// <summary>Scythe's reference.</summary>
+	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _leftDrumstick; 							/// <summary>Left Drumstick's renderer.</summary>
+	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _rightDrumstick; 							/// <summary>Right Drumstick's renderer.</summary>
+	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _trumpet; 									/// <summary>Trumpet's reference.</summary>
+	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _cymbals; 									/// <summary>Cymbals' Reference.</summary>
 	[Space(5f)]
 	[Header("Sound FXs' References:")]
 	[Space(5f)]
 	[Header("Destino's Sounds:")]
-	[SerializeField] private CollectionIndex _damageTakenSoundIndex; 	/// <summary>Damage taken's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _damageTakenSoundIndex; 			/// <summary>Damage taken's Sound's Index.</summary>
 	[Space(5f)]
 	[Header("Death's Sounds:")]
-	[SerializeField] private CollectionIndex _buildUpSoundIndex; 		/// <summary>Build-Up's Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _swingSoundIndex; 			/// <summary>Swing's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _buildUpSoundIndex; 				/// <summary>Build-Up's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _swingSoundIndex; 				/// <summary>Swing's Sound's Index.</summary>
 	[Space(5f)]
 	[Header("Voice Notes:")]
-	[SerializeField] private CollectionIndex _doNoteIndex; 				/// <summary>Do's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _faNoteIndex; 				/// <summary>Fa's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _laNoteIndex; 				/// <summary>La's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _miNoteIndex; 				/// <summary>Mi's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _reNoteIndex; 				/// <summary>Re's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _siNoteIndex; 				/// <summary>Si's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _laReNoteIndex; 			/// <summary>La-Re's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _reFaNoteIndex; 			/// <summary>Re-Fa's Note Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _siMiNoteIndex; 			/// <summary>Si-Mi's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _doNoteIndex; 					/// <summary>Do's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _faNoteIndex; 					/// <summary>Fa's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _laNoteIndex; 					/// <summary>La's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _miNoteIndex; 					/// <summary>Mi's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _reNoteIndex; 					/// <summary>Re's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _siNoteIndex; 					/// <summary>Si's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _laReNoteIndex; 					/// <summary>La-Re's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _reFaNoteIndex; 					/// <summary>Re-Fa's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _siMiNoteIndex; 					/// <summary>Si-Mi's Note Sound's Index.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
-	[Header("Testing Settings:")]
-	[SerializeField] private bool test; 								/// <summary>Test?.</summary>
-	[SerializeField] private int testCardIndex; 						/// <summary>Test's Card Index.</summary>
+	[Header("Destino's Test:")]
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private bool test; 					/// <summary>Test?.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private int testCardIndex; 			/// <summary>Test's Card Index.</summary>
 	[Space(5f)]
-	[SerializeField] private MeshFilter headMeshFilter; 				/// <summary>Removable Head's MeshFilter Component.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private MeshFilter headMeshFilter; 	/// <summary>Removable Head's MeshFilter Component.</summary>
 #endif
-	private RigidbodyMovementAbility _movementAbility; 					/// <summary>RigidbodyMovementAbility's Component.</summary>
-	private RotationAbility _rotationAbility; 							/// <summary>RotationAbility's Component.</summary>
-	private JumpAbility _jumpAbility; 									/// <summary>JumpAbility's Component.</summary>
-	private SteeringSnake _steeringSnake; 								/// <summary>SteeringSnake's Component.</summary>
-	private IEnumerator iterator; 										/// <summary>[Test] Iterator.</summary>
-	private Coroutine cardRoutine; 										/// <summary>Card's Coroutine reference.</summary>
-	private Coroutine fallenTolerance; 									/// <summary>Removable Head's Fallen Tolerance Coroutine reference.</summary>
+	private RigidbodyMovementAbility _movementAbility; 																/// <summary>RigidbodyMovementAbility's Component.</summary>
+	private RotationAbility _rotationAbility; 																		/// <summary>RotationAbility's Component.</summary>
+	private JumpAbility _jumpAbility; 																				/// <summary>JumpAbility's Component.</summary>
+	private SteeringSnake _steeringSnake; 																			/// <summary>SteeringSnake's Component.</summary>
+	private IEnumerator iterator; 																					/// <summary>[Test] Iterator.</summary>
+	private Coroutine cardRoutine; 																					/// <summary>Card's Coroutine reference.</summary>
+	private Coroutine fallenTolerance; 																				/// <summary>Removable Head's Fallen Tolerance Coroutine reference.</summary>
 	private Vector2 axes;
 
 #region Getters/Setters:
+	/// <summary>Gets emptyCredential property.</summary>
+	public AnimatorCredential emptyCredential { get { return _emptyCredential; } }
+
+	/// <summary>Gets idleCredential property.</summary>
+	public AnimatorCredential idleCredential { get { return _idleCredential; } }
+
+	/// <summary>Gets singCredential property.</summary>
+	public AnimatorCredential singCredential { get { return _singCredential; } }
+
+	/// <summary>Gets laughCredential property.</summary>
+	public AnimatorCredential laughCredential { get { return _laughCredential; } }
+
+	/// <summary>Gets lalaCredential property.</summary>
+	public AnimatorCredential lalaCredential { get { return _lalaCredential; } }
+
+	/// <summary>Gets laaaCredential property.</summary>
+	public AnimatorCredential laaaCredential { get { return _laaaCredential; } }
+
+	/// <summary>Gets deadCredential property.</summary>
+	public AnimatorCredential deadCredential { get { return _deadCredential; } }
+
 	/// <summary>Gets laughFrequency property.</summary>
 	public FloatRange laughFrequency { get { return _laughFrequency; } }
-
-	/// <summary>Gets stateIDCredential property.</summary>
-	public AnimatorCredential stateIDCredential { get { return _stateIDCredential; } }
 
 	/// <summary>Gets and Sets headPivot property.</summary>
 	public Transform headPivot
@@ -274,7 +295,7 @@ public class DestinoBoss : Boss
 		
 		EnablePhysics(false);
 
-		animator.SetInteger(stateIDCredential, ID_STATE_IDLE_NORMAL);
+		animatorController.CrossFade(idleCredential, clipFadeDuration);
 
 		if(scythe != null) scythe.gameObject.SetActive(false);
 		if(leftDrumstick != null) leftDrumstick.gameObject.SetActive(false);
@@ -305,18 +326,21 @@ public class DestinoBoss : Boss
 
 		if(cards == null || length == 0) return;
 
-/*#if UNITY_EDITOR
-		int index = UnityEngine.Random.Range(0, cards.Length);
-		if(test) index = testCardIndex;
-		cards[index].behavior.BeginRoutine(this);
-		iterator = cards[index].behavior.Routine(this);
-#endif*/
+#if UNITY_EDITOR
+		if(test)
+		{
+			int index = testCardIndex;
+			iterator = cards[index].behavior.Routine(this);
+		}
+#endif
 	}
 
 	/// <summary>Updates DestinoBoss's instance at each frame.</summary>
 	private void Update()
 	{
 #if UNITY_EDITOR
+		if(!test) return;
+
 		if(iterator != null && !iterator.MoveNext())
 		{
 			iterator = cards[testCardIndex].behavior.Routine(this);
@@ -447,18 +471,25 @@ public class DestinoBoss : Boss
 	/// <summary>Makes Destino Laugh.</summary>
 	public void Laugh()
 	{
-		animator.SetInteger(stateIDCredential, ID_STATE_IDLE_LAUGH);
+		animatorController.CrossFade(_laughCredential, clipFadeDuration);
 	}
 
 	/// <summary>Makes Destino Sing.</summary>
 	public void Sing()
 	{
 		FiniteStateAudioClip clip = Game.data.FSMLoops[DestinoSceneController.Instance.mainLoopVoiceIndex];
-		animator.SetInteger(stateIDCredential, ID_STATE_CHANT);
-		animator.Play("Song_Full", 0, clip.normalizedTime /*clip.GetCurrentStateTime()*/);
+		animatorController.Play(_singCredential, 0, clip.normalizedTime);
 		clip.SetStateToCurrentTime();
-		
+	}
 
+	public void SingLalaSoundBit(Action onSoundBitEnds = null)
+	{
+
+	}
+
+	public void SingLaaaSoundBit(Action onSoundBitEnds = null)
+	{
+		
 	}
 
 	/// <summary>Callback invoked when the fallen's tolerance duration of a card reached its end.</summary>
@@ -585,7 +616,7 @@ public class DestinoBoss : Boss
 	/// <param name="onDeathRoutineEnds">Callback invoked when the routine ends.</param>
 	protected override IEnumerator DeathRoutine(Action onDeathRoutineEnds)
 	{
-		animator.SetInteger(stateIDCredential, ID_STATE_DEAD);
+		animatorController.CrossFade(_deadCredential, clipFadeDuration);
 
 		yield return null;
 
@@ -599,7 +630,7 @@ public class DestinoBoss : Boss
 	/// <summary>Idle's Routine [normal idle and random laughs].</summary>
 	protected IEnumerator IdleRoutine()
 	{
-		animator.SetInteger(stateIDCredential, ID_STATE_IDLE_NORMAL);
+		animatorController.CrossFade(_idleCredential, clipFadeDuration);
 
 		yield return null;
 
@@ -611,14 +642,14 @@ public class DestinoBoss : Boss
 			wait.ChangeDurationAndReset(laughFrequency.Random());
 			while(wait.MoveNext()) yield return null;
 
-			animator.SetInteger(stateIDCredential, ID_STATE_IDLE_LAUGH);
+			animatorController.CrossFade(_laughCredential, clipFadeDuration);
 			info = animator.GetCurrentAnimatorStateInfo(0);
 			yield return null;
 
 			wait.ChangeDurationAndReset(info.length);
 			while(wait.MoveNext()) yield return null;
 
-			animator.SetInteger(stateIDCredential, ID_STATE_IDLE_NORMAL);
+			animatorController.CrossFade(_idleCredential, clipFadeDuration);
 			yield return null;
 		}
 	}

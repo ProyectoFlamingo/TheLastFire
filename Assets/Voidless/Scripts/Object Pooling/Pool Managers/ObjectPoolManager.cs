@@ -7,13 +7,6 @@ using UnityEngine.SceneManagement;
 
 namespace Voidless
 {
-public enum DebugMessageType
-{
-	None,
-	Warning,
-	Error
-}
-
 //// Add GameObjectPool's Shit to this class.
 #pragma warning disable 642
 public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyValuePair<int, IObjectPool<IPoolObject>>>
@@ -117,7 +110,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(!poolDictionary.ContainsKey(instanceID)) poolDictionary.Add(instanceID, new GameObjectPool<T>(_poolObject, _size, _limit));
 		else
-		DebugMessage(instanceID, DebugMessageType.Warning, "No Object Pool will be created.", true);
+		DebugMessage(instanceID, LogType.Warning, "No Object Pool will be created.", true);
 	}
 
 	/// <summary>Creates GameObject's Pool if it does not exist.</summary>
@@ -134,7 +127,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(!poolDictionary.ContainsKey(instanceID)) poolDictionary.Add(instanceID, new GameObjectPool<T>(_poolObject));
 		else
-		DebugMessage(instanceID, DebugMessageType.Warning, "No Object Pool will be created.", true);
+		DebugMessage(instanceID, LogType.Warning, "No Object Pool will be created.", true);
 	}
 
 	/// <summary>Adds Pool's Object.</summary>
@@ -185,7 +178,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 		else
 		{
 
-			DebugMessage(_instanceID, DebugMessageType.Error, "Returning null.");
+			DebugMessage(_instanceID, LogType.Error, "Returning null.");
 			return null;
 		}
 	}
@@ -198,7 +191,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) poolDictionary[instanceID].Deactivate(_poolObject);
 		else
-		DebugMessage(instanceID, DebugMessageType.Warning, "No deactivation will be made.");
+		DebugMessage(instanceID, LogType.Warning, "No deactivation will be made.");
 	}
 
 	/// <summary>Dispatches Pool's Object.</summary>
@@ -214,7 +207,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 	{
 		if(poolDictionary.ContainsKey(_instanceID)) poolDictionary[_instanceID].Dispatch();
 		else
-		DebugMessage(_instanceID, DebugMessageType.Warning,"No dispatchment will be made.");
+		DebugMessage(_instanceID, LogType.Warning,"No dispatchment will be made.");
 	}
 #endregion
 
@@ -245,7 +238,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 	/// <param name="_type">Type of message to debug.</param>
 	/// <param name="_additionalMessage">Additional message to provide.</param>
 	/// <param name="_contains">Is the instance ID already registered on Pool's Dictionary?.</param>
-	private void DebugMessage(int _instanceID, DebugMessageType _type, string _additionalMessage = null, bool _contains = false)
+	private void DebugMessage(int _instanceID, LogType _type, string _additionalMessage = null, bool _contains = false)
 	{
 		StringBuilder builder = new StringBuilder();
 
@@ -266,13 +259,13 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		switch(_type)
 		{
-			case DebugMessageType.None:
+			case LogType.Log:
 			break;
 
-			case DebugMessageType.Warning:
+			case LogType.Warning:
 			break;
 
-			case DebugMessageType.Error:
+			case LogType.Error:
 			break;
 		}
 	}
@@ -347,7 +340,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) addRequests.Enqueue(AddAtEndOfFrame<T>(_poolObject, onAdd));
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No addition will be made.");
+		DebugMessage(instanceID, LogType.Error, "No addition will be made.");
 	}
 
 	/// <summary>Requests recycle.</summary>
@@ -366,7 +359,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 			recycleRequests.Enqueue(RecycleAtEndOfFrame<T>(_poolObject, onRecycle, _position, _rotation));
 		}
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No recycle will be made.");
+		DebugMessage(instanceID, LogType.Error, "No recycle will be made.");
 	}
 
 	/// <summary>Requests deactivation.</summary>
@@ -378,7 +371,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) deactivationRequests.Enqueue(DeactivateAtEndOfFrame(_poolObject));
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No deactivation will be made.");
+		DebugMessage(instanceID, LogType.Error, "No deactivation will be made.");
 	}
 
 	/// <summary>Requests recycle.</summary>
@@ -390,7 +383,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) dispatchRequests.Enqueue(DispatchAtEndOfFrame<T>(_poolObject));
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No dispatchment will be made.");
+		DebugMessage(instanceID, LogType.Error, "No dispatchment will be made.");
 	}
 #endregion
 
@@ -452,7 +445,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 			if(onAdd != null) onAdd(addedObject);
 		}
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No addition will be made");
+		DebugMessage(instanceID, LogType.Error, "No addition will be made");
 
 		yield return null;
 	}
@@ -472,7 +465,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 			if(onRecycle != null) onRecycle(recycledObject);
 		}
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No recycle will be made");
+		DebugMessage(instanceID, LogType.Error, "No recycle will be made");
 
 		yield return null;
 	}
@@ -485,7 +478,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) Deactivate<T>(_poolObject);
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No deactivation will be made");
+		DebugMessage(instanceID, LogType.Error, "No deactivation will be made");
 
 		yield return null;
 	}
@@ -498,7 +491,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>, IEnumerable<KeyVa
 
 		if(poolDictionary.ContainsKey(instanceID)) Dispatch<T>(instanceID);
 		else
-		DebugMessage(instanceID, DebugMessageType.Error, "No dispatchment will be made");
+		DebugMessage(instanceID, LogType.Error, "No dispatchment will be made");
 
 		yield return null;
 	}

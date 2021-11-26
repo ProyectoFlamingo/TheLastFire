@@ -7,7 +7,6 @@ using Voidless;
 namespace Flamingo
 {
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(EnemyEventsHandler))]
 [RequireComponent(typeof(VCameraTarget))]
 public class Enemy : Character
 {

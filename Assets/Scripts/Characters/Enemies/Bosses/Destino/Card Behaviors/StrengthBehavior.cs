@@ -225,7 +225,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		int setSize = setSizeRange.Random();
 		IEnumerator[] routines = new IEnumerator[setSize];
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_IDLE_NORMAL);
+		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 		AudioController.StopFSMLoop(0);
 		AudioController.StopFSMLoop(1);
 
@@ -360,7 +360,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			}
 		};
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_NOTE_LALA);
+		boss.animatorController.CrossFade(boss.lalaCredential, boss.clipFadeDuration);
 
 		drumstickAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		drumstickAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;
@@ -370,7 +370,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 		while(wait.MoveNext()) yield return null;
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_IDLE_NORMAL);
+		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
 		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
 		while(wait.MoveNext()) yield return null;
@@ -487,7 +487,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			}
 		};
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_NOTE_LALA);
+		boss.animatorController.CrossFade(boss.lalaCredential, boss.clipFadeDuration);
 		/*trumpetAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		trumpetAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;*/
 		trumpet.ActivateHitBoxes(true);
@@ -495,7 +495,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		wait.ChangeDurationAndReset(clip.length);
 		while(wait.MoveNext()) yield return null;
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_IDLE_NORMAL);
+		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
 		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
 		while(wait.MoveNext()) yield return null;
@@ -596,7 +596,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			}
 		};
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_NOTE_LALA);
+		boss.animatorController.CrossFade(boss.lalaCredential, boss.clipFadeDuration);
 		/*cymbalsAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		cymbalsAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;*/
 		cymbals.ActivateHitBoxes(true);
@@ -606,7 +606,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 		while(wait.MoveNext()) yield return null;
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_IDLE_NORMAL);
+		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
 		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
 		while(wait.MoveNext()) yield return null;

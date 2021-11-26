@@ -184,6 +184,7 @@ public class AudioController : Singleton<AudioController>
 
 #if UNITY_EDITOR
 		VDebug.Log(
+			LogType.Log,
 			"PlayFSM()'s Report: ",
 			"\n",
 			"Source's Index: \n",

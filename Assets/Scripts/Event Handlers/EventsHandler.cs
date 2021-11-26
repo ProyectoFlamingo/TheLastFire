@@ -97,7 +97,7 @@ public class EventsHandler : MonoBehaviour
 	public void InvokeIDEvent(int _ID)
 	{
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", gameObject.name, " invoked ID Event. ", _ID.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", gameObject.name, " invoked ID Event. ", _ID.ToString());
 #endif
 
 		if(onIDEvent != null) onIDEvent(_ID);
@@ -110,7 +110,7 @@ public class EventsHandler : MonoBehaviour
 		if(character == null) return;
 
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", character.gameObject.name, " invoked ID Event. ", _ID.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", character.gameObject.name, " invoked ID Event. ", _ID.ToString());
 #endif
 
 		if(onCharacterIDEvent != null) onCharacterIDEvent(character, _ID);
@@ -124,7 +124,7 @@ public class EventsHandler : MonoBehaviour
 		if(contactWeapon == null) return;
 		
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", contactWeapon.gameObject.name, " invoked ID Event. ", _ID.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", contactWeapon.gameObject.name, " invoked ID Event. ", _ID.ToString());
 #endif
 
 		if(onContactWeaponIDEvent != null) onContactWeaponIDEvent(contactWeapon, _ID, _info);
@@ -137,7 +137,7 @@ public class EventsHandler : MonoBehaviour
 	public void InvokeTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", gameObject.name, " invoked Impact Event. Interaction Type: ", _eventType.ToString(), ", ID: ", _ID.ToString(), ", ", _info.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", gameObject.name, " invoked Impact Event. Interaction Type: ", _eventType.ToString(), ", ID: ", _ID.ToString(), ", ", _info.ToString());
 #endif
 
 		if(onTriggerEvent != null) onTriggerEvent(_info, _eventType, _ID);
@@ -149,7 +149,7 @@ public class EventsHandler : MonoBehaviour
 	public void InvokeDeactivationEvent(DeactivationCause _cause, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
 		if(onDeactivated != null) onDeactivated(_cause, _info);
@@ -163,7 +163,7 @@ public class EventsHandler : MonoBehaviour
 		if(character == null) return;
 
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", character.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", character.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
 		if(onCharacterDeactivated != null) onCharacterDeactivated(character,_cause, _info);
@@ -177,7 +177,7 @@ public class EventsHandler : MonoBehaviour
 		if(contactWeapon == null) return;
 
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", contactWeapon.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", contactWeapon.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
 		if(onContactWeaponDeactivated != null) onContactWeaponDeactivated(contactWeapon,_cause, _info);
@@ -190,7 +190,7 @@ public class EventsHandler : MonoBehaviour
 	public void InvokeHealthEvent(Health _health, HealthEvent _event, float _amount = 0.0f)
 	{
 #if UNITY_EDITOR
-		if(debug) VDebug.Log("[EventsHandler] ", _health.name, " invoked OnHealthInstanceEvent. Event: ", _event.ToString(), ", Amount: ", _amount, ", Health's Data: ", _health.ToString());
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", _health.name, " invoked OnHealthInstanceEvent. Event: ", _event.ToString(), ", Amount: ", _amount, ", Health's Data: ", _health.ToString());
 #endif
 
 		if(onHealthEvent != null) onHealthEvent(_health, _event, _amount);

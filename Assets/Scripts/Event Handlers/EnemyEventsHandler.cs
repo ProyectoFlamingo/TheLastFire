@@ -31,6 +31,7 @@ public class EnemyEventsHandler : EventsHandler
 	{
 #if UNITY_EDITOR
 		VDebug.Log(
+			LogType.Log,
 			"[EnemyEventsHandler] ",
 			gameObject.name,
 			" invoked Deactivation Event. Cause: ",
@@ -50,6 +51,7 @@ public class EnemyEventsHandler : EventsHandler
 	{
 #if UNITY_EDITOR
 		VDebug.Log(
+			LogType.Log,
 			"[EnemyEventsHandler] ",
 			gameObject.name,
 			" invoked Enemy Event. ID: ",

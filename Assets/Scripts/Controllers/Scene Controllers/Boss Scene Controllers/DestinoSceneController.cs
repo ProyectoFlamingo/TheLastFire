@@ -203,15 +203,10 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		leftDevilTower.gameObject.SetActive(false);
 		rightDevilTower.gameObject.SetActive(false);
 
-		/// Turn-off Player's Control:
-		if(cooldownBeforeReleasingPlayerControl > 0.0f)
-		{
-			Game.mateoController.enabled = false;
-			StartCoroutine(this.WaitSeconds(cooldownBeforeReleasingPlayerControl, ()=> { Game.mateoController.enabled = true; }));
-		}
+
 
 		/// Subscribe to Mateo & Destino's Events:
-		destino.onIDEvent += OnDestinoIDEvent;
+		destino.eventsHandler.onIDEvent += OnDestinoIDEvent;
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
 
 		Game.ResetFSMLoopStates();
@@ -224,6 +219,18 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	private void Start()
 	{
 		Game.mateo.Meditate();
+
+		/// Turn-off Player's Control:
+		if(cooldownBeforeReleasingPlayerControl > 0.0f)
+		{
+			Game.EnablePlayerControl(false);
+			StartCoroutine(
+				this.WaitSeconds(
+					cooldownBeforeReleasingPlayerControl,
+					()=> { Game.mateoController.enabled = true; }
+				)
+			);
+		}
 	}
 
 	/// <summary>Updates DestinoSceneController's instance at each frame.</summary>

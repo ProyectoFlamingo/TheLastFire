@@ -239,7 +239,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 		
 		if(shanty != null)
 		{
-			shanty.onIDEvent += OnShantyIDEvent;
+			shanty.eventsHandler.onIDEvent += OnShantyIDEvent;
 			if(shantyShip != null) shanty.ship = shantyShip;
 		}
 	}

@@ -4,39 +4,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
-[RequireComponent(typeof(AnimationEventInvoker))]
 public class Boss : Enemy
 {
-	public event OnIDEvent onIDEvent; 										/// <summary>OnIDEvent's delegate.</summary>
-
-	public const int ID_EVENT_STAGE_CHANGED = 0; 							/// <summary>Stage Changed's Event ID.</summary>
-	public const int ID_EVENT_BOSS_DEATHROUTINE_BEGINS = 1; 				/// <summary>Death Routine Begins' Event ID.</summary>
-	public const int ID_EVENT_BOSS_DEATHROUTINE_ENDS = 2; 					/// <summary>Death Routine Ends' Event ID.</summary>
-	public const int ID_EVENT_PLAYERSIGHTED_BEGINS = 3; 					/// <summary>Player Sighted Begin's Event ID.</summary>
-	public const int ID_EVENT_PLAYERSIGHTED_ENDS = 4; 						/// <summary>Player Sighted Ends's Event ID.</summary>
-	public const int STAGE_1 = 1; 											/// <summary>Stage 1's ID.</summary>
-	public const int STAGE_2 = 2; 											/// <summary>Stage 2's ID.</summary>
-	public const int STAGE_3 = 3; 											/// <summary>Stage 3's ID.</summary>
-	public const int STAGE_4 = 4; 											/// <summary>Stage 4's ID.</summary>
-	public const int STAGE_5 = 5; 											/// <summary>Stage 5's ID.</summary>
+	public const int ID_EVENT_STAGE_CHANGED = 0; 																	/// <summary>Stage Changed's Event ID.</summary>
+	public const int ID_EVENT_BOSS_DEATHROUTINE_BEGINS = 1; 														/// <summary>Death Routine Begins' Event ID.</summary>
+	public const int ID_EVENT_BOSS_DEATHROUTINE_ENDS = 2; 															/// <summary>Death Routine Ends' Event ID.</summary>
+	public const int ID_EVENT_PLAYERSIGHTED_BEGINS = 3; 															/// <summary>Player Sighted Begin's Event ID.</summary>
+	public const int ID_EVENT_PLAYERSIGHTED_ENDS = 4; 																/// <summary>Player Sighted Ends's Event ID.</summary>
+	public const int STAGE_1 = 1; 																					/// <summary>Stage 1's ID.</summary>
+	public const int STAGE_2 = 2; 																					/// <summary>Stage 2's ID.</summary>
+	public const int STAGE_3 = 3; 																					/// <summary>Stage 3's ID.</summary>
+	public const int STAGE_4 = 4; 																					/// <summary>Stage 4's ID.</summary>
+	public const int STAGE_5 = 5; 																					/// <summary>Stage 5's ID.</summary>
 
 	[Space(5f)]
 	[Header("Boss' Attributes:")]
-	[SerializeField] private int _stages; 									/// <summary>Boss' Stages.</summary>
-	[SerializeField] private float[] _healthDistribution; 					/// <summary>Health Distribution across the Stages.</summary>
-	[SerializeField] private RandomDistributionSystem _distributionSystem; 	/// <summary>Distribution System.</summary>
-	[SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
-	[SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
+	[SerializeField] private float[] _healthDistribution; 															/// <summary>Health Distribution across the Stages.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
-	[Header("TESTs:")]
-	[SerializeField] protected bool forceStageTesting; 						/// <summary>Force Stage Testing?.</summary>
-	[SerializeField] protected int testStage; 								/// <summary>Test's Stage.</summary>
+	[Header("Boss' Tests:")]
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] protected bool forceStageTesting; 	/// <summary>Force Stage Testing?.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] protected int testStage; 				/// <summary>Test's Stage.</summary>
 #endif
-	private int _currentStage; 
+	private int _stages; 																							/// <summary>Boss' Stages.</summary>
+	private int _currentStage; 																						/// <summary>Current Boss' Stage.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets stages property.</summary>
@@ -59,23 +54,6 @@ public class Boss : Enemy
 		get { return _healthDistribution; }
 		set { _healthDistribution = value; }
 	}
-
-	/// <summary>Gets animation Component.</summary>
-	public Animation animation
-	{ 
-		get
-		{
-			if(_animation == null) _animation = GetComponent<Animation>();
-			return _animation;
-		}
-	}
-
-	/// <summary>Gets and Sets animationEventInvoker property.</summary>
-	public AnimationEventInvoker animationEventInvoker
-	{
-		get { return _animationEventInvoker; }
-		set { _animationEventInvoker = value; }
-	}
 #endregion
 
 #region UnityMethods:
@@ -91,6 +69,8 @@ public class Boss : Enemy
 	protected override void Awake()
 	{
 		base.Awake();
+		if(healthDistribution != null) stages = healthDistribution.Length;
+		else VDebug.Log(LogType.Error, "Health Distribution not setted!");
 		currentStage = 0;
 
 #if UNITY_EDITOR
@@ -122,14 +102,14 @@ public class Boss : Enemy
 	/// <summary>Callback internally called when the Boss advances stage.</summary>
 	protected virtual void OnStageChanged()
 	{
-		if(onIDEvent != null) onIDEvent(ID_EVENT_STAGE_CHANGED);
+		eventsHandler.InvokeIDEvent(ID_EVENT_STAGE_CHANGED);
 	}
 
 	/// <summary>Begins Death's Routine.</summary>
 	protected virtual void BeginDeathRoutine()
 	{
 		this.RemoveStates(ID_STATE_ALIVE);
-		if(onIDEvent != null) onIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
+		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
 		
 		this.StartCoroutine(DeathRoutine(OnDeathRoutineEnds));
 
@@ -139,7 +119,7 @@ public class Boss : Enemy
 	protected virtual void OnDeathRoutineEnds()
 	{
 		//OnObjectDeactivation();
-		if(onIDEvent != null) onIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
+		eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_ENDS);
 		eventsHandler.InvokeCharacterDeactivationEvent( DeactivationCause.Destroyed);
 	} 
 

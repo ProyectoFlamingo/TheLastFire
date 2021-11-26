@@ -8,7 +8,6 @@ using Random = UnityEngine.Random;
 
 namespace Flamingo
 {
-[RequireComponent(typeof(Skeleton))]
 [RequireComponent(typeof(JumpAbility))]
 [RequireComponent(typeof(DashAbility))]
 [RequireComponent(typeof(RigidbodyMovementAbility))]
@@ -135,7 +134,6 @@ public class ShantyBoss : Boss
 	[SerializeField] private AnimationClip normalAttackAnimation; 		/// <summary>Normal Attack's Animation.</summary>
 	[SerializeField] private AnimationClip strongAttackAnimation; 		/// <summary>Strong Attack's Animation.</summary>
 	[SerializeField] private AnimationClip backStepAnimation; 			/// <summary>Back-Setp Animation.</summary>
-	private Skeleton _skeleton; 										/// <summary>Skeleton's Component.</summary>
 	private Coroutine coroutine; 										/// <summary>Coroutine's Reference.</summary>
 	private Coroutine TNTRotationCoroutine; 							/// <summary>TNT's Rotation Coroutine's Reference.</summary>
 	private Behavior attackBehavior; 									/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
@@ -276,16 +274,6 @@ public class ShantyBoss : Boss
 
 	/// <summary>Gets vitalityIDCredential property.</summary>
 	public AnimatorCredential vitalityIDCredential { get { return _vitalityIDCredential; } }
-
-	/// <summary>Gets skeleton Component.</summary>
-	public Skeleton skeleton
-	{ 
-		get
-		{
-			if(_skeleton == null) _skeleton = GetComponent<Skeleton>();
-			return _skeleton;
-		}
-	}
 
 	/// <summary>Gets and Sets bomb property.</summary>
 	public Projectile bomb

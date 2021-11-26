@@ -282,7 +282,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			yield break;
 		}
 
-		boss.animator.SetInteger(boss.stateIDCredential, DestinoBoss.ID_STATE_IDLE_NORMAL);
+		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
 		/// If you wanna test all:
 #region SignsShowcase:

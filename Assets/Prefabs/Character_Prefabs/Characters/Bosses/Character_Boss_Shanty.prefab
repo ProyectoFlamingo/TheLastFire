@@ -265,9 +265,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _faction: 0
+  _animatorParent: {fileID: 0}
   _meshParent: {fileID: 2254677512724909619}
+  _animator: {fileID: 5308078836216910921}
+  _animatorController: {fileID: 0}
+  _animationEventInvoker: {fileID: 1386651793}
+  _animation: {fileID: 1066620322}
+  _clipFadeDuration: 0
+  _hurtBoxes: []
   _physicalColliders:
   - {fileID: 3421889268013043292}
+  _triggerColliders: []
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   gizmosRadius: 0
   _stages: 3
@@ -277,10 +286,6 @@ MonoBehaviour:
   - 3
   _distributionSystem:
     _probabilityRanges: []
-  _animator: {fileID: 5308078836216910921}
-  _animation: {fileID: 1066620322}
-  _animationEventInvoker: {fileID: 1386651793}
-  _hurtBoxesContainer: {fileID: 0}
   forceStageTesting: 1
   testStage: 3
   _ship: {fileID: 0}
@@ -293,20 +298,50 @@ MonoBehaviour:
     collectionIndex: 2
   _bombProjectionTime: 1.5
   _bombProjectionPercentage: 0.45
+  _bouncingBombIndex:
+    index: 0
+    objectIndex: 0
+    collectionIndex: 0
+  _bouncingBombProjectionTime: 0
   _TNTIndex:
     index: 0
     objectIndex: 0
     collectionIndex: 2
+  _stage1ExplodableIndex:
+    index: 0
+    objectIndex: 0
+    collectionIndex: 0
+  _stage1TNTFuseDuration: 0
   _TNTProjectionTime: 1
   _TNTProjectionPercentage: 0
   _TNTTimeScaleChangeProgress: 0.35
   _TNTThrowTimeScale: 0.5
   _stage1HealthPercentageLimit: 0.5
   _stage2HealthPercentageLimit: 0.5
+  _stage2ExplodableIndex:
+    index: 0
+    objectIndex: 0
+    collectionIndex: 0
+  _stage2TNTFuseDuration: 0
+  _stairParabolaTime: 0
+  _stairSlideDuration: 0
+  _sidewaysMovementSpeed: 0
+  _TNTRotationSpeed: 0
   _vectorPairInterpolationDuration: 0
+  _waitBeforeWaypointReturn: 0
+  _progressToToggleHurtBoxes: 0
+  _attackRadiusRange:
+    _min: 0
+    _max: 0
+  _strongAttackWaitInterval:
+    _min: 0
+    _max: 0
   _movementSpeed: 20
   _rotationSpeed: 180
+  _regressionDuration: 0
   _attackDistance: 4.5
+  _normalAttackCooldownDuration: 0
+  _strongAttackCooldownDuration: 0
   _stage1Inmunities:
   - _tag: Weapon/Player
     index: 9
@@ -359,6 +394,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dae8cbd21ff73a4286d66cd1093c2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &57488060
 MonoBehaviour:
@@ -421,6 +458,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af67b97f0c905942aaa8836e8ee146f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _subsystems:
   - _relativeTo: 0
     _layerMask:
@@ -517,6 +563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   _airScalar: 1
+  _minSpeedForBraking: 0
   _maxBrakingSpeed: 2
   _brakingDuration: 2
   _dotTolerance: -1
@@ -713,6 +760,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 522625587181465886, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 550564341600439503, guid: fe373787ff0759b448086cf50027d997,
         type: 3}

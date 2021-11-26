@@ -87,6 +87,7 @@ public class FiniteStateAudioClip : ScriptableObject
 
 #if UNITY_EDITOR
 		VDebug.Log(
+			LogType.Log,
 			"Clip: ",
 			clip.name,
 			"Current Time: ",

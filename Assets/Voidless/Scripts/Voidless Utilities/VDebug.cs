@@ -39,8 +39,9 @@ public static class VDebug
 
 	/// <summary>Debug Log, but without concatenation.</summary>
 	/// <param name="data">Data represented as object [to use each object's ToString()], each data is separated with a space.</param>
+	/// <param name="_type">Type of Debugging [None by default].</param>
 	/// <returns>Debugged Text.</returns>
-	public static string Log(params object[] data)
+	public static string Log(LogType _type = LogType.Log, params object[] data)
 	{
 		string text = string.Empty;
 
@@ -56,7 +57,21 @@ public static class VDebug
 
 		text = builder.ToString();
 
-		Debug.Log(text);
+		switch(_type)
+		{
+			case LogType.Warning:
+			Debug.LogWarning(text);
+			break;
+
+			case LogType.Error:
+			case LogType.Exception:
+			Debug.LogError(text);
+			break;
+
+			default:
+			Debug.Log(text);
+			break;
+		}
 #endif
 
 		return text;
