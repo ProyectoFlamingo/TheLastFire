@@ -17,15 +17,7 @@ public class ShantyBoss : Boss
 	public const int ID_WAYPOINTSPAIR_DECK = 1; 						/// <summary>Deck's Waypoints' Pair ID.</summary>
 	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 					/// <summary>Left Stair's Waypoints' Pair ID.</summary>
 	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 					/// <summary>Right Stair's Waypoints' Pair ID.</summary>
-	public const int ID_ANIMATIONEVENT_PICKBOMB = 0; 					/// <summary>Pick Bomb's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_THROWBOMB = 1; 					/// <summary>Throw Bomb's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_SWORD_UNSHEATH = 2; 				/// <summary>Sword Un-Sheath's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_SWORD_SHEATH = 3; 				/// <summary>Sword Sheath's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_GOIDLE = 4; 						/// <summary>Go Idle's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_PICKTNT = 5; 					/// <summary>Pick TNT's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_THROWTNT = 6; 					/// <summary>Throw TNT's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_REPELBOMB = 7; 					/// <summary>Repel Bomb's Animation Event's ID.</summary>
-	public const int ID_ANIMATIONEVENT_JUMP = 8; 						/// <summary>Jump's Animation Event's ID.</summary>
+	
 	public const int ID_ANIMATIONSTATE_INTRO = 0; 						/// <summary>Intro's State ID [for AnimatorController].</summary>
 	public const int ID_ANIMATIONSTATE_TIED = 1; 						/// <summary>Intro's State ID [for AnimatorController].</summary>
 	public const int ID_ANIMATIONSTATE_IDLE = 2; 						/// <summary>Idle's State ID [for AnimatorController].</summary>
@@ -801,42 +793,42 @@ public class ShantyBoss : Boss
 	{
 		switch(_ID)
 		{
-			case ID_ANIMATIONEVENT_PICKBOMB:
+			case IDs.ANIMATIONEVENT_PICKBOMB:
 			ActivateSword(false);
 			PickBomb();
 			break;
 
-			case ID_ANIMATIONEVENT_THROWBOMB:
+			case IDs.ANIMATIONEVENT_THROWBOMB:
 			ThrowBomb();
 			break;
 
-			case ID_ANIMATIONEVENT_SWORD_UNSHEATH:
+			case IDs.ANIMATIONEVENT_SWORD_UNSHEATH:
 			ActivateSword(true);
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
 			break;
 
-			case ID_ANIMATIONEVENT_SWORD_SHEATH:
+			case IDs.ANIMATIONEVENT_SWORD_SHEATH:
 			ActivateSword(false);
 			break;
 
-			case ID_ANIMATIONEVENT_GOIDLE:
+			case IDs.ANIMATIONEVENT_GOIDLE:
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
 			animation.CrossFade(idleAnimation);
 			break;
 
-			case ID_ANIMATIONEVENT_PICKTNT:
+			case IDs.ANIMATIONEVENT_PICKTNT:
 			PickTNT();
 			break;
 
-			case ID_ANIMATIONEVENT_THROWTNT:
+			case IDs.ANIMATIONEVENT_THROWTNT:
 			ThrowTNT();
 			break;
 
-			case ID_ANIMATIONEVENT_REPELBOMB:
+			case IDs.ANIMATIONEVENT_REPELBOMB:
 			if(bomb != null) bomb.RequestRepel(gameObject);
 			break;
 
-			case ID_ANIMATIONEVENT_JUMP:
+			case IDs.ANIMATIONEVENT_JUMP:
 			Jump();
 			break;
 

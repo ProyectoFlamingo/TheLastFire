@@ -1,81 +1,85 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
 public class DestinoSceneController : Singleton<DestinoSceneController>
 {
-	public const int INDEX_AUDIOSOURCE_LOOP_ORCHESTRA = 0;
-	public const int INDEX_AUDIOSOURCE_LOOP_VOICE = 1;
-	public const int INDEX_AUDIOSOURCE_LOOP_PIECES = 1;
-	public const float WEIGHT_BLENDSHAPE_CURTAIN_CLOSED = 100.0f; 			/// <summary>Closed Curtain's Blend Shape's Weight.</summary>
-	public const float WEIGHT_BLENDSHAPE_CURTAIN_OPEN = 0.0f; 				/// <summary>Open Curtain's Blend Shape's Weight.</summary>
+	public const float WEIGHT_BLENDSHAPE_CURTAIN_CLOSED = 100.0f; 												/// <summary>Closed Curtain's Blend Shape's Weight.</summary>
+	public const float WEIGHT_BLENDSHAPE_CURTAIN_OPEN = 0.0f; 													/// <summary>Open Curtain's Blend Shape's Weight.</summary>
 
-	[SerializeField] private DestinoBoss _destino; 							/// <summary>Destino's Reference.</summary>
+	[SerializeField] private DestinoBoss _destino; 																/// <summary>Destino's Reference.</summary>
 	[Space(5f)]
-	[SerializeField] private float _cooldownBeforeReleasingPlayerControl; 	/// <summary>Cooldown Duration before releasing Player's Control.</summary>
-	[Space(5f)]
-	[Header("Scenario's Attributes:")]
+	[SerializeField] private float _cooldownBeforeReleasingPlayerControl; 										/// <summary>Cooldown Duration before releasing Player's Control.</summary>
 	[Space(5f)]
 	[Header("Curtain's Settings:")]
 	[Space(5f)]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _openingClipPercentage; 				/// <summary>Opening Clip's duration percentage that takes for the curtain to open [at the beginning of the scene].</summary>
+	[TabGroup("Scenery Group", "Curtains")][Range(0.0f, 1.0f)] private float _openingClipPercentage; 			/// <summary>Opening Clip's duration percentage that takes for the curtain to open [at the beginning of the scene].</summary>
 	[SerializeField]
-	[Range(0.0f, 100.0f)] private float _stage1CurtainClosure; 				/// <summary>Curtain's Closure's Percentage on Stage 1.</summary>
+	[TabGroup("Scenery Group", "Curtains")][Range(0.0f, 100.0f)] private float _stage1CurtainClosure; 			/// <summary>Curtain's Closure's Percentage on Stage 1.</summary>
 	[SerializeField]
-	[Range(0.0f, 100.0f)] private float _stage2CurtainClosure; 				/// <summary>Curtain's Closure's Percentage on Stage 2.</summary>
+	[TabGroup("Scenery Group", "Curtains")][Range(0.0f, 100.0f)] private float _stage2CurtainClosure; 			/// <summary>Curtain's Closure's Percentage on Stage 2.</summary>
 	[SerializeField]
-	[Range(0.0f, 100.0f)] private float _stage3CurtainClosure; 				/// <summary>Curtain's Closure's Percentage on Stage 3.</summary>
-	[SerializeField] private float _curtainsClosureDuration; 				/// <summary>Curtains' Closure Duration.</summary>
-	[SerializeField] private float _curtainsApertureDuration; 				/// <summary>Curtains' Aperture Duration.</summary>
-	[SerializeField] private float _cooldownBeforeAperture; 				/// <summary>Cooldown's duration before curtains' aperture.</summary>
+	[TabGroup("Scenery Group", "Curtains")][Range(0.0f, 100.0f)] private float _stage3CurtainClosure; 			/// <summary>Curtain's Closure's Percentage on Stage 3.</summary>
+	[TabGroup("Scenery Group", "Curtains")][SerializeField] private float _curtainsClosureDuration; 			/// <summary>Curtains' Closure Duration.</summary>
+	[TabGroup("Scenery Group", "Curtains")][SerializeField] private float _curtainsApertureDuration; 			/// <summary>Curtains' Aperture Duration.</summary>
+	[TabGroup("Scenery Group", "Curtains")][SerializeField] private float _cooldownBeforeAperture; 				/// <summary>Cooldown's duration before curtains' aperture.</summary>
 	[Space(5f)]
 	[Header("Stage's Sceneries:")]
-	[SerializeField] private GameObject _stage1SceneryGroup; 				/// <summary>Stage 1's Scenery Group.</summary>
-	[SerializeField] private GameObject _stage2SceneryGroup; 				/// <summary>Stage 2's Scenery Group.</summary>
-	[SerializeField] private GameObject _stage3SceneryGroup; 				/// <summary>Stage 3's Scenery Group.</summary>
+	[TabGroup("Scenery Groups")][SerializeField] private GameObject _stage1SceneryGroup; 						/// <summary>Stage 1's Scenery Group.</summary>
+	[TabGroup("Scenery Groups")][SerializeField] private GameObject _stage2SceneryGroup; 						/// <summary>Stage 2's Scenery Group.</summary>
+	[TabGroup("Scenery Groups")][SerializeField] private GameObject _stage3SceneryGroup; 						/// <summary>Stage 3's Scenery Group.</summary>
 	[Space(5f)]
 	[Header("Lights:")]
-	[SerializeField] private Light _moonLight; 								/// <summary>Moon's Light.</summary>
-	[SerializeField] private Light _mateoSpotLight; 						/// <summary>Mateo's Spot Light.</summary>
-	[SerializeField] private Light _destinoSpotLight; 						/// <summary>Destino's Spot Light.</summary>
+	[TabGroup("Lights")][SerializeField] private Light _moonLight; 												/// <summary>Moon's Light.</summary>
+	[TabGroup("Lights")][SerializeField] private Light _thunderLight; 											/// <summary>Thunder's Light.</summary>
+	[TabGroup("Lights")][SerializeField] private Light _mateoSpotLight; 										/// <summary>Mateo's Spot Light.</summary>
+	[TabGroup("Lights")][SerializeField] private Light _destinoSpotLight; 										/// <summary>Destino's Spot Light.</summary>
 	[Space(5f)]
-	[SerializeField] private float _mateoSpotLightMaxSpeed; 				/// <summary>Mateo's Spot Light's Maximum Speed.</summary>
-	[SerializeField] private float _mateoSpotLightMaxSteeringForce; 		/// <summary>Mateo's Spot Light's Maximum Steering Force.</summary>
+	[TabGroup("Lights")][SerializeField] private float _spotLightMaxSpeed; 										/// <summary>Spot Light's Maximum Speed.</summary>
+	[TabGroup("Lights")][SerializeField] private float _spotLightMaxSteeringForce; 								/// <summary>Spot Light's Maximum Steering Force.</summary>
+	[TabGroup("Lights")][SerializeField] private float _spotLightArrivalRadius; 								/// <summary>Spot Light's Arrival Radius.</summary>
 	[Space(5f)]
-	[SerializeField] private SkinnedMeshRenderer _leftCurtainRenderer; 		/// <summary>Left Curtain's SkinnedMeshRenderer.</summary>
-	[SerializeField] private SkinnedMeshRenderer _rightCurtainRenderer; 	/// <summary>Right Curtain's SkinnedMeshRenderer.</summary>
+	[TabGroup("Scenery Group", "Curtains")][SerializeField] private SkinnedMeshRenderer _leftCurtainRenderer; 	/// <summary>Left Curtain's SkinnedMeshRenderer.</summary>
+	[TabGroup("Scenery Group", "Curtains")][SerializeField] private SkinnedMeshRenderer _rightCurtainRenderer; 	/// <summary>Right Curtain's SkinnedMeshRenderer.</summary>
 	[Space(5f)]
 	[Header("Devil's Scenery:")]
-	[SerializeField] private Health _devilCeiling; 							/// <summary>Devil's Ceiling.</summary>
-	[SerializeField] private Health _leftDevilTower; 						/// <summary>Left Tower [appears on the Devil's behavior].</summary>
-	[SerializeField] private Health _rightDevilTower; 						/// <summary>Right Tower [appears on the Devil's behavior].</summary>
+	[TabGroup("Scenery Group", "Devil's Scenery")][SerializeField] private Health _devilCeiling; 				/// <summary>Devil's Ceiling.</summary>
+	[TabGroup("Scenery Group", "Devil's Scenery")][SerializeField] private Health _leftDevilTower; 				/// <summary>Left Tower [appears on the Devil's behavior].</summary>
+	[TabGroup("Scenery Group", "Devil's Scenery")][SerializeField] private Health _rightDevilTower; 			/// <summary>Right Tower [appears on the Devil's behavior].</summary>
 	[Space(10f)]
 	[Header("Signs:")]
-	[SerializeField] private Transform _fireShowSign; 						/// <summary>Fire Show's Sign.</summary>
-	[SerializeField] private Transform _swordShowSign; 						/// <summary>Sword Show's Sign.</summary>
-	[SerializeField] private Transform _danceShowSign; 						/// <summary>Dance Show's Sign.</summary>
+	[TabGroup("Scenery Group", "Judgement's Scenery")][SerializeField] private Transform _fireShowSign; 		/// <summary>Fire Show's Sign.</summary>
+	[TabGroup("Scenery Group", "Judgement's Scenery")][SerializeField] private Transform _swordShowSign; 		/// <summary>Sword Show's Sign.</summary>
+	[TabGroup("Scenery Group", "Judgement's Scenery")][SerializeField] private Transform _danceShowSign; 		/// <summary>Dance Show's Sign.</summary>
 	[Space(5f)]
 	[Header("Loops' Indices:")]
-	[SerializeField] private CollectionIndex _mainLoopIndex; 				/// <summary>Main Loop's Index.</summary>
-	[SerializeField] private CollectionIndex _mainLoopVoiceIndex; 			/// <summary>Main Loop's Voice Index.</summary>
+	[TabGroup("Audio")][SerializeField] private CollectionIndex _mainLoopIndex; 								/// <summary>Main Loop's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private CollectionIndex _mainLoopVoiceIndex; 							/// <summary>Main Loop's Voice Index.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Indices:")]
-	[SerializeField] private CollectionIndex _orchestraTunningSoundIndex; 	/// <summary>Orchestra Tunning Sound FX's Index.</summary>
-	[SerializeField] private CollectionIndex _curtainOpeningSoundIndex; 	/// <summary>Curtain's Opening Sound FX's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private CollectionIndex _orchestraTunningSoundIndex; 					/// <summary>Orchestra Tunning Sound FX's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private CollectionIndex _curtainOpeningSoundIndex; 						/// <summary>Curtain's Opening Sound FX's Index.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
-	[SerializeField] private Color color; 									/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float radius; 									/// <summary>Waypoints' Radius.</summary>
-	[SerializeField] private float rayLength; 								/// <summary>Ray's Length.</summary>
+	[Header("Testing:")]
+	[TabGroup("Testing Group", "Testing")][SerializeField] private bool test; 									/// <summary>Test?.</summary>
+	[TabGroup("Testing Group", "Testing")][SerializeField] private int testLoopState; 							/// <summary>Loop's State testing index.</summary>
+	[Space(5f)]
+	[Header("Gizmos' Attributes:")]
+	[TabGroup("Testing Group", "Gizmos")][SerializeField] private Color color; 									/// <summary>Gizmos' Color.</summary>
+	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float radius; 								/// <summary>Waypoints' Radius.</summary>
+	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float rayLength; 								/// <summary>Ray's Length.</summary>
 #endif
-	private Vector2 mateoSpotLightVelocity; 								/// <summary>Mateo Spot Light's Velocity reference.</summary>
-	private bool _deckPresented; 											/// <summary>Was the deck already presented tomm the Player?.</summary>
-	private bool _curtainOpened; 											/// <summary>Has the curtain been opened?.</summary>
+	private Vector2 mateoSpotLightVelocity; 																	/// <summary>Mateo Spot Light's Velocity reference.</summary>
+	private Vector2 destinoSpotLightVelocity; 																	/// <summary>Destino Spot Light's Velocity reference.</summary>
+	private bool _deckPresented; 																				/// <summary>Was the deck already presented tomm the Player?.</summary>
+	private bool _curtainOpened; 																				/// <summary>Has the curtain been opened?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets destino property.</summary>
@@ -92,6 +96,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 	/// <summary>Gets moonLight property.</summary>
 	public Light moonLight { get { return _moonLight; } }
+
+	/// <summary>Gets thunderLight property.</summary>
+	public Light thunderLight { get { return _thunderLight; } }
 
 	/// <summary>Gets mateoSpotLight property.</summary>
 	public Light mateoSpotLight { get { return _mateoSpotLight; } }
@@ -123,11 +130,14 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Gets cooldownBeforeAperture property.</summary>
 	public float cooldownBeforeAperture { get { return _cooldownBeforeAperture; } }
 
-	/// <summary>Gets mateoSpotLightMaxSpeed property.</summary>
-	public float mateoSpotLightMaxSpeed { get { return _mateoSpotLightMaxSpeed; } }
+	/// <summary>Gets spotLightMaxSpeed property.</summary>
+	public float spotLightMaxSpeed { get { return _spotLightMaxSpeed; } }
 
-	/// <summary>Gets mateoSpotLightMaxSteeringForce property.</summary>
-	public float mateoSpotLightMaxSteeringForce { get { return _mateoSpotLightMaxSteeringForce; } }
+	/// <summary>Gets spotLightMaxSteeringForce property.</summary>
+	public float spotLightMaxSteeringForce { get { return _spotLightMaxSteeringForce; } }
+
+	/// <summary>Gets spotLightArrivalRadius property.</summary>
+	public float spotLightArrivalRadius { get { return _spotLightArrivalRadius; } }
 
 	/// <summary>Gets leftCurtainRenderer property.</summary>
 	public SkinnedMeshRenderer leftCurtainRenderer { get { return _leftCurtainRenderer; } }
@@ -189,9 +199,6 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	}
 #endif
 
-	public bool test;
-	public int testLoopState;
-
 	/// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
    	protected override void OnAwake()
 	{
@@ -203,16 +210,14 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		leftDevilTower.gameObject.SetActive(false);
 		rightDevilTower.gameObject.SetActive(false);
 
-
-
 		/// Subscribe to Mateo & Destino's Events:
 		destino.eventsHandler.onIDEvent += OnDestinoIDEvent;
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
 
 		Game.ResetFSMLoopStates();
 
-		AudioClip clip = AudioController.PlayOneShot(SourceType.Scenario, 0, orchestraTunningSoundIndex);
-		CloseCurtainsWithWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
+		AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
+		SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
@@ -236,7 +241,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Updates DestinoSceneController's instance at each frame.</summary>
 	private void Update()
 	{
-		SetSpotlightAboveMateo();
+		SetSpotlightAbove(mateoSpotLight, Game.mateo.transform.position, ref mateoSpotLightVelocity);
+		SetSpotlightAbove(destinoSpotLight, destino.transform.position, ref destinoSpotLightVelocity);
 	}
 
 #region Callbacks:
@@ -247,35 +253,52 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		switch(_ID)
 		{
 			case IDs.EVENT_STAGECHANGED:
-			int stageID = destino.currentStage;
-
-			switch(stageID)
 			{
-				case Boss.STAGE_1:
-				ActivateSceneryGroup(stageID);
-				break;
+				int stageID = destino.currentStage;
 
-				case Boss.STAGE_2:
-				CloseCurtainsWithWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration, ()=>
+				switch(stageID)
 				{
+					case Boss.STAGE_1:
+					/*
+					- Close the curtain
+					- Enable the scenery group #1
+					*/
+					SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f);
 					ActivateSceneryGroup(stageID);
-					this.StartCoroutine(this.WaitSeconds(cooldownBeforeAperture, ()=>
-					{
-						CloseCurtainsWithWeight(stage2CurtainClosure, curtainsApertureDuration, null);
-					}));
-				});
-				break;
+					break;
 
-				case Boss.STAGE_3:
-				CloseCurtainsWithWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration, ()=>
-				{
-					ActivateSceneryGroup(stageID);
-					this.StartCoroutine(this.WaitSeconds(cooldownBeforeAperture, ()=>
+					case Boss.STAGE_2:
+					/*
+					- Close the curtain
+					- Enable the scenery group #2
+					- Open the Curtain
+					*/
+					SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration, ()=>
 					{
-						CloseCurtainsWithWeight(stage3CurtainClosure, curtainsApertureDuration, null);
-					}));
-				});
-				break;
+						ActivateSceneryGroup(stageID);
+						this.StartCoroutine(this.WaitSeconds(cooldownBeforeAperture, ()=>
+						{
+							SetCurtainsWeight(stage2CurtainClosure, curtainsApertureDuration, null);
+						}));
+					});
+					break;
+
+					case Boss.STAGE_3:
+					/*
+					- Close the curtain
+					- Enable the scenery group #3
+					- Open the Curtain
+					*/
+					SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration, ()=>
+					{
+						ActivateSceneryGroup(stageID);
+						this.StartCoroutine(this.WaitSeconds(cooldownBeforeAperture, ()=>
+						{
+							SetCurtainsWeight(stage3CurtainClosure, curtainsApertureDuration, null);
+						}));
+					});
+					break;
+				}
 			}
 			break;
 
@@ -294,32 +317,46 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		switch(_ID)
 		{
 			case IDs.EVENT_MEDITATION_ENDS:
-			if(curtainOpened) return;
-
-			curtainOpened = true;
-			
-			AudioClip openingClip = AudioController.PlayOneShot(SourceType.Scenario, 0, curtainOpeningSoundIndex);
-			CloseCurtainsWithWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
 			{
-#region TEST_DESTINO_SINGING
-				if(test)
-				{
-					Game.data.FSMLoops[mainLoopIndex].ChangeState(testLoopState);
-					Game.data.FSMLoops[mainLoopVoiceIndex].ChangeState(testLoopState);
-					//destino.Sing();
-				}
-#endregion
+				/*
+					- Play Applause's Sound Effect.
+					- Stop Orchestra Tunning's Loop.
+					- Open the curtain.
+					- Play the Finite-State AudioClips for Destino's Loops (Intrumental and voice).
+					- Make Destino Sing and request a Card
+				*/
+				if(curtainOpened) return;
 
-				AudioController.PlayFSMLoop(0, mainLoopIndex, true);
-				AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true);
-				destino.Sing();
-				destino.RequestCard();
-			});
+				curtainOpened = true;
+				
+				AudioClip openingClip = AudioController.PlayOneShot(SourceType.Scenario, 1, curtainOpeningSoundIndex);
+
+				AudioController.Stop(SourceType.Scenario, 0);
+				SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
+				{
+#if UNITY_EDITOR
+					if(test)
+					{
+						Game.data.FSMLoops[mainLoopIndex].ChangeState(testLoopState);
+						Game.data.FSMLoops[mainLoopVoiceIndex].ChangeState(testLoopState);
+						//destino.Sing();
+					}
+#endif
+					AudioController.PlayFSMLoop(0, mainLoopIndex, true);
+					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true);
+					destino.Sing();
+					destino.RequestCard();
+
+					// Thunder Test
+					//this.StartCoroutine(thunderLight.StormLightningEffectRoutine(0.25f, 15, 1.5f, 1.0f, 0.7f, 8.5f, 2.0f, 1.3f));
+				});
+			}
 			break;
 		}
 	}
 #endregion
 
+#region PrivateMethods:
 	/// <summary>Activates Scenery Group related to the given stage.</summary>
 	/// <param name="_stageID">Stage's ID.</param>
 	private void ActivateSceneryGroup(int _stageID)
@@ -344,35 +381,42 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		}
 	}
 
-	/// \TODO Make the light follow Mateo with Steering Behavior.
-	/// <summary>Sets Spotlight above Mateo.</summary>
-	private void SetSpotlightAboveMateo()
+	/// <summary>Sets given Spot-Light above given point.</summary>
+	/// <param name="_spotLight">Spot-Light to position.</param>
+	/// <param name="_position">Desired point of interest.</param>
+	/// <param name="velocity">Velocity's Reference.</param>
+	private void SetSpotlightAbove(Light _spotLight, Vector3 _position, ref Vector2 velocity)
 	{
-		if(Game.mateo == null || mateoSpotLight == null) return;
+		if(_spotLight == null) return;
 
-		Vector3 mateoPosition = Game.mateo.transform.position;
-		mateoPosition.y = mateoSpotLight.transform.position.y;
-		mateoSpotLight.transform.position = mateoPosition;
+		Vector3 lightPosition = _spotLight.transform.position;
+		_position.y = lightPosition.y;
 		
-		/*Vector3 seekForce = (Vector3)SteeringVehicle2D.GetSeekForce(mateoSpotLight.transform.position, mateoPosition, ref mateoSpotLightVelocity, mateoSpotLightMaxSpeed, mateoSpotLightMaxSteeringForce);
-		
-		mateoSpotLight.transform.position += seekForce * Time.deltaTime;*/
+		Vector3 seekForce = (Vector3)SteeringVehicle2D.GetSeekForce(lightPosition, _position, ref velocity, spotLightMaxSpeed, spotLightMaxSteeringForce);
+		float weight = SteeringVehicle2D.GetArrivalWeight(lightPosition, _position, spotLightArrivalRadius);
+
+		lightPosition += seekForce * Time.deltaTime * weight;
+		lightPosition.z = _position.z;
+
+		_spotLight.transform.position = lightPosition;
 	}
 
 	/// <summary>Changes the state of the Curtain.</summary>
 	/// <param name="_open">Should the curtain be opened?.</param>
 	/// <param name="_duration">Duration of the state change.</param>
 	/// <param name="onStateChangingEnds">Optional callback invoked when the change of state of the curtain ends.</param>
-	public void CloseCurtainsWithWeight(float _closurePercentage, float _duration, Action onStateChangingEnds = null)
+	private void SetCurtainsWeight(float _closurePercentage, float _duration, Action onStateChangingEnds = null)
 	{
 		this.StartCoroutine(ChangeCurtainsState(_closurePercentage, _duration, onStateChangingEnds));
 	}
+#endregion
 
+#region Coroutines:
 	/// <summary>Changes the state of the Curtain.</summary>
 	/// <param name="_open">Should the curtain be opened?.</param>
 	/// <param name="_duration">Duration of the state change.</param>
 	/// <param name="onStateChangingEnds">Optional callback invoked when the change of state of the curtain ends.</param>
-	public static IEnumerator ChangeCurtainsState(float _closurePercentage, float _duration, Action onStateChangingEnds = null)
+	private static IEnumerator ChangeCurtainsState(float _closurePercentage, float _duration, Action onStateChangingEnds = null)
 	{
 		float weight = _closurePercentage;
 
@@ -401,5 +445,6 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 		if(onStateChangingEnds != null) onStateChangingEnds();
 	}
+#endregion
 }
 }

@@ -9192,7 +9192,17 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _subsystems: []
+  _subsystems:
+  - _relativeTo: 0
+    _layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    _relativeOrigin:
+      _x: 0
+      _y: 0
+    _originDistance: 0
+    _sensorsData: []
+    _color: {r: 1, g: 0, b: 0.30980393, a: 0.5019608}
 --- !u!114 &5133950097954566364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9221,7 +9231,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

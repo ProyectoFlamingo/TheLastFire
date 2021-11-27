@@ -19,6 +19,18 @@ public static class IDs
 	public const int EVENT_REPELLED = 8; 						/// <summary>Repelled's Event's ID.</summary>
 #endregion
 
+#region AnimationEventsIDS:
+	public const int ANIMATIONEVENT_PICKBOMB = 0; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWBOMB = 1; 				/// <summary>Throw Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_SWORD_UNSHEATH = 2; 		/// <summary>Sword Un-Sheath's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_SWORD_SHEATH = 3; 			/// <summary>Sword Sheath's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_GOIDLE = 4; 				/// <summary>Go Idle's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKTNT = 5; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWTNT = 6; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_REPELBOMB = 7; 				/// <summary>Repel Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_JUMP = 8; 					/// <summary>Jump's Animation Event's ID.</summary>
+#endregion
+
 #region StateFlagsIDs:
 	public const int STATE_DEAD = 0; 							/// <summary>Dead's State ID.</summary>
 	public const int STATE_ALIVE = 1 << 0; 						/// <summary>Alive's State ID.</summary>

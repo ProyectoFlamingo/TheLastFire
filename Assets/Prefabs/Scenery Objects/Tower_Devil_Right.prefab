@@ -64,6 +64,7 @@ MonoBehaviour:
   _maxHP: 20
   _hitStunDuration: 0.2
   _invincibilityDuration: 0.2
+  _inmunities: []
 --- !u!114 &1540967952206474042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,11 +307,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -305091885687274788, guid: 524fcb68dc7266740865249223b100d1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f4a7cf0c3457d48a11b1107bc7ca3c, type: 2}
     - target: {fileID: 919132149155446097, guid: 524fcb68dc7266740865249223b100d1,
         type: 3}
       propertyPath: m_Name
       value: Devils Tower
       objectReference: {fileID: 0}
+    - target: {fileID: 4809032440416258036, guid: 524fcb68dc7266740865249223b100d1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df5dfb65d674e6a49b3519d70783e325, type: 2}
+    - target: {fileID: 4809032440416258036, guid: 524fcb68dc7266740865249223b100d1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 50f4a7cf0c3457d48a11b1107bc7ca3c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524fcb68dc7266740865249223b100d1, type: 3}
 --- !u!4 &7471056545314929251 stripped

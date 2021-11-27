@@ -34,6 +34,7 @@ public class AudioController : Singleton<AudioController>
 	private Coroutine[] loopVolumeFadings; 							/// <summary>Coroutines' references for the Loops' volume's fading.</summary>
 	private StringBuilder _builder; 								/// <summary>String Builder used for name concatenations.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets exposedVolumeParameterName property.</summary>
 	public string exposedVolumeParameterName { get { return _exposedVolumeParameterName; } }
 
@@ -68,6 +69,7 @@ public class AudioController : Singleton<AudioController>
 		get { return _builder; }
 		private set { _builder = value; }
 	}
+#endregion
 
 	/// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
    	protected override void OnAwake()
@@ -186,14 +188,11 @@ public class AudioController : Singleton<AudioController>
 		VDebug.Log(
 			LogType.Log,
 			"PlayFSM()'s Report: ",
-			"\n",
-			"Source's Index: \n",
+			"\nSource's Index: \n",
 			_sourceIndex.ToString(),
-			"\n",
-			"FSM's AudioClip: ",
+			"\nFSM's AudioClip: ",
 			FSMClip.ToString(),
-			"\n",
-			"Source's current AudioClip: ",
+			"\nSource's current AudioClip: ",
 			source.clip != null ? source.clip.name : "NONE"
 		);
 #endif
@@ -236,7 +235,7 @@ public class AudioController : Singleton<AudioController>
 	{
 		AudioSource source = GetAudioSource(_type, _sourceIndex);
 
-		if(source.clip == null || !source.isPlaying) return;
+		if(!source.isPlaying) return;
 
 		AudioMixer mixer = source.outputAudioMixerGroup.audioMixer;
 		//lastLoopIndex = -1;
@@ -324,7 +323,7 @@ public class AudioController : Singleton<AudioController>
 		mixer.SetVolume(parameterName, _volume);
 	}
 
-	/// <summary>Sets pitch foall AudioSources.</summary>
+	/// <summary>Sets pitch for all AudioSources.</summary>
 	/// <param name="_pitch">New Pitch.</param>
 	public static void SetPitch(float _pitch)
 	{
