@@ -13,6 +13,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	public const float WEIGHT_BLENDSHAPE_CURTAIN_OPEN = 0.0f; 													/// <summary>Open Curtain's Blend Shape's Weight.</summary>
 
 	[SerializeField] private DestinoBoss _destino; 																/// <summary>Destino's Reference.</summary>
+	[SerializeField] private DestinoBossAIController _destinoController; 										/// <summary>Destino's AI Controller.</summary>
 	[Space(5f)]
 	[SerializeField] private float _cooldownBeforeReleasingPlayerControl; 										/// <summary>Cooldown Duration before releasing Player's Control.</summary>
 	[Space(5f)]
@@ -84,6 +85,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 #region Getters/Setters:
 	/// <summary>Gets destino property.</summary>
 	public DestinoBoss destino { get { return _destino; } }
+
+	/// <summary>Gets destinoController property.</summary>
+	public DestinoBossAIController destinoController { get { return _destinoController; } }
 
 	/// <summary>Gets stage1SceneryGroup property.</summary>
 	public GameObject stage1SceneryGroup { get { return _stage1SceneryGroup; } }
@@ -345,7 +349,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 					AudioController.PlayFSMLoop(0, mainLoopIndex, true);
 					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true);
 					destino.Sing();
-					destino.RequestCard();
+					destinoController.RequestCard();
 
 					// Thunder Test
 					//this.StartCoroutine(thunderLight.StormLightningEffectRoutine(0.25f, 15, 1.5f, 1.0f, 0.7f, 8.5f, 2.0f, 1.3f));

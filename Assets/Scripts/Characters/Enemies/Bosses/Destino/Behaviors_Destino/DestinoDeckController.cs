@@ -16,6 +16,9 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 {
 	public event OnCardSelected onCardSelected; 					/// <summary>OnCardSelected's Event Delegate.</summary>
 
+	[Space(5f)]
+	[SerializeField] private DestinoCard[] _cards; 					/// <summary>Deck's Cards.</summary>
+	[Space(5f)]
 	[Header("Card Rotation's Attributes:")]
 	[SerializeField] private EulerRotation _faceUpRotation; 		/// <summary>Card's Face-Up Rotation.</summary>
 	[SerializeField] private EulerRotation _faceDownRotation; 		/// <summary>Card's Face-Down Rotation.</summary>
@@ -63,6 +66,9 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 	private DestinoCard _selectedCard; 								/// <summary>Currently Selected Card.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets cards property.</summary>
+	public DestinoCard[] cards { get { return _cards; } }
+
 	/// <summary>Gets faceUpRotation property.</summary>
 	public EulerRotation faceUpRotation { get { return _faceUpRotation; } }
 
@@ -171,18 +177,18 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 	/// <summary>Creates and shuffles deck from the cards available on the scene.</summary>
 	/// <param name="boss">Boss' Reference.</param>
-	private void CreateDeck(DestinoBoss boss)
+	public void CreateDeck(DestinoBoss boss)
 	{
 		
 		/// Internal Shuffling:
-		int deckLength = boss.cards.Length;
+		int deckLength = cards.Length;
 		int[] cardsIndices = VMath.GetUniqueRandomSet(deckLength);		/// Shuffled indices.
 		if(deck == null) deck = new StackQueue<DestinoCard>(/*deckLength*/);
 		DestinoCard card = null;
 
 		for(int i = 0; i < deckLength; i++)
 		{
-			card = boss.cards[cardsIndices[i]];
+			card = cards[cardsIndices[i]];
 
 			deck.Push(card);
 			card.transform.position = boss.transform.position;

@@ -7,19 +7,10 @@ using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
-/* States' IDs:
- 0: Idle
- 1: Laugh
- 2: Chant State
- 3: Lala
- 4: Laaa
-*/
-
 [RequireComponent(typeof(SensorSystem2D))]
 [RequireComponent(typeof(RigidbodyMovementAbility))]
 [RequireComponent(typeof(RotationAbility))]
 [RequireComponent(typeof(JumpAbility))]
-[RequireComponent(typeof(SteeringSnake))]
 public class DestinoBoss : Boss
 {
 	[Space(5f)]
@@ -38,24 +29,8 @@ public class DestinoBoss : Boss
 	[TabGroup("Group A", "Head")][SerializeField] private Transform _rigHead; 										/// <summary>Destino's Rig Head.</summary>
 	[TabGroup("Group A", "Head")][SerializeField] private Transform _removableHead; 								/// <summary>Destino's Removable Head.</summary>
 	[TabGroup("Group A", "Head")][SerializeField] private HitCollider2D _headHurtBox; 								/// <summary>Removable Head's HutrBox.</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private TransformData _headFallPointData; 						/// <summary>Fall Point's TransformData for the Removable Head.</summary>
-	[Space(5f)]
-	[TabGroup("Group A", "Head")][SerializeField] private float _fallDuration; 										/// <summary>Removable Head's Falling Duration.</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private float _fallenDuration; 									/// <summary>Duration Destino's Head is on the floor after it falls.</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private float _headReturnDuration; 								/// <summary>Removable Head's return duration.</summary>
-	[Space(5f)]
-	[TabGroup("Group A", "Deck")][SerializeField] private DestinoDeckController _deckController; 					/// <summary>Deck's Controller.</summary>
-	[TabGroup("Group A", "Deck")][SerializeField] private DestinoCard[] _cards; 									/// <summary>Destino's Cards.</summary>
-	[Space(5f)]
-	[Header("Props:")]
-	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _scythe; 									/// <summary>Scythe's reference.</summary>
-	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _leftDrumstick; 							/// <summary>Left Drumstick's renderer.</summary>
-	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _rightDrumstick; 							/// <summary>Right Drumstick's renderer.</summary>
-	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _trumpet; 									/// <summary>Trumpet's reference.</summary>
-	[TabGroup("Group A", "Props")][SerializeField] private ContactWeapon _cymbals; 									/// <summary>Cymbals' Reference.</summary>
 	[Space(5f)]
 	[Header("Sound FXs' References:")]
-	[Space(5f)]
 	[Header("Destino's Sounds:")]
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _damageTakenSoundIndex; 			/// <summary>Damage taken's Sound's Index.</summary>
 	[Space(5f)]
@@ -84,10 +59,7 @@ public class DestinoBoss : Boss
 	private RigidbodyMovementAbility _movementAbility; 																/// <summary>RigidbodyMovementAbility's Component.</summary>
 	private RotationAbility _rotationAbility; 																		/// <summary>RotationAbility's Component.</summary>
 	private JumpAbility _jumpAbility; 																				/// <summary>JumpAbility's Component.</summary>
-	private SteeringSnake _steeringSnake; 																			/// <summary>SteeringSnake's Component.</summary>
-	private IEnumerator iterator; 																					/// <summary>[Test] Iterator.</summary>
-	private Coroutine cardRoutine; 																					/// <summary>Card's Coroutine reference.</summary>
-	private Coroutine fallenTolerance; 																				/// <summary>Removable Head's Fallen Tolerance Coroutine reference.</summary>
+	
 	private Vector2 axes;
 
 #region Getters/Setters:
@@ -139,67 +111,6 @@ public class DestinoBoss : Boss
 	/// <summary>Gets headHurtBox property.</summary>
 	public HitCollider2D headHurtBox { get { return _headHurtBox; } }
 
-	/// <summary>Gets headFallPointData property.</summary>
-	public TransformData headFallPointData { get { return _headFallPointData; } }
-
-	/// <summary>Gets fallDuration property.</summary>
-	public float fallDuration { get { return _fallDuration; } }
-
-	/// <summary>Gets fallenDuration property.</summary>
-	public float fallenDuration { get { return _fallenDuration; } }
-
-	/// <summary>Gets headReturnDuration property.</summary>
-	public float headReturnDuration { get { return _headReturnDuration; } }
-
-	/// <summary>Gets and Sets deckController property.</summary>
-	public DestinoDeckController deckController
-	{
-		get { return _deckController; }
-		set { _deckController = value; }
-	}
-
-	/// <summary>Gets and Sets cards property.</summary>
-	public DestinoCard[] cards
-	{
-		get { return _cards; }
-		set { _cards = value; }
-	}
-
-	/// <summary>Gets and Sets scythe property.</summary>
-	public ContactWeapon scythe
-	{
-		get { return _scythe; }
-		set { _scythe = value; }
-	}
-
-	/// <summary>Gets and Sets leftDrumstick property.</summary>
-	public ContactWeapon leftDrumstick
-	{
-		get { return _leftDrumstick; }
-		set { _leftDrumstick = value; }
-	}
-
-	/// <summary>Gets and Sets rightDrumstick property.</summary>
-	public ContactWeapon rightDrumstick
-	{
-		get { return _rightDrumstick; }
-		set { _rightDrumstick = value; }
-	}
-
-	/// <summary>Gets and Sets trumpet property.</summary>
-	public ContactWeapon trumpet
-	{
-		get { return _trumpet; }
-		set { _trumpet = value; }
-	}
-
-	/// <summary>Gets and Sets cymbals property.</summary>
-	public ContactWeapon cymbals
-	{
-		get { return _cymbals; }
-		set { _cymbals = value; }
-	}
-
 	/// <summary>Gets damageTakenSoundIndex property.</summary>
 	public CollectionIndex damageTakenSoundIndex { get { return _damageTakenSoundIndex; } }
 
@@ -236,16 +147,6 @@ public class DestinoBoss : Boss
 	/// <summary>Gets siMiNoteIndex property.</summary>
 	public CollectionIndex siMiNoteIndex { get { return _siMiNoteIndex; } }
 
-	/// <summary>Gets steeringSnake Component.</summary>
-	public SteeringSnake steeringSnake
-	{ 
-		get
-		{
-			if(_steeringSnake == null) _steeringSnake = GetComponent<SteeringSnake>();
-			return _steeringSnake;
-		}
-	}
-
 	/// <summary>Gets movementAbility Component.</summary>
 	public RigidbodyMovementAbility movementAbility
 	{ 
@@ -277,17 +178,6 @@ public class DestinoBoss : Boss
 	}
 #endregion
 
-#if UNITY_EDITOR
-	/// <summary>Draws Gizmos on Editor mode.</summary>
-	private void OnDrawGizmos()
-	{
-		if(cards == null) return;
-
-		if(headMeshFilter != null) Gizmos.DrawMesh(headMeshFilter.sharedMesh, headFallPointData.position, headFallPointData.rotation);
-		VGizmos.DrawTransformData(headFallPointData);
-	}
-#endif
-
 	/// <summary>Callback internally called right after Awake.</summary>
 	protected override void Awake()
 	{
@@ -296,56 +186,12 @@ public class DestinoBoss : Boss
 		EnablePhysics(false);
 
 		animatorController.CrossFade(idleCredential, clipFadeDuration);
-
-		if(scythe != null) scythe.gameObject.SetActive(false);
-		if(leftDrumstick != null) leftDrumstick.gameObject.SetActive(false);
-		if(rightDrumstick != null) rightDrumstick.gameObject.SetActive(false);
-		if(trumpet != null) trumpet.gameObject.SetActive(false);
-		if(cymbals != null) cymbals.gameObject.SetActive(false);
-
-		if(deckController != null)
-		{
-			deckController.Reset();
-			deckController.onCardSelected += OnCardSelected;
-		}
-
-		if(cards != null) foreach(DestinoCard card in cards)
-		{
-			card.onCardEvent += OnCardEvent;
-		}
-
-		if(headHurtBox != null) headHurtBox.onTriggerEvent2D += OnHeadTriggerEvent2D;
 	}
 
 	/// <summary>DestinoBoss's starting actions before 1st Update frame.</summary>
 	protected override void Start()
 	{
 		base.Start();
-
-		int length = cards.Length;
-
-		if(cards == null || length == 0) return;
-
-#if UNITY_EDITOR
-		if(test)
-		{
-			int index = testCardIndex;
-			iterator = cards[index].behavior.Routine(this);
-		}
-#endif
-	}
-
-	/// <summary>Updates DestinoBoss's instance at each frame.</summary>
-	private void Update()
-	{
-#if UNITY_EDITOR
-		if(!test) return;
-
-		if(iterator != null && !iterator.MoveNext())
-		{
-			iterator = cards[testCardIndex].behavior.Routine(this);
-		}
-#endif
 	}
 
 	/// <summary>Enables Physics.</summary>
@@ -392,82 +238,6 @@ public class DestinoBoss : Boss
 		jumpAbility.CancelJump();
 	}
 
-	/// <summary>Requests card to the DeckController.</summary>
-	public void RequestCard()
-	{
-		if(deckController != null) StartCoroutine(deckController.Routine(this));
-	}
-
-	/// \TODO Deprecate?
-	/// <summary>Callback invoked when a Scythe's Rotation Event happens.</summary>
-	/// <param name="_event">Type of Rotation Event.</param>
-	/// <param name="_ID">Event's ID.</param>
-	public void OnScytheRotationEvent(RotationEvent _event, int _ID = 0)
-	{
-		switch(_event)
-		{
-			case RotationEvent.BuildUpBegins:
-			scythe.ActivateHitBoxes(false);
-			AudioController.PlayOneShot(SourceType.SFX, 0, buildUpSoundIndex);
-			break;
-
-			case RotationEvent.BuildUpEnds:
-
-			break;
-
-			case RotationEvent.SwingBegins:
-			scythe.ActivateHitBoxes(true);
-			AudioController.PlayOneShot(SourceType.SFX, 0, swingSoundIndex);
-			break;
-
-			case RotationEvent.SwingEnds:
-			scythe.ActivateHitBoxes(false);
-			break;
-		}
-
-		switch(_ID)
-		{
-			case IDs.EVENT_NONE:
-			break;
-		}
-	}
-
-	/// <summary>Callback invoked whan an Animation Attack event occurs.</summary>
-	/// <param name="_state">Animation Attack's Event/State.</param>
-	public void OnScytheAnimationAttackEvent(AnimationCommandState _state)
-	{
-		switch(_state)
-		{
-			case AnimationCommandState.None:
-			scythe.ActivateHitBoxes(false);
-			break;
-
-		    case AnimationCommandState.Startup:
-		    scythe.ActivateHitBoxes(false);
-		    AudioController.PlayOneShot(buildUpSoundIndex);
-		    break;
-
-		    case AnimationCommandState.Active:
-		    scythe.ActivateHitBoxes(true);
-		    AudioController.PlayOneShot(swingSoundIndex);
-		    break;
-
-		    case AnimationCommandState.Recovery:
-		    break;
-
-		    case AnimationCommandState.End:
-		    break;
-		}
-	}
-
-	/// <summary>Callback invoked when a Card is selected from the most recent shuffling.</summary>
-	/// <param name="_card">Selected Card.</param>
-	public void OnCardSelected(DestinoCard _card)
-	{
-		if(_card != null && _card.behavior != null)
-		this.StartCoroutine(_card.behavior.Routine(this), ref cardRoutine);
-	}
-
 	/// <summary>Makes Destino Laugh.</summary>
 	public void Laugh()
 	{
@@ -492,32 +262,6 @@ public class DestinoBoss : Boss
 		
 	}
 
-	/// <summary>Callback invoked when the fallen's tolerance duration of a card reached its end.</summary>
-	/// <param name="_card">Card's reference.</param>
-	/// <param name="_event">Event Type.</param>
-	private void OnCardEvent(DestinoCard _card, DestinoCardEvent _event)
-	{
-		switch(_event)
-		{
-			case DestinoCardEvent.FallenToleranceFinished:
-			deckController.ReturnCard(this, _card, OnCardStored);
-			break;
-
-			case DestinoCardEvent.Hit:
-			this.StartCoroutine(SlashCardIntoHead(_card));
-			break;
-		}
-	}
-
-	/// <summary>Throws Removable Head into floor.</summary>
-	private void ThrowHeadIntoFloor()
-	{
-		rigHead.gameObject.SetActive(false);
-		removableHead.gameObject.SetActive(true);
-		removableHead.SetParent(null);
-		this.StartCoroutine(removableHead.LerpTowardsData(headFallPointData, fallDuration, TransformProperties.PositionAndRotation, Space.World, OnHeadFalled), ref fallenTolerance);
-	}
-
 	/// <summary>Callback invoked when a Health's event has occured.</summary>
 	/// <param name="_event">Type of Health Event.</param>
 	/// <param name="_amount">Amount of health that changed [0.0f by default].</param>
@@ -532,84 +276,6 @@ public class DestinoBoss : Boss
 			AudioController.PlayOneShot(SourceType.SFX, 0, damageTakenSoundIndex);
 			break;
 		}
-	}
-
-	/// <summary>Callback invoked when the card has been stored [after the fallen tolerance has ended].</summary>
-	private void OnCardStored()
-	{
-		RequestCard();
-	}
-
-	/// <summary>Callback invoked after the Removable Head falls into the floor.</summary>
-	private void OnHeadFalled()
-	{
-		if(headHurtBox == null) return;
-
-		Vector3 hurtBoxPosition = removableHead.position;
-		hurtBoxPosition.z = 0.0f;
-
-		headHurtBox.transform.position = hurtBoxPosition;
-		headHurtBox.Activate(true);
-
-		this.StartCoroutine(this.WaitSeconds(fallenDuration, OnFallenToleranceEnds), ref fallenTolerance);
-	}
-
-	/// <summary>Callback invoked when the Head's HitCollider2D intersects with another GameObject.</summary>
-	/// <param name="_collider">Collider2D that was involved on the Hit Event.</param>
-	/// <param name="_eventType">Type of the event.</param>
-	/// <param name="_hitColliderID">Optional ID of the HitCollider2D.</param>
-	private void OnHeadTriggerEvent2D(Collider2D _collider, HitColliderEventTypes _eventType, int _hitColliderID = 0)
-	{
-
-	}
-
-	/// <summary>Callback invoked when the Removable Head's Fallen Tolerance ends.</summary>
-	private void OnFallenToleranceEnds()
-	{
-		headHurtBox.Activate(false);
-		this.StartCoroutine(removableHead.LerpTowardsTransform(headPivot, headReturnDuration, TransformProperties.PositionAndRotation, Space.World, OnHeadReturned), ref fallenTolerance);
-	}
-
-	/// <summary>Callback internally called when the Head returns after its fall.</summary>
-	private void OnHeadReturned()
-	{
-		removableHead.SetParent(headPivot);
-		removableHead.gameObject.SetActive(false);
-		rigHead.gameObject.SetActive(true);
-		RequestCard();
-	}
-
-	/// <summary>Makes card slash into Destino's Head.</summary>
-	/// <param name="_card">Card to slassh into destino' head.</param>
-	private IEnumerator SlashCardIntoHead(DestinoCard _card)
-	{
-		Quaternion lookRotation = Quaternion.identity;
-		Vector3 direction = (rigHead.position - _card.transform.position).normalized;
-		float inverseRotationDuration = 1.0f / _card.rotationDuration;
-		float inverseSlashDuration = 1.0f / _card.slashDuration;
-		float t = 0.0f;
-		float minDistance = _card.distance;
-		float distance = 0.0f;
-		bool activatedEvent = false;
-
-		while(t < 1.0f)
-		{
-			distance = (rigHead.position - _card.transform.position).sqrMagnitude;
-			lookRotation = Quaternion.LookRotation(rigHead.up);
-			_card.transform.rotation = Quaternion.Slerp(_card.transform.rotation, lookRotation, Time.deltaTime * _card.rotationDuration);
-			_card.transform.position += (direction.normalized * _card.slashSpeed * Time.deltaTime);
-
-			if(!activatedEvent && distance <= minDistance)
-			{ /// Call the head's throwing routine just once:
-				activatedEvent = true;
-				ThrowHeadIntoFloor();
-			}
-
-			t += (Time.deltaTime * inverseSlashDuration);
-			yield return null;
-		}
-
-		_card.gameObject.SetActive(false);
 	}
 
 	/// <summary>Death's Routine.</summary>

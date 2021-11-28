@@ -8914,8 +8914,6 @@ GameObject:
   - component: {fileID: 3701848998754718908}
   - component: {fileID: 8965366077498841998}
   - component: {fileID: 8965366077498841993}
-  - component: {fileID: 8965366077498841992}
-  - component: {fileID: 5135843920560793744}
   - component: {fileID: 5135843920560793748}
   - component: {fileID: 8331488656955062273}
   - component: {fileID: 5133950097954566364}
@@ -9008,30 +9006,6 @@ MonoBehaviour:
   _rigHead: {fileID: 5135843920947809607}
   _removableHead: {fileID: 3963963623717799471}
   _headHurtBox: {fileID: 8965366077207961414}
-  _headFallPointData:
-    _parent: {fileID: 0}
-    _position: {x: 0, y: 2.3, z: 1}
-    _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-    _eulerAngles: {x: -0, y: 180, z: 0}
-    _scale: {x: 1, y: 1, z: 1}
-    hideScale: 0
-    showForLinePath: 0
-    showHandles: 0
-  _fallDuration: 0.3
-  _fallenDuration: 4
-  _headReturnDuration: 0.5
-  _deckController: {fileID: 5135843920560793744}
-  _cards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _scythe: {fileID: 0}
-  _leftDrumstick: {fileID: 0}
-  _rightDrumstick: {fileID: 0}
-  _trumpet: {fileID: 0}
-  _cymbals: {fileID: 0}
   _damageTakenSoundIndex:
     index: 16
     objectIndex: 0
@@ -9099,63 +9073,6 @@ MonoBehaviour:
   _hitStunDuration: 1
   _invincibilityDuration: 1
   _inmunities: []
---- !u!114 &8965366077498841992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3701848998754718909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66e5a56021853a34797245c120854812, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _duration: 3
---- !u!114 &5135843920560793744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3701848998754718909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d529db533bdb03e46ab55f7d342b7646, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawGizmos: 0
-  _run: 1
-  _faceUpRotation:
-    _eulerAngles: {x: 0, y: 0, z: 0}
-    _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _faceDownRotation:
-    _eulerAngles: {x: 0, y: 180, z: 0}
-    _rotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
-  _rotationDuration: 1
-  _selectedCardPoint: {x: 0, y: 10, z: 2}
-  _selectedCardDuration: 1
-  _deckPoint: {x: 0, y: 5, z: 3}
-  _cardOffset: 0.2
-  _positioningDuration: 0.5
-  _spawnEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 7
-  _presentationPoint: {x: 0, y: 7, z: 2}
-  _cardSpacing: 3.5
-  _deckPositioningDuration: 0.5
-  _presentationDuration: 0.5
-  _storeDuration: 0.5
-  _zOffset: 0.2
-  _shufflingDuration: 0.5
-  _shufflingRadius: 1
-  _shufflingSpeed: 7
-  _shufflingCycles: 1.5
-  _yOffset: 3
-  _orbitDuration: 2
-  _orbitRadius: 7
-  _orbitSpeed: 15
 --- !u!114 &5135843920560793748
 MonoBehaviour:
   m_ObjectHideFlags: 0

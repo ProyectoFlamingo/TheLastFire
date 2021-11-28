@@ -10,6 +10,8 @@ namespace Flamingo
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
+	[SerializeField] private ContactWeapon _scythe; 						/// <summary>Scythe Weapon's Reference.</summary>
+	[Space(5f)]
 	[SerializeField] private AnimatorCredential _scytheAttackIDCredential; 	/// <summary>Scythe's Attack ID's Credential.</summary>
 	[Space(5f)]
 	[SerializeField] private Vector3 _pivot; 								/// <summary>Scythe's Pivot.</summary>
@@ -49,6 +51,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	private Coroutine scytheRotation; 										/// <summary>Scythe's Rotation Coroutine Reference.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets scythe property.</summary>
+	public ContactWeapon scythe { get { return _scythe; } }
+
 	/// <summary>Gets scytheAttackIDCredential property.</summary>
 	public AnimatorCredential scytheAttackIDCredential { get { return _scytheAttackIDCredential; } }
 
@@ -133,9 +138,8 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		}
 
 		bool scytheAttackEnded = false;
-		ContactWeapon scythe = boss.scythe;
 		Animator scytheAnimator = scythe.GetComponent<Animator>();
-		AnimationAttacksHandler scytheAttacksHandler = boss.scythe.GetComponent<AnimationAttacksHandler>();
+		AnimationAttacksHandler scytheAttacksHandler = scythe.GetComponent<AnimationAttacksHandler>();
 		SteeringVehicle2D vehicle = scythe.GetComponent<SteeringVehicle2D>();
 		Transform scytheMesh = scythe.transform.GetChild(0);
 		IEnumerator rotate = null;
@@ -152,7 +156,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 				case RotationEvent.BuildUpEnds:
 				case RotationEvent.SwingBegins:
 				case RotationEvent.SwingEnds:
-				boss.OnScytheRotationEvent(rotationEvent, ID);
+				//boss.OnScytheRotationEvent(rotationEvent, ID);
 				return;
 			}
 

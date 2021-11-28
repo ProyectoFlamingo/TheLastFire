@@ -12,6 +12,10 @@ namespace Flamingo
 //[CreateAssetMenu]
 public class StrengthBehavior : DestinoScriptableCoroutine
 {
+	[SerializeField] private ContactWeapon _leftDrumstick; 						/// <summary>Left Drumstick's renderer.</summary>
+	[SerializeField] private ContactWeapon _rightDrumstick; 					/// <summary>Right Drumstick's renderer.</summary>
+	[SerializeField] private ContactWeapon _trumpet; 							/// <summary>Trumpet's reference.</summary>
+	[SerializeField] private ContactWeapon _cymbals; 							/// <summary>Cymbals' Reference.</summary>
 	[Space(5f)]
 	[SerializeField] private IntRange _setSizeRange; 							/// <summary>Set Size's Range.</summary>
 	[Space(5f)]
@@ -70,6 +74,34 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 #endif
 
 #region Getters:
+	/// <summary>Gets and Sets leftDrumstick property.</summary>
+	public ContactWeapon leftDrumstick
+	{
+		get { return _leftDrumstick; }
+		set { _leftDrumstick = value; }
+	}
+
+	/// <summary>Gets and Sets rightDrumstick property.</summary>
+	public ContactWeapon rightDrumstick
+	{
+		get { return _rightDrumstick; }
+		set { _rightDrumstick = value; }
+	}
+
+	/// <summary>Gets and Sets trumpet property.</summary>
+	public ContactWeapon trumpet
+	{
+		get { return _trumpet; }
+		set { _trumpet = value; }
+	}
+
+	/// <summary>Gets and Sets cymbals property.</summary>
+	public ContactWeapon cymbals
+	{
+		get { return _cymbals; }
+		set { _cymbals = value; }
+	}
+
 	/// <summary>Gets setSizeRange property.</summary>
 	public IntRange setSizeRange { get { return _setSizeRange; } }
 
@@ -265,8 +297,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	private IEnumerator DrumsticksRoutine(DestinoBoss boss)
 	{
 		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.reFaNoteIndex);
-		ContactWeapon leftDrumstick = boss.leftDrumstick;
-		ContactWeapon rightDrumstick = boss.rightDrumstick;
 		Animator drumstickAnimator = rightDrumstick.GetComponent<Animator>();
 		AnimationAttacksHandler drumstickAttacksHandler = rightDrumstick.GetComponent<AnimationAttacksHandler>();
 		Renderer leftDrumstickRenderer = leftDrumstick.transform.GetChild(0).GetComponent<Renderer>();
@@ -454,7 +484,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	private IEnumerator TrumpetRoutine(DestinoBoss boss)
 	{
 		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.laReNoteIndex);
-		ContactWeapon trumpet = boss.trumpet;
 		Animator trumpetAnimator = trumpet.GetComponent<Animator>();
 		AnimationAttacksHandler trumpetAttacksHandler = trumpet.GetComponent<AnimationAttacksHandler>();
 		SecondsDelayWait wait = new SecondsDelayWait(soundEmissionDuration);
@@ -561,7 +590,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	private IEnumerator CymbalsRoutine(DestinoBoss boss)
 	{
 		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.siMiNoteIndex);
-		ContactWeapon cymbals = boss.cymbals;
 		Animator cymbalsAnimator = cymbals.GetComponent<Animator>();
 		AnimationAttacksHandler cymbalsAttacksHandler = cymbals.GetComponent<AnimationAttacksHandler>();
 		SecondsDelayWait wait = new SecondsDelayWait(clip.length);

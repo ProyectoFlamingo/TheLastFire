@@ -86,6 +86,15 @@ public static class VAudio
 		return samples;
 	}
 
+	/// \TODO Still unconvinced...
+	/*public void NotifyAt(this AudioSource _source, float _time, Action onTimeReached = null)
+	{
+		if(_source.clip == null) return;
+
+	}
+
+	public IEnumerator*/
+
 	/// <summary>Plays FiniteStateAudioClip's Clip.</summary>
 	/// <param name="_mono">MonoBehaviour's reference for the Coroutine.</param>
 	/// <param name="_source">AudioSource's that will be played reference.</param>

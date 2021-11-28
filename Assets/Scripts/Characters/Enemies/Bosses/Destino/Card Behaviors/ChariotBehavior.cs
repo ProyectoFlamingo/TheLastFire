@@ -14,6 +14,7 @@ public enum ShootingOrder
 }
 
 //[CreateAssetMenu]
+[RequireComponent(typeof(SteeringSnake))]
 public class ChariotBehavior : DestinoScriptableCoroutine
 {
 	[SerializeField] private Vector3 _projectileSpawnPosition; 			/// <summary>Projectiles' Spawn Position.</summary>
@@ -30,6 +31,7 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _sphereSpace; 						/// <summary>Space between spheres when they spawn.</summary>
 	[Space(5f)]
 	[SerializeField] private bool _randomizeOrder; 						/// <summary>Randomize Order?.</summary>
+	private SteeringSnake _steeringSnake; 								/// <summary>SteeringSnake's Component.</summary>
 
 	/// <summary>Gets projectileSpawnPosition property.</summary>
 	public Vector3 projectileSpawnPosition { get { return _projectileSpawnPosition; } }
@@ -64,6 +66,16 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets randomizeOrder property.</summary>
 	public bool randomizeOrder { get { return _randomizeOrder; } }
+
+	/// <summary>Gets steeringSnake Component.</summary>
+	public SteeringSnake steeringSnake
+	{ 
+		get
+		{
+			if(_steeringSnake == null) _steeringSnake = GetComponent<SteeringSnake>();
+			return _steeringSnake;
+		}
+	}
 
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
 	protected override void DrawGizmos()
@@ -174,7 +186,7 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 				homingProjectiles[i].ActivateHitBoxes(true);
 			}
 
-			boss.steeringSnake.InitializeLinkedList(Game.mateo.transform, homingProjectiles);
+			steeringSnake.InitializeLinkedList(Game.mateo.transform, homingProjectiles);
 		}
 		else
 		{
