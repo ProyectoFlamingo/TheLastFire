@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 namespace Flamingo
 {
-//[CreateAssetMenu]
 public class StrengthBehavior : DestinoScriptableCoroutine
 {
 	[SerializeField] private ContactWeapon _leftDrumstick; 						/// <summary>Left Drumstick's renderer.</summary>
@@ -247,13 +246,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
-	{
-		if(!run)
-		{
-			InvokeCoroutineEnd();
-			yield break;
-		}
-		
+	{		
 		int setSize = setSizeRange.Random();
 		IEnumerator[] routines = new IEnumerator[setSize];
 

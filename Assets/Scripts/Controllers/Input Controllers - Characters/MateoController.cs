@@ -240,6 +240,7 @@ public class MateoController : CharacterController<Mateo>
 	{
 		//if(Game.state != GameState.Playing) return;
 
+		character.CancelCrouch();
 		inputFlags &= ~FLAG_INPUT_CROUCH;
 	}
 #endregion

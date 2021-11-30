@@ -21,6 +21,8 @@ public class DestinoCard : MonoBehaviour
 {
 	public event OnDestinoCardEvent onCardEvent; 					/// <summary>OnDestinoCardEvent' event delegate.</summary>
 
+	[SerializeField] private bool _run; 							/// <summary>Can this card be runnable?.</summary>
+	[Space(5f)]
 	[SerializeField] private DestinoScriptableCoroutine _behavior; 	/// <summary>Card's Behavior.</summary>
 	[SerializeField] private CollectionIndex _entranceSoundIndex; 	/// <summary>Entrace SFX's Index.</summary>
 	[SerializeField] private Renderer _cardRenderer; 				/// <summary>Card's Renderer.</summary>
@@ -44,6 +46,9 @@ public class DestinoCard : MonoBehaviour
 	[SerializeField] private Color color; 							/// <summary>Gizmos' Color.</summary>
 #endif
 	private Coroutine fallenTolerance; 								/// <summary>Fallen Tolerance's Coroutine reference.</summary>
+
+	/// <summary>Gets run property.</summary>
+	public bool run { get { return _run; } }
 
 	/// <summary>Gets behavior Component.</summary>
 	public DestinoScriptableCoroutine behavior

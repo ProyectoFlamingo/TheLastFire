@@ -12,6 +12,7 @@ namespace Flamingo
 [RequireComponent(typeof(EventsHandler))]
 [RequireComponent(typeof(Skeleton))]
 [RequireComponent(typeof(VCameraTarget))]
+[RequireComponent(typeof(HealthEventReceiver))]
 public class Character : PoolGameObject, IStateMachine
 {			
 	[SerializeField] private Faction _faction; 														/// <summary>Character's Faction.</summary>
@@ -23,6 +24,7 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
 	[Space(5f)]
+	[Range(0.0f, 1.0f)]
 	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 						/// <summary>Default's AnimationClip Fade's Duration.</summary>
 	[Space(5f)]
 	[Header("Colliders & Hurt-Boxes:")]
@@ -42,7 +44,8 @@ public class Character : PoolGameObject, IStateMachine
 	private EventsHandler _eventsHandler; 															/// <summary>EventsHandler's Component.</summary>
 	private VCameraTarget _cameraTarget; 															/// <summary>VCameraTarget's Component.</summary>
 	private Skeleton _skeleton; 																	/// <summary>Skeleton's Component.</summary>
-	private Rigidbody2D _rigidbody; 																
+	private Rigidbody2D _rigidbody; 																/// <summary>Rigidbody2D's Component.</summary>
+	private HealthEventReceiver _healthEventReceiver; 												/// <summary>HealthEventReceiver's Component.</summary>
 	protected Coroutine behaviorCoroutine; 															/// <summary>Main Behavior Coroutine's reference.</summary>
 
 #region Getters/Setters:
@@ -193,6 +196,16 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			if(_rigidbody == null) _rigidbody = GetComponent<Rigidbody2D>();
 			return _rigidbody;
+		}
+	}
+
+	/// <summary>Gets healthEventReceiver Component.</summary>
+	public HealthEventReceiver healthEventReceiver
+	{ 
+		get
+		{
+			if(_healthEventReceiver == null) _healthEventReceiver = GetComponent<HealthEventReceiver>();
+			return _healthEventReceiver;
 		}
 	}
 #endregion

@@ -16,7 +16,6 @@ public enum DisplacementType
 	Diagonal = Horizontal | Vertical
 }
 
-//[CreateAssetMenu]
 public class JudgementBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
@@ -275,12 +274,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		fireShowDisplacement = DanceShowRoutine(boss);
 
 		while(fireShowDisplacement.MoveNext()) yield return null;*/
-
-		if(!run)
-		{
-			InvokeCoroutineEnd();
-			yield break;
-		}
 
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 

@@ -11,7 +11,6 @@ namespace Flamingo
 /// <param name="_card">Card that was selected on the selection process.</param>
 public delegate void OnCardSelected(DestinoCard _card);
 
-//[CreateAssetMenu]
 public class DestinoDeckController : DestinoScriptableCoroutine
 {
 	public event OnCardSelected onCardSelected; 					/// <summary>OnCardSelected's Event Delegate.</summary>
@@ -189,6 +188,8 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 		for(int i = 0; i < deckLength; i++)
 		{
 			card = cards[cardsIndices[i]];
+
+			if(!card.run) continue;
 
 			deck.Push(card);
 			card.transform.position = boss.transform.position;

@@ -8,9 +8,10 @@ namespace Voidless
 [RequireComponent(typeof(Animator))]
 public class VAnimatorController : MonoBehaviour
 {
-	private List<int> _activeAnimations; 	/// <summary>Active Animations.</summary>
-	private Coroutine[] layerRoutines; 		/// <summary>Layer's Coroutines [for Cross-Fading].</summary>
-	private Animator _animator; 			/// <summary>Animator's Component.</summary>
+	private List<int> _activeAnimations; 		/// <summary>Active Animations.</summary>
+	private Animator _animator; 				/// <summary>Animator's Component.</summary>
+	private Coroutine[] layerRoutines; 			/// <summary>Layer's Coroutines [for Cross-Fading].</summary>
+	private Coroutine[] layerWeightRoutines; 	/// <summary>Layer Weights' Coroutines [for Cross-Fading].</summary>
 
 	/// <summary>Gets and Sets activeAnimations property.</summary>
 	public List<int> activeAnimations
@@ -48,7 +49,7 @@ public class VAnimatorController : MonoBehaviour
 	/// <param name="_hash">Animation's Hash.</param>
 	/// <param name="_layer">Animation's Layer [0 by default].</param>
 	/// <returns>True if given Animation Hash is currently active on the layer.</returns>
-	public bool GetActive(int _hash, int _layer = 0)
+	public bool IsActive(int _hash, int _layer = 0)
 	{
 		EvaluateActiveList(_layer);
 		return _hash == activeAnimations[_layer];
@@ -70,7 +71,7 @@ public class VAnimatorController : MonoBehaviour
 	/// <returns>True if the Animation could be played, false if it was already active.</returns>
 	public bool Play(int _hash, int _layer = 0, float t = Mathf.NegativeInfinity)
 	{
-		if(GetActive(_hash, _layer)) return false;
+		if(IsActive(_hash, _layer)) return false;
 
 		SetActive(_hash, _layer);
 		animator.Play(_hash, _layer, t);
@@ -88,7 +89,7 @@ public class VAnimatorController : MonoBehaviour
 	{
 		_layer = Mathf.Max(_layer, 0);
 
-		if(GetActive(_hash, _layer)) return false;
+		if(IsActive(_hash, _layer)) return false;
 
 		EvaluateLayerRoutines(_layer);
 		SetActive(_hash, _layer);
@@ -113,30 +114,63 @@ public class VAnimatorController : MonoBehaviour
 	/// <summary>Cross-Fades towards Animation.</summary>
 	/// <param name="_hash">AnimationState's Hash.</param>
 	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
-	/// <param name="_layerIndex">Layer's Index [0 by default].</param>
+	/// <param name="_layer">Layer's Index [0 by default].</param>
 	/// <param name="_offset">Normalized Time Offset [where does the Animation start].</param>
 	/// <param name="_transitionTime">Optional Additional Wait [0.0f by default].</param>
 	/// <returns>True if the Animation could be played, false if it was already active.</returns>
 	public bool CrossFade(int _hash, float _fadeDuration, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _transitionTime = 0.0f)
 	{
-		if(GetActive(_hash, _layer)) return false;
+		if(IsActive(_hash, _layer)) return false;
 
 		SetActive(_hash, _layer);
 		animator.CrossFade(_hash, _fadeDuration, _layer, _offset, _transitionTime);
 		return true;
 	}
 
+	/// <summary>Cross-Fades towards Animation and waits till that Cross-Fade is finished.</summary>
+	/// <param name="_hash">AnimationState's Hash.</param>
+	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
+	/// <param name="_layer">Layer's Index [0 by default].</param>
+	/// <param name="_normalizedTime">Normalized Time Offset [where does the Animation start].</param>
+	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
+	/// <returns>True if the Animation could be played, false if it was already active.</returns>
+	public bool WaitForCrossFade(int _hash, float _fadeDuration = 0.3f, int _layer = -1, float _normalizedTime = Mathf.NegativeInfinity, Action onCrossFadeEnds = null)
+	{
+		if(IsActive(_hash, _layer)) return false;
+
+		EvaluateLayerRoutines(_layer);
+		SetActive(_hash, _layer);
+
+		this.StartCoroutine(
+			animator.WaitForCrossFade(
+				_hash,
+				_fadeDuration,
+				_layer,
+				_normalizedTime,
+				()=>
+				{
+					this.DispatchCoroutine(ref layerRoutines[_layer]);
+					DeactivateLayer(_layer);
+					if(onCrossFadeEnds != null) onCrossFadeEnds();
+				}
+			),
+			ref layerRoutines[_layer]
+		);
+
+		return true;
+	}
+
 	/// <summary>Cross-Fades towards Animation and waits until that next animation is finished.</summary>
 	/// <param name="_hash">AnimationState's Hash.</param>
 	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
-	/// <param name="_layerIndex">Layer's Index [0 by default].</param>
+	/// <param name="_layer">Layer's Index [0 by default].</param>
 	/// <param name="_offset">Normalized Time Offset [where does the Animation start].</param>
 	/// <param name="_transitionTime">Optional Additional Wait [0.0f by default].</param>
 	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
 	/// <returns>True if the Animation could be played, false if it was already active.</returns>
 	public bool CrossFadeAndWait(int _hash, float _fadeDuration, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
 	{
-		if(GetActive(_hash, _layer)) return false;
+		if(IsActive(_hash, _layer)) return false;
 
 		EvaluateLayerRoutines(_layer);
 		SetActive(_hash, _layer);
@@ -174,6 +208,34 @@ public class VAnimatorController : MonoBehaviour
 		return true;
 	}
 
+	/// <summary>Sets layer's weight for a given period of time.</summary>
+	/// <param name="_layer">Layer to modify.</param>
+	/// <param name="_weiht">Desired Layer's Weight.</param>
+	/// <param name="_duration">Weight setting's duration.</param>
+	/// <param name="onLayerSet">Optional callback invoked then the layer finished being set.</param>
+	public void SetLayerWeight(int _layer, float _weight, float _duration, Action onLayerSet = null)
+	{
+		_layer = Mathf.Max(_layer, 0);
+
+		if(_duration <= 0.0f)
+		{
+			_animator.SetLayerWeight(_layer, _weight);
+			return;
+		}
+
+		EvaluateLayerRoutines(_layer);
+
+		this.StartCoroutine(
+			animator.SetLayerWeight(
+				_layer,
+				_weight,
+				_duration,
+				onLayerSet
+			),
+			ref layerWeightRoutines[_layer]
+		);
+	}
+
 	/// <summary>Evaluates possible resizing Active Animation Hashes' List.</summary>
 	/// <param name="_layer">Layer reference useful for possible resizing.</param>
 	private void EvaluateActiveList(int _layer)
@@ -193,9 +255,12 @@ public class VAnimatorController : MonoBehaviour
 	private void EvaluateLayerRoutines(int _layer)
 	{
 		if(layerRoutines == null) layerRoutines = new Coroutine[2];
+		if(layerWeightRoutines == null) layerWeightRoutines = new Coroutine[2];
 
 		_layer = Mathf.Max(_layer, 0);
+
 		if(_layer > layerRoutines.Length - 1) Array.Resize(ref layerRoutines, _layer + 1);
+		if(_layer > layerWeightRoutines.Length - 1) Array.Resize(ref layerWeightRoutines, _layer + 1);
 	}
 }
 }

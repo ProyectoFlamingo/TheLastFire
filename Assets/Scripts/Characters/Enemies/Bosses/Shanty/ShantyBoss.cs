@@ -802,12 +802,12 @@ public class ShantyBoss : Boss
 			ThrowBomb();
 			break;
 
-			case IDs.ANIMATIONEVENT_SWORD_UNSHEATH:
+			case IDs.ANIMATIONEVENT_WEAPON_UNSHEATH:
 			ActivateSword(true);
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
 			break;
 
-			case IDs.ANIMATIONEVENT_SWORD_SHEATH:
+			case IDs.ANIMATIONEVENT_WEAPON_SHEATH:
 			ActivateSword(false);
 			break;
 
@@ -832,7 +832,7 @@ public class ShantyBoss : Boss
 			Jump();
 			break;
 
-			case 10:
+			case 99:
 			break;
 		}
 	}

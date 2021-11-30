@@ -48,14 +48,14 @@ public class DestinoBoss : Boss
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _laReNoteIndex; 					/// <summary>La-Re's Note Sound's Index.</summary>
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _reFaNoteIndex; 					/// <summary>Re-Fa's Note Sound's Index.</summary>
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _siMiNoteIndex; 					/// <summary>Si-Mi's Note Sound's Index.</summary>
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Destino's Test:")]
 	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private bool test; 					/// <summary>Test?.</summary>
 	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private int testCardIndex; 			/// <summary>Test's Card Index.</summary>
 	[Space(5f)]
 	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private MeshFilter headMeshFilter; 	/// <summary>Removable Head's MeshFilter Component.</summary>
-#endif
+//#endif
 	private RigidbodyMovementAbility _movementAbility; 																/// <summary>RigidbodyMovementAbility's Component.</summary>
 	private RotationAbility _rotationAbility; 																		/// <summary>RotationAbility's Component.</summary>
 	private JumpAbility _jumpAbility; 																				/// <summary>JumpAbility's Component.</summary>

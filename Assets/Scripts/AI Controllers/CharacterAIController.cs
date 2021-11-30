@@ -9,12 +9,12 @@ namespace Flamingo
 public abstract class CharacterAIController<T> : MonoBehaviour where T : Character
 {
 	[SerializeField] private T _character; 			/// <summary>Character that this AI Controller controls [I know, redundant huh?].</summary>
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes: ")]
 	[SerializeField] protected Color gizmosColor; 	/// <summary>Gizmos' Color.</summary>
 	[SerializeField] private float gizmosRadius; 	/// <summary>Gizmos' Radius.</summary>
-#endif
+//#endif
 	protected Coroutine behaviorCoroutine; 	/// <summary>Behavior's Coroutine's Reference.</summary>
 
 	/// <summary>Gets and Sets character property.</summary>
@@ -43,18 +43,18 @@ public abstract class CharacterAIController<T> : MonoBehaviour where T : Charact
 	/// <summary>Draws Gizmos on Editor mode when CharacterAIController's instance is selected.</summary>
 	protected virtual void OnDrawGizmosSelected()
 	{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		Gizmos.color = gizmosColor;
-#endif
+//#endif
 	}
 
 	/// <summary>Resets CharacterAIController's instance to its default values.</summary>
 	public virtual void Reset()
 	{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		gizmosColor = Color.cyan;
 		gizmosRadius = 0.25f;
-#endif
+//#endif
 	}
 
 	/// <summary>CharacterAIController's instance initialization.</summary>

@@ -83,7 +83,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.5
 --- !u!1 &3367938754900406665
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ Transform:
   m_GameObject: {fileID: 3367938754900406665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1933186595417644291}
   m_RootOrder: 0
@@ -177,6 +177,8 @@ GameObject:
   - component: {fileID: 3776002058642984422}
   - component: {fileID: 1614921204212439701}
   - component: {fileID: -9040860490006554968}
+  - component: {fileID: 4848349935350795301}
+  - component: {fileID: -1938569540821220965}
   m_Layer: 0
   m_Name: Projectile_Petrol
   m_TagString: Projectile/Enemy
@@ -251,12 +253,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags:
   - _tag: Weapon/Player
     index: 9
@@ -272,12 +272,12 @@ MonoBehaviour:
   _projectileType: 1
   _repelTags: []
   _speedMode: 0
-  _speed: 5
+  _speed: 8.5
   _lifespan: 0
   _cooldownDuration: 0.25
   _rotateTowardsDirection: 0
-  _maxSteeringForce: 2
-  _distance: 5
+  _maxSteeringForce: 0.45
+  _distance: 2
   _impactParticleEffectIndex:
     index: 7
     objectIndex: 0
@@ -322,4 +322,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
+--- !u!114 &4848349935350795301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968317203677032462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 0.5, y: 0.5, z: 0.5}
+  _centerOffset: {x: 0, y: 0, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &-1938569540821220965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968317203677032462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors: []
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.1

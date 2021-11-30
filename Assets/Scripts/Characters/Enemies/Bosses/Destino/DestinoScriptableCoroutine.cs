@@ -8,11 +8,6 @@ namespace Flamingo
 {
 public class DestinoScriptableCoroutine : CoroutineBehavior<DestinoBoss>
 {
-	[SerializeField] private bool _run; 	/// <summary>Run this Coroutine?.</summary>
-
-	/// <summary>Gets run property.</summary>
-	public bool run { get { return _run; } }
-
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss) { yield return null; }

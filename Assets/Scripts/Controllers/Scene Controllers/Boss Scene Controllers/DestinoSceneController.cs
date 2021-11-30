@@ -66,7 +66,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[Header("Sound Effects' Indices:")]
 	[TabGroup("Audio")][SerializeField] private CollectionIndex _orchestraTunningSoundIndex; 					/// <summary>Orchestra Tunning Sound FX's Index.</summary>
 	[TabGroup("Audio")][SerializeField] private CollectionIndex _curtainOpeningSoundIndex; 						/// <summary>Curtain's Opening Sound FX's Index.</summary>
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Testing:")]
 	[TabGroup("Testing Group", "Testing")][SerializeField] private bool test; 									/// <summary>Test?.</summary>
@@ -76,7 +76,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[TabGroup("Testing Group", "Gizmos")][SerializeField] private Color color; 									/// <summary>Gizmos' Color.</summary>
 	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float radius; 								/// <summary>Waypoints' Radius.</summary>
 	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float rayLength; 								/// <summary>Ray's Length.</summary>
-#endif
+//#endif
 	private Vector2 mateoSpotLightVelocity; 																	/// <summary>Mateo Spot Light's Velocity reference.</summary>
 	private Vector2 destinoSpotLightVelocity; 																	/// <summary>Destino Spot Light's Velocity reference.</summary>
 	private bool _deckPresented; 																				/// <summary>Was the deck already presented tomm the Player?.</summary>
@@ -194,14 +194,14 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	}
 #endregion
 	
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	/// <summary>Draws Gizmos on Editor mode.</summary>
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = color;
 		/// ... ?
 	}
-#endif
+//#endif
 
 	/// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
    	protected override void OnAwake()
@@ -216,18 +216,17 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 		/// Subscribe to Mateo & Destino's Events:
 		destino.eventsHandler.onIDEvent += OnDestinoIDEvent;
-		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
-
-		Game.ResetFSMLoopStates();
-
-		AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
-		SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
 	private void Start()
 	{
 		Game.mateo.Meditate();
+		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
+		Game.ResetFSMLoopStates();
+
+		AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
+		SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
 
 		/// Turn-off Player's Control:
 		if(cooldownBeforeReleasingPlayerControl > 0.0f)
@@ -338,14 +337,14 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 				AudioController.Stop(SourceType.Scenario, 0);
 				SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
 				{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 					if(test)
 					{
 						Game.data.FSMLoops[mainLoopIndex].ChangeState(testLoopState);
 						Game.data.FSMLoops[mainLoopVoiceIndex].ChangeState(testLoopState);
 						//destino.Sing();
 					}
-#endif
+//#endif
 					AudioController.PlayFSMLoop(0, mainLoopIndex, true);
 					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true);
 					destino.Sing();

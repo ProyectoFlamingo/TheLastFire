@@ -85,7 +85,7 @@ public class FiniteStateAudioClip : ScriptableObject
 		int state = GetCurrentStateIndex();
 		ChangeState(state);
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
 		VDebug.Log(
 			LogType.Log,
 			"Clip: ",
@@ -93,7 +93,7 @@ public class FiniteStateAudioClip : ScriptableObject
 			"Current Time: ",
 			time.ToString()
 		);
-#endif
+#endif*/
 	}
 
 	/// <summary>Resets state's index and internal time.</summary>

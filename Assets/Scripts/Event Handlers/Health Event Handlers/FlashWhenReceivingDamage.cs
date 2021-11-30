@@ -8,7 +8,7 @@ namespace Flamingo
 {
 public class FlashWhenReceivingDamage : HealthEventReceiver
 {
-	[Space(5f)]
+	/*[Space(5f)]
 	[Header("Flash's Attributes:")]
 	[SerializeField] private Renderer[] _renderers; 			/// <summary>Renderer's to flash.</summary>
 	[SerializeField] private Color _flashColor; 				/// <summary>Flash's Color.</summary>
@@ -70,20 +70,6 @@ public class FlashWhenReceivingDamage : HealthEventReceiver
 	/// <summary>Gets Renderers inside GameObject.</summary>
 	public void GetRenderers()
 	{
-		/*List<Renderer> renderersList = new List<Renderer>();
-		Renderer[] rendererArray = null;
-
-		rendererArray = GetComponents<Renderer>();
-		if(rendererArray != null) renderersList.AddRange(rendererArray);
-
-		foreach(Transform child in transform)
-		{
-			rendererArray = child.GetComponents<Renderer>();
-			if(rendererArray != null) renderersList.AddRange(rendererArray);			
-		}
-
-		renderers = renderersList.ToArray();*/
-	
 		renderers = GetComponentsInChildren<Renderer>();
 	}
 
@@ -135,6 +121,6 @@ public class FlashWhenReceivingDamage : HealthEventReceiver
 				materials[i][j].color = colors[i][j];
 			}
 		}
-	}
+	}*/
 }
 }

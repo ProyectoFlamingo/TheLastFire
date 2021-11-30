@@ -3337,6 +3337,7 @@ GameObject:
   - component: {fileID: 229302502}
   - component: {fileID: 777531122}
   - component: {fileID: 1606320498681779542}
+  - component: {fileID: 5772646904960722514}
   m_Layer: 0
   m_Name: Character_Player_Mateo
   m_TagString: Player
@@ -3536,8 +3537,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 15
   _airScalar: 0.7
-  _minSpeedForBraking: 0
-  _maxBrakingSpeed: 3
+  _minSpeedForBraking: 3
+  _maxBrakingSpeed: 10
   _brakingDuration: 0.35
   _dotTolerance: 0
 --- !u!114 &5122952807910987807
@@ -3558,6 +3559,8 @@ MonoBehaviour:
   _meshParent: {fileID: 7762893346261307157}
   _animator: {fileID: 3138014061218544716}
   _animatorController: {fileID: 3537191631708047769}
+  _animationEventInvoker: {fileID: 0}
+  _animation: {fileID: 0}
   _clipFadeDuration: 0.5
   _hurtBoxes: []
   _physicalColliders:
@@ -3579,9 +3582,8 @@ MonoBehaviour:
     _tag: RightAxisY
     _ID: -959174837
   _mainAnimationLayer: 1
-  _fireConjuringAnimationLayer: 3
-  _jumpingAnimationLayer: 4
-  _attackAnimationLayer: 5
+  _fireConjuringAnimationLayer: 2
+  _fireConjuringAnimationWeightChangeDuration: 0.3
   _emptyCredential:
     _tag: 
     _ID: 0
@@ -3666,6 +3668,20 @@ MonoBehaviour:
   _additionalJumpSwordAttackCredential:
     _tag: AdditionalJumpAttacks
     _ID: 1473887127
+  _locomotionFadeDuration: 0.3
+  _crouchFadeDuration: 0.1
+  _meditationFadeDuration: 0.3
+  _brakeFadeDuration: 0.3
+  _hitFadeDuration: 0.3
+  _deadFadeDuration: 0.3
+  _meditationActionFadeDuration: 0.3
+  _meditationStandingFadeDuration: 0.3
+  _jumpFadeDuration: 0.3
+  _fallingFadeDuration: 0.3
+  _landingFadeDuration: 0.3
+  _fireConjuringFadeDuration: 0.3
+  _obtentionFadeDuration: 0.3
+  _attackFadeDuration: 0.3
   _movementAxesThreshold: 0.8
   _crouchDuration: 0
   _sword: {fileID: 0}
@@ -3680,7 +3696,7 @@ MonoBehaviour:
   _scaleChangePriority: 1
   _jumpingMovementScale: 1
   _meditationWaitDuration: 6
-  _normalStandingAdditionalWait: 0
+  _normalStandingAdditionalWait: 0.25
   _dashXThreshold: 0.5
   _initialJumpParticleEffect:
     _transform: {fileID: 5122952807910987803}
@@ -3956,10 +3972,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3e9df0be0b84e418378cccf24e8bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _head: {fileID: 0}
   _leftHand: {fileID: 649312609857073119}
   _rightHand: {fileID: 2803779190661526902}
   _leftFoot: {fileID: 5446826150007249222}
   _rightFoot: {fileID: 5208140312399082578}
+--- !u!114 &5772646904960722514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5122952807910987780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854b6741afc1da64b8c3b4516eaa4424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 3247047400570744615}
+  _renderers:
+  - {fileID: 3775744744298716227}
+  - {fileID: 423402000626272388}
+  - {fileID: 1288289292728636856}
+  - {fileID: 351813972417776354}
+  - {fileID: 7568266278474656561}
+  - {fileID: 3260442527556662512}
+  - {fileID: 6313596630231713040}
+  - {fileID: 8722475014520210455}
+  - {fileID: 3665116038473870028}
+  - {fileID: 8745199511009158339}
+  - {fileID: 269284834392117171}
+  - {fileID: 1101890257784780182}
+  - {fileID: 486711915664555037}
+  - {fileID: 3809767567470352182}
+  - {fileID: 6895927580693587607}
+  - {fileID: 7931370896672381060}
+  - {fileID: 4635800893401629461}
+  _flashColor: {r: 1, g: 0, b: 0, a: 1}
+  _selfIlluminationTag:
+    _tag: _BaseColor
+    _ID: 230
+  _amountTag:
+    _tag: _BaseColor
+    _ID: 230
+  _maxSelfIllumination: 1
+  _maxFlashAmount: 1
+  _duration: 1
+  _cycles: 2
 --- !u!1 &5226369006775373556
 GameObject:
   m_ObjectHideFlags: 0
@@ -6805,6 +6864,30 @@ PrefabInstance:
 --- !u!4 &20716788842130546 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856014758010946013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3809767567470352182 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5636784806839965419, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856014758010946013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &6895927580693587607 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 2690235681884825418, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856014758010946013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &7931370896672381060 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 1510677637727213913, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 8856014758010946013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!199 &4635800893401629461 stripped
+ParticleSystemRenderer:
+  m_CorrespondingSourceObject: {fileID: 4229811171302605512, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
     type: 3}
   m_PrefabInstance: {fileID: 8856014758010946013}
   m_PrefabAsset: {fileID: 0}

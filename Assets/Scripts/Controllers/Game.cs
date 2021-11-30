@@ -196,6 +196,7 @@ public class Game : Singleton<Game>
 			mateoController = controller.mateoController;
 			controller.AssignCharacterToMateoController(mateo);
 		}
+		else Debug.LogError("[Game] Controller not detected");
 	}
 
 #region TEMPORAL

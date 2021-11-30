@@ -15,6 +15,7 @@ public class SteeringSnake : MonoBehaviour
 	private List<Projectile> _projectiles; 					/// <summary>Projectiles' List.</summary>
 	private Transform _target; 								/// <summary>Target's Function.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets and Sets duration property.</summary>
 	public float duration
 	{
@@ -49,6 +50,7 @@ public class SteeringSnake : MonoBehaviour
 		get { return _target; }
 		set { _target = value; }
 	}
+#endregion
 
 	/// <summary>SteeringSnake's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()

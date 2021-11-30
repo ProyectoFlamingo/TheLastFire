@@ -18,7 +18,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	[SerializeField] private float _fallDuration; 				/// <summary>Removable Head's Falling Duration.</summary>
 	[SerializeField] private float _fallenDuration; 			/// <summary>Duration Destino's Head is on the floor after it falls.</summary>
 	[SerializeField] private float _headReturnDuration; 		/// <summary>Removable Head's return duration.</summary>
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Destino's Test:")]
 	[SerializeField] private bool test; 						/// <summary>Test?.</summary>
@@ -26,7 +26,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	[Space(5f)]
 	[SerializeField] private MeshFilter headMeshFilter; 		/// <summary>Removable Head's MeshFilter Component.</summary>
 	private IEnumerator iterator; 								/// <summary>[Test] Iterator.</summary>
-#endif
+//#endif
 	private DestinoDeckController _deckController; 				/// <summary>DestinoDeckController's Component.</summary>
 	private Coroutine cardRoutine; 								/// <summary>Card Coroutine's Reference.</summary>
 	private Coroutine fallenTolerance; 							/// <summary>Removable Head's Fallen Tolerance Coroutine reference.</summary>
@@ -58,12 +58,12 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	/// <summary>Draws Gizmos on Editor mode when DestinoBossAIController's instance is selected.</summary>
 	protected override void OnDrawGizmosSelected()
 	{
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		base.OnDrawGizmosSelected();
 
 		if(headMeshFilter != null) Gizmos.DrawMesh(headMeshFilter.sharedMesh, headFallPointData.position, headFallPointData.rotation);
 		VGizmos.DrawTransformData(headFallPointData);
-#endif
+//#endif
 	}
 
 	/// <summary>CharacterAIController's instance initialization.</summary>
@@ -86,13 +86,13 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	{
 		base.Start();
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		if(test)
 		{
 			int index = testCardIndex;
 			iterator = deckController.cards[index].behavior.Routine(character);
 		}
-#endif
+//#endif
 	}
 	
 	/// <summary>CharacterAIController's tick at each frame.</summary>
@@ -100,14 +100,14 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	{ 
 		base.Update();
 
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 		if(!test) return;
 
 		if(iterator != null && !iterator.MoveNext())
 		{
 			iterator = deckController.cards[testCardIndex].behavior.Routine(character);
 		}
-#endif
+//#endif
 	}
 
 	/// <summary>Requests card to the DeckController.</summary>

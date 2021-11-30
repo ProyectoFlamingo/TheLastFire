@@ -865,6 +865,102 @@ public static class VCoroutines
 		if(onWaitEnds != null) onWaitEnds();
 	}
 
+	/// <summary>Cross-Fades towards Animation and waits till that Cross-Fade is finished.</summary>
+	/// <param name="_animator">Animator's Reference.</param>
+	/// <param name="_animationHash">AnimationState's Hash.</param>
+	/// <param name="_fadeDuration">Cross-Fade's Duration.</param>
+	/// <param name="_layerIndex">Layer's Index [0 by default].</param>
+	/// <param name="_normalizedTime">Normalized Time Offset [where does the Animation start].</param>
+	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
+	public static IEnumerator WaitForCrossFade(this Animator _animator, int _animationHash, float _fadeDuration = 0.3f, int _layerIndex = -1, float _normalizedTime = Mathf.NegativeInfinity, Action onCrossFadeEnds = null)
+	{
+		_animator.CrossFade(_animationHash, _fadeDuration,_layerIndex, _normalizedTime);
+
+		yield return null;
+
+		/*
+			When it cross-fades, it first begins from the actual state.
+			We need to wait the actual states's duration * fadeDuration.
+			Then after that wait, we can finally wait for the next animation.
+		*/
+
+		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
+		AnimatorTransitionInfo transitionInfo = _animator.GetAnimatorTransitionInfo(_layerIndex);
+
+		SecondsDelayWait wait = new SecondsDelayWait(transitionInfo.duration * info.length);
+
+		while(wait.MoveNext()) yield return null;
+
+		if(onCrossFadeEnds != null) onCrossFadeEnds();
+	}
+
+	/// <summary>CrossFades LayerWeights on amount of time.</summary>
+	/// <param name="_animator">Animator's Component.</param>
+	/// <param name="_duration">Cross-Fade's Duration [in seconds].</param>
+	/// <param name="onCrossFadeEnds">Callback invoked when the crossfade ends [null by default].</param>
+	/// <param name="_layerWeightTupples">Tupples containing a layer with its respective desired new weight.</param>
+	public static IEnumerator CrossFadeLayerWeights(this Animator _animator, float _duration, Action onCrossFadeEnds = null, params ValueVTuple<int, float>[] _layerWeightTuples)
+	{
+		if(_layerWeightTuples == null) yield break;
+
+		int length = _layerWeightTuples.Length;
+		float[] originalWeights = new float[length];
+		ValueVTuple<int, float> tuple = default(ValueVTuple<int, float>);
+		float t = 0.0f;
+		float iD = 1.0f / _duration;
+
+		for(int i = 0; i < length; i++)
+		{
+			originalWeights[i] = _animator.GetLayerWeight(_layerWeightTuples[i].Item1);
+		}
+
+		while(t < 1.0f)
+		{
+			for(int i = 0; i < length; i++)
+			{
+				tuple = _layerWeightTuples[i];
+				_animator.SetLayerWeight(tuple.Item1, Mathf.Lerp(originalWeights[i], tuple.Item2, t));
+				t += (Time.deltaTime * iD);
+			}
+
+			yield return null;
+		}
+
+		for(int i = 0; i < length; i++)
+		{
+			tuple = _layerWeightTuples[i];
+			_animator.SetLayerWeight(tuple.Item1, tuple.Item2);
+		}
+
+		if(onCrossFadeEnds != null) onCrossFadeEnds();
+	}
+
+	/// <summary>Sets layer on given amount of time.</summary>
+	/// <param name="_animator">Animator's Component.</param>
+	/// <param name="_layer">Layer to set.</param>
+	/// <param name="_weight">New weight for layer. Internally clamped.</param>
+	/// <param name="_duration">How much it lasts the weight to be setted.</param>
+	/// <param name="onLayerSet">Optional callback invoked then the layer finished being set.</param>
+	public static IEnumerator SetLayerWeight(this Animator _animator, int _layer, float _weight, float _duration, Action onLayerSet = null)
+	{
+		float w = _animator.GetLayerWeight(_layer);
+		float t = 0.0f;
+		float iD = 1.0f / _duration;
+
+		_weight = Mathf.Clamp(_weight, 0.0f, 1.0f);
+
+		while(t < 1.0f)
+		{
+			_animator.SetLayerWeight(_layer, Mathf.Lerp(w, _weight, t));
+			t += (Time.deltaTime * iD);
+			yield return null;
+		}
+
+		_animator.SetLayerWeight(_layer, _weight);
+
+		if(onLayerSet != null) onLayerSet();
+	}
+
 	/// <summary>Cross-Fades towards Animation and waits till that next animation is finished.</summary>
 	/// <param name="_animator">Animator's Reference.</param>
 	/// <param name="_animationHash">AnimationState's Hash.</param>

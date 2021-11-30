@@ -5,15 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scenes - Interfaces/Scene_SplashScreen.unity
     guid: 66ff0e72b5ec54846a6d1a9dada5b08d
   - enabled: 1
-    path: Assets/Scenes/Scenes - Interfaces/Scene_LoadingScreen.unity
-    guid: ec04bc4982c467b419d9f4f94dffdfcd
-  - enabled: 1
+    path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Destino.unity
+    guid: 6a74eb79156928448ba5f9e09fabdfe6
+  - enabled: 0
     path: Assets/Scenes/Scenes - Training Grounds/Scene_TrainingGround_Projectiles&Explodables.unity
     guid: d239bec13d1dfee4b85cf3168a875116
+  - enabled: 1
+    path: Assets/Scenes/Scenes - Interfaces/Scene_LoadingScreen.unity
+    guid: ec04bc4982c467b419d9f4f94dffdfcd
   - enabled: 0
     path: Assets/Scenes/Scenes - Mini-Games/Scene_Mini-Game_BasketBall.unity
     guid: c1ab5b6c15406e0439cf8f011e244b38
@@ -21,9 +24,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Moskar.unity
     guid: e0966502a506e364b8e92d4e617460ed
   - enabled: 0
-    path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Destino.unity
-    guid: 6a74eb79156928448ba5f9e09fabdfe6
-  - enabled: 1
     path: Assets/Scenes/Scenes - Overworld/Overworld.unity
     guid: 3d5e524340730c14f9684407c5f4f512
   - enabled: 0

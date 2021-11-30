@@ -133,6 +133,7 @@ public class ContactWeapon : PoolGameObject
 	{
 		objectsIDs = new HashSet<int>();
 		ActivateHitBoxes(false);
+		eventsHandler.contactWeapon = this;
 		eventsHandler.onTriggerEvent += OnTriggerEvent;
 	}
 
@@ -178,38 +179,46 @@ public class ContactWeapon : PoolGameObject
 			switch(_eventType)
 			{
 				case HitColliderEventTypes.Enter:
-				if(obj.CompareTag(tag))
 				{
-					if(objectsIDs.Contains(instanceID)) return;
-
-					objectsIDs.Add(instanceID);
-
-					Health health = obj.GetComponentInParent<Health>();
-					
-					if(health == null)
+					if(obj.CompareTag(tag))
 					{
-						HealthLinker linker = obj.GetComponent<HealthLinker>();
-						if(linker != null) health = linker.component;
-					}
+						if(objectsIDs.Contains(instanceID)) return;
 
-					if(health != null)
-					{
-						health.GiveDamage(damage, true, true, gameObject);
-						OnHealthInstanceDamaged(health);
+						objectsIDs.Add(instanceID);
 
-						break;
+						Health health = obj.GetComponentInParent<Health>();
+						
+						if(health == null)
+						{
+							HealthLinker linker = obj.GetComponent<HealthLinker>();
+							if(linker != null) health = linker.component;
+						}
+
+						if(health != null)
+						{
+							health.GiveDamage(damage, true, true, gameObject);
+							OnHealthInstanceDamaged(health);
+
+							break;
+						}
 					}
 				}
 				break;
 
 				case HitColliderEventTypes.Exit:
-				objectsIDs.Remove(instanceID);
+					objectsIDs.Remove(instanceID);
 				break;
 			}
 		}
-		if(impactTags != null) foreach(GameObjectTag tag in impactTags)
+
+		switch(_eventType)
 		{
-			if(obj.CompareTag(tag)) OnImpact(_info, _ID);
+			case HitColliderEventTypes.Enter:
+				if(impactTags != null) foreach(GameObjectTag tag in impactTags)
+				{
+					if(obj.CompareTag(tag)) OnImpact(_info, _ID);
+				}
+			break;
 		}
 	}
 

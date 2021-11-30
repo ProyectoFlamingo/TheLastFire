@@ -13,7 +13,6 @@ public enum ShootingOrder
 	LeftAndRightOscillation
 }
 
-//[CreateAssetMenu]
 [RequireComponent(typeof(SteeringSnake))]
 public class ChariotBehavior : DestinoScriptableCoroutine
 {
@@ -21,17 +20,16 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 	[Header("Projectiles:")]
 	[SerializeField] private CollectionIndex _petrolSphereID; 			/// <summary>Petrol Sphere's ID.</summary>
 	[SerializeField] private CollectionIndex _marbleSphereID; 			/// <summary>Marble Sphere's ID.</summary>
-	[SerializeField] private CollectionIndex _homingPetrolSphereID; 	/// <summary>Petrol Homing Sphere's ID.</summary>
-	[SerializeField] private CollectionIndex _homingMarbleSphereID; 	/// <summary>Marble Homing Sphere's ID.</summary>
 	[Space(5f)]
 	[Header("Projectiles' Distribution Settings:")]
-	[SerializeField] private ShootingOrder _order; 						/// <summary>Shooting's Order.</summary>
 	[SerializeField] private IntRange _sequenceLimits; 					/// <summary>Sequence's Limits.</summary>
 	[SerializeField] private float _spheresAccomodationDuration; 		/// <summary>Sphere's Accomodation Duration.</summary>
 	[SerializeField] private float _sphereSpace; 						/// <summary>Space between spheres when they spawn.</summary>
 	[Space(5f)]
 	[SerializeField] private bool _randomizeOrder; 						/// <summary>Randomize Order?.</summary>
 	private SteeringSnake _steeringSnake; 								/// <summary>SteeringSnake's Component.</summary>
+	private Projectile[] _spheres; 										/// <summary>Spheres' Projectiles.</summary>
+	private int _sequenceLength; 										/// <summary>Sequence's Length.</summary>
 
 	/// <summary>Gets projectileSpawnPosition property.</summary>
 	public Vector3 projectileSpawnPosition { get { return _projectileSpawnPosition; } }
@@ -41,19 +39,6 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets marbleSphereID property.</summary>
 	public CollectionIndex marbleSphereID { get { return _marbleSphereID; } }
-
-	/// <summary>Gets homingPetrolSphereID property.</summary>
-	public CollectionIndex homingPetrolSphereID { get { return _homingPetrolSphereID; } }
-
-	/// <summary>Gets homingMarbleSphereID property.</summary>
-	public CollectionIndex homingMarbleSphereID { get { return _homingMarbleSphereID; } }
-
-	/// <summary>Gets and Sets order property.</summary>
-	public ShootingOrder order
-	{
-		get { return _order; }
-		set { _order = value; }
-	}
 
 	/// <summary>Gets sequenceLimits property.</summary>
 	public IntRange sequenceLimits { get { return _sequenceLimits; } }
@@ -77,6 +62,20 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 		}
 	}
 
+	/// <summary>Gets and Sets spheres property.</summary>
+	public Projectile[] spheres
+	{
+		get { return _spheres; }
+		set { _spheres = value; }
+	}
+
+	/// <summary>Gets and Sets sequenceLength property.</summary>
+	public int sequenceLength
+	{
+		get { return _sequenceLength; }
+		set { _sequenceLength = value; }
+	}
+
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
 	protected override void DrawGizmos()
 	{
@@ -87,73 +86,57 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 #endif*/
 	}
 
+	/// <summary>Callback invoked when a Projectile is destroyed.</summary>
+	/// <param name="_poolObject">Projectile, as IPoolObject that was destroyed.</param>
+	private void OnContactWeaponDeactivated(ContactWeapon _contactWeapon, DeactivationCause _cause, Trigger2DInformation _info)
+	{
+		Projectile projectile = _contactWeapon as Projectile;
+		
+		if(projectile == null) return;
+
+		sequenceLength--;
+		Game.RemoveTargetToCamera(projectile.cameraTarget);
+	}
+
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
-		if(!run)
+		if(spheres != null) foreach(Projectile sphere in spheres)
 		{
-			InvokeCoroutineEnd();
-			yield break;
+			sphere.eventsHandler.onContactWeaponDeactivated -= OnContactWeaponDeactivated;
 		}
 
-		if(randomizeOrder)
-		{
-			order = (ShootingOrder)Random.Range(1, 4);
-		}
+		sequenceLength = sequenceLimits.Random();
+		spheres = new Projectile[sequenceLength];
 
-		int sequenceLength = sequenceLimits.Random();
-		StackQueue<Projectile> projectiles = new StackQueue<Projectile>();
-		Projectile[] spheres = new Projectile[sequenceLength];
-		CollectionIndex[] distribution = new CollectionIndex[sequenceLength];
 		float durationSplit = (spheresAccomodationDuration) / (1.0f * sequenceLength);
 		float inverseSplit = 1.0f / durationSplit;
 		float t = 0.0f;
 		HashSet<int> indexSet = new HashSet<int>();
 		Vector3 center = projectileSpawnPosition;
-		OnPoolObjectDeactivation onPoolObjectDeactivation = (poolObject)=>
-		{
-			PoolGameObject obj = poolObject as PoolGameObject;
-			Projectile proj = obj.GetComponent<Projectile>();
-			Game.RemoveTargetToCamera(proj.cameraTarget);
-		};
 
 		for(int i = 0; i < sequenceLength; i++)
 		{
 			/// Distribute the Random Sequence:
 			Projectile sphere = null; 
-			CollectionIndex index = Random.Range(0, 2) == 0 ? GetPetrolProjectileIndex() : GetMarbleProjectileIndex();
+			CollectionIndex index = Random.Range(0, 2) == 0 ? petrolSphereID : marbleSphereID;
 			indexSet.Add(index);
 
 			if(i == (sequenceLength - 1))
 			{ /// At the final iteration. Evaluate if the sequence has at least one of each sphere:
-				if(!indexSet.Contains(GetPetrolProjectileIndex()))index = GetPetrolProjectileIndex();
-				if(!indexSet.Contains(GetMarbleProjectileIndex())) index = GetMarbleProjectileIndex();
+				if(!indexSet.Contains(petrolSphereID)) index = petrolSphereID;
+				if(!indexSet.Contains(marbleSphereID)) index = marbleSphereID;
 			}
 
-			switch(order)
-			{
-				case ShootingOrder.SteeringSnake:
-				sphere = PoolManager.RequestHomingProjectile(Faction.Enemy, index, center, Vector3.zero, null);
-				break;
-
-				case ShootingOrder.LeftToRight:
-				case ShootingOrder.RightToLeft:
-				case ShootingOrder.LeftAndRightOscillation:
-				sphere = PoolManager.RequestProjectile(Faction.Enemy, index, center, Vector3.zero);
-				break;
-
-				sphere.onPoolObjectDeactivation -= onPoolObjectDeactivation;
-				sphere.onPoolObjectDeactivation += onPoolObjectDeactivation;
-				Game.AddTargetToCamera(sphere.cameraTarget);
-			}
-
+			sphere = PoolManager.RequestHomingProjectile(Faction.Enemy, index, center, Vector3.zero, null);
+			sphere.eventsHandler.onContactWeaponDeactivated += OnContactWeaponDeactivated;
 			sphere.gameObject.name += ("_" + i);
-
 			sphere.activated = false;
 			sphere.ActivateHitBoxes(false);
 			spheres[i] = sphere;
-			projectiles.Enqueue(sphere);
+
+			Game.AddTargetToCamera(sphere.cameraTarget);
 
 			while(t < 1.0f)
 			{
@@ -174,84 +157,18 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 			t = 0.0f;
 		}
 
-		if(order == ShootingOrder.SteeringSnake)
+		foreach(Projectile sphere in spheres)
 		{
-			Projectile[] homingProjectiles = new Projectile[spheres.Length];
-
-			for(int i = 0; i < spheres.Length; i++)
-			{
-				homingProjectiles[i] = spheres[i];
-				homingProjectiles[i].projectileType = ProjectileType.Homing;
-				homingProjectiles[i].activated = true;
-				homingProjectiles[i].ActivateHitBoxes(true);
-			}
-
-			steeringSnake.InitializeLinkedList(Game.mateo.transform, homingProjectiles);
-		}
-		else
-		{
-			IEnumerator<Projectile> projectilesIterator = null;
-
-			switch(order)
-			{
-				case ShootingOrder.LeftToRight:
-				projectilesIterator = projectiles.IterateAsQueue();
-				break;
-				
-				case ShootingOrder.RightToLeft:
-				projectilesIterator = projectiles.IterateAsStack();
-				break;
-				
-				case ShootingOrder.LeftAndRightOscillation:
-				projectilesIterator = projectiles.IterateAsQueueAndStack();
-				break;
-			}
-
-			Projectile proj = null;
-
-			while(projectilesIterator.MoveNext())
-			{
-				proj = projectilesIterator.Current;
-				Vector3 direction = Game.mateo.transform.position - proj.transform.position;
-				proj.transform.rotation = VQuaternion.RightLookRotation(direction);
-				proj.activated = true;
-				proj.ActivateHitBoxes(true);
-
-				SecondsDelayWait wait = new SecondsDelayWait(proj.lifespan);
-				while(wait.MoveNext()) yield return null;
-			}
+			sphere.projectileType = ProjectileType.Homing;
+			sphere.activated = true;
+			sphere.ActivateHitBoxes(true);
 		}
 
-		bool projectilesInactive = false;
+		steeringSnake.InitializeLinkedList(Game.mateo.transform, spheres);
 
-		while(!projectilesInactive)
-		{
-			int count = spheres.Length;
+		while(sequenceLength > 0) yield return null;
 
-			foreach(Projectile p in spheres)
-			{
-				if(!p.active) count--;
-			}
-
-			if(count == 0) projectilesInactive = true;
-
-			yield return null;
-		}
-
-		yield return null;
 		InvokeCoroutineEnd();
-	}
-
-	/// <returns>Appropiate Petrol Projectile Index.</returns>
-	private CollectionIndex GetPetrolProjectileIndex()
-	{
-		return order == ShootingOrder.SteeringSnake ? homingPetrolSphereID : petrolSphereID;
-	}
-
-	/// <returns>Appropiate Marble Projectile Index.</returns>
-	private CollectionIndex GetMarbleProjectileIndex()
-	{
-		return order == ShootingOrder.SteeringSnake ? homingMarbleSphereID : marbleSphereID;
 	}
 }
 }

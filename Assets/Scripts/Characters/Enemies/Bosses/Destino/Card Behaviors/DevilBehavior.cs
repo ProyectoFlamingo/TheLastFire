@@ -5,7 +5,6 @@ using Voidless;
 
 namespace Flamingo
 {
-//[CreateAssetMenu]
 public class DevilBehavior : DestinoScriptableCoroutine
 {
 	[SerializeField] private CollectionIndex _arrowProjectileIndex; 	/// <summary>Arrow Projectile's Index.</summary>
@@ -148,11 +147,6 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
-		if(!run)
-		{
-			InvokeCoroutineEnd();
-			yield break;
-		}
 		
 		int length = limits.Random();
 		int count = 1; // For left and right tower and the ceiling.

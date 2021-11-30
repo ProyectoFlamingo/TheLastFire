@@ -6,7 +6,6 @@ using Voidless;
 
 namespace Flamingo
 {
-//[CreateAssetMenu]
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
@@ -131,11 +130,6 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
-		if(!run)
-		{
-			InvokeCoroutineEnd();
-			yield break;
-		}
 
 		bool scytheAttackEnded = false;
 		Animator scytheAnimator = scythe.GetComponent<Animator>();

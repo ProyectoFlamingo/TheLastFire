@@ -315,7 +315,7 @@ public class Projectile : ContactWeapon
 		rigidbody.MoveIn3D(displacement);
 		if(rotateTowardsDirection) rigidbody.MoveRotation(VQuaternion.RightLookRotation(displacement));
 
-		if(projectileType  == ProjectileType.Homing) HomingProjectileUpdate();
+		//if(projectileType  == ProjectileType.Homing) HomingProjectileUpdate();
 		
 	}
 
@@ -470,10 +470,10 @@ public class Projectile : ContactWeapon
 	{
 		if(parentProjectile != null)
 		{
-			Vector2 direction = parentProjectile.rigidbody.position - rigidbody.position;
+			Vector2 direction = rigidbody.position - parentProjectile.rigidbody.position;
 
-			if(direction.sqrMagnitude > (distance * distance))
-			rigidbody.MovePosition(rigidbody.position + (direction.normalized * distance * Time.fixedDeltaTime));
+			if(direction.sqrMagnitude < (distance * distance))
+			rigidbody.MoveIn3D(Vector3.Lerp(direction, direction.normalized * distance, 0.9f));
 		}
 	}
 
@@ -497,47 +497,71 @@ public class Projectile : ContactWeapon
 		switch(projectileType)
 		{
 			case ProjectileType.Normal:
-			switch(speedMode)
-			{
-				case SpeedMode.Lineal:
-				displacement = (direction * speed);
-				break;
+				switch(speedMode)
+				{
+					case SpeedMode.Lineal:
+					displacement = (direction * speed);
+					break;
 
-				case SpeedMode.Accelerating:
-				accumulatedVelocity += (direction * speed * Time.fixedDeltaTime);
-				displacement = accumulatedVelocity;
-				break;
-			}
+					case SpeedMode.Accelerating:
+					accumulatedVelocity += (direction * speed * Time.fixedDeltaTime);
+					displacement = accumulatedVelocity;
+					break;
+				}
 			break;
 
 			case ProjectileType.Parabola:
-			switch(speedMode)
 			{
-				case SpeedMode.Lineal:
-				accumulatedVelocity = Physics.gravity;
-				break;
+				switch(speedMode)
+				{
+					case SpeedMode.Lineal:
+					accumulatedVelocity = Physics.gravity;
+					break;
 
-				case SpeedMode.Accelerating:
-				accumulatedVelocity += (Physics.gravity * Time.fixedDeltaTime);
-				break;
+					case SpeedMode.Accelerating:
+					accumulatedVelocity += (Physics.gravity * Time.fixedDeltaTime);
+					break;
+				}
+
+				displacement = ((direction * speed) + accumulatedVelocity);
 			}
-
-			displacement = ((direction * speed) + accumulatedVelocity);
 			break;
 
 			case ProjectileType.Homing:
-			Vector3 steeringForce = target != null ? SteeringVehicle2D.GetSeekForce(rigidbody.position, target.position, ref velocity, speed, maxSteeringForce) : rigidbody.position;
-
-			switch(speedMode)
 			{
-				case SpeedMode.Lineal:
-				displacement = steeringForce;
-				break;
+				Vector3 targetPosition = Vector3.zero;
 
-				case SpeedMode.Accelerating:
-				accumulatedVelocity += (steeringForce * Time.fixedDeltaTime);
-				displacement = accumulatedVelocity;
-				break;
+				if(parentProjectile != null)
+				{
+					Vector3 parentPosition = parentProjectile.transform.position;
+					Vector3 direction = transform.position - parentPosition;
+
+					if(direction.sqrMagnitude > (distance * distance))
+					{
+						direction = direction.normalized * distance;
+						targetPosition = parentPosition + direction;
+					}
+					else targetPosition = parentPosition;
+				
+				} else if(target != null)
+				{
+					targetPosition = target.position;
+				
+				} else return Vector3.zero; 
+
+				Vector3 steeringForce = SteeringVehicle2D.GetSeekForce(rigidbody.position, targetPosition, ref velocity, speed, maxSteeringForce);
+
+				switch(speedMode)
+				{
+					case SpeedMode.Lineal:
+					displacement = steeringForce;
+					break;
+
+					case SpeedMode.Accelerating:
+					accumulatedVelocity += (steeringForce * Time.fixedDeltaTime);
+					displacement = accumulatedVelocity;
+					break;
+				}
 			}
 			break;
 		}
@@ -563,8 +587,9 @@ public class Projectile : ContactWeapon
 			break;
 		}
 
+		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
+		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
 		OnObjectDeactivation();
-		projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
 	}
 }
 }

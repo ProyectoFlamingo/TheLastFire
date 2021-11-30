@@ -20,15 +20,17 @@ public static class IDs
 #endregion
 
 #region AnimationEventsIDS:
-	public const int ANIMATIONEVENT_PICKBOMB = 0; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWBOMB = 1; 				/// <summary>Throw Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_SWORD_UNSHEATH = 2; 		/// <summary>Sword Un-Sheath's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_SWORD_SHEATH = 3; 			/// <summary>Sword Sheath's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ACTIVATEHITBOXES = 0; 		/// <summary>Activate Hit-Boxes' Event's ID.</summary>
+	public const int ANIMATIONEVENT_DEACTIVATEHITBOXES = 1; 	/// <summary>Deactivate Hit-Boxes' Event's ID.</summary>
+	public const int ANIMATIONEVENT_WEAPON_UNSHEATH = 2; 		/// <summary>Weapon Un-Sheath's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_WEAPON_SHEATH = 3; 			/// <summary>Weapon Sheath's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_GOIDLE = 4; 				/// <summary>Go Idle's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_PICKTNT = 5; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWTNT = 6; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_REPELBOMB = 7; 				/// <summary>Repel Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_JUMP = 8; 					/// <summary>Jump's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_JUMP = 5; 					/// <summary>Jump's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKBOMB = 6; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWBOMB = 7; 				/// <summary>Throw Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKTNT = 8; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWTNT = 9; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_REPELBOMB = 10; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
 #endregion
 
 #region StateFlagsIDs:

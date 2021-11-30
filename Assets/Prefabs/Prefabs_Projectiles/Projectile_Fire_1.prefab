@@ -159,12 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Enemy
     index: 8
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags:
   - _tag: Surface/Floor
     index: 13
@@ -176,6 +174,8 @@ MonoBehaviour:
     index: 8
   - _tag: Ball
     index: 7
+  - _tag: Projectile/Enemy
+    index: 12
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 7248871028163911520}

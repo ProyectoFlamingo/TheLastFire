@@ -90,21 +90,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags:
-  - _tag: Player
-    index: 5
   - _tag: Weapon/Player
     index: 9
+  - _tag: Player
+    index: 5
   - _tag: Surface/Floor
     index: 13
-  - _tag: Surface/Wall
-    index: 14
   - _tag: Surface/Ceiling
     index: 15
   _trailRenderers: []
@@ -113,27 +109,27 @@ MonoBehaviour:
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
-  _speed: 5
+  _speed: 8.5
   _lifespan: 0
-  _cooldownDuration: 0
+  _cooldownDuration: 0.25
   _rotateTowardsDirection: 0
-  _maxSteeringForce: 2
-  _distance: 5
+  _maxSteeringForce: 0.45
+  _distance: 2
   _impactParticleEffectIndex:
-    index: 6
+    index: 7
     objectIndex: 0
     collectionIndex: 6
   _destroyedParticleEffectIndex:
-    index: 6
+    index: 7
     objectIndex: 0
     collectionIndex: 6
   _sourceIndex: 0
   _impactSoundEffectIndex:
-    index: 18
+    index: 16
     objectIndex: 0
     collectionIndex: 5
   _destroyedSoundEffectIndex:
-    index: 18
+    index: 16
     objectIndex: 0
     collectionIndex: 5
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -195,7 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _space: 0
-  _size: {x: 0, y: 0, z: 0}
+  _size: {x: 0.5, y: 0.5, z: 0.5}
   _centerOffset: {x: 0, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -282,7 +278,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.3
+  m_Radius: 0.5
 --- !u!1 &7469749321631461876
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +306,7 @@ Transform:
   m_GameObject: {fileID: 7469749321631461876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6035032327262346622}
   m_RootOrder: 0
