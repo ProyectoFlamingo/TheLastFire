@@ -31,6 +31,12 @@ public static class VExtensionMethods
 		}
 	}
 
+	/// <returns>Current's Frame-Rate [as integer].</returns>
+	public static int GetFrameRate()
+	{
+		return (int)(1.0f / Time.smoothDeltaTime);
+	}
+
 	/// <summary>Creates a ValueTuple from a Tuple [only if both generic types are value types].</summary>
 	/// <param name="_tuple">Tuple to retreive values from.</param>
 	/// <returns>ValueTuple from Tuple's values.</returns>

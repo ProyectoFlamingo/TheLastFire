@@ -299,7 +299,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 				
 				shanty.ChangeState(IDs.STATE_ALIVE | IDs.STATE_IDLE);
 				Game.EnablePlayerControl(false);
-				Game.onTransition = true;
+				Game.state = GameState.Transitioning;
 				Game.RemoveTargetToCamera(shanty.cameraTarget);
 
 				foreach(Vector3 position in smokeSpawnPositions)
@@ -323,7 +323,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 							Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
 							()=>
 							{
-								Game.onTransition = false;
+								Game.state = GameState.Playing;
 								Game.EnablePlayerControl(true);
 								shanty.BeginAttackRoutine();
 							});
@@ -333,7 +333,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 				break;
 
 				case Boss.STAGE_3:
-				Game.onTransition = true;
+				Game.state = GameState.Transitioning;
 				Game.AddTargetToCamera(shanty.cameraTarget);
 				this.StartCoroutine(this.WaitSeconds(waitBeforeFade, 
 				()=>
@@ -350,7 +350,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 							Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
 							()=>
 							{
-								Game.onTransition = false;
+								Game.state = GameState.Playing;
 								Game.EnablePlayerControl(true);
 								shanty.BeginAttackRoutine();
 							});

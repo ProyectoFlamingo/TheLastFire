@@ -438,7 +438,7 @@ public class ShantyBoss : Boss
 	/// <summary>Begins Attack's Routine.</summary>
 	public void BeginAttackRoutine()
 	{
-		if(Game.onTransition) return;
+		if(Game.state == GameState.Transitioning) return;
 
 		this.RemoveStates(IDs.STATE_IDLE);
 		this.AddStates(IDs.STATE_ATTACKING);

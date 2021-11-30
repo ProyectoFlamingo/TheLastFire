@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,12 @@ public enum Faction
 	Enemy,
 	Player1 = Ally,
 	Player2 = Enemy
+}
+
+public enum GameMode
+{
+	SinglePlayer,
+	MultiPlayer
 }
 
 public enum GameState
@@ -72,7 +79,7 @@ public class Game : Singleton<Game>
 	private FloatRange _defaultDistanceRange; 								/// <summary>Default Camera's Distance Range.</summary>
 	private GameState _state; 												/// <summary>Game's State.</summary>
 	private GameContext _context; 											/// <summary>Current Game's Context.</summary>
-	private bool _onTransition; 											/// <summary>Is the Game on a transition?.</summary>
+	private GameMode _gameMode; 											/// <summary>Current's Game Mode.</summary>
 	private HashSet<Camera2DBoundariesModifier> _boundariesModifiers; 		/// <summary>Boundaries2DContainers for the Gameplay Camera.</summary>
 
 #region Getters/Setters:
@@ -95,6 +102,13 @@ public class Game : Singleton<Game>
 	{
 		get { return Instance._context; }
 		set { Instance._context = value; }
+	}
+
+	/// <summary>Gets and Sets gameMode property.</summary>
+	public static GameMode gameMode
+	{
+		get { return Instance._gameMode; }
+		set { Instance._gameMode = value; }
 	}
 
 	/// <summary>Gets and Sets mateoController property.</summary>
@@ -146,14 +160,6 @@ public class Game : Singleton<Game>
 		set { Instance._defaultDistanceRange = value; }
 	}
 
-
-	/// <summary>Gets and Sets onTransition property.</summary>
-	public static bool onTransition
-	{
-		get { return Instance._onTransition; }
-		set { Instance._onTransition = value; }
-	}
-
 	/// <summary>Gets and Sets boundariesModifiers property.</summary>
 	public static HashSet<Camera2DBoundariesModifier> boundariesModifiers
 	{
@@ -189,14 +195,8 @@ public class Game : Singleton<Game>
 	private void Start()
 	{
 		if(mateo != null) AddTargetToCamera(mateo.cameraTarget);
-		PlayerInputController controller = PlayerInputsManager.Get();
-
-		if(controller != null)
-		{
-			mateoController = controller.mateoController;
-			controller.AssignCharacterToMateoController(mateo);
-		}
-		else Debug.LogError("[Game] Controller not detected");
+		
+		SetForSinglePlayer();
 	}
 
 #region TEMPORAL
@@ -218,6 +218,23 @@ public class Game : Singleton<Game>
 #endif
 	}
 #endregion
+
+	/// <summary>Changes Game Mode to Single Player.</summary>
+	public static void SetForSinglePlayer()
+	{
+		gameMode = GameMode.SinglePlayer;
+		PlayerInputController controller = PlayerInputsManager.Get();
+
+		PlayerInputsManager.EnableAll(false);
+		PlayerInputsManager.Enable(); 			/// By default, enables the 1st player
+
+		if(controller != null)
+		{
+			mateoController = controller.mateoController;
+			controller.AssignCharacterToMateoController(mateo);
+		}
+		else Debug.LogError("[Game] Controller not detected");
+	}
 
 	/// <summary>Resets FSM Loop's States.</summary>
 	public static void ResetFSMLoopStates()
@@ -504,6 +521,27 @@ public class Game : Singleton<Game>
 			if(_changeAudioPitch) AudioController.SetPitch(Time.timeScale);
 			break;
 		}
+	}
+
+	/// <returns>String representing Game.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("Expected Frame-Rate: ");
+		builder.Append(data.frameRate.ToString());
+		builder.AppendLine(" FPSs");
+		builder.Append("Current Frame-Rate: ");
+		builder.Append(VExtensionMethods.GetFrameRate().ToString());
+		builder.AppendLine(" FPSs");
+		builder.Append("Game State: ");
+		builder.AppendLine(state.ToString());
+		builder.Append("Game Context: ");
+		builder.AppendLine(context.ToString());
+		builder.Append("Game Mode: ");
+		builder.AppendLine(gameMode.ToString());
+
+		return builder.ToString();
 	}
 
 	/// <summary>Sets Time-Scale's Routine.</summary>

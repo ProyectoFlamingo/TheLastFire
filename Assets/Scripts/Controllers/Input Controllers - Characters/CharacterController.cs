@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -356,6 +357,25 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	protected virtual void OnPauseActionPerformed(InputAction.CallbackContext _context)
 	{
 		Game.OnPause();
+	}
+
+	/// <returns>String representing character's Controller.</returns>
+	public string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("Character: ");
+		builder.AppendLine(character != null ? character.name : "NOT-ASSIGNED");
+		builder.Append("Enabled: ");
+		builder.AppendLine(enabled.ToString());
+		builder.Append("Input Flags: ");
+		builder.AppendLine(inputFlags.GetBitChain());
+		builder.Append("Left-Axes: ");
+		builder.AppendLine(leftAxes.ToString());
+		builder.Append("Right-Axes: ");
+		builder.AppendLine(rightAxes.ToString());
+
+		return builder.ToString();
 	}
 }
 }

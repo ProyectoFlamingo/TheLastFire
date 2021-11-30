@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,6 +88,21 @@ public class PlayerInputController : MonoBehaviour
 	public void EnableAll(bool _enable = true)
 	{
 		mateoController.enabled = _enable;
+	}
+
+	/// <returns>String representing PlayerInputController.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+		
+		builder.Append("PlayerInput: ");
+		builder.AppendLine(playerInput.ToString());
+		builder.Append("Current Character Control: ");
+		builder.AppendLine(currentCharacterControl.ToString());
+		builder.Append("Mateo Controller: ");
+		builder.AppendLine(mateoController.ToString());
+
+		return builder.ToString();
 	}
 }
 }

@@ -35,23 +35,6 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 			playerControllersMap.Add(controller.playerInput.playerIndex, controller);
 		}
 
-#if UNITY_EDITOR
-		StringBuilder builder = new StringBuilder();
-
-		builder.AppendLine("PlayerInputs' Map:\n");
-
-		foreach(KeyValuePair<int, PlayerInputController> controllerPair in playerControllersMap)
-		{
-			builder.Append("Player Index ");
-			builder.Append(controllerPair.Key);
-			builder.Append(": ");
-			builder.Append(controllerPair.Value.name);
-			builder.AppendLine();
-		}
-
-		VDebug.Log(builder.ToString(), Format.Normal, Color.cyan);
-#endif
-
 		EnableAll(false);
 		Enable(0, true);
 	}
@@ -83,6 +66,30 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 		{
 			controller.EnableAll(_enable);
 		}
+	}
+
+	/// <returns>String representing this Input Manager.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+		PlayerInputController controller = null;
+		
+		builder.AppendLine("PlayerInputs' Map:\n");
+
+		for(int i = 0; i < playerControllersMap.Count; i++)
+		{
+			controller = playerControllersMap[i];
+
+			builder.Append("Player Index ");
+			builder.Append(i);
+			builder.Append(": ");
+			builder.Append(controller.name);
+			builder.AppendLine();
+			builder.AppendLine("Controller Status: ");
+			builder.AppendLine(controller.ToString());
+		}
+
+		return builder.ToString();
 	}
 }
 }
