@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Voidless;
 
 namespace Flamingo
@@ -29,13 +30,15 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 	/// <summary>PlayerInputsManager's instance initialization.</summary>
 	private void Awake()
 	{
+		InputSystem.onDeviceChange += OnDeviceChange;
+
 		playerControllersMap = new Dictionary<int, PlayerInputController>();
 		if(playerControllers != null) foreach(PlayerInputController controller in playerControllers)
 		{
 			playerControllersMap.Add(controller.playerInput.playerIndex, controller);
 		}
 
-		EnableAll(false);
+		//EnableAll(false);
 		Enable(0, true);
 	}
 
@@ -55,7 +58,8 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 	{
 		_index = Mathf.Clamp(_index, 0, playerControllers.Length - 1);
 
-		playerControllersMap[_index].EnableAll(_enable);
+		PlayerInputController controller = playerControllersMap[_index];
+		controller.Enable(_enable);
 	}
 
 	/// <summary>Enables All PlayerInputControllers.</summary>
@@ -64,7 +68,36 @@ public class PlayerInputsManager : Singleton<PlayerInputsManager>
 	{
 		foreach(PlayerInputController controller in playerControllers)
 		{
-			controller.EnableAll(_enable);
+			controller.Enable(_enable);
+		}
+	}
+
+	/// <summary>Callback invoked when Device Changes.</summary>
+	/// <param name="_device">Device that invoked the event.</param>
+	/// <param name="_changeEvent">Change's Argument.</param>
+	private void OnDeviceChange(InputDevice _device, InputDeviceChange _changeEvent)
+	{
+		switch(_changeEvent)
+		{
+			case InputDeviceChange.Added:
+                // New Device.
+            break;
+
+            case InputDeviceChange.Disconnected:
+                // Device got unplugged.
+            break;
+
+            case InputDeviceChange.Reconnected:
+                // Plugged back in.
+            break;
+
+            case InputDeviceChange.Removed:
+                // Remove from Input System entirely; by default, Devices stay in the system once discovered.
+            break;
+
+            default:
+                // See InputDeviceChange reference for other event types.
+            break;
 		}
 	}
 

@@ -8,12 +8,8 @@ namespace Flamingo
 {
 public class SplashScreenController : MonoBehaviour
 {
-	[SerializeField] private string _sceneName; 		/// <summary>Scene's Name.</summary>
 	[SerializeField] private float _fadeOutDuration; 	/// <summary>Screen's Fade-Out Duration.</summary>
 	[SerializeField] private float _defaultWait; 		/// <summary>Default Wait's Duration before changing scene.</summary>
-
-	/// <summary>Gets sceneName property.</summary>
-	public string sceneName { get { return _sceneName; } }
 
 	/// <summary>Gets fadeOutDuration property.</summary>
 	public float fadeOutDuration { get { return _fadeOutDuration; } }
@@ -32,7 +28,7 @@ public class SplashScreenController : MonoBehaviour
 			this.StartCoroutine(this.WaitSeconds(defaultWait,
 			()=>
 			{
-				Game.LoadScene(sceneName);
+				Game.LoadScene(Game.data.firstSceneToLoad);
 			}));
 		});
 	}

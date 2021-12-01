@@ -20,6 +20,7 @@ public class GameData : ScriptableObject
 	[SerializeField] private float _timeScaleAcceleration; 				/// <summary>Time-Scale change's Acceleration.</summary>
 	[SerializeField] private float _timeScaleDeceleration; 				/// <summary>Time-Scale change's Deceleration.</summary>
 	[Space(5f)]
+	[SerializeField] private string _firstSceneToLoad; 					/// <summary>First Scene to Load.</summary>
 	[SerializeField] private string _loadingSceneName; 					/// <summary>Loading Scene's Name.</summary>
 	[SerializeField] private string _overworldSceneName; 				/// <summary>Overworld Scene's Name.</summary>
 	[SerializeField] private string _destinoSceneName; 					/// <summary>Destuino Scene's Name.</summary>
@@ -116,6 +117,9 @@ public class GameData : ScriptableObject
 		get { return _floorAngleThreshold; }
 		set { _floorAngleThreshold = value; }
 	}
+
+	/// <summary>Gets firstSceneToLoad property.</summary>
+	public string firstSceneToLoad { get { return _firstSceneToLoad; } }
 
 	/// <summary>Gets loadingSceneName property.</summary>
 	public string loadingSceneName { get { return _loadingSceneName; } }

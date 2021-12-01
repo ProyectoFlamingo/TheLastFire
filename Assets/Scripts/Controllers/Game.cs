@@ -225,12 +225,14 @@ public class Game : Singleton<Game>
 		gameMode = GameMode.SinglePlayer;
 		PlayerInputController controller = PlayerInputsManager.Get();
 
-		PlayerInputsManager.EnableAll(false);
+		//PlayerInputsManager.EnableAll(false);
 		PlayerInputsManager.Enable(); 			/// By default, enables the 1st player
 
 		if(controller != null)
 		{
+			controller.ChangeControllerMap(CharacterControllerMap.Mateo);
 			mateoController = controller.mateoController;
+			mateoController.ChangeControllerScheme(ControllerSchemeType.Character);
 			controller.AssignCharacterToMateoController(mateo);
 		}
 		else Debug.LogError("[Game] Controller not detected");

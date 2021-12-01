@@ -43,34 +43,47 @@ public class PlayerInputController : MonoBehaviour
 		protected set { _currentCharacterControl = value; }
 	}
 
+	/// <summary>Callback invoked when PlayerInputController's instance is enabled.</summary>
+	private void OnEnable()
+	{
+		Enable(true);
+	}
+
+	/// <summary>Callback invoked when PlayerInputController's instance is disabled.</summary>
+	private void OnDisable()
+	{
+		Enable(false);
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("Player ");
+		builder.Append(playerInput.playerIndex.ToString());
+		builder.Append(" Disabled.");
+
+		Debug.Log(builder.ToString());
+	}
+
 	/// <summary>TheLastFirePlayerInput's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()
 	{
 		mateoController.playerInput = playerInput;
-		mateoController.Initialize();
 	}
-
-	/*/// <returns>Current Character's Controller.</returns>
-	public CharacterController<Character> GetCurrentController()
-	{
-		return mateoController;
-	}*/
 
 	/// <summary>Assigns Character to Mateo's Controller.</summary>
 	/// <param name="_mateo">Mateo's Instance.</param>
-	public void AssignCharacterToMateoController(Mateo _mateo)
+	public void AssignCharacterToMateoController(Mateo _mateo, bool _enable = true)
 	{
 		if(_mateo == null) return;
 
 		mateoController.character = _mateo;
-		mateoController.enabled = true;
+		if(_enable) mateoController.enabled = true;
 	}
 
 	/// <summary>Changes Controller Map.</summary>
 	/// <param name="_map">CharacterControllerMap's enum.</param>
 	public void ChangeControllerMap(CharacterControllerMap _map)
 	{
-		EnableAll(false);
+		/// \TODO Disable the rest of possible Controller Maps...
 
 		switch(_map)
 		{
@@ -85,8 +98,9 @@ public class PlayerInputController : MonoBehaviour
 
 	/// <summary>Enables all controllers.</summary>
 	/// <param name="_enable">Enable? True by default.</param>
-	public void EnableAll(bool _enable = true)
+	public void Enable(bool _enable = true)
 	{
+		if(_enable && !playerInput.enabled) playerInput.ActivateInput();
 		mateoController.enabled = _enable;
 	}
 

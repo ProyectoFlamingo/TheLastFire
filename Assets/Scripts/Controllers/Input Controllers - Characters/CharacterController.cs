@@ -317,6 +317,12 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 		SetInputActions();
 	}
 
+	/// <summary>Empties CharacterController.</summary>
+	public void Empty()
+	{
+		character = null;
+	}
+
 	/// <summary>Changes Controller Scheme.</summary>
 	/// <param name="_type">Type of Controller Scheme.</param>
 	public void ChangeControllerScheme(ControllerSchemeType _type)
@@ -364,16 +370,23 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	{
 		StringBuilder builder = new StringBuilder();
 
-		builder.Append("Character: ");
-		builder.AppendLine(character != null ? character.name : "NOT-ASSIGNED");
-		builder.Append("Enabled: ");
-		builder.AppendLine(enabled.ToString());
-		builder.Append("Input Flags: ");
-		builder.AppendLine(inputFlags.GetBitChain());
-		builder.Append("Left-Axes: ");
-		builder.AppendLine(leftAxes.ToString());
-		builder.Append("Right-Axes: ");
-		builder.AppendLine(rightAxes.ToString());
+		if(actionMap.enabled)
+		{
+			builder.Append("Character: ");
+			builder.AppendLine(character != null ? character.name : "NOT-ASSIGNED");
+			builder.Append("Enabled: ");
+			builder.AppendLine(actionMap.enabled.ToString());
+			builder.Append("Input Flags: ");
+			builder.AppendLine(inputFlags.GetBitChain());
+			builder.Append("Left-Axes: ");
+			builder.AppendLine(leftAxes.ToString());
+			builder.Append("Right-Axes: ");
+			builder.AppendLine(rightAxes.ToString());
+		}
+		else
+		{
+			builder.Append("Controller Currently Disabled.");
+		}
 
 		return builder.ToString();
 	}
