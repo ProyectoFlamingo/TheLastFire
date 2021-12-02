@@ -8,6 +8,7 @@ using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
+[RequireComponent(typeof(VCameraTarget))]
 [RequireComponent(typeof(EventsHandler))]
 [RequireComponent(typeof(ImpactEventHandler))]
 [RequireComponent(typeof(VirtualAnchorContainer))]
@@ -32,6 +33,7 @@ public class ContactWeapon : PoolGameObject
 	private EventsHandler _eventsHandler; 														/// <summary>EventsHandler's Component.</summary>
 	private ImpactEventHandler _impactEventHandler; 											/// <summary>ImpactEventHandler's Component.</summary>
 	private VirtualAnchorContainer _anchorContainer; 											/// <summary>VirtualAnchorContainer's Component.</summary>
+	private VCameraTarget _cameraTarget; 														/// <summary>VCameraTarget's Component.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets meshContainer property.</summary>
@@ -124,6 +126,16 @@ public class ContactWeapon : PoolGameObject
 		{
 			if(_anchorContainer == null) _anchorContainer = GetComponent<VirtualAnchorContainer>();
 			return _anchorContainer;
+		}
+	}
+
+	/// <summary>Gets cameraTarget Component.</summary>
+	public VCameraTarget cameraTarget
+	{ 
+		get
+		{
+			if(_cameraTarget == null) _cameraTarget = GetComponent<VCameraTarget>();
+			return _cameraTarget;
 		}
 	}
 #endregion

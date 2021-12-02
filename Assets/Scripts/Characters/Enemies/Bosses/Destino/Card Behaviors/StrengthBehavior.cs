@@ -65,10 +65,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
 	[SerializeField] private Vector2 gizmosTextOffset; 							/// <summary>Gizmos' Text Offset.</summary>
-	[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
+	//[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
 	[SerializeField] private Color buildUpColor; 								/// <summary>Build-Up's Color.</summary>
 	[SerializeField] private Color swingColor; 									/// <summary>Swing's Color.</summary>
-	[SerializeField] private float gizmosRadius; 								/// <summary>Gizmos' Radius.</summary>
+	//[SerializeField] private float gizmosRadius; 								/// <summary>Gizmos' Radius.</summary>
 	[SerializeField] private float gizmosRayLength; 							/// <summary>Gizmos' Ray Length.</summary>
 #endif
 

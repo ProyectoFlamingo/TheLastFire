@@ -43,6 +43,9 @@ public class Boss : Enemy
 		set { _currentStage = value; }
 	}
 
+	/// <summary>Gets stageScale property.</summary>
+	public float stageScale { get { return (float)(currentStage - 1.0f) / (float)(stages - 1.0f); } }
+
 	/// <summary>Gets and Sets healthDistribution property.</summary>
 	public float[] healthDistribution
 	{

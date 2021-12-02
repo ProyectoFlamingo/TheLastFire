@@ -36,9 +36,7 @@ Events:
  - etc.
 */
 
-
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(VCameraTarget))]
 [RequireComponent(typeof(ProjectileEventsHandler))]
 public class Projectile : ContactWeapon
 {
@@ -79,7 +77,6 @@ public class Projectile : ContactWeapon
 	private Vector3 _accumulatedVelocity; 										/// <summary>Accumulated Velocity.</summary>
 	private Transform _target; 													/// <summary>Homing Target.</summary>
 	private Rigidbody2D _rigidbody; 											/// <summary>Rigidbody2D's Component.</summary>
-	private VCameraTarget _cameraTarget; 										/// <summary>VCameraTarget's Component.</summary>
 	private ProjectileEventsHandler _projectileEventsHandler; 					/// <summary>ProjectileEventsHandler's Component.</summary>
 	private Projectile _parentProjectile; 										/// <summary>Parent Projectile.</summary>
 	protected Vector2 velocity; 												/// <summary>Velocity's Vector.</summary>
@@ -258,15 +255,6 @@ public class Projectile : ContactWeapon
 		}
 	}
 
-	/// <summary>Gets cameraTarget Component.</summary>
-	public VCameraTarget cameraTarget
-	{ 
-		get
-		{
-			if(_cameraTarget == null) _cameraTarget = GetComponent<VCameraTarget>();
-			return _cameraTarget;
-		}
-	}
 	/// <summary>Gets and Sets sword hashset property.</summary>
 	public HashSet<int> swordSet
 	{

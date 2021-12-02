@@ -9,74 +9,78 @@ namespace Flamingo
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
-	[SerializeField] private ContactWeapon _scythe; 						/// <summary>Scythe Weapon's Reference.</summary>
+	[SerializeField] private AIContactWeapon _scythe; 								/// <summary>Scythe's AIContactWeapon's Component.</summary>
 	[Space(5f)]
-	[SerializeField] private AnimatorCredential _scytheAttackIDCredential; 	/// <summary>Scythe's Attack ID's Credential.</summary>
+	[Header("Rotations:")]
+	[SerializeField] private EulerRotation _leftRotation; 							/// <summary>Left's Rotation.</summary>
+	[SerializeField] private EulerRotation _rightRotation; 							/// <summary>Right's Rotation.</summary>
+	[SerializeField] private float _rotationSpeed; 									/// <summary>Scythe's Rotation Speed.</summary>
 	[Space(5f)]
-	[SerializeField] private Vector3 _pivot; 								/// <summary>Scythe's Pivot.</summary>
-	[SerializeField] private NormalizedVector3 _snathOrientationVector; 	/// <summary>Orientation Vector associated with the scythe's snath.</summary>
-	[SerializeField] private NormalizedVector3 _scytheRotationAxis; 		/// <summary>Scythe's Rotation Axis.</summary>
-	[SerializeField] private EulerRotation _initialScytheRotation; 			/// <summary>Initial Scythe's Rotation.</summary>
+	[Header("Interpolations")]
+	[SerializeField] private Vector3 _spawnPosition; 								/// <summary>Scythe's Spawn Position.</summary>
+	[SerializeField] private Vector3 _entrancePosition; 							/// <summary>Scythe's Entrance Position.</summary>
+	[SerializeField] private float _interpolationDuration; 							/// <summary>Interpolation's Duration.</summary>
 	[Space(5f)]
-	[Header("Scythe's Rotation Data:")]
-	[SerializeField] private float _leftAngle; 								/// <summary>Left orientation's degree.</summary>
-	[SerializeField] private float _rightAngle; 							/// <summary>Right orientation's degree.</summary>
-	[SerializeField] private float _rotationDuration; 						/// <summary>Rotation's Duration.</summary>
+	[Header("Scythe's Animations' Credentials:")]
+	[SerializeField] private AnimatorCredential _entranceCredential; 				/// <summary>Scythe's Entrance AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _stage1AttackCredential; 			/// <summary>Stage 1's Scythe's Attack AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _stage2AttackCredential; 			/// <summary>Stage 2's Scythe's Attack AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _stage3AttackCredential; 			/// <summary>Stage 3's Scythe's Attack AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _exitCredential; 					/// <summary>Scythe's Exit AnimatorCredential.</summary>
 	[Space(5f)]
 	[Header("Scythe's Steering Attributes:")]
-	[SerializeField] private float _buildUpMaxSpeed; 						/// <summary>Scythe's Max Speed.</summary>
-	[SerializeField] private float _buildUpMaxSteeringForce; 				/// <summary>Scythe's Max Steering Force.</summary>
-	[SerializeField] private float _swingMaxSpeed; 							/// <summary>Scythe's Max Speed.</summary>
-	[SerializeField] private float _swingMaxSteeringForce; 					/// <summary>Scythe's Max Steering Force.</summary>
-	[SerializeField] private float _arrivalRadius; 							/// <summary>Steering Arrival's Radius.</summary>
+	[SerializeField] private float _buildUpMaxSpeed; 								/// <summary>Scythe's Max Speed.</summary>
+	[SerializeField] private float _buildUpMaxSteeringForce; 						/// <summary>Scythe's Max Steering Force.</summary>
+	[SerializeField] private float _swingMaxSpeed; 									/// <summary>Scythe's Max Speed.</summary>
+	[SerializeField] private float _swingMaxSteeringForce; 							/// <summary>Scythe's Max Steering Force.</summary>
+	[SerializeField] private float _arrivalRadius; 									/// <summary>Steering Arrival's Radius.</summary>
+	[SerializeField] private float _maxSpeedScalar; 								/// <summary>Maximum's Speed's Scalar [it goes up as the stage goes up].</summary>
+	[SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
 	[Space(5f)]
-	[Header("Swings Rotations' Data:")]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _dotProductTolerance; 				/// <summary>Dot Product's Tolerance to reach the desired angle.</summary>
-	[SerializeField] private RotationDataSet[] _rotationsDataSet; 			/// <summary>Set of Rotations' Datas.</summary>
-#if UNITY_EDITOR
-	[Space(5f)]
-	[Header("Gizmos' Attributes:")]
-	[SerializeField] public Color color; 									/// <summary>General Gizmos' Color.</summary>
-	[SerializeField] public Color buildUpColor; 							/// <summary>Build-Up's Gizmos Color.</summary>
-	[SerializeField] public Color swingColor; 								/// <summary>Slash' Gizmos Color.</summary>
-	[SerializeField] public float gizmosRadius; 							/// <summary>Gizmos' Radius.</summary>
-	[Space(5f)]
-	[Header("Test's Settings:")]
-	[SerializeField] private bool testDebugIndex; 							/// <summary>Test Debug's Index.</summary>
-	[HideInInspector] public int debugIndex; 								/// <summary>RotationsDataSet's on given index to debug.</summary>
-	[HideInInspector] public int debugSubIndex; 							/// <summary>RotationData on given sub-index to debug.</summary>
-#endif
-	private Coroutine scytheRotation; 										/// <summary>Scythe's Rotation Coroutine Reference.</summary>
+	[Header("Sound Effects::")]
+	[SerializeField] private CollectionIndex _buildUpSoundIndex; 					/// <summary>Build-Up's Sound's Index.</summary>
+	[SerializeField] private CollectionIndex _swingSoundIndex; 						/// <summary>Swing's Sound's Index.</summary>
+	private AnimationEventInvoker _animationsEventInvoker; 							/// <summary>AnimationsEventInvoker's Component.</summary>
+	private Coroutine scytheRotation; 												/// <summary>Scythe's Rotation Coroutine Reference.</summary>
+	private AnimationCommandState _state; 											/// <summary>Scythe's Attack Animation's State.</summary>
+	private AnimationCommandState _previousState; 									/// <summary>Previous Scythe's Attack Animation's State.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets scythe property.</summary>
-	public ContactWeapon scythe { get { return _scythe; } }
+	public AIContactWeapon scythe { get { return _scythe; } }
 
-	/// <summary>Gets scytheAttackIDCredential property.</summary>
-	public AnimatorCredential scytheAttackIDCredential { get { return _scytheAttackIDCredential; } }
+	/// <summary>Gets leftRotation property.</summary>
+	public EulerRotation leftRotation { get { return _leftRotation; } }
 
-	/// <summary>Gets pivot property.</summary>
-	public Vector3 pivot { get { return _pivot; } }
+	/// <summary>Gets rightRotation property.</summary>
+	public EulerRotation rightRotation { get { return _rightRotation; } }
 
-	/// <summary>Gets snathOrientationVector property.</summary>
-	public NormalizedVector3 snathOrientationVector { get { return _snathOrientationVector; } }
+	/// <summary>Gets spawnPosition property.</summary>
+	public Vector3 spawnPosition { get { return _spawnPosition; } }
 
-	/// <summary>Gets and Sets scytheRotationAxis property.</summary>
-	public NormalizedVector3 scytheRotationAxis
-	{
-		get { return _scytheRotationAxis; }
-		set { _scytheRotationAxis = value; }
-	}
+	/// <summary>Gets entrancePosition property.</summary>
+	public Vector3 entrancePosition { get { return _entrancePosition; } }
 
-	/// <summary>Gets leftAngle property.</summary>
-	public float leftAngle { get { return _leftAngle; } }
+	/// <summary>Gets entranceCredential property.</summary>
+	public AnimatorCredential entranceCredential { get { return _entranceCredential; } }
 
-	/// <summary>Gets rightAngle property.</summary>
-	public float rightAngle { get { return _rightAngle; } }
+	/// <summary>Gets stage1AttackCredential property.</summary>
+	public AnimatorCredential stage1AttackCredential { get { return _stage1AttackCredential; } }
 
-	/// <summary>Gets rotationDuration property.</summary>
-	public float rotationDuration { get { return _rotationDuration; } }
+	/// <summary>Gets stage2AttackCredential property.</summary>
+	public AnimatorCredential stage2AttackCredential { get { return _stage2AttackCredential; } }
+
+	/// <summary>Gets stage3AttackCredential property.</summary>
+	public AnimatorCredential stage3AttackCredential { get { return _stage3AttackCredential; } }
+
+	/// <summary>Gets exitCredential property.</summary>
+	public AnimatorCredential exitCredential { get { return _exitCredential; } }
+
+	/// <summary>Gets rotationSpeed property.</summary>
+	public float rotationSpeed { get { return _rotationSpeed; } }
+
+	/// <summary>Gets interpolationDuration property.</summary>
+	public float interpolationDuration { get { return _interpolationDuration; } }
 
 	/// <summary>Gets buildUpMaxSpeed property.</summary>
 	public float buildUpMaxSpeed { get { return _buildUpMaxSpeed; } }
@@ -93,14 +97,35 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets arrivalRadius property.</summary>
 	public float arrivalRadius { get { return _arrivalRadius; } }
 
-	/// <summary>Gets dotProductTolerance property.</summary>
-	public float dotProductTolerance { get { return _dotProductTolerance; } }
+	/// <summary>Gets maxSpeedScalar property.</summary>
+	public float maxSpeedScalar { get { return _maxSpeedScalar; } }
 
-	/// <summary>Gets initialScytheRotation property.</summary>
-	public EulerRotation initialScytheRotation { get { return _initialScytheRotation; } }
+	/// <summary>Gets additionalYOffset property.</summary>
+	public float additionalYOffset { get { return _additionalYOffset; } }
 
-	/// <summary>Gets rotationsDataSet property.</summary>
-	public RotationDataSet[] rotationsDataSet { get { return _rotationsDataSet; } }
+	/// <summary>Gets buildUpSoundIndex property.</summary>
+	public CollectionIndex buildUpSoundIndex { get { return _buildUpSoundIndex; } }
+
+	/// <summary>Gets swingSoundIndex property.</summary>
+	public CollectionIndex swingSoundIndex { get { return _swingSoundIndex; } }
+
+	/// <summary>Gets and Sets state property.</summary>
+	public AnimationCommandState state
+	{
+		get { return _state; }
+		private set
+		{
+			previousState = _state;
+			_state = value;
+		}
+	}
+
+	/// <summary>Gets and Sets previousState property.</summary>
+	public AnimationCommandState previousState
+	{
+		get { return _previousState; }
+		private set { _previousState = value; }
+	}
 #endregion
 
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
@@ -109,118 +134,148 @@ public class DeathBehavior : DestinoScriptableCoroutine
 #if UNITY_EDITOR
 		base.DrawGizmos();
 		
-		Gizmos.color = color;
-		Gizmos.DrawRay(pivot, snathOrientationVector.normalized * gizmosRadius);
-		Gizmos.DrawWireSphere(pivot, gizmosRadius);
+		Gizmos.color = gizmosColor;
 
-		RotationDataSet[] sets = rotationsDataSet;
-
-		if(sets == null || sets.Length <= 0) return;
-		
-		RotationData data = sets[debugIndex].rotationDataSet[debugSubIndex];
-		
-		Gizmos.color = buildUpColor;
-		Gizmos.DrawRay(pivot, data.buildUpDirection.normalized * gizmosRadius);
-		Gizmos.color = swingColor;
-		Gizmos.DrawRay(pivot, data.swingDirection.normalized * gizmosRadius);
+		Gizmos.DrawWireSphere(spawnPosition, gizmosRadius);
+		Gizmos.DrawWireSphere(entrancePosition, gizmosRadius);
 #endif
 	}
 
+	/// <summary>DeathBehavior's instance initialization when loaded [Before scene loads].</summary>
+	private void Awake()
+	{
+		scythe.transform.position = spawnPosition;
+		scythe.gameObject.SetActive(false);
+		scythe.animationsEventInvoker.AddIntActionListener(OnAnimationIntEvent);
+		state = AnimationCommandState.None;
+	}
+
+	private void RotateScythe(float s)
+	{
+		float dX = Game.mateo.transform.position.x - scythe.transform.position.x;
+		scythe.transform.rotation = Quaternion.RotateTowards(scythe.transform.rotation, dX > 0.0f ? rightRotation : leftRotation, rotationSpeed * Time.deltaTime * s);
+	}
+
+	/// <summary>Callback invoked when an Animation Event is invoked.</summary>
+	/// <param name="_ID">Int argument.</param>
+	private void OnAnimationIntEvent(int _ID)
+	{
+		switch(_ID)
+		{
+			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
+			state = AnimationCommandState.Active;
+			scythe.vehicle.maxSpeed = swingMaxSpeed;
+			scythe.vehicle.maxForce = swingMaxSteeringForce;
+			scythe.weapon.ActivateHitBoxes(true);
+			break;
+
+			case IDs.ANIMATIONEVENT_DEACTIVATEHITBOXES:
+			state = state == AnimationCommandState.Active ? AnimationCommandState.Recovery : AnimationCommandState.Startup;
+			scythe.vehicle.maxSpeed = buildUpMaxSpeed;
+			scythe.vehicle.maxForce = buildUpMaxSteeringForce;
+			scythe.weapon.ActivateHitBoxes(false);
+			break;
+		}
+	}
+
+#region Coroutines:
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
+		int stage = boss.currentStage;
+		IEnumerator coroutine = null;
+		int animationHash = 0;
 
-		bool scytheAttackEnded = false;
-		Animator scytheAnimator = scythe.GetComponent<Animator>();
-		AnimationAttacksHandler scytheAttacksHandler = scythe.GetComponent<AnimationAttacksHandler>();
-		SteeringVehicle2D vehicle = scythe.GetComponent<SteeringVehicle2D>();
-		Transform scytheMesh = scythe.transform.GetChild(0);
-		IEnumerator rotate = null;
-		int dataSetIndex = boss.currentStage;
-#if UNITY_EDITOR
-		if(testDebugIndex) dataSetIndex = debugIndex;
-#endif
-		RotationDataSet dataSet = rotationsDataSet[dataSetIndex];
-		Action<RotationEvent, int> onRotationEvent = (rotationEvent, ID)=>
+		switch(stage)
 		{
-			switch(rotationEvent)
-			{
-				case RotationEvent.BuildUpBegins:
-				case RotationEvent.BuildUpEnds:
-				case RotationEvent.SwingBegins:
-				case RotationEvent.SwingEnds:
-				//boss.OnScytheRotationEvent(rotationEvent, ID);
-				return;
-			}
+			case Boss.STAGE_1:
+			animationHash = stage1AttackCredential;
+			break;
 
-			Vector3 position = scythe.transform.position;
-			Vector3 mateoPosition = Game.mateo.transform.position.WithY(position.y);
-			float arrivalWeight = vehicle.GetArrivalWeight(mateoPosition, arrivalRadius);
+			case Boss.STAGE_2:
+			animationHash = stage2AttackCredential;
+			break;
 
-			switch(rotationEvent)
-			{
-				case RotationEvent.BuildingUp:
-				vehicle.maxSpeed = buildUpMaxSpeed;
-				vehicle.maxForce = buildUpMaxSteeringForce;
-				break;
+			case Boss.STAGE_3:
+			animationHash = stage3AttackCredential;
+			break;
 
-				case RotationEvent.Swinging:
-				vehicle.maxSpeed = swingMaxSpeed;
-				vehicle.maxForce = swingMaxSteeringForce;
-				break;
-			}
+			default:
+			animationHash = stage3AttackCredential;
+			break;
+		}
 
-			position += (Vector3)(vehicle.GetSeekForce(mateoPosition) * arrivalWeight * Time.deltaTime);
-			scythe.transform.position = position;
-		};
-		OnAnimationAttackEvent onAnimationAttackEvent = (_state)=>
-		{
-			switch(_state)
-			{
-				case AnimationCommandState.None:
-				scythe.ActivateHitBoxes(false);
-				break;
-
-			    case AnimationCommandState.Startup:
-			    scythe.ActivateHitBoxes(false);
-			    AudioController.PlayOneShot(SourceType.SFX, 0, boss.buildUpSoundIndex);
-			    break;
-
-			    case AnimationCommandState.Active:
-			    scythe.ActivateHitBoxes(true);
-			    AudioController.PlayOneShot(SourceType.SFX, 0, boss.swingSoundIndex);
-			    break;
-
-			    case AnimationCommandState.Recovery:
-			    break;
-
-			    case AnimationCommandState.End:
-			    scythe.gameObject.SetActive(false);
-			    scytheAnimator.SetInteger(scytheAttackIDCredential, 0);
-			    scytheAttackEnded = true;
-			    break;
-			}
-		};
-
+		state = AnimationCommandState.None;
+		scythe.transform.position = spawnPosition;
 		scythe.gameObject.SetActive(true);
+		scythe.animatorController.CrossFade(entranceCredential);
 
-		scytheAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
-		scytheAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;
-		scytheAttacksHandler.BeginAttack(dataSetIndex);
-		scytheAnimator.SetInteger(scytheAttackIDCredential, dataSetIndex);
+		Game.AddTargetToCamera(scythe.weapon.cameraTarget);
+		coroutine = GoTowards(entrancePosition);
+		while(coroutine.MoveNext()) yield return null;
 
-		while(!scytheAttackEnded) yield return null;
+		coroutine = ChasingRoutine(boss, animationHash);
+		while(coroutine.MoveNext()) yield return null;
 
-		yield return null;
+		scythe.animatorController.CrossFade(exitCredential);
+
+		coroutine = GoTowards(entrancePosition);
+		while(coroutine.MoveNext()) yield return null;
+
+		Game.RemoveTargetToCamera(scythe.weapon.cameraTarget);
+		coroutine = GoTowards(spawnPosition);
+		while(coroutine.MoveNext()) yield return null;
+
 		InvokeCoroutineEnd();
 	}
 
-	private void EvaluateScytheRotation(ContactWeapon weapon, Transform scytheMesh, float s)
+	private IEnumerator GoTowards(Vector3 _point)
 	{
-		float angle = s < 0.0f ? leftAngle : rightAngle;
+		Vector3 originalPosition = scythe.transform.position;
+		float t = 0.0f;
+		float iD = 1.0f / interpolationDuration;
 
-		weapon.StartCoroutine(scytheMesh.RotateOnAxis(Vector3.down, angle, rotationDuration), ref scytheRotation);
+		while(t < 1.0f)
+		{
+			scythe.transform.position = Vector3.Lerp(originalPosition, _point, t);
+			t += (Time.deltaTime * iD);
+			yield return null;
+		}
+
+		scythe.transform.position = _point;
 	}
+
+	private IEnumerator ChasingRoutine(DestinoBoss boss, int _animationHash)
+	{
+		float t = boss.stageScale;
+		float s = Mathf.Lerp(1.0f, maxSpeedScalar, t);
+
+		scythe.animatorController.CrossFade(_animationHash, 0.3f, 0, 0.0f, 0.0f);
+
+		yield return null;
+
+		AnimatorStateInfo info = scythe.animator.GetCurrentAnimatorStateInfo(0);
+		AnimatorTransitionInfo transitionInfo = scythe.animator.GetAnimatorTransitionInfo(0);
+		SecondsDelayWait wait = new SecondsDelayWait(transitionInfo.duration * info.length);
+
+		while(wait.MoveNext()) yield return null;
+
+		info = scythe.animator.GetCurrentAnimatorStateInfo(0);
+		wait.ChangeDurationAndReset(info.length);
+
+
+		while(wait.MoveNext())
+		{
+			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, 1);
+
+			if(state != AnimationCommandState.Active) anchoredPosition.y += additionalYOffset;
+
+			scythe.transform.position += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * s;
+			RotateScythe(s);
+			yield return null;
+		}
+	}
+#endregion
 }
 }

@@ -118,7 +118,7 @@ public class VAnimatorController : MonoBehaviour
 	/// <param name="_offset">Normalized Time Offset [where does the Animation start].</param>
 	/// <param name="_transitionTime">Optional Additional Wait [0.0f by default].</param>
 	/// <returns>True if the Animation could be played, false if it was already active.</returns>
-	public bool CrossFade(int _hash, float _fadeDuration, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _transitionTime = 0.0f)
+	public bool CrossFade(int _hash, float _fadeDuration = 0.3f, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _transitionTime = 0.0f)
 	{
 		if(IsActive(_hash, _layer)) return false;
 
@@ -168,7 +168,7 @@ public class VAnimatorController : MonoBehaviour
 	/// <param name="_transitionTime">Optional Additional Wait [0.0f by default].</param>
 	/// <param name="onAnimationEnds">Callback invoked when the animation ends.</param>
 	/// <returns>True if the Animation could be played, false if it was already active.</returns>
-	public bool CrossFadeAndWait(int _hash, float _fadeDuration, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
+	public bool CrossFadeAndWait(int _hash, float _fadeDuration = 0.3f, int _layer = 0, float _offset = Mathf.NegativeInfinity, float _additionalWait = 0.0f, Action onAnimationEnds = null)
 	{
 		if(IsActive(_hash, _layer)) return false;
 

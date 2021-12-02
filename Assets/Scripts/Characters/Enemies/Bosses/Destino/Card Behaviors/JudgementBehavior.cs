@@ -81,12 +81,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[SerializeField] private FloatRange _trashProjectileCooldown; 					/// <summary>Cooldown duration's range per trash Projectile.</summary>
 	[SerializeField] private FloatRange _mateoPositionProjection; 					/// <summary>Range of Mateo's Time Projection.</summary>
 	[SerializeField] private float _trashProjectileTime; 							/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
-#if UNITY_EDITOR
-	[Space(5f)]
-	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 									/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 									/// <summary>Gizmos' Radius.</summary>
-#endif
 
 #region Getters/Setters:
 	/// <summary>Gets fireShowPieceIndex property.</summary>

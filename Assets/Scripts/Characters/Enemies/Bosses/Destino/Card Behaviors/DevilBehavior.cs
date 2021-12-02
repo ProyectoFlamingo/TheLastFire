@@ -33,12 +33,6 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _towerShakeMagnitude; 				/// <summary>Towers' Shake Megnitude.</summary>
 	[SerializeField] private float _towerHP; 							/// <summary>Towers' starting HP.</summary>
 	[SerializeField] private float _ceilingHP; 							/// <summary>Ceiling's HP.</summary>
-#if UNITY_EDITOR
-	[Space(5f)]
-	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 						/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 						/// <summary>Gizmos' Radius.</summary>
-#endif
 
 	/// <summary>Gets arrowProjectileIndex property.</summary>
 	public CollectionIndex arrowProjectileIndex { get { return _arrowProjectileIndex; } }

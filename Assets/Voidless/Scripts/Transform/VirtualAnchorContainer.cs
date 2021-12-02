@@ -5,9 +5,11 @@ using UnityEngine;
 
 namespace Voidless
 {
+[Serializable] public class TransformVector3VTuple : VTuple<Transform, Vector3> { /*...*/ }
+
 public class VirtualAnchorContainer : MonoBehaviour
 {
-	[SerializeField] private Vector3[] _anchors; 	/// <summary>Virtual anchors.</summary>
+	[SerializeField] private TransformVector3VTuple[] _anchors; 	/// <summary>Virtual anchors.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
@@ -16,7 +18,7 @@ public class VirtualAnchorContainer : MonoBehaviour
 #endif
 
 	/// <summary>Gets and Sets anchors property.</summary>
-	public Vector3[] anchors
+	public TransformVector3VTuple[] anchors
 	{
 		get { return _anchors; }
 		set { _anchors = value; }
@@ -51,16 +53,29 @@ public class VirtualAnchorContainer : MonoBehaviour
 	/// <returns>Virtual Anchor.</returns>
 	public Vector3 GetAnchoredPosition(int index = 0)
 	{
-		return (anchors != null) ? transform.TransformPoint(anchors[index]) : transform.position;
+		if(anchors == null) return transform.position;
+
+		index = Mathf.Clamp(index, 0, anchors.Length - 1);
+
+		TransformVector3VTuple tuple = anchors[index];
+		Transform relativeTo = tuple.Item1 == null ? transform : tuple.Item1;
+		return relativeTo.TransformPoint(tuple.Item2);
 	}
 
 	/// <summary>Gets anchor position relative to another position.</summary>
 	/// <param name="position">Relative position.</param>
 	/// <param name="index">Anchor's Index [0 by default].</param>
-	/// <returns>Anchored position relative to another position.</returns>
+	/// <returns>Anchored position relative to anothe0r position.</returns>
 	public Vector3 GetAnchoredPosition(Vector3 position, int index = 0)
 	{
-		return position - (transform.rotation * anchors[index]);
+		if(anchors == null) return transform.position;
+
+		index = Mathf.Clamp(index, 0, anchors.Length - 1);
+
+		TransformVector3VTuple tuple = anchors[index];
+		Transform relativeTo = tuple.Item1 == null ? transform : tuple.Item1;
+		
+		return position - GetAnchoredPosition(index);
 	}
 
 	/// <summary>Sets position relative to virtual anchor.</summary>

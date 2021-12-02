@@ -20,8 +20,8 @@ public static class IDs
 #endregion
 
 #region AnimationEventsIDS:
-	public const int ANIMATIONEVENT_ACTIVATEHITBOXES = 0; 		/// <summary>Activate Hit-Boxes' Event's ID.</summary>
-	public const int ANIMATIONEVENT_DEACTIVATEHITBOXES = 1; 	/// <summary>Deactivate Hit-Boxes' Event's ID.</summary>
+	public const int ANIMATIONEVENT_DEACTIVATEHITBOXES = 0; 	/// <summary>Deactivate Hit-Boxes' Event's ID.</summary>
+	public const int ANIMATIONEVENT_ACTIVATEHITBOXES = 1; 		/// <summary>Activate Hit-Boxes' Event's ID.</summary>
 	public const int ANIMATIONEVENT_WEAPON_UNSHEATH = 2; 		/// <summary>Weapon Un-Sheath's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_WEAPON_SHEATH = 3; 			/// <summary>Weapon Sheath's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_GOIDLE = 4; 				/// <summary>Go Idle's Animation Event's ID.</summary>
