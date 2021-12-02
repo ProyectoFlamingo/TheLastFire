@@ -4294,7 +4294,7 @@ MonoBehaviour:
   _exitCredential:
     _tag: Exit
     _ID: 876292912
-  _buildUpMaxSpeed: 10
+  _buildUpMaxSpeed: 20
   _buildUpMaxSteeringForce: 0.75
   _swingMaxSpeed: 65
   _swingMaxSteeringForce: 0.75
@@ -4309,6 +4309,7 @@ MonoBehaviour:
     index: 2
     objectIndex: 0
     collectionIndex: 6
+  _sourceIndex: 0
 --- !u!1001 &923346186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10977,6 +10978,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 8061950132634171762, guid: c9c857279d141cb4eb947c325f96b93b,
+        type: 3}
+      propertyPath: color.b
+      value: 0.30980393
+      objectReference: {fileID: 0}
     - target: {fileID: 8317990646176619689, guid: c9c857279d141cb4eb947c325f96b93b,
         type: 3}
       propertyPath: m_Name
@@ -11150,7 +11156,7 @@ PrefabInstance:
     - target: {fileID: 8552743842173861803, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8985396009874189859, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}

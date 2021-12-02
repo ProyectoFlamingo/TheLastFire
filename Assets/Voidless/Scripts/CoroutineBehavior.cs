@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Voidless
 {
@@ -14,9 +15,9 @@ public abstract class CoroutineBehavior<T> : MonoBehaviour
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] public bool drawGizmos; 		/// <summary>Draw Gizmos?.</summary>
-	[SerializeField] public Color gizmosColor; 		/// <summary>Gizmos' Color.</summary>
-	[SerializeField] public float gizmosRadius; 	/// <summary>Gizmos' Radius.</summary>	
+	[TabGroup("Gizmos")][SerializeField] public bool drawGizmos; 		/// <summary>Draw Gizmos?.</summary>
+	[TabGroup("Gizmos")][SerializeField] public Color gizmosColor; 		/// <summary>Gizmos' Color.</summary>
+	[TabGroup("Gizmos")][SerializeField] public float gizmosRadius; 	/// <summary>Gizmos' Radius.</summary>	
 //#endif
 
 	/// <summary>Draws Gizmos [if drawGizmos' flag is turned on].</summary>

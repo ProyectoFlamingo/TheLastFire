@@ -11,10 +11,10 @@ namespace Flamingo
 {
 public class StrengthBehavior : DestinoScriptableCoroutine
 {
-	[SerializeField] private ContactWeapon _leftDrumstick; 						/// <summary>Left Drumstick's renderer.</summary>
-	[SerializeField] private ContactWeapon _rightDrumstick; 					/// <summary>Right Drumstick's renderer.</summary>
-	[SerializeField] private ContactWeapon _trumpet; 							/// <summary>Trumpet's reference.</summary>
-	[SerializeField] private ContactWeapon _cymbals; 							/// <summary>Cymbals' Reference.</summary>
+	[SerializeField] private AIContactWeapon _leftDrumstick; 					/// <summary>Left Drumstick's renderer.</summary>
+	[SerializeField] private AIContactWeapon _rightDrumstick; 					/// <summary>Right Drumstick's renderer.</summary>
+	[SerializeField] private AIContactWeapon _trumpet; 							/// <summary>Trumpet's reference.</summary>
+	[SerializeField] private AIContactWeapon _cymbals; 							/// <summary>Cymbals' Reference.</summary>
 	[Space(5f)]
 	[SerializeField] private IntRange _setSizeRange; 							/// <summary>Set Size's Range.</summary>
 	[Space(5f)]
@@ -65,37 +65,35 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
 	[SerializeField] private Vector2 gizmosTextOffset; 							/// <summary>Gizmos' Text Offset.</summary>
-	//[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
 	[SerializeField] private Color buildUpColor; 								/// <summary>Build-Up's Color.</summary>
 	[SerializeField] private Color swingColor; 									/// <summary>Swing's Color.</summary>
-	//[SerializeField] private float gizmosRadius; 								/// <summary>Gizmos' Radius.</summary>
 	[SerializeField] private float gizmosRayLength; 							/// <summary>Gizmos' Ray Length.</summary>
 #endif
 
 #region Getters:
 	/// <summary>Gets and Sets leftDrumstick property.</summary>
-	public ContactWeapon leftDrumstick
+	public AIContactWeapon leftDrumstick
 	{
 		get { return _leftDrumstick; }
 		set { _leftDrumstick = value; }
 	}
 
 	/// <summary>Gets and Sets rightDrumstick property.</summary>
-	public ContactWeapon rightDrumstick
+	public AIContactWeapon rightDrumstick
 	{
 		get { return _rightDrumstick; }
 		set { _rightDrumstick = value; }
 	}
 
 	/// <summary>Gets and Sets trumpet property.</summary>
-	public ContactWeapon trumpet
+	public AIContactWeapon trumpet
 	{
 		get { return _trumpet; }
 		set { _trumpet = value; }
 	}
 
 	/// <summary>Gets and Sets cymbals property.</summary>
-	public ContactWeapon cymbals
+	public AIContactWeapon cymbals
 	{
 		get { return _cymbals; }
 		set { _cymbals = value; }
@@ -310,11 +308,11 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 				break;
 
 				case RotationEvent.BuildingUp:
-				leftDrumstick.ActivateHitBoxes(false);
+				leftDrumstick.weapon.ActivateHitBoxes(false);
 				break;
 
 				case RotationEvent.Swinging:
-				leftDrumstick.ActivateHitBoxes(true);
+				leftDrumstick.weapon.ActivateHitBoxes(true);
 				break;
 
 				case RotationEvent.SwingEnds:
@@ -333,11 +331,11 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 				break;
 
 				case RotationEvent.BuildingUp:
-				rightDrumstick.ActivateHitBoxes(false);
+				rightDrumstick.weapon.ActivateHitBoxes(false);
 				break;
 
 				case RotationEvent.Swinging:
-				rightDrumstick.ActivateHitBoxes(true);
+				rightDrumstick.weapon.ActivateHitBoxes(true);
 				break;
 
 				case RotationEvent.SwingEnds:
@@ -387,8 +385,8 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 		drumstickAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		drumstickAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;
-		rightDrumstick.ActivateHitBoxes(true);
-		leftDrumstick.ActivateHitBoxes(true);
+		rightDrumstick.weapon.ActivateHitBoxes(true);
+		leftDrumstick.weapon.ActivateHitBoxes(true);
 
 		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 		while(wait.MoveNext()) yield return null;
@@ -486,7 +484,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		float inverseDuration = 1.0f / entranceDuration;
 		bool trumpetAttackFinished = false;
 		trumpet.SetActive(true);
-		trumpet.ActivateHitBoxes(false);
+		trumpet.weapon.ActivateHitBoxes(false);
 		OnAnimationAttackEvent onAnimationAttackEvent = (_state)=>
 		{
 			switch(_state)
@@ -496,14 +494,14 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 				break;
 
 				case AnimationCommandState.Active:
-				trumpet.ActivateHitBoxes(true);
+				trumpet.weapon.ActivateHitBoxes(true);
 				break;
 
 				case AnimationCommandState.Recovery:
 				break;
 
 				case AnimationCommandState.End:
-				trumpet.ActivateHitBoxes(false);
+				trumpet.weapon.ActivateHitBoxes(false);
 				trumpetAttackFinished = true;
 				break;
 			}
@@ -512,7 +510,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		boss.animatorController.CrossFade(boss.lalaCredential, boss.clipFadeDuration);
 		/*trumpetAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		trumpetAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;*/
-		trumpet.ActivateHitBoxes(true);
+		trumpet.weapon.ActivateHitBoxes(true);
 
 		wait.ChangeDurationAndReset(clip.length);
 		while(wait.MoveNext()) yield return null;
@@ -558,12 +556,12 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		trumpet.transform.position = destinyPoint;
 		t = 1.0f;
 		inverseDuration = 1.0f / exitDuration;
-		trumpet.ActivateHitBoxes(true);
+		trumpet.weapon.ActivateHitBoxes(true);
 
 		trumpet.StartCoroutine(trumpet.transform.ShakePosition(trumpetShakeDuration, trumpetShakeSpeed, trumpetShakeMagnitude));
 		while(wait.MoveNext()) yield return null;
 
-		trumpet.ActivateHitBoxes(false);
+		trumpet.weapon.ActivateHitBoxes(false);
 
 		while(t > 0.0f)
 		{
@@ -597,21 +595,21 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			{
 				case AnimationCommandState.Startup:
 				cymbals.gameObject.SetActive(true);
-				cymbals.ActivateHitBoxes(false);
+				cymbals.weapon.ActivateHitBoxes(false);
 				//AudioController.PlayOneShot(SourceType.SFX, 1, cymbalSoundIndex);
 				break;
 
 				case AnimationCommandState.Active:
-				cymbals.ActivateHitBoxes(true);
+				cymbals.weapon.ActivateHitBoxes(true);
 				break;
 
 				case AnimationCommandState.Recovery:
-				cymbals.ActivateHitBoxes(false);
+				cymbals.weapon.ActivateHitBoxes(false);
 				break;
 
 				case AnimationCommandState.End:
 				cymbals.gameObject.SetActive(false);
-				cymbals.ActivateHitBoxes(false);
+				cymbals.weapon.ActivateHitBoxes(false);
 				cymbalAttackEnded = true;
 				break;
 			}
@@ -620,7 +618,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		boss.animatorController.CrossFade(boss.lalaCredential, boss.clipFadeDuration);
 		/*cymbalsAttacksHandler.onAnimationAttackEvent -= onAnimationAttackEvent;
 		cymbalsAttacksHandler.onAnimationAttackEvent += onAnimationAttackEvent;*/
-		cymbals.ActivateHitBoxes(true);
+		cymbals.weapon.ActivateHitBoxes(true);
 
 		cymbals.gameObject.SetActive(true);
 		//cymbals.transform.position = cymbalsSpawnPosition;

@@ -3,47 +3,49 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
-	[SerializeField] private AIContactWeapon _scythe; 								/// <summary>Scythe's AIContactWeapon's Component.</summary>
+	[TabGroup("Scythe")][SerializeField] private AIContactWeapon _scythe; 								/// <summary>Scythe's AIContactWeapon's Component.</summary>
 	[Space(5f)]
 	[Header("Rotations:")]
-	[SerializeField] private EulerRotation _leftRotation; 							/// <summary>Left's Rotation.</summary>
-	[SerializeField] private EulerRotation _rightRotation; 							/// <summary>Right's Rotation.</summary>
-	[SerializeField] private float _rotationSpeed; 									/// <summary>Scythe's Rotation Speed.</summary>
+	[TabGroup("Scythe")][SerializeField] private EulerRotation _leftRotation; 							/// <summary>Left's Rotation.</summary>
+	[TabGroup("Scythe")][SerializeField] private EulerRotation _rightRotation; 							/// <summary>Right's Rotation.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _rotationSpeed; 									/// <summary>Scythe's Rotation Speed.</summary>
 	[Space(5f)]
 	[Header("Interpolations")]
-	[SerializeField] private Vector3 _spawnPosition; 								/// <summary>Scythe's Spawn Position.</summary>
-	[SerializeField] private Vector3 _entrancePosition; 							/// <summary>Scythe's Entrance Position.</summary>
-	[SerializeField] private float _interpolationDuration; 							/// <summary>Interpolation's Duration.</summary>
+	[TabGroup("Scythe")][SerializeField] private Vector3 _spawnPosition; 								/// <summary>Scythe's Spawn Position.</summary>
+	[TabGroup("Scythe")][SerializeField] private Vector3 _entrancePosition; 							/// <summary>Scythe's Entrance Position.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _interpolationDuration; 							/// <summary>Interpolation's Duration.</summary>
 	[Space(5f)]
 	[Header("Scythe's Animations' Credentials:")]
-	[SerializeField] private AnimatorCredential _entranceCredential; 				/// <summary>Scythe's Entrance AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _stage1AttackCredential; 			/// <summary>Stage 1's Scythe's Attack AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _stage2AttackCredential; 			/// <summary>Stage 2's Scythe's Attack AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _stage3AttackCredential; 			/// <summary>Stage 3's Scythe's Attack AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _exitCredential; 					/// <summary>Scythe's Exit AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _entranceCredential; 			/// <summary>Scythe's Entrance AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _stage1AttackCredential; 		/// <summary>Stage 1's Scythe's Attack AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _stage2AttackCredential; 		/// <summary>Stage 2's Scythe's Attack AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _stage3AttackCredential; 		/// <summary>Stage 3's Scythe's Attack AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _exitCredential; 				/// <summary>Scythe's Exit AnimatorCredential.</summary>
 	[Space(5f)]
 	[Header("Scythe's Steering Attributes:")]
-	[SerializeField] private float _buildUpMaxSpeed; 								/// <summary>Scythe's Max Speed.</summary>
-	[SerializeField] private float _buildUpMaxSteeringForce; 						/// <summary>Scythe's Max Steering Force.</summary>
-	[SerializeField] private float _swingMaxSpeed; 									/// <summary>Scythe's Max Speed.</summary>
-	[SerializeField] private float _swingMaxSteeringForce; 							/// <summary>Scythe's Max Steering Force.</summary>
-	[SerializeField] private float _arrivalRadius; 									/// <summary>Steering Arrival's Radius.</summary>
-	[SerializeField] private float _maxSpeedScalar; 								/// <summary>Maximum's Speed's Scalar [it goes up as the stage goes up].</summary>
-	[SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
+	[TabGroup("Scythe")][SerializeField] private float _buildUpMaxSpeed; 								/// <summary>Scythe's Max Speed.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _buildUpMaxSteeringForce; 						/// <summary>Scythe's Max Steering Force.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _swingMaxSpeed; 									/// <summary>Scythe's Max Speed.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _swingMaxSteeringForce; 							/// <summary>Scythe's Max Steering Force.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _arrivalRadius; 									/// <summary>Steering Arrival's Radius.</summary>
+	[TabGroup("Scythe")][SerializeField] private float _maxSpeedScalar; 								/// <summary>Maximum's Speed's Scalar [it goes up as the stage goes up].</summary>
+	[TabGroup("Scythe")][SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
 	[Space(5f)]
 	[Header("Sound Effects::")]
-	[SerializeField] private CollectionIndex _buildUpSoundIndex; 					/// <summary>Build-Up's Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _swingSoundIndex; 						/// <summary>Swing's Sound's Index.</summary>
-	private AnimationEventInvoker _animationsEventInvoker; 							/// <summary>AnimationsEventInvoker's Component.</summary>
-	private Coroutine scytheRotation; 												/// <summary>Scythe's Rotation Coroutine Reference.</summary>
-	private AnimationCommandState _state; 											/// <summary>Scythe's Attack Animation's State.</summary>
-	private AnimationCommandState _previousState; 									/// <summary>Previous Scythe's Attack Animation's State.</summary>
+	[SerializeField] private CollectionIndex _buildUpSoundIndex; 										/// <summary>Build-Up's Sound's Index.</summary>
+	[SerializeField] private CollectionIndex _swingSoundIndex; 											/// <summary>Swing's Sound's Index.</summary>
+	[SerializeField] private int _sourceIndex; 															/// <summary>Sound Effects' Source Index.</summary>
+	private AnimationEventInvoker _animationsEventInvoker; 												/// <summary>AnimationsEventInvoker's Component.</summary>
+	private Coroutine scytheRotation; 																	/// <summary>Scythe's Rotation Coroutine Reference.</summary>
+	private AnimationCommandState _state; 																/// <summary>Scythe's Attack Animation's State.</summary>
+	private AnimationCommandState _previousState; 														/// <summary>Previous Scythe's Attack Animation's State.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets scythe property.</summary>
@@ -109,6 +111,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets swingSoundIndex property.</summary>
 	public CollectionIndex swingSoundIndex { get { return _swingSoundIndex; } }
 
+	/// <summary>Gets sourceIndex property.</summary>
+	public int sourceIndex { get { return _sourceIndex; } }
+
 	/// <summary>Gets and Sets state property.</summary>
 	public AnimationCommandState state
 	{
@@ -150,6 +155,8 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		state = AnimationCommandState.None;
 	}
 
+	/// <summary>Rotates scythe towards mateo.</summary>
+	/// <param name="s">Stage's scalar.</param>
 	private void RotateScythe(float s)
 	{
 		float dX = Game.mateo.transform.position.x - scythe.transform.position.x;
@@ -162,18 +169,23 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	{
 		switch(_ID)
 		{
-			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
-			state = AnimationCommandState.Active;
-			scythe.vehicle.maxSpeed = swingMaxSpeed;
-			scythe.vehicle.maxForce = swingMaxSteeringForce;
-			scythe.weapon.ActivateHitBoxes(true);
-			break;
-
 			case IDs.ANIMATIONEVENT_DEACTIVATEHITBOXES:
 			state = state == AnimationCommandState.Active ? AnimationCommandState.Recovery : AnimationCommandState.Startup;
 			scythe.vehicle.maxSpeed = buildUpMaxSpeed;
 			scythe.vehicle.maxForce = buildUpMaxSteeringForce;
 			scythe.weapon.ActivateHitBoxes(false);
+			break;
+			
+			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
+			state = AnimationCommandState.Active;
+			scythe.vehicle.maxSpeed = swingMaxSpeed;
+			scythe.vehicle.maxForce = swingMaxSteeringForce;
+			scythe.weapon.ActivateHitBoxes(true);
+			AudioController.PlayOneShot(SourceType.Scenario, sourceIndex, swingSoundIndex);
+			break;
+
+			case IDs.ANIMATIONEVENT_EMITSOUND_0:
+			AudioController.PlayOneShot(SourceType.Scenario, sourceIndex, buildUpSoundIndex);
 			break;
 		}
 	}
@@ -208,6 +220,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 		state = AnimationCommandState.None;
 		scythe.transform.position = spawnPosition;
+		scythe.vehicle.ResetVelocity();
 		scythe.gameObject.SetActive(true);
 		scythe.animatorController.CrossFade(entranceCredential);
 
@@ -230,6 +243,8 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		InvokeCoroutineEnd();
 	}
 
+	/// <summary>Interpolates towards given point.</summary>
+	/// <param name="_point">Desired point.</param>
 	private IEnumerator GoTowards(Vector3 _point)
 	{
 		Vector3 originalPosition = scythe.transform.position;
@@ -246,6 +261,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		scythe.transform.position = _point;
 	}
 
+	/// <summary>Mateo Chase's Routine.</summary>
+	/// <param name="boss">Destino's Reference.</param>
+	/// <param name="animationHash">Attack Animation's Hash to use.</param>
 	private IEnumerator ChasingRoutine(DestinoBoss boss, int _animationHash)
 	{
 		float t = boss.stageScale;

@@ -356,30 +356,23 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: InvokeAnimationAttackEvent
+    functionName: InvokeIntActions
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5833333
+    functionName: InvokeIntActions
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 1
     messageOptions: 0
-  - time: 0.5833333
-    functionName: InvokeAnimationAttackEvent
+  - time: 1.45
+    functionName: InvokeIntActions
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 2
-    messageOptions: 0
-  - time: 0.81666666
-    functionName: EmitSoundEffect
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 32
-    messageOptions: 0
-  - time: 1.75
-    functionName: InvokeAnimationAttackEvent
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 4
+    intParameter: 0
     messageOptions: 0

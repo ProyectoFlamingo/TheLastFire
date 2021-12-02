@@ -104,6 +104,9 @@ public class SteeringVehicle2D : MonoBehaviour
 	/// <returns>Vehicle's Velocity.</returns>
 	public Vector2 GetVelocity() { return velocity; }
 
+	/// <summary>Resets Velocity.</summary>
+	public void ResetVelocity() { velocity = Vector2.zero; }
+
 	/// <returns>Vehicle's Wander Angle.</returns>
 	public float GetWanderAngle() { return wanderAngle; }
 

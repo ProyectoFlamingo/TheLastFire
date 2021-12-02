@@ -24,13 +24,16 @@ public static class IDs
 	public const int ANIMATIONEVENT_ACTIVATEHITBOXES = 1; 		/// <summary>Activate Hit-Boxes' Event's ID.</summary>
 	public const int ANIMATIONEVENT_WEAPON_UNSHEATH = 2; 		/// <summary>Weapon Un-Sheath's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_WEAPON_SHEATH = 3; 			/// <summary>Weapon Sheath's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_GOIDLE = 4; 				/// <summary>Go Idle's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_JUMP = 5; 					/// <summary>Jump's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_PICKBOMB = 6; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWBOMB = 7; 				/// <summary>Throw Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_PICKTNT = 8; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWTNT = 9; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_REPELBOMB = 10; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_EMITSOUND_0 = 4; 			/// <summary>Emit Sound with Sub-index argument 0.</summary>
+	public const int ANIMATIONEVENT_EMITSOUND_1 = 5; 			/// <summary>Emit Sound with Sub-index argument 1.</summary>
+	public const int ANIMATIONEVENT_EMITSOUND_2 = 6; 			/// <summary>Emit Sound with Sub-index argument 2.</summary>
+	public const int ANIMATIONEVENT_GOIDLE = 7; 				/// <summary>Go Idle's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_JUMP = 8; 					/// <summary>Jump's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKBOMB = 9; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWBOMB = 10; 			/// <summary>Throw Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKTNT = 11; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWTNT = 12; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_REPELBOMB = 13; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
 #endregion
 
 #region StateFlagsIDs:
