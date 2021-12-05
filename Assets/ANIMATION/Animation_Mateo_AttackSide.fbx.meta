@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e6f3abf7bc9520b4ea9018316c12687c
+guid: 7436ac14ab2d8704f8db158722e17349
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Animation_AttackSide_Mateo
+    second: Animation_Mateo_AttackSide
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,18 +19,15 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'L_leg_jnt_1'
-      : position error = 1.484651 mm\n\t'R_leg_jnt_1' : position error = 1.752644
-      mm\nCopied Avatar Rig Configuration mis-match. Inbetween bone rotation in copied
-      configuration does not match rotation in animation file:\n\t'L_leg_jnt_2' :
-      rotation error = 16.535275 deg\n\t'L_leg_jnt_3' : rotation error = 16.535273
-      deg\n\t'L_leg_jnt_4' : rotation error = 16.410976 deg\n\t'L_knee_jnt_2' : rotation
-      error = 3.344067 deg\n\t'L_knee_jnt_3' : rotation error = 3.216078 deg\n\t'L_knee_jnt_4'
-      : rotation error = 3.142005 deg\n\t'R_leg_jnt_2' : rotation error = 3.544435
-      deg\n\t'R_leg_jnt_3' : rotation error = 3.689357 deg\n\t'R_leg_jnt_4' : rotation
-      error = 3.767108 deg\n\t'R_knee_jnt_2' : rotation error = 0.157829 deg\n\t'R_knee_jnt_3'
-      : rotation error = 0.158327 deg\n\t'R_knee_jnt_4' : rotation error = 0.159315
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
+      rotation in copied configuration does not match rotation in animation file:\n\t'L_leg_jnt_2'
+      : rotation error = 16.329191 deg\n\t'L_leg_jnt_3' : rotation error = 16.329193
+      deg\n\t'L_leg_jnt_4' : rotation error = 16.205128 deg\n\t'L_knee_jnt_2' : rotation
+      error = 3.165454 deg\n\t'L_knee_jnt_3' : rotation error = 3.043566 deg\n\t'L_knee_jnt_4'
+      : rotation error = 2.972532 deg\n\t'R_leg_jnt_2' : rotation error = 15.341134
+      deg\n\t'R_leg_jnt_3' : rotation error = 15.196212 deg\n\t'R_leg_jnt_4' : rotation
+      error = 15.218276 deg\n\t'R_knee_jnt_2' : rotation error = 19.470739 deg\n\t'R_knee_jnt_3'
+      : rotation error = 19.318497 deg\n\t'R_knee_jnt_4' : rotation error = 19.266100
       deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -77,11 +74,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Animation_AttackSide_Mateo
+      name: Animation_Mateo_AttackSide
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 6.1
+      lastFrame: 45
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -91,7 +88,7 @@ ModelImporter:
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1

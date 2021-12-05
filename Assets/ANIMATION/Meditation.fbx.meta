@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e6f3abf7bc9520b4ea9018316c12687c
+guid: 985ad3ab06be88e40bed64aae533e482
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Animation_AttackSide_Mateo
+    second: Meditation
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,18 +19,15 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
-      copied configuration does not match position in animation file:\n\t'L_leg_jnt_1'
-      : position error = 1.484651 mm\n\t'R_leg_jnt_1' : position error = 1.752644
-      mm\nCopied Avatar Rig Configuration mis-match. Inbetween bone rotation in copied
-      configuration does not match rotation in animation file:\n\t'L_leg_jnt_2' :
-      rotation error = 16.535275 deg\n\t'L_leg_jnt_3' : rotation error = 16.535273
-      deg\n\t'L_leg_jnt_4' : rotation error = 16.410976 deg\n\t'L_knee_jnt_2' : rotation
-      error = 3.344067 deg\n\t'L_knee_jnt_3' : rotation error = 3.216078 deg\n\t'L_knee_jnt_4'
-      : rotation error = 3.142005 deg\n\t'R_leg_jnt_2' : rotation error = 3.544435
-      deg\n\t'R_leg_jnt_3' : rotation error = 3.689357 deg\n\t'R_leg_jnt_4' : rotation
-      error = 3.767108 deg\n\t'R_knee_jnt_2' : rotation error = 0.157829 deg\n\t'R_knee_jnt_3'
-      : rotation error = 0.158327 deg\n\t'R_knee_jnt_4' : rotation error = 0.159315
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
+      rotation in copied configuration does not match rotation in animation file:\n\t'L_leg_jnt_2'
+      : rotation error = 22.986027 deg\n\t'L_leg_jnt_3' : rotation error = 22.986029
+      deg\n\t'L_leg_jnt_4' : rotation error = 22.856533 deg\n\t'L_knee_jnt_2' : rotation
+      error = 0.478282 deg\n\t'L_knee_jnt_3' : rotation error = 0.387374 deg\n\t'L_knee_jnt_4'
+      : rotation error = 0.409157 deg\n\t'R_leg_jnt_2' : rotation error = 25.756294
+      deg\n\t'R_leg_jnt_3' : rotation error = 25.611370 deg\n\t'R_leg_jnt_4' : rotation
+      error = 25.625360 deg\n\t'R_knee_jnt_2' : rotation error = 1.814622 deg\n\t'R_knee_jnt_3'
+      : rotation error = 1.361076 deg\n\t'R_knee_jnt_4' : rotation error = 1.423908
       deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -38,28 +35,52 @@ ModelImporter:
       to improve retargeting quality.\n\t'M_spine02_jnt' has translation animation
       that will be discarded.\n\t'M_spine03_jnt' has translation animation that will
       be discarded.\n\t'M_chest_jnt' has translation animation that will be discarded.\n\t'L_arm_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_arm_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_arm_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_arm_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_arm_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_arm_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_1'
-      has translation animation that will be discarded.\n\t'L_leg_jnt_2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_1'
-      has translation animation that will be discarded.\n\t'R_leg_jnt_2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_4'
+      has translation animation that will be discarded.\n\t'L_arm_jnt_2' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'L_arm_jnt_3'
+      has translation animation that will be discarded.\n\t'L_arm_jnt_3' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'L_arm_jnt_4'
+      has translation animation that will be discarded.\n\t'L_arm_jnt_4' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt'
+      has translation animation that will be discarded.\n\t'L_forarm_jnt_2' has translation
+      animation that will be discarded.\n\t'L_forarm_jnt_2' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt_3'
+      has translation animation that will be discarded.\n\t'L_forarm_jnt_3' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'L_forarm_jnt_4'
+      has translation animation that will be discarded.\n\t'L_forarm_jnt_4' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'L_hand_jnt'
+      has translation animation that will be discarded.\n\t'R_arm_jnt_2' has translation
+      animation that will be discarded.\n\t'R_arm_jnt_2' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'R_arm_jnt_3' has translation
+      animation that will be discarded.\n\t'R_arm_jnt_3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'R_arm_jnt_4' has translation
+      animation that will be discarded.\n\t'R_arm_jnt_4' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'R_forarm_jnt_1' has
+      translation animation that will be discarded.\n\t'R_forarm_jnt_2' has translation
+      animation that will be discarded.\n\t'R_forarm_jnt_2' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_3'
+      has translation animation that will be discarded.\n\t'R_forarm_jnt_3' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_4'
+      has translation animation that will be discarded.\n\t'R_forarm_jnt_4' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'R_hand_jnt'
+      has translation animation that will be discarded.\n\t'L_leg_jnt_1' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_2' has translation animation
+      that will be discarded.\n\t'L_leg_jnt_2' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\t'L_leg_jnt_3' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_leg_jnt_4' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_4' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_1' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_2' has translation animation
+      that will be discarded.\n\t'L_knee_jnt_2' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_3' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_4' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_4' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_ankle_jnt' has translation
+      animation that will be discarded.\n\t'R_leg_jnt_1' has translation animation
+      that will be discarded.\n\t'R_leg_jnt_2' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\t'R_leg_jnt_3' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_4'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_2'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_3'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_4'
@@ -77,11 +98,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Animation_AttackSide_Mateo
+      name: Meditation
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 6.1
+      firstFrame: 1
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -93,7 +114,7 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
@@ -104,7 +125,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 0.96
     isReadable: 0
   meshes:
     lODScreenPercentages: []

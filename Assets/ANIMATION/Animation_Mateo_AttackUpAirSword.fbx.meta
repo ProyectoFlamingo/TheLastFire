@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: e6f3abf7bc9520b4ea9018316c12687c
+guid: ad721949068b1c74b99bd5ab551f3574
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Animation_AttackSide_Mateo
+    second: Take 001
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -21,17 +21,21 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
       copied configuration does not match position in animation file:\n\t'L_leg_jnt_1'
-      : position error = 1.484651 mm\n\t'R_leg_jnt_1' : position error = 1.752644
-      mm\nCopied Avatar Rig Configuration mis-match. Inbetween bone rotation in copied
-      configuration does not match rotation in animation file:\n\t'L_leg_jnt_2' :
-      rotation error = 16.535275 deg\n\t'L_leg_jnt_3' : rotation error = 16.535273
-      deg\n\t'L_leg_jnt_4' : rotation error = 16.410976 deg\n\t'L_knee_jnt_2' : rotation
-      error = 3.344067 deg\n\t'L_knee_jnt_3' : rotation error = 3.216078 deg\n\t'L_knee_jnt_4'
-      : rotation error = 3.142005 deg\n\t'R_leg_jnt_2' : rotation error = 3.544435
-      deg\n\t'R_leg_jnt_3' : rotation error = 3.689357 deg\n\t'R_leg_jnt_4' : rotation
-      error = 3.767108 deg\n\t'R_knee_jnt_2' : rotation error = 0.157829 deg\n\t'R_knee_jnt_3'
-      : rotation error = 0.158327 deg\n\t'R_knee_jnt_4' : rotation error = 0.159315
-      deg\n"
+      : position error = 1.652395 mm\n\t'L_leg_jnt_2' : position error = 32.142082
+      mm\n\t'L_leg_jnt_3' : position error = 32.142082 mm\n\t'L_leg_jnt_4' : position
+      error = 32.142101 mm\n\t'L_knee_jnt_1' : position error = 32.140606 mm\n\t'L_knee_jnt_2'
+      : position error = 44.478092 mm\n\t'L_knee_jnt_3' : position error = 44.478092
+      mm\n\t'L_knee_jnt_4' : position error = 44.478092 mm\n\t'L_ankle_jnt' : position
+      error = 44.478020 mm\n\t'R_leg_jnt_1' : position error = 1.700548 mm\nCopied
+      Avatar Rig Configuration mis-match. Inbetween bone rotation in copied configuration
+      does not match rotation in animation file:\n\t'L_leg_jnt_2' : rotation error
+      = 0.928130 deg\n\t'L_leg_jnt_3' : rotation error = 0.933064 deg\n\t'L_leg_jnt_4'
+      : rotation error = 1.113303 deg\n\t'L_knee_jnt_2' : rotation error = 3.885405
+      deg\n\t'L_knee_jnt_3' : rotation error = 3.911828 deg\n\t'L_knee_jnt_4' : rotation
+      error = 6.280439 deg\n\t'R_leg_jnt_2' : rotation error = 2.928720 deg\n\t'R_leg_jnt_3'
+      : rotation error = 3.073643 deg\n\t'R_leg_jnt_4' : rotation error = 3.167046
+      deg\n\t'R_knee_jnt_2' : rotation error = 3.021915 deg\n\t'R_knee_jnt_3' : rotation
+      error = 1.656304 deg\n\t'R_knee_jnt_4' : rotation error = 1.402495 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -50,16 +54,24 @@ ModelImporter:
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_3'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_forarm_jnt_4'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_1'
-      has translation animation that will be discarded.\n\t'L_leg_jnt_2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_leg_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_2'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'L_knee_jnt_4'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_1'
-      has translation animation that will be discarded.\n\t'R_leg_jnt_2' is inbetween
-      humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_3'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_4'
+      has translation animation that will be discarded.\n\t'L_leg_jnt_2' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_2' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_leg_jnt_3' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_leg_jnt_4' has translation
+      animation that will be discarded.\n\t'L_leg_jnt_4' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_1' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_2' has translation animation
+      that will be discarded.\n\t'L_knee_jnt_2' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_3' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_3' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_knee_jnt_4' has translation
+      animation that will be discarded.\n\t'L_knee_jnt_4' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n\t'L_ankle_jnt' has translation
+      animation that will be discarded.\n\t'R_leg_jnt_1' has translation animation
+      that will be discarded.\n\t'R_leg_jnt_2' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\t'R_leg_jnt_3' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n\t'R_leg_jnt_4'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_2'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_3'
       is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'R_knee_jnt_4'
@@ -77,11 +89,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Animation_AttackSide_Mateo
+      name: Take 001
       takeName: Take 001
       internalID: 0
       firstFrame: 0
-      lastFrame: 6.1
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
