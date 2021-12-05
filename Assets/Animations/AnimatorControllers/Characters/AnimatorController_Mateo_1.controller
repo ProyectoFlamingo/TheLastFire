@@ -858,21 +858,21 @@ BlendTree:
     m_Position: {x: 0, y: -0.105}
     m_TimeScale: 1
     m_CycleOffset: 0
-    m_DirectBlendParameter: LeftAxisX
+    m_DirectBlendParameter: LeftAxisY
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 17365395cfbebb742aa8708271e72de7, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0f2955c9491123948b07c8b2fa99c07d, type: 2}
     m_Threshold: 0
     m_Position: {x: 0.583, y: -0.013}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 17365395cfbebb742aa8708271e72de7, type: 2}
+    m_Motion: {fileID: 7400000, guid: 0f2955c9491123948b07c8b2fa99c07d, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: -0.524, y: 0.004}
-    m_TimeScale: 1
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -1974,26 +1974,42 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5d8a1b4b2de158a429354a9b2a71306b, type: 2}
+    m_Motion: {fileID: 7400000, guid: 5d27a8e1d6a821a4bae6d403cd7e90c9, type: 2}
     m_Threshold: 0
-    m_Position: {x: 0, y: 1}
-    m_TimeScale: 3
+    m_Position: {x: 0, y: 1.01}
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 7349b85e9ee5a7e41a36d4224d0d6282, type: 2}
-    m_Threshold: 0.33333334
+    m_Motion: {fileID: 7400000, guid: 7598a929c9b7a304088a3834592c8168, type: 2}
+    m_Threshold: 0.16666667
     m_Position: {x: 0, y: -1}
-    m_TimeScale: 3
+    m_TimeScale: 1.5
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 6465e378ad2c18f4cab5b7ed4f888ed5, type: 2}
-    m_Threshold: 0.6666667
+    m_Motion: {fileID: 7400000, guid: 7598a929c9b7a304088a3834592c8168, type: 2}
+    m_Threshold: 0.33333334
     m_Position: {x: 0, y: 0}
-    m_TimeScale: 3
+    m_TimeScale: 2
+    m_CycleOffset: 0
+    m_DirectBlendParameter: LeftAxisX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 7598a929c9b7a304088a3834592c8168, type: 2}
+    m_Threshold: 0.5
+    m_Position: {x: -1, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: LeftAxisX
+    m_Mirror: 0
+  - serializedVersion: 2
+    m_Motion: {fileID: 7400000, guid: 7598a929c9b7a304088a3834592c8168, type: 2}
+    m_Threshold: 0.6666667
+    m_Position: {x: 1, y: 0}
+    m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: LeftAxisX
     m_Mirror: 0
@@ -4268,6 +4284,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: a05527602629523438257bfa7cf91f8b, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &4304524791799454817
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Animation_AttackDown_Mateo
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 0}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
