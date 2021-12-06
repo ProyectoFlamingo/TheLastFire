@@ -74,8 +74,9 @@ public class VirtualAnchorContainer : MonoBehaviour
 
 		TransformVector3VTuple tuple = anchors[index];
 		Transform relativeTo = tuple.Item1 == null ? transform : tuple.Item1;
-		
-		return position - GetAnchoredPosition(index);
+		Vector3 scaledOffset = Vector3.Scale(relativeTo.localScale, tuple.Item2);
+
+		return position - (relativeTo.rotation * scaledOffset);
 	}
 
 	/// <summary>Sets position relative to virtual anchor.</summary>

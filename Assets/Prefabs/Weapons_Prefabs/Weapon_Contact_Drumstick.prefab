@@ -14,6 +14,12 @@ GameObject:
   - component: {fileID: 535627024}
   - component: {fileID: 550762283}
   - component: {fileID: 842091342409504321}
+  - component: {fileID: 7746811026697042149}
+  - component: {fileID: 1111001896701214586}
+  - component: {fileID: 5196496118720604717}
+  - component: {fileID: 9127657913774458152}
+  - component: {fileID: 5717391990654227665}
+  - component: {fileID: 1806107268895912583}
   m_Layer: 0
   m_Name: Weapon_Contact_Drumstick
   m_TagString: Untagged
@@ -50,12 +56,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _meshContainer: {fileID: 6259683345796673564}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags: []
   _trailRenderers: []
   _particleEffects: []
@@ -119,7 +124,105 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 1811553757467805715}
   debug: 0
+--- !u!114 &7746811026697042149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 1, y: 10, z: 1}
+  _centerOffset: {x: 0, y: 5, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1111001896701214586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors:
+  - Item1: {fileID: 0}
+    Item2: {x: 0, y: 0, z: 0}
+  - Item1: {fileID: 6743309738975685286}
+    Item2: {x: 0, y: 5, z: 0}
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.5
+--- !u!114 &5196496118720604717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fcc7d97e47d69e4cab3af0ac3223cc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxSpeed: 0
+  _maxForce: 0
+  _mass: 1
+  _offset: 0
+  _radius: 0
+  _angleChange: 0
+  color: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &9127657913774458152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d65901615f821e42890acdae783cac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weapon: {fileID: 1811553757467805715}
+  _animator: {fileID: 535627024}
+  _animatorController: {fileID: 1806107268895912583}
+  _animationsEventInvoker: {fileID: 5717391990654227665}
+--- !u!114 &5717391990654227665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f9cfc0b8c1b904ba71e57978632732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1806107268895912583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604c111f547837c448976f06f7f111f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4549603286287083014
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +250,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4549603286287083014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.75, z: 0}
+  m_LocalPosition: {x: 0, y: 9.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1811553757467805714}
@@ -219,7 +322,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: b7486f3caff1cfe4a975773a82b2110d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b7486f3caff1cfe4a975773a82b2110d,
         type: 3}
@@ -281,13 +384,29 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b7486f3caff1cfe4a975773a82b2110d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8216d39d9df742b449ebfc96f0748712, type: 2}
+    - target: {fileID: -7511558181221131132, guid: b7486f3caff1cfe4a975773a82b2110d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d1ae14db00240b348a43f17150a0424a, type: 2}
     - target: {fileID: 919132149155446097, guid: b7486f3caff1cfe4a975773a82b2110d,
         type: 3}
       propertyPath: m_Name
-      value: paleta
+      value: Mesh_Drumstick
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7486f3caff1cfe4a975773a82b2110d, type: 3}
+--- !u!1 &6259683345796673564 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b7486f3caff1cfe4a975773a82b2110d,
+    type: 3}
+  m_PrefabInstance: {fileID: 6494108231989628237}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6743309738975685286 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b7486f3caff1cfe4a975773a82b2110d,

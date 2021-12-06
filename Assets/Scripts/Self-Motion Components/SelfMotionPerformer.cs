@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -66,9 +66,12 @@ public class SelfMotionPerformer : MonoBehaviour
 #endif
 
 	/// <summary>Resets MotionProjectile's instance to its default values.</summary>
-	private void Reset()
+	public void Reset()
 	{
-
+		foreach(ChildSelfMotionData motionData in childrenSelfMotionData)
+		{
+			motionData.Initialize();
+		}
 	}
 
 	/// <summary>SelfMotionPerformer's instance initialization when loaded [Before scene loads].</summary>

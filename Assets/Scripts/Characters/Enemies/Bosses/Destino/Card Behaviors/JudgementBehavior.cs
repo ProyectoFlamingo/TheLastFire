@@ -18,6 +18,7 @@ public enum DisplacementType
 
 public class JudgementBehavior : DestinoScriptableCoroutine
 {
+	[SerializeField] private BreakTheTargetsMiniGame _breakTheTargets; 	/// <summary>Breaj the Targets' Mini-Game.</summary>
 	[Space(5f)]
 	[Header("Loops:")]
 	[SerializeField] private CollectionIndex _fireShowPieceIndex; 					/// <summary>Fire Show's Piece's Index.</summary>

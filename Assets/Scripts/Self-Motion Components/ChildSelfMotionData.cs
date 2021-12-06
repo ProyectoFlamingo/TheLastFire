@@ -13,6 +13,7 @@ public class ChildSelfMotionData
 	[SerializeField] [Range(0.0f, 1.0f)] private float _t; 			/// <summary>Normalized [initial] Time.</summary>
 	[SerializeField] private SelfMotionData _selfMotionData; 		/// <summary>Self-Motions' Data.</summary>
 	private float _time; 											/// <summary>Current Time.</summary>
+	private float _initialTime; 									/// <summary>Initial Time.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets child property.</summary>

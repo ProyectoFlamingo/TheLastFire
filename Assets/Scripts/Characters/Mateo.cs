@@ -24,7 +24,6 @@ namespace Flamingo
 [RequireComponent(typeof(TransformDeltaCalculator))]
 [RequireComponent(typeof(SensorSystem2D))]
 [RequireComponent(typeof(WallEvaluator))]
-[RequireComponent(typeof(AnimationAttacksHandler))]
 [RequireComponent(typeof(SlopeEvaluator))]
 public class Mateo : Character
 {
@@ -99,6 +98,9 @@ public class Mateo : Character
 	[TabGroup("Group A", "Sword Attacks")][SerializeField] private FloatRange _directionalThresholdX; 								/// <summary>Directional Threhold on the X's Axis to perform directional attacks.</summary>
 	[TabGroup("Group A", "Sword Attacks")][SerializeField] private FloatRange _directionalThresholdY; 								/// <summary>Directional Threhold on the Y's Axis to perform directional attacks.</summary>
 	[Space(5f)]
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private float _attackingGravityScale; 									/// <summary>Gravity Scale applied while attacking.</summary>
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private int _attackingScaleChangePriority; 								/// <summary>Scale Change's Priority while attacking.</summary>
+	[Space(5f)]
 	[Header("Jumping's Attributes:")]
 	[TabGroup("Group A", "Jumping")][SerializeField] private TrailRenderer _extraJumpTrailRenderer; 								/// <summary>Extra-Jump's Trail Renderer.</summary>
 	[TabGroup("Group A", "Jumping")][SerializeField] private float _gravityScale; 													/// <summary>Gravity Scale applied when attacking.</summary>
@@ -122,6 +124,7 @@ public class Mateo : Character
 	[Header("Sound Effect's:")]
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _initialJumpSoundEffectIndex; 					/// <summary>Initial Jump Sound Effect's Index.</summary>
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _additionalJumpSoundEffectIndex; 				/// <summary>Additional Jump Sound Effect's Index.</summary>
+	private FloatWrapper _scalarWrapper;																							/// <summary>Gravity Change's Scalar Wrapper.</summary>
 	private float _meditationWaitTime; 																								/// <summary>Current Meditation's Time.</summary>
 	private RigidbodyMovementAbility _movementAbility; 																				/// <summary>RigidbodyMovementAbility's Component.</summary>
 	private RotationAbility _rotationAbility; 																						/// <summary>RotationAbility's Component.</summary>
@@ -131,7 +134,6 @@ public class Mateo : Character
 	private TransformDeltaCalculator _deltaCalculator; 																				/// <summary>TransformDeltaCalculator's Component.</summary>
 	private SensorSystem2D _sensorSystem; 																							/// <summary>SensorSystem2D's Component.</summary>
 	private WallEvaluator _wallEvaluator; 																							/// <summary>WallEvaluator's Component.</summary>
-	private AnimationAttacksHandler _attacksHandler; 																				/// <summary>AnimationAttacksHandler's Component.</summary>
 	private SlopeEvaluator _slopeEvaluator; 																						/// <summary>SlopeEvaluator's Component.</summary>
 	private Vector3 _orientation; 																									/// <summary>Mateo's Orientation.</summary>
 	private Vector2 _leftAxes; 																										/// <summary>Left Axes' Value.</summary>
@@ -145,6 +147,9 @@ public class Mateo : Character
 
 	/// <summary>Gets fireConjuringAnimationLayer property.</summary>
 	public int fireConjuringAnimationLayer { get { return _fireConjuringAnimationLayer; } }
+
+	/// <summary>Gets attackingScaleChangePriority property.</summary>
+	public int attackingScaleChangePriority { get { return _attackingScaleChangePriority; } }
 
 	/// <summary>Gets fireConjuringAnimationWeightChangeDuration property.</summary>
 	public float fireConjuringAnimationWeightChangeDuration { get { return _fireConjuringAnimationWeightChangeDuration; } }
@@ -191,6 +196,9 @@ public class Mateo : Character
 	/// <summary>Gets attackFadeDuration property.</summary>
 	public float attackFadeDuration { get { return _attackFadeDuration; } }
 
+	/// <summary>Gets attackingGravityScale property.</summary>
+	public float attackingGravityScale { get { return _attackingGravityScale; } }
+
 	/// <summary>Gets movementAxesThreshold property.</summary>
 	public float movementAxesThreshold { get { return _movementAxesThreshold; } }
 
@@ -224,6 +232,13 @@ public class Mateo : Character
 
 	/// <summary>Gets directionalThresholdY property.</summary>
 	public FloatRange directionalThresholdY { get { return _directionalThresholdY; } }
+
+	/// <summary>Gets and Sets scalarWrapper property.</summary>
+	public FloatWrapper scalarWrapper
+	{
+		get { return _scalarWrapper; }
+		set { _scalarWrapper = value; }
+	}
 
 	/// <summary>Gets scaleChangePriority property.</summary>
 	public int scaleChangePriority { get { return _scaleChangePriority; } }
@@ -425,16 +440,6 @@ public class Mateo : Character
 		}
 	}
 
-	/// <summary>Gets attacksHandler Component.</summary>
-	public AnimationAttacksHandler attacksHandler
-	{ 
-		get
-		{
-			if(_attacksHandler == null) _attacksHandler = GetComponent<AnimationAttacksHandler>();
-			return _attacksHandler;
-		}
-	}
-
 	/// <summary>Gets slopeEvaluator Component.</summary>
 	public SlopeEvaluator slopeEvaluator
 	{ 
@@ -487,10 +492,10 @@ public class Mateo : Character
 		wallEvaluator.onWallEvaluatorEvent += OnWallEvaluatorEvent;
 		dashAbility.onDashStateChange += OnDashStateChange;
 		movementAbility.onBraking += OnMovementBraking;
-		//attacksHandler.onAnimationAttackEvent += OnAnimationAttackEvent;
 
 		animator.SetAllLayersWeight(0.0f);
 		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+		scalarWrapper = new FloatWrapper(attackingGravityScale);
 
 		Meditate(true);
 		shootProjectile.muzzle = skeleton.leftHand;
@@ -542,7 +547,7 @@ public class Mateo : Character
 		|| this.HasStates(IDs.STATE_HURT)
 		|| this.HasStates(IDs.STATE_CROUCHING)
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
-		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None)*/ this.HasStates(IDs.STATE_ATTACKING))
+		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING))
 		|| dashAbility.state == DashState.Dashing
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| (wallEvaluator.walled && Mathf.Sign(_axes.x) == Mathf.Sign(direction.x))) return;
@@ -737,8 +742,6 @@ public class Mateo : Character
 		*/
 		if(!this.HasStates(IDs.STATE_ALIVE)
 		|| this.HasStates(IDs.STATE_HURT)
-		/*|| attacksHandler.state == AttackState.Attacking
-		|| attacksHandler.state == AttackState.Waiting*/
 		|| this.HasStates(IDs.STATE_ATTACKING)
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)) return;
@@ -749,7 +752,6 @@ public class Mateo : Character
 			return;
 		}
 
-		//hurtBox.SetActive(false);
 		Meditate(false);
 		health.BeginInvincibilityCooldown(); 	/// THIS IS GAY AND TEMPORAL
 
@@ -761,20 +763,7 @@ public class Mateo : Character
 		if(grounded) animationHash = groundSwordAttackCredential;
 		else animationHash = jumpAbility.GetJumpIndex() > 0 ? additionalJumpSwordAttackCredential : normalJumpSwordAttackCredential;
 
-		/*if(grounded) index = applyDirectional ? groundedDirectionalComboIndex : groundedNeutralComboIndex;
-		else index = applyDirectional ? airDirectionalComboIndex : airNeutralComboIndex;
-
-		if(attacksHandler.BeginAttack(index))
-		{
-			sword.ActivateHitBoxes(true);
-			animator.SetBool(attackCredential, true);
-			animator.SetInteger(attackIDCredential, attacksHandler.attackID);
-
-			//// OH BOY
-		}*/
-
 		state |= IDs.STATE_ATTACKING;
-		sword.ActivateHitBoxes(true);
 		animatorController.CrossFadeAndWait(
 			animationHash,
 			attackFadeDuration,
@@ -795,7 +784,6 @@ public class Mateo : Character
 	{
 		//hurtBox.SetActive(true);
 		health.OnInvincibilityCooldownEnds();
-		//attacksHandler.CancelAttack();
 		sword.ActivateHitBoxes(false);
 		state &= ~IDs.STATE_ATTACKING;
 		jumpAbility.gravityApplier.RejectScaleChange(GetInstanceID());
@@ -906,7 +894,7 @@ public class Mateo : Character
 		*/
 		if(this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_STANDINGUP)
 		|| !this.HasStates(IDs.STATE_ALIVE)
-		|| (jumpAbility.grounded && /*attacksHandler.state != AttackState.None*/this.HasStates(IDs.STATE_ATTACKING))) return;
+		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING))) return;
 
 		Meditate(false, IDs.STATE_JUMPING);
 
@@ -1162,37 +1150,6 @@ public class Mateo : Character
 		);
 	}
 
-	/// <summary>Callback invoked whan an Animation Attack event occurs.</summary>
-	/// <param name="_state">Animation Attack's Event/State.</param>
-	private void OnAnimationAttackEvent(AnimationCommandState _state)
-	{
-		if(!this.HasStates(IDs.STATE_ALIVE)) return;
-
-		switch(_state)
-		{
-			case AnimationCommandState.None:
-				sword.ActivateHitBoxes(false);
-			break;
-
-		    case AnimationCommandState.Startup:
-		    	sword.ActivateHitBoxes(false);
-		    	//jumpAbility.gravityApplier.RequestScaleChange(GetInstanceID(), gravityScale, scaleChangePriority);
-		    break;
-
-		    case AnimationCommandState.Active:
-		    	sword.ActivateHitBoxes(true);
-		    break;
-
-		    case AnimationCommandState.Recovery:
-		    break;
-
-		    case AnimationCommandState.End:
-		   		CancelSwordAttack();
-		    	jumpAbility.gravityApplier.RejectScaleChange(GetInstanceID());
-		    break;
-		}
-	}
-
 	/// <summary>Callback invoked when the health of the character is depleted.</summary>
 	/// <param name="_object">GameObject that caused the event, null be default.</param>
 	protected override void OnHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
@@ -1253,12 +1210,14 @@ public class Mateo : Character
 	{
 		switch(_ID)
 		{
-			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
-				sword.ActivateHitBoxes(true);
-			break;
-
 			case IDs.ANIMATIONEVENT_DEACTIVATEHITBOXES:
 				sword.ActivateHitBoxes(false);
+				jumpAbility.gravityApplier.RejectScaleChange(GetInstanceID());
+			break;
+
+			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
+				sword.ActivateHitBoxes(true);
+				jumpAbility.gravityApplier.RequestScaleChange(GetInstanceID(), _scalarWrapper, attackingScaleChangePriority);
 			break;
 		}
 	}
@@ -1290,12 +1249,14 @@ public class Mateo : Character
 	private void OnMainLayerAnimationFinished()
 	{
 		if(jumpAbility.grounded && !this.HasStates(IDs.STATE_MEDITATING) && !this.HasStates(IDs.STATE_HURT)) GoToLocomotionAnimation();
+		else OnJumpStateChange(jumpAbility.state, jumpAbility.GetJumpIndex());
 	}
 
 	/// <summary>Callback internally invoked after an animation from the Attack Layer is finished.</summary>
 	private void OnAttackLayerAnimationFinished()
 	{
-		GoToLocomotionAnimation();
+		if(jumpAbility.grounded) GoToLocomotionAnimation();
+		else OnJumpStateChange(jumpAbility.state, jumpAbility.GetJumpIndex());
 	}
 
 	/// <summary>Callback internally invoked after an animation from the Fire Conjuring's Layer is finished.</summary>

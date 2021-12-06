@@ -18,7 +18,7 @@ public class AnimationCommandSenderInspector : Editor
 	private void OnEnable()
 	{
 		animationCommandSender = target as AnimationCommandSender;
-		EditorUtility.SetDirty(animationCommandSender);
+		if(animationCommandSender != null) EditorUtility.SetDirty(animationCommandSender);
 	}
 
 	/// <summary>OnInspectorGUI override.</summary>

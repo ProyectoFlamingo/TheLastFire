@@ -44,8 +44,6 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	[SerializeField] private int _sourceIndex; 															/// <summary>Sound Effects' Source Index.</summary>
 	private AnimationEventInvoker _animationsEventInvoker; 												/// <summary>AnimationsEventInvoker's Component.</summary>
 	private Coroutine scytheRotation; 																	/// <summary>Scythe's Rotation Coroutine Reference.</summary>
-	private AnimationCommandState _state; 																/// <summary>Scythe's Attack Animation's State.</summary>
-	private AnimationCommandState _previousState; 														/// <summary>Previous Scythe's Attack Animation's State.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets scythe property.</summary>
@@ -113,24 +111,6 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets sourceIndex property.</summary>
 	public int sourceIndex { get { return _sourceIndex; } }
-
-	/// <summary>Gets and Sets state property.</summary>
-	public AnimationCommandState state
-	{
-		get { return _state; }
-		private set
-		{
-			previousState = _state;
-			_state = value;
-		}
-	}
-
-	/// <summary>Gets and Sets previousState property.</summary>
-	public AnimationCommandState previousState
-	{
-		get { return _previousState; }
-		private set { _previousState = value; }
-	}
 #endregion
 
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
@@ -152,7 +132,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		scythe.transform.position = spawnPosition;
 		scythe.gameObject.SetActive(false);
 		scythe.animationsEventInvoker.AddIntActionListener(OnAnimationIntEvent);
-		state = AnimationCommandState.None;
+		scythe.state = AnimationCommandState.None;
 	}
 
 	/// <summary>Rotates scythe towards mateo.</summary>
@@ -170,14 +150,14 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		switch(_ID)
 		{
 			case IDs.ANIMATIONEVENT_DEACTIVATEHITBOXES:
-			state = state == AnimationCommandState.Active ? AnimationCommandState.Recovery : AnimationCommandState.Startup;
+			scythe.state = scythe.state == AnimationCommandState.Active ? AnimationCommandState.Recovery : AnimationCommandState.Startup;
 			scythe.vehicle.maxSpeed = buildUpMaxSpeed;
 			scythe.vehicle.maxForce = buildUpMaxSteeringForce;
 			scythe.weapon.ActivateHitBoxes(false);
 			break;
 			
 			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
-			state = AnimationCommandState.Active;
+			scythe.state = AnimationCommandState.Active;
 			scythe.vehicle.maxSpeed = swingMaxSpeed;
 			scythe.vehicle.maxForce = swingMaxSteeringForce;
 			scythe.weapon.ActivateHitBoxes(true);
@@ -218,7 +198,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
-		state = AnimationCommandState.None;
+		scythe.state = AnimationCommandState.None;
 		scythe.transform.position = spawnPosition;
 		scythe.vehicle.ResetVelocity();
 		scythe.gameObject.SetActive(true);
@@ -287,7 +267,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		{
 			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, 1);
 
-			if(state != AnimationCommandState.Active) anchoredPosition.y += additionalYOffset;
+			if(scythe.state != AnimationCommandState.Active) anchoredPosition.y += additionalYOffset;
 
 			scythe.transform.position += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * s;
 			RotateScythe(s);

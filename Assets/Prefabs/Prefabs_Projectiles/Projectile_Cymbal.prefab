@@ -106,10 +106,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2587737837715874560}
-  - component: {fileID: 8927150967866801279}
-  - component: {fileID: -472744449274132160}
-  - component: {fileID: 63670614212212105}
-  - component: {fileID: -3218309867955641530}
   m_Layer: 16
   m_Name: Projectile_Cymbal
   m_TagString: Untagged
@@ -133,78 +129,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &8927150967866801279
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489737554882727244}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!114 &-472744449274132160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489737554882727244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9033fbed74549f6418020548535b80d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dontDestroyOnLoad: 0
-  _healthAffectableTags: []
-  _impactTags: []
-  _damage: 5
-  _damageScales: []
-  _trailRenderers: []
-  _repelTags: []
-  _speedMode: 1
-  _speed: 10
-  _lifespan: 5
-  _cooldownDuration: 0
-  _rotateTowardsDirection: 1
-  dontDeactivateOnImpact: 0
---- !u!114 &63670614212212105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489737554882727244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hitBoxes: []
-  _impactTags: []
---- !u!114 &-3218309867955641530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6489737554882727244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &96224743114674383
 PrefabInstance:
   m_ObjectHideFlags: 0
