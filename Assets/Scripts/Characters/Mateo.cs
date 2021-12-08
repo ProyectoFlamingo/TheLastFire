@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System;
 using System.Text;
 using System.Collections;
@@ -655,6 +655,7 @@ public class Mateo : Character
 			- Have the Sword equipped if the meditation pose is that of the sword
 		*/
 		if(!this.HasStates(IDs.STATE_MEDITATING)
+		|| this.HasStates(IDs.STATE_STANDINGUP)
 		|| (_animationCredential == _fireMeditationCredential && !this.HasStates(IDs.STATE_FIRECONJURINGCAPACITY))
 		|| (_animationCredential == _swordMeditationCredential && !this.HasStates(IDs.STATE_SWORDEQUIPPED))
 		|| animatorController.IsActive(_animationCredential, mainAnimationLayer)) return;
@@ -695,7 +696,7 @@ public class Mateo : Character
 		*/
 		if(jumpAbility.HasStates(JumpAbility.STATE_ID_GROUNDED)
 		&& deltaCalculator.deltaPosition.sqrMagnitude == 0.0f
-		&& (this.HasStates(IDs.STATE_ALIVE) && !this.HasStates(IDs.STATE_ATTACKING) && !this.HasStates(IDs.STATE_CROUCHING) && !this.HasStates(IDs.STATE_CHARGINGFIRE)))
+		&& (this.HasStates(IDs.STATE_ALIVE) && !this.HasStates(IDs.STATE_ATTACKING) && !this.HasStates(IDs.STATE_CROUCHING) && !this.HasStates(IDs.STATE_CHARGINGFIRE) && !this.HasStates(IDs.STATE_STANDINGUP)))
 		{
 			meditationWaitTime += Time.deltaTime;
 
@@ -1039,11 +1040,8 @@ public class Mateo : Character
 		{
 			case JumpAbility.STATE_ID_GROUNDED:
 				CancelSwordAttack();
-				
-				if(!this.HasAnyOfTheStates(IDs.STATE_MEDITATING | IDs.STATE_HURT))
-
-				if(extraJumpTrailRenderer != null)
-				extraJumpTrailRenderer.enabled = false;
+				OnMainLayerAnimationFinished();
+				if(extraJumpTrailRenderer != null) extraJumpTrailRenderer.enabled = false;
 			break;
 
 			case JumpAbility.STATE_ID_JUMPING:
@@ -1083,14 +1081,15 @@ public class Mateo : Character
 					{
 						state &= ~(IDs.STATE_MEDITATING | IDs.STATE_STANDINGUP);
 					}
-					animatorController.CrossFadeAndWait(
+					animatorController.CrossFade(softLandingCredential, landingFadeDuration, mainAnimationLayer);
+					/*animatorController.CrossFadeAndWait(
 						softLandingCredential,
 						landingFadeDuration,
 						mainAnimationLayer,
 						0.0f,
 						0.0f,
 						OnMainLayerAnimationFinished
-					);
+					);*/
 					softLandingParticleEffect.EmitParticleEffects();
 				}
 			break;
@@ -1227,8 +1226,8 @@ public class Mateo : Character
 	/// <summary>Goes directly to Locomotion's State.</summary>
 	private void GoToLocomotionAnimation()
 	{
-		//if(this.HasStates(IDs.STATE_MOVING)) return;
-
+		if(!jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
+		Debug.Log("[Mateo] Entering Locomotion..");
 		state |= IDs.STATE_MOVING;
 		
 		AnimatorCredential animationHash = this.HasStates(IDs.STATE_SWORDEQUIPPED) ? swordLocomotionCredential : noSwordLocomotionCredential;
@@ -1236,7 +1235,7 @@ public class Mateo : Character
 	}
 
 	/// <summary>Goes directly to Locomotion's State.</summary>
-	/// <param name="onCrossFadeEnds">Optional callback invoked when it reached the Crss-Fade's end.</param>
+	/// <param name="onCrossFadeEnds">Optional callback invoked when it reached the Cross-Fade's end.</param>
 	private void GoToLocomotionAnimation(Action onCrossFadeEnds = null)
 	{
 		state |= IDs.STATE_MOVING;
@@ -1248,8 +1247,7 @@ public class Mateo : Character
 	/// <summary>Callback internally invoked after an animation from the Main Layer is finished.</summary>
 	private void OnMainLayerAnimationFinished()
 	{
-		if(jumpAbility.grounded && !this.HasStates(IDs.STATE_MEDITATING) && !this.HasStates(IDs.STATE_HURT)) GoToLocomotionAnimation();
-		else OnJumpStateChange(jumpAbility.state, jumpAbility.GetJumpIndex());
+		if(jumpAbility.grounded) GoToLocomotionAnimation();
 	}
 
 	/// <summary>Callback internally invoked after an animation from the Attack Layer is finished.</summary>
