@@ -120,10 +120,6 @@ public class Mateo : Character
 	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _additionalJumpParticleEffect; 	/// <summary>Additional Jump's ParticleEffect's Emission Data.</summary>
 	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _softLandingParticleEffect; 		/// <summary>Soft-Landing's ParticleEffect's Emission Data.</summary>
 	[TabGroup("Group B", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _hardLandingParticleEffect; 		/// <summary>Hard-Landing's ParticleEffect's Emission Data.</summary>
-	[Space(5f)]
-	[Header("Sound Effect's:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _initialJumpSoundEffectIndex; 					/// <summary>Initial Jump Sound Effect's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _additionalJumpSoundEffectIndex; 				/// <summary>Additional Jump Sound Effect's Index.</summary>
 	private FloatWrapper _scalarWrapper;																							/// <summary>Gravity Change's Scalar Wrapper.</summary>
 	private float _meditationWaitTime; 																								/// <summary>Current Meditation's Time.</summary>
 	private RigidbodyMovementAbility _movementAbility; 																				/// <summary>RigidbodyMovementAbility's Component.</summary>
@@ -350,12 +346,6 @@ public class Mateo : Character
 
 	/// <summary>Gets hardLandingParticleEffect property.</summary>
 	public ParticleEffectEmissionData hardLandingParticleEffect { get { return _hardLandingParticleEffect; } }
-
-	/// <summary>Gets initialJumpSoundEffectIndex property.</summary>
-	public CollectionIndex initialJumpSoundEffectIndex { get { return _initialJumpSoundEffectIndex; } }
-
-	/// <summary>Gets additionalJumpSoundEffectIndex property.</summary>
-	public CollectionIndex additionalJumpSoundEffectIndex { get { return _additionalJumpSoundEffectIndex; } }
 
 	/// <summary>Gets extraJumpTrailRenderer property.</summary>
 	public TrailRenderer extraJumpTrailRenderer { get { return _extraJumpTrailRenderer; } }
@@ -1053,12 +1043,10 @@ public class Mateo : Character
 					extraJumpTrailRenderer.Clear();
 					extraJumpTrailRenderer.enabled = true;
 					additionalJumpParticleEffect.EmitParticleEffects();
-					AudioController.PlayOneShot(SourceType.SFX, 0, additionalJumpSoundEffectIndex);
 				}
 				else
 				{
 					initialJumpParticleEffect.EmitParticleEffects();
-					AudioController.PlayOneShot(SourceType.SFX, 0, initialJumpSoundEffectIndex);
 				}
 
 				animatorController.CrossFade(animationHash, jumpFadeDuration, mainAnimationLayer, 0.0f);

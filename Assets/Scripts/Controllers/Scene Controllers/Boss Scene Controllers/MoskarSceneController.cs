@@ -29,7 +29,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	[SerializeField] private MoskarBoss _main; 						/// <summary>Initial Moskar's Reference.</summary>
 	[Space(5f)]
 	[Header("Reproductions' Atrributes:")]
-	[SerializeField] private CollectionIndex _moskarIndex; 			/// <summary>Moskar's Index.</summary>
+	[SerializeField] private int _moskarIndex; 						/// <summary>Moskar's Index.</summary>
 	[SerializeField] private float _reproductionDuration; 			/// <summary>Reproduction Duration. Determines how long it lasts the reproduction's displacement and scaling.</summary>
 	[SerializeField] private float _reproductionPushForce; 			/// <summary>Reproduction's Push Force.</summary>
 	[SerializeField] private float _reproductionCountdown; 			/// <summary>Duration before creating another round of moskars.</summary>
@@ -38,8 +38,8 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	[Space(5f)]
 	[Header("Music's Attributes:")]
 	[SerializeField] private FloatRange _waitBetweenPiece; 			/// <summary>Wait Duration Between each piece.</summary>
-	[SerializeField] private CollectionIndex[] _piecesIndices; 		/// <summary>Pieces' Indices.</summary>
-	[SerializeField] private CollectionIndex _flyLoop; 				/// <summary>Fly's Loop Index.</summary>
+	[SerializeField] private int[] _piecesIndices; 					/// <summary>Pieces' Indices.</summary>
+	[SerializeField] private int _flyLoop; 							/// <summary>Fly's Loop Index.</summary>
 	[SerializeField] private int _remainingMoskarsForLastPiece; 	/// <summary>Maximum required of remaining Moskars for the last piece's loop to be reproduced.</summary>
 	[SerializeField] private int _sampleJumping; 					/// <summary>Sample Jumping by each iteration.</summary>
 	[SerializeField]
@@ -74,7 +74,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	}
 
 	/// <summary>Gets moskarIndex property.</summary>
-	public CollectionIndex moskarIndex { get { return _moskarIndex; } }
+	public int moskarIndex { get { return _moskarIndex; } }
 
 	/// <summary>Gets and Sets reproductionDuration property.</summary>
 	public float reproductionDuration
@@ -140,14 +140,14 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	}
 
 	/// <summary>Gets and Sets piecesIndices property.</summary>
-	public CollectionIndex[] piecesIndices
+	public int[] piecesIndices
 	{
 		get { return _piecesIndices; }
 		set { _piecesIndices = value; }
 	}
 
 	/// <summary>Gets and Sets flyLoop property.</summary>
-	public CollectionIndex flyLoop
+	public int flyLoop
 	{
 		get { return _flyLoop; }
 		set { _flyLoop = value; }
@@ -241,7 +241,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	{
 		if(piecesIndices != null)
 		{
-			CollectionIndex index = default(CollectionIndex);
+			int index = default(int);
 
 			for(int i = 0; i < piecesIndices.Length; i++)
 			{

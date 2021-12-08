@@ -17,7 +17,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	[SerializeField] private ShantyShip _shantyShip; 							/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
 	[Header("Audio's Attributes:")]
-	[SerializeField] private CollectionIndex _loopIndex; 						/// <summary>Loop's Index.</summary>
+	[SerializeField] private int _loopIndex; 									/// <summary>Loop's Index.</summary>
 	[Space(5f)]
 	[Header("Camera Boundaries' Modifiers:")]
 	[SerializeField] private Camera2DBoundariesModifier _stage1CameraSettings; 	/// <summary>Camera Settings for Stage 1.</summary>
@@ -54,7 +54,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	[Space(5f)]
 	[Header("Particle Effects:")]
 	[SerializeField] private Vector3[] _smokeSpawnPositions; 					/// <summary>Spawn Positions for the Some's ParticleEffect.</summary>
-	[SerializeField] private CollectionIndex _smokeEffectIndex; 				/// <summary>Smoke ParticleEffect's Index.</summary>
+	[SerializeField] private int _smokeEffectIndex; 							/// <summary>Smoke ParticleEffect's Index.</summary>
 	[Space(5f)]
 	[SerializeField] private TransformData _stage1ShipTransformData; 			/// <summary>Stage 1's Ship Transform Data.</summary>
 	[SerializeField] private TransformData _stage2ShipTransformData; 			/// <summary>Stage 2's Ship Transform Data.</summary>
@@ -106,10 +106,10 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	public ShantyShip shantyShip { get { return _shantyShip; } }
 
 	/// <summary>Gets loopIndex property.</summary>
-	public CollectionIndex loopIndex { get { return _loopIndex; } }
+	public int loopIndex { get { return _loopIndex; } }
 
 	/// <summary>Gets smokeEffectIndex property.</summary>
-	public CollectionIndex smokeEffectIndex { get { return _smokeEffectIndex; } }
+	public int smokeEffectIndex { get { return _smokeEffectIndex; } }
 
 	/// <summary>Gets stage1MateoPosition property.</summary>
 	public Vector3 stage1MateoPosition { get { return _stage1MateoPosition; } }

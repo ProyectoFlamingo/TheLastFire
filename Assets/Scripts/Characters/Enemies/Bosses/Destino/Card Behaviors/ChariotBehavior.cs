@@ -18,8 +18,8 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 {
 	[SerializeField] private Vector3 _projectileSpawnPosition; 			/// <summary>Projectiles' Spawn Position.</summary>
 	[Header("Projectiles:")]
-	[SerializeField] private CollectionIndex _petrolSphereID; 			/// <summary>Petrol Sphere's ID.</summary>
-	[SerializeField] private CollectionIndex _marbleSphereID; 			/// <summary>Marble Sphere's ID.</summary>
+	[SerializeField] private int _petrolSphereID; 						/// <summary>Petrol Sphere's ID.</summary>
+	[SerializeField] private int _marbleSphereID; 						/// <summary>Marble Sphere's ID.</summary>
 	[Space(5f)]
 	[Header("Projectiles' Distribution Settings:")]
 	[SerializeField] private IntRange _sequenceLimits; 					/// <summary>Sequence's Limits.</summary>
@@ -35,10 +35,10 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 	public Vector3 projectileSpawnPosition { get { return _projectileSpawnPosition; } }
 
 	/// <summary>Gets petrolSphereID property.</summary>
-	public CollectionIndex petrolSphereID { get { return _petrolSphereID; } }
+	public int petrolSphereID { get { return _petrolSphereID; } }
 
 	/// <summary>Gets marbleSphereID property.</summary>
-	public CollectionIndex marbleSphereID { get { return _marbleSphereID; } }
+	public int marbleSphereID { get { return _marbleSphereID; } }
 
 	/// <summary>Gets sequenceLimits property.</summary>
 	public IntRange sequenceLimits { get { return _sequenceLimits; } }
@@ -120,7 +120,7 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 		{
 			/// Distribute the Random Sequence:
 			Projectile sphere = null; 
-			CollectionIndex index = Random.Range(0, 2) == 0 ? petrolSphereID : marbleSphereID;
+			int index = Random.Range(0, 2) == 0 ? petrolSphereID : marbleSphereID;
 			indexSet.Add(index);
 
 			if(i == (sequenceLength - 1))

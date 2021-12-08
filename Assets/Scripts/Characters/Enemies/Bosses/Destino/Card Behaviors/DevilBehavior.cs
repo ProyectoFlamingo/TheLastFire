@@ -7,7 +7,7 @@ namespace Flamingo
 {
 public class DevilBehavior : DestinoScriptableCoroutine
 {
-	[SerializeField] private CollectionIndex _arrowProjectileIndex; 	/// <summary>Arrow Projectile's Index.</summary>
+	[SerializeField] private int _arrowProjectileIndex; 				/// <summary>Arrow Projectile's Index.</summary>
 	[SerializeField] private IntRange _rounds; 							/// <summary>Arrows Rounds per-routine.</summary>
 	[SerializeField] private IntRange _limits; 							/// <summary>Arrows' Limits per round.</summary>
 	[SerializeField] private BoundaryWaypointsContainer _waypoints; 	/// <summary>Arrow's Waypoints.</summary>
@@ -35,7 +35,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _ceilingHP; 							/// <summary>Ceiling's HP.</summary>
 
 	/// <summary>Gets arrowProjectileIndex property.</summary>
-	public CollectionIndex arrowProjectileIndex { get { return _arrowProjectileIndex; } }
+	public int arrowProjectileIndex { get { return _arrowProjectileIndex; } }
 
 	/// <summary>Gets rounds property.</summary>
 	public IntRange rounds { get { return _rounds; } }

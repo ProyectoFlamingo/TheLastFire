@@ -18,10 +18,10 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 	[Space(5f)]
 	[Header("Bomb's Attributes:")]
 	[SerializeField] private GameObjectTag[] _flamableTags; 	/// <summary>Tags of GameObjects that are considered flamable.</summary>
-	[SerializeField] private CollectionIndex _explodableIndex; 	/// <summary>Explodable's Index.</summary>
+	[SerializeField] private int _explodableIndex; 				/// <summary>Explodable's Index.</summary>
 	[Space(5f)]
 	[Header("Fuse's Attributes:")]
-	[SerializeField] private CollectionIndex _fireEffectIndex; 	/// <summary>Fire Effect's Index.</summary>
+	[SerializeField] private int _fireEffectIndex; 				/// <summary>Fire Effect's Index.</summary>
 	[SerializeField] private LineRenderer _fuse; 				/// <summary>Bomb's Fuse.</summary>
 	[SerializeField] private float _fuseDuration; 				/// <summary>Fuse's Duration.</summary>
 	[SerializeField] private float _fuseLength; 				/// <summary>Fuse's Length.</summary>
@@ -41,14 +41,14 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 	}
 
 	/// <summary>Gets and Sets explodableIndex property.</summary>
-	public CollectionIndex explodableIndex
+	public int explodableIndex
 	{
 		get { return _explodableIndex; }
 		set { _explodableIndex = value; }
 	}
 
 	/// <summary>Gets and Sets fireEffectIndex property.</summary>
-	public CollectionIndex fireEffectIndex
+	public int fireEffectIndex
 	{
 		get { return _fireEffectIndex; }
 		set { _fireEffectIndex = value; }

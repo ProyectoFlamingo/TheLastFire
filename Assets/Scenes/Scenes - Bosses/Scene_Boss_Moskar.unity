@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: fd98d575609001a4f9cda2779273dcb4,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -549,24 +549,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1088015435}
   m_Mesh: {fileID: 7975305299492846405, guid: e3ed316fa74b2bb45a263198de3417e0, type: 3}
---- !u!1 &1261678981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3223080502774902994, guid: 8e98f4254b032564893133ce4247e946,
-    type: 3}
-  m_PrefabInstance: {fileID: 2340683740356029453}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1261678984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261678981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f9cfc0b8c1b904ba71e57978632732, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1264681709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1264,10 +1246,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Moskar
       objectReference: {fileID: 0}
-    - target: {fileID: 2340683740104089351, guid: 8e98f4254b032564893133ce4247e946,
+    - target: {fileID: 3482248678282691959, guid: 8e98f4254b032564893133ce4247e946,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: _selfIlluminationTag._ID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3482248678282691959, guid: 8e98f4254b032564893133ce4247e946,
+        type: 3}
+      propertyPath: _amountTag._ID
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e98f4254b032564893133ce4247e946, type: 3}
@@ -1403,7 +1390,7 @@ PrefabInstance:
     - target: {fileID: 6043867682890382776, guid: 5d5fa019b39a6724a830027fc570eb18,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6043867682890382776, guid: 5d5fa019b39a6724a830027fc570eb18,
         type: 3}
@@ -1609,6 +1596,56 @@ PrefabInstance:
         type: 3}
       propertyPath: _fadeOutDuration
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _moskarIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[1]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[2]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[4]
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[3]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[5]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[6]
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _piecesIndices.Array.data[7]
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6043867682890382777, guid: 5d5fa019b39a6724a830027fc570eb18,
+        type: 3}
+      propertyPath: _flyLoop
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6043867682890382778, guid: 5d5fa019b39a6724a830027fc570eb18,
         type: 3}

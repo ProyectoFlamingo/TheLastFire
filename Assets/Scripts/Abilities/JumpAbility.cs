@@ -49,7 +49,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _progressForExtraJump; 	/// <summary>Minimum Progress required for extra jump.</summary>
 	[SerializeField] private ForceInformation2D[] _forcesInfo; 	/// <summary>Force's Information.</summary>
-	[SerializeField] private CollectionIndex[] _SFXsIndices; 	/// <summary>Sound Effects' Indices.</summary>
+	[SerializeField] private int[] _SFXsIndices; 				/// <summary>Sound Effects' Indices.</summary>
 	[Space(5f)]
 	[SerializeField] private float _landingDuration; 			/// <summary>Landing's Duration.</summary>
 	private TimeConstrainedForceApplier2D[] _forcesAppliers; 	/// <summary>Forces' Appliers.</summary>
@@ -170,7 +170,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	}
 
 	/// <summary>Gets and Sets SFXsIndices property.</summary>
-	public CollectionIndex[] SFXsIndices
+	public int[] SFXsIndices
 	{
 		get { return _SFXsIndices; }
 		set { _SFXsIndices = value; }

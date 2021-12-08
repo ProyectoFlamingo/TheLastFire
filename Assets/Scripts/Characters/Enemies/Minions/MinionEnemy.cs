@@ -11,7 +11,7 @@ public class MinionEnemy : Enemy
 {
 	[SerializeField] private Vector3 _muzzlePoint; 				/// <summary>Muzzle's Point.</summary>
 	[SerializeField] private ProjectileType _projectileType; 	/// <summary>Projectile's Type to shoot.</summary>
-	[SerializeField] private CollectionIndex _projectileIndex; 	/// <summary>Projectile's Index.</summary>
+	[SerializeField] private int _projectileIndex; 				/// <summary>Projectile's Index.</summary>
 	[SerializeField] private float _projectionTime; 			/// <summary>Parabola Projectile's Projection Time.</summary>
 	[SerializeField] private FOVSight2D _FOVSight; 				/// <summary>FOVSight2D's Component.</summary>
 /*#if UNITY_EDITOR
@@ -38,7 +38,7 @@ public class MinionEnemy : Enemy
 	}
 
 	/// <summary>Gets and Sets projectileIndex property.</summary>
-	public CollectionIndex projectileIndex
+	public int projectileIndex
 	{
 		get { return _projectileIndex; }
 		set { _projectileIndex = value; }

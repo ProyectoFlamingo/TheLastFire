@@ -46,20 +46,14 @@ MonoBehaviour:
   _dontDestroyOnLoad: 0
   _healthAffectableMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 823
   _affectableTags:
   - _tag: Player
     index: 5
   - _tag: Enemy
     index: 8
-  _particleEffectIndex:
-    index: 24
-    objectIndex: 0
-    collectionIndex: 7
-  _soundEffectIndex:
-    index: 24
-    objectIndex: 0
-    collectionIndex: 6
+  _particleEffectIndex: 24
+  _soundEffectIndex: 24
   _radius: 2
   _expansionDuration: 0.3
   _maxRadiusDuration: 0.4

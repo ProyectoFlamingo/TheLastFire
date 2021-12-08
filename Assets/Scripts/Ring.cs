@@ -14,8 +14,8 @@ public class Ring : PoolGameObject
 {
 	public event OnRingPassed onRingPassed; 						/// <summary>OnRingPassed event's delegate.</summary>
 
-	[SerializeField] private CollectionIndex _particleEffectIndex; 	/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
-	[SerializeField] private CollectionIndex _soundEffectIndex; 	/// <summary>Sound Effect index to emit when ring is passed on.</summary>
+	[SerializeField] private int _particleEffectIndex; 				/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
+	[SerializeField] private int _soundEffectIndex; 				/// <summary>Sound Effect index to emit when ring is passed on.</summary>
 	[Space(5f)]
 	[SerializeField] private EulerRotation _correctionRotation; 	/// <summary>Correction's Rotation.</summary>
 	[SerializeField] private bool _deactivateWhenPassedOn; 			/// <summary>Deactivate ring when passed on it?.</summary>
@@ -28,10 +28,10 @@ public class Ring : PoolGameObject
 	private bool _passedOn; 										/// <summary>Has an object already passed on this Ring?.</summary>
 
 	/// <summary>Gets particleEffectIndex property.</summary>
-	public CollectionIndex particleEffectIndex { get { return _particleEffectIndex; } }
+	public int particleEffectIndex { get { return _particleEffectIndex; } }
 
 	/// <summary>Gets soundEffectIndex property.</summary>
-	public CollectionIndex soundEffectIndex { get { return _soundEffectIndex; } }
+	public int soundEffectIndex { get { return _soundEffectIndex; } }
 
 	/// <summary>Gets correctionRotation property.</summary>
 	public EulerRotation correctionRotation { get { return _correctionRotation; } }

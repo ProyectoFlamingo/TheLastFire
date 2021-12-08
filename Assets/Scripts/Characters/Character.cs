@@ -371,7 +371,7 @@ public class Character : PoolGameObject, IStateMachine
 	}
 #endregion
 
-	public void EmitSoundEffect(CollectionIndex _index, int _source = 0, float _volumeScale = 1.0f)
+	public void EmitSoundEffect(int _index, int _source = 0, float _volumeScale = 1.0f)
 	{
 		AudioController.PlayOneShot(SourceType.SFX, _source, _index, _volumeScale);
 	}

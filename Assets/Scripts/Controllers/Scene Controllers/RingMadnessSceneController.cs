@@ -9,13 +9,13 @@ namespace Flamingo
 {
 public class RingMadnessSceneController : Singleton<RingMadnessSceneController>
 {
-	[SerializeField] private CollectionIndex _soundEffectIndex; 	/// <summary>Particle Effect's Index on the Game's Data.</summary>
-	[SerializeField] private CollectionIndex _particleEffectIndex; 	/// <summary>Particle Effect's Index on the Game's Data.</summary>
-	[SerializeField] private Ring[] _rings; 		/// <summary>Ring on the Scene.</summary>
+	[SerializeField] private int _soundEffectIndex; 	/// <summary>Particle Effect's Index on the Game's Data.</summary>
+	[SerializeField] private int _particleEffectIndex; 	/// <summary>Particle Effect's Index on the Game's Data.</summary>
+	[SerializeField] private Ring[] _rings; 			/// <summary>Ring on the Scene.</summary>
 	[Space(5f)]
 	[Header("UI:")]
-	[SerializeField] private Text _ringsScoreText; 	/// <summary>Ring Score's Text.</summary>
-	private int _ringsScore; 						/// <summary>Rings' Score.</summary>
+	[SerializeField] private Text _ringsScoreText; 		/// <summary>Ring Score's Text.</summary>
+	private int _ringsScore; 							/// <summary>Rings' Score.</summary>
 
 	/// <summary>Gets rings property.</summary>
 	public Ring[] rings { get { return _rings; } }
@@ -31,14 +31,14 @@ public class RingMadnessSceneController : Singleton<RingMadnessSceneController>
 	}
 
 	/// <summary>Gets and Sets soundEffectIndex property.</summary>
-	public CollectionIndex soundEffectIndex
+	public int soundEffectIndex
 	{
 		get { return _soundEffectIndex; }
 		set { _soundEffectIndex = value; }
 	}
 
 		/// <summary>Gets and Sets particleEffectIndex property.</summary>
-	public CollectionIndex particleEffectIndex
+	public int particleEffectIndex
 	{
 		get { return _particleEffectIndex; }
 		set { _particleEffectIndex = value; }

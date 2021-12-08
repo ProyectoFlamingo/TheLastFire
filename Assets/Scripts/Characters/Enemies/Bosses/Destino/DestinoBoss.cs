@@ -32,22 +32,22 @@ public class DestinoBoss : Boss
 	[Space(5f)]
 	[Header("Sound FXs' References:")]
 	[Header("Destino's Sounds:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _damageTakenSoundIndex; 			/// <summary>Damage taken's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _damageTakenSoundIndex; 						/// <summary>Damage taken's Sound's Index.</summary>
 	[Space(5f)]
 	[Header("Death's Sounds:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _buildUpSoundIndex; 				/// <summary>Build-Up's Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _swingSoundIndex; 				/// <summary>Swing's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _buildUpSoundIndex; 							/// <summary>Build-Up's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _swingSoundIndex; 							/// <summary>Swing's Sound's Index.</summary>
 	[Space(5f)]
 	[Header("Voice Notes:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _doNoteIndex; 					/// <summary>Do's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _faNoteIndex; 					/// <summary>Fa's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _laNoteIndex; 					/// <summary>La's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _miNoteIndex; 					/// <summary>Mi's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _reNoteIndex; 					/// <summary>Re's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _siNoteIndex; 					/// <summary>Si's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _laReNoteIndex; 					/// <summary>La-Re's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _reFaNoteIndex; 					/// <summary>Re-Fa's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private CollectionIndex _siMiNoteIndex; 					/// <summary>Si-Mi's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _doNoteIndex; 								/// <summary>Do's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _faNoteIndex; 								/// <summary>Fa's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laNoteIndex; 								/// <summary>La's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _miNoteIndex; 								/// <summary>Mi's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _reNoteIndex; 								/// <summary>Re's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _siNoteIndex; 								/// <summary>Si's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laReNoteIndex; 								/// <summary>La-Re's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _reFaNoteIndex; 								/// <summary>Re-Fa's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _siMiNoteIndex; 								/// <summary>Si-Mi's Note Sound's Index.</summary>
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Destino's Test:")]
@@ -112,40 +112,40 @@ public class DestinoBoss : Boss
 	public HitCollider2D headHurtBox { get { return _headHurtBox; } }
 
 	/// <summary>Gets damageTakenSoundIndex property.</summary>
-	public CollectionIndex damageTakenSoundIndex { get { return _damageTakenSoundIndex; } }
+	public int damageTakenSoundIndex { get { return _damageTakenSoundIndex; } }
 
 	/// <summary>Gets buildUpSoundIndex property.</summary>
-	public CollectionIndex buildUpSoundIndex { get { return _buildUpSoundIndex; } }
+	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
 
 	/// <summary>Gets swingSoundIndex property.</summary>
-	public CollectionIndex swingSoundIndex { get { return _swingSoundIndex; } }
+	public int swingSoundIndex { get { return _swingSoundIndex; } }
 
 	/// <summary>Gets doNoteIndex property.</summary>
-	public CollectionIndex doNoteIndex { get { return _doNoteIndex; } }
+	public int doNoteIndex { get { return _doNoteIndex; } }
 
 	/// <summary>Gets faNoteIndex property.</summary>
-	public CollectionIndex faNoteIndex { get { return _faNoteIndex; } }
+	public int faNoteIndex { get { return _faNoteIndex; } }
 
 	/// <summary>Gets laNoteIndex property.</summary>
-	public CollectionIndex laNoteIndex { get { return _laNoteIndex; } }
+	public int laNoteIndex { get { return _laNoteIndex; } }
 
 	/// <summary>Gets miNoteIndex property.</summary>
-	public CollectionIndex miNoteIndex { get { return _miNoteIndex; } }
+	public int miNoteIndex { get { return _miNoteIndex; } }
 
 	/// <summary>Gets reNoteIndex property.</summary>
-	public CollectionIndex reNoteIndex { get { return _reNoteIndex; } }
+	public int reNoteIndex { get { return _reNoteIndex; } }
 
 	/// <summary>Gets siNoteIndex property.</summary>
-	public CollectionIndex siNoteIndex { get { return _siNoteIndex; } }
+	public int siNoteIndex { get { return _siNoteIndex; } }
 
 	/// <summary>Gets laReNoteIndex property.</summary>
-	public CollectionIndex laReNoteIndex { get { return _laReNoteIndex; } }
+	public int laReNoteIndex { get { return _laReNoteIndex; } }
 
 	/// <summary>Gets reFaNoteIndex property.</summary>
-	public CollectionIndex reFaNoteIndex { get { return _reFaNoteIndex; } }
+	public int reFaNoteIndex { get { return _reFaNoteIndex; } }
 
 	/// <summary>Gets siMiNoteIndex property.</summary>
-	public CollectionIndex siMiNoteIndex { get { return _siMiNoteIndex; } }
+	public int siMiNoteIndex { get { return _siMiNoteIndex; } }
 
 	/// <summary>Gets movementAbility Component.</summary>
 	public RigidbodyMovementAbility movementAbility

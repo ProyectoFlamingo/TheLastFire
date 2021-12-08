@@ -49,7 +49,7 @@ public class MoskarBoss : Boss
 	[SerializeField] private FloatRange _evasionSpeed; 							/// <summary>Evasion's Speed's Range.</summary>
 	[Space(5f)]
 	[Header("Attack's Attributes:")]
-	[SerializeField] private CollectionIndex _projectileIndex; 					/// <summary>Projectile's Index.</summary>
+	[SerializeField] private int _projectileIndex; 								/// <summary>Projectile's Index.</summary>
 	[SerializeField] private FloatRange _shootInterval; 						/// <summary>Shooting Interval's Range.</summary>
 	[SerializeField] private IntRange _fireBursts; 								/// <summary>Fire Bursts' Range.</summary>
 	[Space(5f)]
@@ -62,11 +62,11 @@ public class MoskarBoss : Boss
 	[Space(5f)]
 	[Header("Sounds FXs:")]
 	[SerializeField] private int _sourceIndex; 									/// <summary>Source Index where the SFXs are played.</summary>
-	[SerializeField] private CollectionIndex _hurtSoundIndex; 					/// <summary>Hurt SFX's Index.</summary>
-	[SerializeField] private CollectionIndex _fallenSoundIndex; 				/// <summary>Fallen SFX's Index.</summary>
+	[SerializeField] private int _hurtSoundIndex; 								/// <summary>Hurt SFX's Index.</summary>
+	[SerializeField] private int _fallenSoundIndex; 							/// <summary>Fallen SFX's Index.</summary>
 	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
-	[SerializeField] private CollectionIndex _duplicateParticleEffectIndex; 	/// <summary>Duplication ParticleEffect's Index.</summary>
+	[SerializeField] private int _duplicateParticleEffectIndex; 				/// <summary>Duplication ParticleEffect's Index.</summary>
 	[Space(5f)]
 	[Header("Animator's Attributes:")]
 	[SerializeField] private int _introAnimationLayer; 							/// <summary>Introduction Animation's Layer.</summary>
@@ -223,28 +223,28 @@ public class MoskarBoss : Boss
 	}
 
 	/// <summary>Gets and Sets projectileIndex property.</summary>
-	public CollectionIndex projectileIndex
+	public int projectileIndex
 	{
 		get { return _projectileIndex; }
 		set { _projectileIndex = value; }
 	}
 
 	/// <summary>Gets and Sets hurtSoundIndex property.</summary>
-	public CollectionIndex hurtSoundIndex
+	public int hurtSoundIndex
 	{
 		get { return _hurtSoundIndex; }
 		set { _hurtSoundIndex = value; }
 	}
 
 	/// <summary>Gets and Sets fallenSoundIndex property.</summary>
-	public CollectionIndex fallenSoundIndex
+	public int fallenSoundIndex
 	{
 		get { return _fallenSoundIndex; }
 		set { _fallenSoundIndex = value; }
 	}
 
 	/// <summary>Gets and Sets duplicateParticleEffectIndex property.</summary>
-	public CollectionIndex duplicateParticleEffectIndex
+	public int duplicateParticleEffectIndex
 	{
 		get { return _duplicateParticleEffectIndex; }
 		set { _duplicateParticleEffectIndex = value; }

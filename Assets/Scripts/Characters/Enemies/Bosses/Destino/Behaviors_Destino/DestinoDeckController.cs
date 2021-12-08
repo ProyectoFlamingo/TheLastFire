@@ -34,7 +34,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 	[SerializeField] private float _positioningDuration; 			/// <summary>Card Positioning's Duration.</summary>
 	[Space(5f)]
 	[Header("Deck Presentation's Attributes:")]
-	[SerializeField] private CollectionIndex _spawnEffectIndex; 	/// <summary>Deck's apparition Particle Effect's index.</summary>
+	[SerializeField] private int _spawnEffectIndex; 				/// <summary>Deck's apparition Particle Effect's index.</summary>
 	[SerializeField] private Vector3 _presentationPoint; 			/// <summary>Deck Presentation's Point.</summary>
 	[SerializeField] private float _cardSpacing; 					/// <summary>Spacing between each card when the deck is presented.</summary>
 	[SerializeField] private float _deckPositioningDuration; 		/// <summary>Deck Positioning's Duration.</summary>
@@ -84,7 +84,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 	public Vector3 presentationPoint { get { return _presentationPoint; } }
 
 	/// <summary>Gets spawnEffectIndex property.</summary>
-	public CollectionIndex spawnEffectIndex { get { return _spawnEffectIndex; } }
+	public int spawnEffectIndex { get { return _spawnEffectIndex; } }
 
 	/// <summary>Gets rotationDuration property.</summary>
 	public float rotationDuration { get { return _rotationDuration; } }

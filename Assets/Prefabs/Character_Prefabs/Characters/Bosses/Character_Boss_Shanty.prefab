@@ -248,6 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3e9df0be0b84e418378cccf24e8bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _head: {fileID: 0}
   _leftHand: {fileID: 1783566454101358474}
   _rightHand: {fileID: 1783566454101358474}
   _leftFoot: {fileID: 0}
@@ -279,13 +280,10 @@ MonoBehaviour:
   _triggerColliders: []
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   gizmosRadius: 0
-  _stages: 3
   _healthDistribution:
   - 3
   - 3
   - 3
-  _distributionSystem:
-    _probabilityRanges: []
   forceStageTesting: 1
   testStage: 3
   _ship: {fileID: 0}
@@ -547,7 +545,7 @@ MonoBehaviour:
   - force: {x: 0, y: 5}
     duration: 0.2
     forceMode: 5
-  _SFXsIndices: []
+  _SFXsIndices: 
   _landingDuration: 0.35
 --- !u!114 &8868339793852355954
 MonoBehaviour:

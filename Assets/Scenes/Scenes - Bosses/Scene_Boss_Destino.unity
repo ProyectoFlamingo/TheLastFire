@@ -232,10 +232,7 @@ MonoBehaviour:
   _deckPoint: {x: 0, y: 5, z: 3}
   _cardOffset: 0.2
   _positioningDuration: 0.5
-  _spawnEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 7
+  _spawnEffectIndex: 0
   _presentationPoint: {x: 0, y: 7, z: 2}
   _cardSpacing: 3.5
   _deckPositioningDuration: 0.5
@@ -4102,6 +4099,21 @@ PrefabInstance:
       propertyPath: _destinoController
       value: 
       objectReference: {fileID: 45724}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _mainLoopVoiceIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _orchestraTunningSoundIndex
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _curtainOpeningSoundIndex
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 6454213616821555351, guid: bdb24498052e900489a206c3c27edc8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6083,14 +6095,8 @@ MonoBehaviour:
   _arrivalRadius: 2
   _maxSpeedScalar: 2
   _additionalYOffset: 7
-  _buildUpSoundIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 6
-  _swingSoundIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 6
+  _buildUpSoundIndex: 0
+  _swingSoundIndex: 2
   _sourceIndex: 0
 --- !u!1001 &923346186
 PrefabInstance:
@@ -8242,26 +8248,11 @@ MonoBehaviour:
     _clock:
       _format: 0
       _secondsFractioning: 0
-  _fireShowPieceIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 5
-  _swordShowPieceIndex:
-    index: 3
-    objectIndex: 0
-    collectionIndex: 5
-  _danceShowPieceIndex:
-    index: 4
-    objectIndex: 0
-    collectionIndex: 5
-  _applauseSoundIndex:
-    index: 14
-    objectIndex: 0
-    collectionIndex: 6
-  _booingSoundIndex:
-    index: 15
-    objectIndex: 0
-    collectionIndex: 6
+  _fireShowPieceIndex: 2
+  _swordShowPieceIndex: 3
+  _danceShowPieceIndex: 4
+  _applauseSoundIndex: 14
+  _booingSoundIndex: 15
   _fireShowSignSpawnPoint: {x: 0, y: 14, z: 9}
   _swordShowSignSpawnPoint: {x: 0, y: 14, z: 9}
   _danceShowSignSpawnPoint: {x: 0, y: 14, z: 9}
@@ -8272,13 +8263,7 @@ MonoBehaviour:
   _signExitDuration: 1
   _signIdleDuration: 1
   _fireShowSuccessPercentage: 0.654
-  _fireTargetIndices:
-  - index: 4
-    objectIndex: 0
-    collectionIndex: 2
-  - index: 5
-    objectIndex: 0
-    collectionIndex: 2
+  _fireTargetIndices: 0000000000000000
   _fireShowWaypoints:
     _ceilingWaypoints:
     - {x: -16, y: 11, z: 1}
@@ -8310,10 +8295,7 @@ MonoBehaviour:
     _max: 14
   _fireShowRoundDuration: 10
   _swordShowSuccessPercentage: 0.678
-  _swordTargetIndices:
-  - index: 7
-    objectIndex: 0
-    collectionIndex: 2
+  _swordTargetIndices: 00000000
   _swordTargetsSpawnWaypoints:
   - {x: -12, y: 19, z: 0}
   - {x: -7, y: 19, z: 0}
@@ -8341,16 +8323,7 @@ MonoBehaviour:
   _swordTargetShakeSpeed: 5
   _swordTargetShakeMagnitude: 1.5
   _swordTargetInterpolationDuration: 0.7
-  _ringsIndices:
-  - index: 2
-    objectIndex: 0
-    collectionIndex: 3
-  - index: 3
-    objectIndex: 0
-    collectionIndex: 3
-  - index: 4
-    objectIndex: 0
-    collectionIndex: 3
+  _ringsIndices: 000000000000000000000000
   _ySpawnLimits:
     _min: 2
     _max: 2.5
@@ -8365,17 +8338,8 @@ MonoBehaviour:
     _max: 8
   _danceShowDuration: 10
   _danceShowSuccessPercentage: 1
-  _trashProjectilesIndices:
-  - index: 0
-    objectIndex: 0
-    collectionIndex: 1
-  - index: 1
-    objectIndex: 0
-    collectionIndex: 3
-  _applauseObjectsIndices:
-  - index: 1
-    objectIndex: 0
-    collectionIndex: 3
+  _trashProjectilesIndices: 0000000000000000
+  _applauseObjectsIndices: 00000000
   _trashProjectilesWaypoints:
   - {x: -15, y: 0, z: -8}
   - {x: -10, y: 0, z: -8}
@@ -10545,10 +10509,7 @@ MonoBehaviour:
   _leftDrumstickRotation:
     _eulerAngles: {x: 0, y: 0, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _drumstickSoundIndex:
-    index: 33
-    objectIndex: 0
-    collectionIndex: 6
+  _drumstickSoundIndex: 33
   _drumstickAnimationCredential:
     _tag: Attack
     _ID: 1080829965
@@ -10564,10 +10525,7 @@ MonoBehaviour:
   _drumstickShakeSpeed: 5
   _drumstickShakeMagnitude: 0.7
   _trumpet: {fileID: 4900582757622516936}
-  _trumpetSoundIndex:
-    index: 6
-    objectIndex: 0
-    collectionIndex: 6
+  _trumpetSoundIndex: 6
   _trumpetAnimationCredential:
     _tag: Attack
     _ID: 1080829965
@@ -10581,10 +10539,7 @@ MonoBehaviour:
   _trumpetShakeSpeed: 10
   _trumpetShakeMagnitude: 2
   _cymbals: {fileID: 192449231}
-  _cymbalSoundIndex:
-    index: 11
-    objectIndex: 0
-    collectionIndex: 6
+  _cymbalSoundIndex: 11
   _cymbalsAnimationCredential:
     _tag: Clash
     _ID: -1494220937
@@ -11027,10 +10982,7 @@ MonoBehaviour:
   drawGizmos: 0
   gizmosColor: {r: 0, g: 1, b: 0, a: 1}
   gizmosRadius: 0.25
-  _arrowProjectileIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 2
+  _arrowProjectileIndex: 4
   _rounds:
     _min: 0
     _max: 0
@@ -13060,6 +13012,71 @@ PrefabInstance:
       propertyPath: _healthDistribution.Array.data[2]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _damageTakenSoundIndex.collectionIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _buildUpSoundIndex.collectionIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _swingSoundIndex.collectionIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _damageTakenSoundIndex
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _doNoteIndex
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _faNoteIndex
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laNoteIndex
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _miNoteIndex
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reNoteIndex
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siNoteIndex
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laReNoteIndex
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reFaNoteIndex
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siMiNoteIndex
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d6b59009cf8314aa995cfa634e8c92, type: 3}
 --- !u!1001 &5843153311697141449
@@ -13361,14 +13378,8 @@ MonoBehaviour:
   gizmosColor: {r: 0, g: 0, b: 0, a: 0}
   gizmosRadius: 0
   _projectileSpawnPosition: {x: 0, y: 9, z: 0}
-  _petrolSphereID:
-    index: 3
-    objectIndex: 0
-    collectionIndex: 0
-  _marbleSphereID:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 0
+  _petrolSphereID: 3
+  _marbleSphereID: 2
   _sequenceLimits:
     _min: 4
     _max: 10

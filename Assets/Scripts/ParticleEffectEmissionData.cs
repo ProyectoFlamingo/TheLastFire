@@ -10,7 +10,7 @@ namespace Flamingo
 public class ParticleEffectEmissionData
 {
 	[SerializeField] private Transform _transform; 					/// <summary>Transform's Reference.</summary>
-	[SerializeField] private CollectionIndex _particleEffectIndex; 	/// <summary>ParticleEffect's Index.</summary>
+	[SerializeField] private int _particleEffectIndex; 				/// <summary>ParticleEffect's Index.</summary>
 	[SerializeField] private Vector3[] _points; 					/// <summary>Points of ParticleEmission relative to the Transform.</summary>
 
 	/// <summary>Gets and Sets transform property.</summary>
@@ -21,7 +21,7 @@ public class ParticleEffectEmissionData
 	}
 
 	/// <summary>Gets and Sets particleEffectIndex property.</summary>
-	public CollectionIndex particleEffectIndex
+	public int particleEffectIndex
 	{
 		get { return _particleEffectIndex; }
 		set { _particleEffectIndex = value; }
@@ -53,7 +53,7 @@ public class ParticleEffectEmissionData
 	/// <param name="_transform">Transform's Reference.</param>
 	/// <param name="_particleEffectIbdex">ParticleEffect's Index.</param>
 	/// <param name="_points">Spawn Points [relative to the Transform].</param>
-	public ParticleEffectEmissionData(Transform _transform, CollectionIndex _particleEffectIndex, params Vector3[] _points)
+	public ParticleEffectEmissionData(Transform _transform, int _particleEffectIndex, params Vector3[] _points)
 	{
 		transform = _transform;
 		particleEffectIndex = _particleEffectIndex;

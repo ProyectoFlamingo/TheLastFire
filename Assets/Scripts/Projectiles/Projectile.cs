@@ -58,13 +58,13 @@ public class Projectile : ContactWeapon
 	[SerializeField] private float _distance; 									/// <summary>Distance from Parent's Projectile.</summary>
 	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
-	[SerializeField] private CollectionIndex _impactParticleEffectIndex; 		/// <summary>Index of ParticleEffect to emit when the projectile impacts.</summary>
-	[SerializeField] private CollectionIndex _destroyedParticleEffectIndex; 	/// <summary>Index of ParticleEffect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private int _impactParticleEffectIndex; 					/// <summary>Index of ParticleEffect to emit when the projectile impacts.</summary>
+	[SerializeField] private int _destroyedParticleEffectIndex; 				/// <summary>Index of ParticleEffect to emit when the projectile is destroyed.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Attributes:")]
 	[SerializeField] private int _sourceIndex; 									/// <summary>Sound Effect's Source Index.</summary>
-	[SerializeField] private CollectionIndex _impactSoundEffectIndex; 			/// <summary>Index of Sound Effect to emit when the projectile impacts.</summary>
-	[SerializeField] private CollectionIndex _destroyedSoundEffectIndex; 		/// <summary>Index of Sound Effect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private int _impactSoundEffectIndex; 						/// <summary>Index of Sound Effect to emit when the projectile impacts.</summary>
+	[SerializeField] private int _destroyedSoundEffectIndex; 					/// <summary>Index of Sound Effect to emit when the projectile is destroyed.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
@@ -208,28 +208,28 @@ public class Projectile : ContactWeapon
 	}
 
 	/// <summary>Gets and Sets impactParticleEffectIndex property.</summary>
-	public CollectionIndex impactParticleEffectIndex
+	public int impactParticleEffectIndex
 	{
 		get { return _impactParticleEffectIndex; }
 		set { _impactParticleEffectIndex = value; }
 	}
 
 	/// <summary>Gets and Sets destroyedParticleEffectIndex property.</summary>
-	public CollectionIndex destroyedParticleEffectIndex
+	public int destroyedParticleEffectIndex
 	{
 		get { return _destroyedParticleEffectIndex; }
 		set { _destroyedParticleEffectIndex = value; }
 	}
 
 	/// <summary>Gets and Sets impactSoundEffectIndex property.</summary>
-	public CollectionIndex impactSoundEffectIndex
+	public int impactSoundEffectIndex
 	{
 		get { return _impactSoundEffectIndex; }
 		set { _impactSoundEffectIndex = value; }
 	}
 
 	/// <summary>Gets and Sets destroyedSoundEffectIndex property.</summary>
-	public CollectionIndex destroyedSoundEffectIndex
+	public int destroyedSoundEffectIndex
 	{
 		get { return _destroyedSoundEffectIndex; }
 		set { _destroyedSoundEffectIndex = value; }

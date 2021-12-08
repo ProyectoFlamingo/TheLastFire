@@ -48,18 +48,18 @@ public class ShantyBoss : Boss
 	[Range(0.0f, 1.0f)] private float _windowPercentage; 				/// <summary>Time-window before swinging sword (to hit bomb).</summary>
 	[Space(5f)]
 	[Header("Stage 1 Bomb's Attributes:")]
-	[SerializeField] private CollectionIndex _bombIndex; 				/// <summary>Bomb's Index.</summary>
+	[SerializeField] private int _bombIndex; 							/// <summary>Bomb's Index.</summary>
 	[SerializeField] private float _bombProjectionTime; 				/// <summary>Bomb's Projection Time.</summary>
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 		/// <summary>Bomb Projection Time's Percentage.</summary>
 	[Space(5f)]
 	[Header("Stage 2 Bomb's Attributes:")]
-	[SerializeField] private CollectionIndex _bouncingBombIndex; 		/// <summary>Bouncing Bomb's Index.</summary>
+	[SerializeField] private int _bouncingBombIndex; 					/// <summary>Bouncing Bomb's Index.</summary>
 	[SerializeField] private float _bouncingBombProjectionTime; 		/// <summary>Bouncing Bomb's Projection Time.</summary>
 	[Space(5f)]
 	[Header("Stage 1 TNT's Attributes:")]
-	[SerializeField] private CollectionIndex _TNTIndex; 				/// <summary>TNT's Index.</summary>
-	[SerializeField] private CollectionIndex _stage1ExplodableIndex; 	/// <summary>Explodable;s Index for TNT on Stage 1.</summary>
+	[SerializeField] private int _TNTIndex; 							/// <summary>TNT's Index.</summary>
+	[SerializeField] private int _stage1ExplodableIndex; 				/// <summary>Explodable;s Index for TNT on Stage 1.</summary>
 	[SerializeField] private float _stage1TNTFuseDuration; 				/// <summary>Fuse Duration for TNT on Stage 1.</summary>
 	[SerializeField] private float _TNTProjectionTime; 					/// <summary>TNT's Projection Time.</summary>
 	[SerializeField]
@@ -75,7 +75,7 @@ public class ShantyBoss : Boss
 	[Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 	/// <summary>Health Limit's Percentage for TNT.</summary>
 	[Space(5f)]
 	[Header("Stage 2's TNT's Attributes:")]
-	[SerializeField] private CollectionIndex _stage2ExplodableIndex; 	/// <summary>Explodable;s Index for TNT on Stage 2.</summary>
+	[SerializeField] private int _stage2ExplodableIndex; 				/// <summary>Explodable;s Index for TNT on Stage 2.</summary>
 	[SerializeField] private float _stage2TNTFuseDuration; 				/// <summary>Fuse Duration for TNT on Stage 2.</summary>
 	[SerializeField] private float _stairParabolaTime; 					/// <summary>Duration from throw to beginning of stair.</summary>
 	[SerializeField] private float _stairSlideDuration; 				/// <summary>Stair Slide's Duration.</summary>
@@ -148,19 +148,19 @@ public class ShantyBoss : Boss
 	}
 
 	/// <summary>Gets bombIndex property.</summary>
-	public CollectionIndex bombIndex { get { return _bombIndex; } }
+	public int bombIndex { get { return _bombIndex; } }
 
 	/// <summary>Gets bouncingBombIndex property.</summary>
-	public CollectionIndex bouncingBombIndex { get { return _bouncingBombIndex; } }
+	public int bouncingBombIndex { get { return _bouncingBombIndex; } }
 
 	/// <summary>Gets TNTIndex property.</summary>
-	public CollectionIndex TNTIndex { get { return _TNTIndex; } }
+	public int TNTIndex { get { return _TNTIndex; } }
 
 	/// <summary>Gets stage1ExplodableIndex property.</summary>
-	public CollectionIndex stage1ExplodableIndex { get { return _stage1ExplodableIndex; } }
+	public int stage1ExplodableIndex { get { return _stage1ExplodableIndex; } }
 
 	/// <summary>Gets stage2ExplodableIndex property.</summary>
-	public CollectionIndex stage2ExplodableIndex { get { return _stage2ExplodableIndex; } }
+	public int stage2ExplodableIndex { get { return _stage2ExplodableIndex; } }
 
 	/// <summary>Gets bombProjectionTime property.</summary>
 	public float bombProjectionTime { get { return _bombProjectionTime; } }

@@ -8,12 +8,12 @@ namespace Flamingo
 {
 public class BasketBallMiniGameController : MonoBehaviour
 {
-    [SerializeField] private Mateo _mateo;                             /// <summary>Mateo's Reference.</summary>
+    [SerializeField] private Mateo _mateo;                          /// <summary>Mateo's Reference.</summary>
     [SerializeField] private BasketBallMiniGame _basketMiniGame;    /// <summary> Reference to BasketMiniGame that initialize the minigame       
     [SerializeField] private Vector3 _ballInitialPos;               /// <summary>Spawn Position to reset the ball on ring passed.</summary>
     [Space(5f)]
-    [SerializeField] private CollectionIndex _cheerLocalSoundIndex;      /// <summary>Cheer's Local Sound Index.</summary>
-    [SerializeField] private CollectionIndex _cheerVisitorSoundIndex;      /// <summary>Cheer's Visitor Sound Index.</summary>
+    [SerializeField] private int _cheerLocalSoundIndex;             /// <summary>Cheer's Local Sound Index.</summary>
+    [SerializeField] private int _cheerVisitorSoundIndex;           /// <summary>Cheer's Visitor Sound Index.</summary>
     [Space(5f)]
     [Header("UI: ")]
     [SerializeField] private TextMesh _timeText;                    /// <summary>Time's Text.</summary>
@@ -33,10 +33,10 @@ public class BasketBallMiniGameController : MonoBehaviour
     }
 
     /// <summary>Gets cheerLocalSoundIndex property.</summary>
-    public CollectionIndex cheerLocalSoundIndex { get { return _cheerLocalSoundIndex; } }
+    public int cheerLocalSoundIndex { get { return _cheerLocalSoundIndex; } }
 
         /// <summary>Gets cheerVisitorSoundIndex property.</summary>
-    public CollectionIndex cheerVisitorSoundIndex { get { return _cheerVisitorSoundIndex; } }
+    public int cheerVisitorSoundIndex { get { return _cheerVisitorSoundIndex; } }
 
 
     /// <summary>Gets timeText property.</summary>

@@ -8,26 +8,26 @@ namespace Flamingo
 {
 public class ShootChargedProjectile : ShootProjectile
 {
-	public const int STATE_ID_UNCHARGED = 0; 									/// <summary>Uncharged's State ID.</summary>
-	public const int STATE_ID_CHARGING = 1; 									/// <summary>Charging's State ID.</summary>
-	public const int STATE_ID_CHARGED = 2; 										/// <summary>Fully Charged's State ID.</summary>
-	public const int STATE_ID_RELEASED = 3; 									/// <summary>Charge Released's State ID.</summary>
+	public const int STATE_ID_UNCHARGED = 0; 						/// <summary>Uncharged's State ID.</summary>
+	public const int STATE_ID_CHARGING = 1; 						/// <summary>Charging's State ID.</summary>
+	public const int STATE_ID_CHARGED = 2; 							/// <summary>Fully Charged's State ID.</summary>
+	public const int STATE_ID_RELEASED = 3; 						/// <summary>Charge Released's State ID.</summary>
 
 	[Space(5f)]
 	[Header("ShootChargedProjectile's Attributes:")]
-	[SerializeField] private FloatRange _speedRange; 							/// <summary>Projectile's Speed Range.</summary>
-	[SerializeField] private CollectionIndex _chargedProjectileID; 				/// <summary>Charged Projectile's ID.</summary>
-	[SerializeField] private float _minimumCharge; 								/// <summary>Minimum charge required for the projectile to be propeled.</summary>
-	[SerializeField] private float _chargeDuration; 							/// <summary>Charge's Duration.</summary>
-	[SerializeField] private float _speedChargeDuration; 						/// <summary>Speed Charge's Duration.</summary>
+	[SerializeField] private FloatRange _speedRange; 				/// <summary>Projectile's Speed Range.</summary>
+	[SerializeField] private int _chargedProjectileID; 				/// <summary>Charged Projectile's ID.</summary>
+	[SerializeField] private float _minimumCharge; 					/// <summary>Minimum charge required for the projectile to be propeled.</summary>
+	[SerializeField] private float _chargeDuration; 				/// <summary>Charge's Duration.</summary>
+	[SerializeField] private float _speedChargeDuration; 			/// <summary>Speed Charge's Duration.</summary>
 	[Space(5f)]
 	[Header("Sounds' Settings:")]
-	[SerializeField] private CollectionIndex _projectileCreationSoundIndex; 	/// <summary>Projectile Creation's Sound Index.</summary>
-	[SerializeField] private CollectionIndex _maxChargeSoundIndex; 				/// <summary>Max Charge's Sound Index.</summary>
-	[SerializeField] private CollectionIndex _releaseSoundIndex; 				/// <summary>Shoot Release's Sound Index.</summary>
-	private float _currentCharge; 												/// <summary>Current Charge's Value.</summary>
-	private float _currentSpeedCharge; 											/// <summary>Current Speed Charge's Value.</summary>
-	private CollectionIndex _ID; 												/// <summary>Current Projectile's ID.</summary>
+	[SerializeField] private int _projectileCreationSoundIndex; 	/// <summary>Projectile Creation's Sound Index.</summary>
+	[SerializeField] private int _maxChargeSoundIndex; 				/// <summary>Max Charge's Sound Index.</summary>
+	[SerializeField] private int _releaseSoundIndex; 				/// <summary>Shoot Release's Sound Index.</summary>
+	private float _currentCharge; 									/// <summary>Current Charge's Value.</summary>
+	private float _currentSpeedCharge; 								/// <summary>Current Speed Charge's Value.</summary>
+	private int _ID; 												/// <summary>Current Projectile's ID.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets speedRange property.</summary>
@@ -38,7 +38,7 @@ public class ShootChargedProjectile : ShootProjectile
 	}
 
 	/// <summary>Gets and Sets chargedProjectileID property.</summary>
-	public CollectionIndex chargedProjectileID
+	public int chargedProjectileID
 	{
 		get { return _chargedProjectileID; }
 		set { _chargedProjectileID = value; }
@@ -80,28 +80,28 @@ public class ShootChargedProjectile : ShootProjectile
 	}
 
 	/// <summary>Gets and Sets projectileCreationSoundIndex property.</summary>
-	public CollectionIndex projectileCreationSoundIndex
+	public int projectileCreationSoundIndex
 	{
 		get { return _projectileCreationSoundIndex; }
 		set { _projectileCreationSoundIndex = value; }
 	}
 
 	/// <summary>Gets and Sets maxChargeSoundIndex property.</summary>
-	public CollectionIndex maxChargeSoundIndex
+	public int maxChargeSoundIndex
 	{
 		get { return _maxChargeSoundIndex; }
 		set { _maxChargeSoundIndex = value; }
 	}
 
 	/// <summary>Gets and Sets releaseSoundIndex property.</summary>
-	public CollectionIndex releaseSoundIndex
+	public int releaseSoundIndex
 	{
 		get { return _releaseSoundIndex; }
 		set { _releaseSoundIndex = value; }
 	}
 
 	/// <summary>Gets and Sets ID property.</summary>
-	public CollectionIndex ID
+	public int ID
 	{
 		get { return _ID; }
 		set { _ID = value; }

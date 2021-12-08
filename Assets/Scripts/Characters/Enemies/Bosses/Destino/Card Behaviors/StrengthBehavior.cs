@@ -23,7 +23,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _rightDrumstick; 						/// <summary>Right Drumstick's AIContactWeapon.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private EulerRotation _rightDrumstickRotation; 				/// <summary>Right Drumstick's Rotation.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private EulerRotation _leftDrumstickRotation; 				/// <summary>Left Drumstick's Rotation.</summary>
-	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private CollectionIndex _drumstickSoundIndex; 				/// <summary>Drumsticks Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private int _drumstickSoundIndex; 							/// <summary>Drumsticks Sound's Index.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AnimatorCredential _drumstickAnimationCredential; 	/// <summary>Drumstick's AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private IntRange _drumBeatsSequence; 							/// <summary>Drumstickes' beats sequence's range.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private Vector3 _leftDrumstickSpawnPoint; 					/// <summary>Left Drumstick's Spawn Position.</summary>
@@ -37,7 +37,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Space(5f)]
 	[Header("Trumpet's Attributes:")]
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AIContactWeapon _trumpet; 								/// <summary>Trumpet's reference.</summary>
-	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private CollectionIndex _trumpetSoundIndex; 						/// <summary>Trumpet Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private int _trumpetSoundIndex; 									/// <summary>Trumpet Sound's Index.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AnimatorCredential _trumpetAnimationCredential; 			/// <summary>Trumpet's AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private Vector3 _trumpetSpawnPoint; 								/// <summary>Trumpet's Spawn Position.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private float _maxTrumpetSteeringScalar; 						/// <summary>Max Trumpet's Steering Scalar.</summary>
@@ -51,7 +51,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Space(5f)]
 	[Header("Cymbals' Attributes:")]
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AIContactWeapon _cymbals; 								/// <summary>Cymbals' Reference.</summary>
-	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private CollectionIndex _cymbalSoundIndex; 						/// <summary>Cymbal Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private int _cymbalSoundIndex; 									/// <summary>Cymbal Sound's Index.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AnimatorCredential _cymbalsAnimationCredential; 			/// <summary>Cymbals' AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private float _maxCymbalsSteeringScalar; 						/// <summary>Max Cymbals' Steering Scalar.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private float _maxCymbalsAnimationSpeed; 						/// <summary>Max Cymbals' Animation Speed.</summary>
@@ -177,13 +177,13 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	public float cooldownAfterSoundNote { get { return _cooldownAfterSoundNote; } }
 
 	/// <summary>Gets drumstickSoundIndex property.</summary>
-	public CollectionIndex drumstickSoundIndex { get { return _drumstickSoundIndex; } }
+	public int drumstickSoundIndex { get { return _drumstickSoundIndex; } }
 
 	/// <summary>Gets trumpetSoundIndex property.</summary>
-	public CollectionIndex trumpetSoundIndex { get { return _trumpetSoundIndex; } }
+	public int trumpetSoundIndex { get { return _trumpetSoundIndex; } }
 
 	/// <summary>Gets cymbalSoundIndex property.</summary>
-	public CollectionIndex cymbalSoundIndex { get { return _cymbalSoundIndex; } }
+	public int cymbalSoundIndex { get { return _cymbalSoundIndex; } }
 
 	/// <summary>Gets drumstickAnimationCredential property.</summary>
 	public AnimatorCredential drumstickAnimationCredential { get { return _drumstickAnimationCredential; } }

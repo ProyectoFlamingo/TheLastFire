@@ -39,8 +39,8 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	[TabGroup("Scythe")][SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
 	[Space(5f)]
 	[Header("Sound Effects::")]
-	[SerializeField] private CollectionIndex _buildUpSoundIndex; 										/// <summary>Build-Up's Sound's Index.</summary>
-	[SerializeField] private CollectionIndex _swingSoundIndex; 											/// <summary>Swing's Sound's Index.</summary>
+	[SerializeField] private int _buildUpSoundIndex; 													/// <summary>Build-Up's Sound's Index.</summary>
+	[SerializeField] private int _swingSoundIndex; 														/// <summary>Swing's Sound's Index.</summary>
 	[SerializeField] private int _sourceIndex; 															/// <summary>Sound Effects' Source Index.</summary>
 	private AnimationEventInvoker _animationsEventInvoker; 												/// <summary>AnimationsEventInvoker's Component.</summary>
 	private Coroutine scytheRotation; 																	/// <summary>Scythe's Rotation Coroutine Reference.</summary>
@@ -104,10 +104,10 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	public float additionalYOffset { get { return _additionalYOffset; } }
 
 	/// <summary>Gets buildUpSoundIndex property.</summary>
-	public CollectionIndex buildUpSoundIndex { get { return _buildUpSoundIndex; } }
+	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
 
 	/// <summary>Gets swingSoundIndex property.</summary>
-	public CollectionIndex swingSoundIndex { get { return _swingSoundIndex; } }
+	public int swingSoundIndex { get { return _swingSoundIndex; } }
 
 	/// <summary>Gets sourceIndex property.</summary>
 	public int sourceIndex { get { return _sourceIndex; } }

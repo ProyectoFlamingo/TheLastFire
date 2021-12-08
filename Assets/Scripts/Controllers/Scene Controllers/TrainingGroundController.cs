@@ -9,7 +9,7 @@ namespace Flamingo
 {
 public class TrainingGroundController : Singleton<TrainingGroundController>
 {
-	[SerializeField] private CollectionIndex _soundEffectIndex; 		/// <summary>Particle Effect's Index on the Game's Data.</summary>
+	[SerializeField] private int _soundEffectIndex; 					/// <summary>Particle Effect's Index on the Game's Data.</summary>
 	[SerializeField] private Mateo _mateo; 								/// <summary>Mateo's Reference.</summary>
 	[SerializeField] private EventsHandler[] _targetImpactHandlers; 	/// <summary>Target's EventsHandlers' Components.</summary>
 	[SerializeField] private EventsHandler[] _marbleImpactHandlers; 	/// <summary>Marble's EventsHandlers' Components.</summary>
@@ -71,7 +71,7 @@ void Cheer2()
 	}
 
 	/// <summary>Gets and Sets soundEffectIndex property.</summary>
-	public CollectionIndex soundEffectIndex
+	public int soundEffectIndex
 	{
 		get { return _soundEffectIndex; }
 		set { _soundEffectIndex = value; }

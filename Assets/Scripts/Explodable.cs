@@ -17,8 +17,8 @@ public class Explodable : PoolGameObject
 {
 	[SerializeField] private LayerMask _healthAffectableMask; 		/// <summary>Mask that contains GameObjects affected by the explosion.</summary>
 	[SerializeField] private GameObjectTag[] _affectableTags; 		/// <summary>Tags of GameObjects potentially affected by the explosion.</summary>
-	[SerializeField] private CollectionIndex _particleEffectIndex; 	/// <summary>Particle Effect's Index.</summary>
-	[SerializeField] private CollectionIndex _soundEffectIndex; 	/// <summary>Sound Effect's Index.</summary>
+	[SerializeField] private int _particleEffectIndex; 				/// <summary>Particle Effect's Index.</summary>
+	[SerializeField] private int _soundEffectIndex; 				/// <summary>Sound Effect's Index.</summary>
 	[SerializeField] private float _radius; 						/// <summary>Blast's Radius.</summary>
 	[SerializeField] private float _expansionDuration; 				/// <summary>Radius Expansion's Duration.</summary>
 	[SerializeField] private float _maxRadiusDuration; 				/// <summary>How much does the explosion at its maximum radius lasts.</summary>
@@ -47,14 +47,14 @@ public class Explodable : PoolGameObject
 	}
 
 	/// <summary>Gets and Sets particleEffectIndex property.</summary>
-	public CollectionIndex particleEffectIndex
+	public int particleEffectIndex
 	{
 		get { return _particleEffectIndex; }
 		set { _particleEffectIndex = value; }
 	}
 
 	/// <summary>Gets and Sets soundEffectIndex property.</summary>
-	public CollectionIndex soundEffectIndex
+	public int soundEffectIndex
 	{
 		get { return _soundEffectIndex; }
 		set { _soundEffectIndex = value; }

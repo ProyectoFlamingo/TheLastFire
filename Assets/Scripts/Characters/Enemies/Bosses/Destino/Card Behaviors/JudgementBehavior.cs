@@ -18,101 +18,101 @@ public enum DisplacementType
 
 public class JudgementBehavior : DestinoScriptableCoroutine
 {
-	[SerializeField] private BreakTheTargetsMiniGame _breakTheTargets; 	/// <summary>Breaj the Targets' Mini-Game.</summary>
+	[SerializeField] private BreakTheTargetsMiniGame _breakTheTargets; 			/// <summary>Breaj the Targets' Mini-Game.</summary>
 	[Space(5f)]
 	[Header("Loops:")]
-	[SerializeField] private CollectionIndex _fireShowPieceIndex; 					/// <summary>Fire Show's Piece's Index.</summary>
-	[SerializeField] private CollectionIndex _swordShowPieceIndex; 					/// <summary>Sword Show's Piece's Index.</summary>
-	[SerializeField] private CollectionIndex _danceShowPieceIndex; 					/// <summary>Dance Show's Piece's Index.</summary>
+	[SerializeField] private int _fireShowPieceIndex; 							/// <summary>Fire Show's Piece's Index.</summary>
+	[SerializeField] private int _swordShowPieceIndex; 							/// <summary>Sword Show's Piece's Index.</summary>
+	[SerializeField] private int _danceShowPieceIndex; 							/// <summary>Dance Show's Piece's Index.</summary>
 	[Space(5f)]
 	[Header("Sound Effects:")]
-	[SerializeField] private CollectionIndex _applauseSoundIndex; 					/// <summary>Applause's Sound Index.</summary>
-	[SerializeField] private CollectionIndex _booingSoundIndex; 					/// <summary>Booing's Sound Index.</summary>
+	[SerializeField] private int _applauseSoundIndex; 							/// <summary>Applause's Sound Index.</summary>
+	[SerializeField] private int _booingSoundIndex; 							/// <summary>Booing's Sound Index.</summary>
 	[Space(5f)]
 	[Header("Signs' Attributes:")]
-	[SerializeField] private Vector3 _fireShowSignSpawnPoint; 						/// <summary>Fire Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _swordShowSignSpawnPoint; 						/// <summary>Sword Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _danceShowSignSpawnPoint; 						/// <summary>Dance Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _fireShowSignDestinyPoint; 					/// <summary>Fire Show Sign's Destiny Position.</summary>
-	[SerializeField] private Vector3 _swordShowSignDestinyPoint; 					/// <summary>Sword Show Sign's Destiny Position.</summary>
-	[SerializeField] private Vector3 _danceShowSignDestinyPoint; 					/// <summary>Dance Show Sign's Destiny Position.</summary>
-	[SerializeField] private float _signEntranceDuration; 							/// <summary>Sign Entrance's Duration.</summary>
-	[SerializeField] private float _signExitDuration; 								/// <summary>Sign Exit's Duration.</summary>
-	[SerializeField] private float _signIdleDuration; 								/// <summary>Sign Idle's Duration.</summary>
+	[SerializeField] private Vector3 _fireShowSignSpawnPoint; 					/// <summary>Fire Show Sign's Spawn Position.</summary>
+	[SerializeField] private Vector3 _swordShowSignSpawnPoint; 					/// <summary>Sword Show Sign's Spawn Position.</summary>
+	[SerializeField] private Vector3 _danceShowSignSpawnPoint; 					/// <summary>Dance Show Sign's Spawn Position.</summary>
+	[SerializeField] private Vector3 _fireShowSignDestinyPoint; 				/// <summary>Fire Show Sign's Destiny Position.</summary>
+	[SerializeField] private Vector3 _swordShowSignDestinyPoint; 				/// <summary>Sword Show Sign's Destiny Position.</summary>
+	[SerializeField] private Vector3 _danceShowSignDestinyPoint; 				/// <summary>Dance Show Sign's Destiny Position.</summary>
+	[SerializeField] private float _signEntranceDuration; 						/// <summary>Sign Entrance's Duration.</summary>
+	[SerializeField] private float _signExitDuration; 							/// <summary>Sign Exit's Duration.</summary>
+	[SerializeField] private float _signIdleDuration; 							/// <summary>Sign Idle's Duration.</summary>
 	[Space(5f)]
 	[Header("Fire Show's Attributes:")]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _fireShowSuccessPercentage; 					/// <summary>Success' Percentage for the Fire Show.</summary>
-	[SerializeField] private CollectionIndex[] _fireTargetIndices; 					/// <summary>Fire Target's Indices on the Game's Data.</summary>
-	[SerializeField] private BoundaryWaypointsContainer _fireShowWaypoints; 		/// <summary>Fire Show's Waypoints.</summary>
-	[SerializeField] private IntRange _fireShowRounds; 								/// <summary>Fire Show Rounds' Range.</summary>
-	[SerializeField] private IntRange _fireShowTargetsPerRound; 					/// <summary>Fire Show Targets per Round's Range.</summary>
-	[SerializeField] private float _fireShowRoundDuration; 							/// <summary>Fire Show's Round Duration.</summary>
+	[Range(0.0f, 1.0f)] private float _fireShowSuccessPercentage; 				/// <summary>Success' Percentage for the Fire Show.</summary>
+	[SerializeField] private int[] _fireTargetIndices; 							/// <summary>Fire Target's Indices on the Game's Data.</summary>
+	[SerializeField] private BoundaryWaypointsContainer _fireShowWaypoints; 	/// <summary>Fire Show's Waypoints.</summary>
+	[SerializeField] private IntRange _fireShowRounds; 							/// <summary>Fire Show Rounds' Range.</summary>
+	[SerializeField] private IntRange _fireShowTargetsPerRound; 				/// <summary>Fire Show Targets per Round's Range.</summary>
+	[SerializeField] private float _fireShowRoundDuration; 						/// <summary>Fire Show's Round Duration.</summary>
 	[Space(5f)]
 	[Header("Sword Show's Attributes:")]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 					/// <summary>Success' Percentage for the Sword Show.</summary>
-	[SerializeField] private CollectionIndex[] _swordTargetIndices; 				/// <summary>Sword Target's Indices on the Game's Data.</summary>
-	[SerializeField] private Vector3[] _swordTargetsSpawnWaypoints; 				/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
-	[SerializeField] private Vector3[] _swordTargetsDestinyWaypoints; 				/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
-	//[SerializeField] private BoundaryWaypointsContainer _swordShowWaypoints; 		/// <summary>Sword Show's Waypoints.</summary>
-	[SerializeField] private IntRange _swordShowRounds; 							/// <summary>Sword Show Rounds' Range.</summary>
-	[SerializeField] private IntRange _swordShowTargetsPerRound; 					/// <summary>Sword Show Targets per Round's Range.</summary>
-	[SerializeField] private float _swordShowRoundDuration; 						/// <summary>Sword Show's Round Duration.</summary>
-	[SerializeField] private float _swordTargetShakeDuration; 						/// <summary>Sword Target's Shake Duration.</summary>
-	[SerializeField] private float _swordTargetShakeSpeed; 							/// <summary>Sword Target's Shake Speed.</summary>
-	[SerializeField] private float _swordTargetShakeMagnitude; 						/// <summary>Sword Target's Shake Magnitude.</summary>
-	[SerializeField] private float _swordTargetInterpolationDuration; 				/// <summary>Interpolation duration it takes the target to reach the spawn's destiny.</summary>
+	[Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 				/// <summary>Success' Percentage for the Sword Show.</summary>
+	[SerializeField] private int[] _swordTargetIndices; 						/// <summary>Sword Target's Indices on the Game's Data.</summary>
+	[SerializeField] private Vector3[] _swordTargetsSpawnWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
+	[SerializeField] private Vector3[] _swordTargetsDestinyWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
+	//[SerializeField] private BoundaryWaypointsContainer _swordShowWaypoints; 	/// <summary>Sword Show's Waypoints.</summary>
+	[SerializeField] private IntRange _swordShowRounds; 						/// <summary>Sword Show Rounds' Range.</summary>
+	[SerializeField] private IntRange _swordShowTargetsPerRound; 				/// <summary>Sword Show Targets per Round's Range.</summary>
+	[SerializeField] private float _swordShowRoundDuration; 					/// <summary>Sword Show's Round Duration.</summary>
+	[SerializeField] private float _swordTargetShakeDuration; 					/// <summary>Sword Target's Shake Duration.</summary>
+	[SerializeField] private float _swordTargetShakeSpeed; 						/// <summary>Sword Target's Shake Speed.</summary>
+	[SerializeField] private float _swordTargetShakeMagnitude; 					/// <summary>Sword Target's Shake Magnitude.</summary>
+	[SerializeField] private float _swordTargetInterpolationDuration; 			/// <summary>Interpolation duration it takes the target to reach the spawn's destiny.</summary>
 	[Space(5f)]
 	[Header("Dance Show's Attributes:")]
-	[SerializeField] private CollectionIndex[] _ringsIndices; 						/// <summary>Rings' Indices.</summary>
-	[SerializeField] private FloatRange _ySpawnLimits; 								/// <summary>Spawn Limits on the Y's Axis.</summary>
-	[SerializeField] private FloatRange _xOffset; 									/// <summary>Range of offset on the X's axis.</summary>
-	[SerializeField] private IntRange _danceShowRounds; 							/// <summary>Dance Show's Rounds.</summary>
-	[SerializeField] private IntRange _ringsPerRound; 								/// <summary>Rings per-round.</summary>
-	[SerializeField] private float _danceShowDuration; 								/// <summary>Dance Show's Duration.</summary>
+	[SerializeField] private int[] _ringsIndices; 								/// <summary>Rings' Indices.</summary>
+	[SerializeField] private FloatRange _ySpawnLimits; 							/// <summary>Spawn Limits on the Y's Axis.</summary>
+	[SerializeField] private FloatRange _xOffset; 								/// <summary>Range of offset on the X's axis.</summary>
+	[SerializeField] private IntRange _danceShowRounds; 						/// <summary>Dance Show's Rounds.</summary>
+	[SerializeField] private IntRange _ringsPerRound; 							/// <summary>Rings per-round.</summary>
+	[SerializeField] private float _danceShowDuration; 							/// <summary>Dance Show's Duration.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _danceShowSuccessPercentage; 					/// <summary>Success' Percentage for the Dance Show.</summary>
+	[Range(0.0f, 1.0f)] private float _danceShowSuccessPercentage; 				/// <summary>Success' Percentage for the Dance Show.</summary>
 	[Space(5f)]
 	[Header("Crowd's Boos Attributes:")]
-	[SerializeField] private CollectionIndex[] _trashProjectilesIndices; 			/// <summary>Indices of all the trash (Parabola) Projectiles.</summary>
-	[SerializeField] private CollectionIndex[] _applauseObjectsIndices; 			/// <summary>Indices of objects thrown at an applause.</summary>
-	[SerializeField] private Vector3[] _trashProjectilesWaypoints; 					/// <summary>Trash Projectiles' Waypoints.</summary>
-	[SerializeField] private IntRange _trashProjectilesPerRound; 					/// <summary>Range of Trash projectiles per round.</summary>
-	[SerializeField] private FloatRange _trashProjectileCooldown; 					/// <summary>Cooldown duration's range per trash Projectile.</summary>
-	[SerializeField] private FloatRange _mateoPositionProjection; 					/// <summary>Range of Mateo's Time Projection.</summary>
-	[SerializeField] private float _trashProjectileTime; 							/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
+	[SerializeField] private int[] _trashProjectilesIndices; 					/// <summary>Indices of all the trash (Parabola) Projectiles.</summary>
+	[SerializeField] private int[] _applauseObjectsIndices; 					/// <summary>Indices of objects thrown at an applause.</summary>
+	[SerializeField] private Vector3[] _trashProjectilesWaypoints; 				/// <summary>Trash Projectiles' Waypoints.</summary>
+	[SerializeField] private IntRange _trashProjectilesPerRound; 				/// <summary>Range of Trash projectiles per round.</summary>
+	[SerializeField] private FloatRange _trashProjectileCooldown; 				/// <summary>Cooldown duration's range per trash Projectile.</summary>
+	[SerializeField] private FloatRange _mateoPositionProjection; 				/// <summary>Range of Mateo's Time Projection.</summary>
+	[SerializeField] private float _trashProjectileTime; 						/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets fireShowPieceIndex property.</summary>
-	public CollectionIndex fireShowPieceIndex { get { return _fireShowPieceIndex; } }
+	public int fireShowPieceIndex { get { return _fireShowPieceIndex; } }
 
 	/// <summary>Gets swordShowPieceIndex property.</summary>
-	public CollectionIndex swordShowPieceIndex { get { return _swordShowPieceIndex; } }
+	public int swordShowPieceIndex { get { return _swordShowPieceIndex; } }
 
 	/// <summary>Gets danceShowPieceIndex property.</summary>
-	public CollectionIndex danceShowPieceIndex { get { return _danceShowPieceIndex; } }
+	public int danceShowPieceIndex { get { return _danceShowPieceIndex; } }
 
 	/// <summary>Gets applauseSoundIndex property.</summary>
-	public CollectionIndex applauseSoundIndex { get { return _applauseSoundIndex; } }
+	public int applauseSoundIndex { get { return _applauseSoundIndex; } }
 
 	/// <summary>Gets booingSoundIndex property.</summary>
-	public CollectionIndex booingSoundIndex { get { return _booingSoundIndex; } }
+	public int booingSoundIndex { get { return _booingSoundIndex; } }
 
 	/// <summary>Gets fireTargetIndices property.</summary>
-	public CollectionIndex[] fireTargetIndices { get { return _fireTargetIndices; } }
+	public int[] fireTargetIndices { get { return _fireTargetIndices; } }
 
 	/// <summary>Gets swordTargetIndices property.</summary>
-	public CollectionIndex[] swordTargetIndices { get { return _swordTargetIndices; } }
+	public int[] swordTargetIndices { get { return _swordTargetIndices; } }
 
 	/// <summary>Gets trashProjectilesIndices property.</summary>
-	public CollectionIndex[] trashProjectilesIndices { get { return _trashProjectilesIndices; } }
+	public int[] trashProjectilesIndices { get { return _trashProjectilesIndices; } }
 
 	/// <summary>Gets applauseObjectsIndices property.</summary>
-	public CollectionIndex[] applauseObjectsIndices { get { return _applauseObjectsIndices; } }
+	public int[] applauseObjectsIndices { get { return _applauseObjectsIndices; } }
 
 	/// <summary>Gets ringsIndices property.</summary>
-	public CollectionIndex[] ringsIndices { get { return _ringsIndices; } }
+	public int[] ringsIndices { get { return _ringsIndices; } }
 
 	/// <summary>Gets trashProjectilesWaypoints property.</summary>
 	public Vector3[] trashProjectilesWaypoints { get { return _trashProjectilesWaypoints; } }
@@ -709,7 +709,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <param name="_targetsPerRound">Targets per-round.</param>
 	/// <param name="_indices">Targets' Indices.</param>
 	/// <param name="_successPercentage">Percentage to consider this show a success.</param>
-	private IEnumerator TargetShowRoutine(Transform _sign, Vector3 _spawn, Vector3 _destiny, float _duration, IntRange _rounds, IntRange _targetsPerRound, CollectionIndex[] _indices, float _successPercentage)
+	private IEnumerator TargetShowRoutine(Transform _sign, Vector3 _spawn, Vector3 _destiny, float _duration, IntRange _rounds, IntRange _targetsPerRound, int[] _indices, float _successPercentage)
 	{
 		IEnumerator signDisplacement = DisplayAndHideSign(_sign, _spawn, _destiny);
 		IEnumerator showJudgement = null;

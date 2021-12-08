@@ -12,10 +12,10 @@ namespace Flamingo
     public class RingMadness_Minigame : MiniGame
     {
         private List<PoolGameObject> _ringsList = new List<PoolGameObject>();                            /// <summary>List of rings that are spawn.</summary>
-        [SerializeField] private CollectionIndex[] _endSoundEffectsIndex;
+        [SerializeField] private int[] _endSoundEffectsIndex;
 
         [Header("Rings Spawn Properties")]
-        [SerializeField] private CollectionIndex _ringIndex;                                             /// <summary>Index of the types of rings to spawn.</summary>
+        [SerializeField] private int _ringIndex;                                                         /// <summary>Index of the types of rings to spawn.</summary>
         [SerializeField] private int _ringAmount;                                                        /// <summary>Limit of rings to be spawn.</summary>  
         [SerializeField] private LayerMask _ringsMask;                                                   /// <summary>LayerMask of the rings for overlaping.</summary>
         [SerializeField] private float _overlapRadius;                                                   /// <summary>Radius for the overlap Circle to use.</summary>
@@ -24,11 +24,11 @@ namespace Flamingo
         private float[] _zRotationsRange = new float[] { 0f, 45f, -45f, 90 };
         
         [Header("Rings Passed Variables")]
-        private int _score = 0;                                                                      /// <summary>Player Score.</summary>
-        [SerializeField] private CollectionIndex _soundEffectIndex;                                 /// <summary>Sound Effect's Index on the Game's Data.</summary>
-        [SerializeField] private CollectionIndex _particleEffectIndex; 	                            /// <summary>Particle Effect's Index on the Game's Data.</summary>
+        private int _score = 0;                                                                          /// <summary>Player Score.</summary>
+        [SerializeField] private int _soundEffectIndex;                                                  /// <summary>Sound Effect's Index on the Game's Data.</summary>
+        [SerializeField] private int _particleEffectIndex; 	                                             /// <summary>Particle Effect's Index on the Game's Data.</summary>
         [Header("Time Variables")]
-        [SerializeField] public Clock _ringMadnessClock;                                    /// <summary>Clock class for the minigame.</summary>
+        [SerializeField] public Clock _ringMadnessClock;                                                 /// <summary>Clock class for the minigame.</summary>
         [SerializeField] private float _limitMinutesAmount;
         [Header("UI Variables")]
         [SerializeField] private TextMesh _timerText;
@@ -36,7 +36,7 @@ namespace Flamingo
 
 #region Set / Get
 
-        public CollectionIndex ringIndex
+        public int ringIndex
         {
             set { _ringIndex = value; }
             get { return _ringIndex; }
@@ -95,14 +95,14 @@ namespace Flamingo
         }
 
         /// <summary>Gets and Sets soundEffectIndex property.</summary>
-        public CollectionIndex soundEffectIndex
+        public int soundEffectIndex
         {
             get { return _soundEffectIndex; }
             set { _soundEffectIndex = value; }
         }
 
         /// <summary>Gets and Sets particleEffectIndex property.</summary>
-        public CollectionIndex particleEffectIndex
+        public int particleEffectIndex
         {
             get { return _particleEffectIndex; }
             set { _particleEffectIndex = value; }

@@ -24,7 +24,7 @@ public class DestinoCard : MonoBehaviour
 	[SerializeField] private bool _run; 							/// <summary>Can this card be runnable?.</summary>
 	[Space(5f)]
 	[SerializeField] private DestinoScriptableCoroutine _behavior; 	/// <summary>Card's Behavior.</summary>
-	[SerializeField] private CollectionIndex _entranceSoundIndex; 	/// <summary>Entrace SFX's Index.</summary>
+	[SerializeField] private int _entranceSoundIndex; 				/// <summary>Entrace SFX's Index.</summary>
 	[SerializeField] private Renderer _cardRenderer; 				/// <summary>Card's Renderer.</summary>
 	[SerializeField] private HitCollider2D _hurtBox; 				/// <summary>Card's HurtBox.</summary>
 	[SerializeField] private GameObjectTag[] _hitTags; 				/// <summary>Tags that can hit the card.</summary>
@@ -62,7 +62,7 @@ public class DestinoCard : MonoBehaviour
 	}
 
 	/// <summary>Gets entranceSoundIndex property.</summary>
-	public CollectionIndex entranceSoundIndex { get { return _entranceSoundIndex; } }
+	public int entranceSoundIndex { get { return _entranceSoundIndex; } }
 
 	/// <summary>Gets cardRenderer property.</summary>
 	public Renderer cardRenderer { get { return _cardRenderer; } }

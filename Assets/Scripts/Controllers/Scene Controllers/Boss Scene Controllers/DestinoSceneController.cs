@@ -60,12 +60,12 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[TabGroup("Scenery Group", "Judgement's Scenery")][SerializeField] private Transform _danceShowSign; 		/// <summary>Dance Show's Sign.</summary>
 	[Space(5f)]
 	[Header("Loops' Indices:")]
-	[TabGroup("Audio")][SerializeField] private CollectionIndex _mainLoopIndex; 								/// <summary>Main Loop's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private CollectionIndex _mainLoopVoiceIndex; 							/// <summary>Main Loop's Voice Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _mainLoopIndex; 											/// <summary>Main Loop's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _mainLoopVoiceIndex; 										/// <summary>Main Loop's Voice Index.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Indices:")]
-	[TabGroup("Audio")][SerializeField] private CollectionIndex _orchestraTunningSoundIndex; 					/// <summary>Orchestra Tunning Sound FX's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private CollectionIndex _curtainOpeningSoundIndex; 						/// <summary>Curtain's Opening Sound FX's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _orchestraTunningSoundIndex; 								/// <summary>Orchestra Tunning Sound FX's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _curtainOpeningSoundIndex; 									/// <summary>Curtain's Opening Sound FX's Index.</summary>
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Testing:")]
@@ -168,16 +168,16 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	public Transform danceShowSign { get { return _danceShowSign; } }
 
 	/// <summary>Gets mainLoopIndex property.</summary>
-	public CollectionIndex mainLoopIndex { get { return _mainLoopIndex; } }
+	public int mainLoopIndex { get { return _mainLoopIndex; } }
 
 	/// <summary>Gets mainLoopVoiceIndex property.</summary>
-	public CollectionIndex mainLoopVoiceIndex { get { return _mainLoopVoiceIndex; } }
+	public int mainLoopVoiceIndex { get { return _mainLoopVoiceIndex; } }
 
 	/// <summary>Gets orchestraTunningSoundIndex property.</summary>
-	public CollectionIndex orchestraTunningSoundIndex { get { return _orchestraTunningSoundIndex; } }
+	public int orchestraTunningSoundIndex { get { return _orchestraTunningSoundIndex; } }
 
 	/// <summary>Gets curtainOpeningSoundIndex property.</summary>
-	public CollectionIndex curtainOpeningSoundIndex { get { return _curtainOpeningSoundIndex; } }
+	public int curtainOpeningSoundIndex { get { return _curtainOpeningSoundIndex; } }
 
 	/// <summary>Gets and Sets deckPresented property.</summary>
 	public bool deckPresented

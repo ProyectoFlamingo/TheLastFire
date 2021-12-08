@@ -10,7 +10,7 @@ public class ShootProjectile : MonoBehaviour
 {
 	[SerializeField] private Transform _muzzle; 				/// <summary>Muzzle's Transform.</summary>
 	[SerializeField] private Faction _faction; 					/// <summary>Shooter's Faction.</summary>
-	[SerializeField] private CollectionIndex _projectileID; 	/// <summary>Pprojectile's ID.</summary>
+	[SerializeField] private int _projectileID; 				/// <summary>Pprojectile's ID.</summary>
 	private Projectile _projectile; 							/// <summary>Projectile to shoot.</summary>
 	private Cooldown _cooldown; 								/// <summary>Cooldown's Reference.</summary>
 
@@ -29,7 +29,7 @@ public class ShootProjectile : MonoBehaviour
 	}
 
 	/// <summary>Gets and Sets projectileID property.</summary>
-	public CollectionIndex projectileID
+	public int projectileID
 	{
 		get { return _projectileID; }
 		set { _projectileID = value; }
@@ -67,7 +67,7 @@ public class ShootProjectile : MonoBehaviour
 	/// <param name="_origin">Shoot's Origin.</param>
 	/// <param name="_direction">Shoot's Direction.</param>
 	/// <returns>True if projectile could be shot.</returns>
-	public bool Shoot(CollectionIndex _ID, Vector3 _origin, Vector3 _direction, float? _speed = default(float?))
+	public bool Shoot(int _ID, Vector3 _origin, Vector3 _direction, float? _speed = default(float?))
 	{
 		if(onCooldown) return false;
 
