@@ -7,16 +7,16 @@ using Flamingo;
 
 public class TESTProjectileShooter : MonoBehaviour
 {
-	[SerializeField] private KeyCode routineInput; 								/// <summary>Input that triggers the routine.</summary>
-	[SerializeField] private CollectionIndex[] playerProjectilesIndices; 		/// <summary>Player Projectiles' Indices.</summary>
-	[SerializeField] private CollectionIndex[] enemyProjectilesIndices; 		/// <summary>Enemy Projectiles' Indices.</summary>
-	[SerializeField] private CollectionIndex[] enemyHomingProjectilesIndices; 	/// <summary>Enemy Homing Proejctiles' Indices.</summary>
-	[SerializeField] private Transform target; 									/// <summary>Projectiles' Target.</summary>
-	[SerializeField] private float cooldown; 									/// <summary>Cooldown duration after each shot.</summary>
-	private Coroutine coroutine; 												/// <summary>Coroutine's Reference.</summary>
+	[SerializeField] private KeyCode routineInput; 					/// <summary>Input that triggers the routine.</summary>
+	[SerializeField] private int[] playerProjectilesIndices; 		/// <summary>Player Projectiles' Indices.</summary>
+	[SerializeField] private int[] enemyProjectilesIndices; 		/// <summary>Enemy Projectiles' Indices.</summary>
+	[SerializeField] private int[] enemyHomingProjectilesIndices; 	/// <summary>Enemy Homing Proejctiles' Indices.</summary>
+	[SerializeField] private Transform target; 						/// <summary>Projectiles' Target.</summary>
+	[SerializeField] private float cooldown; 						/// <summary>Cooldown duration after each shot.</summary>
+	private Coroutine coroutine; 									/// <summary>Coroutine's Reference.</summary>
 #if UNITY_EDITOR
-	[SerializeField] private Color color; 										/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float radius; 										/// <summary>Gizmos' Radius.</summary>
+	[SerializeField] private Color color; 							/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private float radius; 							/// <summary>Gizmos' Radius.</summary>
 #endif
 
 	/// <summary>Draws Gizmos on Editor mode when TESTProjectileShooter's instance is selected.</summary>
@@ -56,7 +56,7 @@ public class TESTProjectileShooter : MonoBehaviour
 		Vector3 direction = Vector3.zero;
 
 		/// Player Projectiles' Routine:
-		foreach(CollectionIndex index in playerProjectilesIndices)
+		foreach(int index in playerProjectilesIndices)
 		{
 			direction = target.position - transform.position;
 			PoolManager.RequestProjectile(Faction.Ally, index, transform.position, direction);
@@ -65,7 +65,7 @@ public class TESTProjectileShooter : MonoBehaviour
 		}
 
 		/// Enemy Projectiles' Routine:
-		foreach(CollectionIndex index in enemyProjectilesIndices)
+		foreach(int index in enemyProjectilesIndices)
 		{
 			direction = target.position - transform.position;
 			PoolManager.RequestProjectile(Faction.Enemy, index, transform.position, direction);
@@ -74,7 +74,7 @@ public class TESTProjectileShooter : MonoBehaviour
 		}
 
 		/// Enemy Homing Projectiles' Routine:
-		foreach(CollectionIndex index in enemyHomingProjectilesIndices)
+		foreach(int index in enemyHomingProjectilesIndices)
 		{
 			direction = target.position - transform.position;
 			PoolManager.RequestHomingProjectile(Faction.Enemy, index, transform.position, direction, target);

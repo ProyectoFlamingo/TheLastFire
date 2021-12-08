@@ -8,8 +8,8 @@ namespace Flamingo
 {
 public class TrainingGroundElement : MonoBehaviour
 {
-	[SerializeField] private CollectionIndex _worldSpaceTextIndex; 	/// <summary>World-Space Text's Index.</summary>
-	[SerializeField] private Vector3 _textPositionOffset; 		/// <summary>Text's Position's Offset.</summary>
+	[SerializeField] private int _worldSpaceTextIndex; 				/// <summary>World-Space Text's Index.</summary>
+	[SerializeField] private Vector3 _textPositionOffset; 			/// <summary>Text's Position's Offset.</summary>
 	[TextArea(1, 5)] [SerializeField] private string _text; 		/// <summary>Default Text.</summary>
 	private WorldSpaceText _worldSpaceText; 						/// <summary>World-Space's Text.</summary>
 #if UNITY_EDITOR
@@ -20,7 +20,7 @@ public class TrainingGroundElement : MonoBehaviour
 #endif
 
 	/// <summary>Gets worldSpaceTextIndex property.</summary>
-	public CollectionIndex worldSpaceTextIndex { get { return _worldSpaceTextIndex; } }
+	public int worldSpaceTextIndex { get { return _worldSpaceTextIndex; } }
 
 	/// <summary>Gets textPositionOffset property.</summary>
 	public Vector3 textPositionOffset { get { return transform.position + _textPositionOffset; } }

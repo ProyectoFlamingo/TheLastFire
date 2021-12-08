@@ -3512,6 +3512,8 @@ MonoBehaviour:
   _directionalThresholdY:
     _min: -0.5
     _max: 0.5
+  _attackingGravityScale: 0
+  _attackingScaleChangePriority: 0
   _extraJumpTrailRenderer: {fileID: 0}
   _gravityScale: 1
   _scaleChangePriority: 1
@@ -3521,44 +3523,24 @@ MonoBehaviour:
   _dashXThreshold: 0.5
   _initialJumpParticleEffect:
     _transform: {fileID: 5122952807910987803}
-    _particleEffectIndex:
-      index: 8
-      objectIndex: 0
-      collectionIndex: 7
+    _particleEffectIndex: 8
     _points:
     - {x: 0, y: -1.45, z: 0}
   _additionalJumpParticleEffect:
     _transform: {fileID: 5122952807910987803}
-    _particleEffectIndex:
-      index: 3
-      objectIndex: 0
-      collectionIndex: 7
+    _particleEffectIndex: 3
     _points:
     - {x: 0, y: -1.45, z: 0}
   _softLandingParticleEffect:
     _transform: {fileID: 5122952807910987803}
-    _particleEffectIndex:
-      index: 6
-      objectIndex: 0
-      collectionIndex: 7
+    _particleEffectIndex: 6
     _points:
     - {x: 0, y: -1.45, z: 0}
   _hardLandingParticleEffect:
     _transform: {fileID: 5122952807910987803}
-    _particleEffectIndex:
-      index: 38
-      objectIndex: 0
-      collectionIndex: 7
+    _particleEffectIndex: 38
     _points:
     - {x: 0, y: 1.45, z: 0}
-  _initialJumpSoundEffectIndex:
-    index: 18
-    objectIndex: 0
-    collectionIndex: 6
-  _additionalJumpSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 6
 --- !u!50 &5122952807910987783
 Rigidbody2D:
   serializedVersion: 4
@@ -3698,7 +3680,7 @@ MonoBehaviour:
   - force: {x: 0, y: 20}
     duration: 0.3
     forceMode: 2
-  _SFXsIndices: []
+  _SFXsIndices: 1200000010000000
   _landingDuration: 0.1
 --- !u!114 &5122952807910987804
 MonoBehaviour:
@@ -3789,32 +3771,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _muzzle: {fileID: 0}
   _faction: 0
-  _projectileID:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 1
+  _projectileID: 0
   _speedRange:
     _min: 20
     _max: 50
-  _chargedProjectileID:
-    index: 1
-    objectIndex: 0
-    collectionIndex: 1
+  _chargedProjectileID: 0
   _minimumCharge: 0.3
   _chargeDuration: 0.65
   _speedChargeDuration: 1.2
-  _projectileCreationSoundIndex:
-    index: 23
-    objectIndex: 0
-    collectionIndex: 6
-  _maxChargeSoundIndex:
-    index: 28
-    objectIndex: 0
-    collectionIndex: 6
-  _releaseSoundIndex:
-    index: 30
-    objectIndex: 0
-    collectionIndex: 6
+  _projectileCreationSoundIndex: 0
+  _maxChargeSoundIndex: 0
+  _releaseSoundIndex: 0
 --- !u!114 &3247047400570744615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4220,36 +4187,18 @@ MonoBehaviour:
   _subID: 0
   _particleEffectsMatrix:
   - ID: 1
-    index:
-      index: 18
-      objectIndex: 0
-      collectionIndex: 6
+    index: 18
   - ID: 2
-    index:
-      index: 18
-      objectIndex: 0
-      collectionIndex: 6
+    index: 18
   - ID: 128
-    index:
-      index: 16
-      objectIndex: 0
-      collectionIndex: 7
+    index: 16
   - ID: 512
-    index:
-      index: 17
-      objectIndex: 0
-      collectionIndex: 6
+    index: 17
   _soundEffectsMatrix:
   - ID: 1
-    index:
-      index: 57
-      objectIndex: 0
-      collectionIndex: 6
+    index: 57
   - ID: 128
-    index:
-      index: 57
-      objectIndex: 0
-      collectionIndex: 6
+    index: 27
   _eventsHandler: {fileID: 0}
 --- !u!114 &5237004155411882976
 MonoBehaviour:
@@ -5250,36 +5199,18 @@ MonoBehaviour:
   _subID: 0
   _particleEffectsMatrix:
   - ID: 1
-    index:
-      index: 18
-      objectIndex: 0
-      collectionIndex: 6
+    index: 18
   - ID: 2
-    index:
-      index: 18
-      objectIndex: 0
-      collectionIndex: 6
+    index: 18
   - ID: 128
-    index:
-      index: 16
-      objectIndex: 0
-      collectionIndex: 7
+    index: 16
   - ID: 512
-    index:
-      index: 17
-      objectIndex: 0
-      collectionIndex: 6
+    index: 17
   _soundEffectsMatrix:
   - ID: 1
-    index:
-      index: 58
-      objectIndex: 0
-      collectionIndex: 6
+    index: 58
   - ID: 130
-    index:
-      index: 54
-      objectIndex: 0
-      collectionIndex: 6
+    index: 54
   _eventsHandler: {fileID: 0}
 --- !u!114 &2521995181921440797
 MonoBehaviour:

@@ -46,17 +46,18 @@ public enum MaterialID
 }
 
 [Serializable] public struct MaterialIDCollectionIndexPair { public MaterialID ID; public CollectionIndex index; }
+[Serializable] public struct MaterialIDIntPair { public MaterialID ID; public int index; }
 
 //[RequireComponent(typeof(EventsHandler))]
 public class InteractableMaterial : MonoBehaviour
 {
-	[SerializeField] private MaterialID _ID; 											/// <summary>Material's ID.</summary>
-	[SerializeField] private int _subID; 												/// <summary>Sub-ID.</summary>
-	[SerializeField] private MaterialIDCollectionIndexPair[] _particleEffectsMatrix; 	/// <summary>Matrix of Particle Effects emitted by each specific interaction.</summary>
-	[SerializeField] private MaterialIDCollectionIndexPair[] _soundEffectsMatrix; 		/// <summary>Matrix of Sound Effects emitted by each specific interaction.</summary>
-	[SerializeField] private EventsHandler _eventsHandler; 								/// <summary>EventsHandler's Component.</summary>
-	private Dictionary<MaterialID, List<CollectionIndex>> _particleEffectsDictionary; 	/// <summary>Dictionary of Particle Effects emitted by each specific interaction.</summary>
-	private Dictionary<MaterialID, List<CollectionIndex>> _soundEffectsDictionary; 		/// <summary>Dictionary of Sound Effects emitted by each specific interaction.</summary>
+	[SerializeField] private MaterialID _ID; 								/// <summary>Material's ID.</summary>
+	[SerializeField] private int _subID; 									/// <summary>Sub-ID.</summary>
+	[SerializeField] private MaterialIDIntPair[] _particleEffectsMatrix; 	/// <summary>Matrix of Particle Effects emitted by each specific interaction.</summary>
+	[SerializeField] private MaterialIDIntPair[] _soundEffectsMatrix; 		/// <summary>Matrix of Sound Effects emitted by each specific interaction.</summary>
+	[SerializeField] private EventsHandler _eventsHandler; 					/// <summary>EventsHandler's Component.</summary>
+	private Dictionary<MaterialID, List<int>> _particleEffectsDictionary; 	/// <summary>Dictionary of Particle Effects emitted by each specific interaction.</summary>
+	private Dictionary<MaterialID, List<int>> _soundEffectsDictionary; 		/// <summary>Dictionary of Sound Effects emitted by each specific interaction.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets ID property.</summary>
@@ -74,28 +75,28 @@ public class InteractableMaterial : MonoBehaviour
 	}
 
 	/// <summary>Gets and Sets particleEffectsMatrix property.</summary>
-	public MaterialIDCollectionIndexPair[] particleEffectsMatrix
+	public MaterialIDIntPair[] particleEffectsMatrix
 	{
 		get { return _particleEffectsMatrix; }
 		set { _particleEffectsMatrix = value; }
 	}
 
 	/// <summary>Gets and Sets soundEffectsMatrix property.</summary>
-	public MaterialIDCollectionIndexPair[] soundEffectsMatrix
+	public MaterialIDIntPair[] soundEffectsMatrix
 	{
 		get { return _soundEffectsMatrix; }
 		set { _soundEffectsMatrix = value; }
 	}
 
 	/// <summary>Gets and Sets particleEffectsDictionary property.</summary>
-	public Dictionary<MaterialID, List<CollectionIndex>> particleEffectsDictionary
+	public Dictionary<MaterialID, List<int>> particleEffectsDictionary
 	{
 		get { return _particleEffectsDictionary; }
 		private set { _particleEffectsDictionary = value; }
 	}
 
 	/// <summary>Gets and Sets soundEffectsDictionary property.</summary>
-	public Dictionary<MaterialID, List<CollectionIndex>> soundEffectsDictionary
+	public Dictionary<MaterialID, List<int>> soundEffectsDictionary
 	{
 		get { return _soundEffectsDictionary; }
 		private set { _soundEffectsDictionary = value; }
@@ -148,18 +149,18 @@ public class InteractableMaterial : MonoBehaviour
 	/// <summary>Populates Dictionary.</summary>
 	/// <param name="matrix">Matrix' of Pair of MaterialIDs and CollectionIndices.</param>
 	/// <param name="dictionary">Dictionary's Reference to Populate.</param>
-	private void PopulateDictionary(MaterialIDCollectionIndexPair[] matrix, ref Dictionary<MaterialID, List<CollectionIndex>> dictionary)
+	private void PopulateDictionary(MaterialIDIntPair[] matrix, ref Dictionary<MaterialID, List<int>> dictionary)
 	{
-		dictionary = new Dictionary<MaterialID, List<CollectionIndex>>();
-		List<CollectionIndex> indices = null;
+		dictionary = new Dictionary<MaterialID, List<int>>();
+		List<int> indices = null;
 		MaterialID pairID = (MaterialID)(0);
 
 		for(int i = 0; i < 31; i++)
 		{
 			pairID = (MaterialID)(1 << i);
-			indices = new List<CollectionIndex>();
+			indices = new List<int>();
 			
-			foreach(MaterialIDCollectionIndexPair pair in matrix)
+			foreach(MaterialIDIntPair pair in matrix)
 			{
 				if((pair.ID | pairID) == pair.ID) indices.Add(pair.index);
 			}
@@ -175,7 +176,7 @@ public class InteractableMaterial : MonoBehaviour
 	{
 		if(!particleEffectsDictionary.ContainsKey(_ID)) return;
 
-		foreach(CollectionIndex index in particleEffectsDictionary[_ID])
+		foreach(int index in particleEffectsDictionary[_ID])
 		{
 			PoolManager.RequestParticleEffect(index, _info.contactPoint, /*Quaternion.LookRotation(_info.direction)*/Quaternion.identity);
 		}
@@ -188,7 +189,7 @@ public class InteractableMaterial : MonoBehaviour
 	{
 		if(!soundEffectsDictionary.ContainsKey(_ID)) return;
 
-		foreach(CollectionIndex index in soundEffectsDictionary[_ID])
+		foreach(int index in soundEffectsDictionary[_ID])
 		{
 			AudioController.PlayOneShot(SourceType.SFX, 0, index);
 		}

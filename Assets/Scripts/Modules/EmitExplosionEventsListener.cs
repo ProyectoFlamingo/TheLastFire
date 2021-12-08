@@ -8,38 +8,38 @@ namespace Flamingo
 {
 public class EmitExplosionEventsListener : EventsListener
 {
-	[SerializeField] private IntCollectionIndexPair[] _IDEvents; 							/// <summary>ID Events to subscribe.</summary>
-	[SerializeField] private TagCollectionIndexPair[] _impactEvents; 						/// <summary>Impact Events to subscribe.</summary>
-	[SerializeField] private DeactivationCauseCollectionIndexPair[] _deactivationEvents; 	/// <summary>Deactivation Events to Listen.</summary>
-	private Dictionary<int, CollectionIndex> _IDEventsDic; 									/// <summary>Dictionary of ID Events Subscribed.</summary>
-	private Dictionary<GameObjectTag, CollectionIndex> _impactEventsDic; 					/// <summary>Dictionary of Impact Events Subscribed.</summary>
-	private Dictionary<DeactivationCause, CollectionIndex> _deactivationEventsDic; 			/// <summary>Dictionary of Deactivation Events Subscribed.</summary>
+	[SerializeField] private IntIntPair[] _IDEvents; 										/// <summary>ID Events to subscribe.</summary>
+	[SerializeField] private TagIntPair[] _impactEvents; 									/// <summary>Impact Events to subscribe.</summary>
+	[SerializeField] private DeactivationCauseIntPair[] _deactivationEvents; 				/// <summary>Deactivation Events to Listen.</summary>
+	private Dictionary<int, int> _IDEventsDic; 												/// <summary>Dictionary of ID Events Subscribed.</summary>
+	private Dictionary<GameObjectTag, int> _impactEventsDic; 								/// <summary>Dictionary of Impact Events Subscribed.</summary>
+	private Dictionary<DeactivationCause, int> _deactivationEventsDic; 						/// <summary>Dictionary of Deactivation Events Subscribed.</summary>
 
 	/// <summary>Gets IDEvents property.</summary>
-	public IntCollectionIndexPair[] IDEvents { get { return _IDEvents; } }
+	public IntIntPair[] IDEvents { get { return _IDEvents; } }
 
 	/// <summary>Gets impactEvents property.</summary>
-	public TagCollectionIndexPair[] impactEvents { get { return _impactEvents; } }
+	public TagIntPair[] impactEvents { get { return _impactEvents; } }
 
 	/// <summary>Gets deactivationEvents property.</summary>
-	public DeactivationCauseCollectionIndexPair[] deactivationEvents { get { return _deactivationEvents; } }
+	public DeactivationCauseIntPair[] deactivationEvents { get { return _deactivationEvents; } }
 
 	/// <summary>Gets and Sets IDEventsDic property.</summary>
-	public Dictionary<int, CollectionIndex> IDEventsDic
+	public Dictionary<int, int> IDEventsDic
 	{
 		get { return _IDEventsDic; }
 		protected set { _IDEventsDic = value; }
 	}
 
 	/// <summary>Gets and Sets impactEventsDic property.</summary>
-	public Dictionary<GameObjectTag, CollectionIndex> impactEventsDic
+	public Dictionary<GameObjectTag, int> impactEventsDic
 	{
 		get { return _impactEventsDic; }
 		protected set { _impactEventsDic = value; }
 	}
 
 	/// <summary>Gets and Sets deactivationEventsDic property.</summary>
-	public Dictionary<DeactivationCause, CollectionIndex> deactivationEventsDic
+	public Dictionary<DeactivationCause, int> deactivationEventsDic
 	{
 		get { return _deactivationEventsDic; }
 		protected set { _deactivationEventsDic = value; }
@@ -52,27 +52,27 @@ public class EmitExplosionEventsListener : EventsListener
 
 		if(IDEvents != null)
 		{
-			IDEventsDic = new Dictionary<int, CollectionIndex>();
+			IDEventsDic = new Dictionary<int, int>();
 
-			foreach(IntCollectionIndexPair pair in IDEvents)
+			foreach(IntIntPair pair in IDEvents)
 			{
 				IDEventsDic.Add(pair.ID, pair.index);
 			}
 		}
 		if(impactEvents != null)
 		{
-			impactEventsDic = new Dictionary<GameObjectTag, CollectionIndex>();
+			impactEventsDic = new Dictionary<GameObjectTag, int>();
 
-			foreach(TagCollectionIndexPair pair in impactEvents)
+			foreach(TagIntPair pair in impactEvents)
 			{
 				impactEventsDic.Add(pair.tag, pair.index);
 			}
 		}
 		if(deactivationEvents != null)
 		{
-			deactivationEventsDic = new Dictionary<DeactivationCause, CollectionIndex>();
+			deactivationEventsDic = new Dictionary<DeactivationCause, int>();
 
-			foreach(DeactivationCauseCollectionIndexPair pair in deactivationEvents)
+			foreach(DeactivationCauseIntPair pair in deactivationEvents)
 			{
 				deactivationEventsDic.Add(pair.cause, pair.index);
 			}
