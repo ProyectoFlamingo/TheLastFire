@@ -1,0 +1,405 @@
+fileFormatVersion: 2
+guid: 84a2ab9a549a600428af82e9ab6047a7
+timeCreated: 1493645913
+licenseType: Store
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: flamingo_Beak-nub_bone
+    100004: flamingo_Beak_bone
+    100006: flamingo_Beak_ctrl
+    100008: flamingo_Body_mesh
+    100010: flamingo_COM_ctrl
+    100012: flamingo_Feathers_mesh
+    100014: flamingo_Head_bone
+    100016: flamingo_Head_ctrl
+    100018: flamingo_Hip_ctrl
+    100020: flamingo_l_Ankle_bone
+    100022: flamingo_l_ball_IKGoal
+    100024: flamingo_l_ball_IKGoal 1
+    100026: flamingo_l_Foot_ctrl
+    100028: flamingo_l_Heel_hlp
+    100030: flamingo_l_heel_IKGoal
+    100032: flamingo_l_HeelPeel_hlp
+    100034: flamingo_l_Knee_bone
+    100036: flamingo_l_Thigh_bone
+    100038: flamingo_l_Toe-nub_bone
+    100040: flamingo_l_Toe_bone
+    100042: flamingo_l_toe_IKGoal
+    100044: flamingo_l_toe_IKGoal 1
+    100046: flamingo_l_ToeLift_hlp
+    100048: flamingo_l_ToeTap_hlp
+    100050: flamingo_Main_ctrl
+    100052: flamingo_Mandible_bone
+    100054: flamingo_Mandible_ctrl
+    100056: flamingo_Neck10_bone
+    100058: flamingo_Neck10_ctrl
+    100060: flamingo_Neck11_bone
+    100062: flamingo_Neck11_ctrl
+    100064: flamingo_Neck12_bone
+    100066: flamingo_Neck12_ctrl
+    100068: flamingo_Neck1_bone
+    100070: flamingo_Neck2_bone
+    100072: flamingo_Neck2_ctrl
+    100074: flamingo_Neck3_bone
+    100076: flamingo_Neck3_ctrl
+    100078: flamingo_Neck4_bone
+    100080: flamingo_Neck4_ctrl
+    100082: flamingo_Neck5_bone
+    100084: flamingo_Neck5_ctrl
+    100086: flamingo_Neck6_bone
+    100088: flamingo_Neck6_ctrl
+    100090: flamingo_Neck7_bone
+    100092: flamingo_Neck7_ctrl
+    100094: flamingo_Neck8_bone
+    100096: flamingo_Neck8_ctrl
+    100098: flamingo_Neck9_bone
+    100100: flamingo_Neck9_ctrl
+    100102: flamingo_NeckBase_ctrl
+    100104: flamingo_Nostril-nub_bone
+    100106: flamingo_Nostril_bone
+    100108: flamingo_Nostril_ctrl
+    100110: flamingo_Pelvis_bone
+    100112: flamingo_r_Ankle_bone
+    100114: flamingo_r_Foot_ctrl
+    100116: flamingo_r_Heel_hlp
+    100118: flamingo_r_heel_IKGoal
+    100120: flamingo_r_HeelPeel_hlp
+    100122: flamingo_r_Knee_bone
+    100124: flamingo_r_Thigh_bone
+    100126: flamingo_r_Toe-nub_bone
+    100128: flamingo_r_Toe_bone
+    100130: flamingo_r_ToeLift_hlp
+    100132: flamingo_r_ToeTap_hlp
+    100134: flamingo_Spine1_bone
+    100136: flamingo_Spine2_bone
+    100138: flamingo_Spine3_bone
+    100140: flamingo_SpineBase_ctrl
+    100142: flamingo_SpineEnd_ctrl
+    100144: flamingo_Tail-nub_bone
+    100146: flamingo_Tail_bone
+    100148: flamingo_Tail_ctrl
+    400000: //RootNode
+    400002: flamingo_Beak-nub_bone
+    400004: flamingo_Beak_bone
+    400006: flamingo_Beak_ctrl
+    400008: flamingo_Body_mesh
+    400010: flamingo_COM_ctrl
+    400012: flamingo_Feathers_mesh
+    400014: flamingo_Head_bone
+    400016: flamingo_Head_ctrl
+    400018: flamingo_Hip_ctrl
+    400020: flamingo_l_Ankle_bone
+    400022: flamingo_l_ball_IKGoal
+    400024: flamingo_l_ball_IKGoal 1
+    400026: flamingo_l_Foot_ctrl
+    400028: flamingo_l_Heel_hlp
+    400030: flamingo_l_heel_IKGoal
+    400032: flamingo_l_HeelPeel_hlp
+    400034: flamingo_l_Knee_bone
+    400036: flamingo_l_Thigh_bone
+    400038: flamingo_l_Toe-nub_bone
+    400040: flamingo_l_Toe_bone
+    400042: flamingo_l_toe_IKGoal
+    400044: flamingo_l_toe_IKGoal 1
+    400046: flamingo_l_ToeLift_hlp
+    400048: flamingo_l_ToeTap_hlp
+    400050: flamingo_Main_ctrl
+    400052: flamingo_Mandible_bone
+    400054: flamingo_Mandible_ctrl
+    400056: flamingo_Neck10_bone
+    400058: flamingo_Neck10_ctrl
+    400060: flamingo_Neck11_bone
+    400062: flamingo_Neck11_ctrl
+    400064: flamingo_Neck12_bone
+    400066: flamingo_Neck12_ctrl
+    400068: flamingo_Neck1_bone
+    400070: flamingo_Neck2_bone
+    400072: flamingo_Neck2_ctrl
+    400074: flamingo_Neck3_bone
+    400076: flamingo_Neck3_ctrl
+    400078: flamingo_Neck4_bone
+    400080: flamingo_Neck4_ctrl
+    400082: flamingo_Neck5_bone
+    400084: flamingo_Neck5_ctrl
+    400086: flamingo_Neck6_bone
+    400088: flamingo_Neck6_ctrl
+    400090: flamingo_Neck7_bone
+    400092: flamingo_Neck7_ctrl
+    400094: flamingo_Neck8_bone
+    400096: flamingo_Neck8_ctrl
+    400098: flamingo_Neck9_bone
+    400100: flamingo_Neck9_ctrl
+    400102: flamingo_NeckBase_ctrl
+    400104: flamingo_Nostril-nub_bone
+    400106: flamingo_Nostril_bone
+    400108: flamingo_Nostril_ctrl
+    400110: flamingo_Pelvis_bone
+    400112: flamingo_r_Ankle_bone
+    400114: flamingo_r_Foot_ctrl
+    400116: flamingo_r_Heel_hlp
+    400118: flamingo_r_heel_IKGoal
+    400120: flamingo_r_HeelPeel_hlp
+    400122: flamingo_r_Knee_bone
+    400124: flamingo_r_Thigh_bone
+    400126: flamingo_r_Toe-nub_bone
+    400128: flamingo_r_Toe_bone
+    400130: flamingo_r_ToeLift_hlp
+    400132: flamingo_r_ToeTap_hlp
+    400134: flamingo_Spine1_bone
+    400136: flamingo_Spine2_bone
+    400138: flamingo_Spine3_bone
+    400140: flamingo_SpineBase_ctrl
+    400142: flamingo_SpineEnd_ctrl
+    400144: flamingo_Tail-nub_bone
+    400146: flamingo_Tail_bone
+    400148: flamingo_Tail_ctrl
+    2300000: flamingo_l_Foot_ctrl
+    2300002: flamingo_r_Foot_ctrl
+    3300000: flamingo_l_Foot_ctrl
+    3300002: flamingo_r_Foot_ctrl
+    4300000: flamingo_Body_mesh
+    4300002: flamingo_Feathers_mesh
+    4300004: flamingo_r_Foot_ctrl
+    4300006: flamingo_l_Foot_ctrl
+    7400000: turnright
+    9500000: //RootNode
+    13700000: flamingo_Body_mesh
+    13700002: flamingo_Feathers_mesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: turnright
+      takeName: Take 001
+      firstFrame: 859
+      lastFrame: 883
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: flamingo_Body_mesh
+        weight: 1
+      - path: flamingo_Feathers_mesh
+        weight: 1
+      - path: flamingo_Hip_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_l_Thigh_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_l_Thigh_bone/flamingo_l_Knee_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_l_Thigh_bone/flamingo_l_Knee_bone/flamingo_l_Ankle_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_l_Thigh_bone/flamingo_l_Knee_bone/flamingo_l_Ankle_bone/flamingo_l_Toe_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_l_Thigh_bone/flamingo_l_Knee_bone/flamingo_l_Ankle_bone/flamingo_l_Toe_bone/flamingo_l_Toe-nub_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_r_Thigh_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_r_Thigh_bone/flamingo_r_Knee_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_r_Thigh_bone/flamingo_r_Knee_bone/flamingo_r_Ankle_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_r_Thigh_bone/flamingo_r_Knee_bone/flamingo_r_Ankle_bone/flamingo_r_Toe_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_r_Thigh_bone/flamingo_r_Knee_bone/flamingo_r_Ankle_bone/flamingo_r_Toe_bone/flamingo_r_Toe-nub_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Mandible_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Mandible_bone/flamingo_Beak_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Mandible_bone/flamingo_Beak_bone/flamingo_Beak-nub_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Mandible_bone/flamingo_Beak_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Mandible_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Nostril_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Nostril_bone/flamingo_Nostril-nub_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_bone/flamingo_Nostril_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_bone/flamingo_Head_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_bone/flamingo_Neck12_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_bone/flamingo_Neck11_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_bone/flamingo_Neck10_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_bone/flamingo_Neck9_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_bone/flamingo_Neck8_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_bone/flamingo_Neck7_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_bone/flamingo_Neck6_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_bone/flamingo_Neck5_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_bone/flamingo_Neck4_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_bone/flamingo_Neck3_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_Neck1_bone/flamingo_Neck2_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Spine1_bone/flamingo_Spine2_bone/flamingo_Spine3_bone/flamingo_NeckBase_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Tail_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Tail_bone/flamingo_Tail-nub_bone
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_COM_ctrl/flamingo_Pelvis_bone/flamingo_Tail_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp/flamingo_l_HeelPeel_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp/flamingo_l_HeelPeel_hlp/flamingo_l_ball_IKGoal
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp/flamingo_l_HeelPeel_hlp/flamingo_l_heel_IKGoal
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp/flamingo_l_ToeTap_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_l_Foot_ctrl/flamingo_l_Heel_hlp/flamingo_l_ToeLift_hlp/flamingo_l_ToeTap_hlp/flamingo_l_toe_IKGoal
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp/flamingo_r_HeelPeel_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp/flamingo_r_HeelPeel_hlp/flamingo_l_ball_IKGoal
+          1
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp/flamingo_r_HeelPeel_hlp/flamingo_r_heel_IKGoal
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp/flamingo_r_ToeTap_hlp
+        weight: 1
+      - path: flamingo_Main_ctrl/flamingo_r_Foot_ctrl/flamingo_r_Heel_hlp/flamingo_r_ToeLift_hlp/flamingo_r_ToeTap_hlp/flamingo_l_toe_IKGoal
+          1
+        weight: 1
+      - path: flamingo_SpineBase_ctrl
+        weight: 1
+      - path: flamingo_SpineEnd_ctrl
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: flamingo_Main_ctrl
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
