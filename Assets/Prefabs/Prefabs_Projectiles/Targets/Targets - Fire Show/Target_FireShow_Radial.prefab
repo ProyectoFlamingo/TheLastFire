@@ -13,11 +13,10 @@ GameObject:
   - component: {fileID: 1168642533328873389}
   - component: {fileID: 3148828334597545079}
   - component: {fileID: 3510497277535236697}
-  - component: {fileID: -5976953142256459136}
-  - component: {fileID: 6467107858872647766}
-  - component: {fileID: -3226295003339927436}
+  - component: {fileID: 939755407774362535}
+  - component: {fileID: 6717355898963145772}
   m_Layer: 0
-  m_Name: Target_Motion_Circle_0
+  m_Name: Target_FireShow_Radial
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,10 +30,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072178799982049429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.677, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 99560046026272233}
+  - {fileID: 512817654101083786}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,17 +84,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be08c406d7aef3c4cab3516765932181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _children:
-  - {fileID: 99560046026272233}
-  _motionType: 1
-  _axes:
-    _x: 0
-    _y: 0
-    _z: 1
-  _space: 1
-  _radius: 5
-  _motionSpeed: 90
+  _childrenSelfMotionData:
+  - _child: {fileID: 512817654101083786}
+    _t: 0
+    _selfMotionData:
+      type: 1
+      axes:
+        _x: 0
+        _y: 0
+        _z: 1
+      radius: 5
+      speed: 360
   gizmosColor: {r: 0, g: 0.9524913, b: 1, a: 1}
+  gizmosRadius: 0.25
 --- !u!114 &3510497277535236697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,7 +110,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
---- !u!114 &-5976953142256459136
+  _tags:
+  - _tag: Projectile/Player
+    index: 11
+  _destructionParticleEffectIndex: 0
+  _destructionSoundEffectIndex: 0
+--- !u!114 &939755407774362535
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -123,11 +129,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _space: 0
-  _size: {x: 0, y: 0, z: 0}
+  _size: {x: 2, y: 2, z: 0.25}
   _centerOffset: {x: 0, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
---- !u!114 &6467107858872647766
+--- !u!114 &6717355898963145772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,61 +142,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1072178799982049429}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
+  m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
---- !u!114 &-3226295003339927436
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072178799982049429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9033fbed74549f6418020548535b80d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dontDestroyOnLoad: 0
-  _healthAffectableTags: []
-  _damage: 0
-  _damageScales: []
-  _impactTags:
-  - _tag: Weapon/Player
-    index: 9
-  - _tag: Projectile/Player
-    index: 11
-  _trailRenderers: []
-  _particleEffects: []
-  effect: {fileID: 0}
-  _projectileType: 0
-  _repelTags: []
-  _speedMode: 0
-  _speed: 0
-  _lifespan: 0
-  _cooldownDuration: 0
-  _rotateTowardsDirection: 0
-  _maxSteeringForce: 0
-  _distance: 0
-  _impactParticleEffectIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedParticleEffectIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 6
-  _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 5
-  _destroyedSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 5
-  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1181030957356478186
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,7 +178,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 99560046026272233}
+  m_Father: {fileID: 512817654101083786}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2645309559875600139
@@ -275,7 +232,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
---- !u!1 &3095596080782940882
+--- !u!1 &8349375021347138508
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -283,22 +240,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 99560046026272233}
+  - component: {fileID: 512817654101083786}
   m_Layer: 0
-  m_Name: Group_Target
+  m_Name: Group_MeshAndHurtBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &99560046026272233
+--- !u!4 &512817654101083786
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3095596080782940882}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 8349375021347138508}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -312,7 +269,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 99560046026272233}
+    m_TransformParent: {fileID: 512817654101083786}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: fabe010b1b8aced47932579bf1948f7b,
         type: 3}

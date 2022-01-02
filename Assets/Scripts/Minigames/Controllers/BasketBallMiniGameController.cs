@@ -79,7 +79,7 @@ public class BasketBallMiniGameController : MonoBehaviour
     /// <summary>Updates BaskatBallMiniGameController's instance at each frame.</summary>
     private void Update()
     {
-        if(basketMiniGame.running) timeText.text = basketMiniGame.clock.ToString();
+        if(basketMiniGame.state == MiniGameState.Running) timeText.text = basketMiniGame.clock.ToString();
     }
 
     /// <summary>Callback invoked before this Object is sent to the Garbage Collector.</summary>
@@ -103,7 +103,7 @@ public class BasketBallMiniGameController : MonoBehaviour
     {
         VCameraTarget target = basketMiniGame.ball.GetComponent<VCameraTarget>();
         if(target != null) Game.RemoveTargetToCamera(target);
-        basketMiniGame.Terminate(this);
+        basketMiniGame.Terminate();
         //Unsubscribe();  
     }
 

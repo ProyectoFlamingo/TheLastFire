@@ -10,6 +10,8 @@ namespace Flamingo
 /// <param name="_collider">Collider that passed the ring.</param>
 public delegate void OnRingPassed(Collider2D _collider);
 
+[RequireComponent(typeof(VCameraTarget))]
+[RequireComponent(typeof(SelfMotionPerformer))]
 public class Ring : PoolGameObject
 {
 	public event OnRingPassed onRingPassed; 						/// <summary>OnRingPassed event's delegate.</summary>
@@ -17,7 +19,6 @@ public class Ring : PoolGameObject
 	[SerializeField] private int _particleEffectIndex; 				/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
 	[SerializeField] private int _soundEffectIndex; 				/// <summary>Sound Effect index to emit when ring is passed on.</summary>
 	[Space(5f)]
-	[SerializeField] private EulerRotation _correctionRotation; 	/// <summary>Correction's Rotation.</summary>
 	[SerializeField] private bool _deactivateWhenPassedOn; 			/// <summary>Deactivate ring when passed on it?.</summary>
 	[SerializeField] private GameObjectTag[] _detectableTags; 		/// <summary>Tags of GameObjects that are detectable by the ring.</summary>
 	[SerializeField]
@@ -25,16 +26,16 @@ public class Ring : PoolGameObject
 	[SerializeField] private Renderer _renderer; 					/// <summary>Ring Mesh's Renderer.</summary>
 	[SerializeField] private HitCollider2D[] _hitBoxes; 			/// <summary>Ring's HitBoxes.</summary>
 	private Dictionary<int, Vector2> _directionsMapping; 			/// <summary>Direction's Mapping for each possible GameObject.</summary>
+	private VCameraTarget _cameraTarget; 							/// <summary>VCamera's Component.</summary>
+	private SelfMotionPerformer _selfMotionPerformer; 				/// <summary>SelfMotionPerformer's Component.</summary>
 	private bool _passedOn; 										/// <summary>Has an object already passed on this Ring?.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets particleEffectIndex property.</summary>
 	public int particleEffectIndex { get { return _particleEffectIndex; } }
 
 	/// <summary>Gets soundEffectIndex property.</summary>
 	public int soundEffectIndex { get { return _soundEffectIndex; } }
-
-	/// <summary>Gets correctionRotation property.</summary>
-	public EulerRotation correctionRotation { get { return _correctionRotation; } }
 
 	/// <summary>Gets and Sets deactivateWhenPassedOn property.</summary>
 	public bool deactivateWhenPassedOn
@@ -70,18 +71,39 @@ public class Ring : PoolGameObject
 		private set { _directionsMapping = value; }
 	}
 
+	/// <summary>Gets cameraTarget Component.</summary>
+	public VCameraTarget cameraTarget
+	{ 
+		get
+		{
+			if(_cameraTarget == null) _cameraTarget = GetComponent<VCameraTarget>();
+			return _cameraTarget;
+		}
+	}
+
+	/// <summary>Gets selfMotionPerformer Component.</summary>
+	public SelfMotionPerformer selfMotionPerformer
+	{ 
+		get
+		{
+			if(_selfMotionPerformer == null) _selfMotionPerformer = GetComponent<SelfMotionPerformer>();
+			return _selfMotionPerformer;
+		}
+	}
+
 	/// <summary>Gets and Sets passedOn property.</summary>
 	public bool passedOn
 	{
 		get { return _passedOn; }
 		set { _passedOn = value; }
 	}
+#endregion
 
 	/// <summary>Draws Gizmos on Editor mode when Ring's instance is selected.</summary>
 	private void OnDrawGizmosSelected()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawRay(transform.position, (transform.rotation * correctionRotation) * Vector3.right);
+		Gizmos.DrawRay(transform.position, (transform.rotation) * Vector3.right);
 	}
 
 	/// <summary>Resets Ring's instance to its default values.</summary>
@@ -127,6 +149,7 @@ public class Ring : PoolGameObject
 	{
 		GameObject obj = _collider.gameObject;
 		int instanceID = obj.GetInstanceID();
+		HitCollider2D hitBox = hitBoxes[_hitColliderID];
 		bool detectable = false;
 
 		if(_eventType == HitColliderEventTypes.Stays && detectableTags == null) return;
@@ -147,7 +170,7 @@ public class Ring : PoolGameObject
 			case HitColliderEventTypes.Enter:
 			if(!directionsMapping.ContainsKey(instanceID))
 			{
-				Vector2 direction = transform.position - obj.transform.position;
+				Vector2 direction = hitBox.transform.position - obj.transform.position;
 				direction = ToRelativeOrientationVector(direction);
 				directionsMapping.Add(instanceID, direction);
 			}
@@ -156,7 +179,7 @@ public class Ring : PoolGameObject
 			case HitColliderEventTypes.Exit:
 			if(directionsMapping.ContainsKey(instanceID))
 			{
-				Vector2 direction = (obj.transform.position - transform.position);
+				Vector2 direction = (obj.transform.position - hitBox.transform.position);
 				direction = ToRelativeOrientationVector(direction);
 				if(Vector2.Dot(direction, directionsMapping[instanceID]) >= dotProduct && !passedOn)
 				{
@@ -175,7 +198,8 @@ public class Ring : PoolGameObject
 	/// <returns>Converted Vector.</returns>
 	private Vector2 ToRelativeOrientationVector(Vector2 v)
 	{
-		Vector2 inverseVector = Quaternion.Inverse(transform.rotation * correctionRotation) * v;
+		return v;
+		Vector2 inverseVector = Quaternion.Inverse(transform.rotation) * v;
 		return inverseVector.x < 0.0f ? Vector2.left : Vector2.right;
 	}
 
@@ -183,13 +207,12 @@ public class Ring : PoolGameObject
 	/// <param name="_collider">Collider that passed the ring.</param>
 	private void InvokeRingPassedEvent(Collider2D _collider)
 	{
-		if(deactivateWhenPassedOn) OnObjectDeactivation();
-		if(onRingPassed != null) onRingPassed(_collider);
-
 		PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, Quaternion.identity);
 		AudioController.PlayOneShot(SourceType.SFX, 0, soundEffectIndex);
-
 		Reset();
+
+		if(onRingPassed != null) onRingPassed(_collider);
+		if(deactivateWhenPassedOn) OnObjectDeactivation();
 	}
 
 	/// <summary>Actions made when this Pool Object is being reseted.</summary>
@@ -197,25 +220,8 @@ public class Ring : PoolGameObject
 	{
 		base.OnObjectReset();
 		if(directionsMapping != null) directionsMapping.Clear();
-		passedOn = false;
+		selfMotionPerformer.Reset();
+		Reset();
 	}
-
-#region DEPRECATED
-	/// <summary>Straightens given Vector.</summary>
-	/// <param name="v">Vector to straighten.</param>
-	/// <returns>Straightened vector.</returns>
-	private Vector2 StraightDirection(Vector2 v)
-	{
-		float xSign = Mathf.Sign(v.x);
-		float ySign = Mathf.Sign(v.y);
-		
-		v = Vector2.Scale(v, transform.right.Abs());
-
-		return new Vector2(
-			v.x > v.y ? (1.0f * xSign) : 0.0f,
-			v.y > v.x ? (1.0f * ySign) : 0.0f
-		);
-	}
-#endregion
 }
 }

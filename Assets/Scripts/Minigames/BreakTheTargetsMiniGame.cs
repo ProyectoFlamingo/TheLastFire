@@ -11,24 +11,24 @@ namespace Flamingo
 [Serializable]
 public class BreakTheTargetsMiniGame : MiniGame
 {
-    [SerializeField] private BreakableTargetsContainer _targetsContainers;      /// <summary>Breakable Targets' Containers.</summary>
-    [SerializeField] private Clock _clock;                                      /// <summary>Mini-Game's Clock.</summary>
+    [Space(5f)]
+    [Header("Break-the-Targets' Attributes:")]
+    [SerializeField] private BreakableTargetsContainer _targetsContainer;      /// <summary>Breakable Targets' Containers.</summary>
+    [SerializeField] private bool _deactivateTargetsWhenMinigameEnds;           /// <summary>Deactivate targets when the Mini-Game ends?.</summary>
 
-#region Getters/Setters:
-    /// <summary>Gets and Sets targetsContainers property.</summary>
-    public BreakableTargetsContainer targetsContainers
+    /// <summary>Gets and Sets targetsContainer property.</summary>
+    public BreakableTargetsContainer targetsContainer
     {
-        get { return _targetsContainers; }
-        set { _targetsContainers = value; }
+        get { return _targetsContainer; }
+        set { _targetsContainer = value; }
     }
 
-    /// <summary>Gets and Sets clock property.</summary>
-    public Clock clock
+    /// <summary>Gets and Sets deactivateTargetsWhenMinigameEnds property.</summary>
+    public bool deactivateTargetsWhenMinigameEnds
     {
-        get { return _clock; }
-        set { _clock = value; }
+        get { return _deactivateTargetsWhenMinigameEnds; }
+        set { _deactivateTargetsWhenMinigameEnds = value; }
     }
-#endregion
 
     /// <summary>Initializes Mini-Game.</summary>
     /// <param name="_monoBehaviour">MonoBehaviour that will start the coroutine.</param>
@@ -36,9 +36,44 @@ public class BreakTheTargetsMiniGame : MiniGame
     public override void Initialize(MonoBehaviour _monoBehaviour, OnMiniGameEvent onMiniGameEvent = null)
     {
         base.Initialize(_monoBehaviour, onMiniGameEvent);
+        targetsContainer.ActivateTargets(true);
+        targetsContainer.SubscribeToTargetsDeactivations(true, OnTargetDeactivation);
+        maxScore = targetsContainer.targets.Length;
+        clock.Reset(timeLimit);
+    }
+
+    /// <summary>Terminates Mini-Game.</summary>
+    /// <param name="_monoBehaviour">MonoBehaviour that will request the Coroutine's dispatchment.</param>
+    public override void Terminate()
+    {
+        base.Terminate();
+        targetsContainer.SubscribeToTargetsDeactivations(false);
+    }
+
+    /// <summary>Callback invoked when a target is deactivated.</summary>
+    /// <param name="_cause">Target's Deactivation Cause.</param>
+    /// <param name="_info">Trigger2D's Information [if there's one].</param>
+    private void OnTargetDeactivation(DeactivationCause _cause, Trigger2DInformation _info)
+    {
+        score++;
+        if(score >= maxScore)
+        {
+            Terminate();
+            InvokeEvent(ID_EVENT_MINIGAME_SUCCESS);
+        }
     }
 
     /// <summary>Mini-Game's Coroutine.</summary>
-    protected override IEnumerator MiniGameCoroutine() { yield return null; }
+    protected override IEnumerator MiniGameCoroutine()
+    {
+        while(clock.ellapsedTime > 0.0f)
+        {
+            clock.Update(-Time.deltaTime);
+            yield return null;
+        }
+
+        Terminate();
+        InvokeEvent(ID_EVENT_MINIGAME_FAILURE);
+    }
 }
 }

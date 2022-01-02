@@ -3,16 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
-public class Fragmentable : MonoBehaviour
+[RequireComponent(typeof(ImpactEventHandler))]
+[RequireComponent(typeof(EventsHandler))]
+[RequireComponent(typeof(VCameraTarget))]
+[RequireComponent(typeof(Rigidbody2D))]
+public class Fragmentable : PoolGameObject
 {
+	[SerializeField] private GameObjectTag[] _tags; 		/// <summary>Tags of GameObjects that fragment this Object.</summary>
 	[SerializeField] private HitCollider2D[] _pieces; 		/// <summary>Fragmentable's Pieces.</summary>
+	[SerializeField] private float _forceScalar; 			/// <summary>Additional Force's Scalar.</summary>
 	[SerializeField] private float _fragmentationDuration; 	/// <summary>Fragmentation's Duration.</summary>
 	private TransformData[] _piecesData; 					/// <summary>Fragmentable Pieces' Bake data.</summary>
 	private bool _fragmented; 								/// <summary>Is the object fragmented?.</summary>
+	private Rigidbody2D _rigidbody; 						/// <summary>Rigidbody's Component.</summary>
+	private EventsHandler _eventsHandler; 					/// <summary>EventsHandler's Component.</summary>
+	private VCameraTarget _cameraTarget; 					/// <summary>VCameraTarget's Component.</summary>
+	private ImpactEventHandler _impactHandler; 				/// <summary>ImpactEventsHandler's Component.</summary>
 	private Coroutine defragmentation; 						/// <summary>Defragmentation's Coroutine reference.</summary>
+
+#region Getters/Setters:
+	/// <summary>Gets and Sets tags property.</summary>
+	public GameObjectTag[] tags
+	{
+		get { return _tags; }
+		set { _tags = value; }
+	}
 
 	/// <summary>Gets and Sets pieces property.</summary>
 	public HitCollider2D[] pieces
@@ -26,6 +45,13 @@ public class Fragmentable : MonoBehaviour
 	{
 		get { return _piecesData; }
 		set { _piecesData = value; }
+	}
+
+	/// <summary>Gets and Sets forceScalar property.</summary>
+	public float forceScalar
+	{
+		get { return _forceScalar; }
+		set { _forceScalar = value; }
 	}
 
 	/// <summary>Gets and Sets fragmentationDuration property.</summary>
@@ -42,6 +68,47 @@ public class Fragmentable : MonoBehaviour
 		set { _fragmented = value; }
 	}
 
+	/// <summary>Gets rigidbody Component.</summary>
+	public Rigidbody2D rigidbody
+	{ 
+		get
+		{
+			if(_rigidbody == null) _rigidbody = GetComponent<Rigidbody2D>();
+			return _rigidbody;
+		}
+	}
+
+	/// <summary>Gets eventsHandler Component.</summary>
+	public EventsHandler eventsHandler
+	{ 
+		get
+		{
+			if(_eventsHandler == null) _eventsHandler = GetComponent<EventsHandler>();
+			return _eventsHandler;
+		}
+	}
+
+	/// <summary>Gets cameraTarget Component.</summary>
+	public VCameraTarget cameraTarget
+	{ 
+		get
+		{
+			if(_cameraTarget == null) _cameraTarget = GetComponent<VCameraTarget>();
+			return _cameraTarget;
+		}
+	}
+
+	/// <summary>Gets impactHandler Component.</summary>
+	public ImpactEventHandler impactHandler
+	{ 
+		get
+		{
+			if(_impactHandler == null) _impactHandler = GetComponent<ImpactEventHandler>();
+			return _impactHandler;
+		}
+	}
+#endregion
+
 	/// <summary>Callback invoked when Fragmentable's instance is disabled.</summary>
 	private void OnDisable()
 	{
@@ -51,15 +118,12 @@ public class Fragmentable : MonoBehaviour
 	/// <summary>Fragmentable's instance initialization.</summary>
 	private void Awake()
 	{
-		/*BakePiecesData();
-
-		if(pieces != null)
-		foreach(HitCollider2D piece in pieces)
-		{
-			piece.onTriggerEvent2D += OnTriggerEvent2D;
-		}*/
+		BakePiecesData();
+		eventsHandler.onTriggerEvent += OnTriggerEvent;
+		fragmented = false;
 	}
 
+	[Button("Bake Pieces' Data")]
 	/// <summary>Bakes Pieces' Data.</summary>
 	public void BakePiecesData()
 	{
@@ -82,7 +146,7 @@ public class Fragmentable : MonoBehaviour
 	/// <summary>Fragmentates Pieces.</summary>
 	public void Fragmentate(Vector3 _force, Action onFragmentationEnds = null)
 	{
-		if(!fragmented) return;
+		if(fragmented) return;
 
 		this.StartCoroutine(Fragmentation(_force, onFragmentationEnds), ref defragmentation);
 		fragmented = true;
@@ -110,6 +174,8 @@ public class Fragmentable : MonoBehaviour
 
 			i++;
 		}
+
+		fragmented = false;
 	}
 
 	/// <summary>Gathers pieces into their baked data at given duration.</summary>
@@ -121,15 +187,33 @@ public class Fragmentable : MonoBehaviour
 		this.StartCoroutine(Defragmentation(_duration, onDefragmentationEnds), ref defragmentation);*/
 	}
 
-	/// <summary>Callback invoked when this Hit Collider2D intersects with another GameObject.</summary>
-	/// <param name="_collider">Collider2D that was involved on the Hit Event.</param>
+	/// <summary>Event invoked when a Collision2D intersection is received.</summary>
+	/// <param name="_info">Trigger2D's Information.</param>
 	/// <param name="_eventType">Type of the event.</param>
-	/// <param name="_hitColliderID">Optional ID of the HitCollider2D.</param>
-	private void OnTriggerEvent2D(Collider2D _collider, HitColliderEventTypes _eventType, int _hitColliderID = 0)
+	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
+	private void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		Trigger2DInformation info = new Trigger2DInformation(pieces[_hitColliderID].collider, _collider);
-		//Fragmentate(pieces[_hitColliderID].transform.position - info.contactPoint);
-	}	
+		if(fragmented) return;
+
+		GameObject obj = _info.collider.gameObject;
+
+		if(tags != null) foreach(GameObjectTag tag in tags)
+		{
+			if(obj.CompareTag(tag))
+			{
+				Fragmentate(_info.direction, null);
+				return;
+			}
+		}
+	}
+
+	/// <summary>Actions made when this Pool Object is being reseted.</summary>
+	public override void OnObjectReset()
+	{
+		Defragmentate();
+		base.OnObjectReset();
+		impactHandler.ActivateHitBoxes(true);
+	}
 
 	/// <summary>Fragments pieces for some time.</summary>
 	private IEnumerator Fragmentation(Vector3 f, Action onFragmentationEnds = null)
@@ -139,12 +223,16 @@ public class Fragmentable : MonoBehaviour
 		Rigidbody2D body = null;
 		SecondsDelayWait wait = new SecondsDelayWait(fragmentationDuration);
 
+		Debug.DrawRay(transform.position, f.normalized * 5.0f, Color.cyan, 5.0f);
+
 		foreach(HitCollider2D piece in pieces)
 		{
 			body = piece.rigidbody;
+			piece.SetTrigger(false);
 			body.transform.parent = null;
 			body.SetForDynamicBody();
-			body.AddForce(f);
+			body.AddForce(f * forceScalar, ForceMode2D.Impulse);
+			body.AddTorque(Mathf.Sign(f.x) * forceScalar, ForceMode2D.Impulse);
 
 		}
 

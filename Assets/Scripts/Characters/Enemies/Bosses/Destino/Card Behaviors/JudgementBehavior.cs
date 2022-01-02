@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 using Random = UnityEngine.Random;
 
@@ -18,24 +19,29 @@ public enum DisplacementType
 
 public class JudgementBehavior : DestinoScriptableCoroutine
 {
-	[SerializeField] private BreakTheTargetsMiniGame _breakTheTargets; 			/// <summary>Breaj the Targets' Mini-Game.</summary>
 	[Space(5f)]
+	[Header("Break the Targets' Mini-Games:")]
+	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage1BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 1.</summary>
+	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage2BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 2.</summary>
+	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage3BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 3.</summary>
+	[Space(5f)]
+	[Header("Ring-Madness Mini-Games:")]
+	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage1RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 1.</summary>
+	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage2RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 2.</summary>
+	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage3RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 3.</summary>
 	[Header("Loops:")]
-	[SerializeField] private int _fireShowPieceIndex; 							/// <summary>Fire Show's Piece's Index.</summary>
-	[SerializeField] private int _swordShowPieceIndex; 							/// <summary>Sword Show's Piece's Index.</summary>
-	[SerializeField] private int _danceShowPieceIndex; 							/// <summary>Dance Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _fireShowPieceIndex; 																	/// <summary>Fire Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _swordShowPieceIndex; 																	/// <summary>Sword Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _danceShowPieceIndex; 																	/// <summary>Dance Show's Piece's Index.</summary>
 	[Space(5f)]
 	[Header("Sound Effects:")]
-	[SerializeField] private int _applauseSoundIndex; 							/// <summary>Applause's Sound Index.</summary>
-	[SerializeField] private int _booingSoundIndex; 							/// <summary>Booing's Sound Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _applauseSoundIndex; 																	/// <summary>Applause's Sound Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _booingSoundIndex; 																		/// <summary>Booing's Sound Index.</summary>
 	[Space(5f)]
 	[Header("Signs' Attributes:")]
-	[SerializeField] private Vector3 _fireShowSignSpawnPoint; 					/// <summary>Fire Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _swordShowSignSpawnPoint; 					/// <summary>Sword Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _danceShowSignSpawnPoint; 					/// <summary>Dance Show Sign's Spawn Position.</summary>
-	[SerializeField] private Vector3 _fireShowSignDestinyPoint; 				/// <summary>Fire Show Sign's Destiny Position.</summary>
-	[SerializeField] private Vector3 _swordShowSignDestinyPoint; 				/// <summary>Sword Show Sign's Destiny Position.</summary>
-	[SerializeField] private Vector3 _danceShowSignDestinyPoint; 				/// <summary>Dance Show Sign's Destiny Position.</summary>
+	[SerializeField] private Vector3 _showSignSpawnPoint; 						/// <summary>Show Sign's Spawn Point.</summary>
+	[SerializeField] private Vector3 _showSignPresentationPoint; 				/// <summary>Show Sign's Presentation Point.</summary>
+	[SerializeField] private Vector3 _showSignDestinyPoint; 					/// <summary>Show Sign's Destiny Point.</summary>
 	[SerializeField] private float _signEntranceDuration; 						/// <summary>Sign Entrance's Duration.</summary>
 	[SerializeField] private float _signExitDuration; 							/// <summary>Sign Exit's Duration.</summary>
 	[SerializeField] private float _signIdleDuration; 							/// <summary>Sign Idle's Duration.</summary>
@@ -44,7 +50,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _fireShowSuccessPercentage; 				/// <summary>Success' Percentage for the Fire Show.</summary>
 	[SerializeField] private int[] _fireTargetIndices; 							/// <summary>Fire Target's Indices on the Game's Data.</summary>
-	[SerializeField] private BoundaryWaypointsContainer _fireShowWaypoints; 	/// <summary>Fire Show's Waypoints.</summary>
 	[SerializeField] private IntRange _fireShowRounds; 							/// <summary>Fire Show Rounds' Range.</summary>
 	[SerializeField] private IntRange _fireShowTargetsPerRound; 				/// <summary>Fire Show Targets per Round's Range.</summary>
 	[SerializeField] private float _fireShowRoundDuration; 						/// <summary>Fire Show's Round Duration.</summary>
@@ -55,7 +60,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[SerializeField] private int[] _swordTargetIndices; 						/// <summary>Sword Target's Indices on the Game's Data.</summary>
 	[SerializeField] private Vector3[] _swordTargetsSpawnWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
 	[SerializeField] private Vector3[] _swordTargetsDestinyWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
-	//[SerializeField] private BoundaryWaypointsContainer _swordShowWaypoints; 	/// <summary>Sword Show's Waypoints.</summary>
 	[SerializeField] private IntRange _swordShowRounds; 						/// <summary>Sword Show Rounds' Range.</summary>
 	[SerializeField] private IntRange _swordShowTargetsPerRound; 				/// <summary>Sword Show Targets per Round's Range.</summary>
 	[SerializeField] private float _swordShowRoundDuration; 					/// <summary>Sword Show's Round Duration.</summary>
@@ -84,6 +88,24 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _trashProjectileTime; 						/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets stage1BreakTheTargetsMiniGames property.</summary>
+	public BreakTheTargetsMiniGame[] stage1BreakTheTargetsMiniGames { get { return _stage1BreakTheTargetsMiniGames; } }
+
+	/// <summary>Gets stage2BreakTheTargetsMiniGames property.</summary>
+	public BreakTheTargetsMiniGame[] stage2BreakTheTargetsMiniGames { get { return _stage2BreakTheTargetsMiniGames; } }
+
+	/// <summary>Gets stage3BreakTheTargetsMiniGames property.</summary>
+	public BreakTheTargetsMiniGame[] stage3BreakTheTargetsMiniGames { get { return _stage3BreakTheTargetsMiniGames; } }
+
+	/// <summary>Gets stage1RingMadnessMiniGames property.</summary>
+	public RingMadnessMiniGame[] stage1RingMadnessMiniGames { get { return _stage1RingMadnessMiniGames; } }
+
+	/// <summary>Gets stage2RingMadnessMiniGames property.</summary>
+	public RingMadnessMiniGame[] stage2RingMadnessMiniGames { get { return _stage2RingMadnessMiniGames; } }
+
+	/// <summary>Gets stage3RingMadnessMiniGames property.</summary>
+	public RingMadnessMiniGame[] stage3RingMadnessMiniGames { get { return _stage3RingMadnessMiniGames; } }
+
 	/// <summary>Gets fireShowPieceIndex property.</summary>
 	public int fireShowPieceIndex { get { return _fireShowPieceIndex; } }
 
@@ -117,23 +139,14 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets trashProjectilesWaypoints property.</summary>
 	public Vector3[] trashProjectilesWaypoints { get { return _trashProjectilesWaypoints; } }
 
-	/// <summary>Gets fireShowSignSpawnPoint property.</summary>
-	public Vector3 fireShowSignSpawnPoint { get { return _fireShowSignSpawnPoint; } }
+	/// <summary>Gets showSignSpawnPoint property.</summary>
+	public Vector3 showSignSpawnPoint { get { return _showSignSpawnPoint; } }
 
-	/// <summary>Gets swordShowSignSpawnPoint property.</summary>
-	public Vector3 swordShowSignSpawnPoint { get { return _swordShowSignSpawnPoint; } }
+	/// <summary>Gets showSignPresentationPoint property.</summary>
+	public Vector3 showSignPresentationPoint { get { return _showSignPresentationPoint; } }
 
-	/// <summary>Gets danceShowSignSpawnPoint property.</summary>
-	public Vector3 danceShowSignSpawnPoint { get { return _danceShowSignSpawnPoint; } }
-
-	/// <summary>Gets fireShowSignDestinyPoint property.</summary>
-	public Vector3 fireShowSignDestinyPoint { get { return _fireShowSignDestinyPoint; } }
-
-	/// <summary>Gets swordShowSignDestinyPoint property.</summary>
-	public Vector3 swordShowSignDestinyPoint { get { return _swordShowSignDestinyPoint; } }
-
-	/// <summary>Gets danceShowSignDestinyPoint property.</summary>
-	public Vector3 danceShowSignDestinyPoint { get { return _danceShowSignDestinyPoint; } }
+	/// <summary>Gets showSignDestinyPoint property.</summary>
+	public Vector3 showSignDestinyPoint { get { return _showSignDestinyPoint; } }
 
 	/// <summary>Gets signEntranceDuration property.</summary>
 	public float signEntranceDuration { get { return _signEntranceDuration; } }
@@ -176,12 +189,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets danceShowSuccessPercentage property.</summary>
 	public float danceShowSuccessPercentage { get { return _danceShowSuccessPercentage; } }
-
-	/// <summary>Gets fireShowWaypoints property.</summary>
-	public BoundaryWaypointsContainer fireShowWaypoints { get { return _fireShowWaypoints; } }
-
-	/*/// <summary>Gets swordShowWaypoints property.</summary>
-	public BoundaryWaypointsContainer swordShowWaypoints { get { return _swordShowWaypoints; } }*/
 
 	/// <summary>Gets swordTargetsSpawnWaypoints property.</summary>
 	public Vector3[] swordTargetsSpawnWaypoints { get { return _swordTargetsSpawnWaypoints; } }
@@ -231,15 +238,9 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		Gizmos.color = gizmosColor;
 
-		Gizmos.DrawWireSphere(fireShowSignSpawnPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(swordShowSignSpawnPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(danceShowSignSpawnPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(fireShowSignDestinyPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(swordShowSignDestinyPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(danceShowSignDestinyPoint, gizmosRadius);
-
-		fireShowWaypoints.OnDrawGizmos();
-		//swordShowWaypoints.OnDrawGizmos();
+		Gizmos.DrawWireSphere(showSignSpawnPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(showSignPresentationPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(showSignDestinyPoint, gizmosRadius);
 
 		Gizmos.color = gizmosColor;
 
@@ -259,37 +260,62 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 #endif
 	}
 
+#region Callbacks:
+	/// <summary>Callback invoked when the Break-The-Targets Mini-Game invokes an Event.</summary>
+    /// <param name="_miniGame">Mini-Game's Instance that invoked the Event.</param>
+    /// <param name="_ID">Event's ID.</param>
+	private void OnBreakTheTargetsMiniGameEvent(MiniGame _miniGame, int _ID)
+	{
+		switch(_ID)
+		{
+			case MiniGame.ID_EVENT_MINIGAME_ENDED:
+			break;
+
+			case MiniGame.ID_EVENT_MINIGAME_SUCCESS:
+			break;
+
+			case MiniGame.ID_EVENT_MINIGAME_FAILURE:
+			break;
+		}
+
+		Debug.Log("[JudgementBehavior] Invoked Event: " + _ID);
+	}
+
+	/// <summary>Callback invoked when the Break-The-Targets Mini-Game invokes an Event.</summary>
+    /// <param name="_miniGame">Mini-Game's Instance that invoked the Event.</param>
+    /// <param name="_ID">Event's ID.</param>
+	private void OnRingMadnessMiniGameEvent(MiniGame _miniGame, int _ID)
+	{
+		switch(_ID)
+		{
+			case MiniGame.ID_EVENT_MINIGAME_ENDED:
+			break;
+
+			case MiniGame.ID_EVENT_MINIGAME_SUCCESS:
+			break;
+
+			case MiniGame.ID_EVENT_MINIGAME_FAILURE:
+			break;
+		}
+		
+		Debug.Log("[JudgementBehavior] Invoked Event: " + _ID);
+	}
+#endregion
+
+#region Coroutines:
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
-		/// If you wanna test indefinitely just one:
-		/*IEnumerator fireShowDisplacement = FireShowRoutine(boss);
-		fireShowDisplacement = SwordShowRoutine(boss);
-		fireShowDisplacement = DanceShowRoutine(boss);
-
-		while(fireShowDisplacement.MoveNext()) yield return null;*/
-
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
-		/// If you wanna test all:
-#region SignsShowcase:
-		IEnumerator[] routines = VArray.RandomSet(FireShowRoutine(boss), SwordShowRoutine(boss), DanceShowRoutine(boss));
-		//IEnumerator[] routines = new IEnumerator[3];
-		//routines[0] = FireShowRoutine(boss);
-		//routines[1] = SwordShowRoutine(boss);
-		//routines[2] = DanceShowRoutine(boss);
+		IEnumerator[] routines = VArray.RandomSet(SwordShowRoutine(boss), SwordShowRoutine(boss), SwordShowRoutine(boss));
 
-		/*foreach(IEnumerator routine in routines)
+		foreach(IEnumerator routine in routines)
 		{
 			while(routine.MoveNext()) yield return null;
-		}*/
+		}
 
-		IEnumerator fuckU = routines[0];
-		while(fuckU.MoveNext()) yield return null;
-#endregion
-
-		yield return null;
 		boss.Sing();
 		InvokeCoroutineEnd();
 	}
@@ -298,201 +324,141 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <param name="_sign">Sign's Transform.</param>
 	/// <param name="_spawnPoint">Origin.</param>
 	/// <param name="_destinyPoint">Destiny.</param>
-	private IEnumerator DisplayAndHideSign(Transform _sign, Vector3 _spawnPoint, Vector3 _destinyPoint)
+	private IEnumerator DisplayShowSign(Transform _sign)
 	{
 		_sign.gameObject.SetActive(true);
-		_sign.position = _spawnPoint;
+		_sign.position = showSignSpawnPoint;
 
 		SecondsDelayWait wait = new SecondsDelayWait(signIdleDuration);
-		IEnumerator displacement = _sign.DisplaceToPosition(_destinyPoint, signEntranceDuration);
+		IEnumerator displacement = _sign.DisplaceToPosition(showSignDestinyPoint, signEntranceDuration);
 
 		while(displacement.MoveNext()) yield return null;
 		while(wait.MoveNext()) yield return null;
 
-		displacement = _sign.DisplaceToPosition(_spawnPoint, signExitDuration);
+		displacement = _sign.DisplaceToPosition(showSignDestinyPoint, signExitDuration);
+		while(displacement.MoveNext()) yield return null;
+	}
 
+	/// <summary>Hides Show's Sign.</summary>
+	/// <param name="_sign">Sign's Transform to Hide.</param>
+	private IEnumerator HidehowSign(Transform _sign)
+	{
+		IEnumerator displacement = _sign.DisplaceToPosition(showSignSpawnPoint, signExitDuration);
 		while(displacement.MoveNext()) yield return null;
 
-		//_sign.gameObject.SetActive(false);
+		_sign.gameObject.SetActive(false);
 	}
 
 	/// <summary>Fire Show's Routine.</summary>
 	/// <param name="boss">Destino's Reference.</param>
 	private IEnumerator FireShowRoutine(DestinoBoss boss)
 	{
-		/// THANKS SALAZAR ELEFUCK
-		/*return TargetShowRoutine(
-			DestinoSceneController.Instance.fireShowSign,
-			fireShowSignSpawnPoint,
-			fireShowSignDestinyPoint,
-			fireShowRoundDuration,
-			fireShowRounds,
-			fireShowTargetsPerRound,
-			fireTargetIndices,
-			fireShowSuccessPercentage
-		);*/
-
-		/// Still need to decide when to deprecate.
-		/*AudioController.GetLoopSource(0).Pause();
-		AudioController.GetLoopSource(1).Pause();*/
+		/*
+			- Stop the instrumental and voice loops
+			- Show the Sign, wait till the exposure is over
+			- Play the Fire Show's Loop
+			- Play the Minigame
+			- Make a judgement after the game has finished
+		*/
 		AudioController.StopFSMLoop(0);
 		AudioController.StopFSMLoop(1);
 
-		IEnumerator signDisplacement = DisplayAndHideSign(DestinoSceneController.Instance.fireShowSign, fireShowSignSpawnPoint, fireShowSignDestinyPoint);
+		Transform fireShowSign = DestinoSceneController.Instance.fireShowSign;
+		AudioClip clip = null;
+		IEnumerator signDisplacement = DisplayShowSign(fireShowSign);
+		BreakTheTargetsMiniGame miniGame = null;
 		IEnumerator showJudgement = null;
-		SecondsDelayWait wait = new SecondsDelayWait(fireShowRoundDuration);
-		int rounds = fireShowRounds.Random();
-		int targetsPerRound = 0;
-		int count = 0;
-		float targetsDestroyed = 0.0f;
-		//Gil Properties Test Area
-		HashSet<int> projectileSet = new HashSet<int>();
-
-		
-		OnProjectileDeactivated onTargetDeactivation = (projectile, cause, info)=>
-		{
-
-			int ID = projectile.GetInstanceID();
-			
-
-			//Gil Modification Test
-			if(projectileSet.Contains(ID))
-			{
-				return;
-			}
-			else{
-				switch(cause)
-				{
-					case DeactivationCause.LeftBoundaries:
-					Ray ray = fireShowWaypoints.GetTargetOriginAndDirection();
-					projectile.OnObjectReset();
-					//projectile.transform.position = ray.origin;
-					//projectile.direction = direction;
-					projectile.direction = -projectile.direction;
-					projectile.activated = true;
-					projectile.transform.position += (projectile.direction * 3.0f);
-					break;
-
-					default:
-						targetsDestroyed++;
-						count++;
-					break;
-				}
-				projectileSet.Add(ID);
-			}
-		};
+		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioClip clip = AudioController.Play(SourceType.Loop, 0, fireShowPieceIndex, false);
-		wait.waitDuration = clip.length;
-		wait.waitDuration = clip.length;
-		targetsPerRound = fireShowTargetsPerRound.Random();
-		float fTargetsPerRound = (float)targetsPerRound;
-		//targetsDestroyed = 0.0f;
-		Projectile[] targets = new Projectile[targetsPerRound];
-
-		for(int j = 0; j < targetsPerRound; j++)
+		switch(boss.currentStage)
 		{
-			Ray ray = fireShowWaypoints.GetTargetOriginAndDirection();
-			Projectile p = PoolManager.RequestProjectile(Faction.Enemy, fireTargetIndices.Random(), ray.origin, ray.direction);
-			p.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
-			p.projectileEventsHandler.onProjectileDeactivated += onTargetDeactivation;
-			p.lifespan = 0.0f; 	/// Make 'em last for ever...
-			targets[j] = p;
+			case Boss.STAGE_1:
+			miniGame = stage1BreakTheTargetsMiniGames.Random();
+			break;
+
+			case Boss.STAGE_2:
+			miniGame = stage2BreakTheTargetsMiniGames.Random();
+			break;
+
+			case Boss.STAGE_3:
+			miniGame = stage3BreakTheTargetsMiniGames.Random();
+			break;
 		}
 
-		while(wait.MoveNext() && count < targetsPerRound) yield return null;
-		wait.Reset();
+		clip = AudioController.Play(SourceType.Loop, 0, fireShowPieceIndex, false);
+		miniGame.timeLimit = clip.length;
+		miniGame.Initialize(this, OnBreakTheTargetsMiniGameEvent);
 
-		AudioController.Stop(SourceType.Loop, 0);
+		while(miniGame.state == MiniGameState.Running) yield return null;
 
-		foreach(Projectile target in targets)
-		{
-			target.OnObjectDeactivation();
-			target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
-		}
-
-		showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, fireShowSuccessPercentage);
-
+		showJudgement = EvaluateShow(miniGame.scorePercentage, fireShowSuccessPercentage);
 		while(showJudgement.MoveNext()) yield return null;
 
-		/// Still deciding when to deprecate
-		/*AudioController.GetLoopSource(2).Stop();
-		AudioController.GetLoopSource(0).UnPause();
-		AudioController.GetLoopSource(1).UnPause();*/
-		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		DestinoSceneController.Instance.fireShowSign.SetActive(false);
+		signDisplacement = HidehowSign(fireShowSign);
+		while(signDisplacement.MoveNext()) yield return null;
+
+		AudioController.Stop(SourceType.Loop, 0, ()=>
+		{
+			AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
+			AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
+		});
 	}
 
 	/// <summary>Sword Show's Routine.</summary>
 	/// <param name="boss">Destino's Reference.</param>
 	private IEnumerator SwordShowRoutine(DestinoBoss boss)
 	{
-		/*return TargetShowRoutine(
-			DestinoSceneController.Instance.swordShowSign,
-			swordShowSignSpawnPoint,
-			swordShowSignDestinyPoint,
-			swordShowRoundDuration,
-			swordShowRounds,
-			swordShowTargetsPerRound,
-			swordTargetIndices,
-			swordShowSuccessPercentage
-		);*/
-
+		/*
+			- Stop the instrumental and voice loops
+			- Show the Sign, wait till the exposure is over
+			- Play the Sword Show's Loop
+			- Play the Minigame
+			- Make a judgement after the game has finished
+		*/
 		AudioController.StopFSMLoop(0);
 		AudioController.StopFSMLoop(1);
 
-		IEnumerator signDisplacement = DisplayAndHideSign(DestinoSceneController.Instance.swordShowSign, swordShowSignSpawnPoint, swordShowSignDestinyPoint);
+		Transform swordShowSign = DestinoSceneController.Instance.swordShowSign;
+		AudioClip clip = null;
+		IEnumerator signDisplacement = DisplayShowSign(DestinoSceneController.Instance.swordShowSign);
 		IEnumerator showJudgement = null;
 		SecondsDelayWait wait = new SecondsDelayWait(swordShowRoundDuration);
 		int rounds = swordShowRounds.Random();
 		int targetsPerRound = 0;
 		int count = 0;
 		float targetsDestroyed = 0.0f;
-		//Gil Properties
-		HashSet<int> projectileSet = new HashSet<int>();
-
-
-		OnProjectileDeactivated onTargetDeactivation = (projectile, cause, info)=>
+		OnDeactivated onTargetDeactivation = (cause, info)=>
 		{
-			int ID = projectile.GetInstanceID();
-			
-			
-			if(projectileSet.Contains(ID))
+			switch(cause)
 			{
-				return;
-			}else{
 
-				switch(cause)
-				{
+				case DeactivationCause.LeftBoundaries:
+				case DeactivationCause.LifespanOver:
+				count++;
+				break;
 
-					case DeactivationCause.LeftBoundaries:
-					case DeactivationCause.LifespanOver:
-					count++;
-					break;
-
-					default:
-					targetsDestroyed++;
-					count++;
-					break;
-				}
-			projectileSet.Add(ID);
+				default:
+				targetsDestroyed++;
+				count++;
+				break;
 			}
 		};
 
 		while(signDisplacement.MoveNext()) yield return null;
 
-		/*for(int i = 0; i < rounds; i++)
-		{*/
-			AudioClip clip = AudioController.Play(SourceType.Loop, 0, swordShowPieceIndex, false);
+		clip = AudioController.Play(SourceType.Loop, 0, swordShowPieceIndex, false);
+		wait.waitDuration = clip.length;
+
+		for(int i = 0; i < rounds; i++)
+		{
 			wait.waitDuration = clip.length;
 			targetsPerRound = swordShowTargetsPerRound.Random();
 			count = 0;
 			float fTargetsPerRound = (float)targetsPerRound;
 			targetsDestroyed = 0.0f;
-			Projectile[] targets = new Projectile[targetsPerRound];
+			Fragmentable[] targets = new Fragmentable[targetsPerRound];
 
 			for(int j = 0; j < targetsPerRound; j++)
 			{
@@ -500,36 +466,40 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				Vector3 origin = swordTargetsSpawnWaypoints[index];
 				Vector3 destiny = swordTargetsDestinyWaypoints[index];
 				Ray ray = new Ray(origin, destiny - origin);
-				Projectile p = PoolManager.RequestProjectile(Faction.Enemy, swordTargetIndices.Random(), ray.origin, ray.direction);
-				p.activated = false;
-				p.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
-				p.projectileEventsHandler.onProjectileDeactivated += onTargetDeactivation;
+				Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetIndices.Random(), origin, Quaternion.identity) as Fragmentable;
+				
+				if(fragmentableTarget == null) yield break;
 
-				IEnumerator lerp = p.transform.DisplaceToPosition(destiny, swordTargetInterpolationDuration);
+				fragmentableTarget.rigidbody.gravityScale = 0.0f;
+				fragmentableTarget.eventsHandler.onDeactivated -= onTargetDeactivation;
+				fragmentableTarget.eventsHandler.onDeactivated += onTargetDeactivation;
+
+				IEnumerator lerp = fragmentableTarget.transform.DisplaceToPosition(destiny, swordTargetInterpolationDuration);
 
 				while(lerp.MoveNext()) yield return null;
 
-				targets[j] = p;
+				targets[j] = fragmentableTarget;
 
-				IEnumerator targetShaking = p.transform.ShakePosition(swordTargetShakeDuration, swordTargetShakeSpeed, swordTargetShakeMagnitude);
+				IEnumerator targetShaking = fragmentableTarget.transform.ShakePosition(swordTargetShakeDuration, swordTargetShakeSpeed, swordTargetShakeMagnitude);
 
 				while(targetShaking.MoveNext()) yield return null;
 
-				p.activated = true;
+				fragmentableTarget.rigidbody.gravityScale = 1.0f;
 			}
 
 			while(wait.MoveNext() && count < targetsPerRound) yield return null;
 			wait.Reset();
 
-			foreach(Projectile target in targets)
+			foreach(Fragmentable target in targets)
 			{
-				target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
+				target.eventsHandler.onDeactivated -= onTargetDeactivation;
+
 			}
 
-			showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, swordShowSuccessPercentage);
+			showJudgement = EvaluateShow((float)targetsDestroyed / targetsDestroyed, swordShowSuccessPercentage);
 
 			while(showJudgement.MoveNext()) yield return null;
-		//}
+		}
 
 		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
 		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
@@ -540,25 +510,117 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <param name="boss">Destino's Reference.</param>
 	private IEnumerator DanceShowRoutine(DestinoBoss boss)
 	{
+		/*
+			- Stop the instrumental and voice loops
+			- Show the Sign, wait till the exposure is over
+			- Play the Dance Show's Loop
+			- Play the Ring-Madness' Minigame
+			- Make a judgement after the game has finished
+		*/
 		AudioController.StopFSMLoop(0);
 		AudioController.StopFSMLoop(1);
 
-		IEnumerator signDisplacement = DisplayAndHideSign(DestinoSceneController.Instance.danceShowSign, danceShowSignSpawnPoint, danceShowSignDestinyPoint);
+		Transform danceShowSign = DestinoSceneController.Instance.danceShowSign;
+		AudioClip clip = null;
+		RingMadnessMiniGame miniGame = null;
+		IEnumerator signDisplacement = DisplayShowSign(DestinoSceneController.Instance.danceShowSign);
 		IEnumerator showJudgement = null;
 		SecondsDelayWait wait = new SecondsDelayWait(danceShowDuration);
-		int rounds = danceShowRounds.Random();
-		float ringsPassed = 0.0f;
-		float fRingsPerRound = 0.0f;
-		float totalRingsPassed = 0.0f;
-		Vector2 maxJumpForce = Game.GetMateoMaxJumpingHeight();
-		OnRingPassed onRingPassed = (collider)=> { ringsPassed++; };
 
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioClip clip = AudioController.Play(SourceType.Loop, 0, danceShowPieceIndex, false);
-		wait.waitDuration = clip.length;
+		switch(boss.currentStage)
+		{
+			case Boss.STAGE_1:
+			miniGame = stage1RingMadnessMiniGames.Random();
+			break;
 
-		for(int i = 0; i < rounds; i++)
+			case Boss.STAGE_2:
+			miniGame = stage2RingMadnessMiniGames.Random();
+			break;
+
+			case Boss.STAGE_3:
+			miniGame = stage3RingMadnessMiniGames.Random();
+			break;
+		}
+
+		clip = AudioController.Play(SourceType.Loop, 0, danceShowPieceIndex, false);
+		miniGame.timeLimit = clip.length;
+		miniGame.Initialize(this, OnRingMadnessMiniGameEvent);
+
+		while(miniGame.state == MiniGameState.Running) yield return null;
+
+		showJudgement = EvaluateShow(miniGame.scorePercentage, danceShowSuccessPercentage);
+		while(showJudgement.MoveNext()) yield return null;
+
+		signDisplacement = HidehowSign(danceShowSign);
+		while(signDisplacement.MoveNext()) yield return null;
+
+		AudioController.Stop(SourceType.Loop, 0, ()=>
+		{
+			AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
+			AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
+		});
+	}
+
+	/// <summary>Evaluates show.</summary>
+	/// <param name="_ratio">Mini-Game's Score Percentage.</param>
+	/// <param name="_achievePercentageForSuccess">Required percentage for the show to be susccessful.</param>
+	private IEnumerator EvaluateShow(float _ratio, float _achievePercentageForSuccess)
+	{
+		if(_ratio >= _achievePercentageForSuccess)
+		{
+			AudioController.PlayOneShot(SourceType.Scenario, 0, applauseSoundIndex);
+
+			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
+			int rounds = trashProjectilesPerRound.Random();
+
+			for(int i = 0; i < rounds; i++)
+			{
+				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
+				PoolManager.RequestParabolaProjectile(
+					Faction.Enemy,
+					applauseObjectsIndices.Random(),
+					trashProjectilesWaypoints.Random(),
+					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
+					trashProjectileTime
+				);
+
+				while(wait.MoveNext()) yield return null;
+			}
+		}
+		else
+		{
+			AudioController.PlayOneShot(SourceType.Scenario, 0, booingSoundIndex);
+
+			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
+			int rounds = trashProjectilesPerRound.Random();
+
+			for(int i = 0; i < rounds; i++)
+			{
+				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
+				PoolManager.RequestParabolaProjectile(
+					Faction.Enemy,
+					trashProjectilesIndices.Random(),
+					trashProjectilesWaypoints.Random(),
+					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
+					trashProjectileTime
+				);
+
+				while(wait.MoveNext()) yield return null;
+			}
+		}
+	
+		yield return null;
+	}
+#endregion
+}
+}
+
+
+/* 	This was a cool algorithm:
+
+	for(int i = 0; i < rounds; i++)
 		{
 			int ringsPR =  ringsPerRound.Random();
 			float currentRingsPR = (float)ringsPR;
@@ -627,135 +689,4 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 				currentRing.onRingPassed -= onRingPassed;
 				currentRing.OnObjectDeactivation();
 			}
-		}
-
-		showJudgement = EvaluateShow(fRingsPerRound, totalRingsPassed, danceShowSuccessPercentage);
-
-		while(showJudgement.MoveNext()) yield return null;
-
-		AudioController.Stop(SourceType.Loop, 0, ()=>
-		{
-			AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-			AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		});
-
-		DestinoSceneController.Instance.danceShowSign.SetActive(false);
-	}
-
-	/// <summary>Evaluates show.</summary>
-	/// <param name="_count">Current show's count to evaluate.</param>
-	/// <param name="_achieved">Number of achieved instances.</param>
-	/// <param name="_achievePercentageForSuccess">Required percentage for the show to be susccessful.</param>
-	private IEnumerator EvaluateShow(float _count, float _achieved, float _achievePercentageForSuccess)
-	{
-		float ratio  = _achieved / _count;
-
-		if(ratio >= _achievePercentageForSuccess)
-		{
-			/// Here yo play the cheer sounds:
-			AudioController.PlayOneShot(SourceType.Scenario, 0, applauseSoundIndex);
-
-			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-			int rounds = trashProjectilesPerRound.Random();
-
-			for(int i = 0; i < rounds; i++)
-			{
-				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
-				PoolManager.RequestParabolaProjectile(
-					Faction.Enemy,
-					applauseObjectsIndices.Random(),
-					trashProjectilesWaypoints.Random(),
-					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
-					trashProjectileTime
-				);
-
-				while(wait.MoveNext()) yield return null;
-			}
-		}
-		else
-		{
-			AudioController.PlayOneShot(SourceType.Scenario, 0, booingSoundIndex);
-
-			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-			int rounds = trashProjectilesPerRound.Random();
-
-			for(int i = 0; i < rounds; i++)
-			{
-				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
-				PoolManager.RequestParabolaProjectile(
-					Faction.Enemy,
-					trashProjectilesIndices.Random(),
-					trashProjectilesWaypoints.Random(),
-					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
-					trashProjectileTime
-				);
-
-				while(wait.MoveNext()) yield return null;
-			}
-		}
-	
-		yield return null;
-	}
-}
-}
-
-/// DEPRECATED THANKS TO SUDDEN SALAZAR ELEFUCK'S CHANGES
-	/*/// <summary>Target Show's (whether Fire or Sword) Routine.</summary>
-	/// <param name="_sign">Sign to displace.</param>
-	/// <param name="_spawn">Sign's spawn position.</param>
-	/// <param name="_destiny">Sign's destiny position.</param>
-	/// <param name="_duration">Show's duration.</param>
-	/// <param name="_rounds">Range of rounds per show.</param>
-	/// <param name="_targetsPerRound">Targets per-round.</param>
-	/// <param name="_indices">Targets' Indices.</param>
-	/// <param name="_successPercentage">Percentage to consider this show a success.</param>
-	private IEnumerator TargetShowRoutine(Transform _sign, Vector3 _spawn, Vector3 _destiny, float _duration, IntRange _rounds, IntRange _targetsPerRound, int[] _indices, float _successPercentage)
-	{
-		IEnumerator signDisplacement = DisplayAndHideSign(_sign, _spawn, _destiny);
-		IEnumerator showJudgement = null;
-		SecondsDelayWait wait = new SecondsDelayWait(_duration);
-		int rounds = _rounds.Random();
-		int targetsPerRound = 0;
-		float targetsDestroyed = 0.0f;
-		OnProjectileDeactivated onTargetDeactivation = (cause, info)=>
-		{
-			switch(cause)
-			{
-				case DeactivationCause.Destroyed:
-				targetsDestroyed++;
-				break;
-			}
-		};
-
-		while(signDisplacement.MoveNext()) yield return null;
-
-		for(int i = 0; i < rounds; i++)
-		{
-			targetsPerRound = _targetsPerRound.Random();
-			float fTargetsPerRound = (float)targetsPerRound;
-			targetsDestroyed = 0.0f;
-			Projectile[] targets = new Projectile[targetsPerRound];
-
-			for(int j = 0; j < targetsPerRound; j++)
-			{
-				Ray ray = fireShowWaypoints.GetTargetOriginAndDirection();
-				Projectile p = PoolManager.RequestProjectile(Faction.Enemy, _indices.Random(), ray.origin, ray.direction);
-				p.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
-				p.projectileEventsHandler.onProjectileDeactivated += onTargetDeactivation;
-
-				targets[j] = p;
-			}
-
-			while(wait.MoveNext()) yield return null;
-			wait.Reset();
-
-			foreach(Projectile target in targets)
-			{
-				target.projectileEventsHandler.onProjectileDeactivated -= onTargetDeactivation;
-			}
-
-			showJudgement = EvaluateShow(fTargetsPerRound, targetsDestroyed, _successPercentage);
-
-			while(showJudgement.MoveNext()) yield return null;
-		}
-	}*/
+		}*/

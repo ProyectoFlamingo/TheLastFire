@@ -213,6 +213,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		devilCeiling.gameObject.SetActive(false);
 		leftDevilTower.gameObject.SetActive(false);
 		rightDevilTower.gameObject.SetActive(false);
+		fireShowSign.gameObject.SetActive(false);
+		swordShowSign.gameObject.SetActive(false);
+		danceShowSign.gameObject.SetActive(false);
 
 		/// Subscribe to Mateo & Destino's Events:
 		destino.eventsHandler.onIDEvent += OnDestinoIDEvent;

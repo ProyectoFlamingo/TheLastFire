@@ -53,6 +53,17 @@ public class ImpactEventHandler : MonoBehaviour
 		}
 	}
 
+	/// <summary>Sets all HitBoxes as Trigger.</summary>
+	/// <param name="_set">Set as Trigger? True by default.</param>
+	public void SetHitBoxesAsTrigger(bool _set = true)
+	{
+		if(hitBoxes != null)
+		foreach(HitCollider2D hitBox in hitBoxes)
+		{
+			hitBox.SetTrigger(_set);
+		}
+	}
+
 	/// <summary>Subscribes to HitColliders' Events.</summary>
 	/// <param name="_subscribe">Subscribe? true by default.</param>
 	private void SubscribeToHitCollidersEvents(bool _subscribe = true)

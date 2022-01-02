@@ -34,6 +34,7 @@ public static class IDs
 	public const int ANIMATIONEVENT_PICKTNT = 11; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_THROWTNT = 12; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_REPELBOMB = 13; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ATTACKEND = 14; 			/// <summary>Attack End's Animation Event's ID.</summary>
 #endregion
 
 #region StateFlagsIDs:

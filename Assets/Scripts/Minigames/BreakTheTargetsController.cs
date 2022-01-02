@@ -26,13 +26,13 @@ namespace Flamingo {
 
         public void OnDestroy()
         {
-            breakTheTargetsMiniGame.Terminate(this);
+            breakTheTargetsMiniGame.Terminate();
 
         }
 
         public void EndMiniGameBtt()
         {
-            breakTheTargetsMiniGame.Terminate(this);
+            breakTheTargetsMiniGame.Terminate();
         }
 
 

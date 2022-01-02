@@ -109,8 +109,7 @@ public class BasketBallMiniGame : MiniGame
         visitorRing.onRingPassed -= OnVisitorRingPassed;
         localRing.onRingPassed -= OnLocalRingPassed;
 
-        InvokeEvent(ID_EVENT_MINIGAME_ENDED);
-        running = false;
+        Terminate();
     }
 
     /// <returns>Current's Winner [regardless if the time is over].</returns>

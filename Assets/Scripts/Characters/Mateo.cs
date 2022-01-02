@@ -1206,6 +1206,10 @@ public class Mateo : Character
 				sword.ActivateHitBoxes(true);
 				jumpAbility.gravityApplier.RequestScaleChange(GetInstanceID(), _scalarWrapper, attackingScaleChangePriority);
 			break;
+
+			case IDs.ANIMATIONEVENT_ATTACKEND:
+				GoToLocomotionAnimation();
+			break;
 		}
 	}
 #endregion
@@ -1215,7 +1219,7 @@ public class Mateo : Character
 	private void GoToLocomotionAnimation()
 	{
 		if(!jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
-		Debug.Log("[Mateo] Entering Locomotion..");
+		//Debug.Log("[Mateo] Entering Locomotion..");
 		state |= IDs.STATE_MOVING;
 		
 		AnimatorCredential animationHash = this.HasStates(IDs.STATE_SWORDEQUIPPED) ? swordLocomotionCredential : noSwordLocomotionCredential;

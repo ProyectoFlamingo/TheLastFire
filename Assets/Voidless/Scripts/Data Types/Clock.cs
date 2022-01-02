@@ -130,6 +130,13 @@ public class Clock
 		ellapsedTime += _deltaTime;
 	}
 
+	/// <summary>Resets Clock.</summary>
+	/// <param name="_initialTime">Initial time [0.0f by default].</param>
+	public void Reset(float _initialTime = 0.0f)
+	{
+		ellapsedTime = Mathf.Max(_initialTime, 0.0f);
+	}
+
 	/// <summary>Updates all clock units given the updated ellapsedTime.</summary>
 	private void UpdateUnits()
 	{

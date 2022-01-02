@@ -7,11 +7,12 @@ namespace Flamingo
 {
     public class RingMadnessController : MonoBehaviour
     {
-        [SerializeField] private RingMadness_Minigame _ringMiniGame;
+        [SerializeField] private RingMadnessMiniGame _ringMiniGame;
         
 
         // Start is called before the first frame update
-        public RingMadness_Minigame ringMinigame { get { return _ringMiniGame; } }
+        public RingMadnessMiniGame ringMinigame { get { return _ringMiniGame; } }
+        
         private void Awake()
         {
             ringMinigame.Initialize(this);
