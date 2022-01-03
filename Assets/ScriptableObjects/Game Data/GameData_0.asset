@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 960c58a0c3be37747ad861fd60da2e46, type: 3}
   - {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
   - {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
+  - {fileID: 8300000, guid: c156a5e34c7350540b2c71d5aa23b7ec, type: 3}
   _soundEffects:
   - {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
   - {fileID: 8300000, guid: 7e073fbd79128394d892b1ab66ef787b, type: 3}
@@ -206,11 +207,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ed0186d83ca68f540b64fe3a026b2470, type: 3}
   - {fileID: 8300000, guid: 960c58a0c3be37747ad861fd60da2e46, type: 3}
   - {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
+  - {fileID: 8300000, guid: 19f783d9fddedfd4ca1410b0ec3513f7, type: 3}
   _particleEffects:
   - {fileID: 2948463789655692408, guid: 05729ccca8bca724b80aa225032af021, type: 3}
   - {fileID: 6782677579952761336, guid: 40a16e0a24c989a40b60a9e7cfc239dc, type: 3}
   - {fileID: 5991511715978692823, guid: 061bb0a11a6e9b3418a4ef201c6f4113, type: 3}
-  - {fileID: 8443501804928527269, guid: 6360217e91cc7114da84ad7ea1a7e989, type: 3}
+  - {fileID: 8794394515965911205, guid: 148afe93d2471be48aaef341f52c6c3c, type: 3}
   - {fileID: 9075504153970139333, guid: 99c85ee94331e3a4b8fac6f5b04db405, type: 3}
   - {fileID: 91173677976709334, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
   - {fileID: 5271159883592656078, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
@@ -247,6 +249,9 @@ MonoBehaviour:
   - {fileID: 2209293261601283444, guid: 578345b0d94d6c64d993a63ab28c64b8, type: 3}
   - {fileID: 8642273460957978059, guid: 7af93d4e2464efa42bb7b7d734349fb6, type: 3}
   - {fileID: 2444224504586316940, guid: 7b61a519c057af548a2bb8a0fc9b1080, type: 3}
+  - {fileID: 393582703892377902, guid: 3826d98c4a0db0040b9d9a400bebf4cd, type: 3}
+  - {fileID: 393582703892377902, guid: 6433f965fe057e648ae27099f89d6355, type: 3}
+  - {fileID: 393582703892377902, guid: 69d01e33ea01aaa40a1768f2d2d84033, type: 3}
   _explodables:
   - {fileID: 7757396531229370483, guid: 510f45f4d87997d48933833abca64959, type: 3}
   - {fileID: 7757396531229370483, guid: be71cb40b8fbe2c4ab5223202fadb6ef, type: 3}

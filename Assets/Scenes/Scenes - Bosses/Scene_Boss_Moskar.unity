@@ -99,7 +99,7 @@ LightmapSettings:
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: fd98d575609001a4f9cda2779273dcb4,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -389,8 +389,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 754
-  m_Range: 1046.94
+  m_Intensity: 879.52
+  m_Range: 1088.6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -428,7 +428,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0
@@ -446,7 +446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 729571371}
   m_LocalRotation: {x: 0.17364816, y: -0, z: -0, w: 0.9848078}
-  m_LocalPosition: {x: -0.03953743, y: 31.324646, z: 5.6642346}
+  m_LocalPosition: {x: -0.03953743, y: 31.324646, z: 16.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 366712719}
@@ -859,6 +859,12 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.16989887
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
     - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1245,6 +1251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Boss_Moskar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2340683740104089351, guid: 8e98f4254b032564893133ce4247e946,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3482248678282691959, guid: 8e98f4254b032564893133ce4247e946,
         type: 3}

@@ -1049,6 +1049,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 840265204569456406, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _particleEffectsMatrix.Array.data[2].index
+      value: 31
+      objectReference: {fileID: 0}
+    - target: {fileID: 840265204569456406, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.data[1].index
+      value: 53
+      objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632402, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _projectileID.index
@@ -1065,6 +1075,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
+    - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.9
+      objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _minSpeedForBraking
@@ -1075,10 +1095,20 @@ PrefabInstance:
       propertyPath: _maxBrakingSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632415, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _initialJumpParticleEffect._particleEffectIndex
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2968688374757281721, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3336657346448512044, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6597361203046105002, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -1140,10 +1170,25 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -15
       objectReference: {fileID: 0}
+    - target: {fileID: 7219284383836901186, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_Simulated
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8486053592927599849, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_Name
       value: Group_Essentials
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548266746606374616, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.data[1].ID
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 8548266746606374616, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _particleEffectsMatrix.Array.data[2].index
+      value: 31
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e8b33e1bd6457045935992270f9958b, type: 3}
@@ -11865,10 +11910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _soundEffectIndex:
-    index: 13
-    objectIndex: 0
-    collectionIndex: 6
+  _soundEffectIndex: 0
   _mateo: {fileID: 0}
   _targetImpactHandlers:
   - {fileID: 0}
