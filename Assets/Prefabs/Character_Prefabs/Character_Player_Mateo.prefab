@@ -3525,7 +3525,7 @@ MonoBehaviour:
     _transform: {fileID: 5122952807910987803}
     _particleEffectIndex: 41
     _points:
-    - {x: 0, y: -1.45, z: 0}
+    - {x: 0.9, y: -1.45, z: 0}
   _additionalJumpParticleEffect:
     _transform: {fileID: 5122952807910987803}
     _particleEffectIndex: 12
@@ -3535,7 +3535,7 @@ MonoBehaviour:
     _transform: {fileID: 5122952807910987803}
     _particleEffectIndex: 42
     _points:
-    - {x: 0, y: -1, z: 0}
+    - {x: 0.9, y: -1, z: 0}
   _hardLandingParticleEffect:
     _transform: {fileID: 5122952807910987803}
     _particleEffectIndex: 38

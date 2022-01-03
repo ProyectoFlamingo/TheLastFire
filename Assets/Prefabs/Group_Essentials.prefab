@@ -827,31 +827,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
         type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 1.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 1.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.6933962
-      objectReference: {fileID: 0}
-    - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
-      propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.98452336
-      objectReference: {fileID: 0}
-    - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.06
-      objectReference: {fileID: 0}
-    - target: {fileID: 1576234136736898484, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
       propertyPath: TrailModule.lifetime.minMaxState
       value: 1
       objectReference: {fileID: 0}
@@ -1880,11 +1855,6 @@ PrefabInstance:
         type: 3}
       propertyPath: gizmosRadius
       value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5122952807910987807, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
-        type: 3}
-      propertyPath: _initialJumpParticleEffect._transform
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5122952807910987807, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
         type: 3}

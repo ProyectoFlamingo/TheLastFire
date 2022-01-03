@@ -957,16 +957,10 @@ MonoBehaviour:
   _subID: 0
   _particleEffectsMatrix:
   - ID: 1
-    index:
-      index: 6
-      objectIndex: 0
-      collectionIndex: 8
+    index: 0
   _soundEffectsMatrix:
   - ID: 1
-    index:
-      index: 0
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   _eventsHandler: {fileID: 5395243699079717940}
 --- !u!114 &266581773272846551
 MonoBehaviour:
@@ -981,7 +975,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchors:
-  - {x: 0, y: 0, z: 0}
+  - Item1: {fileID: 0}
+    Item2: {x: 0, y: 0, z: 0}
   gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
   gizmosRadius: 0.1
 --- !u!1 &7512553631315864296
@@ -1339,16 +1334,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
         type: 3}
-      propertyPath: InitialModule.startLifetime.minScalar
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
-        type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
-        type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
       value: 0.5
       objectReference: {fileID: 0}
@@ -1381,21 +1366,6 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.randomizeRotationDirection
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
-        type: 3}
-      propertyPath: ShapeModule.radius.value
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
-        type: 3}
-      propertyPath: InitialModule.startSize.scalar
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 1102894906086585372, guid: 7e705ca85bfe88a418b5d0175149fa77,
-        type: 3}
-      propertyPath: InitialModule.startSize.minScalar
-      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 2856782689526835040, guid: 7e705ca85bfe88a418b5d0175149fa77,
         type: 3}
