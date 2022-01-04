@@ -188,23 +188,11 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 0
   _distance: 0
-  _impactParticleEffectIndex:
-    index: 28
-    objectIndex: 0
-    collectionIndex: 7
-  _destroyedParticleEffectIndex:
-    index: 46
-    objectIndex: 0
-    collectionIndex: 6
+  _impactParticleEffectIndex: 28
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 24
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 5
+  _impactSoundEffectIndex: 27
+  _destroyedSoundEffectIndex: 27
   gizmosColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &7212728250861050264
 MonoBehaviour:
@@ -251,36 +239,18 @@ MonoBehaviour:
   _subID: 0
   _particleEffectsMatrix:
   - ID: 1
-    index:
-      index: 0
-      objectIndex: 0
-      collectionIndex: 8
+    index: 0
   - ID: 2
-    index:
-      index: 0
-      objectIndex: 0
-      collectionIndex: 8
+    index: 0
   - ID: 16
-    index:
-      index: 0
-      objectIndex: 0
-      collectionIndex: 8
+    index: 0
   _soundEffectsMatrix:
   - ID: 1
-    index:
-      index: 36
-      objectIndex: 0
-      collectionIndex: 7
+    index: 24
   - ID: 2
-    index:
-      index: 39
-      objectIndex: 0
-      collectionIndex: 7
+    index: 26
   - ID: 16
-    index:
-      index: 39
-      objectIndex: 0
-      collectionIndex: 7
+    index: 27
   _eventsHandler: {fileID: 0}
 --- !u!114 &-5702162873329405793
 MonoBehaviour:

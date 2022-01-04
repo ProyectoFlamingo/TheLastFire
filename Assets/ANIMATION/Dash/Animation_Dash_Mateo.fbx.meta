@@ -26,7 +26,7 @@ ModelImporter:
       error = 0.642604 deg\n\t'L_knee_jnt_3' : rotation error = 0.618600 deg\n\t'L_knee_jnt_4'
       : rotation error = 0.652747 deg\n\t'R_leg_jnt_2' : rotation error = 1.611331
       deg\n\t'R_leg_jnt_3' : rotation error = 1.756254 deg\n\t'R_leg_jnt_4' : rotation
-      error = 1.916774 deg\n\t'R_knee_jnt_2' : rotation error = 0.966069 deg\n\t'R_knee_jnt_3'
+      error = 1.916775 deg\n\t'R_knee_jnt_2' : rotation error = 0.966069 deg\n\t'R_knee_jnt_3'
       : rotation error = 0.517786 deg\n\t'R_knee_jnt_4' : rotation error = 0.445079
       deg\n"
     animationImportErrors: 
@@ -86,7 +86,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

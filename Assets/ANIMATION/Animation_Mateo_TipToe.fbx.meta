@@ -24,7 +24,7 @@ ModelImporter:
       : rotation error = 1.892957 deg\n\t'L_leg_jnt_3' : rotation error = 1.892957
       deg\n\t'L_leg_jnt_4' : rotation error = 1.913838 deg\n\t'L_knee_jnt_2' : rotation
       error = 3.526904 deg\n\t'L_knee_jnt_3' : rotation error = 3.006011 deg\n\t'L_knee_jnt_4'
-      : rotation error = 2.758005 deg\n\t'R_leg_jnt_2' : rotation error = 2.563289
+      : rotation error = 2.758006 deg\n\t'R_leg_jnt_2' : rotation error = 2.563289
       deg\n\t'R_leg_jnt_3' : rotation error = 2.418366 deg\n\t'R_leg_jnt_4' : rotation
       error = 2.541450 deg\n\t'R_knee_jnt_2' : rotation error = 1.409148 deg\n\t'R_knee_jnt_3'
       : rotation error = 1.271090 deg\n\t'R_knee_jnt_4' : rotation error = 1.368012
@@ -127,7 +127,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

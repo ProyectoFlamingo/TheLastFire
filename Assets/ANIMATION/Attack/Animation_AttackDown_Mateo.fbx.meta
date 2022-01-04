@@ -26,11 +26,11 @@ ModelImporter:
       configuration does not match rotation in animation file:\n\t'L_leg_jnt_2' :
       rotation error = 0.444123 deg\n\t'L_leg_jnt_3' : rotation error = 0.444123
       deg\n\t'L_leg_jnt_4' : rotation error = 0.970804 deg\n\t'L_knee_jnt_2' : rotation
-      error = 10.748769 deg\n\t'L_knee_jnt_3' : rotation error = 8.319154 deg\n\t'L_knee_jnt_4'
-      : rotation error = 6.815807 deg\n\t'R_leg_jnt_2' : rotation error = 3.978862
+      error = 10.748770 deg\n\t'L_knee_jnt_3' : rotation error = 8.319155 deg\n\t'L_knee_jnt_4'
+      : rotation error = 6.815808 deg\n\t'R_leg_jnt_2' : rotation error = 3.978862
       deg\n\t'R_leg_jnt_3' : rotation error = 4.123785 deg\n\t'R_leg_jnt_4' : rotation
-      error = 4.193223 deg\n\t'R_knee_jnt_2' : rotation error = 12.517544 deg\n\t'R_knee_jnt_3'
-      : rotation error = 10.425970 deg\n\t'R_knee_jnt_4' : rotation error = 8.629897
+      error = 4.193223 deg\n\t'R_knee_jnt_2' : rotation error = 12.517545 deg\n\t'R_knee_jnt_3'
+      : rotation error = 10.425971 deg\n\t'R_knee_jnt_4' : rotation error = 8.629899
       deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -119,7 +119,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

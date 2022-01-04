@@ -33,7 +33,7 @@ ModelImporter:
       : rotation error = 1.088344 deg\n\t'R_leg_jnt_3' : rotation error = 0.943421
       deg\n\t'R_leg_jnt_4' : rotation error = 1.221965 deg\n\t'R_knee_jnt_2' : rotation
       error = 2.407374 deg\n\t'R_knee_jnt_3' : rotation error = 1.406890 deg\n\t'R_knee_jnt_4'
-      : rotation error = 1.029346 deg\n"
+      : rotation error = 1.029347 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
       might lower retargeting quality:\nNote: Activate translation DOF on avatar
@@ -129,7 +129,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

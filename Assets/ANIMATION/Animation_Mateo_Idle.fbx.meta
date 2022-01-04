@@ -26,10 +26,10 @@ ModelImporter:
       configuration does not match rotation in animation file:\n\t'L_leg_jnt_2' :
       rotation error = 1.173713 deg\n\t'L_leg_jnt_3' : rotation error = 1.173713
       deg\n\t'L_leg_jnt_4' : rotation error = 1.526633 deg\n\t'L_knee_jnt_2' : rotation
-      error = 4.945803 deg\n\t'L_knee_jnt_3' : rotation error = 4.235871 deg\n\t'L_knee_jnt_4'
-      : rotation error = 3.926039 deg\n\t'R_leg_jnt_2' : rotation error = 9.157647
-      deg\n\t'R_leg_jnt_3' : rotation error = 9.012725 deg\n\t'R_leg_jnt_4' : rotation
-      error = 9.048290 deg\n\t'R_knee_jnt_2' : rotation error = 0.357380 deg\n\t'R_knee_jnt_3'
+      error = 4.945803 deg\n\t'L_knee_jnt_3' : rotation error = 4.235872 deg\n\t'L_knee_jnt_4'
+      : rotation error = 3.926039 deg\n\t'R_leg_jnt_2' : rotation error = 9.157648
+      deg\n\t'R_leg_jnt_3' : rotation error = 9.012726 deg\n\t'R_leg_jnt_4' : rotation
+      error = 9.048291 deg\n\t'R_knee_jnt_2' : rotation error = 0.357380 deg\n\t'R_knee_jnt_3'
       : rotation error = 0.456767 deg\n\t'R_knee_jnt_4' : rotation error = 0.642550
       deg\n"
     animationImportErrors: 
@@ -112,7 +112,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

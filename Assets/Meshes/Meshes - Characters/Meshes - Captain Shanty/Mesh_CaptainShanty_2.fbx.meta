@@ -19,12 +19,7 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: "Avatar Rig Configuration mis-match. Inbetween bone rotation
-      in configuration does not match rotation in animation file:\n\t'L_leg_jtn_2'
-      : rotation error = 0.312162 deg\n\t'L_leg_jtn_3' : rotation error = 88.681091
-      deg\n\t'L_leg_jtn_4' : rotation error = 0.081679 deg\n\t'R_leg_jtn_2' : rotation
-      error = 0.312165 deg\n\t'R_leg_jtn_3' : rotation error = 88.669983 deg\n\t'R_leg_jtn_4'
-      : rotation error = 0.081680 deg\n"
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -53,7 +48,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

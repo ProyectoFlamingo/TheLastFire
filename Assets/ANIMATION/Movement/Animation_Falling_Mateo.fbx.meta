@@ -28,7 +28,7 @@ ModelImporter:
       mm\n\t'L_ankle_jnt' : position error = 37.503567 mm\nCopied Avatar Rig Configuration
       mis-match. Inbetween bone rotation in copied configuration does not match rotation
       in animation file:\n\t'L_leg_jnt_2' : rotation error = 0.606127 deg\n\t'L_leg_jnt_3'
-      : rotation error = 0.610262 deg\n\t'L_leg_jnt_4' : rotation error = 1.085174
+      : rotation error = 0.610262 deg\n\t'L_leg_jnt_4' : rotation error = 1.085175
       deg\n\t'L_knee_jnt_2' : rotation error = 3.316479 deg\n\t'L_knee_jnt_3' : rotation
       error = 2.496522 deg\n\t'L_knee_jnt_4' : rotation error = 2.811337 deg\n\t'R_leg_jnt_3'
       : rotation error = 0.150902 deg\n\t'R_leg_jnt_4' : rotation error = 0.787691
@@ -125,7 +125,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

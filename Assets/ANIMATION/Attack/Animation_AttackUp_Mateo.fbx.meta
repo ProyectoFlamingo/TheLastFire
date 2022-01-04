@@ -21,7 +21,7 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
       rotation in copied configuration does not match rotation in animation file:\n\t'L_leg_jnt_4'
-      : rotation error = 0.786586 deg\n\t'R_leg_jnt_3' : rotation error = 0.144923
+      : rotation error = 0.786587 deg\n\t'R_leg_jnt_3' : rotation error = 0.144923
       deg\n\t'R_leg_jnt_4' : rotation error = 0.786587 deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -110,7 +110,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

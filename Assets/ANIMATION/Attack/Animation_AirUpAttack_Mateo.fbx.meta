@@ -27,10 +27,10 @@ ModelImporter:
       rotation error = 0.631578 deg\n\t'L_leg_jnt_3' : rotation error = 0.631578
       deg\n\t'L_leg_jnt_4' : rotation error = 1.094302 deg\n\t'L_knee_jnt_2' : rotation
       error = 0.697176 deg\n\t'L_knee_jnt_3' : rotation error = 0.466424 deg\n\t'L_knee_jnt_4'
-      : rotation error = 0.401549 deg\n\t'R_leg_jnt_2' : rotation error = 3.043339
+      : rotation error = 0.401549 deg\n\t'R_leg_jnt_2' : rotation error = 3.043340
       deg\n\t'R_leg_jnt_3' : rotation error = 3.188262 deg\n\t'R_leg_jnt_4' : rotation
-      error = 3.278311 deg\n\t'R_knee_jnt_2' : rotation error = 3.425326 deg\n\t'R_knee_jnt_3'
-      : rotation error = 2.686779 deg\n\t'R_knee_jnt_4' : rotation error = 2.548968
+      error = 3.278312 deg\n\t'R_knee_jnt_2' : rotation error = 3.425327 deg\n\t'R_knee_jnt_3'
+      : rotation error = 2.686780 deg\n\t'R_knee_jnt_4' : rotation error = 2.548968
       deg\n"
     animationImportErrors: 
     animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
@@ -127,7 +127,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

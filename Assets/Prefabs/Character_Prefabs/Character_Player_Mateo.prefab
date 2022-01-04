@@ -1258,7 +1258,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 905501911970284249}
   m_BodyType: 1
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -4191,14 +4191,16 @@ MonoBehaviour:
   - ID: 2
     index: 18
   - ID: 128
-    index: 20
+    index: 31
   - ID: 512
     index: 17
   _soundEffectsMatrix:
   - ID: 1
     index: 57
   - ID: 128
-    index: 27
+    index: 53
+  - ID: 64
+    index: 59
   _eventsHandler: {fileID: 0}
 --- !u!114 &5237004155411882976
 MonoBehaviour:
@@ -5203,13 +5205,13 @@ MonoBehaviour:
   - ID: 2
     index: 18
   - ID: 128
-    index: 20
+    index: 31
   - ID: 512
     index: 17
   _soundEffectsMatrix:
   - ID: 1
     index: 58
-  - ID: 130
+  - ID: 128
     index: 54
   _eventsHandler: {fileID: 0}
 --- !u!114 &2521995181921440797
@@ -6588,7 +6590,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8786158015523040148}
   m_BodyType: 1
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1

@@ -22,12 +22,12 @@ ModelImporter:
     rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
       rotation in copied configuration does not match rotation in animation file:\n\t'L_leg_jnt_2'
       : rotation error = 1.726932 deg\n\t'L_leg_jnt_3' : rotation error = 1.726932
-      deg\n\t'L_leg_jnt_4' : rotation error = 1.763259 deg\n\t'L_knee_jnt_2' : rotation
-      error = 6.464214 deg\n\t'L_knee_jnt_3' : rotation error = 5.864276 deg\n\t'L_knee_jnt_4'
-      : rotation error = 5.827431 deg\n\t'R_leg_jnt_2' : rotation error = 4.457935
+      deg\n\t'L_leg_jnt_4' : rotation error = 1.763260 deg\n\t'L_knee_jnt_2' : rotation
+      error = 6.464214 deg\n\t'L_knee_jnt_3' : rotation error = 5.864277 deg\n\t'L_knee_jnt_4'
+      : rotation error = 5.827432 deg\n\t'R_leg_jnt_2' : rotation error = 4.457935
       deg\n\t'R_leg_jnt_3' : rotation error = 4.313012 deg\n\t'R_leg_jnt_4' : rotation
       error = 4.384272 deg\n\t'R_knee_jnt_2' : rotation error = 5.100963 deg\n\t'R_knee_jnt_3'
-      : rotation error = 4.450545 deg\n\t'R_knee_jnt_4' : rotation error = 4.153158
+      : rotation error = 4.450547 deg\n\t'R_knee_jnt_4' : rotation error = 4.153159
       deg\n"
     animationImportErrors: 
     animationImportWarnings: 
@@ -86,7 +86,7 @@ ModelImporter:
     importLights: 1
     fileIdsGeneration: 2
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1

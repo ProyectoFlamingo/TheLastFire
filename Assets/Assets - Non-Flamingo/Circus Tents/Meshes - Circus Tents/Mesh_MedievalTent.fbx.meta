@@ -48,7 +48,27 @@ ModelImporter:
   - first:
       95: 9500000
     second: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Strings__MedievalTentBigTexture
+    second: {fileID: 2100000, guid: 7c863cc12b75c3b4da1ab29dfb6eed52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TentSidesCol1__MedievalTentBigTexture
+    second: {fileID: 2100000, guid: 6a86054a83d9c154eb9b5c650144a2b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TentSidesCol2__MedievalTentBigTexture
+    second: {fileID: 2100000, guid: 8a6a0b2fce9bca34e8cd2671e8622c57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tent_Top__MedievalTentBigTexture
+    second: {fileID: 2100000, guid: 4e829ba56c57e244e96a8e8cc6ca1d0e, type: 2}
   materials:
     materialImportMode: 1
     materialName: 1

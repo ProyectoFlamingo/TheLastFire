@@ -1,191 +1,546 @@
 fileFormatVersion: 2
 guid: 7086daffebd059047b7619bdce7275d6
-timeCreated: 1493651478
-licenseType: Store
 ModelImporter:
-  serializedVersion: 18
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: flamingo_Beak-nub_bone
-    100004: flamingo_Beak_bone
-    100006: flamingo_Beak_ctrl
-    100008: flamingo_Body_mesh
-    100010: flamingo_COM_ctrl
-    100012: flamingo_Feathers_mesh
-    100014: flamingo_Head_bone
-    100016: flamingo_Head_ctrl
-    100018: flamingo_Hip_ctrl
-    100020: flamingo_l_Ankle_bone
-    100022: flamingo_l_ball_IKGoal
-    100024: flamingo_l_ball_IKGoal 1
-    100026: flamingo_l_Foot_ctrl
-    100028: flamingo_l_Heel_hlp
-    100030: flamingo_l_heel_IKGoal
-    100032: flamingo_l_HeelPeel_hlp
-    100034: flamingo_l_Knee_bone
-    100036: flamingo_l_Thigh_bone
-    100038: flamingo_l_Toe-nub_bone
-    100040: flamingo_l_Toe_bone
-    100042: flamingo_l_toe_IKGoal
-    100044: flamingo_l_toe_IKGoal 1
-    100046: flamingo_l_ToeLift_hlp
-    100048: flamingo_l_ToeTap_hlp
-    100050: flamingo_Main_ctrl
-    100052: flamingo_Mandible_bone
-    100054: flamingo_Mandible_ctrl
-    100056: flamingo_Neck10_bone
-    100058: flamingo_Neck10_ctrl
-    100060: flamingo_Neck11_bone
-    100062: flamingo_Neck11_ctrl
-    100064: flamingo_Neck12_bone
-    100066: flamingo_Neck12_ctrl
-    100068: flamingo_Neck1_bone
-    100070: flamingo_Neck2_bone
-    100072: flamingo_Neck2_ctrl
-    100074: flamingo_Neck3_bone
-    100076: flamingo_Neck3_ctrl
-    100078: flamingo_Neck4_bone
-    100080: flamingo_Neck4_ctrl
-    100082: flamingo_Neck5_bone
-    100084: flamingo_Neck5_ctrl
-    100086: flamingo_Neck6_bone
-    100088: flamingo_Neck6_ctrl
-    100090: flamingo_Neck7_bone
-    100092: flamingo_Neck7_ctrl
-    100094: flamingo_Neck8_bone
-    100096: flamingo_Neck8_ctrl
-    100098: flamingo_Neck9_bone
-    100100: flamingo_Neck9_ctrl
-    100102: flamingo_NeckBase_ctrl
-    100104: flamingo_Nostril-nub_bone
-    100106: flamingo_Nostril_bone
-    100108: flamingo_Nostril_ctrl
-    100110: flamingo_Pelvis_bone
-    100112: flamingo_r_Ankle_bone
-    100114: flamingo_r_Foot_ctrl
-    100116: flamingo_r_Heel_hlp
-    100118: flamingo_r_heel_IKGoal
-    100120: flamingo_r_HeelPeel_hlp
-    100122: flamingo_r_Knee_bone
-    100124: flamingo_r_Thigh_bone
-    100126: flamingo_r_Toe-nub_bone
-    100128: flamingo_r_Toe_bone
-    100130: flamingo_r_ToeLift_hlp
-    100132: flamingo_r_ToeTap_hlp
-    100134: flamingo_Spine1_bone
-    100136: flamingo_Spine2_bone
-    100138: flamingo_Spine3_bone
-    100140: flamingo_SpineBase_ctrl
-    100142: flamingo_SpineEnd_ctrl
-    100144: flamingo_Tail-nub_bone
-    100146: flamingo_Tail_bone
-    100148: flamingo_Tail_ctrl
-    400000: //RootNode
-    400002: flamingo_Beak-nub_bone
-    400004: flamingo_Beak_bone
-    400006: flamingo_Beak_ctrl
-    400008: flamingo_Body_mesh
-    400010: flamingo_COM_ctrl
-    400012: flamingo_Feathers_mesh
-    400014: flamingo_Head_bone
-    400016: flamingo_Head_ctrl
-    400018: flamingo_Hip_ctrl
-    400020: flamingo_l_Ankle_bone
-    400022: flamingo_l_ball_IKGoal
-    400024: flamingo_l_ball_IKGoal 1
-    400026: flamingo_l_Foot_ctrl
-    400028: flamingo_l_Heel_hlp
-    400030: flamingo_l_heel_IKGoal
-    400032: flamingo_l_HeelPeel_hlp
-    400034: flamingo_l_Knee_bone
-    400036: flamingo_l_Thigh_bone
-    400038: flamingo_l_Toe-nub_bone
-    400040: flamingo_l_Toe_bone
-    400042: flamingo_l_toe_IKGoal
-    400044: flamingo_l_toe_IKGoal 1
-    400046: flamingo_l_ToeLift_hlp
-    400048: flamingo_l_ToeTap_hlp
-    400050: flamingo_Main_ctrl
-    400052: flamingo_Mandible_bone
-    400054: flamingo_Mandible_ctrl
-    400056: flamingo_Neck10_bone
-    400058: flamingo_Neck10_ctrl
-    400060: flamingo_Neck11_bone
-    400062: flamingo_Neck11_ctrl
-    400064: flamingo_Neck12_bone
-    400066: flamingo_Neck12_ctrl
-    400068: flamingo_Neck1_bone
-    400070: flamingo_Neck2_bone
-    400072: flamingo_Neck2_ctrl
-    400074: flamingo_Neck3_bone
-    400076: flamingo_Neck3_ctrl
-    400078: flamingo_Neck4_bone
-    400080: flamingo_Neck4_ctrl
-    400082: flamingo_Neck5_bone
-    400084: flamingo_Neck5_ctrl
-    400086: flamingo_Neck6_bone
-    400088: flamingo_Neck6_ctrl
-    400090: flamingo_Neck7_bone
-    400092: flamingo_Neck7_ctrl
-    400094: flamingo_Neck8_bone
-    400096: flamingo_Neck8_ctrl
-    400098: flamingo_Neck9_bone
-    400100: flamingo_Neck9_ctrl
-    400102: flamingo_NeckBase_ctrl
-    400104: flamingo_Nostril-nub_bone
-    400106: flamingo_Nostril_bone
-    400108: flamingo_Nostril_ctrl
-    400110: flamingo_Pelvis_bone
-    400112: flamingo_r_Ankle_bone
-    400114: flamingo_r_Foot_ctrl
-    400116: flamingo_r_Heel_hlp
-    400118: flamingo_r_heel_IKGoal
-    400120: flamingo_r_HeelPeel_hlp
-    400122: flamingo_r_Knee_bone
-    400124: flamingo_r_Thigh_bone
-    400126: flamingo_r_Toe-nub_bone
-    400128: flamingo_r_Toe_bone
-    400130: flamingo_r_ToeLift_hlp
-    400132: flamingo_r_ToeTap_hlp
-    400134: flamingo_Spine1_bone
-    400136: flamingo_Spine2_bone
-    400138: flamingo_Spine3_bone
-    400140: flamingo_SpineBase_ctrl
-    400142: flamingo_SpineEnd_ctrl
-    400144: flamingo_Tail-nub_bone
-    400146: flamingo_Tail_bone
-    400148: flamingo_Tail_ctrl
-    2300000: flamingo_l_Foot_ctrl
-    2300002: flamingo_r_Foot_ctrl
-    3300000: flamingo_l_Foot_ctrl
-    3300002: flamingo_r_Foot_ctrl
-    4300000: flamingo_Body_mesh
-    4300002: flamingo_Feathers_mesh
-    4300004: flamingo_r_Foot_ctrl
-    4300006: flamingo_l_Foot_ctrl
-    7400000: sitdown
-    9500000: //RootNode
-    13700000: flamingo_Body_mesh
-    13700002: flamingo_Feathers_mesh
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: flamingo_Beak-nub_bone
+  - first:
+      1: 100004
+    second: flamingo_Beak_bone
+  - first:
+      1: 100006
+    second: flamingo_Beak_ctrl
+  - first:
+      1: 100008
+    second: flamingo_Body_mesh
+  - first:
+      1: 100010
+    second: flamingo_COM_ctrl
+  - first:
+      1: 100012
+    second: flamingo_Feathers_mesh
+  - first:
+      1: 100014
+    second: flamingo_Head_bone
+  - first:
+      1: 100016
+    second: flamingo_Head_ctrl
+  - first:
+      1: 100018
+    second: flamingo_Hip_ctrl
+  - first:
+      1: 100020
+    second: flamingo_l_Ankle_bone
+  - first:
+      1: 100022
+    second: flamingo_l_ball_IKGoal
+  - first:
+      1: 100024
+    second: flamingo_l_ball_IKGoal 1
+  - first:
+      1: 100026
+    second: flamingo_l_Foot_ctrl
+  - first:
+      1: 100028
+    second: flamingo_l_Heel_hlp
+  - first:
+      1: 100030
+    second: flamingo_l_heel_IKGoal
+  - first:
+      1: 100032
+    second: flamingo_l_HeelPeel_hlp
+  - first:
+      1: 100034
+    second: flamingo_l_Knee_bone
+  - first:
+      1: 100036
+    second: flamingo_l_Thigh_bone
+  - first:
+      1: 100038
+    second: flamingo_l_Toe-nub_bone
+  - first:
+      1: 100040
+    second: flamingo_l_Toe_bone
+  - first:
+      1: 100042
+    second: flamingo_l_toe_IKGoal
+  - first:
+      1: 100044
+    second: flamingo_l_toe_IKGoal 1
+  - first:
+      1: 100046
+    second: flamingo_l_ToeLift_hlp
+  - first:
+      1: 100048
+    second: flamingo_l_ToeTap_hlp
+  - first:
+      1: 100050
+    second: flamingo_Main_ctrl
+  - first:
+      1: 100052
+    second: flamingo_Mandible_bone
+  - first:
+      1: 100054
+    second: flamingo_Mandible_ctrl
+  - first:
+      1: 100056
+    second: flamingo_Neck10_bone
+  - first:
+      1: 100058
+    second: flamingo_Neck10_ctrl
+  - first:
+      1: 100060
+    second: flamingo_Neck11_bone
+  - first:
+      1: 100062
+    second: flamingo_Neck11_ctrl
+  - first:
+      1: 100064
+    second: flamingo_Neck12_bone
+  - first:
+      1: 100066
+    second: flamingo_Neck12_ctrl
+  - first:
+      1: 100068
+    second: flamingo_Neck1_bone
+  - first:
+      1: 100070
+    second: flamingo_Neck2_bone
+  - first:
+      1: 100072
+    second: flamingo_Neck2_ctrl
+  - first:
+      1: 100074
+    second: flamingo_Neck3_bone
+  - first:
+      1: 100076
+    second: flamingo_Neck3_ctrl
+  - first:
+      1: 100078
+    second: flamingo_Neck4_bone
+  - first:
+      1: 100080
+    second: flamingo_Neck4_ctrl
+  - first:
+      1: 100082
+    second: flamingo_Neck5_bone
+  - first:
+      1: 100084
+    second: flamingo_Neck5_ctrl
+  - first:
+      1: 100086
+    second: flamingo_Neck6_bone
+  - first:
+      1: 100088
+    second: flamingo_Neck6_ctrl
+  - first:
+      1: 100090
+    second: flamingo_Neck7_bone
+  - first:
+      1: 100092
+    second: flamingo_Neck7_ctrl
+  - first:
+      1: 100094
+    second: flamingo_Neck8_bone
+  - first:
+      1: 100096
+    second: flamingo_Neck8_ctrl
+  - first:
+      1: 100098
+    second: flamingo_Neck9_bone
+  - first:
+      1: 100100
+    second: flamingo_Neck9_ctrl
+  - first:
+      1: 100102
+    second: flamingo_NeckBase_ctrl
+  - first:
+      1: 100104
+    second: flamingo_Nostril-nub_bone
+  - first:
+      1: 100106
+    second: flamingo_Nostril_bone
+  - first:
+      1: 100108
+    second: flamingo_Nostril_ctrl
+  - first:
+      1: 100110
+    second: flamingo_Pelvis_bone
+  - first:
+      1: 100112
+    second: flamingo_r_Ankle_bone
+  - first:
+      1: 100114
+    second: flamingo_r_Foot_ctrl
+  - first:
+      1: 100116
+    second: flamingo_r_Heel_hlp
+  - first:
+      1: 100118
+    second: flamingo_r_heel_IKGoal
+  - first:
+      1: 100120
+    second: flamingo_r_HeelPeel_hlp
+  - first:
+      1: 100122
+    second: flamingo_r_Knee_bone
+  - first:
+      1: 100124
+    second: flamingo_r_Thigh_bone
+  - first:
+      1: 100126
+    second: flamingo_r_Toe-nub_bone
+  - first:
+      1: 100128
+    second: flamingo_r_Toe_bone
+  - first:
+      1: 100130
+    second: flamingo_r_ToeLift_hlp
+  - first:
+      1: 100132
+    second: flamingo_r_ToeTap_hlp
+  - first:
+      1: 100134
+    second: flamingo_Spine1_bone
+  - first:
+      1: 100136
+    second: flamingo_Spine2_bone
+  - first:
+      1: 100138
+    second: flamingo_Spine3_bone
+  - first:
+      1: 100140
+    second: flamingo_SpineBase_ctrl
+  - first:
+      1: 100142
+    second: flamingo_SpineEnd_ctrl
+  - first:
+      1: 100144
+    second: flamingo_Tail-nub_bone
+  - first:
+      1: 100146
+    second: flamingo_Tail_bone
+  - first:
+      1: 100148
+    second: flamingo_Tail_ctrl
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: flamingo_Beak-nub_bone
+  - first:
+      4: 400004
+    second: flamingo_Beak_bone
+  - first:
+      4: 400006
+    second: flamingo_Beak_ctrl
+  - first:
+      4: 400008
+    second: flamingo_Body_mesh
+  - first:
+      4: 400010
+    second: flamingo_COM_ctrl
+  - first:
+      4: 400012
+    second: flamingo_Feathers_mesh
+  - first:
+      4: 400014
+    second: flamingo_Head_bone
+  - first:
+      4: 400016
+    second: flamingo_Head_ctrl
+  - first:
+      4: 400018
+    second: flamingo_Hip_ctrl
+  - first:
+      4: 400020
+    second: flamingo_l_Ankle_bone
+  - first:
+      4: 400022
+    second: flamingo_l_ball_IKGoal
+  - first:
+      4: 400024
+    second: flamingo_l_ball_IKGoal 1
+  - first:
+      4: 400026
+    second: flamingo_l_Foot_ctrl
+  - first:
+      4: 400028
+    second: flamingo_l_Heel_hlp
+  - first:
+      4: 400030
+    second: flamingo_l_heel_IKGoal
+  - first:
+      4: 400032
+    second: flamingo_l_HeelPeel_hlp
+  - first:
+      4: 400034
+    second: flamingo_l_Knee_bone
+  - first:
+      4: 400036
+    second: flamingo_l_Thigh_bone
+  - first:
+      4: 400038
+    second: flamingo_l_Toe-nub_bone
+  - first:
+      4: 400040
+    second: flamingo_l_Toe_bone
+  - first:
+      4: 400042
+    second: flamingo_l_toe_IKGoal
+  - first:
+      4: 400044
+    second: flamingo_l_toe_IKGoal 1
+  - first:
+      4: 400046
+    second: flamingo_l_ToeLift_hlp
+  - first:
+      4: 400048
+    second: flamingo_l_ToeTap_hlp
+  - first:
+      4: 400050
+    second: flamingo_Main_ctrl
+  - first:
+      4: 400052
+    second: flamingo_Mandible_bone
+  - first:
+      4: 400054
+    second: flamingo_Mandible_ctrl
+  - first:
+      4: 400056
+    second: flamingo_Neck10_bone
+  - first:
+      4: 400058
+    second: flamingo_Neck10_ctrl
+  - first:
+      4: 400060
+    second: flamingo_Neck11_bone
+  - first:
+      4: 400062
+    second: flamingo_Neck11_ctrl
+  - first:
+      4: 400064
+    second: flamingo_Neck12_bone
+  - first:
+      4: 400066
+    second: flamingo_Neck12_ctrl
+  - first:
+      4: 400068
+    second: flamingo_Neck1_bone
+  - first:
+      4: 400070
+    second: flamingo_Neck2_bone
+  - first:
+      4: 400072
+    second: flamingo_Neck2_ctrl
+  - first:
+      4: 400074
+    second: flamingo_Neck3_bone
+  - first:
+      4: 400076
+    second: flamingo_Neck3_ctrl
+  - first:
+      4: 400078
+    second: flamingo_Neck4_bone
+  - first:
+      4: 400080
+    second: flamingo_Neck4_ctrl
+  - first:
+      4: 400082
+    second: flamingo_Neck5_bone
+  - first:
+      4: 400084
+    second: flamingo_Neck5_ctrl
+  - first:
+      4: 400086
+    second: flamingo_Neck6_bone
+  - first:
+      4: 400088
+    second: flamingo_Neck6_ctrl
+  - first:
+      4: 400090
+    second: flamingo_Neck7_bone
+  - first:
+      4: 400092
+    second: flamingo_Neck7_ctrl
+  - first:
+      4: 400094
+    second: flamingo_Neck8_bone
+  - first:
+      4: 400096
+    second: flamingo_Neck8_ctrl
+  - first:
+      4: 400098
+    second: flamingo_Neck9_bone
+  - first:
+      4: 400100
+    second: flamingo_Neck9_ctrl
+  - first:
+      4: 400102
+    second: flamingo_NeckBase_ctrl
+  - first:
+      4: 400104
+    second: flamingo_Nostril-nub_bone
+  - first:
+      4: 400106
+    second: flamingo_Nostril_bone
+  - first:
+      4: 400108
+    second: flamingo_Nostril_ctrl
+  - first:
+      4: 400110
+    second: flamingo_Pelvis_bone
+  - first:
+      4: 400112
+    second: flamingo_r_Ankle_bone
+  - first:
+      4: 400114
+    second: flamingo_r_Foot_ctrl
+  - first:
+      4: 400116
+    second: flamingo_r_Heel_hlp
+  - first:
+      4: 400118
+    second: flamingo_r_heel_IKGoal
+  - first:
+      4: 400120
+    second: flamingo_r_HeelPeel_hlp
+  - first:
+      4: 400122
+    second: flamingo_r_Knee_bone
+  - first:
+      4: 400124
+    second: flamingo_r_Thigh_bone
+  - first:
+      4: 400126
+    second: flamingo_r_Toe-nub_bone
+  - first:
+      4: 400128
+    second: flamingo_r_Toe_bone
+  - first:
+      4: 400130
+    second: flamingo_r_ToeLift_hlp
+  - first:
+      4: 400132
+    second: flamingo_r_ToeTap_hlp
+  - first:
+      4: 400134
+    second: flamingo_Spine1_bone
+  - first:
+      4: 400136
+    second: flamingo_Spine2_bone
+  - first:
+      4: 400138
+    second: flamingo_Spine3_bone
+  - first:
+      4: 400140
+    second: flamingo_SpineBase_ctrl
+  - first:
+      4: 400142
+    second: flamingo_SpineEnd_ctrl
+  - first:
+      4: 400144
+    second: flamingo_Tail-nub_bone
+  - first:
+      4: 400146
+    second: flamingo_Tail_bone
+  - first:
+      4: 400148
+    second: flamingo_Tail_ctrl
+  - first:
+      23: 2300000
+    second: flamingo_l_Foot_ctrl
+  - first:
+      23: 2300002
+    second: flamingo_r_Foot_ctrl
+  - first:
+      33: 3300000
+    second: flamingo_l_Foot_ctrl
+  - first:
+      33: 3300002
+    second: flamingo_r_Foot_ctrl
+  - first:
+      43: 4300000
+    second: flamingo_Body_mesh
+  - first:
+      43: 4300002
+    second: flamingo_Feathers_mesh
+  - first:
+      43: 4300004
+    second: flamingo_r_Foot_ctrl
+  - first:
+      43: 4300006
+    second: flamingo_l_Foot_ctrl
+  - first:
+      74: 7400000
+    second: sitdown
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: flamingo_Body_mesh
+  - first:
+      137: 13700002
+    second: flamingo_Feathers_mesh
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #29
+    second: {fileID: 2100000, guid: 97e3f952d167a434ca1f5d5bce26f140, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #30
+    second: {fileID: 2100000, guid: 0335b02cd2bcc904c94a440c92a47e61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #31
+    second: {fileID: 2100000, guid: fd7f93436b1ee844fac4c80d8dcfc2e7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 26399a1b3856bbf4b83db0531661b106, type: 2}
   materials:
-    importMaterials: 1
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: sitdown
       takeName: Take 001
+      internalID: 0
       firstFrame: 776
       lastFrame: 802
       wrapMode: 0
@@ -193,6 +548,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -361,19 +717,31 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    fileIdsGeneration: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -381,24 +749,35 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
-  copyAvatar: 0
   humanDescription:
+    serializedVersion: 3
     human: []
     skeleton: []
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: flamingo_Main_ctrl
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -1079,97 +1079,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _faction: 0
+  _animatorParent: {fileID: 0}
   _meshParent: {fileID: 791885525}
+  _animator: {fileID: 0}
+  _animatorController: {fileID: 0}
+  _animationEventInvoker: {fileID: 0}
+  _animation: {fileID: 0}
+  _clipFadeDuration: 0
   _hurtBoxes: []
   _physicalColliders: []
+  _triggerColliders: []
   gizmosColor: {r: 0, g: 0, b: 0, a: 0}
   gizmosRadius: 0
-  _stages: 0
   _healthDistribution: []
-  _distributionSystem:
-    _probabilityRanges: []
-  _animator: {fileID: 0}
-  _animation: {fileID: 0}
-  _animationEventInvoker: {fileID: 0}
   forceStageTesting: 0
   testStage: 0
+  _emptyCredential:
+    _tag: 
+    _ID: 0
+  _idleCredential:
+    _tag: 
+    _ID: 0
+  _singCredential:
+    _tag: 
+    _ID: 0
+  _laughCredential:
+    _tag: 
+    _ID: 0
+  _lalaCredential:
+    _tag: 
+    _ID: 0
+  _laaaCredential:
+    _tag: 
+    _ID: 0
+  _deadCredential:
+    _tag: 
+    _ID: 0
   _laughFrequency:
     _min: 0
     _max: 0
-  _stateIDCredential:
-    _tag: 
-    _ID: 0
   _headPivot: {fileID: 0}
   _rigHead: {fileID: 0}
   _removableHead: {fileID: 0}
   _headHurtBox: {fileID: 0}
-  _headFallPointData:
-    _parent: {fileID: 0}
-    _position: {x: 0, y: 0, z: 0}
-    _rotation: {x: 0, y: 0, z: 0, w: 1}
-    _eulerAngles: {x: -0, y: 0, z: 0}
-    _scale: {x: 0, y: 0, z: 0}
-    hideScale: 0
-    showForLinePath: 0
-    showHandles: 0
-  _fallDuration: 0
-  _fallenDuration: 0
-  _headReturnDuration: 0
-  _deckController: {fileID: 0}
-  _cards: []
-  _scythe: {fileID: 0}
-  _leftDrumstick: {fileID: 0}
-  _rightDrumstick: {fileID: 0}
-  _trumpet: {fileID: 0}
-  _cymbals: {fileID: 0}
-  _damageTakenSoundIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _buildUpSoundIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _swingSoundIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _doNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _faNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _laNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _miNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _reNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _siNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _laReNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _reFaNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _siMiNoteIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _damageTakenSoundIndex: 0
+  _buildUpSoundIndex: 0
+  _swingSoundIndex: 0
+  _doNoteIndex: 0
+  _faNoteIndex: 0
+  _laNoteIndex: 0
+  _miNoteIndex: 0
+  _reNoteIndex: 0
+  _siNoteIndex: 0
+  _laReNoteIndex: 0
+  _reFaNoteIndex: 0
+  _siMiNoteIndex: 0
   test: 0
   testCardIndex: 0
   headMeshFilter: {fileID: 0}
@@ -1242,6 +1207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dae8cbd21ff73a4286d66cd1093c2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &296001011
 MonoBehaviour:
@@ -1311,7 +1278,7 @@ MonoBehaviour:
   - force: {x: 0, y: 50}
     duration: 0.25
     forceMode: 2
-  _SFXsIndices: []
+  _SFXsIndices: 
   _landingDuration: 0.3
 --- !u!114 &296001015
 MonoBehaviour:
@@ -1327,6 +1294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 20
   _airScalar: 0.5
+  _minSpeedForBraking: 0
   _maxBrakingSpeed: 1
   _brakingDuration: 1
   _dotTolerance: 0
@@ -1392,6 +1360,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5af67b97f0c905942aaa8836e8ee146f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   _subsystems:
   - _relativeTo: 0
     _layerMask:
@@ -1819,18 +1796,16 @@ MonoBehaviour:
       _format: 0
       _secondsFractioning: 0
     _timeLimit: 60
+    _clock:
+      _format: 0
+      _secondsFractioning: 0
+    _timeLimit: 60
     _localRing: {fileID: 2004786402}
     _visitorRing: {fileID: 871430886}
     _ball: {fileID: 509459676}
   _ballInitialPos: {x: 0.7, y: 15, z: 4}
-  _cheerLocalSoundIndex:
-    index: 14
-    objectIndex: 0
-    collectionIndex: 6
-  _cheerVisitorSoundIndex:
-    index: 15
-    objectIndex: 0
-    collectionIndex: 6
+  _cheerLocalSoundIndex: 0
+  _cheerVisitorSoundIndex: 0
   _timeText: {fileID: 1981999871}
   _localScoreText: {fileID: 698700721}
   _visitorScoreText: {fileID: 1592693361}
@@ -12291,24 +12266,15 @@ MonoBehaviour:
   - tag:
       _tag: Player
       index: 5
-    index:
-      index: 9
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   - tag:
       _tag: Projectile/Player
       index: 11
-    index:
-      index: 9
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   - tag:
       _tag: Weapon/Player
       index: 9
-    index:
-      index: 9
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   _deactivationEvents: []
 --- !u!114 &509459686
 MonoBehaviour:
@@ -12327,24 +12293,15 @@ MonoBehaviour:
   - tag:
       _tag: Player
       index: 5
-    index:
-      index: 35
-      objectIndex: 0
-      collectionIndex: 6
+    index: 0
   - tag:
       _tag: Weapon/Player
       index: 9
-    index:
-      index: 35
-      objectIndex: 0
-      collectionIndex: 6
+    index: 0
   - tag:
       _tag: Projectile/Player
       index: 11
-    index:
-      index: 35
-      objectIndex: 0
-      collectionIndex: 6
+    index: 0
   _deactivationEvents: []
 --- !u!4 &514626309 stripped
 Transform:
@@ -13837,10 +13794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _soundEffectIndex:
-    index: 14
-    objectIndex: 0
-    collectionIndex: 6
+  _soundEffectIndex: 0
   _mateo: {fileID: 0}
   _targetImpactHandlers:
   - {fileID: 0}
@@ -14308,17 +14262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _particleEffectIndex:
-    index: 10
-    objectIndex: 0
-    collectionIndex: 7
-  _soundEffectIndex:
-    index: 40
-    objectIndex: 0
-    collectionIndex: 6
-  _correctionRotation:
-    _eulerAngles: {x: 0, y: 90, z: 0}
-    _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  _particleEffectIndex: 0
+  _soundEffectIndex: 0
   _deactivateWhenPassedOn: 0
   _detectableTags:
   - _tag: Ball
@@ -15106,10 +15051,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tag: Player
   _loopSource: 0
-  _loopIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 5
+  _loopIndex: 0
 --- !u!61 &1032039777
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15264,10 +15206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tag: Player
   _loopSource: 0
-  _loopIndex:
-    index: 7
-    objectIndex: 0
-    collectionIndex: 5
+  _loopIndex: 0
 --- !u!61 &1101913130
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18183,10 +18122,7 @@ MonoBehaviour:
   - tag:
       _tag: Ball
       index: 7
-    index:
-      index: 10
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   _deactivationEvents: []
 --- !u!114 &1689978111
 MonoBehaviour:
@@ -18200,6 +18136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!1001 &1694954152
 PrefabInstance:
@@ -18926,10 +18864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tag: Player
   _loopSource: 0
-  _loopIndex:
-    index: 6
-    objectIndex: 0
-    collectionIndex: 5
+  _loopIndex: 0
 --- !u!61 &1769698646
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -30157,17 +30092,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _particleEffectIndex:
-    index: 7
-    objectIndex: 0
-    collectionIndex: 7
-  _soundEffectIndex:
-    index: 38
-    objectIndex: 0
-    collectionIndex: 6
-  _correctionRotation:
-    _eulerAngles: {x: 0, y: 90, z: 0}
-    _rotation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  _particleEffectIndex: 0
+  _soundEffectIndex: 0
   _deactivateWhenPassedOn: 0
   _detectableTags:
   - _tag: Ball
@@ -30591,10 +30517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tag: Player
   _loopSource: 0
-  _loopIndex:
-    index: 2
-    objectIndex: 0
-    collectionIndex: 5
+  _loopIndex: 0
 --- !u!61 &2065680894
 BoxCollider2D:
   m_ObjectHideFlags: 0

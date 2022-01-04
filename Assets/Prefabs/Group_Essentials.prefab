@@ -1876,6 +1876,26 @@ PrefabInstance:
       propertyPath: _attackFadeDuration
       value: 0.095
       objectReference: {fileID: 0}
+    - target: {fileID: 6802567030815507990, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
+        type: 3}
+      propertyPath: _particleEffectsMatrix.Array.data[2].index
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802567030815507990, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.data[1].index
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802567030815507990, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.data[2].ID
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6802567030815507990, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.data[2].index
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 7080475855107644547, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
         type: 3}
       propertyPath: m_Radius
