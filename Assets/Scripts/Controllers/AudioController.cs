@@ -134,6 +134,8 @@ public class AudioController : Singleton<AudioController>
 	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip Play(SourceType _type, int _sourceIndex, int _index, bool _loop = false)
 	{
+		if(_index < 0) return null;
+
 		AudioSource source = GetAudioSource(_type, _sourceIndex);
 		AudioClip clip = Game.data.loops[_index];
 		AudioMixer mixer = source.outputAudioMixerGroup.audioMixer;
@@ -179,6 +181,8 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="_loop">Loop the FSM's AudioClip? True by default.</param>
 	public static AudioClip PlayFSMLoop(int _sourceIndex, int _index, bool _loop = true)
 	{
+		if(_index < 0) return null;
+
 		AudioSource source = loopSources[_sourceIndex];
 		FiniteStateAudioClip FSMClip = Game.data.FSMLoops[_index];
 		AudioClip clip = FSMClip.clip;
@@ -352,6 +356,8 @@ public class AudioController : Singleton<AudioController>
 	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip PlayOneShot(SourceType _type, int _sourceIndex, int _index, float _volumeScale = 1.0f)
 	{
+		if(_index < 0) return null;
+		
 		AudioClip clip = Game.data.soundEffects[_index];
 		GetAudioSource(_type, _sourceIndex).PlayOneShot(clip, _volumeScale);
 

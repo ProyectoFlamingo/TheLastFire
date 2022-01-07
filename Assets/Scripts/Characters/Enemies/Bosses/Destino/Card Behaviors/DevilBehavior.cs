@@ -2,27 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
 public class DevilBehavior : DestinoScriptableCoroutine
 {
+	[Space(5f)]
+	[Header("Characters:")]
+	[SerializeField] private Devil _devil; 								/// <summary>Devil.</summary>
+	[SerializeField] private DevilTower _leftDevilTower; 				/// <summary>Left Tower.</summary>
+	[SerializeField] private DevilTower _rightDevilTower; 				/// <summary>Right Tower.</summary>
+	[Space(5f)]
 	[SerializeField] private int _arrowProjectileIndex; 				/// <summary>Arrow Projectile's Index.</summary>
 	[SerializeField] private IntRange _rounds; 							/// <summary>Arrows Rounds per-routine.</summary>
 	[SerializeField] private IntRange _limits; 							/// <summary>Arrows' Limits per round.</summary>
-	[SerializeField] private BoundaryWaypointsContainer _waypoints; 	/// <summary>Arrow's Waypoints.</summary>
 	[SerializeField] private float[] _projectilesSpawnRates; 			/// <summary>Arrow Projectile's Spawn Rate.</summary>
 	[SerializeField] private float _projectionTime; 					/// <summary>Mateo Position's Projection's Time.</summary>
 	[SerializeField] private float _roundCooldown; 						/// <summary>Cooldown duration per-round.</summary>
 	[Space(5f)]
-	[SerializeField] private Vector3[] _devilArrowWaypoints; 			/// <summary>Arrow's Spawn Waypoints from the Devil.</summary>
-	[SerializeField] private Vector3[] _leftTowerArrowWaypoints; 		/// <summary>Arrow's Spawn Waypoints from the Left's Tower.</summary>
-	[SerializeField] private Vector3[] _rightTowerArrowWaypoints; 		/// <summary>Arrow's Spawn Waypoints from the Right's Tower.</summary>
 	[SerializeField] private Vector3[] _floorWaypoints; 				/// <summary>Floor's Waypoints.</summary>
 	[Space(5f)]
 	[Header("Devil Scenery's Attributes:")]
-	[SerializeField] private Vector3 _ceilingSpawnPoint; 				/// <summary>Ceiling's Spawn Point.</summary>
-	[SerializeField] private Vector3 _ceilingDestinyPoint; 				/// <summary>Ceiling's Destiny Point.</summary>
+	[SerializeField] private Vector3 _devilSpawnPoint; 					/// <summary>Devil's Spawn Point.</summary>
+	[SerializeField] private Vector3 _devilDestinyPoint; 				/// <summary>Devil's Destiny Point.</summary>
 	[SerializeField] private Vector3 _leftTowerSpawnPoint; 				/// <summary>Left Tower's Spawn Point.</summary>
 	[SerializeField] private Vector3 _rightTowerSpawnPoint; 			/// <summary>Right Tower's Spawn Point.</summary>
 	[SerializeField] private Vector3 _leftTowerDestinyPoint; 			/// <summary>Left Tower's Destiny Point.</summary>
@@ -32,7 +35,16 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _towerShakeSpeed; 					/// <summary>Towers' Shake Speed.</summary>
 	[SerializeField] private float _towerShakeMagnitude; 				/// <summary>Towers' Shake Megnitude.</summary>
 	[SerializeField] private float _towerHP; 							/// <summary>Towers' starting HP.</summary>
-	[SerializeField] private float _ceilingHP; 							/// <summary>Ceiling's HP.</summary>
+	[SerializeField] private float _devilHP; 							/// <summary>Devil's HP.</summary>
+
+	/// <summary>Gets devil property.</summary>
+	public Devil devil { get { return _devil; } }
+
+	/// <summary>Gets leftDevilTower property.</summary>
+	public DevilTower leftDevilTower { get { return _leftDevilTower; } }
+
+	/// <summary>Gets rightDevilTower property.</summary>
+	public DevilTower rightDevilTower { get { return _rightDevilTower; } }
 
 	/// <summary>Gets arrowProjectileIndex property.</summary>
 	public int arrowProjectileIndex { get { return _arrowProjectileIndex; } }
@@ -43,9 +55,6 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets limits property.</summary>
 	public IntRange limits { get { return _limits; } }
 
-	/// <summary>Gets waypoints property.</summary>
-	public BoundaryWaypointsContainer waypoints { get { return _waypoints; } }
-
 	/// <summary>Gets projectilesSpawnRates property.</summary>
 	public float[] projectilesSpawnRates { get { return _projectilesSpawnRates; } }
 
@@ -55,23 +64,14 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets roundCooldown property.</summary>
 	public float roundCooldown { get { return _roundCooldown; } }
 
-	/// <summary>Gets devilArrowWaypoints property.</summary>
-	public Vector3[] devilArrowWaypoints { get { return _devilArrowWaypoints; } }
-
-	/// <summary>Gets leftTowerArrowWaypoints property.</summary>
-	public Vector3[] leftTowerArrowWaypoints { get { return _leftTowerArrowWaypoints; } }
-
-	/// <summary>Gets rightTowerArrowWaypoints property.</summary>
-	public Vector3[] rightTowerArrowWaypoints { get { return _rightTowerArrowWaypoints; } }
-
 	/// <summary>Gets floorWaypoints property.</summary>
 	public Vector3[] floorWaypoints { get { return _floorWaypoints; } }
 
-	/// <summary>Gets ceilingSpawnPoint property.</summary>
-	public Vector3 ceilingSpawnPoint { get { return _ceilingSpawnPoint; } }
+	/// <summary>Gets devilSpawnPoint property.</summary>
+	public Vector3 devilSpawnPoint { get { return _devilSpawnPoint; } }
 
-	/// <summary>Gets ceilingDestinyPoint property.</summary>
-	public Vector3 ceilingDestinyPoint { get { return _ceilingDestinyPoint; } }
+	/// <summary>Gets devilDestinyPoint property.</summary>
+	public Vector3 devilDestinyPoint { get { return _devilDestinyPoint; } }
 
 	/// <summary>Gets leftTowerSpawnPoint property.</summary>
 	public Vector3 leftTowerSpawnPoint { get { return _leftTowerSpawnPoint; } }
@@ -100,36 +100,24 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets towerHP property.</summary>
 	public float towerHP { get { return _towerHP; } }
 
-	/// <summary>Gets ceilingHP property.</summary>
-	public float ceilingHP { get { return _ceilingHP; } }
+	/// <summary>Gets devilHP property.</summary>
+	public float devilHP { get { return _devilHP; } }
 
 #if UNITY_EDITOR
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
 	protected override void DrawGizmos()
 	{
-		//waypoints.DrawGizmos();
-
+		base.DrawGizmos();
+		
 		Gizmos.color = gizmosColor;
 
-		Gizmos.DrawWireSphere(ceilingSpawnPoint, gizmosRadius);
-		Gizmos.DrawWireSphere(ceilingDestinyPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(devilSpawnPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(devilDestinyPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(leftTowerSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(rightTowerSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(leftTowerDestinyPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(rightTowerDestinyPoint, gizmosRadius);
 
-		if(devilArrowWaypoints != null) foreach(Vector3 waypoint in devilArrowWaypoints)
-		{
-			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
-		}
-		if(leftTowerArrowWaypoints != null) foreach(Vector3 waypoint in leftTowerArrowWaypoints)
-		{
-			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
-		}
-		if(rightTowerArrowWaypoints != null) foreach(Vector3 waypoint in rightTowerArrowWaypoints)
-		{
-			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
-		}
 		if(floorWaypoints != null) foreach(Vector3 waypoint in floorWaypoints)
 		{
 			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
@@ -137,26 +125,46 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	}
 #endif
 
+	/// <returns>Middle point between random floor point and Mateo's current projection.</returns>
+	private Vector3 GetTargetPoint()
+	{
+		Vector3 mateoPosition = Game.ProjectMateoPosition(projectionTime);
+		Vector3 floorWaypoint = floorWaypoints.Random();
+		Vector3 destiny = Vector3.Lerp(floorWaypoint, mateoPosition, Random.Range(0.0f, 1.0f));
+
+		return destiny;
+	}
+
+	[Button("Position Devil's Scenery at Spawn Points")]
+	/// <summary>Positions Devil's Scenery on Spawn Points.</summary>
+	private void PositionTowersAndDevilAtSpawnPoints()
+	{
+		devil.transform.position = devilSpawnPoint;
+		leftDevilTower.transform.position = leftTowerSpawnPoint;
+		rightDevilTower.transform.position = rightTowerSpawnPoint;
+	}
+
+	[Button("Position Devil's Scenery at Destiny Points")]
+	/// <summary>Positions Devil's Scenery on Destiny Points.</summary>
+	private void PositionTowersAndDevilAtDestinyPoints()
+	{
+		devil.transform.position = devilDestinyPoint;
+		leftDevilTower.transform.position = leftTowerDestinyPoint;
+		rightDevilTower.transform.position = rightTowerDestinyPoint;
+	}
+
 	/// <summary>Coroutine's IEnumerator.</summary>
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
-		
 		int length = limits.Random();
-		int count = 1; // For left and right tower and the ceiling.
+		int count = 3; // For left and right tower and the devil (1 + 1 + 1 duh?).
 		float spawnRate = projectilesSpawnRates[Mathf.Clamp(boss.currentStage, 0, projectilesSpawnRates.Length)];
 		float t = 0.0f;
 		float inverseDuration = 1.0f / towerInterpolationDuration;
 		bool devilAlive = true;
 		bool leftTowerAlive = true;
 		bool rightTowerAlive = true;
-		OnPoolObjectDeactivation onPoolObjectDeactivation = (_poolObject)=> { count--; };
-		Health ceiling = DestinoSceneController.Instance.devilCeiling;
-		Health leftTower = DestinoSceneController.Instance.leftDevilTower;
-		Health rightTower = DestinoSceneController.Instance.rightDevilTower;
-		HitCollider2D ceilingHurtBox = ceiling.GetComponentInChildren<HitCollider2D>();
-		HitCollider2D leftTowerHurtBox = leftTower.GetComponentInChildren<HitCollider2D>();
-		HitCollider2D rightTowerHurtBox = rightTower.GetComponentInChildren<HitCollider2D>();
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 		OnHealthInstanceEvent onHealthEvent = (_health, _event, _amount, _object)=>
 		{
@@ -169,16 +177,16 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				Vector3 destiny = Vector3.zero;
 
 				/// END Rather quick solution...
-				if(_health == ceiling) destiny = ceilingSpawnPoint;
-				if(_health == leftTower) destiny = leftTowerSpawnPoint;
-				if(_health == rightTower) destiny = rightTowerSpawnPoint;
+				if(_health == devil.health) destiny = devilSpawnPoint;
+				if(_health == leftDevilTower.health) destiny = leftTowerSpawnPoint;
+				if(_health == rightDevilTower.health) destiny = rightTowerSpawnPoint;
 
 				boss.StartCoroutine(_health.transform.DisplaceToPosition(destiny, towerInterpolationDuration,
 				()=>
 				{
-					if(_health == ceiling) devilAlive = false;
-					if(_health == leftTower) leftTowerAlive = false;
-					if(_health == rightTower) rightTowerAlive = false;
+					if(_health == devil.health) devilAlive = false;
+					if(_health == leftDevilTower.health) leftTowerAlive = false;
+					if(_health == rightDevilTower.health) rightTowerAlive = false;
 				
 					_health.gameObject.SetActive(false);
 
@@ -187,154 +195,92 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				break;
 			}
 		};
-		OnInverted onInverted = (_arrowProjectile)=>
-		{
-			ceiling.GiveDamage(_arrowProjectile.damage);
-		};
 
-		// Invoke Ceiling & Towers:
-		ceiling.gameObject.SetActive(true);
-		leftTower.gameObject.SetActive(true);
-		rightTower.gameObject.SetActive(true);
-		ceiling.transform.position = ceilingSpawnPoint;
-		leftTower.transform.position = leftTowerSpawnPoint;
-		rightTower.transform.position = rightTowerSpawnPoint;
-		ceiling.SetMaxHP(ceilingHP, true);
-		leftTower.SetMaxHP(towerHP, true);
-		rightTower.SetMaxHP(towerHP, true);
-		ceiling.onHealthInstanceEvent -= onHealthEvent;
-		leftTower.onHealthInstanceEvent -= onHealthEvent;
-		rightTower.onHealthInstanceEvent -= onHealthEvent;
-		ceiling.onHealthInstanceEvent += onHealthEvent;
-		leftTower.onHealthInstanceEvent += onHealthEvent;
-		rightTower.onHealthInstanceEvent += onHealthEvent;
+		// Invoke Devil & Towers:
+		devil.gameObject.SetActive(true);
+		leftDevilTower.gameObject.SetActive(true);
+		rightDevilTower.gameObject.SetActive(true);
+		devil.transform.position = devilSpawnPoint;
+		leftDevilTower.transform.position = leftTowerSpawnPoint;
+		rightDevilTower.transform.position = rightTowerSpawnPoint;
+		devil.health.SetMaxHP(devilHP, true);
+		leftDevilTower.health.SetMaxHP(towerHP, true);
+		rightDevilTower.health.SetMaxHP(towerHP, true);
+		devil.health.onHealthInstanceEvent -= onHealthEvent;
+		leftDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
+		rightDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
+		devil.health.onHealthInstanceEvent += onHealthEvent;
+		leftDevilTower.health.onHealthInstanceEvent += onHealthEvent;
+		rightDevilTower.health.onHealthInstanceEvent += onHealthEvent;
 
-		/// Lerp Ceiling & Towers:
+		/// Lerp Devil & Towers:
 		while(t < 1.0f)
 		{
-			ceiling.transform.position = Vector3.Lerp(ceilingSpawnPoint, ceilingDestinyPoint, t);
-			leftTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, t);
-			rightTower.transform.position = Vector3.Lerp(rightTowerSpawnPoint, rightTowerDestinyPoint, t);
+			float st = t * t;
+			
+			devil.transform.position = Vector3.Lerp(devilSpawnPoint, devilDestinyPoint, st);
+			leftDevilTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, st);
+			rightDevilTower.transform.position = Vector3.Lerp(rightTowerSpawnPoint, rightTowerDestinyPoint, st);
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}
 
-		leftTower.transform.position = leftTowerDestinyPoint;
-		rightTower.transform.position = rightTowerDestinyPoint;
-		ceilingHurtBox.transform.position = ceilingHurtBox.transform.position.WithZ(0.0f);
-		leftTowerHurtBox.transform.position = leftTowerHurtBox.transform.position.WithZ(0.0f);
-		rightTowerHurtBox.transform.position = rightTowerHurtBox.transform.position.WithZ(0.0f);
+		leftDevilTower.transform.position = leftTowerDestinyPoint;
+		rightDevilTower.transform.position = rightTowerDestinyPoint;
+		leftDevilTower.landingParticleEffect.EmitParticleEffects();
+		rightDevilTower.landingParticleEffect.EmitParticleEffects();
 
-		/// Shake Ceiling & Towers when they reach their destiny positions.
-		IEnumerator ceilingShake = ceiling.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
-		IEnumerator leftTowerShake = leftTower.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
-		IEnumerator rightTowerShake = rightTower.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
-		
-		/// Flash's Test:
-		/*FlashWhenReceivingDamage f = leftTower.GetComponent<FlashWhenReceivingDamage>();
-		IEnumerator r = f.Routine();
-		while(r.MoveNext()) yield return null;*/
+		/// Shake Devil & Towers when they reach their destiny positions.
+		IEnumerator devilShake = devil.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
+		IEnumerator leftTowerShake = leftDevilTower.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
+		IEnumerator rightTowerShake = rightDevilTower.transform.ShakePosition(towerShakeDuration, towerShakeSpeed, towerShakeMagnitude);
 
-		while(ceilingShake.MoveNext()
+		while(devilShake.MoveNext()
 		|| leftTowerShake.MoveNext()
 		|| rightTowerShake.MoveNext()) yield return null;
+
+		devil.Initialize();
 
 		while(count > 0)
 		{
 			/// Invoke Devils' Projectiles
 			for(int i = 0; i < length; i++)
 			{
-				/*Ray ray = waypoints.GetArrowOriginAndDirection();
-				Vector3 direction = ((Vector3)Game.ProjectMateoPosition(1.0f)).WithZ(ray.origin.z) - ray.origin;*/
+				DevilTower tower = Random.Range(0, 2) == 0 ? leftDevilTower : rightDevilTower;
 
-				Ray ray = GetArrowOriginAndDirection(devilAlive, leftTowerAlive, rightTowerAlive);
-				Vector3 direction = ray.direction;
-
-				Projectile arrowProjectile = PoolManager.RequestProjectile(Faction.Enemy, arrowProjectileIndex, ray.origin, direction);
-				arrowProjectile.transform.rotation = VQuaternion.RightLookRotation(direction);
-				ArrowProjectile arrow = arrowProjectile as ArrowProjectile;
-				arrow.onInverted -= onInverted;
-				arrow.onInverted += onInverted;
-				/*arrowProjectile.onPoolObjectDeactivation -= onPoolObjectDeactivation;
-				arrowProjectile.onPoolObjectDeactivation += onPoolObjectDeactivation;*/
+				tower.ShootArrow(GetTargetPoint());
 
 				wait.ChangeDurationAndReset(spawnRate);
 				while(wait.MoveNext()) yield return null;
-
-				/*float cooldownDuration = arrowProjectile.cooldownDuration;
-
-				if(cooldownDuration > 0.0f)
-				{
-					wait.ChangeDurationAndReset(cooldownDuration);
-					while(wait.MoveNext()) yield return null;
-				}
-				else yield return null;*/
 			}
 
 			wait.ChangeDurationAndReset(roundCooldown);
 			while(wait.MoveNext()) yield return null;
 		}
 
-		//while(count > 0) yield return null;
-
 		t = 0.0f;
 
-		/// Lerp back Ceiling & Towers:
+		/// Lerp back Devil & Towers:
 		if(devilAlive || leftTowerAlive || rightTowerAlive) while(t < 1.0f)
 		{
-			ceiling.transform.position = Vector3.Lerp(ceilingSpawnPoint, ceilingDestinyPoint, 1.0f - t);
-			leftTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, 1.0f - t);
-			rightTower.transform.position = Vector3.Lerp(rightTowerSpawnPoint, rightTowerDestinyPoint, 1.0f - t);
+			devil.transform.position = Vector3.Lerp(devilSpawnPoint, devilDestinyPoint, 1.0f - t);
+			leftDevilTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, 1.0f - t);
+			rightDevilTower.transform.position = Vector3.Lerp(rightTowerSpawnPoint, rightTowerDestinyPoint, 1.0f - t);
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}
 
-		ceiling.gameObject.SetActive(false);
-		leftTower.gameObject.SetActive(false);
-		rightTower.gameObject.SetActive(false);
+		devil.gameObject.SetActive(false);
+		leftDevilTower.gameObject.SetActive(false);
+		rightDevilTower.gameObject.SetActive(false);
 
-		ceiling.onHealthInstanceEvent -= onHealthEvent;
-		leftTower.onHealthInstanceEvent -= onHealthEvent;
-		rightTower.onHealthInstanceEvent -= onHealthEvent;
+		devil.health.onHealthInstanceEvent -= onHealthEvent;
+		leftDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
+		rightDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
 
 		InvokeCoroutineEnd();
-	}
-
-	private IEnumerator ReturnSceneryObject()
-	{
-		float t = 0.0f;
-		float inverseDuration = 1.0f / towerInterpolationDuration;
-
-		while(t < 1.0f)
-		{
-			t += (Time.deltaTime * inverseDuration);
-			yield return null;
-		}
-	}
-
-	private Ray GetArrowOriginAndDirection(bool devilAlive, bool leftTowerAlive, bool rightTowerAlive)
-	{
-		if(!devilAlive && !leftTowerAlive && !rightTowerAlive) return default(Ray);
-
-		List<Vector3[]> waypointsSets = new List<Vector3[]>(3);
-		Vector3[] waypointsSet = null;
-		Vector3 floorWaypoint = floorWaypoints.Random();
-		Vector3 mateoPosition = Game.ProjectMateoPosition(projectionTime);
-		Vector3 destiny = Vector3.Lerp(floorWaypoint, mateoPosition, Random.Range(0.0f, 1.0f));
-		Vector3 origin = Vector3.zero;
-		Vector3 direction = Vector3.zero;
-
-		if(devilAlive) waypointsSets.Add(devilArrowWaypoints);
-		if(leftTowerAlive) waypointsSets.Add(leftTowerArrowWaypoints);
-		if(rightTowerAlive) waypointsSets.Add(rightTowerArrowWaypoints);
-
-		waypointsSet = waypointsSets.Random();
-		origin = waypointsSet.Random();
-		direction = (destiny.WithZ(origin.z) - origin);
-
-		return new Ray(origin, direction);
 	}
 }
 }

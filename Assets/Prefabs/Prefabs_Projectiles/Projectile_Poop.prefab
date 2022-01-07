@@ -251,12 +251,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags:
   - _tag: Weapon/Player
     index: 9
@@ -267,6 +266,8 @@ MonoBehaviour:
   - _tag: Surface/Floor
     index: 13
   _trailRenderers: []
+  _particleEffects: []
+  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 1
@@ -276,23 +277,11 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 2
   _distance: 5
-  _impactParticleEffectIndex:
-    index: 23
-    objectIndex: 0
-    collectionIndex: 7
-  _destroyedParticleEffectIndex:
-    index: 23
-    objectIndex: 0
-    collectionIndex: 7
+  _impactParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 1
-  _impactSoundEffectIndex:
-    index: 43
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedSoundEffectIndex:
-    index: 43
-    objectIndex: 0
-    collectionIndex: 6
+  _impactSoundEffectIndex: -1
+  _destroyedSoundEffectIndex: -1
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1614921204212439701
 MonoBehaviour:
@@ -320,6 +309,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &361476487889030304
 MonoBehaviour:
@@ -337,9 +328,6 @@ MonoBehaviour:
   _subID: 0
   _particleEffectsMatrix:
   - ID: 128
-    index:
-      index: 25
-      objectIndex: 0
-      collectionIndex: 7
+    index: 0
   _soundEffectsMatrix: []
   _eventsHandler: {fileID: 0}

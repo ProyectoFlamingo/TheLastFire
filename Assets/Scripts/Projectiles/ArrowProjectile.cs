@@ -21,8 +21,6 @@ public delegate void OnInverted(ArrowProjectile _projectile);
 [RequireComponent(typeof(LineRenderer))]
 public class ArrowProjectile : Projectile
 {
-	public event OnInverted onInverted; 					/// <summary>OnInverted's event delegate.</summary>
-
 	[Space(5f)]
 	[Header("Arrow Projectile's Attributes:")]
 	[SerializeField] private int _incrustTolerance; 		/// <summary>How many GameObjects of the incrustable tags can be tolerated before thi projectile may be incrusted.</summary>
@@ -176,6 +174,8 @@ public class ArrowProjectile : Projectile
 	{
 		state = ArrowProjectileState.NotIntersectedWithIncrustable;
 		tipHitBox.SetTrigger(true);
+		lineRenderer.SetPosition(0, transform.position);
+		lineRenderer.SetPosition(1, transform.position);
 		lineRenderer.enabled = false;
 		base.OnObjectDeactivation();
 	}

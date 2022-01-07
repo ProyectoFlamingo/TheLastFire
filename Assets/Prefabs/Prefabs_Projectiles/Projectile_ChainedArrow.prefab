@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 999230284542871205}
   - component: {fileID: 7054299534428430320}
   - component: {fileID: -8266835567290505322}
+  - component: {fileID: 1014041838611854956}
   m_Layer: 0
   m_Name: Projectile_ChainedArrow
   m_TagString: Surface/Floor
@@ -154,12 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags: []
   _trailRenderers: []
   _particleEffects: []
@@ -175,23 +174,11 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 15
   _distance: 0.1
-  _impactParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedSoundEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactSoundEffectIndex: -1
+  _destroyedSoundEffectIndex: -1
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _incrustTolerance: 0
   _incrustTags:
@@ -358,6 +345,21 @@ MonoBehaviour:
   _centerOffset: {x: 0.25, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &1014041838611854956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306116881200870641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 2306116881200870646}
+  debug: 0
 --- !u!1 &5797233557790692728
 GameObject:
   m_ObjectHideFlags: 0

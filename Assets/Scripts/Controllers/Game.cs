@@ -17,6 +17,7 @@ public enum StareTarget
 	
 public enum Faction
 {
+	None,
 	Ally,
 	Enemy,
 	Player1 = Ally,

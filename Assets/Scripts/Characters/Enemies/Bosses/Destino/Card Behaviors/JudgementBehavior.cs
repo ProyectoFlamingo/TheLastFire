@@ -58,8 +58,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 				/// <summary>Success' Percentage for the Sword Show.</summary>
 	[SerializeField] private int[] _swordTargetIndices; 						/// <summary>Sword Target's Indices on the Game's Data.</summary>
-	[SerializeField] private Vector3[] _swordTargetsSpawnWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
-	[SerializeField] private Vector3[] _swordTargetsDestinyWaypoints; 			/// <summary>Sword Targets Waypoints [As tuples since they define interpolation points].</summary>
+	[SerializeField] private Vector3Pair[] _swordTargetsWaypoints; 				/// <summary>Sword Targets' Waypoints.</summary>
 	[SerializeField] private IntRange _swordShowRounds; 						/// <summary>Sword Show Rounds' Range.</summary>
 	[SerializeField] private IntRange _swordShowTargetsPerRound; 				/// <summary>Sword Show Targets per Round's Range.</summary>
 	[SerializeField] private float _swordShowRoundDuration; 					/// <summary>Sword Show's Round Duration.</summary>
@@ -190,11 +189,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets danceShowSuccessPercentage property.</summary>
 	public float danceShowSuccessPercentage { get { return _danceShowSuccessPercentage; } }
 
-	/// <summary>Gets swordTargetsSpawnWaypoints property.</summary>
-	public Vector3[] swordTargetsSpawnWaypoints { get { return _swordTargetsSpawnWaypoints; } }
-
-	/// <summary>Gets swordTargetsDestinyWaypoints property.</summary>
-	public Vector3[] swordTargetsDestinyWaypoints { get { return _swordTargetsDestinyWaypoints; } }
+	/// <summary>Gets swordTargetsWaypoints property.</summary>
+	public Vector3Pair[] swordTargetsWaypoints { get { return _swordTargetsWaypoints; } }
 
 	/// <summary>Gets fireShowRounds property.</summary>
 	public IntRange fireShowRounds { get { return _fireShowRounds; } }
@@ -242,20 +238,14 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		Gizmos.DrawWireSphere(showSignPresentationPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(showSignDestinyPoint, gizmosRadius);
 
-		Gizmos.color = gizmosColor;
-
 		if(trashProjectilesWaypoints != null) foreach(Vector3 waypoint in trashProjectilesWaypoints)
 		{
 			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
 		}
-
-		if(swordTargetsSpawnWaypoints != null) foreach(Vector3 waypoint in swordTargetsSpawnWaypoints)
+		if(swordTargetsWaypoints != null) foreach(Vector3Pair pair in swordTargetsWaypoints)
 		{
-			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
-		}
-		if(swordTargetsDestinyWaypoints != null) foreach(Vector3 waypoint in swordTargetsDestinyWaypoints)
-		{
-			Gizmos.DrawWireSphere(waypoint, gizmosRadius);
+			Gizmos.DrawWireSphere(pair.a, gizmosRadius);
+			Gizmos.DrawWireSphere(pair.b, gizmosRadius);
 		}
 #endif
 	}
@@ -309,7 +299,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	{
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
-		IEnumerator[] routines = VArray.RandomSet(SwordShowRoutine(boss), SwordShowRoutine(boss), SwordShowRoutine(boss));
+		IEnumerator[] routines = VArray.RandomSet(DanceShowRoutine(boss), FireShowRoutine(boss), SwordShowRoutine(boss));
 
 		foreach(IEnumerator routine in routines)
 		{
@@ -433,7 +423,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		{
 			switch(cause)
 			{
-
 				case DeactivationCause.LeftBoundaries:
 				case DeactivationCause.LifespanOver:
 				count++;
@@ -462,9 +451,9 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 			for(int j = 0; j < targetsPerRound; j++)
 			{
-				int index = UnityEngine.Random.Range(0, swordTargetsSpawnWaypoints.Length);
-				Vector3 origin = swordTargetsSpawnWaypoints[index];
-				Vector3 destiny = swordTargetsDestinyWaypoints[index];
+				Vector3Pair pair = swordTargetsWaypoints.Random();
+				Vector3 origin = pair.a;
+				Vector3 destiny = pair.b;
 				Ray ray = new Ray(origin, destiny - origin);
 				Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetIndices.Random(), origin, Quaternion.identity) as Fragmentable;
 				
@@ -493,7 +482,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			foreach(Fragmentable target in targets)
 			{
 				target.eventsHandler.onDeactivated -= onTargetDeactivation;
-
 			}
 
 			showJudgement = EvaluateShow((float)targetsDestroyed / targetsDestroyed, swordShowSuccessPercentage);
@@ -568,50 +556,46 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <param name="_achievePercentageForSuccess">Required percentage for the show to be susccessful.</param>
 	private IEnumerator EvaluateShow(float _ratio, float _achievePercentageForSuccess)
 	{
-		if(_ratio >= _achievePercentageForSuccess)
+		int soundIndex = 0;
+		int rounds = 0;
+		Faction faction = Faction.None;
+		int[] projectilesIndices = null;
+
+		switch(_ratio >= _achievePercentageForSuccess)
 		{
-			AudioController.PlayOneShot(SourceType.Scenario, 0, applauseSoundIndex);
+			case true:
+			soundIndex = applauseSoundIndex;
+			rounds = trashProjectilesPerRound.Random();
+			faction = Faction.Ally;
+			projectilesIndices = applauseObjectsIndices;
+			break;
 
-			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-			int rounds = trashProjectilesPerRound.Random();
-
-			for(int i = 0; i < rounds; i++)
-			{
-				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
-				PoolManager.RequestParabolaProjectile(
-					Faction.Enemy,
-					applauseObjectsIndices.Random(),
-					trashProjectilesWaypoints.Random(),
-					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
-					trashProjectileTime
-				);
-
-				while(wait.MoveNext()) yield return null;
-			}
+			case false:
+			soundIndex = booingSoundIndex;
+			rounds = trashProjectilesPerRound.Random();
+			faction = Faction.Enemy;
+			projectilesIndices = trashProjectilesIndices;
+			break;
 		}
-		else
+
+		AudioController.PlayOneShot(SourceType.Scenario, 0, soundIndex);
+
+		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
+		//int rounds = trashProjectilesPerRound.Random();
+
+		for(int i = 0; i < rounds; i++)
 		{
-			AudioController.PlayOneShot(SourceType.Scenario, 0, booingSoundIndex);
+			wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
+			PoolManager.RequestParabolaProjectile(
+				faction,
+				projectilesIndices.Random(),
+				trashProjectilesWaypoints.Random(),
+				Game.ProjectMateoPosition(mateoPositionProjection.Random()),
+				trashProjectileTime
+			);
 
-			SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-			int rounds = trashProjectilesPerRound.Random();
-
-			for(int i = 0; i < rounds; i++)
-			{
-				wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
-				PoolManager.RequestParabolaProjectile(
-					Faction.Enemy,
-					trashProjectilesIndices.Random(),
-					trashProjectilesWaypoints.Random(),
-					Game.ProjectMateoPosition(mateoPositionProjection.Random()),
-					trashProjectileTime
-				);
-
-				while(wait.MoveNext()) yield return null;
-			}
+			while(wait.MoveNext()) yield return null;
 		}
-	
-		yield return null;
 	}
 #endregion
 }

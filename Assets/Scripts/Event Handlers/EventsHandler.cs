@@ -118,8 +118,8 @@ public class EventsHandler : MonoBehaviour
 
 	/// <summary>Invokes ContactWeapon ID's Event.</summary>
 	/// <param name="_ID">Event's ID.</param>
-	/// <param name="_info">Trigger2D's Information.</param>
-	public void InvokeContactWeaponIDEvent(int _ID, Trigger2DInformation _info)
+	/// <param name="_info">Trigger2D's Information [default by default].</param>
+	public void InvokeContactWeaponIDEvent(int _ID, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
 		if(contactWeapon == null) return;
 		

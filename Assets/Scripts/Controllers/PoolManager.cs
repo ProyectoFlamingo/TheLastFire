@@ -9,8 +9,6 @@ namespace Flamingo
 public class PoolManager : Singleton<PoolManager>
 {
 	private GameObjectPool<Projectile>[] _projectilesPools; 						/// <summary>Pools Projectiles.</summary>
-	private GameObjectPool<Projectile>[] _playerProjectilesPools; 					/// <summary>Pool of Player's Projectiles.</summary>
-	private GameObjectPool<Projectile>[] _enemyProjectilesPools; 					/// <summary>Pool of Enemy's Projectiles.</summary>
 	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 					/// <summary>PoolGameObjects' Pools.</summary>
 	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 				/// <summary>Pools of Particle's Effects.</summary>
 	private GameObjectPool<Explodable>[] _explodablesPools; 						/// <summary>Pools of Explodables.</summary>
@@ -21,20 +19,6 @@ public class PoolManager : Singleton<PoolManager>
 	{
 		get { return _projectilesPools; }
 		private set { _projectilesPools = value; }
-	}
-
-	/// <summary>Gets and Sets playerProjectilesPools property.</summary>
-	public GameObjectPool<Projectile>[] playerProjectilesPools
-	{
-		get { return _playerProjectilesPools; }
-		private set { _playerProjectilesPools = value; }
-	}
-
-	/// <summary>Gets and Sets enemyProjectilesPools property.</summary>
-	public GameObjectPool<Projectile>[] enemyProjectilesPools
-	{
-		get { return _enemyProjectilesPools; }
-		private set { _enemyProjectilesPools = value; }
 	}
 
 	/// <summary>Gets and Sets gameObjectsPools property.</summary>
@@ -63,8 +47,6 @@ public class PoolManager : Singleton<PoolManager>
 	protected override void OnAwake()
 	{
 		projectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.projectiles);
-		playerProjectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.playerProjectiles);
-		enemyProjectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.enemyProjectiles);
 		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(Game.data.poolObjects);
 		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);
 		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(Game.data.explodables);
@@ -79,9 +61,8 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested Projectile.</returns>
 	public static Projectile RequestProjectile(Faction _faction, int _ID, Vector3 _position, Vector3 _direction, GameObject _object = null)
 	{
-		/*GameObjectPool<Projectile> factionPool = _faction == Faction.Ally ?
-			Instance.playerProjectilesPools[_ID] : Instance.enemyProjectilesPools[_ID];
-		Projectile projectile = factionPool.Recycle(_position, Quaternion.identity);*/
+		if(_ID < 0) return null;
+
 		GameObjectPool<Projectile> pool = Instance.projectilesPools[_ID];
 		Projectile projectile = pool.Recycle(_position, Quaternion.identity);
 		string tag = _faction == Faction.Ally ? Game.data.playerProjectileTag : Game.data.enemyProjectileTag;
@@ -157,7 +138,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested PoolGameObject.</returns>
 	public static PoolGameObject RequestPoolGameObject(int _index, Vector3 _position, Quaternion _rotation)
 	{
-		return Instance.gameObjectsPools[_index].Recycle(_position, _rotation);
+		return _index > -1 ? Instance.gameObjectsPools[_index].Recycle(_position, _rotation) : null;
 	}
 
 	/// <summary>Gets a ParticleEffect from the ParticleEffects' Pools.</summary>
@@ -167,7 +148,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested ParticleEffect.</returns>
 	public static ParticleEffect RequestParticleEffect(int _index, Vector3 _position, Quaternion _rotation)
 	{
-		return Instance.particleEffectsPools[_index].Recycle(_position, _rotation);
+		return _index > -1 ? Instance.particleEffectsPools[_index].Recycle(_position, _rotation) : null;
 	}
 
 	/// <summary>Gets a Explodable from the Explodables' Pools.</summary>
@@ -177,6 +158,8 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="onExplosionEnds">Optional Callback invoked when the explosion ends.</param>
 	public static Explodable RequestExplodable(int _index, Vector3 _position, Quaternion _rotation, Action onExplosionEnds = null)
 	{
+		if(_index < 0) return null;
+
 		Explodable explodable = Instance.explodablesPools[_index].Recycle(_position, _rotation);
 		explodable.Explode(onExplosionEnds);
 		return explodable;

@@ -348,7 +348,7 @@ public class Projectile : ContactWeapon
 				{
 					if(obj.CompareTag(tag))
 					{
-						RequestRepel(obj);
+						RequestRepel(obj, _info);
 						swordSet.Add(ID);
 						return;
 
@@ -370,7 +370,7 @@ public class Projectile : ContactWeapon
 		{
 			if(obj.CompareTag(tag))
 			{
-				RequestRepel(obj);
+				RequestRepel(obj, _info);
 				return;
 			}
 		}*/
@@ -401,10 +401,13 @@ public class Projectile : ContactWeapon
 
 	/// <summary>Request the projectile ro be repelled [without physical interaction].</summary>
 	/// <param name="_requester">Requester and potential new owner.</param>
-	public void RequestRepel(GameObject _requester)
+	/// <param name="_info">Additional Trigger2D's Information.</param>
+	public void RequestRepel(GameObject _requester, Trigger2DInformation _info = default(Trigger2DInformation))
 	{
 		ContactWeapon weapon = _requester.GetComponentInParent<ContactWeapon>();
 		GameObject newOwner = weapon != null  && weapon.owner != null ? weapon.owner : _requester;
+
+		Debug.Log("[Projectile] I am calling this shit");
 
 		if(newOwner == null || newOwner == owner) return;
 
@@ -444,6 +447,9 @@ public class Projectile : ContactWeapon
 		}
 
 		owner = newOwner;
+		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_REPELLED, _info);
+
+		/// \TODO Deprecate this call (and delete ProjectileEventsHandler's Component)
 		projectileEventsHandler.InvokeProjectileEvent(this, IDs.EVENT_REPELLED);
 	}
 

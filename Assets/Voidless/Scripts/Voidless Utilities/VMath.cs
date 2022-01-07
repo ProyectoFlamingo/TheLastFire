@@ -308,7 +308,7 @@ public static class VMath
 
 	public static float EaseInEaseOut(float t, float _exponential = 2.0f)
 	{
-		return Blend(EaseIn(t, _exponential), EaseOut(t, _exponential), t);
+		return t < 0.5f ? EaseIn(t, _exponential) : EaseOut(t, _exponential);
 	}
 
 	public static float EaseInEaseOut(float t, float _easeInExponential = 2.0f, float _easeOutExponential = 2.0f)
