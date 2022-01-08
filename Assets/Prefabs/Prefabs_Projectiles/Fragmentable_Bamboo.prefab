@@ -258,9 +258,9 @@ GameObject:
   - component: {fileID: 8502636351339952987}
   - component: {fileID: 1120269327644755655}
   - component: {fileID: 2703356970300955836}
-  m_Layer: 10
+  m_Layer: 8
   m_Name: Fragmentable_Bamboo
-  m_TagString: Untagged
+  m_TagString: Surface/Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,7 +384,12 @@ PrefabInstance:
     - target: {fileID: -9055747274564526847, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -9055747274564526847, guid: 27fd822ff88767b42999ce50392c8b30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface/Floor
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
@@ -459,12 +464,22 @@ PrefabInstance:
     - target: {fileID: -7838583099024697574, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -7838583099024697574, guid: 27fd822ff88767b42999ce50392c8b30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface/Floor
       objectReference: {fileID: 0}
     - target: {fileID: -6848852316065277037, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: -6848852316065277037, guid: 27fd822ff88767b42999ce50392c8b30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface/Floor
       objectReference: {fileID: 0}
     - target: {fileID: -3819685742358197668, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
@@ -484,12 +499,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 27fd822ff88767b42999ce50392c8b30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface/Floor
       objectReference: {fileID: 0}
     - target: {fileID: 1532167439344558952, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532167439344558952, guid: 27fd822ff88767b42999ce50392c8b30,
+        type: 3}
+      propertyPath: m_TagString
+      value: Surface/Floor
       objectReference: {fileID: 0}
     - target: {fileID: 5812879207466973676, guid: 27fd822ff88767b42999ce50392c8b30,
         type: 3}

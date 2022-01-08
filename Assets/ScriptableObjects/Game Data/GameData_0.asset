@@ -97,6 +97,7 @@ MonoBehaviour:
   - {fileID: 7807340246942760897, guid: 725cffea4e893ff489930583db4101d6, type: 3}
   - {fileID: 7807340246942760897, guid: 2ad02a0b9d3e89248ba013e0175113d2, type: 3}
   - {fileID: 5051148109742244886, guid: 679901165b16f984c96a28bfb1cb3396, type: 3}
+  - {fileID: 5228752782706935322, guid: 754ab825090b9224b82dd42804477c32, type: 3}
   _poolObjects:
   - {fileID: 2340683740104089345, guid: 8e98f4254b032564893133ce4247e946, type: 3}
   - {fileID: 1178958323506621223, guid: a773d48f55b65044ca11283f9ab40a17, type: 3}
@@ -190,6 +191,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
   - {fileID: 8300000, guid: 19f783d9fddedfd4ca1410b0ec3513f7, type: 3}
   - {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
+  - {fileID: 8300000, guid: 26cecc7bbe0c14a40becd1a0f8caf62c, type: 3}
+  - {fileID: 8300000, guid: 053d0aaa5ee56e3469f1cf8d67c4654f, type: 3}
+  - {fileID: 8300000, guid: 2543449ca4d611a4fb03ee2f2e7a616a, type: 3}
+  - {fileID: 8300000, guid: b707d8e47f6689148a556b42da7e9645, type: 3}
   _particleEffects:
   - {fileID: 2948463789655692408, guid: 05729ccca8bca724b80aa225032af021, type: 3}
   - {fileID: 6782677579952761336, guid: 40a16e0a24c989a40b60a9e7cfc239dc, type: 3}

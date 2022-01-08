@@ -413,7 +413,7 @@ PrefabInstance:
     - target: {fileID: 2820567389141206707, guid: 751a26fd099d2c64d8cb600d95e80c5f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820567389141206707, guid: 751a26fd099d2c64d8cb600d95e80c5f,
         type: 3}
@@ -1449,12 +1449,12 @@ PrefabInstance:
     - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.78
+      value: 3.28
       objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.74
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -5791,10 +5791,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 1
@@ -6030,7 +6030,7 @@ PrefabInstance:
     - target: {fileID: 2820567389141206707, guid: 42ca793991385ef40b457a345f3cac06,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820567389141206707, guid: 42ca793991385ef40b457a345f3cac06,
         type: 3}
@@ -6388,7 +6388,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -8537,7 +8537,7 @@ PrefabInstance:
     - target: {fileID: 2820567389141206707, guid: 13f2f18aad7c31d4d9dd0424b50e706c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820567389141206707, guid: 13f2f18aad7c31d4d9dd0424b50e706c,
         type: 3}
@@ -9049,32 +9049,32 @@ MonoBehaviour:
   _swordShowSuccessPercentage: 0.678
   _swordTargetIndices: 02000000
   _swordTargetsWaypoints:
-  - a: {x: -12, y: 19, z: 5.5}
-    b: {x: -12, y: 12.5, z: 5.5}
-  - a: {x: -6, y: 19, z: 5.5}
-    b: {x: -6, y: 12.5, z: 5.5}
-  - a: {x: -3, y: 19, z: 5.5}
-    b: {x: -3, y: 12.5, z: 5.5}
-  - a: {x: 0, y: 19, z: 5.5}
-    b: {x: 0, y: 12.5, z: 5.5}
-  - a: {x: 3, y: 19, z: 5.5}
-    b: {x: 3, y: 12.5, z: 5.5}
-  - a: {x: 6, y: 19, z: 5.5}
-    b: {x: 6, y: 12.5, z: 5.5}
-  - a: {x: 12, y: 19, z: 5.5}
-    b: {x: 12, y: 12.5, z: 5.5}
-  - a: {x: 9, y: 19, z: 5.5}
-    b: {x: 9, y: 12.5, z: 5.5}
-  - a: {x: -9, y: 19, z: 5.5}
-    b: {x: -9, y: 12.5, z: 5.5}
-  - a: {x: 15, y: 19, z: 5.5}
-    b: {x: 15, y: 12.5, z: 5.5}
-  - a: {x: -15, y: 19, z: 5.5}
-    b: {x: -15, y: 12.5, z: 5.5}
-  - a: {x: 18, y: 19, z: 5.5}
-    b: {x: 18, y: 12.5, z: 5.5}
-  - a: {x: -18, y: 19, z: 5.5}
-    b: {x: -18, y: 12.5, z: 5.5}
+  - a: {x: -12, y: 19, z: 0}
+    b: {x: -12, y: 12.5, z: 0}
+  - a: {x: -6, y: 19, z: 0}
+    b: {x: -6, y: 12.5, z: 0}
+  - a: {x: -3, y: 19, z: 0}
+    b: {x: -3, y: 12.5, z: 0}
+  - a: {x: 0, y: 19, z: 0}
+    b: {x: 0, y: 12.5, z: 0}
+  - a: {x: 3, y: 19, z: 0}
+    b: {x: 3, y: 12.5, z: 0}
+  - a: {x: 6, y: 19, z: 0}
+    b: {x: 6, y: 12.5, z: 0}
+  - a: {x: 12, y: 19, z: 0}
+    b: {x: 12, y: 12.5, z: 0}
+  - a: {x: 9, y: 19, z: 0}
+    b: {x: 9, y: 12.5, z: 0}
+  - a: {x: -9, y: 19, z: 0}
+    b: {x: -9, y: 12.5, z: 0}
+  - a: {x: 15, y: 19, z: 0}
+    b: {x: 15, y: 12.5, z: 0}
+  - a: {x: -15, y: 19, z: 0}
+    b: {x: -15, y: 12.5, z: 0}
+  - a: {x: 18, y: 19, z: 0}
+    b: {x: 18, y: 12.5, z: 0}
+  - a: {x: -18, y: 19, z: 0}
+    b: {x: -18, y: 12.5, z: 0}
   _waitBetweenSwordTarget:
     _min: 0.35
     _max: 0.65
@@ -9098,14 +9098,14 @@ MonoBehaviour:
   _danceShowPieceIndex: 4
   _applauseSoundIndex: 14
   _booingSoundIndex: 15
-  _showSignSpawnPoint: {x: 0, y: 0, z: 0}
-  _showSignPresentationPoint: {x: 0, y: 0, z: 0}
-  _showSignDestinyPoint: {x: 0, y: 0, z: 0}
+  _showSignSpawnPoint: {x: 0, y: 12, z: -8}
+  _showSignPresentationPoint: {x: 0, y: 11, z: -8}
+  _showSignDestinyPoint: {x: 0, y: 11, z: -6}
   _signEntranceDuration: 1
   _signExitDuration: 1
   _signIdleDuration: 1
-  _trashProjectilesIndices: 0000000000000000
-  _applauseObjectsIndices: 00000000
+  _trashProjectilesIndices: 0600000008000000
+  _applauseObjectsIndices: 07000000
   _trashProjectilesWaypoints:
   - {x: -15, y: 0, z: -8}
   - {x: -10, y: 0, z: -8}
@@ -9507,7 +9507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1504963808}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 12.18, z: -11.21}
+  m_LocalPosition: {x: 0, y: 12.41, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 68767270}
@@ -11159,7 +11159,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -11458,10 +11458,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 0.5
@@ -11728,7 +11728,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -13936,6 +13936,16 @@ PrefabInstance:
       propertyPath: _siMiNoteIndex
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _buildUpSoundIndex
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _swingSoundIndex
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d6b59009cf8314aa995cfa634e8c92, type: 3}
 --- !u!1001 &5780702081370152370
@@ -13945,6 +13955,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983728}
     m_Modifications:
+    - target: {fileID: 993146125800011967, guid: 893210ea57f39c94d90c5cafd3f233aa,
+        type: 3}
+      propertyPath: _projectileIndex
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6319558079540329212, guid: 893210ea57f39c94d90c5cafd3f233aa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14232,7 +14247,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14310,7 +14325,7 @@ MonoBehaviour:
   drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   gizmosRadius: 0.5
-  _projectileSpawnPosition: {x: 0, y: 9, z: 3}
+  _projectileSpawnPosition: {x: 0, y: 9, z: 0}
   _petrolSphereID: 3
   _marbleSphereID: 2
   _sequenceLimits:

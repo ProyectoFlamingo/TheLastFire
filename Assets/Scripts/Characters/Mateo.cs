@@ -1125,6 +1125,9 @@ public class Mateo : Character
 	{
 		if(!this.HasStates(IDs.STATE_ALIVE) || !_braking || this.HasStates(IDs.STATE_BRAKING)) return;
 		
+		/// \TODO Deprecate
+		return;
+
 		state |=  IDs.STATE_BRAKING;
 		animatorController.CrossFadeAndWait(
 			brakeCredential,

@@ -174,11 +174,11 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 15
   _distance: 0.1
-  _impactParticleEffectIndex: 0
+  _impactParticleEffectIndex: 11
   _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex: -1
-  _destroyedSoundEffectIndex: -1
+  _impactSoundEffectIndex: 64
+  _destroyedSoundEffectIndex: 65
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _incrustTolerance: 0
   _incrustTags:

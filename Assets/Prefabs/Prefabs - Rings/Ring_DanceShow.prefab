@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _particleEffectIndex: 0
-  _soundEffectIndex: 0
+  _particleEffectIndex: 12
+  _soundEffectIndex: 40
   _deactivateWhenPassedOn: 1
   _detectableTags:
   - _tag: Player

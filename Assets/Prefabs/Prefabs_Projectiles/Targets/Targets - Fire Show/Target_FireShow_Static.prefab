@@ -113,8 +113,8 @@ MonoBehaviour:
   _tags:
   - _tag: Projectile/Player
     index: 11
-  _destructionParticleEffectIndex: 0
-  _destructionSoundEffectIndex: 0
+  _destructionParticleEffectIndex: 5
+  _destructionSoundEffectIndex: 36
 --- !u!114 &939755407774362535
 MonoBehaviour:
   m_ObjectHideFlags: 0
