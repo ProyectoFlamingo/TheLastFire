@@ -19,72 +19,60 @@ public enum DisplacementType
 
 public class JudgementBehavior : DestinoScriptableCoroutine
 {
+	[Header("Fire Show's Attributes:")]
+	[TabGroup("Show Group", "Fire Show")][SerializeField][Range(0.0f, 1.0f)] private float _fireShowPieceDurationPercentage; 	/// <summary>Duration's Percentage of the Fire's Show [determines how much the Show will last].</summary>
+	[TabGroup("Show Group", "Fire Show")][SerializeField][Range(0.0f, 1.0f)] private float _fireShowSuccessPercentage; 			/// <summary>Success' Percentage for the Fire Show.</summary>
 	[Space(5f)]
 	[Header("Break the Targets' Mini-Games:")]
-	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage1BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 1.</summary>
-	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage2BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 2.</summary>
-	[TabGroup("Mini-Game Group", "Break-the-Targets")][SerializeField] private BreakTheTargetsMiniGame[] _stage3BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 3.</summary>
-	[Space(5f)]
-	[Header("Ring-Madness Mini-Games:")]
-	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage1RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 1.</summary>
-	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage2RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 2.</summary>
-	[TabGroup("Mini-Game Group", "Ring-Madness")][SerializeField] private RingMadnessMiniGame[] _stage3RingMadnessMiniGames; 				/// <summary>Available Ring-Madness' Mini-Games for Stage 3.</summary>
-	[Header("Loops:")]
-	[TabGroup("Audio")][SerializeField] private int _fireShowPieceIndex; 																	/// <summary>Fire Show's Piece's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _swordShowPieceIndex; 																	/// <summary>Sword Show's Piece's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _danceShowPieceIndex; 																	/// <summary>Dance Show's Piece's Index.</summary>
-	[Space(5f)]
-	[Header("Sound Effects:")]
-	[TabGroup("Audio")][SerializeField] private int _applauseSoundIndex; 																	/// <summary>Applause's Sound Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _booingSoundIndex; 																		/// <summary>Booing's Sound Index.</summary>
-	[Space(5f)]
-	[Header("Signs' Attributes:")]
-	[SerializeField] private Vector3 _showSignSpawnPoint; 						/// <summary>Show Sign's Spawn Point.</summary>
-	[SerializeField] private Vector3 _showSignPresentationPoint; 				/// <summary>Show Sign's Presentation Point.</summary>
-	[SerializeField] private Vector3 _showSignDestinyPoint; 					/// <summary>Show Sign's Destiny Point.</summary>
-	[SerializeField] private float _signEntranceDuration; 						/// <summary>Sign Entrance's Duration.</summary>
-	[SerializeField] private float _signExitDuration; 							/// <summary>Sign Exit's Duration.</summary>
-	[SerializeField] private float _signIdleDuration; 							/// <summary>Sign Idle's Duration.</summary>
-	[Space(5f)]
-	[Header("Fire Show's Attributes:")]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _fireShowSuccessPercentage; 				/// <summary>Success' Percentage for the Fire Show.</summary>
-	[SerializeField] private int[] _fireTargetIndices; 							/// <summary>Fire Target's Indices on the Game's Data.</summary>
-	[SerializeField] private IntRange _fireShowRounds; 							/// <summary>Fire Show Rounds' Range.</summary>
-	[SerializeField] private IntRange _fireShowTargetsPerRound; 				/// <summary>Fire Show Targets per Round's Range.</summary>
-	[SerializeField] private float _fireShowRoundDuration; 						/// <summary>Fire Show's Round Duration.</summary>
+	[TabGroup("Show Group", "Fire Show")][SerializeField] private BreakTheTargetsMiniGame[] _stage1BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 1.</summary>
+	[TabGroup("Show Group", "Fire Show")][SerializeField] private BreakTheTargetsMiniGame[] _stage2BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 2.</summary>
+	[TabGroup("Show Group", "Fire Show")][SerializeField] private BreakTheTargetsMiniGame[] _stage3BreakTheTargetsMiniGames; 	/// <summary>Available Break-the-Targets' Mini-Games for Stage 3.</summary>
 	[Space(5f)]
 	[Header("Sword Show's Attributes:")]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 				/// <summary>Success' Percentage for the Sword Show.</summary>
-	[SerializeField] private int[] _swordTargetIndices; 						/// <summary>Sword Target's Indices on the Game's Data.</summary>
-	[SerializeField] private Vector3Pair[] _swordTargetsWaypoints; 				/// <summary>Sword Targets' Waypoints.</summary>
-	[SerializeField] private IntRange _swordShowRounds; 						/// <summary>Sword Show Rounds' Range.</summary>
-	[SerializeField] private IntRange _swordShowTargetsPerRound; 				/// <summary>Sword Show Targets per Round's Range.</summary>
-	[SerializeField] private float _swordShowRoundDuration; 					/// <summary>Sword Show's Round Duration.</summary>
-	[SerializeField] private float _swordTargetShakeDuration; 					/// <summary>Sword Target's Shake Duration.</summary>
-	[SerializeField] private float _swordTargetShakeSpeed; 						/// <summary>Sword Target's Shake Speed.</summary>
-	[SerializeField] private float _swordTargetShakeMagnitude; 					/// <summary>Sword Target's Shake Magnitude.</summary>
-	[SerializeField] private float _swordTargetInterpolationDuration; 			/// <summary>Interpolation duration it takes the target to reach the spawn's destiny.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField][Range(0.0f, 1.0f)] private float _swordShowPieceDurationPercentage; 	/// <summary>Duration's Percentage of the Sword's Show [determines how much the Show will last].</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField][Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 		/// <summary>Success' Percentage for the Sword Show.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private int[] _swordTargetIndices; 									/// <summary>Sword Target's Indices on the Game's Data.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private Vector3Pair[] _swordTargetsWaypoints; 						/// <summary>Sword Targets' Waypoints.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private FloatRange _waitBetweenSwordTarget; 							/// <summary>Wait between each Sword Target.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private float _swordTargetShakeDuration; 							/// <summary>Sword Target's Shake Duration.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private float _swordTargetShakeSpeed; 								/// <summary>Sword Target's Shake Speed.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private float _swordTargetShakeMagnitude; 							/// <summary>Sword Target's Shake Magnitude.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private float _swordTargetInterpolationDuration; 					/// <summary>Interpolation duration it takes the target to reach the spawn's destiny.</summary>
 	[Space(5f)]
 	[Header("Dance Show's Attributes:")]
-	[SerializeField] private int[] _ringsIndices; 								/// <summary>Rings' Indices.</summary>
-	[SerializeField] private FloatRange _ySpawnLimits; 							/// <summary>Spawn Limits on the Y's Axis.</summary>
-	[SerializeField] private FloatRange _xOffset; 								/// <summary>Range of offset on the X's axis.</summary>
-	[SerializeField] private IntRange _danceShowRounds; 						/// <summary>Dance Show's Rounds.</summary>
-	[SerializeField] private IntRange _ringsPerRound; 							/// <summary>Rings per-round.</summary>
-	[SerializeField] private float _danceShowDuration; 							/// <summary>Dance Show's Duration.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _danceShowSuccessPercentage; 				/// <summary>Success' Percentage for the Dance Show.</summary>
+	[TabGroup("Show Group", "Dance Show")][SerializeField][Range(0.0f, 1.0f)] private float _danceShowPieceDurationPercentage; 	/// <summary>Duration's Percentage of the Dance's Show [determines how much the Show will last].</summary>
+	[TabGroup("Show Group", "Dance Show")][SerializeField][Range(0.0f, 1.0f)] private float _danceShowSuccessPercentage; 		/// <summary>Success' Percentage for the Dance Show.</summary>
 	[Space(5f)]
-	[Header("Crowd's Boos Attributes:")]
-	[SerializeField] private int[] _trashProjectilesIndices; 					/// <summary>Indices of all the trash (Parabola) Projectiles.</summary>
-	[SerializeField] private int[] _applauseObjectsIndices; 					/// <summary>Indices of objects thrown at an applause.</summary>
-	[SerializeField] private Vector3[] _trashProjectilesWaypoints; 				/// <summary>Trash Projectiles' Waypoints.</summary>
-	[SerializeField] private IntRange _trashProjectilesPerRound; 				/// <summary>Range of Trash projectiles per round.</summary>
-	[SerializeField] private FloatRange _trashProjectileCooldown; 				/// <summary>Cooldown duration's range per trash Projectile.</summary>
-	[SerializeField] private FloatRange _mateoPositionProjection; 				/// <summary>Range of Mateo's Time Projection.</summary>
-	[SerializeField] private float _trashProjectileTime; 						/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
+	[Header("Ring-Madness Mini-Games:")]
+	[TabGroup("Show Group", "Dance Show")][SerializeField] private RingMadnessMiniGame[] _stage1RingMadnessMiniGames; 			/// <summary>Available Ring-Madness' Mini-Games for Stage 1.</summary>
+	[TabGroup("Show Group", "Dance Show")][SerializeField] private RingMadnessMiniGame[] _stage2RingMadnessMiniGames; 			/// <summary>Available Ring-Madness' Mini-Games for Stage 2.</summary>
+	[TabGroup("Show Group", "Dance Show")][SerializeField] private RingMadnessMiniGame[] _stage3RingMadnessMiniGames; 			/// <summary>Available Ring-Madness' Mini-Games for Stage 3.</summary>
+	[Space(5f)]
+	[Header("Loops:")]
+	[TabGroup("Audio")][SerializeField] private int _fireShowPieceIndex; 														/// <summary>Fire Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _swordShowPieceIndex; 														/// <summary>Sword Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _danceShowPieceIndex; 														/// <summary>Dance Show's Piece's Index.</summary>
+	[Space(5f)]
+	[Header("Sound Effects:")]
+	[TabGroup("Audio")][SerializeField] private int _applauseSoundIndex; 														/// <summary>Applause's Sound Index.</summary>
+	[TabGroup("Audio")][SerializeField] private int _booingSoundIndex; 															/// <summary>Booing's Sound Index.</summary>
+	[Space(5f)]
+	[Header("Signs' Attributes:")]
+	[TabGroup("Signs")][SerializeField] private Vector3 _showSignSpawnPoint; 													/// <summary>Show Sign's Spawn Point.</summary>
+	[TabGroup("Signs")][SerializeField] private Vector3 _showSignPresentationPoint; 											/// <summary>Show Sign's Presentation Point.</summary>
+	[TabGroup("Signs")][SerializeField] private Vector3 _showSignDestinyPoint; 													/// <summary>Show Sign's Destiny Point.</summary>
+	[TabGroup("Signs")][SerializeField] private float _signEntranceDuration; 													/// <summary>Sign Entrance's Duration.</summary>
+	[TabGroup("Signs")][SerializeField] private float _signExitDuration; 														/// <summary>Sign Exit's Duration.</summary>
+	[TabGroup("Signs")][SerializeField] private float _signIdleDuration; 														/// <summary>Sign Idle's Duration.</summary>
+	[Space(5f)]
+	[Header("Crowd's Attributes:")]
+	[TabGroup("Crowd")][SerializeField] private int[] _trashProjectilesIndices; 												/// <summary>Indices of all the trash (Parabola) Projectiles.</summary>
+	[TabGroup("Crowd")][SerializeField] private int[] _applauseObjectsIndices; 													/// <summary>Indices of objects thrown at an applause.</summary>
+	[TabGroup("Crowd")][SerializeField] private Vector3[] _trashProjectilesWaypoints; 											/// <summary>Trash Projectiles' Waypoints.</summary>
+	[TabGroup("Crowd")][SerializeField] private IntRange _trashProjectilesPerRound; 											/// <summary>Range of Trash projectiles per round.</summary>
+	[TabGroup("Crowd")][SerializeField] private FloatRange _trashProjectileCooldown; 											/// <summary>Cooldown duration's range per trash Projectile.</summary>
+	[TabGroup("Crowd")][SerializeField] private FloatRange _mateoPositionProjection; 											/// <summary>Range of Mateo's Time Projection.</summary>
+	[TabGroup("Crowd")][SerializeField] private float _trashProjectileTime; 													/// <summary>Parabola's (Trash) time it takes to potentially reach mateo.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets stage1BreakTheTargetsMiniGames property.</summary>
@@ -120,9 +108,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets booingSoundIndex property.</summary>
 	public int booingSoundIndex { get { return _booingSoundIndex; } }
 
-	/// <summary>Gets fireTargetIndices property.</summary>
-	public int[] fireTargetIndices { get { return _fireTargetIndices; } }
-
 	/// <summary>Gets swordTargetIndices property.</summary>
 	public int[] swordTargetIndices { get { return _swordTargetIndices; } }
 
@@ -131,9 +116,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets applauseObjectsIndices property.</summary>
 	public int[] applauseObjectsIndices { get { return _applauseObjectsIndices; } }
-
-	/// <summary>Gets ringsIndices property.</summary>
-	public int[] ringsIndices { get { return _ringsIndices; } }
 
 	/// <summary>Gets trashProjectilesWaypoints property.</summary>
 	public Vector3[] trashProjectilesWaypoints { get { return _trashProjectilesWaypoints; } }
@@ -147,6 +129,18 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets showSignDestinyPoint property.</summary>
 	public Vector3 showSignDestinyPoint { get { return _showSignDestinyPoint; } }
 
+	/// <summary>Gets waitBetweenSwordTarget property.</summary>
+	public FloatRange waitBetweenSwordTarget { get { return _waitBetweenSwordTarget; } }
+
+	/// <summary>Gets fireShowPieceDurationPercentage property.</summary>
+	public float fireShowPieceDurationPercentage { get { return _fireShowPieceDurationPercentage; } }
+
+	/// <summary>Gets swordShowPieceDurationPercentage property.</summary>
+	public float swordShowPieceDurationPercentage { get { return _swordShowPieceDurationPercentage; } }
+
+	/// <summary>Gets danceShowPieceDurationPercentage property.</summary>
+	public float danceShowPieceDurationPercentage { get { return _danceShowPieceDurationPercentage; } }
+
 	/// <summary>Gets signEntranceDuration property.</summary>
 	public float signEntranceDuration { get { return _signEntranceDuration; } }
 
@@ -155,12 +149,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets signIdleDuration property.</summary>
 	public float signIdleDuration { get { return _signIdleDuration; } }
-
-	/// <summary>Gets fireShowRoundDuration property.</summary>
-	public float fireShowRoundDuration { get { return _fireShowRoundDuration; } }
-
-	/// <summary>Gets swordShowRoundDuration property.</summary>
-	public float swordShowRoundDuration { get { return _swordShowRoundDuration; } }
 
 	/// <summary>Gets swordTargetShakeDuration property.</summary>
 	public float swordTargetShakeDuration { get { return _swordTargetShakeDuration; } }
@@ -183,47 +171,20 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets swordTargetInterpolationDuration property.</summary>
 	public float swordTargetInterpolationDuration { get { return _swordTargetInterpolationDuration; } }
 
-	/// <summary>Gets danceShowDuration property.</summary>
-	public float danceShowDuration { get { return _danceShowDuration; } }
-
 	/// <summary>Gets danceShowSuccessPercentage property.</summary>
 	public float danceShowSuccessPercentage { get { return _danceShowSuccessPercentage; } }
 
 	/// <summary>Gets swordTargetsWaypoints property.</summary>
 	public Vector3Pair[] swordTargetsWaypoints { get { return _swordTargetsWaypoints; } }
 
-	/// <summary>Gets fireShowRounds property.</summary>
-	public IntRange fireShowRounds { get { return _fireShowRounds; } }
-
-	/// <summary>Gets fireShowTargetsPerRound property.</summary>
-	public IntRange fireShowTargetsPerRound { get { return _fireShowTargetsPerRound; } }
-
-	/// <summary>Gets swordShowRounds property.</summary>
-	public IntRange swordShowRounds { get { return _swordShowRounds; } }
-
-	/// <summary>Gets swordShowTargetsPerRound property.</summary>
-	public IntRange swordShowTargetsPerRound { get { return _swordShowTargetsPerRound; } }
-
 	/// <summary>Gets trashProjectilesPerRound property.</summary>
 	public IntRange trashProjectilesPerRound { get { return _trashProjectilesPerRound; } }
-
-	/// <summary>Gets danceShowRounds property.</summary>
-	public IntRange danceShowRounds { get { return _danceShowRounds; } }
-
-	/// <summary>Gets ringsPerRound property.</summary>
-	public IntRange ringsPerRound { get { return _ringsPerRound; } }
 
 	/// <summary>Gets trashProjectileCooldown property.</summary>
 	public FloatRange trashProjectileCooldown { get { return _trashProjectileCooldown; } }
 
 	/// <summary>Gets mateoPositionProjection property.</summary>
 	public FloatRange mateoPositionProjection { get { return _mateoPositionProjection; } }
-
-	/// <summary>Gets ySpawnLimits property.</summary>
-	public FloatRange ySpawnLimits { get { return _ySpawnLimits; } }
-
-	/// <summary>Gets xOffset property.</summary>
-	public FloatRange xOffset { get { return _xOffset; } }
 #endregion
 
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
@@ -306,6 +267,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			while(routine.MoveNext()) yield return null;
 		}
 
+		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
+		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
 		boss.Sing();
 		InvokeCoroutineEnd();
 	}
@@ -358,7 +321,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		IEnumerator signDisplacement = DisplayShowSign(fireShowSign);
 		BreakTheTargetsMiniGame miniGame = null;
 		IEnumerator showJudgement = null;
-		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 
 		while(signDisplacement.MoveNext()) yield return null;
 
@@ -378,7 +340,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		}
 
 		clip = AudioController.Play(SourceType.Loop, 0, fireShowPieceIndex, false);
-		miniGame.timeLimit = clip.length;
+		miniGame.timeLimit = clip.length * fireShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnBreakTheTargetsMiniGameEvent);
 
 		while(miniGame.state == MiniGameState.Running) yield return null;
@@ -389,11 +351,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		signDisplacement = HidehowSign(fireShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioController.Stop(SourceType.Loop, 0, ()=>
-		{
-			AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-			AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		});
+		AudioController.Stop(SourceType.Loop, 0);
+		DestinoSceneController.Instance.fireShowSign.SetActive(false);
 	}
 
 	/// <summary>Sword Show's Routine.</summary>
@@ -410,14 +369,13 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		AudioController.StopFSMLoop(0);
 		AudioController.StopFSMLoop(1);
 
+		List<Fragmentable> targets = new List<Fragmentable>();
 		Transform swordShowSign = DestinoSceneController.Instance.swordShowSign;
 		AudioClip clip = null;
 		IEnumerator signDisplacement = DisplayShowSign(DestinoSceneController.Instance.swordShowSign);
 		IEnumerator showJudgement = null;
-		SecondsDelayWait wait = new SecondsDelayWait(swordShowRoundDuration);
-		int rounds = swordShowRounds.Random();
-		int targetsPerRound = 0;
-		int count = 0;
+		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
+		float totalTargets = 0.0f;
 		float targetsDestroyed = 0.0f;
 		OnDeactivated onTargetDeactivation = (cause, info)=>
 		{
@@ -425,12 +383,11 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			{
 				case DeactivationCause.LeftBoundaries:
 				case DeactivationCause.LifespanOver:
-				count++;
+				targetsDestroyed++;
 				break;
 
 				default:
 				targetsDestroyed++;
-				count++;
 				break;
 			}
 		};
@@ -438,59 +395,65 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		while(signDisplacement.MoveNext()) yield return null;
 
 		clip = AudioController.Play(SourceType.Loop, 0, swordShowPieceIndex, false);
-		wait.waitDuration = clip.length;
+		wait.ChangeDurationAndReset(clip.length * swordShowPieceDurationPercentage);
 
-		for(int i = 0; i < rounds; i++)
+		/// While the Sword-Show's Piece Keeps Playing Keep Throwing Targets...
+		while((wait.MoveNext()) && (wait.remainingTime > swordTargetInterpolationDuration))
 		{
-			wait.waitDuration = clip.length;
-			targetsPerRound = swordShowTargetsPerRound.Random();
-			count = 0;
-			float fTargetsPerRound = (float)targetsPerRound;
-			targetsDestroyed = 0.0f;
-			Fragmentable[] targets = new Fragmentable[targetsPerRound];
+			Debug.Log("[JudgementBehavior] Wait Remaining Time: " + wait.remainingTime);
 
-			for(int j = 0; j < targetsPerRound; j++)
+			Vector3Pair pair = swordTargetsWaypoints.Random();
+			Vector3 origin = pair.a;
+			Vector3 destiny = pair.b;
+			Ray ray = new Ray(origin, destiny - origin);
+			Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetIndices.Random(), origin, Quaternion.identity) as Fragmentable;
+			SecondsDelayWait waitBetweenTarget = new SecondsDelayWait(waitBetweenSwordTarget.Random());
+
+			if(fragmentableTarget == null) yield break;
+
+			totalTargets++;
+			targets.Add(fragmentableTarget);
+			fragmentableTarget.rigidbody.gravityScale = 0.0f;
+			fragmentableTarget.eventsHandler.onDeactivated -= onTargetDeactivation;
+			fragmentableTarget.eventsHandler.onDeactivated += onTargetDeactivation;
+			//Game.AddTargetToCamera(fragmentableTarget.cameraTarget);
+
+			IEnumerator lerp = fragmentableTarget.transform.DisplaceToPosition(destiny, swordTargetInterpolationDuration);
+
+			while(lerp.MoveNext())
 			{
-				Vector3Pair pair = swordTargetsWaypoints.Random();
-				Vector3 origin = pair.a;
-				Vector3 destiny = pair.b;
-				Ray ray = new Ray(origin, destiny - origin);
-				Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetIndices.Random(), origin, Quaternion.identity) as Fragmentable;
-				
-				if(fragmentableTarget == null) yield break;
-
-				fragmentableTarget.rigidbody.gravityScale = 0.0f;
-				fragmentableTarget.eventsHandler.onDeactivated -= onTargetDeactivation;
-				fragmentableTarget.eventsHandler.onDeactivated += onTargetDeactivation;
-
-				IEnumerator lerp = fragmentableTarget.transform.DisplaceToPosition(destiny, swordTargetInterpolationDuration);
-
-				while(lerp.MoveNext()) yield return null;
-
-				targets[j] = fragmentableTarget;
-
-				IEnumerator targetShaking = fragmentableTarget.transform.ShakePosition(swordTargetShakeDuration, swordTargetShakeSpeed, swordTargetShakeMagnitude);
-
-				while(targetShaking.MoveNext()) yield return null;
-
-				fragmentableTarget.rigidbody.gravityScale = 1.0f;
+				wait.MoveNext();
+				yield return null;
 			}
 
-			while(wait.MoveNext() && count < targetsPerRound) yield return null;
-			wait.Reset();
+			IEnumerator targetShaking = fragmentableTarget.transform.ShakePosition(swordTargetShakeDuration, swordTargetShakeSpeed, swordTargetShakeMagnitude);
 
-			foreach(Fragmentable target in targets)
+			while(targetShaking.MoveNext())
 			{
-				target.eventsHandler.onDeactivated -= onTargetDeactivation;
+				wait.MoveNext();
+				yield return null;
 			}
 
-			showJudgement = EvaluateShow((float)targetsDestroyed / targetsDestroyed, swordShowSuccessPercentage);
+			fragmentableTarget.rigidbody.gravityScale = 1.0f;
 
-			while(showJudgement.MoveNext()) yield return null;
+			while(waitBetweenTarget.MoveNext())
+			{
+				wait.MoveNext();
+				yield return null;
+			}
 		}
 
-		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
+		foreach(Fragmentable target in targets)
+		{
+			target.eventsHandler.onDeactivated -= onTargetDeactivation;
+			//Game.RemoveTargetToCamera(target.cameraTarget);
+		}
+
+		showJudgement = EvaluateShow(targetsDestroyed / totalTargets, swordShowSuccessPercentage);
+
+		while(showJudgement.MoveNext()) yield return null;
+
+		AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.swordShowSign.SetActive(false);
 	}
 
@@ -513,7 +476,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		RingMadnessMiniGame miniGame = null;
 		IEnumerator signDisplacement = DisplayShowSign(DestinoSceneController.Instance.danceShowSign);
 		IEnumerator showJudgement = null;
-		SecondsDelayWait wait = new SecondsDelayWait(danceShowDuration);
 
 		while(signDisplacement.MoveNext()) yield return null;
 
@@ -533,7 +495,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		}
 
 		clip = AudioController.Play(SourceType.Loop, 0, danceShowPieceIndex, false);
-		miniGame.timeLimit = clip.length;
+		miniGame.timeLimit = clip.length * danceShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnRingMadnessMiniGameEvent);
 
 		while(miniGame.state == MiniGameState.Running) yield return null;
@@ -544,11 +506,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		signDisplacement = HidehowSign(danceShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioController.Stop(SourceType.Loop, 0, ()=>
-		{
-			AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-			AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		});
+		AudioController.Stop(SourceType.Loop, 0);
+		DestinoSceneController.Instance.danceShowSign.SetActive(false);
 	}
 
 	/// <summary>Evaluates show.</summary>

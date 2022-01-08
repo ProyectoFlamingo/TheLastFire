@@ -623,6 +623,9 @@ public class Mateo : Character
 			animatorController.WaitForCrossFade(standingHash, meditationStandingFadeDuration, mainAnimationLayer, 0.0f,
 			()=>
 			{
+				/// \TODO This is a forced patch to invoke the ceasing of meditation, but it should be done after GoToLocomotionAnimation(...);
+				if(standingHash == jumpStandingCredential) InvokeIDEvent(IDs.EVENT_MEDITATION_ENDS);
+				
 				GoToLocomotionAnimation(()=>
 				{
 					state &= ~IDs.STATE_MEDITATING;

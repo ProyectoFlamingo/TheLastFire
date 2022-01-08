@@ -458,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 5278712921402561579, guid: 751a26fd099d2c64d8cb600d95e80c5f,
         type: 3}
       propertyPath: _deactivateWhenPassedOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 751a26fd099d2c64d8cb600d95e80c5f, type: 3}
@@ -5791,10 +5791,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _amountTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 1
@@ -6075,7 +6075,7 @@ PrefabInstance:
     - target: {fileID: 5278712921402561579, guid: 42ca793991385ef40b457a345f3cac06,
         type: 3}
       propertyPath: _deactivateWhenPassedOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42ca793991385ef40b457a345f3cac06, type: 3}
@@ -8582,7 +8582,7 @@ PrefabInstance:
     - target: {fileID: 5278712921402561579, guid: 13f2f18aad7c31d4d9dd0424b50e706c,
         type: 3}
       propertyPath: _deactivateWhenPassedOn
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13f2f18aad7c31d4d9dd0424b50e706c, type: 3}
@@ -9022,6 +9022,8 @@ MonoBehaviour:
   drawGizmos: 1
   gizmosColor: {r: 1, g: 0, b: 1, a: 1}
   gizmosRadius: 0.25
+  _fireShowPieceDurationPercentage: 1
+  _fireShowSuccessPercentage: 0.654
   _stage1BreakTheTargetsMiniGames:
   - _clock:
       _format: 0
@@ -9043,29 +9045,7 @@ MonoBehaviour:
     _timeLimit: 0
     _targetsContainer: {fileID: 0}
     _deactivateTargetsWhenMinigameEnds: 0
-  _stage1RingMadnessMiniGames: []
-  _stage2RingMadnessMiniGames: []
-  _stage3RingMadnessMiniGames: []
-  _fireShowPieceIndex: 2
-  _swordShowPieceIndex: 3
-  _danceShowPieceIndex: 4
-  _applauseSoundIndex: 14
-  _booingSoundIndex: 15
-  _showSignSpawnPoint: {x: 0, y: 0, z: 0}
-  _showSignPresentationPoint: {x: 0, y: 0, z: 0}
-  _showSignDestinyPoint: {x: 0, y: 0, z: 0}
-  _signEntranceDuration: 1
-  _signExitDuration: 1
-  _signIdleDuration: 1
-  _fireShowSuccessPercentage: 0.654
-  _fireTargetIndices: 0000000000000000
-  _fireShowRounds:
-    _min: 2
-    _max: 4
-  _fireShowTargetsPerRound:
-    _min: 7
-    _max: 14
-  _fireShowRoundDuration: 10
+  _swordShowPieceDurationPercentage: 1
   _swordShowSuccessPercentage: 0.678
   _swordTargetIndices: 02000000
   _swordTargetsWaypoints:
@@ -9095,32 +9075,35 @@ MonoBehaviour:
     b: {x: 18, y: 12.5, z: 5.5}
   - a: {x: -18, y: 19, z: 5.5}
     b: {x: -18, y: 12.5, z: 5.5}
-  _swordShowRounds:
-    _min: 2
-    _max: 4
-  _swordShowTargetsPerRound:
-    _min: 15
-    _max: 15
-  _swordShowRoundDuration: 10
+  _waitBetweenSwordTarget:
+    _min: 0.35
+    _max: 0.65
   _swordTargetShakeDuration: 1.5
   _swordTargetShakeSpeed: 5
-  _swordTargetShakeMagnitude: 1.5
+  _swordTargetShakeMagnitude: 0.7
   _swordTargetInterpolationDuration: 0.7
-  _ringsIndices: 000000000000000000000000
-  _ySpawnLimits:
-    _min: 2
-    _max: 2.5
-  _xOffset:
-    _min: 0.5
-    _max: 1
-  _danceShowRounds:
-    _min: 1
-    _max: 1
-  _ringsPerRound:
-    _min: 8
-    _max: 8
-  _danceShowDuration: 10
+  _danceShowPieceDurationPercentage: 1
   _danceShowSuccessPercentage: 1
+  _stage1RingMadnessMiniGames:
+  - _clock:
+      _format: 0
+      _secondsFractioning: 0
+    _timeLimit: 0
+    _ringsContainer: {fileID: 1761724957}
+    _deactivateRingsWhenMiniGameEnds: 1
+  _stage2RingMadnessMiniGames: []
+  _stage3RingMadnessMiniGames: []
+  _fireShowPieceIndex: 2
+  _swordShowPieceIndex: 3
+  _danceShowPieceIndex: 4
+  _applauseSoundIndex: 14
+  _booingSoundIndex: 15
+  _showSignSpawnPoint: {x: 0, y: 0, z: 0}
+  _showSignPresentationPoint: {x: 0, y: 0, z: 0}
+  _showSignDestinyPoint: {x: 0, y: 0, z: 0}
+  _signEntranceDuration: 1
+  _signExitDuration: 1
+  _signIdleDuration: 1
   _trashProjectilesIndices: 0000000000000000
   _applauseObjectsIndices: 00000000
   _trashProjectilesWaypoints:
@@ -11475,10 +11458,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _amountTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 0.5

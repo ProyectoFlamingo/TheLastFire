@@ -89,6 +89,8 @@ public class BreakableTarget : PoolGameObject
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	private void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
+		if(_eventType != HitColliderEventTypes.Enter) return;
+
 		GameObject obj = _info.collider.gameObject;
 
 		if(tags != null) foreach(GameObjectTag tag in tags)

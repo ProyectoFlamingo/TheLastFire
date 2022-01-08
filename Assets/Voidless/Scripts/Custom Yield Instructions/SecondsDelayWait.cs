@@ -42,6 +42,9 @@ public class SecondsDelayWait : VYieldInstruction
 	/// <summary>Gets progress property.</summary>
 	public float progress { get { return currentWait / waitDuration; } }
 
+	/// <summary>Gets remainingTime property.</summary>
+	public float remainingTime { get { return Mathf.Abs(waitDuration - currentWait); } }
+
 	/// <summary>SecondsDelayWait's constructor.</summary>
 	/// <param name="_waitDuration">Wait's Duration.</param>
 	public SecondsDelayWait(float _waitDuration, float _timeScale = 1.0f, bool _scaled = true)

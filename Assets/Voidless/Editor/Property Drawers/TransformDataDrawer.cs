@@ -144,7 +144,7 @@ public class TransformDataDrawer : VPropertyDrawer
 		}
 		catch(Exception exception)
 		{
-			Debug.Log("[TransformDataDrawer] Catched Exception when trying to reload SceneGUI: " + exception.Message);
+			//Debug.Log("[TransformDataDrawer] Catched Exception when trying to reload SceneGUI: " + exception.Message);
 		}	
 	}
 
