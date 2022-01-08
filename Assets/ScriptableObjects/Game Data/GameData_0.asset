@@ -127,7 +127,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
   - {fileID: 8300000, guid: c156a5e34c7350540b2c71d5aa23b7ec, type: 3}
   _soundEffects:
-  - {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
+  - {fileID: 8300000, guid: 44c946c747bf2a744ab3f71ebacc08cd, type: 3}
   - {fileID: 8300000, guid: 7e073fbd79128394d892b1ab66ef787b, type: 3}
   - {fileID: 8300000, guid: 490f55b066a773f4c85fa7caf9ffba64, type: 3}
   - {fileID: 8300000, guid: 7ad029d78914f1e46a9e9f9079f072b1, type: 3}
@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 960c58a0c3be37747ad861fd60da2e46, type: 3}
   - {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
   - {fileID: 8300000, guid: 19f783d9fddedfd4ca1410b0ec3513f7, type: 3}
+  - {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
   _particleEffects:
   - {fileID: 2948463789655692408, guid: 05729ccca8bca724b80aa225032af021, type: 3}
   - {fileID: 6782677579952761336, guid: 40a16e0a24c989a40b60a9e7cfc239dc, type: 3}

@@ -37,7 +37,7 @@ Events:
 */
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(ProjectileEventsHandler))]
+//[RequireComponent(typeof(ProjectileEventsHandler))]
 public class Projectile : ContactWeapon
 {
 	public event OnDeactivated onDeactivated; 									/// <summary>OnDeactivated's Event Delegate.</summary>
@@ -464,7 +464,7 @@ public class Projectile : ContactWeapon
 	{
 		if(parentProjectile != null)
 		{
-			Vector2 direction = rigidbody.position - parentProjectile.rigidbody.position;
+			Vector3 direction = transform.position - parentProjectile.transform.position;
 
 			if(direction.sqrMagnitude < (distance * distance))
 			rigidbody.MoveIn3D(Vector3.Lerp(direction, direction.normalized * distance, 0.9f));
@@ -530,7 +530,7 @@ public class Projectile : ContactWeapon
 					Vector3 parentPosition = parentProjectile.transform.position;
 					Vector3 direction = transform.position - parentPosition;
 
-					if(direction.sqrMagnitude > (distance * distance))
+					if(direction.sqrMagnitude < (distance * distance))
 					{
 						direction = direction.normalized * distance;
 						targetPosition = parentPosition + direction;

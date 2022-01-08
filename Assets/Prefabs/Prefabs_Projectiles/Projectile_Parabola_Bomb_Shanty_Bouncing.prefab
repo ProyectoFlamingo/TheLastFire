@@ -295,10 +295,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
-  _healthAffectableTags: []
   _damage: 1
-  _damageScales:
-  - 1
+  _healthAffectableTags: []
   _impactTags:
   - _tag: Player
     index: 5
@@ -314,35 +312,17 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 5
   _distance: 5
-  _impactParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 25
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedSoundEffectIndex:
-    index: 30
-    objectIndex: 0
-    collectionIndex: 6
+  _impactSoundEffectIndex: 0
+  _destroyedSoundEffectIndex: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player
     index: 11
-  _explodableIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 7
-  _fireEffectIndex:
-    index: 22
-    objectIndex: 0
-    collectionIndex: 7
+  _explodableIndex: 0
+  _fireEffectIndex: 0
   _fuse: {fileID: 6623463429808312841}
   _fuseDuration: 15
   _fuseLength: 0.5
@@ -358,6 +338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &5051148109742244880
 MonoBehaviour:

@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Destino.unity
     guid: 6a74eb79156928448ba5f9e09fabdfe6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scenes - Training Grounds/Scene_TrainingGround_Projectiles&Explodables.unity
     guid: d239bec13d1dfee4b85cf3168a875116
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scenes - Interfaces/Scene_LoadingScreen.unity
     guid: ec04bc4982c467b419d9f4f94dffdfcd
   - enabled: 0
@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scenes - Mini-Games/Scene_MiniGame_Basketball_1.unity
     guid: 2a5e02ce50550384ab4b6eeca40518a1
+  - enabled: 1
+    path: "Assets/Scenes/Tests/Salazar Elefunk\xB4s_Ligthing Lab.unity"
+    guid: 13b169217028b994595c66d27e561e01
   m_configObjects: {}

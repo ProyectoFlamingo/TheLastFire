@@ -83,7 +83,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
 --- !u!1 &4761920166692264650
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 3044410836575987191}
   m_Layer: 17
   m_Name: Projectile_Fire_0
-  m_TagString: Untagged
+  m_TagString: Projectile/Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -191,8 +191,8 @@ MonoBehaviour:
   _impactParticleEffectIndex: 28
   _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex: 27
-  _destroyedSoundEffectIndex: 27
+  _impactSoundEffectIndex: 25
+  _destroyedSoundEffectIndex: -1
   gizmosColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &7212728250861050264
 MonoBehaviour:

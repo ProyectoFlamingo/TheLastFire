@@ -10,12 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 6035032327262346622}
   - component: {fileID: 2188685778211127766}
-  - component: {fileID: 5723318106225429548}
   - component: {fileID: 7381935805205219674}
   - component: {fileID: -886662376399747577}
-  - component: {fileID: 2288381669426326840}
   - component: {fileID: -346516117526479650}
   - component: {fileID: -7789350023202376534}
+  - component: {fileID: 8319930672973551488}
   m_Layer: 0
   m_Name: Projectile_Marble
   m_TagString: Projectile/Enemy
@@ -60,22 +59,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5723318106225429548
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001964287644889203}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.3
 --- !u!114 &7381935805205219674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,43 +78,33 @@ MonoBehaviour:
   - _tag: Player
     index: 5
   _impactTags:
-  - _tag: Weapon/Player
-    index: 9
   - _tag: Player
     index: 5
+  - _tag: Weapon/Player
+    index: 9
   - _tag: Surface/Floor
     index: 13
   - _tag: Surface/Ceiling
     index: 15
+  - _tag: Surface/Wall
+    index: 14
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
-  _speed: 8.5
+  _speed: 4
   _lifespan: 0
   _cooldownDuration: 0.25
   _rotateTowardsDirection: 0
-  _maxSteeringForce: 0.45
-  _distance: 2
-  _impactParticleEffectIndex:
-    index: 7
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedParticleEffectIndex:
-    index: 7
-    objectIndex: 0
-    collectionIndex: 6
+  _maxSteeringForce: 0.2
+  _distance: 1
+  _impactParticleEffectIndex: 6
+  _destroyedParticleEffectIndex: -1
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 5
-  _destroyedSoundEffectIndex:
-    index: 16
-    objectIndex: 0
-    collectionIndex: 5
+  _impactSoundEffectIndex: 37
+  _destroyedSoundEffectIndex: 17
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &-886662376399747577
 MonoBehaviour:
@@ -147,21 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 6800693875940303784}
---- !u!114 &2288381669426326840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1001964287644889203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _character: {fileID: 0}
-  _contactWeapon: {fileID: 0}
-  debug: 0
 --- !u!114 &-346516117526479650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,10 +149,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _space: 0
-  _size: {x: 0.5, y: 0.5, z: 0.5}
+  _size: {x: 1, y: 1, z: 1}
   _centerOffset: {x: 0, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8319930672973551488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001964287644889203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 7381935805205219674}
+  debug: 0
 --- !u!1 &6142866956978619754
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7968693563084695661}
   m_Layer: 17
   m_Name: HitCollider2D_Fire_1
-  m_TagString: Untagged
+  m_TagString: Projectile/Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.5
 --- !u!1 &4761920166692264650
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: -2763617812966231055}
   m_Layer: 17
   m_Name: Projectile_Fire_1
-  m_TagString: Untagged
+  m_TagString: Projectile/Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

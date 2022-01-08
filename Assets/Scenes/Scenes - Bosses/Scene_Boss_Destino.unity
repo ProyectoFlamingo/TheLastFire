@@ -1430,6 +1430,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632402, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _faction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632410, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1444,7 +1449,12 @@ PrefabInstance:
     - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7
+      value: 3.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632411, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.74
       objectReference: {fileID: 0}
     - target: {fileID: 1357492255315632414, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -1465,6 +1475,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _gravityScale
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632415, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _faction
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1404652897898759825, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -2485,6 +2500,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -9.0221874e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183066719409207097, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _speed
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 6183066720117475430, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -5771,10 +5791,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 1
@@ -6368,7 +6388,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -6464,7 +6484,7 @@ MonoBehaviour:
   _arrivalRadius: 2
   _maxSpeedScalar: 2
   _additionalYOffset: 7
-  _buildUpSoundIndex: 0
+  _buildUpSoundIndex: 62
   _swingSoundIndex: 2
   _sourceIndex: 0
 --- !u!4 &907821229 stripped
@@ -6702,6 +6722,25 @@ Transform:
   m_Father: {fileID: 668150546}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1040952905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4089020225354737644, guid: 3e8b33e1bd6457045935992270f9958b,
+    type: 3}
+  m_PrefabInstance: {fileID: 229850152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1040952909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040952905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5235a41731b2b33449eaff608816ca9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _component: {fileID: 1785979467}
 --- !u!33 &1065271316 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 82dc9c25f66ace149b51240bed33b5aa,
@@ -11137,7 +11176,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -11436,10 +11475,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 0.5
@@ -11706,7 +11745,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14210,7 +14249,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14221,6 +14260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _entranceSoundIndex.collectionIndex
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _fallPointData.showHandles
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14280,10 +14324,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ffe51392367984581fab4140e17cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawGizmos: 0
-  gizmosColor: {r: 0, g: 0, b: 0, a: 0}
-  gizmosRadius: 0
-  _projectileSpawnPosition: {x: 0, y: 9, z: 0}
+  drawGizmos: 1
+  gizmosColor: {r: 1, g: 0, b: 0, a: 1}
+  gizmosRadius: 0.5
+  _projectileSpawnPosition: {x: 0, y: 9, z: 3}
   _petrolSphereID: 3
   _marbleSphereID: 2
   _sequenceLimits:

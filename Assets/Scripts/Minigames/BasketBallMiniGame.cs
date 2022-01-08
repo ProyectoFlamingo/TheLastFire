@@ -10,9 +10,6 @@ namespace Flamingo
 [Serializable]    
 public class BasketBallMiniGame : MiniGame
 {
-    [Header("Time's Attributes:")]
-    [SerializeField] public Clock _clock;           /// <summary>Mini-Game's Internal Clock.</summary>
-    [SerializeField] private float _timeLimit;      /// <summary>Limit time for the minigame.</summary>
     [Space(5f)]
     [Header("Rings' References:")]
     [SerializeField] private Ring _localRing;       /// <summary>Basket for local Player.</summary>
@@ -23,20 +20,7 @@ public class BasketBallMiniGame : MiniGame
     private int _visitorScore;                      /// <summary>Visitor Player's score.</summary>
 
 #region Getters/Setters:
-    /// <summary>Gets and Sets clock property.</summary>
-    public Clock clock
-    {
-        get { return _clock; }
-        set { _clock = value; }
-    }
-
-    /// <summary>Gets and Sets limitMinutes for minigame property.</summary>
-    public float timeLimit
-    {
-        get { return _timeLimit; }
-        set { _timeLimit = value; }
-    }
-
+    
     /// <summary>Gets and Sets localRing property.</summary>
     public Ring localRing
     {

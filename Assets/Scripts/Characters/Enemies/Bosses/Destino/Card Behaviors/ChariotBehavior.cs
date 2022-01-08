@@ -79,11 +79,9 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
 	protected override void DrawGizmos()
 	{
-/*#if UNITY_EDITOR
 		base.DrawGizmos();
 
 		Gizmos.DrawWireSphere(projectileSpawnPosition, 0.25f);
-#endif*/
 	}
 
 	/// <summary>Callback invoked when a Projectile is destroyed.</summary>

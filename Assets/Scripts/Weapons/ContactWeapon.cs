@@ -228,7 +228,12 @@ public class ContactWeapon : PoolGameObject
 			case HitColliderEventTypes.Enter:
 				if(impactTags != null) foreach(GameObjectTag tag in impactTags)
 				{
-					if(obj.CompareTag(tag)) OnImpact(_info, _ID);
+					if(obj.CompareTag(tag))
+					{
+						OnImpact(_info, _ID);
+						Debug.Log("[ContactWeapon] Impacted with: " + obj.tag);
+						break;
+					}
 				}
 			break;
 		}
@@ -239,6 +244,7 @@ public class ContactWeapon : PoolGameObject
 	{
 		base.OnObjectDeactivation();
 		owner = null;
+		objectsIDs.Clear();
 	}
 
 	/// <summary>Callback internally invoked when a Health's instance was damaged.</summary>
