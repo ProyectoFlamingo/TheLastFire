@@ -37,6 +37,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	[TabGroup("Scythe")][SerializeField] private float _arrivalRadius; 									/// <summary>Steering Arrival's Radius.</summary>
 	[TabGroup("Scythe")][SerializeField] private float _maxSpeedScalar; 								/// <summary>Maximum's Speed's Scalar [it goes up as the stage goes up].</summary>
 	[TabGroup("Scythe")][SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
+	[TabGroup("Scythe")][SerializeField] private float _clampedHeight; 									/// <summary>Clamped Height for the Scythe.</summary>
 	[Space(5f)]
 	[Header("Sound Effects::")]
 	[SerializeField] private int _buildUpSoundIndex; 													/// <summary>Build-Up's Sound's Index.</summary>
@@ -102,6 +103,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets additionalYOffset property.</summary>
 	public float additionalYOffset { get { return _additionalYOffset; } }
+
+	/// <summary>Gets clampedHeight property.</summary>
+	public float clampedHeight { get { return _clampedHeight; } }
 
 	/// <summary>Gets buildUpSoundIndex property.</summary>
 	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
@@ -265,11 +269,15 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 		while(wait.MoveNext())
 		{
-			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, 1);
+			int anchorIndex = (scythe.state != AnimationCommandState.Active) ? 1 : 0;
+			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, anchorIndex);
+			Vector3 scythePosition = scythe.transform.position;
 
 			if(scythe.state != AnimationCommandState.Active) anchoredPosition.y += additionalYOffset;
 
-			scythe.transform.position += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * s;
+			scythePosition += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * s;
+			scythePosition.y = Mathf.Max(scythePosition.y, clampedHeight);
+			scythe.transform.position = scythePosition;
 			RotateScythe(s);
 			yield return null;
 		}

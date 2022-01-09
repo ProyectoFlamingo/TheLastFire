@@ -35,6 +35,7 @@ public static class IDs
 	public const int ANIMATIONEVENT_THROWTNT = 12; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_REPELBOMB = 13; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_ATTACKEND = 14; 			/// <summary>Attack End's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ATTACKWINDOW = 15; 			/// <summary>Attack Window's Animation Event's ID.</summary>
 #endregion
 
 #region StateFlagsIDs:
@@ -56,6 +57,7 @@ public static class IDs
 	public const int STATE_STANDINGUP = 1 << 14; 				/// <summary>Standing Up's State ID.</summary>
 	public const int STATE_TARGETONSIGHT = 1 << 15; 			/// <summary>Target On-Sight's State ID.</summary>
 	public const int STATE_FOLLOWTARGET = 1 << 16; 				/// <summary>Following Target's State ID.</summary>
+	public const int STATE_ATTACKWINDOW = 1 << 17; 				/// <summary>Attack-Window's State ID.</summary>
 #endregion
 }
 }

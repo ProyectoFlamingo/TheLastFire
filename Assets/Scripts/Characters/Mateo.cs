@@ -133,6 +133,7 @@ public class Mateo : Character
 	private SlopeEvaluator _slopeEvaluator; 																						/// <summary>SlopeEvaluator's Component.</summary>
 	private Vector3 _orientation; 																									/// <summary>Mateo's Orientation.</summary>
 	private Vector2 _leftAxes; 																										/// <summary>Left Axes' Value.</summary>
+	private bool _attackedOnAir; 																									/// <summary>Has Mateo Attacked on Air?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets sword property.</summary>
@@ -453,6 +454,13 @@ public class Mateo : Character
 		get { return _leftAxes; }
 		private set { _leftAxes = value; }
 	}
+
+	/// <summary>Gets and Sets attackedOnAir property.</summary>
+	public bool attackedOnAir
+	{
+		get { return _attackedOnAir; }
+		private set { _attackedOnAir = value; }
+	}
 #endregion
 
 //---------------------------------------
@@ -487,7 +495,8 @@ public class Mateo : Character
 		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
 		scalarWrapper = new FloatWrapper(attackingGravityScale);
 
-		Meditate(true);
+		//Meditate(true);
+		MeditateInstantly();
 		shootProjectile.muzzle = skeleton.leftHand;
 		
 		/// \TODO Load those from SaveData:
@@ -590,6 +599,15 @@ public class Mateo : Character
 #endregion
 
 #region MeditationMethods:
+	/// <summary>Meditates instantly [no Cross-Fading involved].</summary>
+	public void MeditateInstantly()
+	{
+		CancelAllActions();
+		state |= IDs.STATE_MEDITATING;
+		animatorController.Play(normalMeditationCredential, mainAnimationLayer);
+		InvokeIDEvent(IDs.EVENT_MEDITATION_BEGINS);
+	}
+
 	/// <summary>Makes Mateo Meditate.</summary>
 	/// <param name="_meditate">Meditate? true by default. If false, it ends the meditation.</param>
 	public void Meditate(bool _meditate = true, int _contextFlag =  0)
@@ -733,12 +751,15 @@ public class Mateo : Character
 			- Mateo is not on waiting state.
 			- Mateo is not bouncing from a wall.
 			- Mateo is not landing.
+			- Mateo has not attacked on air.
 		*/
-		if(!this.HasStates(IDs.STATE_ALIVE)
+		if(!this.HasStates(IDs.STATE_ATTACKWINDOW)
+		&& (!this.HasStates(IDs.STATE_ALIVE)
 		|| this.HasStates(IDs.STATE_HURT)
 		|| this.HasStates(IDs.STATE_ATTACKING)
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
-		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)) return;
+		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING))
+		|| attackedOnAir) return;
 		
 		if(this.HasStates(IDs.STATE_MEDITATING))
 		{
@@ -755,9 +776,16 @@ public class Mateo : Character
 		bool grounded = jumpAbility.grounded;
 
 		if(grounded) animationHash = groundSwordAttackCredential;
-		else animationHash = jumpAbility.GetJumpIndex() > 0 ? additionalJumpSwordAttackCredential : normalJumpSwordAttackCredential;
+		else
+		{
+			attackedOnAir = true;
+			animationHash = jumpAbility.GetJumpIndex() > 0 ? additionalJumpSwordAttackCredential : normalJumpSwordAttackCredential;
+		}
 
 		state |= IDs.STATE_ATTACKING;
+		state &= ~IDs.STATE_ATTACKWINDOW;
+
+		animatorController.DeactivateLayer(mainAnimationLayer);
 		animatorController.CrossFadeAndWait(
 			animationHash,
 			attackFadeDuration,
@@ -980,9 +1008,10 @@ public class Mateo : Character
 		DischargeFire();
 		animator.SetAllLayersWeight(0.0f);
 		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+		attackedOnAir = false;
 
 		/// Remove all action flags:
-		state &= ~(IDs.STATE_ATTACKING | IDs.STATE_JUMPING | IDs.STATE_CROUCHING | IDs.STATE_CHARGINGFIRE | IDs.STATE_MEDITATING | IDs.STATE_BRAKING | IDs.STATE_STANDINGUP);
+		state &= ~(IDs.STATE_ATTACKING | IDs.STATE_JUMPING | IDs.STATE_CROUCHING | IDs.STATE_CHARGINGFIRE | IDs.STATE_MEDITATING | IDs.STATE_BRAKING | IDs.STATE_STANDINGUP | IDs.STATE_ATTACKWINDOW);
 
 		/// Re-evaluate Callbacks:
 		OnJumpStateChange(jumpAbility.state, jumpAbility.GetJumpIndex());
@@ -1034,6 +1063,7 @@ public class Mateo : Character
 			case JumpAbility.STATE_ID_GROUNDED:
 				CancelSwordAttack();
 				OnMainLayerAnimationFinished();
+				attackedOnAir = false;
 				if(extraJumpTrailRenderer != null) extraJumpTrailRenderer.enabled = false;
 			break;
 
@@ -1215,6 +1245,11 @@ public class Mateo : Character
 
 			case IDs.ANIMATIONEVENT_ATTACKEND:
 				GoToLocomotionAnimation();
+			break;
+
+			case IDs.ANIMATIONEVENT_ATTACKWINDOW:
+				Debug.Log("[Mateo] On Attack Window");
+				state |= IDs.STATE_ATTACKWINDOW;
 			break;
 		}
 	}

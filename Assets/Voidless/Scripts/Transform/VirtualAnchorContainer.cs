@@ -48,6 +48,19 @@ public class VirtualAnchorContainer : MonoBehaviour
 #endif
 	}
 
+	/// <returns>Anchored Offset.</returns>
+	public Vector3 GetAnchoredOffset(int index = 0)
+	{
+		if(anchors == null) return Vector3.zero;
+
+		index = Mathf.Clamp(index, 0, anchors.Length - 1);
+
+		TransformVector3VTuple tuple = anchors[index];
+		Transform relativeTo = tuple.Item1 == null ? transform : tuple.Item1;
+
+		return Vector3.Scale(relativeTo.localScale, tuple.Item2);
+	}
+
 	/// <summary>Get Virtual Anchor.</summary>
 	/// <param name="index">Anchor's Index [0 by default].</param>
 	/// <returns>Virtual Anchor.</returns>
