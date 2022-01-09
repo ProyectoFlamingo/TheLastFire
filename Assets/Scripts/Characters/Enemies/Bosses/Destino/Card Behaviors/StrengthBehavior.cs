@@ -366,6 +366,11 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		int[] drumstickCombo = VArray.RandomSet(LEFT, RIGHT);
 		float s = boss.stageScale;
 		float scalar = Mathf.Lerp(1.0f, maxDrumstickSteeringScalar, s);
+		IEnumerator[] drumsticksRoutines = new IEnumerator[]
+		{
+			DrumstickRoutine(leftDrumstick, leftDrumstickSpawnPoint, Math.Min, -1.0f, scalar, s, drumstickLength),
+			DrumstickRoutine(rightDrumstick, rightDrumstickSpawnPoint, Math.Max, 1.0f, scalar, s, drumstickLength)
+		};
 
 		boss.animatorController.Play(boss.lalaCredential);
 
@@ -384,8 +389,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
 		while(wait.MoveNext()) yield return null;
 
+/*#region ComboBullshit:
 		for(int i = 0; i < drumstickCombo.Length; i++)
 		{
+
 			//Set Position of drumstrick acording to mateo position
 			AIContactWeapon drumstick = null;
 			Vector3 mateoPosition = Vector3.zero;
@@ -437,7 +444,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 			drumstick.gameObject.SetActive(false);
 		}
-		
+#endregion*/
+
+		while(drumsticksRoutines[0].MoveNext() && drumsticksRoutines[1].MoveNext()) yield return null;
+
 		leftDrumstick.SetActive(false);
 		rightDrumstick.SetActive(false);
 	}
@@ -545,6 +555,40 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		}
 
 		cymbals.gameObject.SetActive(false);
+	}
+
+	/// <summary>Individual Drumstick Routine.</summary>
+	/// <param name="_drumstick">Drumstick's Reference as AIContactWeapon.</param>
+	/// <param name="_spawnPosition">Drumstick's Spawn Position.</param>
+	/// <param name="f">Function to clamp the positioning of the Drumstick.</param>
+	/// <param name="sign">Sign multiplier.</param>
+	/// <param name="steeringScalar">Drumstick's Steering Scalar.</param>
+	/// <param name="stageScalar">Boss Stage's Scalar.</param>
+	private IEnumerator DrumstickRoutine(AIContactWeapon _drumstick, Vector3 _spawnPosition, Func<float, float, float> f, float sign, float steeringScalar, float stageScalar, float drumstickLength)
+	{
+		Vector3 mateoPosition = Vector3.zero;
+		bool animationEnded = false;
+
+		_drumstick.gameObject.SetActive(true);
+		_drumstick.state = AnimationCommandState.None;
+		_drumstick.animator.speed = Mathf.Lerp(1.0f, maxDrumstickAnimationSpeed, stageScalar);
+		_drumstick.animatorController.CrossFadeAndWait(drumstickAnimationCredential, 0.3f, 0, 0.0f, 0.0f, ()=>{ animationEnded = true; });
+
+		while(!animationEnded)
+		{
+			if(_drumstick.state != AnimationCommandState.Active)
+			{
+				mateoPosition = Game.mateo.transform.position;
+				mateoPosition.x = f(mateoPosition.x + (drumstickLength * sign), 0.0f);
+				mateoPosition.y = _spawnPosition.y;
+
+				_drumstick.transform.position += (Vector3)(_drumstick.vehicle.GetSeekForce(mateoPosition)) * Time.deltaTime * steeringScalar;
+			}
+
+			yield return null;
+		}
+
+		_drumstick.gameObject.SetActive(false);
 	}
 #endregion
 

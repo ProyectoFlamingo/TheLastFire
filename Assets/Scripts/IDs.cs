@@ -27,15 +27,18 @@ public static class IDs
 	public const int ANIMATIONEVENT_EMITSOUND_0 = 4; 			/// <summary>Emit Sound with Sub-index argument 0.</summary>
 	public const int ANIMATIONEVENT_EMITSOUND_1 = 5; 			/// <summary>Emit Sound with Sub-index argument 1.</summary>
 	public const int ANIMATIONEVENT_EMITSOUND_2 = 6; 			/// <summary>Emit Sound with Sub-index argument 2.</summary>
-	public const int ANIMATIONEVENT_GOIDLE = 7; 				/// <summary>Go Idle's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_JUMP = 8; 					/// <summary>Jump's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_PICKBOMB = 9; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWBOMB = 10; 			/// <summary>Throw Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_PICKTNT = 11; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_THROWTNT = 12; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_REPELBOMB = 13; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_ATTACKEND = 14; 			/// <summary>Attack End's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_ATTACKWINDOW = 15; 			/// <summary>Attack Window's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_EMITPARTICLEEFFECT_0 = 7; 	/// <summary>Emit Particle-Effect with index argument 0.</summary>
+	public const int ANIMATIONEVENT_EMITPARTICLEEFFECT_1 = 8; 	/// <summary>Emit Particle-Effect with index argument 1.</summary>
+	public const int ANIMATIONEVENT_EMITPARTICLEEFFECT_2 = 9; 	/// <summary>Emit Particle-Effect with index argument 2.</summary>
+	public const int ANIMATIONEVENT_GOIDLE = 10; 				/// <summary>Go Idle's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_JUMP = 11; 					/// <summary>Jump's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKBOMB = 12; 				/// <summary>Pick Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWBOMB = 13; 			/// <summary>Throw Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_PICKTNT = 14; 				/// <summary>Pick TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_THROWTNT = 15; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_REPELBOMB = 16; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ATTACKEND = 17; 			/// <summary>Attack End's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ATTACKWINDOW = 18; 			/// <summary>Attack Window's Animation Event's ID.</summary>
 #endregion
 
 #region StateFlagsIDs:

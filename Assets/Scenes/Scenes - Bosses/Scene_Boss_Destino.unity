@@ -903,7 +903,7 @@ PrefabInstance:
     - target: {fileID: 6844656098558936203, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6844656098558936203, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
@@ -3760,7 +3760,7 @@ PrefabInstance:
     - target: {fileID: 1811553757467805714, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 1811553757467805714, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
@@ -5826,10 +5826,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _amountTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 1
@@ -6660,7 +6660,7 @@ GameObject:
   - component: {fileID: 964893385}
   m_Layer: 19
   m_Name: BoxCollider_Bounds_Down
-  m_TagString: Untagged
+  m_TagString: Surface/Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -11494,10 +11494,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _amountTag:
     _tag: _BaseColor
-    _ID: 242
+    _ID: 241
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 0.5
@@ -13535,7 +13535,7 @@ PrefabInstance:
     - target: {fileID: 3953920185387902663, guid: c9c857279d141cb4eb947c325f96b93b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 3953920185387902663, guid: c9c857279d141cb4eb947c325f96b93b,
         type: 3}
@@ -13624,7 +13624,7 @@ PrefabInstance:
     - target: {fileID: 1811553757467805714, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 1811553757467805714, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
@@ -13742,7 +13742,7 @@ PrefabInstance:
     - target: {fileID: 6891664985920120699, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 40
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 6891664985920120699, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}

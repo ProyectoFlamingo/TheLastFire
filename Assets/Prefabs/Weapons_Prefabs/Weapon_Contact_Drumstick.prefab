@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 9127657913774458152}
   - component: {fileID: 5717391990654227665}
   - component: {fileID: 1806107268895912583}
+  - component: {fileID: 6832239581104648492}
   m_Layer: 0
   m_Name: Weapon_Contact_Drumstick
   m_TagString: Untagged
@@ -223,6 +224,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604c111f547837c448976f06f7f111f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6832239581104648492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811553757467805725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b88b99d2e7415642aa1ec12f8a2c2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _IDEvents: []
+  _impactEvents:
+  - tag:
+      _tag: Surface/Floor
+      index: 13
+    index: 8
+  _deactivationEvents: []
 --- !u!1 &4549603286287083014
 GameObject:
   m_ObjectHideFlags: 0
