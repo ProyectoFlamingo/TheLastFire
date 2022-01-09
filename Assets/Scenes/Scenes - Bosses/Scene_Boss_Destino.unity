@@ -865,6 +865,11 @@ PrefabInstance:
       propertyPath: _damage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1856390991319962395, guid: e9b3a6003fb1a464ca320a9d731f206b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4235758634229237138, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
       propertyPath: _hitBoxes.Array.size
@@ -875,6 +880,11 @@ PrefabInstance:
       propertyPath: _hitBoxes.Array.data[0]
       value: 
       objectReference: {fileID: 1005048450}
+    - target: {fileID: 4544960105391124980, guid: e9b3a6003fb1a464ca320a9d731f206b,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6782190566596395621, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
       propertyPath: _hitBoxes.Array.size
@@ -953,7 +963,7 @@ PrefabInstance:
     - target: {fileID: 6844656098558936205, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8975407156226519100, guid: e9b3a6003fb1a464ca320a9d731f206b,
         type: 3}
@@ -970,6 +980,11 @@ PrefabInstance:
       propertyPath: _hitBoxes.Array.data[1]
       value: 
       objectReference: {fileID: 1005048450}
+    - target: {fileID: 9012942756844164332, guid: e9b3a6003fb1a464ca320a9d731f206b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9b3a6003fb1a464ca320a9d731f206b, type: 3}
 --- !u!4 &192449230 stripped
@@ -3805,7 +3820,7 @@ PrefabInstance:
     - target: {fileID: 5196496118720604717, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5196496118720604717, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
@@ -5811,10 +5826,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 1
@@ -11180,7 +11195,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -11246,7 +11261,7 @@ MonoBehaviour:
   _setSizeRange:
     _min: 5
     _max: 5
-  _cooldownAfterSoundNote: 0.5
+  _cooldownAfterSoundNote: 0.1
   _sourceIndex: 0
   _leftDrumstick: {fileID: 1811553757580849915}
   _rightDrumstick: {fileID: 426630502}
@@ -11263,39 +11278,39 @@ MonoBehaviour:
   _drumBeatsSequence:
     _min: 2
     _max: 4
-  _leftDrumstickSpawnPoint: {x: -22, y: 1.25, z: 0}
-  _rightDrumstickSpawnPoint: {x: 22, y: 0, z: 0}
+  _leftDrumstickSpawnPoint: {x: -18, y: 1.25, z: 0}
+  _rightDrumstickSpawnPoint: {x: 18, y: 0, z: 0}
   _maxDrumstickSteeringScalar: 1.5
-  _maxDrumstickAnimationSpeed: 1.5
+  _maxDrumstickAnimationSpeed: 1
   _drumstickOffsetX: 15
   _drumstickShakeDuration: 0.3
   _drumstickShakeSpeed: 5
   _drumstickShakeMagnitude: 0.7
   _trumpet: {fileID: 4900582757622516936}
-  _trumpetSoundIndex: 6
+  _trumpetSoundIndex: 32
   _trumpetAnimationCredential:
     _tag: Attack
     _ID: 1080829965
   _trumpetSpawnPoint: {x: 0, y: 40, z: 0}
-  _maxTrumpetSteeringScalar: 1.5
+  _maxTrumpetSteeringScalar: 0.1
   _maxTrumpetAnimationSpeed: 1.7
-  _entranceDuration: 1
+  _entranceDuration: 2
   _exitDuration: 0.5
   _soundEmissionDuration: 2
   _trumpetShakeDuration: 2
   _trumpetShakeSpeed: 10
   _trumpetShakeMagnitude: 2
   _cymbals: {fileID: 192449231}
-  _cymbalSoundIndex: 11
+  _cymbalSoundIndex: 34
   _cymbalsAnimationCredential:
     _tag: Clash
     _ID: -1494220937
-  _maxCymbalsSteeringScalar: 2
-  _maxCymbalsAnimationSpeed: 1.7
+  _maxCymbalsSteeringScalar: 7
+  _maxCymbalsAnimationSpeed: 1
   _cymbalsShakeDuration: 0.7
   _cymbalsShakeSpeed: 15
   _cymbalsShakeMagnitude: 5
-  _cymbalsYOffset: 2.5
+  _cymbalsYOffset: 4
 --- !u!137 &1750701017 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 8714959339424976368, guid: 3e8b33e1bd6457045935992270f9958b,
@@ -11479,10 +11494,10 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _selfIlluminationTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _amountTag:
     _tag: _BaseColor
-    _ID: 241
+    _ID: 242
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
   _duration: 0.5
@@ -13567,6 +13582,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 7658740699581626696, guid: c9c857279d141cb4eb947c325f96b93b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7913604778335659991, guid: c9c857279d141cb4eb947c325f96b93b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: df4f3deb6a0c221419ef8636f13566c9, type: 2}
     - target: {fileID: 8061950132634171762, guid: c9c857279d141cb4eb947c325f96b93b,
         type: 3}
       propertyPath: color.b
@@ -13580,7 +13605,7 @@ PrefabInstance:
     - target: {fileID: 8317990646176619689, guid: c9c857279d141cb4eb947c325f96b93b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9c857279d141cb4eb947c325f96b93b, type: 3}
@@ -13659,7 +13684,7 @@ PrefabInstance:
     - target: {fileID: 5196496118720604717, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
       propertyPath: _maxSpeed
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5196496118720604717, guid: 39210166523f11040a40639eb50f1ee2,
         type: 3}
@@ -13703,6 +13728,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ApplyRootMotion
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4714878562482611707, guid: 493713ed66262a445bb9be9ba72ae005,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6891664985920120699, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}
@@ -13757,6 +13787,11 @@ PrefabInstance:
     - target: {fileID: 6891664985920120699, guid: 493713ed66262a445bb9be9ba72ae005,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6995630364548439077, guid: 493713ed66262a445bb9be9ba72ae005,
+        type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8552743842173861803, guid: 493713ed66262a445bb9be9ba72ae005,
