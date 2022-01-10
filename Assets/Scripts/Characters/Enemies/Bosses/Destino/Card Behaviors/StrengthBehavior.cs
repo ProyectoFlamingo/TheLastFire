@@ -18,6 +18,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _cooldownAfterSoundNote; 																/// <summary>Cooldown's Duration after a sing note is played.</summary>
 	[SerializeField] private int _sourceIndex; 																				/// <summary>Sound Effect's Sound Index.</summary>
 	[Space(5f)]
+	[SerializeField] private float _entranceLerpDuration; 																	/// <summary>Entrance's Interpolation Duration.</summary>
+	[SerializeField] private float _exitLerpDuration; 																		/// <summary>Exit's Interpolation Duration.</summary>
+	[SerializeField] private Vector3Pair[] _destinoSpawnPointsPairs; 														/// <summary>Destino Spawn-Points' Pairs.</summary>
+	[Space(5f)]
 	[Header("Drumsticks' Attributes:")]
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _leftDrumstick; 						/// <summary>Left Drumstick's AIContactWeapon.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _rightDrumstick; 						/// <summary>Right Drumstick's AIContactWeapon.</summary>
@@ -176,6 +180,12 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets cooldownAfterSoundNote property.</summary>
 	public float cooldownAfterSoundNote { get { return _cooldownAfterSoundNote; } }
 
+	/// <summary>Gets entranceLerpDuration property.</summary>
+	public float entranceLerpDuration { get { return _entranceLerpDuration; } }
+
+	/// <summary>Gets exitLerpDuration property.</summary>
+	public float exitLerpDuration { get { return _exitLerpDuration; } }
+
 	/// <summary>Gets drumstickSoundIndex property.</summary>
 	public int drumstickSoundIndex { get { return _drumstickSoundIndex; } }
 
@@ -184,6 +194,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets cymbalSoundIndex property.</summary>
 	public int cymbalSoundIndex { get { return _cymbalSoundIndex; } }
+
+	/// <summary>Gets destinoSpawnPointsPairs property.</summary>
+	public Vector3Pair[] destinoSpawnPointsPairs { get { return _destinoSpawnPointsPairs; } }
 
 	/// <summary>Gets drumstickAnimationCredential property.</summary>
 	public AnimatorCredential drumstickAnimationCredential { get { return _drumstickAnimationCredential; } }
@@ -206,6 +219,12 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		Gizmos.DrawWireSphere(leftDrumstickSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(rightDrumstickSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(trumpetSpawnPoint, gizmosRadius);
+
+		if(destinoSpawnPointsPairs != null) foreach(Vector3Pair pair in destinoSpawnPointsPairs)
+		{
+			Gizmos.DrawWireSphere(pair.a, gizmosRadius);
+			Gizmos.DrawWireSphere(pair.b, gizmosRadius);
+		}
 
 		/// \TODO Correct the positioning on the Text...
 		/*VGizmos.DrawText("Trumpet's Spawn Position", trumpetSpawnPoint, gizmosTextOffset, Color.white);
@@ -320,6 +339,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	{		
 		int setSize = setSizeRange.Random();
 		IEnumerator[] routines = new IEnumerator[setSize];
+		IEnumerator routine = null;
 
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 		AudioController.StopFSMLoop(0);
@@ -327,7 +347,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 		for(int i = 0; i < setSize; i++)
 		{
-			IEnumerator routine = null;
 			int index = Random.Range(0, 3);
 
 			switch(index)
@@ -344,14 +363,21 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		/*routines = new IEnumerator[3] { DrumsticksRoutine(boss), DrumsticksRoutine(boss), DrumsticksRoutine(boss) };
 		yield return null;*/
 
-		foreach(IEnumerator routine in routines)
+		routine = routines.Random();
+		while(routine.MoveNext()) yield return null;
+
+		/*foreach(IEnumerator routine in routines)
 		{
 			while(routine.MoveNext()) yield return null;
-		}
+		}*/
 
 		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
 		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
 		boss.Sing();
+
+		routine = DestinoSceneController.TakeDestinoToInitialPoint();
+
+		while(routine.MoveNext()) yield return null;
 
 		InvokeCoroutineEnd();
 	}
@@ -360,7 +386,6 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <param name="boss">Destino's reference.</param>
 	private IEnumerator DrumsticksRoutine(DestinoBoss boss)
 	{
-		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.reFaNoteIndex);
 		Renderer drumstickRenderer = leftDrumstick.weapon.meshContainer.GetComponent<Renderer>();
 		float drumstickLength = drumstickRenderer.bounds.size.y;
 		int[] drumstickCombo = VArray.RandomSet(LEFT, RIGHT);
@@ -371,6 +396,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			DrumstickRoutine(leftDrumstick, leftDrumstickSpawnPoint, Math.Min, -1.0f, scalar, s, drumstickLength),
 			DrumstickRoutine(rightDrumstick, rightDrumstickSpawnPoint, Math.Max, 1.0f, scalar, s, drumstickLength)
 		};
+		IEnumerator noteRoutine = PlayNote(boss, boss.reFaNoteIndex);
 
 		boss.animatorController.Play(boss.lalaCredential);
 
@@ -381,13 +407,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		leftDrumstick.transform.position = leftDrumstickSpawnPoint;
 		rightDrumstick.transform.position = rightDrumstickSpawnPoint;
 
-		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
-		while(wait.MoveNext()) yield return null;
+		//SecondsDelayWait wait = new SecondsDelayWait(clip.length);
+		while(noteRoutine.MoveNext()) yield return null;		//while(wait.MoveNext()) yield return null;
 
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
-
-		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
-		while(wait.MoveNext()) yield return null;
 
 /*#region ComboBullshit:
 		for(int i = 0; i < drumstickCombo.Length; i++)
@@ -463,13 +486,12 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			- Play the animation, while it plays, steer towards Astro Boy
 			- Stop steering once the Hit-Boxes are active
 		*/
-		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.laReNoteIndex);
-		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 		Vector3 projectedMateoPosition = Vector3.zero;
 		Vector3 initialPos = trumpetSpawnPoint;
 		float s = boss.stageScale;
 		float scalar = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
 		bool animationEnded = false;
+		IEnumerator noteRoutine = PlayNote(boss, boss.laReNoteIndex);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		trumpet.state = AnimationCommandState.None;
@@ -477,13 +499,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		trumpet.gameObject.SetActive(true);
 		trumpet.transform.position = trumpetSpawnPoint;
 
-		while(wait.MoveNext()) yield return null;
+		while(noteRoutine.MoveNext()) yield return null;
 
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
-
-		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
-		while(wait.MoveNext()) yield return null;
-
 		trumpet.animatorController.CrossFadeAndWait(trumpetAnimationCredential, 0.3f, 0, 0.0f, 0.0f, ()=> { animationEnded = true; });
 
 		while(!animationEnded)
@@ -514,16 +532,12 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			- Play the animation, while it plays, steer towards Astro Boy
 			- Stop steering once the Hit-Boxes are active
 		*/
-		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, boss.siMiNoteIndex);
-		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 		Vector3 projectedMateoPosition = Vector3.zero;
 		Vector3 initialPos = Vector3.zero;
 		float s = boss.stageScale;
 		float scalar = Mathf.Lerp(1.0f, maxCymbalsSteeringScalar, s);
 		bool animationEnded = false;
-
-		projectedMateoPosition = Game.ProjectMateoPosition(clip.length);
-		initialPos.x = projectedMateoPosition.x;
+		IEnumerator noteRoutine = PlayNote(boss, boss.siMiNoteIndex);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		cymbals.state = AnimationCommandState.None;
@@ -531,13 +545,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		cymbals.gameObject.SetActive(true);
 		cymbals.transform.position = initialPos;
 
-		while(wait.MoveNext()) yield return null;
+		while(noteRoutine.MoveNext()) yield return null;
 
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
-
-		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
-		while(wait.MoveNext()) yield return null;
-
 		cymbals.animatorController.CrossFadeAndWait(cymbalsAnimationCredential, 0.3f, 0, 0.0f, 0.0f, ()=> { animationEnded = true; });
 
 		while(!animationEnded)
@@ -589,6 +599,50 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		}
 
 		_drumstick.gameObject.SetActive(false);
+	}
+
+	/// <summary>Lerps through a waypoint pair and plays a note.</summary>
+	/// <param name="boss">Destino's Reference.</param>
+	/// <param name="noteCredential">Note's Credential's Index.</param>
+	private IEnumerator PlayNote(DestinoBoss boss, int noteCredential)
+	{
+		Vector3Pair pair  = destinoSpawnPointsPairs.Random();
+		float t = 0.0f;
+		Vector3 up = (pair.b - pair.a).normalized;
+		float inverseDuration = 1.0f / entranceLerpDuration;
+		bool playFinished = false;
+		Action onPlayFinished = ()=> { playFinished = true; };
+
+		boss.transform.rotation = Quaternion.LookRotation(Vector3.forward, up);
+
+		while(t < 1.0f)
+		{
+			boss.transform.position = Vector3.Lerp(pair.a, pair.b, t);
+			t += (Time.deltaTime * inverseDuration);
+			yield return null;
+		}
+
+		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, noteCredential);
+		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
+		boss.transform.position = pair.b;
+		boss.animatorController.PlayAndWait(noteCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
+
+		while(!playFinished) yield return null;
+
+		t = 0.0f;
+		inverseDuration = 1.0f / exitLerpDuration;
+
+		while(t < 1.0f)
+		{
+			boss.transform.position = Vector3.Lerp(pair.b, pair.a, t);
+			t += (Time.deltaTime * inverseDuration);
+			yield return null;
+		}
+
+		boss.transform.position = pair.a;
+
+		wait.ChangeDurationAndReset(cooldownAfterSoundNote);
+		while(wait.MoveNext()) yield return null;
 	}
 #endregion
 

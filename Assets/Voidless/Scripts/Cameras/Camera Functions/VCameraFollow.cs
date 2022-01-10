@@ -16,6 +16,11 @@ public abstract class VCameraFollow : VCameraComponent
 {
 	protected const float SMOOTH_TIME_INSTANT = 0.1f; 					/// <summary>Instant's Smooth Time.</summary>
 
+	/*[SerializeField] private VCameraFollowAxisData _xAxisFollowData; 	/// <summary>Follow's Data for the X's Axis.</summary>
+	[SerializeField] private VCameraFollowAxisData _yAxisFollowData; 	/// <summary>Follow's Data for the Y's Axis.</summary>
+	[SerializeField] private VCameraFollowAxisData _zAxisFollowData; 	/// <summary>Follow's Data for the Z's Axis.</summary>*/
+
+	[Space(5f)]
 	[Header("Following's Attributes:")]
 	[SerializeField] private FollowMode _followMode; 					/// <summary>Follow's Mode.</summary>
 	[SerializeField] private bool _relativeToTarget; 					/// <summary>Make the following relative to the target?.</summary>

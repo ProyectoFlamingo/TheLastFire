@@ -14,6 +14,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 	[SerializeField] private DestinoBoss _destino; 																/// <summary>Destino's Reference.</summary>
 	[SerializeField] private DestinoBossAIController _destinoController; 										/// <summary>Destino's AI Controller.</summary>
+	[SerializeField] private Vector3Pair _destinoInitialSpawnPointPair; 										/// <summary>Spawn Point pair that refers for Destino's initial position.</summary>
+	[SerializeField] private float _initialPointLerpDuration; 													/// <summary>Interpolation duration from pair point B to pair point A.</summary>
 	[Space(5f)]
 	[SerializeField] private float _cooldownBeforeReleasingPlayerControl; 										/// <summary>Cooldown Duration before releasing Player's Control.</summary>
 	[Space(5f)]
@@ -89,6 +91,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Gets destinoController property.</summary>
 	public DestinoBossAIController destinoController { get { return _destinoController; } }
 
+	/// <summary>Gets destinoInitialSpawnPointPair property.</summary>
+	public Vector3Pair destinoInitialSpawnPointPair { get { return _destinoInitialSpawnPointPair; } }
+
 	/// <summary>Gets stage1SceneryGroup property.</summary>
 	public GameObject stage1SceneryGroup { get { return _stage1SceneryGroup; } }
 
@@ -109,6 +114,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 	/// <summary>Gets destinoSpotLight property.</summary>
 	public Light destinoSpotLight { get { return _destinoSpotLight; } }
+
+	/// <summary>Gets initialPointLerpDuration property.</summary>
+	public float initialPointLerpDuration { get { return _initialPointLerpDuration; } }
 
 	/// <summary>Gets openingClipPercentage property.</summary>
 	public float openingClipPercentage { get { return _openingClipPercentage; } }
@@ -199,7 +207,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = color;
-		/// ... ?
+		Gizmos.DrawWireSphere(destinoInitialSpawnPointPair.a, 0.5f);
+		Gizmos.DrawWireSphere(destinoInitialSpawnPointPair.b, 0.5f);
 	}
 //#endif
 
@@ -224,6 +233,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
 	private void Start()
 	{
+		destino.transform.position = destinoInitialSpawnPointPair.b;
+
 		Game.mateo.Meditate();
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
 		Game.ResetFSMLoopStates();
@@ -418,6 +429,21 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 #endregion
 
 #region Coroutines:
+	/// <summary>Takes Destino into the initial point.</summary>
+	/// <param name="onInterpolationEnds">Optional callback invoked when the interpolation ends [null by default].</param>
+	public static IEnumerator TakeDestinoToInitialPoint(Action onInterpolationEnds = null)
+	{
+		Transform destinoTransform = Instance.destino.transform;
+		Vector3Pair pair = Instance.destinoInitialSpawnPointPair;
+
+		destinoTransform.rotation = Quaternion.identity;
+		destinoTransform.position = pair.a;
+		
+		IEnumerator routine = destinoTransform.DisplaceToPosition(pair.b, Instance.initialPointLerpDuration, onInterpolationEnds, VMath.EaseInQuad);
+
+		while(routine.MoveNext()) yield return null;
+	}
+
 	/// <summary>Changes the state of the Curtain.</summary>
 	/// <param name="_open">Should the curtain be opened?.</param>
 	/// <param name="_duration">Duration of the state change.</param>

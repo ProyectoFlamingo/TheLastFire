@@ -266,6 +266,14 @@ public static class VMath
 
 #endregion
 
+#region Easings:
+	/// <returns>Ease-In quad for Normalized Time t.</returns>
+	public static float EaseInQuad(float t)
+	{
+		return t * t;
+	}
+#endregion
+
 #region NormalizedPropertyFunctionOCs:
 	/*public static float Interpolate(float a, float b, float t)
 	{
@@ -285,6 +293,10 @@ public static class VMath
 
 		return null;
 	}
+
+	/// <param name="t">Normalized Parameter T.</param>
+	/// <returns>T as it is.</returns>
+	public static float DefaultNormalizedPropertyFunction(float t) { return t; }
 
 	/// <summary>Calculates a number to a given exponential.</summary>
 	/// <param name="t">Number to elevate to given exponent.</param>

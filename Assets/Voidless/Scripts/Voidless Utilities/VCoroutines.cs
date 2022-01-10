@@ -29,6 +29,12 @@ public enum TransformRelativeness
 	Local
 }
 
+public enum InterpolationType
+{
+	Lerp,
+	Slerp
+}
+
 public static class VCoroutines
 {
 	public static readonly WaitForEndOfFrame WAIT_MAIN_THREAD; 		/// <summary>Wait for end of main thread's Yield Instruction.</summary>
@@ -190,15 +196,17 @@ public static class VCoroutines
 	/// <param name="_position">Position to move the transform to.</param>
 	/// <param name="_duration">Displacement's duration.</param>
 	/// <param name="onMoveEnds">Optional Callback invoked when the displacement ends.</param>
-	public static IEnumerator DisplaceToPosition(this Transform _transform, Vector3 _position, float _duration, Action onMoveEnds = null)
+	public static IEnumerator DisplaceToPosition(this Transform _transform, Vector3 _position, float _duration, Action onMoveEnds = null, Func<float, float> f = null)
 	{
 		Vector3 originalPosition = _transform.localPosition;
 		float inverseDuration = 1.0f / _duration;
 		float t = 0.0f;
 
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
+
 		while(t < (1.0f + Mathf.Epsilon))
 		{
-			_transform.localPosition = Vector3.Lerp(originalPosition, _position, t);
+			_transform.localPosition = Vector3.Lerp(originalPosition, _position, f(t));
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}
@@ -439,7 +447,7 @@ public static class VCoroutines
 	/// <param name="_duration">Interpolation's Duration.</param>
 	/// <param name="_properties">Transform's properties to interpolate [PositionAndRotation by default].</param>
 	/// <param name="onLerpEnds">Optional callback invoked when the interpolation ends.</param>
-	public static IEnumerator LerpTowardsTransform(this Transform _transform, Transform _data, float _duration, TransformProperties _properties = TransformProperties.PositionAndRotation, Space _space = Space.World, Action onLerpEnds = null)
+	public static IEnumerator LerpTowardsTransform(this Transform _transform, Transform _data, float _duration, TransformProperties _properties = TransformProperties.PositionAndRotation, Space _space = Space.World, InterpolationType _lerpType = InterpolationType.Lerp, Action onLerpEnds = null, Func<float, float> f = null)
 	{
 		TransformData originalData = _transform;
 		float inverseDuration = 1.0f / _duration;
@@ -448,23 +456,40 @@ public static class VCoroutines
 		Vector3 positionB = _space == Space.World ? _data.position : _data.localPosition;
 		Quaternion rotationA = _space == Space.World ? originalData.rotation : originalData.localRotation;
 		Quaternion rotationB = _space == Space.World ? _data.rotation : _data.localRotation;
+		Func<Vector3, Vector3, float, Vector3> vectorLerp = null;
+		Func<Quaternion, Quaternion, float, Quaternion> rotationLerp = null;
+
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
+
+		switch(_lerpType)
+		{
+			case InterpolationType.Lerp:
+			vectorLerp = Vector3.Lerp;
+			rotationLerp = Quaternion.Lerp;
+			break;
+
+			case InterpolationType.Slerp:
+			vectorLerp = Vector3.Slerp;
+			rotationLerp = Quaternion.Slerp;
+			break;
+		}
 
 		while(t < 1.0f)
 		{
 			switch(_space)
 			{
 				case Space.World:
-				if((_properties | TransformProperties.Position) == _properties) _transform.position = Vector3.Lerp(positionA, positionB, t);
-				if((_properties | TransformProperties.Rotation) == _properties) _transform.rotation = Quaternion.Lerp(rotationA, rotationB, t);
+				if((_properties | TransformProperties.Position) == _properties) _transform.position = vectorLerp(positionA, positionB, t);
+				if((_properties | TransformProperties.Rotation) == _properties) _transform.rotation = rotationLerp(rotationA, rotationB, t);
 				break;
 
 				case Space.Self:
-				if((_properties | TransformProperties.Position) == _properties) _transform.localPosition = Vector3.Lerp(positionA, positionB, t);
-				if((_properties | TransformProperties.Rotation) == _properties) _transform.localRotation = Quaternion.Lerp(rotationA, rotationB, t);
+				if((_properties | TransformProperties.Position) == _properties) _transform.localPosition = vectorLerp(positionA, positionB, t);
+				if((_properties | TransformProperties.Rotation) == _properties) _transform.localRotation = rotationLerp(rotationA, rotationB, t);
 				break;
 			}
 
-			if((_properties | TransformProperties.Scale) == _properties) _transform.localScale = Vector3.Lerp(originalData.scale, _data.localScale, t);
+			if((_properties | TransformProperties.Scale) == _properties) _transform.localScale = vectorLerp(originalData.scale, _data.localScale, t);
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
@@ -492,10 +517,11 @@ public static class VCoroutines
 	/// <param name="_duration">Interpolation's Duration.</param>
 	/// <param name="_properties">Transform's properties to interpolate [PositionAndRotation by default].</param>
 	/// <param name="onLerpEnds">Optional callback invoked when the interpolation ends.</param>
-	public static IEnumerator LerpTowardsData(this Transform _transform, TransformData _data, float _duration, TransformProperties _properties = TransformProperties.PositionAndRotation, Space _space = Space.World, Action onLerpEnds = null)
+	public static IEnumerator LerpTowardsData(this Transform _transform, TransformData _data, float _duration, TransformProperties _properties = TransformProperties.PositionAndRotation, Space _space = Space.World, Action onLerpEnds = null, Func<float, float> f = null)
 	{
 		TransformData originalData = _transform;
 		float inverseDuration = 1.0f / _duration;
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
 		float t = 0.0f;
 		Vector3 positionA = _space == Space.World ? originalData.position : originalData.localPosition;
 		Vector3 positionB = _space == Space.World ? _data.position : _data.localPosition;
@@ -526,17 +552,17 @@ public static class VCoroutines
 			switch(_space)
 			{
 				case Space.World:
-				if((_properties | TransformProperties.Position) == _properties) _transform.position = Vector3.Lerp(positionA, positionB, t);
-				if((_properties | TransformProperties.Rotation) == _properties) _transform.rotation = Quaternion.Lerp(rotationA, rotationB, t);
+				if((_properties | TransformProperties.Position) == _properties) _transform.position = Vector3.Lerp(positionA, positionB, f(t));
+				if((_properties | TransformProperties.Rotation) == _properties) _transform.rotation = Quaternion.Lerp(rotationA, rotationB, f(t));
 				break;
 
 				case Space.Self:
-				if((_properties | TransformProperties.Position) == _properties) _transform.localPosition = Vector3.Lerp(positionA, positionB, t);
-				if((_properties | TransformProperties.Rotation) == _properties) _transform.localRotation = Quaternion.Lerp(rotationA, rotationB, t);
+				if((_properties | TransformProperties.Position) == _properties) _transform.localPosition = Vector3.Lerp(positionA, positionB, f(t));
+				if((_properties | TransformProperties.Rotation) == _properties) _transform.localRotation = Quaternion.Lerp(rotationA, rotationB, f(t));
 				break;
 			}
 
-			if((_properties | TransformProperties.Scale) == _properties) _transform.localScale = Vector3.Lerp(originalData.scale, _data.scale, t);
+			if((_properties | TransformProperties.Scale) == _properties) _transform.localScale = Vector3.Lerp(originalData.scale, _data.scale, f(t));
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;

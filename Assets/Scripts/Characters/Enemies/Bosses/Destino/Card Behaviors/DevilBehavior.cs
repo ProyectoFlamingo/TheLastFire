@@ -37,6 +37,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _towerHP; 							/// <summary>Towers' starting HP.</summary>
 	[SerializeField] private float _devilHP; 							/// <summary>Devil's HP.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets devil property.</summary>
 	public Devil devil { get { return _devil; } }
 
@@ -102,6 +103,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets devilHP property.</summary>
 	public float devilHP { get { return _devilHP; } }
+#endregion
 
 #if UNITY_EDITOR
 	/// <summary>Callback invoked when drawing Gizmos.</summary>

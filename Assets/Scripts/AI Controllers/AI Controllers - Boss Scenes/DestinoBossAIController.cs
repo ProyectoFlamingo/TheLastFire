@@ -122,7 +122,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 		character.rigHead.gameObject.SetActive(false);
 		character.removableHead.gameObject.SetActive(true);
 		character.removableHead.SetParent(null);
-		this.StartCoroutine(character.removableHead.LerpTowardsData(headFallPointData, fallDuration, TransformProperties.PositionAndRotation, Space.World, OnHeadFalled), ref fallenTolerance);
+		this.StartCoroutine(character.removableHead.LerpTowardsData(headFallPointData, fallDuration, TransformProperties.PositionAndRotation, Space.World, OnHeadFalled, VMath.EaseInQuad), ref fallenTolerance);
 	}
 
 #region Callbacks:
@@ -175,7 +175,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	private void OnFallenToleranceEnds()
 	{
 		character.headHurtBox.Activate(false);
-		this.StartCoroutine(character.removableHead.LerpTowardsTransform(character.headPivot, headReturnDuration, TransformProperties.PositionAndRotation, Space.World, OnHeadReturned), ref fallenTolerance);
+		this.StartCoroutine(character.removableHead.LerpTowardsTransform(character.headPivot, headReturnDuration, TransformProperties.PositionAndRotation, Space.World, InterpolationType.Slerp, OnHeadReturned, VMath.EaseInQuad), ref fallenTolerance);
 	}
 
 	/// <summary>Callback internally called when the Head returns after its fall.</summary>

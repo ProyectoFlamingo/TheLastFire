@@ -758,8 +758,8 @@ public class Mateo : Character
 		|| this.HasStates(IDs.STATE_HURT)
 		|| this.HasStates(IDs.STATE_ATTACKING)
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
-		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING))
-		|| attackedOnAir) return;
+		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
+		|| attackedOnAir)) return;
 		
 		if(this.HasStates(IDs.STATE_MEDITATING))
 		{
