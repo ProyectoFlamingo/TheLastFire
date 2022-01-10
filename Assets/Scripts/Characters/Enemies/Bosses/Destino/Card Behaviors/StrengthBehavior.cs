@@ -363,13 +363,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		/*routines = new IEnumerator[3] { DrumsticksRoutine(boss), DrumsticksRoutine(boss), DrumsticksRoutine(boss) };
 		yield return null;*/
 
-		routine = routines.Random();
-		while(routine.MoveNext()) yield return null;
-
-		/*foreach(IEnumerator routine in routines)
+		foreach(IEnumerator instrumentRoutine in routines)
 		{
-			while(routine.MoveNext()) yield return null;
-		}*/
+			while(instrumentRoutine.MoveNext()) yield return null;
+		}
 
 		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
 		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
