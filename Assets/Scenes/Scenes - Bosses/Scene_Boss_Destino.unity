@@ -6740,7 +6740,7 @@ MonoBehaviour:
     _ID: 131
   _maxSelfIllumination: 1
   _maxFlashAmount: 1
-  _duration: 1
+  _duration: 0.2
   _cycles: 2
   _shake: 1
   _shakeTransforms:
@@ -6748,10 +6748,10 @@ MonoBehaviour:
   - {fileID: 1777180235}
   _shakeDuration: 0.3
   _shakeSpeed: 15
-  _shakeMagnitude: 0.2
+  _shakeMagnitude: 1
   _hurtParticleEffect:
-    _transform: {fileID: 1923969113}
-    _particleEffectIndex: 11
+    _transform: {fileID: 1467227860}
+    _particleEffectIndex: 8
     _points: []
   _hurtSoundIndex: 67
 --- !u!114 &734502233 stripped
@@ -11353,7 +11353,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -11870,6 +11870,12 @@ MonoBehaviour:
 --- !u!137 &1462489857 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 3602078261860101675, guid: 16d6b59009cf8314aa995cfa634e8c92,
+    type: 3}
+  m_PrefabInstance: {fileID: 5135843920560793742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1467227860 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 267034065785194972, guid: 16d6b59009cf8314aa995cfa634e8c92,
     type: 3}
   m_PrefabInstance: {fileID: 5135843920560793742}
   m_PrefabAsset: {fileID: 0}
@@ -13731,7 +13737,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14376,7 +14382,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -14722,12 +14728,6 @@ Transform:
   m_Father: {fileID: 668150546}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1923969113 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5135843920326141278, guid: 16d6b59009cf8314aa995cfa634e8c92,
-    type: 3}
-  m_PrefabInstance: {fileID: 5135843920560793742}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1933485778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16630,6 +16630,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8331488656955062273, guid: 16d6b59009cf8314aa995cfa634e8c92,
         type: 3}
+    - target: {fileID: 8965366077498841993, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _invincibilityDuration
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
         type: 3}
       propertyPath: _healthDistribution.Array.data[0]
@@ -17031,7 +17036,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
