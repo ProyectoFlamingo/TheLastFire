@@ -195,6 +195,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 053d0aaa5ee56e3469f1cf8d67c4654f, type: 3}
   - {fileID: 8300000, guid: 2543449ca4d611a4fb03ee2f2e7a616a, type: 3}
   - {fileID: 8300000, guid: b707d8e47f6689148a556b42da7e9645, type: 3}
+  - {fileID: 8300000, guid: 07b92fc6d93da3143b47cba97d4b51d4, type: 3}
+  - {fileID: 8300000, guid: 99d3ffe9445ac414887cdc8da2e4ad56, type: 3}
+  - {fileID: 8300000, guid: 4ab62c308ec8d3f4a8ee60c308697fc2, type: 3}
   _particleEffects:
   - {fileID: 2948463789655692408, guid: 05729ccca8bca724b80aa225032af021, type: 3}
   - {fileID: 6782677579952761336, guid: 40a16e0a24c989a40b60a9e7cfc239dc, type: 3}
@@ -239,6 +242,11 @@ MonoBehaviour:
   - {fileID: 393582703892377902, guid: 3826d98c4a0db0040b9d9a400bebf4cd, type: 3}
   - {fileID: 393582703892377902, guid: 6433f965fe057e648ae27099f89d6355, type: 3}
   - {fileID: 393582703892377902, guid: 69d01e33ea01aaa40a1768f2d2d84033, type: 3}
+  - {fileID: 4429049468293940969, guid: 7416e839a67b42747977d67aeb83b9db, type: 3}
+  - {fileID: 2209293261601283444, guid: 578345b0d94d6c64d993a63ab28c64b8, type: 3}
+  - {fileID: 7145356298802739175, guid: a1f9665ad5e31b24a9ed90a12ca5ed1f, type: 3}
+  - {fileID: 1462646080363253270, guid: d95fcd6b39dda6c4ca12610f55838f9d, type: 3}
+  - {fileID: 8642273460957978059, guid: 7af93d4e2464efa42bb7b7d734349fb6, type: 3}
   _explodables:
   - {fileID: 7757396531229370483, guid: 510f45f4d87997d48933833abca64959, type: 3}
   - {fileID: 7757396531229370483, guid: be71cb40b8fbe2c4ab5223202fadb6ef, type: 3}

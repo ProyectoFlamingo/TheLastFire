@@ -6750,10 +6750,10 @@ MonoBehaviour:
   _shakeSpeed: 15
   _shakeMagnitude: 0.2
   _hurtParticleEffect:
-    _transform: {fileID: 0}
-    _particleEffectIndex: 0
+    _transform: {fileID: 1923969113}
+    _particleEffectIndex: 11
     _points: []
-  _hurtSoundIndex: 46
+  _hurtSoundIndex: 67
 --- !u!114 &734502233 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8965366077498841993, guid: 16d6b59009cf8314aa995cfa634e8c92,
@@ -7347,6 +7347,26 @@ PrefabInstance:
       propertyPath: _entranceSoundIndex.index
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitSoundIndex
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitSoundIndex
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -7404,8 +7424,8 @@ MonoBehaviour:
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
   _destinoSpawnPointsPairs:
-  - a: {x: 0, y: -3, z: -5}
-    b: {x: 0, y: 2, z: -5}
+  - a: {x: 0, y: 17.58, z: -5}
+    b: {x: 0, y: 13, z: -5}
   _entranceLerpDuration: 0.3
   _exitLerpDuration: 0.2
   _scythe: {fileID: 1296482790}
@@ -11335,6 +11355,26 @@ PrefabInstance:
       propertyPath: _run
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitSoundIndex
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitSoundIndex
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -13703,6 +13743,26 @@ PrefabInstance:
       propertyPath: _entranceSoundIndex.collectionIndex
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitSoundIndex
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitSoundIndex
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -14318,6 +14378,26 @@ PrefabInstance:
       propertyPath: _run
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitSoundIndex
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitSoundIndex
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -14642,6 +14722,12 @@ Transform:
   m_Father: {fileID: 668150546}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1923969113 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5135843920326141278, guid: 16d6b59009cf8314aa995cfa634e8c92,
+    type: 3}
+  m_PrefabInstance: {fileID: 5135843920560793742}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1933485778
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16961,6 +17047,26 @@ PrefabInstance:
         type: 3}
       propertyPath: _fallPointData.showHandles
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitSoundIndex
+      value: 68
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitSoundIndex
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _hitParticleEffect._particleEffectIndex
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _headHitParticleEffect._particleEffectIndex
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
