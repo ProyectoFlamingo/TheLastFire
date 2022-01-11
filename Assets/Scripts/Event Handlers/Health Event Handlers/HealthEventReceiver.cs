@@ -34,6 +34,8 @@ public class HealthEventReceiver : MonoBehaviour
 	[Space(5f)]
 	[Header("Sound Effects:")]
 	[TabGroup("FXs", "Sound Effects")][SerializeField] private int _hurtSoundIndex; 								/// <summary>Hurt's Sound Index.</summary>
+	private Material[][] _materials; 																				/// <summary>Materials contained on all Renderers.</summary>
+	private Color[][] _colors; 																						/// <summary>Colors of all materials.</summary>
 	private Coroutine flashRoutine; 																				/// <summary>Flash Coroutine's Reference.</summary>
 	private Coroutine shakeRoutine; 																				/// <summary>Shake Coroutine's Reference.</summary>
 
@@ -124,6 +126,20 @@ public class HealthEventReceiver : MonoBehaviour
 
 	/// <summary>Gets hurtSoundIndex property.</summary>
 	public int hurtSoundIndex { get { return _hurtSoundIndex; } }
+
+	/// <summary>Gets and Sets materials property.</summary>
+	public Material[][] materials
+	{
+		get { return _materials; }
+		protected set { _materials = value; }
+	}
+
+	/// <summary>Gets and Sets colors property.</summary>
+	public Color[][] colors
+	{
+		get { return _colors; }
+		protected set { _colors = value; }
+	}
 #endregion
 
 	/// <summary>Resets FlashWhenReceivingDamage's instance to its default values.</summary>
@@ -145,12 +161,48 @@ public class HealthEventReceiver : MonoBehaviour
 				material.EnableKeyword("_EMISSION");
 			}
 		}
+
+		UpdateMaterialsColors();
 	}
 
 	/// <summary>Callback invoked when HealthEventReceiver's instance is going to be destroyed and passed to the Garbage Collector.</summary>
 	private void OnDestroy()
 	{
 		if(health != null) health.onHealthEvent -= OnHealthEvent;
+	}
+
+	/// <summary>Updates Materials' colors.</summary>
+	public void UpdateMaterialsColors()
+	{
+		int length = renderers.Length;
+
+		materials = new Material[length][];
+		colors = new Color[length][];
+
+		for(int i = 0; i < length; i++)
+		{
+			materials[i] = renderers[i].materials;
+			colors[i] = new Color[materials[i].Length];
+
+			for(int j = 0; j < colors[i].Length; j++)
+			{
+				colors[i][j] = materials[i][j].GetColor(selfIlluminationTag);
+			}
+		}
+	}
+
+	/// <summary>Returns Materials' colors to their default color.</summary>
+	private void ReturnToDefaultMaterialsColors()
+	{
+		int length = renderers.Length;
+
+		for(int i = 0; i < length; i++)
+		{
+			for(int j = 0; j < colors[i].Length; j++)
+			{
+				materials[i][j].SetColor(selfIlluminationTag, colors[i][j]);
+			}
+		}
 	}
 
 	/// <summary>Event invoked when a Health's event has occured.</summary>
@@ -188,23 +240,12 @@ public class HealthEventReceiver : MonoBehaviour
 		/// Jagged Arrays: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/jagged-arrays
 		FloatRange sinRange = new FloatRange(-1.0f, 1.0f);
 		int length = renderers.Length;
-		Material[][] materials = new Material[length][];
-		Color[][] colors = new Color[length][];
 		float inverseDuration = 1.0f / duration;
 		float t = 0.0f;
 		float x = 360.0f * cycles * Mathf.Deg2Rad;
-		float s = 0.0f;
+		float s = 0.0f;	
 
-		for(int i = 0; i < length; i++)
-		{
-			materials[i] = renderers[i].materials;
-			colors[i] = new Color[materials[i].Length];
-
-			for(int j = 0; j < colors[i].Length; j++)
-			{
-				colors[i][j] = materials[i][j].GetColor(selfIlluminationTag);
-			}
-		}
+		ReturnToDefaultMaterialsColors();
 
 		while(t < 1.0f)
 		{
@@ -222,13 +263,7 @@ public class HealthEventReceiver : MonoBehaviour
 			yield return null;
 		}
 
-		for(int i = 0; i < length; i++)
-		{
-			for(int j = 0; j < colors[i].Length; j++)
-			{
-				materials[i][j].SetColor(selfIlluminationTag, colors[i][j]);
-			}
-		}
+		ReturnToDefaultMaterialsColors();
 	}
 
 	/// <summary>Shake's Routine.</summary>

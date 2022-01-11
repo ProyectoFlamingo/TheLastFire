@@ -241,8 +241,6 @@ MonoBehaviour:
   - _tag: Player
     index: 5
   _impactTags:
-  - _tag: Player
-    index: 5
   - _tag: Projectile/Player
     index: 11
   - _tag: Surface/Floor

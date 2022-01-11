@@ -53,6 +53,7 @@ public class DestinoCard : MonoBehaviour
 #endif
 	private Coroutine fallenTolerance; 												/// <summary>Fallen Tolerance's Coroutine reference.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets run property.</summary>
 	public bool run { get { return _run; } }
 
@@ -111,6 +112,7 @@ public class DestinoCard : MonoBehaviour
 
 	/// <summary>Gets headHitSoundIndex property.</summary>
 	public int headHitSoundIndex { get { return _headHitSoundIndex; } }
+#endregion
 
 	/// <summary>Draws Gizmos on Editor mode.</summary>
 	private void OnDrawGizmos()
