@@ -58,6 +58,22 @@ public class RingsContainer : MonoBehaviour
 		}
 	}
 
+	[Button("Get Rings")]
+	/// <summary>Gets self-contained Rings.</summary>
+	private void GetRings()
+	{
+		List<Ring> ringsList = new List<Ring>();
+		rings = null;
+		
+		foreach(Transform child in transform)
+		{
+			Ring ring = child.GetComponent<Ring>();
+			if(ring != null) ringsList.Add(ring);
+		}
+
+		rings = ringsList.ToArray();
+	}
+
 	[Button("Activate Rings")]
 	/// <summary>Activates Rings.</summary>
 	private void Activate()

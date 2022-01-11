@@ -58,6 +58,22 @@ public class BreakableTargetsContainer : MonoBehaviour
 		}
 	}
 
+	[Button("Get Targets")]
+	/// <summary>Gets self-contained BreakableTargets.</summary>
+	private void GetBreakableTargets()
+	{
+		List<BreakableTarget> targetsList = new List<BreakableTarget>();
+		targets = null;
+		
+		foreach(Transform child in transform)
+		{
+			BreakableTarget target = child.GetComponent<BreakableTarget>();
+			if(target != null) targetsList.Add(target);
+		}
+
+		targets = targetsList.ToArray();
+	}
+
 	[Button("Activate Targets")]
 	/// <summary>Activates Targets.</summary>
 	private void Activate()
