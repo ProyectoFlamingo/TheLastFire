@@ -183,8 +183,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.2, y: 3}
+  m_Offset: {x: 0, y: -0.00000047683716}
+  m_Size: {x: 0.2, y: 3.794735}
   m_Direction: 0
 --- !u!1 &7980012213842642989
 GameObject:
@@ -295,8 +295,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 1.5}
-  m_Size: {x: 0.2, y: 0.4}
+  m_Offset: {x: 0, y: 1.9845092}
+  m_Size: {x: 0.2, y: 0.22571564}
   m_Direction: 0
 --- !u!70 &5525030072665407416
 CapsuleCollider2D:
@@ -311,8 +311,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.5}
-  m_Size: {x: 0.2, y: 0.4}
+  m_Offset: {x: 0, y: -1.9879956}
+  m_Size: {x: 0.2, y: 0.27451468}
   m_Direction: 0
 --- !u!1001 &1234066881168084123
 PrefabInstance:
@@ -379,17 +379,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 7a860239b4e20d1418cbc6518288bb85,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5000002
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7a860239b4e20d1418cbc6518288bb85,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5000002
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7a860239b4e20d1418cbc6518288bb85,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5000001
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 7a860239b4e20d1418cbc6518288bb85,
         type: 3}
