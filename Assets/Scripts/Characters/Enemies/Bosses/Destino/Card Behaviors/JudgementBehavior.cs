@@ -261,11 +261,14 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
 		IEnumerator[] routines = VArray.RandomSet(DanceShowRoutine(boss), FireShowRoutine(boss), SwordShowRoutine(boss));
+		IEnumerator routine = routines.Random();
 
-		foreach(IEnumerator routine in routines)
+		/*foreach(IEnumerator routine in routines)
 		{
 			while(routine.MoveNext()) yield return null;
-		}
+		}*/
+
+		while(routine.MoveNext()) yield return null;
 
 		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
 		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);

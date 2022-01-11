@@ -44,24 +44,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31806d544e032b340a8c0c5640add86e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _behavior: {fileID: 11400000, guid: 62bdcbff77832424ab218399392498ed, type: 2}
-  _entranceSoundIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _run: 0
+  _behavior: {fileID: 0}
+  _entranceSoundIndex: 0
   _cardRenderer: {fileID: 0}
   _hurtBox: {fileID: 2752281725782390209}
+  _hitTags: []
   _fallPointData:
     _parent: {fileID: 0}
     _position: {x: 0, y: 2.8, z: 1}
     _rotation: {x: 0.50000006, y: -0.8660254, z: -0.000000021855707, w: 0.000000037855166}
     _eulerAngles: {x: -1.4248885e-12, y: 180, z: 300}
     _scale: {x: 0, y: 0, z: 0}
+    hideScale: 0
+    showForLinePath: 0
+    showHandles: 0
   _fallDuration: 1
   _fallenDuration: 5
+  _distance:
+    _distance: 0
+    _squareDistance: 0
   _rotationDuration: 1
   _slashDuration: 1.5
   _slashSpeed: 5
+  _hitParticleEffect:
+    _transform: {fileID: 3982232222608576051}
+    _particleEffectIndex: 24
+    _points:
+    - {x: 0, y: 0, z: 0}
+  _headHitParticleEffect:
+    _transform: {fileID: 3982232222608576051}
+    _particleEffectIndex: 24
+    _points:
+    - {x: 0, y: 0, z: 0}
+  _hitSoundIndex: 41
+  _headHitSoundIndex: 41
   cardMeshFilter: {fileID: 0}
   color: {r: 0, g: 1, b: 0.99999976, a: 1}
 --- !u!1 &6374723815735678928
@@ -132,10 +149,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 0
   _detectableHitEvents: 1
-  _affectedLayer:
-    serializedVersion: 2
-    m_Bits: 4096
-  _affectedTags: []
 --- !u!61 &7895889822078521700
 BoxCollider2D:
   m_ObjectHideFlags: 0

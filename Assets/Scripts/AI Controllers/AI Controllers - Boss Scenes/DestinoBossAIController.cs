@@ -214,6 +214,8 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 			{ /// Call the head's throwing routine just once:
 				activatedEvent = true;
 				ThrowHeadIntoFloor();
+				_card.headHitParticleEffect.EmitParticleEffects();
+				AudioController.PlayOneShot(SourceType.SFX, 0, _card.headHitSoundIndex);
 			}
 
 			t += (Time.deltaTime * inverseSlashDuration);

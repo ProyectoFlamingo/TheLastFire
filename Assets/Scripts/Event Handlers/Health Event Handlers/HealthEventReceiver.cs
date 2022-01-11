@@ -9,20 +9,33 @@ namespace Flamingo
 {
 public class HealthEventReceiver : MonoBehaviour
 {
-	[SerializeField] private Health _health; 					/// <summary>Health Component's Reference.</summary>
+	[SerializeField] private Health _health; 																/// <summary>Health Component's Reference.</summary>
 	[Space(5f)]
 	[Header("Flash's Attributes:")]
-	[SerializeField] private Renderer[] _renderers; 			/// <summary>Renderer's to flash.</summary>
-	[SerializeField] private Color _flashColor; 				/// <summary>Flash's Color.</summary>
-	[SerializeField] private MaterialTag _selfIlluminationTag; 	/// <summary>Self-Illumination's Property Tag.</summary>
-	[SerializeField] private MaterialTag _amountTag; 			/// <summary>Flash Amount's Property Tag.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _maxSelfIllumination; 	/// <summary>Maximum's Self-Illumination.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _maxFlashAmount; 			/// <summary>Maximum's Flash Amount.</summary>
-	[SerializeField] private float _duration; 					/// <summary>Flash's Duration.</summary>
-	[SerializeField] private float _cycles; 					/// <summary>Flash's Cycles.</summary>
-	private Coroutine routine; 									/// <summary>Coroutine's Reference.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private bool _flash; 												/// <summary>Flash when damage is received?.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private Renderer[] _renderers; 										/// <summary>Renderer's to flash.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private Color _flashColor; 											/// <summary>Flash's Color.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _selfIlluminationTag; 							/// <summary>Self-Illumination's Property Tag.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _amountTag; 									/// <summary>Flash Amount's Property Tag.</summary>
+	[TabGroup("Main", "Flash")][SerializeField][Range(0.0f, 1.0f)] private float _maxSelfIllumination; 				/// <summary>Maximum's Self-Illumination.</summary>
+	[TabGroup("Main", "Flash")][SerializeField][Range(0.0f, 1.0f)] private float _maxFlashAmount; 					/// <summary>Maximum's Flash Amount.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private float _duration; 											/// <summary>Flash's Duration.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private float _cycles; 												/// <summary>Flash's Cycles.</summary>
+	[Space(5f)]
+	[Header("Shake' Attributes:")]
+	[TabGroup("Main", "Shaking")][SerializeField] private bool _shake; 												/// <summary>Shake when damage is received?.</summary>
+	[TabGroup("Main", "Shaking")][SerializeField] private Transform[] _shakeTransforms; 							/// <summary>Transforms to shake.</summary>
+	[TabGroup("Main", "Shaking")][SerializeField] private float _shakeDuration; 									/// <summary>Shake's Duration.</summary>
+	[TabGroup("Main", "Shaking")][SerializeField] private float _shakeSpeed; 										/// <summary>Shake's Speed.</summary>
+	[TabGroup("Main", "Shaking")][SerializeField] private float _shakeMagnitude; 									/// <summary>Shake's Magnitude.</summary>
+	[Space(5)]
+	[Header("Particle Effects:")]
+	[TabGroup("FXs", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _hurtParticleEffect; 	/// <summary>Hurt Particle Effect's Emission Data.</summary>
+	[Space(5f)]
+	[Header("Sound Effects:")]
+	[TabGroup("FXs", "Sound Effects")][SerializeField] private int _hurtSoundIndex; 								/// <summary>Hurt's Sound Index.</summary>
+	private Coroutine flashRoutine; 																				/// <summary>Flash Coroutine's Reference.</summary>
+	private Coroutine shakeRoutine; 																				/// <summary>Shake Coroutine's Reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets health Component.</summary>
@@ -34,6 +47,27 @@ public class HealthEventReceiver : MonoBehaviour
 			return _health;
 		}
 		set { _health = value; }
+	}
+
+	/// <summary>Gets and Sets shakeTransforms property.</summary>
+	public Transform[] shakeTransforms
+	{
+		get { return _shakeTransforms; }
+		set { _shakeTransforms = value; }
+	}
+
+	/// <summary>Gets and Sets flash property.</summary>
+	public bool flash
+	{
+		get { return _flash; }
+		set { _flash = value; }
+	}
+
+	/// <summary>Gets and Sets shake property.</summary>
+	public bool shake
+	{
+		get { return _shake; }
+		set { _shake = value; }
 	}
 
 	/// <summary>Gets and Sets renderers property.</summary>
@@ -75,6 +109,21 @@ public class HealthEventReceiver : MonoBehaviour
 
 	/// <summary>Gets cycles property.</summary>
 	public float cycles { get { return _cycles; } }
+
+	/// <summary>Gets shakeDuration property.</summary>
+	public float shakeDuration { get { return _shakeDuration; } }
+
+	/// <summary>Gets shakeSpeed property.</summary>
+	public float shakeSpeed { get { return _shakeSpeed; } }
+
+	/// <summary>Gets shakeMagnitude property.</summary>
+	public float shakeMagnitude { get { return _shakeMagnitude; } }
+
+	/// <summary>Gets hurtParticleEffect property.</summary>
+	public ParticleEffectEmissionData hurtParticleEffect { get { return _hurtParticleEffect; } }
+
+	/// <summary>Gets hurtSoundIndex property.</summary>
+	public int hurtSoundIndex { get { return _hurtSoundIndex; } }
 #endregion
 
 	/// <summary>Resets FlashWhenReceivingDamage's instance to its default values.</summary>
@@ -88,6 +137,14 @@ public class HealthEventReceiver : MonoBehaviour
 	private void Awake()
 	{
 		if(health != null) health.onHealthEvent += OnHealthEvent;
+		
+		if(renderers != null) foreach(Renderer renderer in renderers)
+		{
+			foreach(Material material in renderer.materials)
+			{
+				material.EnableKeyword("_EMISSION");
+			}
+		}
 	}
 
 	/// <summary>Callback invoked when HealthEventReceiver's instance is going to be destroyed and passed to the Garbage Collector.</summary>
@@ -102,13 +159,20 @@ public class HealthEventReceiver : MonoBehaviour
 	/// <param name="_object">GameObject that caused the event, null be default.</param>
 	private void OnHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
 	{
-		if(_event == HealthEvent.Depleted) this.StartCoroutine(Routine(), ref routine);
+		if(_event == HealthEvent.Depleted)
+		{
+			if(flash) this.StartCoroutine(FlashRoutine(), ref flashRoutine);
+			if(shake) this.StartCoroutine(ShakeRoutine(), ref shakeRoutine);
+			hurtParticleEffect.EmitParticleEffects();
+			AudioController.PlayOneShot(SourceType.SFX, 0, hurtSoundIndex);
+		}
 	}
 
 	/// <summary>Cancels Routine.</summary>
 	public void CancelRoutine()
 	{
-		this.DispatchCoroutine(ref routine);
+		this.DispatchCoroutine(ref flashRoutine);
+		this.DispatchCoroutine(ref shakeRoutine);
 	}
 
 	[Button("Get Renderers")]
@@ -118,8 +182,8 @@ public class HealthEventReceiver : MonoBehaviour
 		renderers = GetComponentsInChildren<Renderer>();
 	}
 
-	/// <summary>Routine.</summary>
-	public IEnumerator Routine()
+	/// <summary>Flash's Routine.</summary>
+	public IEnumerator FlashRoutine()
 	{
 		/// Jagged Arrays: https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/jagged-arrays
 		FloatRange sinRange = new FloatRange(-1.0f, 1.0f);
@@ -164,6 +228,33 @@ public class HealthEventReceiver : MonoBehaviour
 			{
 				materials[i][j].SetColor(selfIlluminationTag, colors[i][j]);
 			}
+		}
+	}
+
+	/// <summary>Shake's Routine.</summary>
+	public IEnumerator ShakeRoutine()
+	{
+		if(shakeTransforms == null) yield break;
+
+		IEnumerator[] shakeRoutines = new IEnumerator[shakeTransforms.Length];
+		int i = 0;
+
+		foreach(Transform shakeTransform in shakeTransforms)
+		{
+			shakeRoutines[i] = shakeTransform.ShakePosition(shakeDuration, shakeSpeed, shakeMagnitude);
+			i++;
+		}
+
+		i = 0;
+
+		while(i < shakeTransforms.Length)
+		{
+			foreach(IEnumerator shakeRoutine in shakeRoutines)
+			{
+				if(!shakeRoutine.MoveNext()) i++;
+			}
+
+			yield return null;
 		}
 	}
 }

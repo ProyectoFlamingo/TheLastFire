@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1571157078382660374
 Transform:
@@ -44,7 +44,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6326377372082687093
 Transform:
@@ -74,7 +74,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &7087042975180948544
 Transform:
@@ -108,7 +108,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &329303680145343640
 Transform:
@@ -187,7 +187,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5414748771571071617
 Transform:
@@ -226,7 +226,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5780702081713712469
 Transform:
@@ -529,17 +529,17 @@ GameObject:
   - component: {fileID: 6319558079540329212}
   - component: {fileID: 5780702080738925850}
   - component: {fileID: 5780702080738925851}
-  - component: {fileID: 5780702080738925848}
   - component: {fileID: 5780702080738925849}
   - component: {fileID: 2022018776672727599}
   - component: {fileID: 3518008094071995058}
   - component: {fileID: 993146125800011967}
+  - component: {fileID: 1878545307}
   m_Layer: 0
   m_Name: Character_Devil
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &6319558079540329212
 Transform:
@@ -590,33 +590,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 5780702081713712475}
---- !u!114 &5780702080738925848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6699179469644701766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e16c467903a0d9f4aa8fd520afedcd39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: {fileID: 5780702080738925850}
-  _renderers:
-  - {fileID: 8282791665110977201}
-  - {fileID: 4552287858693681911}
-  _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _selfIlluminationTag:
-    _tag: _BaseColor
-    _ID: 241
-  _amountTag:
-    _tag: _BaseColor
-    _ID: 241
-  _maxSelfIllumination: 1
-  _maxFlashAmount: 1
-  _duration: 0.45
-  _cycles: 5
 --- !u!114 &5780702080738925849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -693,9 +666,43 @@ MonoBehaviour:
   _triggerColliders: []
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
-  _projectileIndex: 5
+  _projectileIndex: 12
   _waitRange:
     _min: 1
     _max: 1.5
   _waitBetweenShots: 0.5
   _projectionTime: 1
+--- !u!114 &1878545307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699179469644701766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 854b6741afc1da64b8c3b4516eaa4424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: {fileID: 5780702080738925850}
+  _flash: 1
+  _renderers:
+  - {fileID: 8282791665110977201}
+  - {fileID: 4552287858693681911}
+  _flashColor: {r: 1, g: 1, b: 1, a: 1}
+  _selfIlluminationTag:
+    _tag: _EmissionColor
+    _ID: 131
+  _amountTag:
+    _tag: _EmissionColor
+    _ID: 131
+  _maxSelfIllumination: 1
+  _maxFlashAmount: 1
+  _duration: 0.45
+  _cycles: 5
+  _shake: 1
+  _shakeTransforms:
+  - {fileID: 5602773809036300146}
+  _shakeDuration: 0.5
+  _shakeSpeed: 5
+  _shakeMagnitude: 0.3

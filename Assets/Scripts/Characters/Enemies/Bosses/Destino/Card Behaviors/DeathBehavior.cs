@@ -10,6 +10,10 @@ namespace Flamingo
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
+	[SerializeField] private Vector3Pair[] _destinoSpawnPointsPairs; 									/// <summary>Destino Spawn-Points' Pairs.</summary>
+	[SerializeField] private float _entranceLerpDuration; 												/// <summary>Entrance Interpolation's Duration.</summary>
+	[SerializeField] private float _exitLerpDuration; 													/// <summary>Exit Interpolation's Duration.</summary>
+	[Space(5f)]
 	[TabGroup("Scythe")][SerializeField] private AIContactWeapon _scythe; 								/// <summary>Scythe's AIContactWeapon's Component.</summary>
 	[Space(5f)]
 	[Header("Rotations:")]
@@ -47,6 +51,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	private Coroutine scytheRotation; 																	/// <summary>Scythe's Rotation Coroutine Reference.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets destinoSpawnPointsPairs property.</summary>
+	public Vector3Pair[] destinoSpawnPointsPairs { get { return _destinoSpawnPointsPairs; } }
+
 	/// <summary>Gets scythe property.</summary>
 	public AIContactWeapon scythe { get { return _scythe; } }
 
@@ -76,6 +83,12 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets exitCredential property.</summary>
 	public AnimatorCredential exitCredential { get { return _exitCredential; } }
+
+	/// <summary>Gets entranceLerpDuration property.</summary>
+	public float entranceLerpDuration { get { return _entranceLerpDuration; } }
+
+	/// <summary>Gets exitLerpDuration property.</summary>
+	public float exitLerpDuration { get { return _exitLerpDuration; } }
 
 	/// <summary>Gets rotationSpeed property.</summary>
 	public float rotationSpeed { get { return _rotationSpeed; } }
@@ -127,6 +140,12 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 		Gizmos.DrawWireSphere(spawnPosition, gizmosRadius);
 		Gizmos.DrawWireSphere(entrancePosition, gizmosRadius);
+
+		if(destinoSpawnPointsPairs != null) foreach(Vector3Pair pair in destinoSpawnPointsPairs)
+		{
+			Gizmos.DrawWireSphere(pair.a, gizmosRadius);
+			Gizmos.DrawWireSphere(pair.b, gizmosRadius);
+		}
 #endif
 	}
 
@@ -202,6 +221,14 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
+		coroutine = LaughingRoutine(boss);
+		while(coroutine.MoveNext()) yield return null;
+
+		coroutine = DestinoSceneController.TakeDestinoToInitialPoint();
+		while(coroutine.MoveNext()) yield return null;
+
+		//boss.animatorController.Play(boss.idleCredential);
+		boss.Sing();
 		scythe.state = AnimationCommandState.None;
 		scythe.transform.position = spawnPosition;
 		scythe.vehicle.ResetVelocity();
@@ -281,6 +308,47 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			RotateScythe(s);
 			yield return null;
 		}
+	}
+
+	/// <summary>Laughing's Routine.</summary>
+	/// <param name="boss">Destino's Reference.</param>
+	private IEnumerator LaughingRoutine(DestinoBoss boss)
+	{
+		if(destinoSpawnPointsPairs == null) yield break;
+
+		Vector3Pair pair = destinoSpawnPointsPairs.Random();
+		Vector3 up = (pair.b - pair.a).normalized;
+		float inverseDuration = 1.0f / entranceLerpDuration;
+		float t = 0.0f;
+		bool playFinished = false;
+		Action onPlayFinished = ()=> { playFinished = true; };
+
+		boss.transform.rotation = Quaternion.LookRotation(Vector3.forward, up);
+
+		while(t < 1.0f)
+		{
+			boss.transform.position = Vector3.Lerp(pair.a, pair.b, t);
+			t += (Time.deltaTime * inverseDuration);
+			yield return null;
+		}
+
+		boss.transform.position = pair.b;
+		boss.animatorController.PlayAndWait(boss.laughCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
+		AudioController.PlayOneShot(SourceType.SFX, 0, boss.laughSoundIndex);
+
+		while(!playFinished) yield return null;
+
+		inverseDuration = 1.0f / exitLerpDuration;
+		t = 0.0f;
+
+		while(t < 1.0f)
+		{
+			boss.transform.position = Vector3.Lerp(pair.b, pair.a, t);
+			t += (Time.deltaTime * inverseDuration);
+			yield return null;
+		}
+
+		boss.transform.position = pair.a;
 	}
 #endregion
 }

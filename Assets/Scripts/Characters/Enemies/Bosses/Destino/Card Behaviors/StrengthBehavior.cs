@@ -374,6 +374,8 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 		routine = DestinoSceneController.TakeDestinoToInitialPoint();
 
+		//boss.animatorController.Play(boss.idleCredential);
+
 		while(routine.MoveNext()) yield return null;
 
 		InvokeCoroutineEnd();

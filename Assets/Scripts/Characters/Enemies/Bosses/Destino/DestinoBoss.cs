@@ -33,6 +33,7 @@ public class DestinoBoss : Boss
 	[Header("Sound FXs' References:")]
 	[Header("Destino's Sounds:")]
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _damageTakenSoundIndex; 						/// <summary>Damage taken's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laughSoundIndex; 							/// <summary>Laugh's Sound's Index.</summary>
 	[Space(5f)]
 	[Header("Death's Sounds:")]
 	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _buildUpSoundIndex; 							/// <summary>Build-Up's Sound's Index.</summary>
@@ -113,6 +114,9 @@ public class DestinoBoss : Boss
 
 	/// <summary>Gets damageTakenSoundIndex property.</summary>
 	public int damageTakenSoundIndex { get { return _damageTakenSoundIndex; } }
+
+	/// <summary>Gets laughSoundIndex property.</summary>
+	public int laughSoundIndex { get { return _laughSoundIndex; } }
 
 	/// <summary>Gets buildUpSoundIndex property.</summary>
 	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
