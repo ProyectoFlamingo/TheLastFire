@@ -163,11 +163,11 @@ public class Fragmentable : PoolGameObject
 	{
 		if(fragmented) return;
 
+		fragmented = true;
 		particleEffect.EmitParticleEffects();
 		AudioController.PlayOneShot(SourceType.SFX, 0, soundIndex);
 
 		this.StartCoroutine(Fragmentation(_force, onFragmentationEnds), ref defragmentation);
-		fragmented = true;
 	}
 
 	/// <summary>Gathers pieces into their baked data.</summary>

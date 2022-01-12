@@ -286,6 +286,8 @@ public class DestinoBoss : Boss
 	/// <param name="onDeathRoutineEnds">Callback invoked when the routine ends.</param>
 	protected override IEnumerator DeathRoutine(Action onDeathRoutineEnds)
 	{
+		EnablePhysicalColliders(false);
+		EnableTriggerColliders(false);
 		animatorController.CrossFade(_deadCredential, clipFadeDuration);
 
 		yield return null;

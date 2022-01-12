@@ -215,6 +215,7 @@ public class HealthEventReceiver : MonoBehaviour
 	/// <param name="_object">GameObject that caused the event, null be default.</param>
 	private void OnHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
 	{
+		Debug.Log("[HealthEventReceiver] DUDE: " + _event.ToString());
 		if(_event == HealthEvent.Depleted)
 		{
 			if(flash) this.StartCoroutine(FlashRoutine(), ref flashRoutine);

@@ -108,9 +108,10 @@ public class Boss : Enemy
 	{
 		this.RemoveStates(IDs.STATE_ALIVE);
 		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_BEGINS);
+		deadFXs.PlayScheduleRoutine(this);
 		
+		Debug.Log("[Boss] " + name + " BeginDeathRoutine();");
 		this.StartCoroutine(DeathRoutine(OnDeathRoutineEnds));
-
 	}
 
 	/// <summary>Callback invoked after the Death's routine ends.</summary>
@@ -131,7 +132,11 @@ public class Boss : Enemy
 		{
 			case HealthEvent.FullyDepleted:
 			if(currentStage < stages) AdvanceStage();
-			else BeginDeathRoutine();
+			else
+			{
+				state &= ~IDs.STATE_ALIVE;
+				BeginDeathRoutine();
+			}
 			break;
 		}
 	}

@@ -58,6 +58,7 @@ public class DevilTower : Character
 		base.Awake();
 		indexProjectileMapping = new Dictionary<int, ArrowProjectile>();
 		projectileIDIndexMapping = new Dictionary<int, int>();
+		health.inmunities = new GameObjectTag[] { Game.data.playerWeaponTag, Game.data.playerProjectileTag };
 
 		for(int i = 0; i < muzzles.Length; i++)
 		{

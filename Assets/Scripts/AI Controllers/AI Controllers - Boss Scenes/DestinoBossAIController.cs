@@ -113,6 +113,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	/// <summary>Requests card to the DeckController.</summary>
 	public void RequestCard()
 	{
+		if(!character.HasStates(IDs.STATE_ALIVE)) return;
 		this.StartCoroutine(deckController.Routine(character), ref behaviorCoroutine);
 	}
 

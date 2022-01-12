@@ -358,6 +358,7 @@ public class AudioController : Singleton<AudioController>
 	{
 		if(_index < 0) return null;
 		
+		Debug.Log("[AudioController] PlayOneShot();");
 		AudioClip clip = Game.data.soundEffects[_index];
 		GetAudioSource(_type, _sourceIndex).PlayOneShot(clip, _volumeScale);
 
