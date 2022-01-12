@@ -47,6 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _passedParticleEffect:
+    _transform: {fileID: 3526733255350994342}
+    _particleEffectIndex: 12
+    _points:
+    - {x: 0, y: 0, z: 0}
   _particleEffectIndex: 12
   _soundEffectIndex: 40
   _deactivateWhenPassedOn: 1
@@ -55,7 +60,7 @@ MonoBehaviour:
     index: 5
   - _tag: Ball
     index: 7
-  _dotProduct: 0.1
+  _dotProduct: 0
   _renderer: {fileID: 495920338341433375}
   _hitBoxes:
   - {fileID: 3517381661898979167}
@@ -98,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _space: 0
-  _size: {x: 3.5, y: 3.5, z: 3.5}
+  _size: {x: 1, y: 4.5, z: 4.5}
   _centerOffset: {x: 0, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}

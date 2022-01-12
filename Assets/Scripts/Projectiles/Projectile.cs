@@ -396,6 +396,13 @@ public class Projectile : ContactWeapon
 		velocity = Vector2.zero;
 		target = null;
 		if(effect != null) effect.Play();
+		if(trailRenderers != null) foreach(TrailRenderer trailRenderer in trailRenderers)
+		{
+			for(int i = 0; i < trailRenderer.positionCount; i++)
+			{
+				trailRenderer.SetPosition(i, transform.position);
+			}
+		}
 	}
 #endregion
 
@@ -406,8 +413,6 @@ public class Projectile : ContactWeapon
 	{
 		ContactWeapon weapon = _requester.GetComponentInParent<ContactWeapon>();
 		GameObject newOwner = weapon != null  && weapon.owner != null ? weapon.owner : _requester;
-
-		Debug.Log("[Projectile] I am calling this shit");
 
 		if(newOwner == null || newOwner == owner) return;
 

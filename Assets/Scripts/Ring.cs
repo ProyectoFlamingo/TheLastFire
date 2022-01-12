@@ -14,23 +14,28 @@ public delegate void OnRingPassed(Collider2D _collider);
 [RequireComponent(typeof(SelfMotionPerformer))]
 public class Ring : PoolGameObject
 {
-	public event OnRingPassed onRingPassed; 						/// <summary>OnRingPassed event's delegate.</summary>
+	public event OnRingPassed onRingPassed; 									/// <summary>OnRingPassed event's delegate.</summary>
 
-	[SerializeField] private int _particleEffectIndex; 				/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
-	[SerializeField] private int _soundEffectIndex; 				/// <summary>Sound Effect index to emit when ring is passed on.</summary>
+	[SerializeField] private ParticleEffectEmissionData _passedParticleEffect; 	/// <summary>Particle Effect Emission Data when the ring is passed.</summary>
+	[SerializeField] private int _particleEffectIndex; 							/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
+	[SerializeField] private int _soundEffectIndex; 							/// <summary>Sound Effect index to emit when ring is passed on.</summary>
 	[Space(5f)]
-	[SerializeField] private bool _deactivateWhenPassedOn; 			/// <summary>Deactivate ring when passed on it?.</summary>
-	[SerializeField] private GameObjectTag[] _detectableTags; 		/// <summary>Tags of GameObjects that are detectable by the ring.</summary>
+	[SerializeField] private bool _deactivateWhenPassedOn; 						/// <summary>Deactivate ring when passed on it?.</summary>
+	[SerializeField] private GameObjectTag[] _detectableTags; 					/// <summary>Tags of GameObjects that are detectable by the ring.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _dotProduct; 					/// <summary>Minimium Dot Product's value to be considered passed.</summary>
-	[SerializeField] private Renderer _renderer; 					/// <summary>Ring Mesh's Renderer.</summary>
-	[SerializeField] private HitCollider2D[] _hitBoxes; 			/// <summary>Ring's HitBoxes.</summary>
-	private Dictionary<int, Vector2> _directionsMapping; 			/// <summary>Direction's Mapping for each possible GameObject.</summary>
-	private VCameraTarget _cameraTarget; 							/// <summary>VCamera's Component.</summary>
-	private SelfMotionPerformer _selfMotionPerformer; 				/// <summary>SelfMotionPerformer's Component.</summary>
-	private bool _passedOn; 										/// <summary>Has an object already passed on this Ring?.</summary>
+	[Range(0.0f, 1.0f)] private float _dotProductTolerance; 					/// <summary>Minimium Dot Product's Tolerance value to be considered passed.</summary>
+	[SerializeField] private Renderer _renderer; 								/// <summary>Ring Mesh's Renderer.</summary>
+	[SerializeField] private HitCollider2D[] _hitBoxes; 						/// <summary>Ring's HitBoxes.</summary>
+	private Dictionary<int, Vector2> _directionsMapping; 						/// <summary>Direction's Mapping for each possible GameObject.</summary>
+	private HashSet<int> _passedOnMapping; 										/// <summary>Mapping of GameObjects that have passed through this Ring.</summary>
+	private VCameraTarget _cameraTarget; 										/// <summary>VCamera's Component.</summary>
+	private SelfMotionPerformer _selfMotionPerformer; 							/// <summary>SelfMotionPerformer's Component.</summary>
+	private bool _passedOn; 													/// <summary>Has an object already passed on this Ring?.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets passedParticleEffect property.</summary>
+	public ParticleEffectEmissionData passedParticleEffect { get { return _passedParticleEffect; } }
+
 	/// <summary>Gets particleEffectIndex property.</summary>
 	public int particleEffectIndex { get { return _particleEffectIndex; } }
 
@@ -51,11 +56,11 @@ public class Ring : PoolGameObject
 		set { _detectableTags = value; }
 	}
 
-	/// <summary>Gets and Sets dotProduct property.</summary>
-	public float dotProduct
+	/// <summary>Gets and Sets dotProductTolerance property.</summary>
+	public float dotProductTolerance
 	{
-		get { return _dotProduct; }
-		set { _dotProduct = value; }
+		get { return _dotProductTolerance; }
+		set { _dotProductTolerance = value; }
 	}
 
 	/// <summary>Gets renderer property.</summary>
@@ -69,6 +74,13 @@ public class Ring : PoolGameObject
 	{
 		get { return _directionsMapping; }
 		private set { _directionsMapping = value; }
+	}
+
+	/// <summary>Gets and Sets passedOnMapping property.</summary>
+	public HashSet<int> passedOnMapping
+	{
+		get { return _passedOnMapping; }
+		private set { _passedOnMapping = value; }
 	}
 
 	/// <summary>Gets cameraTarget Component.</summary>
@@ -116,12 +128,14 @@ public class Ring : PoolGameObject
 	private void Awake()
 	{
 		directionsMapping = new Dictionary<int, Vector2>();
+		passedOnMapping = new HashSet<int>();
 
 		if(hitBoxes != null)
 		{
 			int i = 0;
 			foreach(HitCollider2D hitBox in hitBoxes)
 			{
+				hitBox.detectableHitEvents = HitColliderEventTypes.Enter | HitColliderEventTypes.Exit;
 				hitBox.onTriggerEvent2D += OnTriggerEvent2D;
 				hitBox.ID = i;
 				i++;
@@ -147,12 +161,12 @@ public class Ring : PoolGameObject
 	/// <param name="_hitColliderID">Optional ID of the HitCollider2D.</param>
 	public void OnTriggerEvent2D(Collider2D _collider, HitColliderEventTypes _eventType, int _hitColliderID = 0)
 	{
+		if(_eventType == HitColliderEventTypes.Stays && detectableTags == null) return;
+
 		GameObject obj = _collider.gameObject;
 		int instanceID = obj.GetInstanceID();
 		HitCollider2D hitBox = hitBoxes[_hitColliderID];
 		bool detectable = false;
-
-		if(_eventType == HitColliderEventTypes.Stays && detectableTags == null) return;
 
 		foreach(GameObjectTag tag in detectableTags)
 		{
@@ -171,8 +185,12 @@ public class Ring : PoolGameObject
 			if(!directionsMapping.ContainsKey(instanceID))
 			{
 				Vector2 direction = hitBox.transform.position - obj.transform.position;
-				direction = ToRelativeOrientationVector(direction);
+				direction.Normalize();
+				direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
 				directionsMapping.Add(instanceID, direction);
+				passedOnMapping.Remove(instanceID);
+
+				//Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.cyan, 10.0f);
 			}
 			break;
 
@@ -180,14 +198,19 @@ public class Ring : PoolGameObject
 			if(directionsMapping.ContainsKey(instanceID))
 			{
 				Vector2 direction = (obj.transform.position - hitBox.transform.position);
-				direction = ToRelativeOrientationVector(direction);
-				if(Vector2.Dot(direction, directionsMapping[instanceID]) >= dotProduct && !passedOn)
+				direction.Normalize();
+				direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
+				float dot = Vector2.Dot(direction, directionsMapping[instanceID]);
+
+				if(dot >= (1.0f - dotProductTolerance) && !passedOnMapping.Contains(instanceID))
 				{
-					passedOn = true;
+					passedOnMapping.Add(instanceID);
 					InvokeRingPassedEvent(_collider);
 				}
 
 				directionsMapping.Remove(instanceID);
+
+				//Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.yellow, 10.0f);
 			}
 			break;
 		}
@@ -196,18 +219,18 @@ public class Ring : PoolGameObject
 	/// <summary>Transforms local space vector into world space.</summary>
 	/// <param name="v">Vector to convert.</param>
 	/// <returns>Converted Vector.</returns>
-	private Vector2 ToRelativeOrientationVector(Vector2 v)
+	private Vector2 ToRelativeOrientationVector(Quaternion r, Vector2 v)
 	{
-		return v;
-		Vector2 inverseVector = Quaternion.Inverse(transform.rotation) * v;
-		return inverseVector.x < 0.0f ? Vector2.left : Vector2.right;
+		Vector2 inverseVector = Quaternion.Inverse(r) * v;
+		return r * (inverseVector.x < 0.0f ? Vector2.left : Vector2.right);
 	}
 
 	/// <summary>Invokes onRingPassed's Event.</summary>
 	/// <param name="_collider">Collider that passed the ring.</param>
 	private void InvokeRingPassedEvent(Collider2D _collider)
 	{
-		PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, Quaternion.identity);
+		//PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, Quaternion.identity);
+		passedParticleEffect.EmitParticleEffects();
 		AudioController.PlayOneShot(SourceType.SFX, 0, soundEffectIndex);
 		Reset();
 
@@ -220,6 +243,7 @@ public class Ring : PoolGameObject
 	{
 		base.OnObjectReset();
 		if(directionsMapping != null) directionsMapping.Clear();
+		if(passedOnMapping != null) passedOnMapping.Clear();
 		selfMotionPerformer.Reset();
 		Reset();
 	}

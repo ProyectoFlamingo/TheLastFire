@@ -666,6 +666,9 @@ MonoBehaviour:
   _triggerColliders: []
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
+  _leftEyePoint: {x: -0.6, y: 0.9, z: 1.35}
+  _rightEyePoint: {x: 0.6, y: 0.9, z: 1.35}
+  _rayProjectileIndex: 13
   _projectileIndex: 12
   _waitRange:
     _min: 1
@@ -706,3 +709,8 @@ MonoBehaviour:
   _shakeDuration: 0.5
   _shakeSpeed: 5
   _shakeMagnitude: 0.3
+  _hurtParticleEffect:
+    _transform: {fileID: 0}
+    _particleEffectIndex: 0
+    _points: []
+  _hurtSoundIndex: 0

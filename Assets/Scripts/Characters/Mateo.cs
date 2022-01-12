@@ -1248,7 +1248,6 @@ public class Mateo : Character
 			break;
 
 			case IDs.ANIMATIONEVENT_ATTACKWINDOW:
-				Debug.Log("[Mateo] On Attack Window");
 				state |= IDs.STATE_ATTACKWINDOW;
 			break;
 		}

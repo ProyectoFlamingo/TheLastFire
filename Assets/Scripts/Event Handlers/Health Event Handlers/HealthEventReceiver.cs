@@ -9,7 +9,7 @@ namespace Flamingo
 {
 public class HealthEventReceiver : MonoBehaviour
 {
-	[SerializeField] private Health _health; 																/// <summary>Health Component's Reference.</summary>
+	[SerializeField] private Health _health; 																		/// <summary>Health Component's Reference.</summary>
 	[Space(5f)]
 	[Header("Flash's Attributes:")]
 	[TabGroup("Main", "Flash")][SerializeField] private bool _flash; 												/// <summary>Flash when damage is received?.</summary>
@@ -186,7 +186,9 @@ public class HealthEventReceiver : MonoBehaviour
 
 			for(int j = 0; j < colors[i].Length; j++)
 			{
-				colors[i][j] = materials[i][j].GetColor(selfIlluminationTag);
+				Material material = materials[i][j];
+
+				if(material.HasProperty(selfIlluminationTag)) colors[i][j] = material.GetColor(selfIlluminationTag);
 			}
 		}
 	}
@@ -200,7 +202,9 @@ public class HealthEventReceiver : MonoBehaviour
 		{
 			for(int j = 0; j < colors[i].Length; j++)
 			{
-				materials[i][j].SetColor(selfIlluminationTag, colors[i][j]);
+				Material material = materials[i][j];
+				
+				if(material.HasProperty(selfIlluminationTag)) material.SetColor(selfIlluminationTag, colors[i][j]);
 			}
 		}
 	}

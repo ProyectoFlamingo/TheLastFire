@@ -231,7 +231,7 @@ public class ContactWeapon : PoolGameObject
 					if(obj.CompareTag(tag))
 					{
 						OnImpact(_info, _ID);
-						Debug.Log("[ContactWeapon] Impacted with: " + obj.tag);
+						//Debug.Log("[ContactWeapon] Impacted with: " + obj.tag);
 						break;
 					}
 				}

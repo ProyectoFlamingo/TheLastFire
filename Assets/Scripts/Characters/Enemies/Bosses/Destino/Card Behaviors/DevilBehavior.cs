@@ -159,9 +159,11 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <param name="boss">Object of type T's argument.</param>
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
+		List<DevilTower> towers = new List<DevilTower>();
+		DevilTower tower = null;
 		int length = limits.Random();
 		int count = 3; // For left and right tower and the devil (1 + 1 + 1 duh?).
-		float spawnRate = projectilesSpawnRates[Mathf.Clamp(boss.currentStage, 0, projectilesSpawnRates.Length)];
+		float spawnRate = projectilesSpawnRates[Mathf.Clamp(boss.currentStage - 1, 0, projectilesSpawnRates.Length - 1)];
 		float t = 0.0f;
 		float inverseDuration = 1.0f / towerInterpolationDuration;
 		bool devilAlive = true;
@@ -186,11 +188,23 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				boss.StartCoroutine(_health.transform.DisplaceToPosition(destiny, towerInterpolationDuration,
 				()=>
 				{
-					if(_health == devil.health) devilAlive = false;
-					if(_health == leftDevilTower.health) leftTowerAlive = false;
-					if(_health == rightDevilTower.health) rightTowerAlive = false;
+					if(_health == devil.health)
+					{
+						devil.OnObjectDeactivation();
+						devilAlive = false;
+					}
+					if(_health == leftDevilTower.health)
+					{
+						leftDevilTower.OnObjectDeactivation();
+						leftTowerAlive = false;
+					}
+					if(_health == rightDevilTower.health)
+					{
+						rightDevilTower.OnObjectDeactivation();
+						rightTowerAlive = false;
+					}
 				
-					_health.gameObject.SetActive(false);
+					//_health.gameObject.SetActive(false);
 
 				}));
 
@@ -200,6 +214,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 		// Invoke Devil & Towers:
 		devil.gameObject.SetActive(true);
+		leftDevilTower.OnObjectReset();
+		rightDevilTower.OnObjectReset();
 		leftDevilTower.gameObject.SetActive(true);
 		rightDevilTower.gameObject.SetActive(true);
 		devil.transform.position = devilSpawnPoint;
@@ -249,9 +265,16 @@ public class DevilBehavior : DestinoScriptableCoroutine
 			/// Invoke Devils' Projectiles
 			for(int i = 0; i < length; i++)
 			{
-				DevilTower tower = Random.Range(0, 2) == 0 ? leftDevilTower : rightDevilTower;
+				towers.Clear();
 
-				tower.ShootArrow(GetTargetPoint());
+				if(leftDevilTower.active && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
+				if(rightDevilTower.active && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
+
+				if(towers.Count > 0)
+				{
+					tower = towers.Random();
+					tower.ShootArrow(GetTargetPoint());
+				}
 
 				wait.ChangeDurationAndReset(spawnRate);
 				while(wait.MoveNext()) yield return null;
