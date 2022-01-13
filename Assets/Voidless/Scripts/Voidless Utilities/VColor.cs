@@ -72,6 +72,30 @@ public static class VColor
 		_color = new Color(_color.r, _color.g, _blue.Clamp(-1.0f, 1.0f), _color.a);
 	}
 
+	/// <returns>Random Color.</returns>
+	public static Color Random(bool _randomAlpha = false)
+	{
+		return new Color(
+			UnityEngine.Random.Range(0.0f, 1.0f),
+			UnityEngine.Random.Range(0.0f, 1.0f),
+			UnityEngine.Random.Range(0.0f, 1.0f),
+			_randomAlpha ? UnityEngine.Random.Range(0.0f, 1.0f) : 1.0f
+		);
+	}
+
+	/// <returns>Color with Perlin Noise.</returns>
+	public static Color PerlinNoiseColor(float x, float y, bool _randomAlpha = false)
+	{
+		float c = Mathf.PerlinNoise(x, y);
+
+		return new Color(
+			c,
+			c,
+			c,
+			_randomAlpha ? UnityEngine.Random.Range(0.0f, 1.0f) : 1.0f
+		);
+	}
+
 	/// <summary>Interpolates between an array of pixels A towards an array of pixels B.</summary>
 	/// <param name="a">Pixels from A.</param>
 	/// <param name="b">Pixels from B.</param>

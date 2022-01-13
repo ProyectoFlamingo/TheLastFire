@@ -61,19 +61,27 @@ public static class VTexture
 	/// <param name="h">Height.</param>
 	/// <param name="onInterpolationEnds">Optional Callback invoked when the interpolation ends.</param>
 	/// <param name="f">Optional Normalized Time t function.</param>
-	public static IEnumerator<Texture2D> InterpolateToTexture2D(this Texture2D a, Texture2D b, float duration, int w, int h, Action onInterpolationEnds = null, Func<float, float> f = null)
+	public static IEnumerator<Texture2D> InterpolateToTexture2D(this Texture2D a, Texture2D b, float duration, Action onInterpolationEnds = null, Func<float, float> f = null)
 	{
 		int lengthA = a.GetPixels().Length;
 		int lengthB = b.GetPixels().Length;
 
 		if(lengthA != lengthB) yield break;
 
-		Texture2D texture = new Texture2D(w, h);
+		Texture2D texture = new Texture2D(a.width, a.height);
 		Color[] pixelsA = a.GetPixels();
 		Color[] pixelsB = b.GetPixels();
 		Color[] pixels = new Color[lengthA];
 		float t = 0.0f;
 		float inverseDuration = 1.0f / duration;
+
+		/*for(int i = 0; i < a.width; i++)
+		{
+			for(int j = 0; j < a.height; j++)
+			{
+				pixelsB[i * (j + 1)] = VColor.PerlinNoiseColor((float)i, (float)j);
+			}
+		}*/
 
 		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
 
@@ -86,8 +94,6 @@ public static class VTexture
 				pixels[i] = Color.Lerp(pixelsA[i], pixelsB[i], f(t));
 			}
 
-			Debug.Log("[VTexture] Pixel at " + f(t) + ": " + pixels[0].ToString());
-
 			texture.SetPixels(pixels);
 			texture.Apply();
 
@@ -96,11 +102,6 @@ public static class VTexture
 		}
 
 		yield return b;
-
-		/*SecondsDelayWait wait = new SecondsDelayWait(1.0f);
-		while(wait.MoveNext()) yield return b;
-
-		yield return a;*/
 	}										
 }
 }

@@ -37,8 +37,8 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 		ScriptableLightMapData data = data2;
 		int size = data1.GetTextureSize();
 		Debug.Log("[TEST_SwitchLightMaps] Size: " + size);
-		IEnumerator<Texture2D> colorIterator = data1.lightmapColor.InterpolateToTexture2D(data2.lightmapColor, 2.0f, size, size);
-		IEnumerator<Texture2D> dirIterator = data1.lightmapDir.InterpolateToTexture2D(data2.lightmapDir, 2.0f, size, size);
+		IEnumerator<Texture2D> colorIterator = data1.lightmapColor.InterpolateToTexture2D(data2.lightmapColor, 2.0f);
+		IEnumerator<Texture2D> dirIterator = data1.lightmapDir.InterpolateToTexture2D(data2.lightmapDir, 2.0f);
 
 		float t = 0.0f;
 		float inverseDuration = 1.0f / 2.0f;
@@ -62,7 +62,7 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 
 		while(colorIterator.MoveNext() && dirIterator.MoveNext())
 		{
-			texture = colorIterator.Current;
+			texture = dirIterator.Current;
 			datas[0].lightmapColor = colorIterator.Current;
 			datas[0].lightmapDir = dirIterator.Current;
 

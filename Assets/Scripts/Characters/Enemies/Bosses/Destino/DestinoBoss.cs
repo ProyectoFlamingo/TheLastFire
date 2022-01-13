@@ -284,6 +284,13 @@ public class DestinoBoss : Boss
 		}
 	}
 
+	/// <summary>Callback invoked when the DeadFX's routine ends.</summary>
+	protected override void OnDeadFXsFinished()
+	{
+		base.OnDeadFXsFinished();
+		OnObjectDeactivation();
+	}
+
 	/// <summary>Death's Routine.</summary>
 	/// <param name="onDeathRoutineEnds">Callback invoked when the routine ends.</param>
 	protected override IEnumerator DeathRoutine(Action onDeathRoutineEnds)

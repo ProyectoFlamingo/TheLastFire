@@ -108,7 +108,7 @@ public class Boss : Enemy
 	{
 		this.RemoveStates(IDs.STATE_ALIVE);
 		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_BEGINS);
-		deadFXs.PlayScheduleRoutine(this);
+		deadFXs.PlayScheduleRoutine(this, OnDeadFXsFinished);
 		
 		Debug.Log("[Boss] " + name + " BeginDeathRoutine();");
 		this.StartCoroutine(DeathRoutine(OnDeathRoutineEnds));
@@ -121,6 +121,9 @@ public class Boss : Enemy
 		eventsHandler.InvokeIDEvent(IDs.EVENT_DEATHROUTINE_ENDS);
 		eventsHandler.InvokeCharacterDeactivationEvent(DeactivationCause.Destroyed);
 	} 
+
+	/// <summary>Callback invoked when the DeadFX's routine ends.</summary>
+	protected virtual void OnDeadFXsFinished(){ /*...*/ }
 
 	/// <summary>Callback invoked when a Health's event has occured.</summary>
 	/// <param name="_event">Type of Health Event.</param>
