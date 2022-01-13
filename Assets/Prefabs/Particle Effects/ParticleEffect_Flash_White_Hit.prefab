@@ -19290,7 +19290,7 @@ GameObject:
   - component: {fileID: 6790054745482925163}
   - component: {fileID: 2191807581933462932}
   m_Layer: 0
-  m_Name: Flash_White_Hit
+  m_Name: ParticleEffect_Flash_White_Hit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19305,7 +19305,7 @@ Transform:
   m_GameObject: {fileID: 3746736719559483459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.45269406, y: 3.7196853, z: 4.129745}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
   - {fileID: 3647332757638591571}
   m_Father: {fileID: 0}
