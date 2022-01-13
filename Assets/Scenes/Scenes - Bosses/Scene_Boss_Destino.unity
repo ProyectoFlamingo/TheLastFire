@@ -13384,7 +13384,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -20594,7 +20594,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -25828,7 +25828,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -27086,7 +27086,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -31269,18 +31269,123 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
         type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._particleEffect._points.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
       propertyPath: _healthDistribution.Array.data[0]
-      value: 2
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
         type: 3}
       propertyPath: _healthDistribution.Array.data[1]
-      value: 2
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
         type: 3}
       propertyPath: _healthDistribution.Array.data[2]
-      value: 2
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[0]._particleEffect._particleEffectIndex
+      value: 49
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[0]._particleEffect._points.Array.data[0].z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[0]._soundEffect.soundIndex
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[1]._particleEffect._particleEffectIndex
+      value: 51
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[1]._soundEffect.soundIndex
+      value: 71
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[1]._cooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[2]._particleEffect._particleEffectIndex
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[2]._soundEffect.soundIndex
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[2]._cooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._particleEffect._particleEffectIndex
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._cooldown
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[2]._particleEffect._points.Array.data[0].y
+      value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[2]._particleEffect._points.Array.data[0].x
+      value: 0.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._particleEffect._points.Array.data[0].y
+      value: 2.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._particleEffect._points.Array.data[0].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._soundEffect.soundIndex
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[3]._particleEffect._transform
+      value: 
+      objectReference: {fileID: 8365914426486373426}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[1]._particleEffect._points.Array.data[0].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _deadFXs._FXsPairs.Array.data[1]._particleEffect._points.Array.data[0].z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d6b59009cf8314aa995cfa634e8c92, type: 3}
