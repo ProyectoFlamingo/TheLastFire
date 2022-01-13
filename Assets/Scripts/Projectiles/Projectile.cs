@@ -314,26 +314,22 @@ public class Projectile : ContactWeapon
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	public override void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-
-		base.OnTriggerEvent(_info, _eventType, _ID);
-
 		GameObject obj = _info.collider.gameObject;
-		GameObject newOwner = null;
-		int ID  = obj.GetInstanceID();
 
-/*
-#regionOutOfBoundsShiat:
+#region OutOfBoundsShiat:
 		int layerMask = 1 << obj.layer;
 		int outOfBoundsMask = Game.data.outOfBoundsLayer.ToLayerMask();
 		
 		/// \TODO Make an Out of Bounds Module...
 		if((outOfBoundsMask | layerMask) == outOfBoundsMask)
-		{
-			Trigger2DInformation info = default(Trigger2DInformation);
-			InvokeDeactivationEvent(DeactivationCause.LeftBoundaries, info);
-		}
+		eventsHandler.InvokeContactWeaponDeactivationEvent(DeactivationCause.LeftBoundaries);
 #endregion
-*/
+
+		base.OnTriggerEvent(_info, _eventType, _ID);
+
+		GameObject newOwner = null;
+		int ID  = obj.GetInstanceID();
+
 
 		//Gil testing attempt
 		switch(_eventType)

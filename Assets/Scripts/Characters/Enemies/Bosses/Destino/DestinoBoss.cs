@@ -196,6 +196,8 @@ public class DestinoBoss : Boss
 	protected override void Start()
 	{
 		base.Start();
+
+		BeginDeathRoutine();
 	}
 
 	/// <summary>Enables Physics.</summary>

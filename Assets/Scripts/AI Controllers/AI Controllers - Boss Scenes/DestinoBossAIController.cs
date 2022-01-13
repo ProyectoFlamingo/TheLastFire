@@ -30,6 +30,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	private DestinoDeckController _deckController; 				/// <summary>DestinoDeckController's Component.</summary>
 	private Coroutine cardRoutine; 								/// <summary>Card Coroutine's Reference.</summary>
 	private Coroutine fallenTolerance; 							/// <summary>Removable Head's Fallen Tolerance Coroutine reference.</summary>
+	private Coroutine slashRoutine; 							/// <summary>Card's Slash Routine's Coroutine reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets headFallPointData property.</summary>
@@ -113,7 +114,10 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	/// <summary>Requests card to the DeckController.</summary>
 	public void RequestCard()
 	{
+		Debug.Log("[DestinoBossAIController] RequestCard();");
 		if(!character.HasStates(IDs.STATE_ALIVE)) return;
+
+		this.DispatchCoroutine(ref slashRoutine);
 		this.StartCoroutine(deckController.Routine(character), ref behaviorCoroutine);
 	}
 
@@ -147,7 +151,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 			break;
 
 			case DestinoCardEvent.Hit:
-			this.StartCoroutine(SlashCardIntoHead(_card));
+			this.StartCoroutine(SlashCardIntoHead(_card), ref slashRoutine);
 			break;
 		}
 	}
@@ -189,6 +193,25 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	}
 #endregion
 
+	/// <summary>Callback invoked when the character invokes an event.</summary>
+	/// <param name="_ID">Event's ID.</param>
+	protected override void OnCharacterIDEvent(int _ID)
+	{
+		switch(_ID)
+		{
+			case IDs.EVENT_STAGECHANGED:
+			Boss boss = character as Boss;
+
+			if(boss.currentStage != 1)
+			OnFallenToleranceEnds();
+			break;
+
+			case IDs.EVENT_DEATHROUTINE_BEGINS:
+			OnFallenToleranceEnds();
+			break;
+		}
+	}
+
 #region Coroutines
 	/// <summary>Makes card slash into Destino's Head.</summary>
 	/// <param name="_card">Card to slassh into destino' head.</param>
@@ -223,7 +246,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 			yield return null;
 		}
 
-		_card.gameObject.SetActive(false);
+		//_card.gameObject.SetActive(false);
 	}
 #endregion
 

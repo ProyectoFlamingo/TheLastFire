@@ -380,19 +380,26 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 		float totalTargets = 0.0f;
 		float targetsDestroyed = 0.0f;
-		OnDeactivated onTargetDeactivation = (cause, info)=>
+		OnPoolGameObjectDeactivated onTargetDeactivation = (poolObject, cause, info)=>
 		{
+			Fragmentable fragmentable = poolObject as Fragmentable;
+
+			if(fragmentable == null) return;
+
 			switch(cause)
 			{
 				case DeactivationCause.LeftBoundaries:
 				case DeactivationCause.LifespanOver:
-				targetsDestroyed++;
+
 				break;
 
 				default:
 				targetsDestroyed++;
 				break;
 			}
+
+			targets.Remove(fragmentable);
+			Game.RemoveTargetToCamera(fragmentable.cameraTarget);
 		};
 
 		while(signDisplacement.MoveNext()) yield return null;
@@ -417,9 +424,9 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			totalTargets++;
 			targets.Add(fragmentableTarget);
 			fragmentableTarget.rigidbody.gravityScale = 0.0f;
-			fragmentableTarget.eventsHandler.onDeactivated -= onTargetDeactivation;
-			fragmentableTarget.eventsHandler.onDeactivated += onTargetDeactivation;
-			//Game.AddTargetToCamera(fragmentableTarget.cameraTarget);
+			fragmentableTarget.eventsHandler.onPoolGameObjectDeactivated -= onTargetDeactivation;
+			fragmentableTarget.eventsHandler.onPoolGameObjectDeactivated += onTargetDeactivation;
+			Game.AddTargetToCamera(fragmentableTarget.cameraTarget);
 
 			IEnumerator lerp = fragmentableTarget.transform.DisplaceToPosition(destiny, swordTargetInterpolationDuration);
 
@@ -448,8 +455,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		foreach(Fragmentable target in targets)
 		{
-			target.eventsHandler.onDeactivated -= onTargetDeactivation;
-			//Game.RemoveTargetToCamera(target.cameraTarget);
+			target.eventsHandler.onPoolGameObjectDeactivated -= onTargetDeactivation;
+			Game.RemoveTargetToCamera(target.cameraTarget);
 		}
 
 		showJudgement = EvaluateShow(targetsDestroyed / totalTargets, swordShowSuccessPercentage);

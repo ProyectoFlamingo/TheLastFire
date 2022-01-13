@@ -518,7 +518,7 @@ public class Mateo : Character
 		GoToLocomotionAnimation();*/
 
 		//BrakingEvaluation();
-		MeditationEvaluation();
+		//MeditationEvaluation();
 	}
 
 //---------------------------------------
@@ -694,7 +694,7 @@ public class Mateo : Character
 	}
 
 	/// <summary>Evaluates for Meditation.</summary>
-	private void MeditationEvaluation()
+	public void MeditationEvaluation()
 	{
 		/* Evaluate Meditation if:
 			- On Ground
@@ -768,7 +768,7 @@ public class Mateo : Character
 		}
 
 		Meditate(false);
-		health.BeginInvincibilityCooldown(); 	/// THIS IS GAY AND TEMPORAL
+		//health.BeginInvincibilityCooldown(); 	/// THIS IS GAY AND TEMPORAL
 
 		int index = 0;
 		int animationHash = 0;

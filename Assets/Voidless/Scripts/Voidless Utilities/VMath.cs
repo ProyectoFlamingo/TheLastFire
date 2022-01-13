@@ -4,6 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// Easings: https://easings.net/#
+
 namespace Voidless
 {
 [Flags]
@@ -271,6 +273,15 @@ public static class VMath
 	public static float EaseInQuad(float t)
 	{
 		return t * t;
+	}
+
+	/// <returns>Ease-In Back for Normalized Time t.</returns>
+	public static float EaseInBack(float t)
+	{
+		float c1 = 1.70158f;
+		float c3 = c1 + 1.0f;
+
+		return c3 * t * t * t - c1 * t * t;
 	}
 
 	/// <returns>Ease-Out Bounce for Normalized Time t.</returns>

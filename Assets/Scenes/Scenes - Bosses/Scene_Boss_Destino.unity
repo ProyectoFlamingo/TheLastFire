@@ -8913,6 +8913,11 @@ PrefabInstance:
       propertyPath: _initialPointLerpDuration
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _destinoDeadDistance
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6454213616821555351, guid: bdb24498052e900489a206c3c27edc8f,
         type: 3}
       propertyPath: m_LocalPosition.x

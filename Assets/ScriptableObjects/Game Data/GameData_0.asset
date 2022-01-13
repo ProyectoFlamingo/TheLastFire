@@ -77,9 +77,9 @@ MonoBehaviour:
     _tag: OutOfBounds
     index: 17
   _outOfBoundsLayer:
-    _value: 0
-    _name: Default
-    index: 0
+    _value: 10
+    _name: OutOfBounds
+    index: 7
   _surfaceLayer:
     _value: 8
     _name: Surface

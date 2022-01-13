@@ -155,6 +155,16 @@ public class MateoController : CharacterController<Mateo>
 		character.OnRightAxesChange(rightAxes);
 	}
 
+	/// <summary>Updates MateoController's instance at each frame.</summary>
+	protected override void Update()
+	{
+		base.Update();
+		
+		if(character == null) return;
+		
+		character.MeditationEvaluation();
+	}
+
 	/// <summary>Updates CharacterController's instance at each Physics Thread's frame.</summary>
 	protected virtual void FixedUpdate()
 	{

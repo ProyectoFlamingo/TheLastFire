@@ -84,8 +84,6 @@ MonoBehaviour:
     index: 13
   - _tag: Surface/Ceiling
     index: 15
-  - _tag: Surface/Wall
-    index: 14
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -163,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 7381935805205219674}
   debug: 0

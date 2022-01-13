@@ -134,7 +134,7 @@ public class DestinoCard : MonoBehaviour
 	/// <summary>Callback invoked when DestinoCard's instance is disabled.</summary>
 	private void OnDisable()
 	{
-		
+		Debug.Log("[DestinoCard] Card " + gameObject.name + " disabled.");
 	}
 
 	/// <summary>DestinoCard's instance initialization when loaded [Before scene loads].</summary>

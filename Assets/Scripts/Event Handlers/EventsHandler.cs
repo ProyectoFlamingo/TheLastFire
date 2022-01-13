@@ -60,8 +60,15 @@ public delegate void OnCharacterDeactivated(Character _character, DeactivationCa
 /// <param name="_info">Additional Trigger2D's information.</param>
 public delegate void OnContactWeaponDeactivated(ContactWeapon _contactWeapon, DeactivationCause _cause, Trigger2DInformation _info);
 
+/// <summary>Event invoked when the PoolGameObject is deactivated.</summary>
+/// <param name="_contactWeapon">PoolGameObject that invoked the event.</param>
+/// <param name="_cause">Cause of the deactivation.</param>
+/// <param name="_info">Additional Trigger2D's information.</param>
+public delegate void OnPoolGameObjectDeactivated(PoolGameObject _object, DeactivationCause _cause, Trigger2DInformation _info);
+
 public class EventsHandler : MonoBehaviour
 {
+	[SerializeField] private PoolGameObject _poolObject; 					/// <summary>PoolGameObject's Reference.</summary>
 	[SerializeField] private Character _character; 							/// <summary>Character's Reference.</summary>
 	[SerializeField] private ContactWeapon _contactWeapon; 					/// <summary>ContactWeapon's Reference.</summary>
 	public event OnIDEvent onIDEvent; 										/// <summary>OnIDEvent's delegate.</summary>
@@ -71,12 +78,20 @@ public class EventsHandler : MonoBehaviour
 	public event OnDeactivated onDeactivated; 								/// <summary>OnDeactivated's delegate.</summary>
 	public event OnCharacterDeactivated onCharacterDeactivated; 			/// <summary>OnCharacterDeactivated's delegate.</summary>
 	public event OnContactWeaponDeactivated onContactWeaponDeactivated; 	/// <summary>OnContactWeaponDeactivated's delegate.</summary>
+	public event OnPoolGameObjectDeactivated onPoolGameObjectDeactivated; 	/// <summary>OnPoolGameObjectDeactivated's delegate.</summary>
 	public event OnHealthInstanceEvent onHealthEvent; 						/// <summary>OnHealthInstanceEvent's delegate.</summary>
 
 #if UNITY_EDITOR
 	[Space(5f)]
 	[SerializeField] protected bool debug; 									/// <summary>Debug?.</summary>
 #endif
+
+	/// <summary>Gets and Sets poolObject property.</summary>
+	public PoolGameObject poolObject
+	{
+		get { return _poolObject; }
+		set { _poolObject = value; }
+	}
 
 	/// <summary>Gets and Sets character property.</summary>
 	public Character character
@@ -181,6 +196,20 @@ public class EventsHandler : MonoBehaviour
 #endif
 
 		if(onContactWeaponDeactivated != null) onContactWeaponDeactivated(contactWeapon,_cause, _info);
+	}
+
+	/// <summary>Invokes PoolGameObject's OnDeactivation's Event and Deactivates itself [so it can be a free Pool Object resource].</summary>
+	/// <param name="_cause">Cause of the Deactivation.</param>
+	/// <param name="_info">Trigger2D's Information.</param>
+	public void InvokePoolGameObjectDeactivationEvent(DeactivationCause _cause, Trigger2DInformation _info = default(Trigger2DInformation))
+	{
+		if(poolObject == null) return;
+
+#if UNITY_EDITOR
+		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", poolObject.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
+#endif
+
+		if(onPoolGameObjectDeactivated != null) onPoolGameObjectDeactivated(poolObject,_cause, _info);
 	}
 
 	/// <summary>Invokes OnHealthInstanceEvent's Event.</summary>

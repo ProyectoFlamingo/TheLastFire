@@ -479,6 +479,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 		foreach(DestinoCard card in deck)
 		{
+			card.gameObject.SetActive(true);
 			card.transform.localScale = originalScale;
 			card.transform.rotation = faceUpRotation;
 		}
@@ -541,11 +542,10 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 		foreach(DestinoCard card in deck)
 		{
+			card.gameObject.SetActive(true);
 			card.transform.position = boss.transform.position;
 			//card.transform.rotation = faceUpRotation;
 			card.transform.rotation = faceDownRotation;
-
-			
 		}
 
 		while(t < 1.0f)

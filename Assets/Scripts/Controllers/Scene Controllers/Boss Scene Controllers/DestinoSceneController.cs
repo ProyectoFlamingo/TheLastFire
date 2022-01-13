@@ -68,6 +68,10 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[Header("Sound Effects' Indices:")]
 	[TabGroup("Audio")][SerializeField] private int _orchestraTunningSoundIndex; 								/// <summary>Orchestra Tunning Sound FX's Index.</summary>
 	[TabGroup("Audio")][SerializeField] private int _curtainOpeningSoundIndex; 									/// <summary>Curtain's Opening Sound FX's Index.</summary>
+	[Space(5f)]
+	[TabGroup("Dead Cutscene")]
+	[Header("Dead's Cutscene:")]
+	[SerializeField] private float _destinoDeadDistance; 														/// <summary>Camera's distance for Destino.</summary>
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Testing:")]
@@ -150,6 +154,9 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 	/// <summary>Gets spotLightArrivalRadius property.</summary>
 	public float spotLightArrivalRadius { get { return _spotLightArrivalRadius; } }
+
+	/// <summary>Gets destinoDeadDistance property.</summary>
+	public float destinoDeadDistance { get { return _destinoDeadDistance; } }
 
 	/// <summary>Gets leftCurtainRenderer property.</summary>
 	public SkinnedMeshRenderer leftCurtainRenderer { get { return _leftCurtainRenderer; } }
@@ -320,6 +327,11 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_BEGINS:
+			SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_OPEN, 0.0f);
+			Game.EnablePlayerControl(false);
+			Game.mateo.CancelAllActions();
+			Game.cameraController.distanceAdjuster.distanceRange = destinoDeadDistance;
+			Game.AddTargetToCamera(destino.cameraTarget);
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_ENDS:

@@ -211,14 +211,24 @@ public class Fragmentable : PoolGameObject
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	private void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		if(fragmented) return;
-
 		GameObject obj = _info.collider.gameObject;
+		LayerMask outOfBoundsLayer = Game.data.outOfBoundsLayer.ToLayerMask();
+		int layer = 1 << obj.layer;
+
+		if((outOfBoundsLayer | layer) == outOfBoundsLayer)
+		{
+			eventsHandler.InvokePoolGameObjectDeactivationEvent(DeactivationCause.LeftBoundaries, _info);
+			OnObjectDeactivation();
+			return;
+		}
+
+		if(fragmented) return;
 
 		if(tags != null) foreach(GameObjectTag tag in tags)
 		{
 			if(obj.CompareTag(tag))
 			{
+				eventsHandler.InvokePoolGameObjectDeactivationEvent(DeactivationCause.Destroyed, _info);
 				Fragmentate(_info.direction, null);
 				return;
 			}
