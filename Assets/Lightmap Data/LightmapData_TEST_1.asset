@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4806ecf7f679e564086b6ed2670b8a7b, type: 3}
   m_Name: LightmapData_TEST_1
   m_EditorClassIdentifier: 
-  _lightmapColor: {fileID: 2800000, guid: 8646d8792eb6a0947ba6a1d5fce980e1, type: 3}
-  _lightmapDir: {fileID: 2800000, guid: 6512a7d677a931c4b94b67d5ca9dff4e, type: 3}
+  _lightmapColor: {fileID: 2800000, guid: 0858a3e70050a864c957031923f7f326, type: 3}
+  _lightmapDir: {fileID: 2800000, guid: d1280082a7c369c42bfb45b50fb71878, type: 3}
   _shadowMask: {fileID: 0}

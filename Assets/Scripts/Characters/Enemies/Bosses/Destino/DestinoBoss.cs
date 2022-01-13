@@ -197,7 +197,7 @@ public class DestinoBoss : Boss
 	{
 		base.Start();
 
-		BeginDeathRoutine();
+		//BeginDeathRoutine();
 	}
 
 	/// <summary>Enables Physics.</summary>

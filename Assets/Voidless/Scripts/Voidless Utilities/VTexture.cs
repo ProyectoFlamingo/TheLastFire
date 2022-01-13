@@ -75,14 +75,6 @@ public static class VTexture
 		float t = 0.0f;
 		float inverseDuration = 1.0f / duration;
 
-		/*for(int i = 0; i < a.width; i++)
-		{
-			for(int j = 0; j < a.height; j++)
-			{
-				pixelsB[i * (j + 1)] = VColor.PerlinNoiseColor((float)i, (float)j);
-			}
-		}*/
-
 		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
 
 		yield return a;
