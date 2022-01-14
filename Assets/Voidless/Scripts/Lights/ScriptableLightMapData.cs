@@ -65,7 +65,7 @@ public class ScriptableLightMapData : ScriptableObject
 
   	[Button("Mark Textures as Readable")]
   	/// <summary>Marks Textures as Readable [Editor Only].</summary>
-  	private void MarkTexturesAsReadable()
+  	public void MarkTexturesAsReadable()
   	{
   		if(lightmapColor != null) lightmapColor.SetTextureImporterFormat();
   		if(lightmapDir != null) lightmapDir.SetTextureImporterFormat();

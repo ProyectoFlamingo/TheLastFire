@@ -53,6 +53,31 @@ public static class VTexture
 #endif
 	}
 
+	/// <returns>Copy of this Texture's pixels into new Texture.</returns>
+	public static Texture2D TextureCopy(this Texture2D _texture)
+	{
+		if(_texture == null) return null;
+
+		_texture.SetTextureImporterFormat();
+
+		int width = _texture.width;
+		int height = _texture.width;
+		int length = width * height;
+		Texture2D newTexture = new Texture2D(width, height);
+		Color[] pixels = new Color[length];
+		Color[] texturePixels = _texture.GetPixels();
+
+		for(int i = 0; i < length; i++)
+		{
+			pixels[i] = texturePixels[i];
+		}
+
+		newTexture.SetPixels(pixels);
+		newTexture.Apply();
+
+		return newTexture;
+	}
+
 	/// <summary>Interpolates 2 Texture2Ds.</summary>
 	/// <param name="a">Texture A.</param>
 	/// <param name="b">Texture B.</param>
