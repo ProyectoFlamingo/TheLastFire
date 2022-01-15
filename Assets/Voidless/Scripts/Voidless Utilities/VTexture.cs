@@ -33,22 +33,23 @@ public static class VTexture
 	/// <summary>Marks Texture as readable.</summary>
 	/// <param name="_texture">Texture to modify.</param>
 	/// <param name="_readable">Mark as Readable? true by default.</param>
-	public static void SetTextureImporterFormat(this Texture2D _texture, bool isReadable = true)
+	public static void MarkTextureAsReadable(this Texture2D _texture, bool isReadable = true)
 	{
 #if UNITY_EDITOR
 	    if (null == _texture) return;
 
 	    string path = AssetDatabase.GetAssetPath(_texture);
-	    TextureImporter importer = AssetImporter.GetAtPath(path) as TextureImporter;
+	    Debug.Log("[VTexture] Path: " + path);
+	    TextureImporter importer = TextureImporter.GetAtPath(path) as TextureImporter;
 	    
-	    if (importer != null)
+	    if(importer != null)
 	    {
-	        importer.textureType = TextureImporterType.Advanced;
+	    	importer.textureType = TextureImporterType.Default;
+	    	importer.isReadable = isReadable;
 
-	        importer.isReadable = isReadable;
-
-	        AssetDatabase.ImportAsset(path);
-	        AssetDatabase.Refresh();
+	    	/*AssetDatabase.ImportAsset(path);
+	    	importer.SaveAndReimport();*/
+	    	AssetDatabase.Refresh();
 	    }
 #endif
 	}
@@ -58,24 +59,83 @@ public static class VTexture
 	{
 		if(_texture == null) return null;
 
-		_texture.SetTextureImporterFormat();
+		_texture.MarkTextureAsReadable();
 
 		int width = _texture.width;
 		int height = _texture.width;
-		int length = width * height;
-		Texture2D newTexture = new Texture2D(width, height);
+		int length = _texture.GetPixels().Length;
+		Texture2D newTexture = new Texture2D(width / 2, height / 2);
 		Color[] pixels = new Color[length];
 		Color[] texturePixels = _texture.GetPixels();
+
+		/*newTexture.alphaIsTransparency = _texture.alphaIsTransparency;
+		newTexture.calculatedMipmapLevel = _texture.calculatedMipmapLevel;
+		newTexture.desiredMipMapLevel= _texture.desiredMipMapLevel;
+		newTexture.format = _texture.format;
+		newTexture.loadedMipmapLevel = _texture.loadedMipmapLevel;
+		newTexture.loadingMipmapLevel = _texture.loadingMipmapLevel;
+		newTexture.minimumMipmapLevel = _texture.minimumMipmapLevel;
+		newTexture.requestedMipmapLevel = _texture.requestedMipmapLevel;
+		newTexture.streamingMipmaps = _texture.streamingMipmaps;
+		newTexture.streamingMipmapsPriority = _texture.streamingMipmapsPriority;
+		newTexture.vtOnly = _texture.vtOnly;*/
+
 
 		for(int i = 0; i < length; i++)
 		{
 			pixels[i] = texturePixels[i];
 		}
 
+		newTexture.MarkTextureAsReadable();
+
 		newTexture.SetPixels(pixels);
 		newTexture.Apply();
 
 		return newTexture;
+	}
+
+	/// <returns>Duplicated version of given Texture.</returns>
+	public static Texture2D Duplicated(this Texture2D _texture)
+	{
+		if(_texture == null) return null;
+
+		RenderTexture renderTex = RenderTexture.GetTemporary(
+			_texture.width,
+			_texture.height,
+			0,
+			RenderTextureFormat.Default,
+			RenderTextureReadWrite.Linear
+		);
+
+		Graphics.Blit(_texture, renderTex);
+		RenderTexture previous = RenderTexture.active;
+		RenderTexture.active = renderTex;
+		Texture2D newTexture = new Texture2D(_texture.width, _texture.height);
+
+		/*newTexture.alphaIsTransparency = _texture.alphaIsTransparency;
+		newTexture.calculatedMipmapLevel = _texture.calculatedMipmapLevel;
+		newTexture.desiredMipMapLevel= _texture.desiredMipMapLevel;
+		newTexture.format = _texture.format;
+		newTexture.loadedMipmapLevel = _texture.loadedMipmapLevel;
+		newTexture.loadingMipmapLevel = _texture.loadingMipmapLevel;
+		newTexture.minimumMipmapLevel = _texture.minimumMipmapLevel;
+		newTexture.requestedMipmapLevel = _texture.requestedMipmapLevel;
+		newTexture.streamingMipmaps = _texture.streamingMipmaps;
+		newTexture.streamingMipmapsPriority = _texture.streamingMipmapsPriority;
+		newTexture.vtOnly = _texture.vtOnly;*/
+
+		newTexture.ReadPixels(new Rect(0, 0, renderTex.width, renderTex.height), 0, 0);
+		newTexture.Apply();
+		RenderTexture.active = previous;
+		RenderTexture.ReleaseTemporary(renderTex);
+
+		return newTexture;
+
+		/*Texture2D newTexture = new Texture2D(_texture.width, _texture.height, _texture.format, _texture.mipmapCount > 1);
+    	newTexture.LoadRawTextureData(_texture.GetRawTextureData());
+    	newTexture.Apply();
+
+    	return newTexture;*/
 	}
 
 	/// <summary>Interpolates 2 Texture2Ds.</summary>
@@ -117,6 +177,8 @@ public static class VTexture
 			t += (Time.deltaTime * inverseDuration);
 			yield return texture;
 		}
+
+		texture.Apply();
 
 		yield return b;
 	}										

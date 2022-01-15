@@ -9,7 +9,7 @@ namespace Voidless
 {
 public static class VInterfaces
 {
-#region IFiniteStateMachine&IStateMachine:
+
 /*
 	State Machine's Bitwise Operations:
 	
@@ -31,6 +31,7 @@ public static class VInterfaces
 	rR = s & x
 */
 
+#region IFiniteStateMachine&IStateMachine:
 	/// <summary>Changes IFiniteStateMachine implementer's state. Following FSM's procedures</summary>
 	/// <param name="_fsm">IFiniteStateMachine implementer.</param>
 	/// <param name="_state">New State to enter.</param>
@@ -184,6 +185,21 @@ public static class VInterfaces
 		if(addedStates != 0) _sm.OnStatesAdded(addedStates);
 	}
 #endregion
+
+	/// <summary>Iterates through all iterators and returns false once all iterators cannot move next.</summary>
+	/// <param name="_iterators">Iterators to evaluate.</param>
+	/// <returns>True while there is at least one iterator that keeps iterating.</returns>
+	public static bool AllMoveNext(params IEnumerator[] _iterators)
+	{
+		int count = _iterators.Length;
+
+		foreach(IEnumerator iterator in _iterators)
+		{
+			if(!iterator.MoveNext()) count--;
+		}
+
+		return count != 0;
+	}
 
 	/// <summary>Evaluates if a State Transition's Condition is met.</summary>
 	/// <param name="_stateTransition">StateTransition having the condition to confirm.</param>

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4806ecf7f679e564086b6ed2670b8a7b, type: 3}
-  m_Name: LightmapData_TEST_0
+  m_Name: LightmapData_TEST_1
   m_EditorClassIdentifier: 
-  _lightmapColor: {fileID: 2800000, guid: bce5ec689f7955a4bb07ec8a161498c7, type: 3}
-  _lightmapDir: {fileID: 2800000, guid: a5478d5b91bfa3f4baf6f68e9f3a69c1, type: 3}
+  _lightmapColor: {fileID: 2800000, guid: 6d2481bc402c7ce4aba2690a9dd4eb4e, type: 3}
+  _lightmapDir: {fileID: 2800000, guid: 0724b8e17c3857a48b0b464cd9b971e9, type: 3}
   _shadowMask: {fileID: 0}

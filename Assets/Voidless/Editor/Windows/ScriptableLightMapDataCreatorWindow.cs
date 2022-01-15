@@ -13,6 +13,8 @@ public class ScriptableLightMapDataCreatorWindow : EditorWindow
 	protected const string NAME_LIGHTMAP_DIR = "Lightmap-0_comp_dir";
 	protected const string PATH_LASTPATH = "Path_ScriptableLightMapDataCreator";
 	protected const string PATH_LASTASSET = "Path_LastAsset";
+	protected const string FILEEXTENSION_PNG = ".png";
+	protected const string FILEEXTENSION_EXR = ".exr";
 
 	public static ScriptableLightMapDataCreatorWindow scriptableLightMapDataCreatorWindow; 										/// <summary>ScriptableLightMapDataCreatorWindow's static reference</summary>
 
@@ -74,23 +76,47 @@ public class ScriptableLightMapDataCreatorWindow : EditorWindow
 	{
 		string path = AssetDatabase.GetAssetPath(_lightmapData);
 		string folderPath = VAssetDatabase.GetAssetFolderPath(_lightmapData);
+		string lightmapDataName = _lightmapData.name;
 
-		_lightmapData.lightmapColor = lightmapColor.TextureCopy();
-		_lightmapData.lightmapDir = lightmapDir.TextureCopy();
-		_lightmapData.shadowMask = shadowMask.TextureCopy();
+		if(lightmapColor != null) lightmapColor.MarkTextureAsReadable();
 
-		_lightmapData.MarkTexturesAsReadable();
+		_lightmapData.lightmapColor = lightmapColor.Duplicated();
+		_lightmapData.lightmapDir = lightmapDir.Duplicated();
+		_lightmapData.shadowMask = shadowMask.Duplicated();
 
-		if(lightmapColor != null)
-		{
-			//if(AssetDatabase.GetAssetPath(_lightmapData.lightmapColor) == string.Empty) AssetDatabase.CreateAsset(_lightmapData.lightmapColor, folderPath);
-		}
+		Directory.CreateDirectory(folderPath + "/" + lightmapDataName);
+
+		if(lightmapColor != null) ApplyTexture(_lightmapData.lightmapColor, folderPath, lightmapDataName, NAME_LIGHTMAP_COLOR, FILEEXTENSION_EXR);
+		if(lightmapDir != null) ApplyTexture(_lightmapData.lightmapDir, folderPath, lightmapDataName, NAME_LIGHTMAP_DIR, FILEEXTENSION_PNG);
 
 		EditorUtility.SetDirty(_lightmapData);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
         VEditorData.SaveString(PATH_LASTASSET, path);
+	}
+
+
+	private void ApplyTexture(Texture2D _texture, string _folderPath, string _lightmapDataName, string _textureName, string _extension)
+	{
+		switch(_extension)
+		{
+			case FILEEXTENSION_EXR:
+			_texture.EncodeToEXR(Texture2D.EXRFlags.CompressZIP);
+			break;
+
+			case FILEEXTENSION_PNG:
+			_texture.EncodeToPNG();
+			break;
+		}
+
+		if(AssetDatabase.GetAssetPath(_texture) == string.Empty)
+		{
+			string texturePath = _folderPath + "/" + _lightmapDataName + "/" + _textureName + _extension;
+			AssetDatabase.CreateAsset(_texture, texturePath);
+		}
+
+		_texture.MarkTextureAsReadable();
 	}
 
 	/// <summary>Loads Data.</summary>
@@ -102,7 +128,7 @@ public class ScriptableLightMapDataCreatorWindow : EditorWindow
 		shadowMask = _lightmapData.shadowMask;
 	}
 
-#region DEPRECATED:
+/*#region DEPRECATED:
 	private void DrawDataPathFields()
 	{
 		lightMapPath = GUILayout.TextField(lightMapPath);
@@ -132,6 +158,6 @@ public class ScriptableLightMapDataCreatorWindow : EditorWindow
 			lightmapColor = AssetDatabase.LoadAssetAtPath(lightMapPath + "/" + NAME_LIGHTMAP_COLOR + ".png", typeof(Texture2D)) as Texture2D;
 		}
 	}
-#endregion
+#endregion*/
 }
 }

@@ -11,7 +11,6 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 	[SerializeField] private ScriptableLightMapData data2; 	/// <summary>Lightmap Data's 2.</summary>
 	Texture2D texture;
 
-#region UnityMethods:
 	private void OnGUI()
 	{
 		if(texture == null) return;
@@ -31,18 +30,6 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 	/// <summary>TEST_SwitchLightMaps's starting actions before 1st Update frame.</summary>
 	private IEnumerator Start ()
 	{
-		yield return null;
-
-		LightmapSettings.lightmaps = new LightmapData[] { data1.ToLightmapData() };
-		ScriptableLightMapData data = data2;
-		int size = data1.GetTextureSize();
-		Debug.Log("[TEST_SwitchLightMaps] Size: " + size);
-		IEnumerator<Texture2D> colorIterator = data1.lightmapColor.InterpolateToTexture2D(data2.lightmapColor, 0.5f);
-		IEnumerator<Texture2D> dirIterator = data1.lightmapDir.InterpolateToTexture2D(data2.lightmapDir, 0.5f);
-
-		float t = 0.0f;
-		float inverseDuration = 1.0f / 5.0f;
-
 		/*while(true)
 		{
 			while(t < 1.0f)
@@ -57,8 +44,18 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 			data = data == data1 ? data2 : data1;
 		}*/
 
+		/*yield return null;
+
+		LightmapSettings.lightmaps = new LightmapData[] { data1.ToLightmapData() };
+		ScriptableLightMapData data = data2;
+		int size = data1.GetTextureSize();
+		IEnumerator<Texture2D> colorIterator = data1.lightmapColor.InterpolateToTexture2D(data2.lightmapColor, 5f);
+		IEnumerator<Texture2D> dirIterator = data1.lightmapDir.InterpolateToTexture2D(data2.lightmapDir, 5f);
+
+		float t = 0.0f;
+		float inverseDuration = 1.0f / 5.0f;
+
 		LightmapData[] datas = new LightmapData[] { new LightmapData() };
-		Debug.Log("[TEST_SwitchLightMaps] Current Time: " + Time.time);
 
 		while(colorIterator.MoveNext() && dirIterator.MoveNext())
 		{
@@ -69,15 +66,15 @@ public class TEST_SwitchLightMaps : MonoBehaviour
 			LightmapSettings.lightmaps = datas;
 			
 			yield return null;
-		}
+		}*/
 
-		Debug.Log("[TEST_SwitchLightMaps] Final Time: " + Time.time);
+		LightmapData[] a = new LightmapData[] { data1 };
+		LightmapData[] b = new LightmapData[] { data2 };
+
+		//LightningController.SwitchLightmapSettings(a, b, 5.0f);
+
+		LightmapSettings.lightmaps = a;
+
+		yield return null;
 	}
-	
-	/// <summary>TEST_SwitchLightMaps's tick at each frame.</summary>
-	private void Update ()
-	{
-		
-	}
-#endregion
 }

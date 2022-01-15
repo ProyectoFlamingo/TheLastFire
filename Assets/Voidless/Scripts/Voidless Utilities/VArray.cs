@@ -9,11 +9,32 @@ namespace Voidless
 {
 public static class VArray
 {
+	/// <summary>Balances 2 arrays, so they are of the same size.</summary>
+	/// <param name="a">Array A.</param>
+	/// <param name="b">Array B.</param>
+	public static void Balance<T>(ref T[] a, ref T[] b)
+	{
+		if(a == null || b == null) return;
+
+		int difference = a.Length - b.Length;
+		int min = Mathf.Min(a.Length, b.Length);
+
+		if(difference == 0) return;
+
+		else if(difference > 0)
+		{ /// A > B
+			Array.Resize(ref a, min);
+
+		} else if(difference < 0)
+		{ /// B > A
+			Array.Resize(ref b, min);
+		}
+	}
+
 	/// <returns>Randomized Array.</returns>
 	public static T[] Randomized<T>(this T[] _array)
 	{
 		return RandomSet<T>(_array);
-
 	}
 
 	/// <summary>Resizes Array, initializes it if it is null.</summary>
