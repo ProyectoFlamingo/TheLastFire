@@ -335,6 +335,20 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_ENDS:
+			SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration,
+			()=>
+			{
+				Mateo mateo = Game.mateo;
+				mateo.rotationAbility.DoRotateTowardsRotationRoutine(mateo.animatorParent, Game.data.stareAtPlayerRotation, 0.1f,
+				()=>
+				{
+					mateo.animatorController.CrossFadeAndWait(mateo.bowCredential, mateo.clipFadeDuration, mateo.mainAnimationLayer, 0.0f, 0.0f,
+					()=>
+					{
+						Debug.Log("[DestinoSceneController] Now What?");
+					});
+				});
+			});
 			break;
 		}
 	}

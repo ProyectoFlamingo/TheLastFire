@@ -70,6 +70,7 @@ public class Mateo : Character
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _groundSwordAttackCredential; 								/// <summary>Ground Sword Attack's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalJumpSwordAttackCredential; 							/// <summary>Normal Jump Sword Attack's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _additionalJumpSwordAttackCredential; 						/// <summary>Additional Jump Sword Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _bowCredential; 											/// <summary>Bow's AnimatorCredential.</summary>
 	[Space(5f)]
 	[Header("Cross-Fades:")]
 	[TabGroup("Animations")][SerializeField][Range(0.0f, 1.0f)] private float _locomotionFadeDuration; 								/// <summary>Locmotion Animation's Fade Duration.</summary>
@@ -335,6 +336,9 @@ public class Mateo : Character
 
 	/// <summary>Gets additionalJumpSwordAttackCredential property.</summary>
 	public AnimatorCredential additionalJumpSwordAttackCredential { get { return _additionalJumpSwordAttackCredential; } }
+
+	/// <summary>Gets bowCredential property.</summary>
+	public AnimatorCredential bowCredential { get { return _bowCredential; } }
 
 	/// <summary>Gets initialJumpParticleEffect property.</summary>
 	public ParticleEffectEmissionData initialJumpParticleEffect { get { return _initialJumpParticleEffect; } }
@@ -978,7 +982,7 @@ public class Mateo : Character
 			leftAxes.y
 		);
 
-		if(leftAxes.x != 0.0f)
+		if(leftAxes.x != 0.0f && !rotationAbility.onCoroutine)
 		rotationAbility.RotateTowardsDirection(animatorParent, direction);
 	}
 

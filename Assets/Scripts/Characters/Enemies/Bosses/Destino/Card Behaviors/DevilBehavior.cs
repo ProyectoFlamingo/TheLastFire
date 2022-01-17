@@ -210,6 +210,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 				break;
 			}
+
+			if(!leftTowerAlive && !rightTowerAlive && devilAlive) devil.BeginLaserRoutine();
 		};
 
 		// Invoke Devil & Towers:

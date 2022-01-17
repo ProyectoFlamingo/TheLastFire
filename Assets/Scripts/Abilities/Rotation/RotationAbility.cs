@@ -9,6 +9,7 @@ namespace Flamingo
 public class RotationAbility : MonoBehaviour
 {
 	[SerializeField] private float _speed; 		/// <summary>Rotation's Speed.</summary>
+	private Coroutine coroutine; 				/// <summary>Coroutine's Reference.</summary>
 
 	/// <summary>Gets and Sets speed property.</summary>
 	public float speed
@@ -16,6 +17,9 @@ public class RotationAbility : MonoBehaviour
 		get { return _speed; }
 		set { _speed = value; }
 	}
+
+	/// <summary>Gets onCoroutine property.</summary>
+	public bool onCoroutine { get { return coroutine != null; } }
 
 #region TowardsTarget:
 	/// <summary>Rotates towards given target.</summary>
@@ -125,6 +129,81 @@ public class RotationAbility : MonoBehaviour
 	protected virtual Quaternion CalculateRotation(Quaternion _transformRotation, Quaternion rotation, float deltaTime, float scale = 1.0f)
 	{
 		return Quaternion.RotateTowards(_transformRotation, rotation, deltaTime * speed * scale);
+	}
+
+	/// <summary>Performs Rotation's Coroutine.</summary>
+	/// <param name="_animator">Animator to rotate.</param>
+	/// <param name="_rotation">Desired rotation.</param>
+	/// <param name="_dotTolerance">Dot Product's Tolerance [0.0f by default].</param>
+	/// <param name="onRotationEnds">Optional Callback invoked when the rotation is done.</param>
+	public void DoRotateTowardsRotationRoutine(Animator _animator, Quaternion _rotation, float _dotTolerance = 0.0f, Action onRotationEnds = null)
+	{
+		this.StartCoroutine(RotateTowardsRotationRoutine(_animator, _rotation, _dotTolerance, 1.0f, onRotationEnds), ref coroutine);
+	}
+
+	/// <summary>Performs Rotation's Coroutine.</summary>
+	/// <param name="_transform">Transform to rotate.</param>
+	/// <param name="_rotation">Desired rotation.</param>
+	/// <param name="_dotTolerance">Dot Product's Tolerance [0.0f by default].</param>
+	/// <param name="onRotationEnds">Optional Callback invoked when the rotation is done.</param>
+	public void DoRotateTowardsRotationRoutine(Transform _transform, Quaternion _rotation, float _dotTolerance = 0.0f, Action onRotationEnds = null)
+	{
+		this.StartCoroutine(RotateTowardsRotationRoutine(_transform, _rotation, _dotTolerance, 1.0f, onRotationEnds), ref coroutine);
+	}
+
+	/// <summary>Rotates towards direction and invokes a callback when it has finally rotated towards given target.</summary>
+	/// <param name="_animator">Animator to rotate.</param>
+	/// <param name="_direction">Desired direction.</param>
+	/// <param name="_dotTolerance">Dot Product's Tolerance [0.0f by default].</param>
+	/// <param name="_scale">Rotation scale [1.0f by default].</param>
+	/// <param name="onRotationEnds">Optional Callback invoked when the rotation is done.</param>
+	public IEnumerator RotateTowardsDirectionRoutine(Animator _animator, Vector3 _direction, float _dotTolerance = 0.0f, float _scale = 1.0f, Action onRotationEnds = null)
+	{
+		return RotateTowardsRotationRoutine(_animator, Quaternion.LookRotation(_direction), _dotTolerance, _scale, onRotationEnds);
+	}
+
+	/// <summary>Rotates towards direction and invokes a callback when it has finally rotated towards given target.</summary>
+	/// <param name="_animator">Animator to rotate.</param>
+	/// <param name="_rotation">Desired rotation.</param>
+	/// <param name="_dotTolerance">Dot Product's Tolerance [0.0f by default].</param>
+	/// <param name="_scale">Rotation scale [1.0f by default].</param>
+	/// <param name="onRotationEnds">Optional Callback invoked when the rotation is done.</param>
+	public IEnumerator RotateTowardsRotationRoutine(Animator _animator, Quaternion _rotation, float _dotTolerance = 0.0f, float _scale = 1.0f, Action onRotationEnds = null)
+	{
+		float dot = Quaternion.Dot(_animator.bodyRotation, _rotation);
+
+		while(dot < (1.0f - _dotTolerance))
+		{
+			RotateTowards(_animator, _rotation, _scale);
+			dot = Quaternion.Dot(_animator.bodyRotation, _rotation);
+			Debug.Log("[RotationAbility] Dot: " + dot);
+			yield return null;			
+		}
+
+		if(onRotationEnds != null) onRotationEnds();
+		this.DispatchCoroutine(ref coroutine);
+	}
+
+	/// <summary>Rotates towards direction and invokes a callback when it has finally rotated towards given target.</summary>
+	/// <param name="_transform">Transform to rotate.</param>
+	/// <param name="_rotation">Desired rotation.</param>
+	/// <param name="_dotTolerance">Dot Product's Tolerance [0.0f by default].</param>
+	/// <param name="_scale">Rotation scale [1.0f by default].</param>
+	/// <param name="onRotationEnds">Optional Callback invoked when the rotation is done.</param>
+	public IEnumerator RotateTowardsRotationRoutine(Transform _transform, Quaternion _rotation, float _dotTolerance = 0.0f, float _scale = 1.0f, Action onRotationEnds = null)
+	{
+		float dot = Quaternion.Dot(_transform.rotation, _rotation);
+
+		while(dot < (1.0f - _dotTolerance))
+		{
+			RotateTowards(_transform, _rotation, _scale);
+			dot = Quaternion.Dot(_transform.rotation, _rotation);
+			Debug.Log("[RotationAbility] Dot: " + dot);
+			yield return null;			
+		}
+
+		if(onRotationEnds != null) onRotationEnds();
+		this.DispatchCoroutine(ref coroutine);
 	}
 }
 }

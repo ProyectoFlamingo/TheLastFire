@@ -182,6 +182,12 @@ public class DestinoBoss : Boss
 	}
 #endregion
 
+	/// <summary>Callback invoked when DestinoBoss's instance is disabled.</summary>
+	private void OnDisable()
+	{
+		//Debug.Log("[DestinoBoss] DEACTIVATED");
+	}
+
 	/// <summary>Callback internally called right after Awake.</summary>
 	protected override void Awake()
 	{
@@ -289,6 +295,7 @@ public class DestinoBoss : Boss
 	{
 		base.OnDeadFXsFinished();
 		OnObjectDeactivation();
+		InvokeIDEvent(IDs.EVENT_DEATHROUTINE_ENDS);
 	}
 
 	/// <summary>Death's Routine.</summary>
@@ -305,7 +312,12 @@ public class DestinoBoss : Boss
 		SecondsDelayWait wait = new SecondsDelayWait(info.length);
 
 		while(wait.MoveNext()) yield return null;
-		yield return base.DeathRoutine(onDeathRoutineEnds);
+
+		IEnumerator routine = base.DeathRoutine(onDeathRoutineEnds);
+		
+		while(routine.MoveNext()) yield return null;
+
+		Debug.Log("[DestinoBoss] WTF!!");
 	}
 
 	/// <summary>Idle's Routine [normal idle and random laughs].</summary>

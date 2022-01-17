@@ -18,6 +18,7 @@ public class Devil : Character
     [SerializeField] private FloatRange _waitRange;     /// <summary>[Random] Wait Interval Before Each Shooting.</summary>
     [SerializeField] private float _waitBetweenShots;   /// <summary>Wait between pair of shots.</summary>
     [SerializeField] private float _projectionTime;     /// <summary>Projection Time used to get Mateo's Extrapolation.</summary>
+    private Coroutine laserRoutine;                     /// <summary>Lasers' Coroutine reference.</summary>
 
     /// <summary>Gets leftEyePoint property.</summary>
     public Vector3 leftEyePoint { get { return _leftEyePoint; } }
@@ -56,13 +57,21 @@ public class Devil : Character
     /// <summary>Initializes Devil.</summary>
     public void Initialize()
     {
+        this.DispatchCoroutine(ref laserRoutine);
         this.StartCoroutine(AIRoutine(), ref behaviorCoroutine);
+    }
+
+    /// <summary>Initializes Lasers' Routine.</summary>
+    public void BeginLaserRoutine()
+    {
+        this.StartCoroutine(EyeLaserRoutine(), ref laserRoutine);
     }
 
     /// <summary>Callback invoked when the object is deactivated.</summary>
     public override void OnObjectDeactivation()
     {
         this.DispatchCoroutine(ref behaviorCoroutine);
+        this.DispatchCoroutine(ref laserRoutine);
         base.OnObjectDeactivation();
     }
 
@@ -113,6 +122,18 @@ public class Devil : Character
 
             direction = (Vector3)Game.ProjectMateoPosition(projectionTime) - secondHand.position;
             PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, secondHand.position, direction);
+        }
+    }
+
+    /// <summary>Lasers' Routine.</summary>
+    private IEnumerator EyeLaserRoutine()
+    {
+        SecondsDelayWait wait = new SecondsDelayWait(0.0f);
+        
+        while(true)
+        {
+            wait.ChangeDurationAndReset(waitRange.Random());
+            while(wait.MoveNext()) yield return null;
 
             ShootLasers();
         }

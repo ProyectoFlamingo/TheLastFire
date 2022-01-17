@@ -66,7 +66,6 @@ public class FXsScheduler
 		{
 			routine = pair.ScheduleRoutine();
 			while(routine.MoveNext()) yield return null;
-			Debug.Log("[FXsScheduler] Okay Boomer");
 		}
 
 		if(onScheduleEnds != null) onScheduleEnds();
