@@ -268,11 +268,15 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			while(routine.MoveNext()) yield return null;
 		}*/
 
+		AudioController.StopFSMLoop(0);
+		AudioController.StopFSMLoop(1);
+
 		while(routine.MoveNext()) yield return null;
 
-		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		boss.Sing();
+		/*AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
+		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex, true, boss.Sing);*/
+
+		AudioController.PlayFSMLoops(boss.Sing, DestinoSceneController.Instance.mainLoopLoopData, DestinoSceneController.Instance.mainLoopVoiceLoopData);
 		InvokeCoroutineEnd();
 	}
 
@@ -310,14 +314,11 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	private IEnumerator FireShowRoutine(DestinoBoss boss)
 	{
 		/*
-			- Stop the instrumental and voice loops
 			- Show the Sign, wait till the exposure is over
 			- Play the Fire Show's Loop
 			- Play the Minigame
 			- Make a judgement after the game has finished
 		*/
-		AudioController.StopFSMLoop(0);
-		AudioController.StopFSMLoop(1);
 
 		Transform fireShowSign = DestinoSceneController.Instance.fireShowSign;
 		AudioClip clip = null;
@@ -354,7 +355,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		signDisplacement = HidehowSign(fireShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioController.Stop(SourceType.Loop, 0);
+		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.fireShowSign.SetActive(false);
 	}
 
@@ -363,14 +364,12 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	private IEnumerator SwordShowRoutine(DestinoBoss boss)
 	{
 		/*
-			- Stop the instrumental and voice loops
 			- Show the Sign, wait till the exposure is over
 			- Play the Sword Show's Loop
 			- Play the Minigame
 			- Make a judgement after the game has finished
 		*/
-		AudioController.StopFSMLoop(0);
-		AudioController.StopFSMLoop(1);
+		
 
 		List<Fragmentable> targets = new List<Fragmentable>();
 		Transform swordShowSign = DestinoSceneController.Instance.swordShowSign;
@@ -410,7 +409,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		/// While the Sword-Show's Piece Keeps Playing Keep Throwing Targets...
 		while((wait.MoveNext()) && (wait.remainingTime > swordTargetInterpolationDuration))
 		{
-			Debug.Log("[JudgementBehavior] Wait Remaining Time: " + wait.remainingTime);
+			//Debug.Log("[JudgementBehavior] Wait Remaining Time: " + wait.remainingTime);
 
 			Vector3Pair pair = swordTargetsWaypoints.Random();
 			Vector3 origin = pair.a;
@@ -463,7 +462,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		while(showJudgement.MoveNext()) yield return null;
 
-		AudioController.Stop(SourceType.Loop, 0);
+		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.swordShowSign.SetActive(false);
 	}
 
@@ -472,14 +471,11 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	private IEnumerator DanceShowRoutine(DestinoBoss boss)
 	{
 		/*
-			- Stop the instrumental and voice loops
 			- Show the Sign, wait till the exposure is over
 			- Play the Dance Show's Loop
 			- Play the Ring-Madness' Minigame
 			- Make a judgement after the game has finished
 		*/
-		AudioController.StopFSMLoop(0);
-		AudioController.StopFSMLoop(1);
 
 		Transform danceShowSign = DestinoSceneController.Instance.danceShowSign;
 		AudioClip clip = null;
@@ -516,7 +512,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		signDisplacement = HidehowSign(danceShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
 
-		AudioController.Stop(SourceType.Loop, 0);
+		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.danceShowSign.SetActive(false);
 	}
 

@@ -56,7 +56,7 @@ public class BreakTheTargetsMiniGame : MiniGame
     private void OnTargetDeactivation(DeactivationCause _cause, Trigger2DInformation _info)
     {
         score++;
-        Debug.Log("[BreakTheTargetsMiniGame] Score: " + score + ", Max Score: " + maxScore);
+        //Debug.Log("[BreakTheTargetsMiniGame] Score: " + score + ", Max Score: " + maxScore);
         if(score >= maxScore)
         {
             Terminate();

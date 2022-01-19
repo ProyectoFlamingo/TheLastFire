@@ -369,8 +369,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		}
 
 		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex);
-		boss.Sing();
+		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex, true, boss.Sing);
 
 		routine = DestinoSceneController.TakeDestinoToInitialPoint();
 

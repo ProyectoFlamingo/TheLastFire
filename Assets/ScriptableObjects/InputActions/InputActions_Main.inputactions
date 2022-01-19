@@ -668,6 +668,14 @@
                     "interactions": ""
                 },
                 {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ff71f7b9-4279-433a-a833-290aef1f17a4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
                     "name": "Submit",
                     "type": "Button",
                     "id": "c8474ccd-427b-42e9-8608-e95e7d630235",
@@ -968,6 +976,39 @@
                     "processors": "",
                     "groups": "ControllerScheme_NintendoSwitch",
                     "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "821a51ca-0ed9-41c6-8c6c-ea641b997c08",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControlScheme_Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0fc8f179-dbbc-4826-bfd3-53594341f110",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_Xbox360",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "900218b4-8339-41eb-abcb-531384717161",
+                    "path": "<NPad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ControllerScheme_NintendoSwitch",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

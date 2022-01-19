@@ -425,16 +425,18 @@ public class Game : Singleton<Game>
 	/// <summary>Callback invoked when a pause is requested.</summary>
 	public static void OnPause(int _playerID = 0)
 	{
-		return; 	/// Fuckl ya's all
-		bool pause = gameplayGUIController.state != GUIState.Pause;
-		PlayerInputController controller = PlayerInputsManager.Get(_playerID);
+		state = state != GameState.Paused ? GameState.Paused : GameState.Playing;
+		
+		bool pause = state == GameState.Paused;
+		PlayerInputController controller = PlayerInputsManager.Get();
 
 		controller.mateoController.ChangeControllerScheme(pause ? ControllerSchemeType.UI : ControllerSchemeType.Character);
-		state = pause ? GameState.Paused : GameState.Playing;
 		UICamera.gameObject.SetActive(pause);
 		gameplayGUIController.EnablePauseMenu(pause);
 
-		if(pause) Time.timeScale = 0.0f;
+		Time.timeScale = pause ? 0.0f : 1.0f;
+
+		if(!pause) controller.ChangeControllerMap(CharacterControllerMap.Mateo);
 	}
 
 	/// <summary>Evaluates Surface Type.</summary>

@@ -179,7 +179,8 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="_sourceIndex">Index of the AudioSource that will play this FSM's AudioClip.</param>
 	/// <param name="_index">FSM's AudioClip's Index.</param>
 	/// <param name="_loop">Loop the FSM's AudioClip? True by default.</param>
-	public static AudioClip PlayFSMLoop(int _sourceIndex, int _index, bool _loop = true)
+	/// <param name="onLoopBegins">Optional callback invoked when the FSM Loop begins.</param>
+	public static AudioClip PlayFSMLoop(int _sourceIndex, int _index, bool _loop = true, Action onLoopBegins = null)
 	{
 		if(_index < 0) return null;
 
@@ -210,9 +211,10 @@ public class AudioController : Singleton<AudioController>
 			mixer.GetFloat(parameterName, out mixerVolume);
 
 			/// Fade-Out last piece -> Set new piece -> Fade-In new piece.
-			/*if(mixerVolume > 0.0f) */Instance.StartCoroutine(mixer.FadeVolume(parameterName, Instance.fadeOutDuration, 0.0f, 
+			if(mixerVolume > 0.0f) Instance.StartCoroutine(mixer.FadeVolume(parameterName, Instance.fadeOutDuration, 0.0f, 
 			()=>
 			{
+				if(onLoopBegins != null) onLoopBegins();
 				Instance.PlayFSMAudioClip(source, FSMClip, ref Instance.loopFSMCoroutines[_sourceIndex], _loop, false, null);
 				Instance.StartCoroutine(mixer.FadeVolume(parameterName, Instance.fadeOutDuration, 1.0f, 
 				()=>
@@ -221,15 +223,78 @@ public class AudioController : Singleton<AudioController>
 				}));
 
 			}), ref Instance.loopVolumeFadings[_sourceIndex]);
-			/*else
+			else
 			{
 				mixer.SetFloat(parameterName, 1.0f);
 				Instance.PlayFSMAudioClip(source, FSMClip, ref Instance.loopFSMCoroutines[_sourceIndex], _loop, false, null);
-			}*/
+			}
 		}
-		else Instance.PlayFSMAudioClip(source, FSMClip, ref Instance.loopFSMCoroutines[_sourceIndex], _loop, false, null);
+		else
+		{
+			Instance.PlayFSMAudioClip(source, FSMClip, ref Instance.loopFSMCoroutines[_sourceIndex], _loop, false, null);
+			if(onLoopBegins != null) onLoopBegins();
+		}
 
 		return clip;
+	}
+
+	/// <summary>Plays FiniteStateAudioClip's Loop on the selected AudioSource.</summary>
+	/// <param name="_loopsData">Loops' data.</param>
+	public static void PlayFSMLoops(Action onLoopBegins = null, params AudioLoopData[] _loopsData)
+	{
+		if(_loopsData == null || _loopsData.Length == 0) return;
+
+		int length = _loopsData.Length;
+		List<AudioLoopSourceMixerData> data = new List<AudioLoopSourceMixerData>();
+		List<Action> instantCallbacks = new List<Action>();
+		List<Action> lateCallbacks = new List<Action>();
+		Action invokeCallbacks = ()=>
+		{
+			foreach(Action action in lateCallbacks)
+			{
+				if(action != null) action();
+			}
+
+			if(onLoopBegins != null) onLoopBegins();
+		};
+
+		for(int i = 0; i < length; i++)
+		{
+			AudioLoopData loopData = _loopsData[i];
+			AudioSource source = GetLoopSource(loopData.sourceIndex);
+			FiniteStateAudioClip FSMClip = Game.data.FSMLoops[loopData.soundIndex];
+			AudioClip clip = FSMClip.clip;
+			AudioMixer mixer = source.outputAudioMixerGroup.audioMixer;
+			float mixerVolume = 0.0f;
+			string parameterName = Instance.GetExposedParameterName(SourceType.Loop, loopData.sourceIndex);
+
+			mixer.GetFloat(parameterName, out mixerVolume);
+
+			//Debug.Log("[AudioController] Index : " + i + ", Volume: " + mixerVolume);
+
+			if(mixerVolume > 0.0f) data.Add(new AudioLoopSourceMixerData(clip, source, mixer, loopData));
+			else lateCallbacks.Add(()=> { PlayFSMLoop(loopData.sourceIndex, loopData.soundIndex); });
+		}
+
+		bool lateCallbacksPassed = false;
+
+		foreach(AudioLoopSourceMixerData loopMixerData in data)
+		{
+			if(loopMixerData != null)
+			{
+				AudioLoopData loopData = loopMixerData.loopData;
+
+				if(!lateCallbacksPassed && lateCallbacks.Count > 0)
+				{
+					PlayFSMLoop(loopData.sourceIndex, loopData.soundIndex, true, invokeCallbacks);
+					lateCallbacksPassed = true;
+				}
+				else PlayFSMLoop(loopData.sourceIndex, loopData.soundIndex);
+			}
+			//else PlayFSMLoop(loopData.sourceIndex, loopData.soundIndex);
+		}
+
+		if(!lateCallbacksPassed && lateCallbacks.Count > 0 && invokeCallbacks != null) invokeCallbacks();
 	}
 
 	/// <summary>Stops AudioSource, Fades-Out if there is an AudioMixer.</summary>

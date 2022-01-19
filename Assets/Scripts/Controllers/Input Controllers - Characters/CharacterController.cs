@@ -306,7 +306,7 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 	{
 		playerInput.SwitchCurrentActionMap(actionMapName);
 		playerInput.defaultActionMap = actionMapName;
-		actionMap = playerInput.actions.FindActionMap(actionMapName, true);;
+		actionMap = playerInput.actions.FindActionMap(actionMapName, true);
 		UIActionMap = playerInput.actions.FindActionMap(UIActionMapName, true);
 	}
 
@@ -340,6 +340,7 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 			break;
 		}
 
+		Debug.Log("[CharacterController] Changed for: " + actionMapID);
 		playerInput.SwitchCurrentActionMap(actionMapID);
 	}
 

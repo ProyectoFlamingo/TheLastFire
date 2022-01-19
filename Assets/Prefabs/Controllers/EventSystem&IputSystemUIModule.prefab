@@ -61,14 +61,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RepeatDelay: 0.5
   m_RepeatRate: 0.1
-  m_ActionsAsset: {fileID: -944628639613478452, guid: acf69e55d68e56c4ea448b3c034f7326,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: 4da3d439f5f9836478986e9aa9664f06,
     type: 3}
   m_PointAction: {fileID: 0}
-  m_MoveAction: {fileID: -2250188739719683950, guid: acf69e55d68e56c4ea448b3c034f7326,
+  m_MoveAction: {fileID: -2250188739719683950, guid: 4da3d439f5f9836478986e9aa9664f06,
     type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: acf69e55d68e56c4ea448b3c034f7326,
+  m_SubmitAction: {fileID: 2064916234097673511, guid: 4da3d439f5f9836478986e9aa9664f06,
     type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: acf69e55d68e56c4ea448b3c034f7326,
+  m_CancelAction: {fileID: -1967631576421560919, guid: 4da3d439f5f9836478986e9aa9664f06,
     type: 3}
   m_LeftClickAction: {fileID: 0}
   m_MiddleClickAction: {fileID: 0}

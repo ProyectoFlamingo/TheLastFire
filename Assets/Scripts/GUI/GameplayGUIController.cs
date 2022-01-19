@@ -131,7 +131,7 @@ public class GameplayGUIController : MonoBehaviour
 		EnableElements(false, selectables);
 		pauseMenuGroup.SetActive(true);
 		ScaleUIElementsInstatly(_enable, buttons);
-		this.StartCoroutine(ScaleUIElements(_enable, OnPauseTransitionEnds, buttons), ref coroutine);
+		this.StartCoroutine(ScaleUIElements(_enable, VMath.EaseOutBounce, OnPauseTransitionEnds, buttons), ref coroutine);
 	}
 
 	/// <summary>Invokes OnIDEvent.</summary>
@@ -152,19 +152,23 @@ public class GameplayGUIController : MonoBehaviour
 	/// <summary>Callback internally invoked when Settings' Option is selected on the Pause Menu.</summary>
 	private void OnPauseSettingsSelected()
 	{
-		EnablePauseMenu(false);
+		Game.OnPause();
+		//EnablePauseMenu(false);
 	}
 
 	/// <summary>Callback internally invoked when Continue's Option is selected on the Pause Menu.</summary>
 	private void OnPauseContinueSelected()
 	{
-		EnablePauseMenu(false);		
+		Game.OnPause();
+		//EnablePauseMenu(false);		
 	}
 
 	/// <summary>Callback internally invoked when Exit's Option is selected on the Pause Menu.</summary>
 	private void OnPauseExitSelected()
 	{
-		EnablePauseMenu(false);		
+		Game.OnPause();
+		Game.ResetScene();
+		//EnablePauseMenu(false);		
 	}
 
 	/// <summary>Callback internally invoked when the Pause Menu's transition is over.</summary>
@@ -215,8 +219,10 @@ public class GameplayGUIController : MonoBehaviour
 	/// <param name="_up">Scale up? Scales down otherwise.</param>
 	/// <param name="onScaleEnds">Callback invoked when the scaling ends.</param>
 	/// <param name="_elements">Elements to scale.</param>
-	private IEnumerator ScaleUIElements(bool _up = true, Action<bool> onScaleEnds = null, params Transform[] _elements)
+	private IEnumerator ScaleUIElements(bool _up = true, Func<float, float> f = null, Action<bool> onScaleEnds = null, params Transform[] _elements)
 	{
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
+
 		Vector3 a = _up ? Vector3.zero : Vector3.one;
 		Vector3 b = _up ? Vector3.one : Vector3.zero;
 		float t = 0.0f;
@@ -226,7 +232,7 @@ public class GameplayGUIController : MonoBehaviour
 		{
 			foreach(Transform element in _elements)
 			{
-				element.localScale = Vector3.Lerp(a, b, t);
+				element.localScale = Vector3.Lerp(a, b, f(t));
 			}
 
 			t += (Time.unscaledDeltaTime * inverseDuration);

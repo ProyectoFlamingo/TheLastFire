@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: -8338976305958156496}
   - component: {fileID: 5775410925392439032}
   - component: {fileID: 6604680271765444578}
+  - component: {fileID: 5907306124469794102}
   m_Layer: 15
   m_Name: Projectile_Parabola_TNT_Shanty
   m_TagString: Projectile/Enemy
@@ -215,10 +216,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 8379186790476956916}
-  _healthAffectableTags: []
   _damage: 1
-  _damageScales:
-  - 1
+  _healthAffectableTags: []
   _impactTags:
   - _tag: Surface/Floor
     index: 13
@@ -236,35 +235,17 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 5
   _distance: 5
-  _impactParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 25
-    objectIndex: 0
-    collectionIndex: 6
-  _destroyedSoundEffectIndex:
-    index: 30
-    objectIndex: 0
-    collectionIndex: 6
+  _impactSoundEffectIndex: 0
+  _destroyedSoundEffectIndex: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player
     index: 11
-  _explodableIndex:
-    index: 1
-    objectIndex: 0
-    collectionIndex: 8
-  _fireEffectIndex:
-    index: 22
-    objectIndex: 0
-    collectionIndex: 7
+  _explodableIndex: 0
+  _fireEffectIndex: 0
   _fuse: {fileID: 8190695335403940318}
   _fuseDuration: 5
   _fuseLength: 0.5
@@ -280,6 +261,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
+  _character: {fileID: 0}
+  _contactWeapon: {fileID: 0}
   debug: 0
 --- !u!114 &5775410925392439032
 MonoBehaviour:
@@ -294,7 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _anchors:
-  - {x: -1.5, y: 0, z: 0}
+  - Item1: {fileID: 0}
+    Item2: {x: 0, y: 0, z: 0}
   gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
   gizmosRadius: 0.1
 --- !u!114 &6604680271765444578
@@ -311,6 +296,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _colliders:
   - {fileID: 7951400521246595147}
+--- !u!114 &5907306124469794102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807340246942760902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 3, y: 2.5, z: 2.5}
+  _centerOffset: {x: 0, y: 0, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &7890409840483429379
 GameObject:
   m_ObjectHideFlags: 0

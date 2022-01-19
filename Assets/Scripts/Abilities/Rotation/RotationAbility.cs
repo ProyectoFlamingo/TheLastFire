@@ -198,7 +198,7 @@ public class RotationAbility : MonoBehaviour
 		{
 			RotateTowards(_transform, _rotation, _scale);
 			dot = Quaternion.Dot(_transform.rotation, _rotation);
-			Debug.Log("[RotationAbility] Dot: " + dot);
+			//Debug.Log("[RotationAbility] Dot: " + dot);
 			yield return null;			
 		}
 

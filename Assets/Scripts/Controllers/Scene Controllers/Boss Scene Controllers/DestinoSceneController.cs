@@ -64,6 +64,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[Header("Loops' Indices:")]
 	[TabGroup("Audio")][SerializeField] private int _mainLoopIndex; 											/// <summary>Main Loop's Index.</summary>
 	[TabGroup("Audio")][SerializeField] private int _mainLoopVoiceIndex; 										/// <summary>Main Loop's Voice Index.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioLoopData _mainLoopLoopData; 								/// <summary>Main Loop's  Data.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioLoopData _mainLoopVoiceLoopData; 							/// <summary>Main Loop's Voice Loop Data.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Indices:")]
 	[TabGroup("Audio")][SerializeField] private int _orchestraTunningSoundIndex; 								/// <summary>Orchestra Tunning Sound FX's Index.</summary>
@@ -193,6 +195,12 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 	/// <summary>Gets curtainOpeningSoundIndex property.</summary>
 	public int curtainOpeningSoundIndex { get { return _curtainOpeningSoundIndex; } }
+
+	/// <summary>Gets mainLoopLoopData property.</summary>
+	public AudioLoopData mainLoopLoopData { get { return _mainLoopLoopData; } }
+
+	/// <summary>Gets mainLoopVoiceLoopData property.</summary>
+	public AudioLoopData mainLoopVoiceLoopData { get { return _mainLoopVoiceLoopData; } }
 
 	/// <summary>Gets and Sets deckPresented property.</summary>
 	public bool deckPresented
@@ -335,6 +343,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_ENDS:
+			AudioController.Stop(SourceType.Loop, 0);
+			AudioController.Stop(SourceType.Loop, 1);
 			SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, curtainsClosureDuration,
 			()=>
 			{
@@ -345,7 +355,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 					mateo.animatorController.CrossFadeAndWait(mateo.bowCredential, mateo.clipFadeDuration, mateo.mainAnimationLayer, 0.0f, 0.0f,
 					()=>
 					{
-						Debug.Log("[DestinoSceneController] Now What?");
+						//Debug.Log("[DestinoSceneController] Now What?");
 					});
 				});
 			});
@@ -378,16 +388,17 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 				SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
 				{
 //#if UNITY_EDITOR
-					if(test)
+					/*if(test)
 					{
 						Game.data.FSMLoops[mainLoopIndex].ChangeState(testLoopState);
 						Game.data.FSMLoops[mainLoopVoiceIndex].ChangeState(testLoopState);
 						//destino.Sing();
-					}
+					}*/
 //#endif
-					AudioController.PlayFSMLoop(0, mainLoopIndex, true);
-					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true);
-					destino.Sing();
+					/*AudioController.PlayFSMLoop(0, mainLoopIndex, true);
+					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true, destino.Sing);*/
+					AudioController.PlayFSMLoops(destino.Sing, mainLoopLoopData, mainLoopVoiceLoopData);
+					
 					destinoController.RequestCard();
 
 					// Thunder Test
