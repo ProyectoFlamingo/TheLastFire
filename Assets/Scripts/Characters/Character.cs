@@ -31,12 +31,12 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _hurtBoxes; 		/// <summary>Hurt-Boxes.</summary>
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _physicalColliders; 	/// <summary>Physical Colliders [Collider2Ds that don't have onTrigger enabled].</summary>
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _triggerColliders; 	/// <summary>Trigger Colliders [Collider2Ds that have onTrigger enabled, they can or cannot be the same Hurt-Boxes' triggers].</summary>
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
 	[TabGroup("Gizmos")][SerializeField] protected Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
 	[TabGroup("Gizmos")][SerializeField] protected float gizmosRadius; 								/// <summary>Gizmos' Radius.</summary>
-#endif
+//#endif
 	private int _state; 																			/// <summary>Character's Current State.</summary>
 	private int _previousState; 																	/// <summary>Character's Previous Current State.</summary>
 	public int ignoreResetMask { get; set; } 														/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
@@ -211,13 +211,11 @@ public class Character : PoolGameObject, IStateMachine
 #endregion
 
 
-#if UNITY_EDITOR
 	/// <summary>Draws Gizmos [On Editor Mode].</summary>
 	protected virtual void OnDrawGizmos()
 	{
 		Gizmos.color = gizmosColor;
 	}
-#endif
 
 //---------------------------------------
 //	 		UNITY-CALLBACKS: 			|
