@@ -207,6 +207,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e1f18245eb010f48ae891c45038efc8, type: 3}
   - {fileID: 8300000, guid: e875075851d3d3a4394194618a245b4e, type: 3}
   - {fileID: 8300000, guid: c1dcaf73c4ce971498ac9c4e5024201a, type: 3}
+  - {fileID: 8300000, guid: a84147dcb3a443c4792e46af24202fb3, type: 3}
+  - {fileID: 8300000, guid: b890b94f74cb7934eaaf5768ab73c87b, type: 3}
+  - {fileID: 8300000, guid: 916377c990fd81e47a6ad872b8b9f415, type: 3}
+  - {fileID: 8300000, guid: 2faec7dd573340e428393995591ea006, type: 3}
   _particleEffects:
   - {fileID: 2948463789655692408, guid: 05729ccca8bca724b80aa225032af021, type: 3}
   - {fileID: 6782677579952761336, guid: 40a16e0a24c989a40b60a9e7cfc239dc, type: 3}
