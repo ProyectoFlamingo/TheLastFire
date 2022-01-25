@@ -3489,6 +3489,9 @@ MonoBehaviour:
   _additionalJumpSwordAttackCredential:
     _tag: AdditionalJumpAttacks
     _ID: 1473887127
+  _bowCredential:
+    _tag: 
+    _ID: 0
   _locomotionFadeDuration: 0.233
   _crouchFadeDuration: 0.1
   _meditationFadeDuration: 0.3
@@ -3924,6 +3927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0
@@ -3957,6 +3961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 3247047400570744615}
+  _flash: 0
   _renderers:
   - {fileID: 3775744744298716227}
   - {fileID: 423402000626272388}
@@ -3986,6 +3991,16 @@ MonoBehaviour:
   _maxFlashAmount: 1
   _duration: 1
   _cycles: 2
+  _shake: 0
+  _shakeTransforms: []
+  _shakeDuration: 0
+  _shakeSpeed: 0
+  _shakeMagnitude: 0
+  _hurtParticleEffect:
+    _transform: {fileID: 0}
+    _particleEffectIndex: 0
+    _points: []
+  _hurtSoundIndex: 0
 --- !u!1 &5226369006775373556
 GameObject:
   m_ObjectHideFlags: 0
@@ -4214,6 +4229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0
@@ -4231,6 +4247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 6500318017240418964}
+  _zOffsetTolerance: 0
 --- !u!1 &5530389517891002818
 GameObject:
   m_ObjectHideFlags: 0
@@ -5226,6 +5243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0
@@ -5243,6 +5261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 8133680254922431483}
+  _zOffsetTolerance: 0
 --- !u!1 &7017861484085698593
 GameObject:
   m_ObjectHideFlags: 0

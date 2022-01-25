@@ -88,7 +88,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitBoxes: []
+  _keepEvaluatingFarColliders: 1
+  _hitBoxes:
+  - {fileID: 4857099441350097584}
+  _zOffsetTolerance: 1
 --- !u!114 &4383764550175946879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolObject: {fileID: 0}
   _character: {fileID: 0}
-  _contactWeapon: {fileID: 0}
+  _contactWeapon: {fileID: 3571803949416437869}
   debug: 0
 --- !u!114 &1939376885473143086
 MonoBehaviour:
@@ -148,8 +151,7 @@ MonoBehaviour:
     index: 14
   - _tag: Surface/Ceiling
     index: 15
-  - _tag: Player
-    index: 5
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}

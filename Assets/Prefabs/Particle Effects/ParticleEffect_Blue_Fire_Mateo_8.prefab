@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4399021083629618, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4399021083629618, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -105,22 +105,97 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4648228566563176, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.067
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4648228566563176, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.155
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4648228566563176, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: EmissionModule.rateOverDistance.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: LightsModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: LightsModule.light
+      value: 
+      objectReference: {fileID: 7039852779685525043, guid: d4739baa4d4a03149aa5b0f83b25edb4,
+        type: 3}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: LightsModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: LightsModule.randomDistribution
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: LightsModule.range
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: InitialModule.randomizeRotationDirection
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198504742122032616, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: simulationSpeed
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198904408555212570, guid: 7f8241a0916476747874b3fedad42f5a,
         type: 3}
       propertyPath: looping
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 198904408555212570, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: ShapeModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198904408555212570, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: CustomDataModule.enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198904408555212570, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: CustomDataModule.mode0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198904408555212570, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 199042042599827284, guid: 7f8241a0916476747874b3fedad42f5a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 161852a92f31b914b8f1affca6c04673, type: 2}
+      objectReference: {fileID: 2100000, guid: 0449d941d7b45384bbecb06073b5469f, type: 2}
+    - target: {fileID: 199042042599827284, guid: 7f8241a0916476747874b3fedad42f5a,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f8241a0916476747874b3fedad42f5a, type: 3}
 --- !u!4 &7734230238384736391 stripped

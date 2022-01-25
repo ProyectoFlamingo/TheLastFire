@@ -283,13 +283,13 @@ public class DevilBehavior : DestinoScriptableCoroutine
 			}
 
 			wait.ChangeDurationAndReset(roundCooldown);
-			while(wait.MoveNext()) yield return null;
+			while(wait.MoveNext() && count > 0) yield return null;
 		}
 
 		t = 0.0f;
 
 		/// Lerp back Devil & Towers:
-		if(devilAlive || leftTowerAlive || rightTowerAlive) while(t < 1.0f)
+		/*if(devilAlive || leftTowerAlive || rightTowerAlive) while(t < 1.0f)
 		{
 			devil.transform.position = Vector3.Lerp(devilSpawnPoint, devilDestinyPoint, 1.0f - t);
 			leftDevilTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, 1.0f - t);
@@ -297,7 +297,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
-		}
+		}*/
 
 		devil.gameObject.SetActive(false);
 		leftDevilTower.gameObject.SetActive(false);

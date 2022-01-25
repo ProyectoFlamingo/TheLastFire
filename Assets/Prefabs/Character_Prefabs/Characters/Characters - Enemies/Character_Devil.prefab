@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1571157078382660374
 Transform:
@@ -44,7 +44,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6326377372082687093
 Transform:
@@ -74,7 +74,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7087042975180948544
 Transform:
@@ -108,7 +108,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &329303680145343640
 Transform:
@@ -187,7 +187,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5414748771571071617
 Transform:
@@ -226,7 +226,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5780702081713712469
 Transform:
@@ -539,7 +539,7 @@ GameObject:
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6319558079540329212
 Transform:
@@ -549,7 +549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6699179469644701766}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 13.41, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 5}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5602773809036300146}
@@ -590,6 +590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 5780702081713712475}
+  _zOffsetTolerance: 0
 --- !u!114 &5780702080738925849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -602,6 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0

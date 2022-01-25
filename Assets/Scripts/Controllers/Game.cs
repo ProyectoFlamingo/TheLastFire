@@ -174,9 +174,12 @@ public class Game : Singleton<Game>
 	{
 		data.Initialize();
 
-		defaultCameraBoundaries = cameraController.boundariesContainer.ToBoundaries2D();
-		defaultDistanceRange = cameraController.distanceAdjuster.distanceRange;
-		boundariesModifiers = new HashSet<Camera2DBoundariesModifier>();
+		if(cameraController != null)
+		{
+			defaultCameraBoundaries = cameraController.boundariesContainer.ToBoundaries2D();
+			defaultDistanceRange = cameraController.distanceAdjuster.distanceRange;
+			boundariesModifiers = new HashSet<Camera2DBoundariesModifier>();
+		}
 
 		if(mateo != null)
 		{
@@ -223,6 +226,8 @@ public class Game : Singleton<Game>
 	/// <summary>Changes Game Mode to Single Player.</summary>
 	public static void SetForSinglePlayer()
 	{
+		if(PlayerInputsManager.Instance == null) return;
+
 		gameMode = GameMode.SinglePlayer;
 		PlayerInputController controller = PlayerInputsManager.Get();
 

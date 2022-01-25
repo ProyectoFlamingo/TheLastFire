@@ -83,6 +83,7 @@ public class Projectile : ContactWeapon
 
 	//Gil hash set
 	private HashSet<int> _swordSet = new HashSet<int>();
+
 #region Getters/Setters:
 	/// <summary>Gets and Sets projectileType property.</summary>
 	public ProjectileType projectileType
@@ -384,7 +385,7 @@ public class Projectile : ContactWeapon
 	public override void OnObjectReset()
 	{
 		base.OnObjectReset();
-		ActivateHitBoxes();
+		ActivateHitBoxes(true);
 		accumulatedVelocity = Vector3.zero;
 		activated = true;
 		currentLifeTime = 0.0f;
@@ -583,6 +584,7 @@ public class Projectile : ContactWeapon
 		}
 
 		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
+		Debug.Log("[Projectile] OnDeactivated...");
 		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
 		OnObjectDeactivation();
 	}

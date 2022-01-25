@@ -6,6 +6,7 @@ using Voidless;
 
 namespace Flamingo
 {
+[CanEditMultipleObjects]
 [CustomEditor(typeof(SelfMotionPerformer))]
 public class SelfMotionPerformerInspector : Editor
 {

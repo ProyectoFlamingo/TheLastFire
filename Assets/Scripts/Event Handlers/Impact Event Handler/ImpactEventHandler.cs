@@ -9,14 +9,34 @@ namespace Flamingo
 [RequireComponent(typeof(EventsHandler))]
 public class ImpactEventHandler : MonoBehaviour
 {
-	[SerializeField] private HitCollider2D[] _hitBoxes; 	/// <summary>HitBoxes' Array.</summary>
-	private EventsHandler _eventsHandler; 					/// <summary>EventsHandler's Component.</summary>
+	private const float DEFAULT_OFFSET_Z = 1.0f; 							/// <summary>Default  Offset for the Z-Axis.</summary>
+
+	[SerializeField] private bool _keepEvaluatingFarColliders; 				/// <summary>Keep Evaluating for far objects that entered trigger?.</summary>
+	[SerializeField] private HitCollider2D[] _hitBoxes; 					/// <summary>HitBoxes' Array.</summary>
+	[SerializeField] private float _zOffsetTolerance; 						/// <summary>Z-Offset's Tolerance.</summary>
+	private EventsHandler _eventsHandler; 									/// <summary>EventsHandler's Component.</summary>
+	private Dictionary<int, VTuple<Collider2D, Collider2D>> _tuples; 		/// <summary>Collider2Ds' Tuples.</summary>
+	private Coroutine zEvaluation; 											/// <summary>Z-Axis' Evaluation Coroutine's reference.</summary>
+
+	/// <summary>Gets and Sets keepEvaluatingFarColliders property.</summary>
+	public bool keepEvaluatingFarColliders
+	{
+		get { return _keepEvaluatingFarColliders; }
+		set { _keepEvaluatingFarColliders = value; }
+	}
 
 	/// <summary>Gets and Sets hitBoxes property.</summary>
 	public HitCollider2D[] hitBoxes
 	{
 		get { return _hitBoxes; }
 		set { _hitBoxes = value; }
+	}
+
+	/// <summary>Gets and Sets zOffsetTolerance property.</summary>
+	public float zOffsetTolerance
+	{
+		get { return _zOffsetTolerance; }
+		set { _zOffsetTolerance = value; }
 	}
 
 	/// <summary>Gets eventsHandler Component.</summary>
@@ -29,10 +49,19 @@ public class ImpactEventHandler : MonoBehaviour
 		}
 	}
 
+	/// <summary>Gets and Sets tuples property.</summary>
+	public Dictionary<int, VTuple<Collider2D, Collider2D>> tuples
+	{
+		get { return _tuples; }
+		set { _tuples = value; }
+	}
+
 	/// <summary>ImpactEventHandler's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()
 	{
 		SubscribeToHitCollidersEvents(true);
+		tuples = new Dictionary<int, VTuple<Collider2D, Collider2D>>();
+		if(zOffsetTolerance <= 0.0f) zOffsetTolerance = DEFAULT_OFFSET_Z;
 	}
 
 	/// <summary>Callback invoked when ImpactEventHandler's instance is going to be destroyed and passed to the Garbage Collector.</summary>
@@ -100,6 +129,28 @@ public class ImpactEventHandler : MonoBehaviour
 	{
 		GameObject obj = _collider.gameObject;
 		Collider2D collider = hitBoxes[Mathf.Clamp(_ID, 0, hitBoxes.Length - 1)].collider;
+		float deltaZ = Mathf.Abs(obj.transform.position.z - collider.transform.position.z);
+
+		switch(_eventType)
+		{
+			case HitColliderEventTypes.Enter:
+			if(deltaZ > (zOffsetTolerance * zOffsetTolerance))
+			{
+				/// Store or stack into a registry that will deal with these objects while the trigger stays
+				int instanceID = _collider.GetInstanceID();
+				VTuple<Collider2D, Collider2D> tuple = new VTuple<Collider2D, Collider2D>(_collider, collider);
+				if(!tuples.ContainsKey(instanceID)) tuples.Add(instanceID, tuple);
+
+				if(zEvaluation == null && keepEvaluatingFarColliders) this.StartCoroutine(ZEvaluationRoutine(), ref zEvaluation);
+
+				return;
+			}
+			break;
+
+			case HitColliderEventTypes.Exit:
+
+			break;
+		}
 
 /*#if UNITY_EDITOR
 		VDebug.Log(
@@ -118,6 +169,47 @@ public class ImpactEventHandler : MonoBehaviour
 		Trigger2DInformation info = new Trigger2DInformation(collider, _collider);
 		eventsHandler.InvokeTriggerEvent(info, _eventType, _ID);
 		return;
+	}
+
+	/// <summary>Evaluates Objects on Z-Axis.</summary>
+	private IEnumerator ZEvaluationRoutine()
+	{
+		List<int> indices = new List<int>();
+
+		while(keepEvaluatingFarColliders)
+		{
+
+			if(tuples != null && tuples.Count > 0) foreach(KeyValuePair<int, VTuple<Collider2D, Collider2D>> pair in tuples)
+			{
+				VTuple<Collider2D, Collider2D> colliderTuple = pair.Value;
+				Collider2D a = colliderTuple.Item1;
+				Collider2D b = colliderTuple.Item2;
+				float deltaZ = Mathf.Abs(a.transform.position.z - b.transform.position.z);
+				float tolerance = zOffsetTolerance * zOffsetTolerance;
+
+				if(deltaZ <= tolerance)
+				{
+					Trigger2DInformation info = new Trigger2DInformation(b, a);
+					eventsHandler.InvokeTriggerEvent(info, HitColliderEventTypes.Enter, 0);
+
+					indices.Add(pair.Key);
+				}
+			}
+
+			if(indices.Count > 0)
+			{
+				foreach(int index in indices)
+				{
+					tuples.Remove(index);
+				}
+
+				indices.Clear();
+			}
+
+			yield return null;
+		}
+
+		this.DispatchCoroutine(ref zEvaluation);
 	}
 }
 }

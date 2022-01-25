@@ -36,6 +36,7 @@ public class ParticleEffectInspector : Editor
 		if(particleEffect.isPlaying && GUILayout.Button("Pause")) particleEffect.Pause();
 		if(!particleEffect.isStopped && GUILayout.Button("Stop")) particleEffect.Stop();
 		if(particleEffect.isPlaying && GUILayout.Button("Clear")) particleEffect.Clear();
+		if(GUILayout.Button(" Get Children Particle Systems")) particleEffect.GetParticleSystems();
 
    		serializedObject.ApplyModifiedProperties();
 	}

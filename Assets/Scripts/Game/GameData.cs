@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Voidless;
 using Sirenix.OdinInspector;
+#if UNITY_SWITCH
+using UnityEngine.Switch;
+#endif
 
 namespace Flamingo
 {
@@ -68,9 +71,9 @@ public class GameData : ScriptableObject
 	[SerializeField] private PoolGameObject[] _poolObjects; 									/// <summary>Pool GameObjects.</summary>
 	[Space(5f)]
 	[Header("Audios:")]
-	[TabGroup("Audio")][SerializeField] private FiniteStateAudioClip[] _FSMLoops; 									/// <summary>Finite-State's Loop Effects.</summary>
-	[TabGroup("Audio")][SerializeField] private AudioClip[] _loops; 												/// <summary>Loop Effects.</summary>
-	[TabGroup("Audio")][SerializeField] private AudioClip[] _soundEffects; 										/// <summary>Sounds' Effects.</summary>
+	[TabGroup("Audio")][SerializeField] private FiniteStateAudioClip[] _FSMLoops; 				/// <summary>Finite-State's Loop Effects.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioClip[] _loops; 							/// <summary>Loop Effects.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioClip[] _soundEffects; 						/// <summary>Sounds' Effects.</summary>
 	[Space(5f)]
 	[Header("Particle Effects:")]
 	[TabGroup("Pool GameObjects")][SerializeField] private ParticleEffect[] _particleEffects; 	/// <summary>Particle Effects.</summary>
@@ -304,6 +307,16 @@ public class GameData : ScriptableObject
 
 		VDebug.Log(builder.ToString());
 #endif*/
+
+#if UNITY_SWITCH
+		/// https://developer.nintendo.com/html/online-docs/g1kr9vj6-en/Packages/middleware/UnityForNintendoSwitch/Documents/contents-en/Pages/Page_220688182.html?highlighttext=light
+		Performance.SetConfiguration(
+    		Performance.PerformanceMode.Normal,
+    		Performance.PerformanceConfiguration.Cpu1020MhzGpu384MhzEmc1331Mhz
+    	);
+
+    	QualitySettings.maxQueuedFrames = 2;
+#endif
 	}
 
 	/// <summary>Resets FSM Loop's States.</summary>

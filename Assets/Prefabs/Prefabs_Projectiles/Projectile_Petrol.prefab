@@ -247,6 +247,9 @@ MonoBehaviour:
     index: 13
   - _tag: Surface/Ceiling
     index: 15
+  _rejectionTags:
+  - _tag: Projectile/Player
+    index: 11
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -279,6 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitBoxes:
   - {fileID: 4914631231760126912}
+  _zOffsetTolerance: 0
 --- !u!114 &4848349935350795301
 MonoBehaviour:
   m_ObjectHideFlags: 0

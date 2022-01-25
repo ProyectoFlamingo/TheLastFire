@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: "Assets/Scenes/Tests/Salazar Elefunk\xB4s_Ligthing Lab.unity"
     guid: 13b169217028b994595c66d27e561e01
+  - enabled: 0
+    path: Assets/Scenes/Tests/Scene_LightningTest.unity
+    guid: 671b7c592103b2a43b93acbe868c2012
   m_configObjects: {}

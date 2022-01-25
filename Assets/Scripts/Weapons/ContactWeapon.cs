@@ -24,12 +24,15 @@ public class ContactWeapon : PoolGameObject
 	[Header("Impact's Attributes:")]
 	[TabGroup("Tags")][SerializeField] private GameObjectTag[] _impactTags; 					/// <summary>Tags of GameObject affected by impact.</summary>
 	[Space(5f)]
+	[TabGroup("Tags")][SerializeField] private GameObjectTag[] _rejectionTags; 					/// <summary>Tags of GameObjects that reject interaction.</summary>
+	[Space(5f)]
 	[Header("Trail's References:")]
 	[TabGroup("Visual Effects")][SerializeField] private TrailRenderer[] _trailRenderers; 		/// <summary>TrailRenderers' Component.</summary>
 	[TabGroup("Visual Effects")][SerializeField] private ParticleEffect[] _particleEffects; 	/// <summary>ParticleEffects' Component.</summary>
 	private bool _activated; 																	/// <summary>Can the projectile be activated?.</summary>
 	private GameObject _owner; 																	/// <summary>Weapon's current owner.</summary>
 	private HashSet<int> _objectsIDs; 															/// <summary>Set of GameObject's IDs that are already inside of HitBoxes [to avoid repetition of actions].</summary>
+	private HashSet<int> _rejectionIDs; 														/// <summary>Set of GameObjects' IDs that are already  as rejecters.</summary>
 	private EventsHandler _eventsHandler; 														/// <summary>EventsHandler's Component.</summary>
 	private ImpactEventHandler _impactEventHandler; 											/// <summary>ImpactEventHandler's Component.</summary>
 	private VirtualAnchorContainer _anchorContainer; 											/// <summary>VirtualAnchorContainer's Component.</summary>
@@ -57,6 +60,13 @@ public class ContactWeapon : PoolGameObject
 		set { _impactTags = value; }
 	}
 
+	/// <summary>Gets and Sets rejectionTags property.</summary>
+	public GameObjectTag[] rejectionTags
+	{
+		get { return _rejectionTags; }
+		set { _rejectionTags = value; }
+	}
+
 	/// <summary>Gets and Sets damage property.</summary>
 	public float damage
 	{
@@ -82,7 +92,7 @@ public class ContactWeapon : PoolGameObject
 	public bool activated
 	{
 		get { return _activated; }
-		set { _activated = value; }
+		set { _activated = value; Debug.Log("[ContactWeapon] " + gameObject.name + " Activated Set To " + activated); }
 	}
 
 	/// <summary>Gets and Sets owner property.</summary>
@@ -97,6 +107,13 @@ public class ContactWeapon : PoolGameObject
 	{
 		get { return _objectsIDs; }
 		set { _objectsIDs = value; }
+	}
+
+	/// <summary>Gets and Sets rejectionIDs property.</summary>
+	public HashSet<int> rejectionIDs
+	{
+		get { return _rejectionIDs; }
+		set { _rejectionIDs = value; }
 	}
 
 	/// <summary>Gets eventsHandler Component.</summary>
@@ -144,7 +161,8 @@ public class ContactWeapon : PoolGameObject
 	protected virtual void Awake()
 	{
 		objectsIDs = new HashSet<int>();
-		ActivateHitBoxes(false);
+		rejectionIDs = new HashSet<int>();
+		ActivateHitBoxes();
 		eventsHandler.contactWeapon = this;
 		eventsHandler.onTriggerEvent += OnTriggerEvent;
 	}
@@ -185,17 +203,34 @@ public class ContactWeapon : PoolGameObject
 		GameObject obj = _info.collider.gameObject;
 		int instanceID = obj.GetInstanceID();
 
+		if(rejectionTags != null) foreach(GameObjectTag tag in rejectionTags)
+		{
+			if(obj.CompareTag(tag))
+			{
+				switch(_eventType)
+				{
+					case HitColliderEventTypes.Enter:
+						rejectionIDs.Add(instanceID);
+					break;
+
+					case HitColliderEventTypes.Exit:
+						rejectionIDs.Remove(instanceID);
+					break;
+				}
+			}
+		}
+
 		/// \TODO Maybe separate into its own DamageApplier class?
 		if(healthAffectableTags != null) foreach(GameObjectTag tag in healthAffectableTags)
 		{
-			switch(_eventType)
+			if(obj.CompareTag(tag))
 			{
-				case HitColliderEventTypes.Enter:
+				switch(_eventType)
 				{
-					if(obj.CompareTag(tag))
+					case HitColliderEventTypes.Enter:
 					{
-						if(objectsIDs.Contains(instanceID)) return;
-
+						if(rejectionIDs.Count > 0 || objectsIDs.Contains(instanceID)) return;
+					
 						objectsIDs.Add(instanceID);
 
 						Health health = obj.GetComponentInParent<Health>();
@@ -210,15 +245,15 @@ public class ContactWeapon : PoolGameObject
 						{
 							health.GiveDamage(damage, true, true, gameObject);
 							OnHealthInstanceDamaged(health);
-
-							break;
 						}
 					}
-				}
-				break;
+					break;
 
-				case HitColliderEventTypes.Exit:
-					objectsIDs.Remove(instanceID);
+					case HitColliderEventTypes.Exit:
+						objectsIDs.Remove(instanceID);
+					break;
+				}
+
 				break;
 			}
 		}
@@ -239,12 +274,22 @@ public class ContactWeapon : PoolGameObject
 		}
 	}
 
+	/// <summary>Actions made when this Pool Object is being reseted.</summary>
+	public override void OnObjectReset()
+	{
+		base.OnObjectReset();
+		owner = null;
+		objectsIDs.Clear();
+		rejectionIDs.Clear();
+	}
+
 	/// <summary>Callback invoked when the object is deactivated.</summary>
 	public override void OnObjectDeactivation()
 	{
 		base.OnObjectDeactivation();
 		owner = null;
 		objectsIDs.Clear();
+		rejectionIDs.Clear();
 	}
 
 	/// <summary>Callback internally invoked when a Health's instance was damaged.</summary>
