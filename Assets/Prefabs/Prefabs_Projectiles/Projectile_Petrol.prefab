@@ -267,6 +267,14 @@ MonoBehaviour:
   _sourceIndex: 0
   _impactSoundEffectIndex: 45
   _destroyedSoundEffectIndex: 17
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1614921204212439701
 MonoBehaviour:
@@ -280,6 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4914631231760126912}
   _zOffsetTolerance: 0

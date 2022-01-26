@@ -1,7 +1,9 @@
 ﻿using System.Text;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Voidless;
 using Sirenix.OdinInspector;
@@ -18,6 +20,9 @@ public class GameData : ScriptableObject
 	public const string PATH_SCENE_DEFAULT = "Scene_LoadingScreen"; 							/// <summary>Default Scene to Load's Path.</summary>
 	public const string PATH_SCENE_LOADING = "Scene_LoadingScreen"; 							/// <summary>Loading Scene's Path.</summary>
 
+	[Header("Addressables:")]
+	[SerializeField] private AssetReference[] _projectilesReferences; 							/// <summary>Projectiles' References.</summary>
+	[Space(5f)]
 	[Header("Configurations:")]
 	[SerializeField] [Range(0, 60)] private int _frameRate; 									/// <summary>Game's Frame rate.</summary>
 	[SerializeField] [Range(0.0f, 1.0f)] private float _hurtTimeScale; 							/// <summary>Hurt's Time-Scale.</summary>
@@ -94,6 +99,10 @@ public class GameData : ScriptableObject
 #endif
 
 #region Getters:
+	/// <summary>Gets projectilesReferences property.</summary>
+	public AssetReference[] projectilesReferences { get { return _projectilesReferences; } }
+
+
 	/// <summary>Gets and Sets ceilingDotProductThreshold property.</summary>
 	public FloatWrapper ceilingDotProductThreshold
 	{
@@ -321,6 +330,38 @@ public class GameData : ScriptableObject
 
     	QualitySettings.maxQueuedFrames = 2;
 #endif
+
+    	Addressables.Initialize();
+	}
+
+	public void InitializeProjectiles(Action onProjectilesInitialized = null, params int[] indices)
+	{
+		if(indices == null) return;
+
+		int length = indices.Length;
+		int index = 0;
+		int completed = 0;
+
+		_projectiles = new Projectile[projectilesReferences.Length];
+
+		for(int i  = 0; i < length; i++)
+		{
+			index = Mathf.Clamp(indices[i], 0, length - 1);
+			AssignProjectile(index);
+			completed++;
+
+			if(completed == length && onProjectilesInitialized != null) onProjectilesInitialized();
+		}
+	}
+
+	private void AssignProjectile(int index)
+	{
+		Addressables.LoadAssetAsync<Projectile>(projectilesReferences[index]).Completed += (obj) =>
+		{
+			Debug.Log("[GameData] Handle on " + index + " " + obj.ToString());
+
+			_projectiles[index] = obj.Result;
+		};
 	}
 
 	/// <summary>Resets FSM Loop's States.</summary>

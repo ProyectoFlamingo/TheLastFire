@@ -8,6 +8,7 @@ namespace Flamingo
 {
 public class PoolManager : Singleton<PoolManager>
 {
+	[SerializeField] private int[] _indices; 										/// <summary>Indices of Projectiles that must be loaded for this scene.</summary>
 	private GameObjectPool<Projectile>[] _projectilesPools; 						/// <summary>Pools Projectiles.</summary>
 	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 					/// <summary>PoolGameObjects' Pools.</summary>
 	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 				/// <summary>Pools of Particle's Effects.</summary>
@@ -15,6 +16,9 @@ public class PoolManager : Singleton<PoolManager>
 	private GameObjectPool<SoundEffectLooper> _loopersPool; 						/// <summary>Pool of Sound-Effects' Loopers.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets indices property.</summary>
+	public int[] indices { get { return _indices; } }
+
 	/// <summary>Gets and Sets projectilesPools property.</summary>
 	public GameObjectPool<Projectile>[] projectilesPools
 	{
@@ -59,6 +63,17 @@ public class PoolManager : Singleton<PoolManager>
 		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);
 		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(Game.data.explodables);
 		loopersPool = new GameObjectPool<SoundEffectLooper>(Game.data.looper);
+	}
+
+	/// <summary>Called after Awake, before the first Update.</summary>
+	protected void Start()
+	{
+		/*Game.data.InitializeProjectiles(()=>{ projectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.projectiles); }, indices);
+
+		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(Game.data.poolObjects);
+		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);
+		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(Game.data.explodables);
+		loopersPool = new GameObjectPool<SoundEffectLooper>(Game.data.looper);*/
 	}
 
 	/// <summary>Gets a Projectile from the Projectiles' Pools.</summary>

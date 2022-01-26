@@ -200,8 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 7890409840483429500}
+  _zOffsetTolerance: 0
 --- !u!114 &7807340246942760897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +225,7 @@ MonoBehaviour:
     index: 13
   - _tag: Projectile/Player
     index: 11
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -240,6 +243,14 @@ MonoBehaviour:
   _sourceIndex: 0
   _impactSoundEffectIndex: 0
   _destroyedSoundEffectIndex: 0
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player

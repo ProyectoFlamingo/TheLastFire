@@ -35,4 +35,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tests/Scene_LightningTest.unity
     guid: 671b7c592103b2a43b93acbe868c2012
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 6c60873fea1eac54e8319e2906d77d2e,
+      type: 2}

@@ -88,7 +88,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes: []
+  _zOffsetTolerance: 0
 --- !u!114 &-135263969444310564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0
@@ -136,12 +139,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
+  _damage: 1
   _healthAffectableTags:
   - _tag: Player
     index: 5
-  _damage: 1
-  _damageScales:
-  - 1
   _impactTags:
   - _tag: Surface/Floor
     index: 13
@@ -151,6 +152,7 @@ MonoBehaviour:
     index: 15
   - _tag: Player
     index: 5
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -163,23 +165,19 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 0
   _distance: 0
-  _impactParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedParticleEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 0
   _sourceIndex: 0
-  _impactSoundEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
-  _destroyedSoundEffectIndex:
-    index: 0
-    objectIndex: 0
-    collectionIndex: 0
+  _impactSoundEffectIndex: 0
+  _destroyedSoundEffectIndex: 0
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &-2599010639905666004
 MonoBehaviour:

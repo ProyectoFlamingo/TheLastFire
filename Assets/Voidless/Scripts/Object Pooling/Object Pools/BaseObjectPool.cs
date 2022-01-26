@@ -67,6 +67,8 @@ public abstract class BaseObjectPool<T> : IObjectPool<T>, IEnumerable<T> where T
 	/// <param name="_limit">Pool's Limit.</param>
 	public BaseObjectPool(T _referenceObject, int _size = 0, int _limit = int.MaxValue)
 	{
+		if(_referenceObject == null) return;
+
 		poolStackQueue = new StackQueue<T>();
 		referenceObject = _referenceObject;
 		limit = _limit;

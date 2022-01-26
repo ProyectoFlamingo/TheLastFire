@@ -87,6 +87,7 @@ MonoBehaviour:
     index: 11
   - _tag: Surface/Floor
     index: 13
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -104,6 +105,14 @@ MonoBehaviour:
   _sourceIndex: 1
   _impactSoundEffectIndex: 42
   _destroyedSoundEffectIndex: -1
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7682601556303024489
 MonoBehaviour:
@@ -117,8 +126,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4090121953862506556}
+  _zOffsetTolerance: 0
 --- !u!114 &9115046393744039252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0

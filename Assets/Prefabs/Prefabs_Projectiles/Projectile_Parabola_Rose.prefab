@@ -169,6 +169,14 @@ MonoBehaviour:
   _sourceIndex: 0
   _impactSoundEffectIndex: 0
   _destroyedSoundEffectIndex: 0
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 0
+    volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &510593027185520468
 MonoBehaviour:
