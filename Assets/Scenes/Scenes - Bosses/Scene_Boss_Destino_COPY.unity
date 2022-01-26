@@ -239,11 +239,15 @@ MonoBehaviour:
   _deckPositioningDuration: 0.5
   _presentationDuration: 0.5
   _storeDuration: 0.5
+  _shuffleSoundEffect:
+    sourceIndex: 0
+    soundIndex: 80
+    volume: 1
   _zOffset: 0.2
-  _shufflingDuration: 0.5
+  _shufflingDuration: 1.5
   _shufflingRadius: 1
   _shufflingSpeed: 7
-  _shufflingCycles: 1.5
+  _shufflingCycles: 4
   _yOffset: 3
   _orbitDuration: 2
   _orbitRadius: 7
@@ -13353,7 +13357,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -13384,6 +13388,36 @@ PrefabInstance:
         type: 3}
       propertyPath: _hitParticleEffect._particleEffectIndex
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.soundIndex
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.soundIndex
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.soundIndex
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -20946,6 +20980,36 @@ PrefabInstance:
       propertyPath: _headHitParticleEffect._particleEffectIndex
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.soundIndex
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.soundIndex
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.soundIndex
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -26144,7 +26208,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -26175,6 +26239,36 @@ PrefabInstance:
         type: 3}
       propertyPath: _headHitParticleEffect._particleEffectIndex
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.soundIndex
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.soundIndex
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.soundIndex
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -27402,7 +27496,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -27423,6 +27517,36 @@ PrefabInstance:
         type: 3}
       propertyPath: _headHitParticleEffect._particleEffectIndex
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.soundIndex
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.soundIndex
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.soundIndex
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -32545,7 +32669,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -32581,6 +32705,36 @@ PrefabInstance:
         type: 3}
       propertyPath: _headHitParticleEffect._particleEffectIndex
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.soundIndex
+      value: 78
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flyingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.soundIndex
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _flipSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.soundIndex
+      value: 81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _incrustSoundEffect.volume
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -32923,6 +33077,75 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc2ae200b6d45da419742a9fb40629b4, type: 3}
+--- !u!1001 &8299995126925146128
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907169, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8299995128041907198, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundEffectLooper
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec, type: 3}
 --- !u!4 &8365914426486373426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3701848998754718908, guid: 16d6b59009cf8314aa995cfa634e8c92,

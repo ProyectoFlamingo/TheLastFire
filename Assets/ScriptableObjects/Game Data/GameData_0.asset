@@ -103,6 +103,7 @@ MonoBehaviour:
   - {fileID: 2340683740104089345, guid: 8e98f4254b032564893133ce4247e946, type: 3}
   - {fileID: 1178958323506621223, guid: a773d48f55b65044ca11283f9ab40a17, type: 3}
   - {fileID: 8502636351339952987, guid: 028be9ba5f0684a4cb4619f942c4f6e9, type: 3}
+  _looper: {fileID: 8299995128041907199, guid: 4a83ebdf1c6670c45b3efb82cc0b4bec, type: 3}
   _FSMLoops:
   - {fileID: 11400000, guid: 89bfa2b1c0f1bb54cae540866022a46e, type: 2}
   - {fileID: 11400000, guid: 3dde1125cb7b12a4eafe806c0c1f6d8b, type: 2}

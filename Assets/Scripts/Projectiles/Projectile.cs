@@ -40,46 +40,49 @@ Events:
 //[RequireComponent(typeof(ProjectileEventsHandler))]
 public class Projectile : ContactWeapon
 {
-	public event OnDeactivated onDeactivated; 									/// <summary>OnDeactivated's Event Delegate.</summary>
+	public event OnDeactivated onDeactivated; 										/// <summary>OnDeactivated's Event Delegate.</summary>
 
-	[SerializeField] private ParticleEffect effect; 	/// <summary>Description.</summary>
+	[SerializeField] private ParticleEffect effect; 								/// <summary>???.</summary>
 	[Space(5f)]
 	[Header("Projectile's Attributes:")]
-	[SerializeField] private ProjectileType _projectileType; 					/// <summary>Projectile's Type.</summary>
-	[SerializeField] private GameObjectTag[] _repelTags; 						/// <summary>Tags of GameObjects that can repel this projectile on impact.</summary>
-	[SerializeField] private SpeedMode _speedMode; 								/// <summary>Speed's Mode.</summary>
-	[SerializeField] private float _speed; 										/// <summary>Projectile's Speed.</summary>
-	[SerializeField] private float _lifespan; 									/// <summary>Projectile's Lifespan.</summary>
-	[SerializeField] private float _cooldownDuration; 							/// <summary>Cooldown's Duration.</summary>
-	[SerializeField] private bool _rotateTowardsDirection; 						/// <summary>Make Projectile Rotate towards direction?.</summary>
+	[SerializeField] private ProjectileType _projectileType; 						/// <summary>Projectile's Type.</summary>
+	[SerializeField] private GameObjectTag[] _repelTags; 							/// <summary>Tags of GameObjects that can repel this projectile on impact.</summary>
+	[SerializeField] private SpeedMode _speedMode; 									/// <summary>Speed's Mode.</summary>
+	[SerializeField] private float _speed; 											/// <summary>Projectile's Speed.</summary>
+	[SerializeField] private float _lifespan; 										/// <summary>Projectile's Lifespan.</summary>
+	[SerializeField] private float _cooldownDuration; 								/// <summary>Cooldown's Duration.</summary>
+	[SerializeField] private bool _rotateTowardsDirection; 							/// <summary>Make Projectile Rotate towards direction?.</summary>
 	[Space(5f)]
 	[Header("Steering Attributes:")]
-	[SerializeField] private float _maxSteeringForce; 							/// <summary>Maximum's Steering Force.</summary>
-	[SerializeField] private float _distance; 									/// <summary>Distance from Parent's Projectile.</summary>
+	[SerializeField] private float _maxSteeringForce; 								/// <summary>Maximum's Steering Force.</summary>
+	[SerializeField] private float _distance; 										/// <summary>Distance from Parent's Projectile.</summary>
 	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
-	[SerializeField] private int _impactParticleEffectIndex; 					/// <summary>Index of ParticleEffect to emit when the projectile impacts.</summary>
-	[SerializeField] private int _destroyedParticleEffectIndex; 				/// <summary>Index of ParticleEffect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private int _impactParticleEffectIndex; 						/// <summary>Index of ParticleEffect to emit when the projectile impacts.</summary>
+	[SerializeField] private int _destroyedParticleEffectIndex; 					/// <summary>Index of ParticleEffect to emit when the projectile is destroyed.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Attributes:")]
-	[SerializeField] private int _sourceIndex; 									/// <summary>Sound Effect's Source Index.</summary>
-	[SerializeField] private int _impactSoundEffectIndex; 						/// <summary>Index of Sound Effect to emit when the projectile impacts.</summary>
-	[SerializeField] private int _destroyedSoundEffectIndex; 					/// <summary>Index of Sound Effect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private int _sourceIndex; 										/// <summary>Sound Effect's Source Index.</summary>
+	[SerializeField] private int _impactSoundEffectIndex; 							/// <summary>Index of Sound Effect to emit when the projectile impacts.</summary>
+	[SerializeField] private int _destroyedSoundEffectIndex; 						/// <summary>Index of Sound Effect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private SoundEffectEmissionData _activeLoopingSoundEffect; 	/// <summary>Sound-Effect emitted in a loop state while the Projectile is active.</summary>
+	[SerializeField] private SoundEffectEmissionData _repelSoundEffect; 			/// <summary>Sound-Effect emitted when repelled.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
-	[SerializeField] private Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private Color gizmosColor; 									/// <summary>Gizmos' Color.</summary>
 #endif
-	
-	private float _currentLifeTime; 											/// <summary>Current Life Time.</summary>
-	private float _parabolaTime; 												/// <summary>Time parameter used for the projectile parabola's formula.</summary>
-	private Vector3 _lastPosition; 												/// <summary>Last Position reference [for the Steering Snake].</summary>
-	private Vector3 _direction; 												/// <summary>Projectilwe's direction that determines its displacement.</summary>
-	private Vector3 _accumulatedVelocity; 										/// <summary>Accumulated Velocity.</summary>
-	private Transform _target; 													/// <summary>Homing Target.</summary>
-	private Rigidbody2D _rigidbody; 											/// <summary>Rigidbody2D's Component.</summary>
-	private ProjectileEventsHandler _projectileEventsHandler; 					/// <summary>ProjectileEventsHandler's Component.</summary>
-	private Projectile _parentProjectile; 										/// <summary>Parent Projectile.</summary>
-	protected Vector2 velocity; 												/// <summary>Velocity's Vector.</summary>
+	private float _currentLifeTime; 												/// <summary>Current Life Time.</summary>
+	private float _parabolaTime; 													/// <summary>Time parameter used for the projectile parabola's formula.</summary>
+	private Vector3 _lastPosition; 													/// <summary>Last Position reference [for the Steering Snake].</summary>
+	private Vector3 _direction; 													/// <summary>Projectilwe's direction that determines its displacement.</summary>
+	private Vector3 _accumulatedVelocity; 											/// <summary>Accumulated Velocity.</summary>
+	private SoundEffectLooper _activeSoundEffectLooper; 							/// <summary>Sound-Effect Looper reference for the active state.</summary>
+	private Transform _target; 														/// <summary>Homing Target.</summary>
+	private Rigidbody2D _rigidbody; 												/// <summary>Rigidbody2D's Component.</summary>
+	private ProjectileEventsHandler _projectileEventsHandler; 						/// <summary>ProjectileEventsHandler's Component.</summary>
+	private Projectile _parentProjectile; 											/// <summary>Parent Projectile.</summary>
+	protected Vector2 velocity; 													/// <summary>Velocity's Vector.</summary>
+	protected Coroutine loopíngSoundEffectRoutine;	 								/// <summary>Looping's Sound Effect's Coroutine reference.</summary>
 
 	//Gil hash set
 	private HashSet<int> _swordSet = new HashSet<int>();
@@ -187,6 +190,13 @@ public class Projectile : ContactWeapon
 		set { _accumulatedVelocity = value; }
 	}
 
+	/// <summary>Gets and Sets activeSoundEffectLooper property.</summary>
+	public SoundEffectLooper activeSoundEffectLooper
+	{
+		get { return _activeSoundEffectLooper; }
+		set { _activeSoundEffectLooper = value; }
+	}
+
 	/// <summary>Gets and Sets target property.</summary>
 	public Transform target
 	{
@@ -234,6 +244,20 @@ public class Projectile : ContactWeapon
 	{
 		get { return _destroyedSoundEffectIndex; }
 		set { _destroyedSoundEffectIndex = value; }
+	}
+
+	/// <summary>Gets and Sets activeLoopingSoundEffect property.</summary>
+	public SoundEffectEmissionData activeLoopingSoundEffect
+	{
+		get { return _activeLoopingSoundEffect; }
+		set { _activeLoopingSoundEffect = value; }
+	}
+
+	/// <summary>Gets and Sets repelSoundEffect property.</summary>
+	public SoundEffectEmissionData repelSoundEffect
+	{
+		get { return _repelSoundEffect; }
+		set { _repelSoundEffect = value; }
 	}
 
 	/// <summary>Gets rigidbody Component.</summary>
@@ -400,6 +424,9 @@ public class Projectile : ContactWeapon
 				trailRenderer.SetPosition(i, transform.position);
 			}
 		}
+
+		if(activeLoopingSoundEffect.soundIndex > 0)
+		activeSoundEffectLooper = AudioController.LoopSoundEffect(activeLoopingSoundEffect.soundIndex, activeLoopingSoundEffect.volume);
 	}
 #endregion
 
@@ -450,6 +477,8 @@ public class Projectile : ContactWeapon
 
 		owner = newOwner;
 		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_REPELLED, _info);
+
+		AudioController.PlayOneShot(SourceType.SFX, repelSoundEffect.sourceIndex, repelSoundEffect.soundIndex, repelSoundEffect.volume);
 
 		/// \TODO Deprecate this call (and delete ProjectileEventsHandler's Component)
 		projectileEventsHandler.InvokeProjectileEvent(this, IDs.EVENT_REPELLED);
@@ -585,6 +614,12 @@ public class Projectile : ContactWeapon
 
 		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
 		Debug.Log("[Projectile] OnDeactivated...");
+		if(activeSoundEffectLooper != null)
+		{
+			activeSoundEffectLooper.Stop();
+			activeSoundEffectLooper = null;
+		}
+
 		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
 		OnObjectDeactivation();
 	}

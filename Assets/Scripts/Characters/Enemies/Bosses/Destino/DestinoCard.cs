@@ -45,6 +45,9 @@ public class DestinoCard : MonoBehaviour
 	[Header("FXs:")]
 	[SerializeField] private ParticleEffectEmissionData _hitParticleEffect; 		/// <summary>Hit Particle-Effect's Emission Data.</summary>
 	[SerializeField] private ParticleEffectEmissionData _headHitParticleEffect; 	/// <summary>Head Hit Particle-Effect's Emission Data.</summary>
+	[SerializeField] private SoundEffectEmissionData _flyingSoundEffect; 			/// <summary>Sound-Effect emitted when the card travels towards target.</summary>
+	[SerializeField] private SoundEffectEmissionData _flipSoundEffect; 				/// <summary>Sound-Effect emitted when the card is flipped.</summary>
+	[SerializeField] private SoundEffectEmissionData _incrustSoundEffect; 			/// <summary>Sound-Effect emitted when the card is incrusted on the floor.</summary>
 	[SerializeField] private int _hitSoundIndex; 									/// <summary>Hit's Sound Index.</summary>
 	[SerializeField] private int _headHitSoundIndex; 								/// <summary>Head Hit's Sound Index.</summary>
 #if UNITY_EDITOR
@@ -107,6 +110,15 @@ public class DestinoCard : MonoBehaviour
 	/// <summary>Gets headHitParticleEffect property.</summary>
 	public ParticleEffectEmissionData headHitParticleEffect { get { return _headHitParticleEffect; } }
 
+	/// <summary>Gets flyingSoundEffect property.</summary>
+	public SoundEffectEmissionData flyingSoundEffect { get { return _flyingSoundEffect; } }
+
+	/// <summary>Gets flipSoundEffect property.</summary>
+	public SoundEffectEmissionData flipSoundEffect { get { return _flipSoundEffect; } }
+
+	/// <summary>Gets incrustSoundEffect property.</summary>
+	public SoundEffectEmissionData incrustSoundEffect { get { return _incrustSoundEffect; } }
+
 	/// <summary>Gets hitSoundIndex property.</summary>
 	public int hitSoundIndex { get { return _hitSoundIndex; } }
 
@@ -160,6 +172,8 @@ public class DestinoCard : MonoBehaviour
 	private void OnCardFalled()
 	{
 		if(hurtBox == null) return;
+
+		AudioController.PlayOneShot(SourceType.SFX, incrustSoundEffect.sourceIndex, incrustSoundEffect.soundIndex, incrustSoundEffect.volume);
 
 		Vector3 hurtBoxPosition = transform.position;
 		hurtBoxPosition.z = 0.0f;

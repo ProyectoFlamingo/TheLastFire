@@ -13,56 +13,57 @@ public delegate void OnCardSelected(DestinoCard _card);
 
 public class DestinoDeckController : DestinoScriptableCoroutine
 {
-	public event OnCardSelected onCardSelected; 					/// <summary>OnCardSelected's Event Delegate.</summary>
+	public event OnCardSelected onCardSelected; 							/// <summary>OnCardSelected's Event Delegate.</summary>
 
 	[Space(5f)]
-	[SerializeField] private DestinoCard[] _cards; 					/// <summary>Deck's Cards.</summary>
+	[SerializeField] private DestinoCard[] _cards; 							/// <summary>Deck's Cards.</summary>
 	[Space(5f)]
 	[Header("Card Rotation's Attributes:")]
-	[SerializeField] private EulerRotation _faceUpRotation; 		/// <summary>Card's Face-Up Rotation.</summary>
-	[SerializeField] private EulerRotation _faceDownRotation; 		/// <summary>Card's Face-Down Rotation.</summary>
-	[SerializeField] private float _rotationDuration; 				/// <summary>Card's Rotation Duration.</summary>
+	[SerializeField] private EulerRotation _faceUpRotation; 				/// <summary>Card's Face-Up Rotation.</summary>
+	[SerializeField] private EulerRotation _faceDownRotation; 				/// <summary>Card's Face-Down Rotation.</summary>
+	[SerializeField] private float _rotationDuration; 						/// <summary>Card's Rotation Duration.</summary>
 	[Space(5f)]
 	[Header("Selected Card's Attributes:")]
-	[SerializeField] private Vector3 _selectedCardPoint; 			/// <summary>Selected Card's Point.</summary>
-	[SerializeField] private float _selectedCardDuration; 			/// <summary>Selected Card's Duration towards its point.</summary>
+	[SerializeField] private Vector3 _selectedCardPoint; 					/// <summary>Selected Card's Point.</summary>
+	[SerializeField] private float _selectedCardDuration; 					/// <summary>Selected Card's Duration towards its point.</summary>
 	[Space(5f)]
-	[SerializeField] private Vector3 _deckPoint; 					/// <summary>Deck's Origin Point.</summary>
-	[SerializeField] private float _cardOffset; 					/// <summary>Card's offset when stacked on the deck.</summary>
+	[SerializeField] private Vector3 _deckPoint; 							/// <summary>Deck's Origin Point.</summary>
+	[SerializeField] private float _cardOffset; 							/// <summary>Card's offset when stacked on the deck.</summary>
 	[Space(5f)]
 	[Header("Deck Spawning's Attributes:")]
-	[SerializeField] private float _positioningDuration; 			/// <summary>Card Positioning's Duration.</summary>
+	[SerializeField] private float _positioningDuration; 					/// <summary>Card Positioning's Duration.</summary>
 	[Space(5f)]
 	[Header("Deck Presentation's Attributes:")]
-	[SerializeField] private int _spawnEffectIndex; 				/// <summary>Deck's apparition Particle Effect's index.</summary>
-	[SerializeField] private Vector3 _presentationPoint; 			/// <summary>Deck Presentation's Point.</summary>
-	[SerializeField] private float _cardSpacing; 					/// <summary>Spacing between each card when the deck is presented.</summary>
-	[SerializeField] private float _deckPositioningDuration; 		/// <summary>Deck Positioning's Duration.</summary>
-	[SerializeField] private float _presentationDuration; 			/// <summary>Presentation's Duration.</summary>
+	[SerializeField] private int _spawnEffectIndex; 						/// <summary>Deck's apparition Particle Effect's index.</summary>
+	[SerializeField] private Vector3 _presentationPoint; 					/// <summary>Deck Presentation's Point.</summary>
+	[SerializeField] private float _cardSpacing; 							/// <summary>Spacing between each card when the deck is presented.</summary>
+	[SerializeField] private float _deckPositioningDuration; 				/// <summary>Deck Positioning's Duration.</summary>
+	[SerializeField] private float _presentationDuration; 					/// <summary>Presentation's Duration.</summary>
 	[Space(5f)]
 	[Header("Deck Storing's Attributes:")]
-	[SerializeField] private float _storeDuration; 					/// <summary>Deck Storing's Duration.</summary>
+	[SerializeField] private float _storeDuration; 							/// <summary>Deck Storing's Duration.</summary>
 	[Space(5f)]
 	[Header("Deck Shuffling Attributes:")]
-	[SerializeField] private float _zOffset; 						/// <summary>Depth's offset when each card is organized into a deck.</summary>
-	[SerializeField] private float _shufflingDuration; 				/// <summary>Shuffling's Duration.</summary>
-	[SerializeField] private float _shufflingRadius; 				/// <summary>Shuffling's Radius.</summary>
-	[SerializeField] private float _shufflingSpeed; 				/// <summary>Shuffling's Speed.</summary>
-	[SerializeField] private float _shufflingCycles; 				/// <summary>Times a card passes through the center of the deck [treated semantically as cycles].</summary>
+	[SerializeField] private SoundEffectEmissionData _shuffleSoundEffect; 	/// <summary>Sound-Effect emitted when the deck is shuffled.</summary>
+	[SerializeField] private float _zOffset; 								/// <summary>Depth's offset when each card is organized into a deck.</summary>
+	[SerializeField] private float _shufflingDuration; 						/// <summary>Shuffling's Duration.</summary>
+	[SerializeField] private float _shufflingRadius; 						/// <summary>Shuffling's Radius.</summary>
+	[SerializeField] private float _shufflingSpeed; 						/// <summary>Shuffling's Speed.</summary>
+	[SerializeField] private float _shufflingCycles; 						/// <summary>Times a card passes through the center of the deck [treated semantically as cycles].</summary>
 	[Space(5f)]
 	[Header("Orbiting Attributes:")]
-	[SerializeField] private float _yOffset; 						/// <summary>Offset on the Y-Axis when orbiting around Destino.</summary>
-	[SerializeField] private float _orbitDuration; 					/// <summary>Orbiting's Duration.</summary>
-	[SerializeField] private float _orbitRadius; 					/// <summary>Orbiting's Radius.</summary>
-	[SerializeField] private float _orbitSpeed; 					/// <summary>Orbiting's Speed.</summary>
+	[SerializeField] private float _yOffset; 								/// <summary>Offset on the Y-Axis when orbiting around Destino.</summary>
+	[SerializeField] private float _orbitDuration; 							/// <summary>Orbiting's Duration.</summary>
+	[SerializeField] private float _orbitRadius; 							/// <summary>Orbiting's Radius.</summary>
+	[SerializeField] private float _orbitSpeed; 							/// <summary>Orbiting's Speed.</summary>
 /*#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 				/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 				/// <summary>Gizmos' Radius.</summary>
+	[SerializeField] private Color gizmosColor; 							/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private float gizmosRadius; 							/// <summary>Gizmos' Radius.</summary>
 #endif*/
-	private StackQueue<DestinoCard> _deck; 							/// <summary>Deck's StackQueue.</summary>
-	private DestinoCard _selectedCard; 								/// <summary>Currently Selected Card.</summary>
+	private StackQueue<DestinoCard> _deck; 									/// <summary>Deck's StackQueue.</summary>
+	private DestinoCard _selectedCard; 										/// <summary>Currently Selected Card.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets cards property.</summary>
@@ -136,6 +137,9 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 	/// <summary>Gets orbitSpeed property.</summary>
 	public float orbitSpeed { get { return _orbitSpeed; } }
+
+	/// <summary>Gets shuffleSoundEffect property.</summary>
+	public SoundEffectEmissionData shuffleSoundEffect { get { return _shuffleSoundEffect; } }
 
 	/// <summary>Gets and Sets deck property.</summary>
 	public StackQueue<DestinoCard> deck
@@ -317,6 +321,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 		float inverseRotationDuration = 1.0f / rotationDuration;
 		float inverseDuration = 1.0f / selectedCardDuration;
 		Vector3 initialPosition = selectedCard.transform.position;
+		SoundEffectEmissionData soundEffect = selectedCard.flipSoundEffect;
 
 		while(t < 1.0f)
 		{
@@ -326,6 +331,8 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 		}
 
 		t = 0.0f;
+
+		AudioController.PlayOneShot(SourceType.SFX, soundEffect.sourceIndex, soundEffect.soundIndex, soundEffect.volume);
 
 		while(t < 1.0f)
 		{
@@ -428,21 +435,41 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 		t = 0.0f;
 
+		//AudioController.PlayOneShot(SourceType.SFX, shuffleSoundEffect.sourceIndex, shuffleSoundEffect.soundIndex, shuffleSoundEffect.volume);
+
+		float[] y = new float[(int)Mathf.Ceil(shufflingCycles * 2.0f)];
+		bool[] p = new bool[y.Length];
+		int ind = 0;
+
+		for(int j = 0; j < y.Length; j++)
+		{
+			y[j] = (float)j / ((float)y.Length - 1.0f);
+			//Debug.Log("[DestinoDeckController] Distribution " + j + ": " + y[j]);
+		}
+
 		while(t < (1.0f + Mathf.Epsilon))
 		{
 			IEnumerator<DestinoCard> deckIterator = deck.IterateAsQueue();
 			float i = 1.0f;
 			float sign = 1.0f;
+			float sin = Mathf.Sin(t * x);
 
 			while(deckIterator.MoveNext())
 			{
 				Vector3 cardPosition = deckPoint;
-				float sinusoidalDisplacement = Mathf.Sin(t * x) * (i * shufflingRadius);
+				float sinusoidalDisplacement = sin * (i * shufflingRadius);
 				cardPosition.x = (deckPoint.x + (sinusoidalDisplacement * sign));
 				cardPosition.z += (zOffset * i);
 				deckIterator.Current.transform.position = cardPosition;
 				i++;
 				sign *= -1.0f;
+			}
+
+			if(t >= y[ind] && !p[ind])
+			{
+				AudioController.PlayOneShot(SourceType.SFX, shuffleSoundEffect.sourceIndex, shuffleSoundEffect.soundIndex, shuffleSoundEffect.volume);
+				p[ind] = true;
+				ind++;
 			}
 
 			t += (Time.deltaTime * inverseShufflingDuration);

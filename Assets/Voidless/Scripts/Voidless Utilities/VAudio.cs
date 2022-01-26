@@ -33,18 +33,6 @@ public static class VAudio
 		_audioSource.PlayOneShot(_audioClip, _volumeScale);
 	}
 
-	/// <summary>Plays sound and waits until it finishes.</summary>
-	/// <param name="_audioSource">AudioSource that will play the sound.</param>
-	/// <param name="_audioClip">Clip to play.</param>
-	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
-	public static IEnumerator PlaySoundOneShotAndWait(this AudioSource _audioSource, AudioClip _audioClip, float _volumeScale = 1.0f, Action onWaitEnds = null)
-	{
-		_audioSource.PlayOneShot(_audioClip, _volumeScale);
-		SecondsDelayWait wait = new SecondsDelayWait(_audioClip.length);
-		while(wait.MoveNext()) yield return null;
-		if(onWaitEnds != null) onWaitEnds();
-	}
-
 	/// <summary>Plays FiniteStateAudioClip's Clip.</summary>
 	/// <param name="_mono">MonoBehaviour's reference for the Coroutine.</param>
 	/// <param name="_source">AudioSource's that will be played reference.</param>
@@ -71,6 +59,19 @@ public static class VAudio
 		_mono.DispatchCoroutine(ref _coroutine);
 	}
 
+	/// <summary>Plays SoundEffect as One-Shot but loops it, stores the routine inside a Coroutine reference.</summary>
+	/// <param name="_mono">MonoBehabiour tat will Start the Coroutine.</param>
+	/// <param name="_source">AudioSource that will play the Sound effect.</param>
+	/// <param name="_clip">Clip to play and loop.</param>
+	/// <param name="coroutine">Coroutine's Reference.</param>
+	/// <param name="_volumeScale">Volume's Scale [1.0f by default].</param>
+	public static void LoopOneShot(this MonoBehaviour _mono, AudioSource _source, AudioClip _clip, ref Coroutine coroutine, float _volumeScale = 1.0f)
+	{
+		if(_mono == null || _source == null || _clip == null) return;
+
+		_mono.StartCoroutine(_source.LoopSoundEffect(_clip, _volumeScale), ref coroutine);
+	}
+
 	/// <summary>Gets Samples from AudioClip.</summary>
 	/// <param name="_clip">AudioClip's Reference.</param>
 	/// <param name="_offsetSamples">Clip's starting point [0 by default].</param>
@@ -94,6 +95,36 @@ public static class VAudio
 	}
 
 	public IEnumerator*/
+
+	/// <summary>Routine that loops Sound Effect.</summary>
+	/// <param name="_audioSource">AudioSource that will play the sound.</param>
+	/// <param name="_audioClip">Clip to play.</param>
+	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
+	public static IEnumerator LoopSoundEffect(this AudioSource _audioSource, AudioClip _clip, float _volumeScale = 1.0f)
+	{
+		if(_audioSource == null || _clip == null) yield break;
+
+		SecondsDelayWait wait = new SecondsDelayWait(_clip.length);
+
+		while(true)
+		{
+			_audioSource.PlayOneShot(_clip, _volumeScale);
+			while(wait.MoveNext()) yield return null;
+			wait.Reset();
+		}
+	}
+
+	/// <summary>Plays sound and waits until it finishes.</summary>
+	/// <param name="_audioSource">AudioSource that will play the sound.</param>
+	/// <param name="_audioClip">Clip to play.</param>
+	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
+	public static IEnumerator PlaySoundOneShotAndWait(this AudioSource _audioSource, AudioClip _audioClip, float _volumeScale = 1.0f, Action onWaitEnds = null)
+	{
+		_audioSource.PlayOneShot(_audioClip, _volumeScale);
+		SecondsDelayWait wait = new SecondsDelayWait(_audioClip.length);
+		while(wait.MoveNext()) yield return null;
+		if(onWaitEnds != null) onWaitEnds();
+	}
 
 	/// <summary>Plays FiniteStateAudioClip's Clip.</summary>
 	/// <param name="_mono">MonoBehaviour's reference for the Coroutine.</param>

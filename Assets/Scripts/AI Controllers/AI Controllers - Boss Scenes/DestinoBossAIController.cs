@@ -226,6 +226,9 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 		float minDistance = _card.distance;
 		float distance = 0.0f;
 		bool activatedEvent = false;
+		SoundEffectEmissionData data = _card.flyingSoundEffect;
+
+		AudioController.PlayOneShot(SourceType.SFX, data.sourceIndex, data.soundIndex, data.volume);
 
 		while(t < 1.0f)
 		{

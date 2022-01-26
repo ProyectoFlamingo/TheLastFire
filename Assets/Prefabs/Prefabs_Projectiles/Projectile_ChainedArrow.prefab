@@ -160,6 +160,7 @@ MonoBehaviour:
   - _tag: Player
     index: 5
   _impactTags: []
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -179,6 +180,14 @@ MonoBehaviour:
   _sourceIndex: 0
   _impactSoundEffectIndex: 64
   _destroyedSoundEffectIndex: 65
+  _activeLoopingSoundEffect:
+    sourceIndex: 0
+    soundIndex: 63
+    volume: 0.25
+  _repelSoundEffect:
+    sourceIndex: 0
+    soundIndex: 64
+    volume: 0.5
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _incrustTolerance: 0
   _incrustTags:
@@ -186,6 +195,10 @@ MonoBehaviour:
     index: 13
   _tipHitBox: {fileID: 8593723572869265329}
   _chainCollider: {fileID: 647280741651927097}
+  _incrustSoundEffect:
+    sourceIndex: 0
+    soundIndex: 65
+    volume: 1
 --- !u!114 &-2791383928529050341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,8 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 8593723572869265329}
+  _zOffsetTolerance: 0
 --- !u!120 &1192488905715508995
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -309,6 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 899837e1dcbe69941a6219b841471233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 0}
   debug: 0
@@ -357,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 2306116881200870646}
   debug: 0

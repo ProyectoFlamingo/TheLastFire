@@ -23,16 +23,17 @@ public class ArrowProjectile : Projectile
 {
 	[Space(5f)]
 	[Header("Arrow Projectile's Attributes:")]
-	[SerializeField] private int _incrustTolerance; 		/// <summary>How many GameObjects of the incrustable tags can be tolerated before thi projectile may be incrusted.</summary>
-	[SerializeField] private GameObjectTag[] _incrustTags; 	/// <summary>Tags of GameObjects that can be incrusted by the Arrow Projectile.</summary>
-	[SerializeField] private HitCollider2D _tipHitBox; 		/// <summary>Tip's HitBox.</summary>
-	[SerializeField] private BoxCollider2D _chainCollider; 	/// <summary>Chain's BoxCollider.</summary>
-	private LineRenderer _lineRenderer; 					/// <summary>LineRenderer's Component.</summary>
-	private Vector3 _spawnPosition; 						/// <summary>Spawn Position.</summary>
-	private ArrowProjectileState _state; 					/// <summary>Arrow Projectile's State.</summary>
-	private int _incrustPhase; 								/// <summary>current Incrust's Phase.</summary>
-	private bool _inverted; 								/// <summary>Is the Arrow already inverted?.</summary>
-	private bool _incrusted; 								/// <summary>Is the Arrow Incrusted?.</summary>
+	[SerializeField] private int _incrustTolerance; 						/// <summary>How many GameObjects of the incrustable tags can be tolerated before thi projectile may be incrusted.</summary>
+	[SerializeField] private GameObjectTag[] _incrustTags; 					/// <summary>Tags of GameObjects that can be incrusted by the Arrow Projectile.</summary>
+	[SerializeField] private HitCollider2D _tipHitBox; 						/// <summary>Tip's HitBox.</summary>
+	[SerializeField] private BoxCollider2D _chainCollider; 					/// <summary>Chain's BoxCollider.</summary>
+	[SerializeField] private SoundEffectEmissionData _incrustSoundEffect; 	/// <summary>Sound-Effect emitted when incrusted.</summary>
+	private LineRenderer _lineRenderer; 									/// <summary>LineRenderer's Component.</summary>
+	private Vector3 _spawnPosition; 										/// <summary>Spawn Position.</summary>
+	private ArrowProjectileState _state; 									/// <summary>Arrow Projectile's State.</summary>
+	private int _incrustPhase; 												/// <summary>current Incrust's Phase.</summary>
+	private bool _inverted; 												/// <summary>Is the Arrow already inverted?.</summary>
+	private bool _incrusted; 												/// <summary>Is the Arrow Incrusted?.</summary>
 
 #region Getter/Setters:
 	/// <summary>Gets and Sets incrustTolerance property.</summary>
@@ -54,6 +55,13 @@ public class ArrowProjectile : Projectile
 
 	/// <summary>Gets chainCollider property.</summary>
 	public BoxCollider2D chainCollider { get { return _chainCollider; } }
+
+	/// <summary>Gets and Sets incrustSoundEffect property.</summary>
+	public SoundEffectEmissionData incrustSoundEffect
+	{
+		get { return _incrustSoundEffect; }
+		set { _incrustSoundEffect = value; }
+	}
 
 	/// <summary>Gets and Sets state property.</summary>
 	public ArrowProjectileState state
@@ -149,6 +157,14 @@ public class ArrowProjectile : Projectile
 					state = ArrowProjectileState.Incrusted;
 					incrusted = true;
 					tipHitBox.SetTrigger(false);
+
+					if(activeSoundEffectLooper != null)
+					{
+						activeSoundEffectLooper.Stop();
+						activeSoundEffectLooper = null;
+					}
+
+					AudioController.PlayOneShot(SourceType.SFX, incrustSoundEffect.sourceIndex, incrustSoundEffect.soundIndex, incrustSoundEffect.volume);
 				}
 
 				return;

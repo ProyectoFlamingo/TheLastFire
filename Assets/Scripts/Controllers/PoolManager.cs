@@ -12,6 +12,7 @@ public class PoolManager : Singleton<PoolManager>
 	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 					/// <summary>PoolGameObjects' Pools.</summary>
 	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 				/// <summary>Pools of Particle's Effects.</summary>
 	private GameObjectPool<Explodable>[] _explodablesPools; 						/// <summary>Pools of Explodables.</summary>
+	private GameObjectPool<SoundEffectLooper> _loopersPool; 						/// <summary>Pool of Sound-Effects' Loopers.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets projectilesPools property.</summary>
@@ -41,6 +42,13 @@ public class PoolManager : Singleton<PoolManager>
 		get { return _explodablesPools; }
 		private set { _explodablesPools = value; }
 	}
+
+	/// <summary>Gets and Sets loopersPool property.</summary>
+	public GameObjectPool<SoundEffectLooper> loopersPool
+	{
+		get { return _loopersPool; }
+		private set { _loopersPool = value; }
+	}
 #endregion
 
 	/// <summary>PoolManager's instance initialization.</summary>
@@ -50,6 +58,7 @@ public class PoolManager : Singleton<PoolManager>
 		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(Game.data.poolObjects);
 		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);
 		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(Game.data.explodables);
+		loopersPool = new GameObjectPool<SoundEffectLooper>(Game.data.looper);
 	}
 
 	/// <summary>Gets a Projectile from the Projectiles' Pools.</summary>
@@ -163,6 +172,12 @@ public class PoolManager : Singleton<PoolManager>
 		Explodable explodable = Instance.explodablesPools[_index].Recycle(_position, _rotation);
 		explodable.Explode(onExplosionEnds);
 		return explodable;
+	}
+
+	/// <returns>Requested Sound-Effect's Looper.</returns>
+	public static SoundEffectLooper RequestSoundEffectLooper()
+	{
+		return Instance.loopersPool.Recycle(Vector3.zero, Quaternion.identity);
 	}
 }
 }

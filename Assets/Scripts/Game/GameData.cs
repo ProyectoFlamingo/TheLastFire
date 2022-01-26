@@ -71,6 +71,7 @@ public class GameData : ScriptableObject
 	[SerializeField] private PoolGameObject[] _poolObjects; 									/// <summary>Pool GameObjects.</summary>
 	[Space(5f)]
 	[Header("Audios:")]
+	[TabGroup("Audio")][SerializeField] private SoundEffectLooper _looper; 						/// <summary>Sound-Effect's Looper Reference.</summary>
 	[TabGroup("Audio")][SerializeField] private FiniteStateAudioClip[] _FSMLoops; 				/// <summary>Finite-State's Loop Effects.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioClip[] _loops; 							/// <summary>Loop Effects.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioClip[] _soundEffects; 						/// <summary>Sounds' Effects.</summary>
@@ -241,6 +242,9 @@ public class GameData : ScriptableObject
 
 	/// <summary>Gets FSMLoops property.</summary>
 	public FiniteStateAudioClip[] FSMLoops { get { return _FSMLoops; } }
+
+	/// <summary>Gets looper property.</summary>
+	public SoundEffectLooper looper { get { return _looper; } }
 
 	/// <summary>Gets loops property.</summary>
 	public AudioClip[] loops { get { return _loops; } }

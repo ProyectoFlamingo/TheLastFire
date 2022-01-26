@@ -431,12 +431,61 @@ public class AudioController : Singleton<AudioController>
 	}
 
 	/// <summary>Stacks and plays AudioClip on the default AudioSource.</summary>
+	/// <param name="_source">Source to use.</param>
 	/// <param name="_indeex">AudioClip's index on the Game's Data to play.</param>
 	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
 	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip PlayOneShot(int _index, float _volumeScale = 1.0f)
 	{
 		return PlayOneShot(SourceType.Default, 0, _index, _volumeScale);
+	}
+
+#region DEPRECATED
+	/*/// <summary>Plays SoundEffect as One-Shot but loops it, stores the routine inside a Coroutine reference.</summary>
+	/// <param name="_source">Source to use.</param>
+	/// <param name="_clip">Clip to play and loop.</param>
+	/// <param name="coroutine">Coroutine's Reference.</param>
+	/// <param name="_volumeScale">Volume's Scale [1.0f by default].</param>
+	public static AudioClip LoopOneShot(SourceType _type, int _sourceIndex, int _index, ref Coroutine coroutine, float _volumeScale = 1.0f)
+	{
+		AudioSource source = GetAudioSource(_type, _sourceIndex);
+		AudioClip clip = Game.data.soundEffects[_index];
+
+		Instance.LoopOneShot(source, clip, ref coroutine, _volumeScale);
+
+		return clip;
+	}
+
+	/// <summary>Stops Looping Sound-Effect's Coroutine stored on Coroutine's reference.</summary>
+	/// <param name="coroutine">Coroutine's Reference.</param>
+	public static void StopLoopingSoundEffect(ref Coroutine coroutine)
+	{
+		Instance.DispatchCoroutine(ref coroutine);
+	}
+
+	/// <summary>Plays SoundEffect as One-Shot but loops it, stores the routine inside a Coroutine reference.</summary>
+	/// <param name="_clip">Clip to play and loop.</param>
+	/// <param name="coroutine">Coroutine's Reference.</param>
+	/// <param name="_volumeScale">Volume's Scale [1.0f by default].</param>
+	public static AudioClip LoopOneShot(int _sourceIndex, int _index, ref Coroutine coroutine, float _volumeScale = 1.0f)
+	{
+		return LoopOneShot(SourceType.Default, _sourceIndex, _index, ref coroutine, _volumeScale);
+	}*/
+#endregion
+
+	/// <summary>Loops Sound Effect and returns Looper.</summary>
+	/// <param name="_index">Sound-Effect's Index.</param>
+	/// <param name="_volumeScale">Volume Scale [1.0f by default].</param>
+	public static SoundEffectLooper LoopSoundEffect(int _index, float _volumeScale = 1.0f)
+	{
+		if(_index < 0 || _index > Game.data.soundEffects.Length) return null;
+
+		SoundEffectLooper looper = PoolManager.RequestSoundEffectLooper();
+		looper.clip = Game.data.soundEffects[_index];
+		looper.volumeScale = _volumeScale;
+		looper.Play();
+
+		return looper;
 	}
 
 	/// <summary>Gets proper exposed parameter name given the sourcetype and source index.</summary>
