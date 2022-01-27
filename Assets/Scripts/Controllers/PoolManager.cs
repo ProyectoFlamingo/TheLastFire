@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using UnityEngine.AddressableAssets;
 
 namespace Flamingo
 {
@@ -68,7 +69,12 @@ public class PoolManager : Singleton<PoolManager>
 	/// <summary>Called after Awake, before the first Update.</summary>
 	protected void Start()
 	{
-		/*Game.data.InitializeProjectiles(()=>{ projectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.projectiles); }, indices);
+		/*Addressables.InitializeAsync().Completed += obj =>
+		{
+			Debug.Log("[PoolManager] Completed: " + obj.ToString());
+			Game.data.InitializeProjectiles(()=>{ projectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.projectiles); }, indices);
+		};
+		
 
 		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(Game.data.poolObjects);
 		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);

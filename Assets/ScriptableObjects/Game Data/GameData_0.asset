@@ -12,6 +12,176 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a862ba43f60e5f45a538018f2391a9d, type: 3}
   m_Name: GameData_0
   m_EditorClassIdentifier: 
+  _FSMLoopsReferences:
+  - m_AssetGUID: 89bfa2b1c0f1bb54cae540866022a46e
+    m_SubObjectName: 
+  - m_AssetGUID: 3dde1125cb7b12a4eafe806c0c1f6d8b
+    m_SubObjectName: 
+  _soundEffectsReferences:
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
+  - m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+    m_SubObjectName: 
   _projectilesReferences:
   - m_AssetGUID: 95723413e0f437d4e93f5798e3121470
     m_SubObjectName: 

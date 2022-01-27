@@ -21,26 +21,20 @@ MonoBehaviour:
     m_Address: Projectile_Poop
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4968317203677032462, guid: 0ad5472267bf0cd4f93b3848dddd2929,
-      type: 3}
-    m_TargetAsset: {fileID: 4968317203677032462, guid: 0ad5472267bf0cd4f93b3848dddd2929,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0dfb82171f0f48a439f888291821ed6d
     m_Address: Projectile_Marble
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1001964287644889203, guid: 0dfb82171f0f48a439f888291821ed6d,
-      type: 3}
-    m_TargetAsset: {fileID: 1001964287644889203, guid: 0dfb82171f0f48a439f888291821ed6d,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 0dfbc17cfc0cf934a8c089f8df53bb4d
     m_Address: Projectile_Wine
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1216174275417893227, guid: 0dfbc17cfc0cf934a8c089f8df53bb4d,
-      type: 3}
-    m_TargetAsset: {fileID: 1216174275417893227, guid: 0dfbc17cfc0cf934a8c089f8df53bb4d,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 2ad02a0b9d3e89248ba013e0175113d2
     m_Address: Projectile_Bomb
     m_ReadOnly: 0
@@ -53,10 +47,8 @@ MonoBehaviour:
     m_Address: Projectile_DevilRay
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4968317203677032462, guid: 5d965ee84474a624da00c6e91966a347,
-      type: 3}
-    m_TargetAsset: {fileID: 4968317203677032462, guid: 5d965ee84474a624da00c6e91966a347,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 679901165b16f984c96a28bfb1cb3396
     m_Address: Projectile_BouncingBomb
     m_ReadOnly: 0
@@ -77,10 +69,8 @@ MonoBehaviour:
     m_Address: Projectile_TNT
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 7807340246942760902, guid: 725cffea4e893ff489930583db4101d6,
-      type: 3}
-    m_TargetAsset: {fileID: 7807340246942760902, guid: 725cffea4e893ff489930583db4101d6,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: 754ab825090b9224b82dd42804477c32
     m_Address: Projectile_DevilNail
     m_ReadOnly: 0
@@ -101,34 +91,26 @@ MonoBehaviour:
     m_Address: Projectile_Rose
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1216174275417893227, guid: bdf44366f21f2ee47bd94b1b19e29f1e,
-      type: 3}
-    m_TargetAsset: {fileID: 1216174275417893227, guid: bdf44366f21f2ee47bd94b1b19e29f1e,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: d34c65e5215495749b3c218e3d5a7d4b
     m_Address: Projectile_Cup
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 1216174275417893227, guid: d34c65e5215495749b3c218e3d5a7d4b,
-      type: 3}
-    m_TargetAsset: {fileID: 1216174275417893227, guid: d34c65e5215495749b3c218e3d5a7d4b,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: d3af5c0f01cb90642b38554e3254f35d
     m_Address: Projectile_Petrol
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 4968317203677032462, guid: d3af5c0f01cb90642b38554e3254f35d,
-      type: 3}
-    m_TargetAsset: {fileID: 4968317203677032462, guid: d3af5c0f01cb90642b38554e3254f35d,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   - m_GUID: f51e2828ef1fa8b4d853a93e53bfb622
     m_Address: Projectile_ChainedArrow
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 2306116881200870641, guid: f51e2828ef1fa8b4d853a93e53bfb622,
-      type: 3}
-    m_TargetAsset: {fileID: 2306116881200870641, guid: f51e2828ef1fa8b4d853a93e53bfb622,
-      type: 3}
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

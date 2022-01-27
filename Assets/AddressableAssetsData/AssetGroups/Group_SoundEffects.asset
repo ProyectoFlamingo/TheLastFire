@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Group_SoundEffects
+  m_EditorClassIdentifier: 
+  m_GroupName: Group_SoundEffects
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 46ce046fe95e55545946a9ab37797205
+  m_SerializeEntries:
+  - m_GUID: 156a48476f799cf4d934b63619873aca
+    m_Address: Assets/Audio/SFX/Destino/La.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 3b945713637785543b8c395239e49c83
+    m_Address: Assets/Audio/SFX/Destino/Musical Attack/La_Re_Horn.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 44c946c747bf2a744ab3f71ebacc08cd
+    m_Address: Assets/Audio/SFX/Transitions/Cleaner Cut.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 44c946c747bf2a744ab3f71ebacc08cd, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 44c946c747bf2a744ab3f71ebacc08cd, type: 3}
+  - m_GUID: 490f55b066a773f4c85fa7caf9ffba64
+    m_Address: Assets/Audio/SFX/Cartas/Death/Death_Hit.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7ad029d78914f1e46a9e9f9079f072b1
+    m_Address: Assets/Audio/SFX/Destino/Do.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 7e073fbd79128394d892b1ab66ef787b
+    m_Address: Assets/Audio/SFX/Cartas/Death/Death_Card.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8b425b956413f394094330e1df272de7
+    m_Address: Assets/Audio/SFX/Destino/Fa.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 8d0d578f55ff93b49b1613ebc167053c
+    m_Address: Assets/Audio/SFX/Destino/Re.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: f5e51fb11fd0aba44a0a158826e5e8d1
+    m_Address: Assets/Audio/SFX/Destino/Mi.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 0b218cc8b5b8819479c4c2aa1d288048, type: 2}
+    - {fileID: 11400000, guid: 81edede41602ffe48978074e8e94238e, type: 2}

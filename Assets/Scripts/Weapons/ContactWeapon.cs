@@ -162,7 +162,7 @@ public class ContactWeapon : PoolGameObject
 	{
 		objectsIDs = new HashSet<int>();
 		rejectionIDs = new HashSet<int>();
-		ActivateHitBoxes();
+		ActivateHitBoxes(false);
 		eventsHandler.contactWeapon = this;
 		eventsHandler.onTriggerEvent += OnTriggerEvent;
 	}

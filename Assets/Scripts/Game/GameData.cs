@@ -7,6 +7,8 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using Voidless;
 using Sirenix.OdinInspector;
+using System.Threading.Tasks;
+using UnityEngine.ResourceManagement.AsyncOperations;
 #if UNITY_SWITCH
 using UnityEngine.Switch;
 #endif
@@ -21,6 +23,8 @@ public class GameData : ScriptableObject
 	public const string PATH_SCENE_LOADING = "Scene_LoadingScreen"; 							/// <summary>Loading Scene's Path.</summary>
 
 	[Header("Addressables:")]
+	[SerializeField] private FiniteStateAudioClipAssetReference[] _FSMLoopsReferences; 			/// <summary>FSM-AudioClips' References.</summary>
+	[SerializeField] private AudioClipAssetReference[] _soundEffectsReferences; 				/// <summary>Sound-Effects' References.</summary>
 	[SerializeField] private AssetReference[] _projectilesReferences; 							/// <summary>Projectiles' References.</summary>
 	[Space(5f)]
 	[Header("Configurations:")]
@@ -99,9 +103,14 @@ public class GameData : ScriptableObject
 #endif
 
 #region Getters:
+	/// <summary>Gets FSMLoopsReferences property.</summary>
+	public FiniteStateAudioClipAssetReference[] FSMLoopsReferences { get { return _FSMLoopsReferences; } }
+
+	/// <summary>Gets soundEffectsReferences property.</summary>
+	public AudioClipAssetReference[] soundEffectsReferences { get { return _soundEffectsReferences; } }
+
 	/// <summary>Gets projectilesReferences property.</summary>
 	public AssetReference[] projectilesReferences { get { return _projectilesReferences; } }
-
 
 	/// <summary>Gets and Sets ceilingDotProductThreshold property.</summary>
 	public FloatWrapper ceilingDotProductThreshold
@@ -334,6 +343,9 @@ public class GameData : ScriptableObject
     	Addressables.Initialize();
 	}
 
+	/// <summary>Initializes Projectiles.</summary>
+	/// <param name="onProjectilesInitialized">Callback invoked when the projectiles have been initialized.</param>
+	/// <param name="indices">Indices.</param>
 	public void InitializeProjectiles(Action onProjectilesInitialized = null, params int[] indices)
 	{
 		if(indices == null) return;
@@ -342,26 +354,34 @@ public class GameData : ScriptableObject
 		int index = 0;
 		int completed = 0;
 
+		Action f = ()=>
+		{
+			completed++;
+			if(completed == length && onProjectilesInitialized != null) onProjectilesInitialized();
+		};
+
 		_projectiles = new Projectile[projectilesReferences.Length];
 
 		for(int i  = 0; i < length; i++)
 		{
 			index = Mathf.Clamp(indices[i], 0, length - 1);
-			AssignProjectile(index);
-			completed++;
-
-			if(completed == length && onProjectilesInitialized != null) onProjectilesInitialized();
+			AssignProjectile(index, f);			
 		}
 	}
 
-	private void AssignProjectile(int index)
+	/// <summary>Assigns Projectile when the LoadAssetAsync finishes.</summary>
+	/// <param name="int">Index of the projectile.</param>
+	/// <param name="onFinished">Callback invoked after the projectile has been assigned.</param>
+	private async void AssignProjectile(int index, Action onFinished = null)
 	{
-		Addressables.LoadAssetAsync<Projectile>(projectilesReferences[index]).Completed += (obj) =>
-		{
-			Debug.Log("[GameData] Handle on " + index + " " + obj.ToString());
+		Projectile projectile = null;
 
-			_projectiles[index] = obj.Result;
-		};
+		try { projectile = await VAddressables.LoadAssetAsync<Projectile>(projectilesReferences[index]); }
+		catch(Exception exception) { Debug.LogException(exception); }
+
+		_projectiles[index] = projectile;
+
+		if(onFinished != null) onFinished();
 	}
 
 	/// <summary>Resets FSM Loop's States.</summary>

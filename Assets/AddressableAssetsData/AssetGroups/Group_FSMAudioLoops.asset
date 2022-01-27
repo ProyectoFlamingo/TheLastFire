@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Group_FSMAudioLoops
+  m_EditorClassIdentifier: 
+  m_GroupName: Group_FSMAudioLoops
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e5179782057643f4e9d128c2be02c99a
+  m_SerializeEntries:
+  - m_GUID: 3dde1125cb7b12a4eafe806c0c1f6d8b
+    m_Address: DestinoTheme_Instrumental
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 11400000, guid: 3dde1125cb7b12a4eafe806c0c1f6d8b, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 3dde1125cb7b12a4eafe806c0c1f6d8b, type: 2}
+  - m_GUID: 89bfa2b1c0f1bb54cae540866022a46e
+    m_Address: DestinoTheme_Voice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 11400000, guid: 89bfa2b1c0f1bb54cae540866022a46e, type: 2}
+    m_TargetAsset: {fileID: 11400000, guid: 89bfa2b1c0f1bb54cae540866022a46e, type: 2}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f776f4e8623d8234ab1823b38a20f2c4, type: 2}
+    - {fileID: 11400000, guid: cbeca15d0e67bdf4696613729f48aa8d, type: 2}
