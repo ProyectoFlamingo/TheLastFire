@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Group_Characters
+  m_Name: Group_(Other)PoolGameObjects
   m_EditorClassIdentifier: 
-  m_GroupName: Group_Characters
+  m_GroupName: Group_(Other)PoolGameObjects
   m_Data:
     m_SerializedData: []
-  m_GUID: f04ea13dd14ad184c811b975bb065b79
+  m_GUID: 61efd4bbd02865842bedaebb8c68a062
   m_SerializeEntries:
-  - m_GUID: 8e98f4254b032564893133ce4247e946
-    m_Address: Assets/Prefabs/Character_Prefabs/Enemies/Bosses/Boss_Moskar.prefab
+  - m_GUID: 028be9ba5f0684a4cb4619f942c4f6e9
+    m_Address: Fragmentable_Bamboo
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 6643950991633132691, guid: 028be9ba5f0684a4cb4619f942c4f6e9,
+      type: 3}
+    m_TargetAsset: {fileID: 6643950991633132691, guid: 028be9ba5f0684a4cb4619f942c4f6e9,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 60cd9208fa6730846b7bac12d356de7f, type: 2}
-    - {fileID: 11400000, guid: 3d13f9e628a3237479079dd547902e9b, type: 2}
+    - {fileID: 11400000, guid: 9ddb848cf3d4bb941b9f10da389d0503, type: 2}
+    - {fileID: 11400000, guid: a03e71996d7d1f3448475fd9c7541c3d, type: 2}

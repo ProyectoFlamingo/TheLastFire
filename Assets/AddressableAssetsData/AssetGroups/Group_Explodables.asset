@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Group_Explodables
+  m_EditorClassIdentifier: 
+  m_GroupName: Group_Explodables
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 426140000c183794db5651e08a4272ed
+  m_SerializeEntries:
+  - m_GUID: 510f45f4d87997d48933833abca64959
+    m_Address: Explodable_Bomb_Shanty
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 3778235674658040077, guid: 510f45f4d87997d48933833abca64959,
+      type: 3}
+    m_TargetAsset: {fileID: 3778235674658040077, guid: 510f45f4d87997d48933833abca64959,
+      type: 3}
+  - m_GUID: be71cb40b8fbe2c4ab5223202fadb6ef
+    m_Address: Explodable_TNT_Shanty
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 3778235674658040077, guid: be71cb40b8fbe2c4ab5223202fadb6ef,
+      type: 3}
+    m_TargetAsset: {fileID: 3778235674658040077, guid: be71cb40b8fbe2c4ab5223202fadb6ef,
+      type: 3}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 3e68bf27e67e20a4eba2b5df34ecd0a4, type: 2}
+    - {fileID: 11400000, guid: 5c0e67087f176bf4d8b1fc98785db375, type: 2}

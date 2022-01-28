@@ -56,7 +56,11 @@ public abstract class MiniGame
     public float timeLimit
     {
         get { return _timeLimit; }
-        set { _timeLimit = value; }
+        set
+        {
+        	_timeLimit = value;
+        	if(clock != null) clock.ellapsedTime = timeLimit;
+        }
     }
 	
 	/// <summary>Gets and Sets score property.</summary>

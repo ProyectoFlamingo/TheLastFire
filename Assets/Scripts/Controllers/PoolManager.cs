@@ -10,6 +10,7 @@ namespace Flamingo
 public class PoolManager : Singleton<PoolManager>
 {
 	[SerializeField] private int[] _indices; 										/// <summary>Indices of Projectiles that must be loaded for this scene.</summary>
+	private Dictionary<Hash128, GameObjectPool<Projectile>> _projectilesPoolsMap;
 	private GameObjectPool<Projectile>[] _projectilesPools; 						/// <summary>Pools Projectiles.</summary>
 	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 					/// <summary>PoolGameObjects' Pools.</summary>
 	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 				/// <summary>Pools of Particle's Effects.</summary>
@@ -150,13 +151,15 @@ public class PoolManager : Singleton<PoolManager>
 
 		if(projectile == null) return null;
 
-		Vector3 velocity = VPhysics.ProjectileDesiredVelocity(t, _position, _target, Physics.gravity);
+		Vector3 velocity = VPhysics.ProjectileDesiredVelocity(t, _position, _target, Physics.gravity, projectile.speedMode == SpeedMode.Accelerating);
 		float magnitude = velocity.magnitude;
 
 		projectile.projectileType = ProjectileType.Parabola;
 		projectile.direction = velocity;
 		projectile.speed = magnitude;
 		projectile.parabolaTime = t;
+
+		Debug.DrawRay(_position, velocity, Color.magenta, 3.0f);
 
 		return projectile;
 	}

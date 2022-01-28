@@ -16,7 +16,115 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 62e31d87ab45b0d4c95cfa801a9c2999
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 0efb2883b1a63994196b829aa0b35768
+    m_Address: FireShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 0efb2883b1a63994196b829aa0b35768, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 0efb2883b1a63994196b829aa0b35768, type: 3}
+  - m_GUID: 16575b40c52319849b24c971afbda361
+    m_Address: Moskar_Fly
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 16575b40c52319849b24c971afbda361, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 16575b40c52319849b24c971afbda361, type: 3}
+  - m_GUID: 206f9483958219c43b917b3eec1ac40b
+    m_Address: SwordShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 206f9483958219c43b917b3eec1ac40b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 206f9483958219c43b917b3eec1ac40b, type: 3}
+  - m_GUID: 35620c106ca2a9c4e85d9e9a827f6e5a
+    m_Address: Moskar_Loop_6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 35620c106ca2a9c4e85d9e9a827f6e5a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 35620c106ca2a9c4e85d9e9a827f6e5a, type: 3}
+  - m_GUID: 36354d138b43c7e4f9ce08508b3e5eea
+    m_Address: Moskar_Loop_7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 36354d138b43c7e4f9ce08508b3e5eea, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 36354d138b43c7e4f9ce08508b3e5eea, type: 3}
+  - m_GUID: 395070aeb38f86940aaa8852782be0dc
+    m_Address: DestinoTheme_WithoutVoice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 395070aeb38f86940aaa8852782be0dc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 395070aeb38f86940aaa8852782be0dc, type: 3}
+  - m_GUID: 4228c095c17596242ad05f92330dec2f
+    m_Address: DestinoTheme_Voice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4228c095c17596242ad05f92330dec2f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4228c095c17596242ad05f92330dec2f, type: 3}
+  - m_GUID: 4268dc5a79104d04a884b2b90bb11873
+    m_Address: DanceShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4268dc5a79104d04a884b2b90bb11873, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4268dc5a79104d04a884b2b90bb11873, type: 3}
+  - m_GUID: 6c62d37a4120d9a42bae65e40b855fd1
+    m_Address: Moskar_Loop_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 6c62d37a4120d9a42bae65e40b855fd1, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6c62d37a4120d9a42bae65e40b855fd1, type: 3}
+  - m_GUID: 702836d2735a2dd4db7e3ea5ca474ddc
+    m_Address: Moskar_Loop_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 702836d2735a2dd4db7e3ea5ca474ddc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 702836d2735a2dd4db7e3ea5ca474ddc, type: 3}
+  - m_GUID: 7d2ac0856d1adbc41852352a96f05e08
+    m_Address: CaptainShantyTheme
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7d2ac0856d1adbc41852352a96f05e08, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7d2ac0856d1adbc41852352a96f05e08, type: 3}
+  - m_GUID: 7d6f93a7d20794649b7717e53395e1ba
+    m_Address: MagicCarpet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7d6f93a7d20794649b7717e53395e1ba, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7d6f93a7d20794649b7717e53395e1ba, type: 3}
+  - m_GUID: 8ee5e075a358e0144b703977e1d45a5f
+    m_Address: FirstEncounter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 8ee5e075a358e0144b703977e1d45a5f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8ee5e075a358e0144b703977e1d45a5f, type: 3}
+  - m_GUID: a8865688ea1766d488ffabbc228af599
+    m_Address: Moskar_Loop_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: a8865688ea1766d488ffabbc228af599, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a8865688ea1766d488ffabbc228af599, type: 3}
+  - m_GUID: bee06a807af39ef4f9bc8a8f10d6e0ee
+    m_Address: Orchestra_Tunning
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
+  - m_GUID: caf382200cfa92e4f9fe731d84f1ff35
+    m_Address: Moskar_Loop_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: caf382200cfa92e4f9fe731d84f1ff35, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: caf382200cfa92e4f9fe731d84f1ff35, type: 3}
+  - m_GUID: f255e9a0f7ee8ab4a8df43e966158fa6
+    m_Address: Moskar_Loop_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: f255e9a0f7ee8ab4a8df43e966158fa6, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f255e9a0f7ee8ab4a8df43e966158fa6, type: 3}
+  - m_GUID: ffdde1dfb3f52dd438c9eb24389e60b8
+    m_Address: Moskar_Loop_8
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: ffdde1dfb3f52dd438c9eb24389e60b8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ffdde1dfb3f52dd438c9eb24389e60b8, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

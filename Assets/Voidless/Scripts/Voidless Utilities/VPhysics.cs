@@ -108,10 +108,12 @@ public static class VPhysics
 	/// <param name="p0">Initial Position.</param>
 	/// <param name="pf">Desired Position.</param>
 	/// <param name="g">Gravity.</param>
+	/// <param name="a">Gravity Accelerates? true by default.</param>
 	/// <returns>Desired Projectile's Initial Velocity to reach pf on time t.</returns>
-	public static Vector3 ProjectileDesiredVelocity(float t, Vector3 p0, Vector3 pf, Vector3 g)
+	public static Vector3 ProjectileDesiredVelocity(float t, Vector3 p0, Vector3 pf, Vector3 g, bool a = true)
 	{
-		return (pf - (g * (0.5f * t * t) + p0)) / t;
+		g = a ? g * (0.5f * t * t) : g * t;
+		return (pf - (g + p0)) / t;
 	}
 
 	/// <summary>Gets projected velocity considering the ForceMode.</summary>

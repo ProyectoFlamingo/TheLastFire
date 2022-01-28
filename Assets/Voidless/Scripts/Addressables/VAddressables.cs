@@ -10,7 +10,7 @@ namespace Voidless
 {
 public class VAddressables
 {
-	public static Task<T> LoadAssetAsync<T>(object key)
+	public static Task<T> LoadAssetAsync<T>(object key, Action onTaskFinished = null)
 	{
 		TaskCompletionSource<T> source = new TaskCompletionSource<T>();
 		AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(key);
@@ -21,6 +21,8 @@ public class VAddressables
 				source.SetException(completedHandle.OperationException);
 			else
 				source.SetResult(completedHandle.Result);
+
+			if(onTaskFinished != null) onTaskFinished();
 		};
 
 		return source.Task;

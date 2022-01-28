@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5676704679821280358}
   - component: {fileID: 241170347192899790}
-  - component: {fileID: 5938636333019026740}
   - component: {fileID: 7977837007417007903}
   - component: {fileID: 8121818084978278044}
   - component: {fileID: 2678788741357419136}
@@ -60,22 +59,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5938636333019026740
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216174275417893227}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.3
 --- !u!114 &7977837007417007903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,8 +72,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _keepEvaluatingFarColliders: 0
-  _hitBoxes: []
-  _zOffsetTolerance: 0
+  _hitBoxes:
+  - {fileID: 4857099441350097584}
+  _zOffsetTolerance: 1
 --- !u!114 &8121818084978278044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,7 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolObject: {fileID: 0}
   _character: {fileID: 0}
-  _contactWeapon: {fileID: 0}
+  _contactWeapon: {fileID: 1822210689705678102}
   debug: 0
 --- !u!114 &2678788741357419136
 MonoBehaviour:
@@ -121,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weight: 1
   _space: 0
-  _size: {x: 0, y: 0, z: 0}
+  _size: {x: 0.5, y: 0.5, z: 0.5}
   _centerOffset: {x: 0, y: 0, z: 0}
   _scaleSize: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -156,14 +140,14 @@ MonoBehaviour:
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
-  _projectileType: 0
+  _projectileType: 1
   _repelTags: []
-  _speedMode: 0
-  _speed: 0
+  _speedMode: 1
+  _speed: 5
   _lifespan: 0
   _cooldownDuration: 0
   _rotateTowardsDirection: 0
-  _maxSteeringForce: 0
+  _maxSteeringForce: 5
   _distance: 0
   _impactParticleEffectIndex: 0
   _destroyedParticleEffectIndex: 0
@@ -236,7 +220,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5204140035691060338}
   m_BodyType: 1
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1

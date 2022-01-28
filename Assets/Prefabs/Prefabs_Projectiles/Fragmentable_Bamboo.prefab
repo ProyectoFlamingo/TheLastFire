@@ -313,11 +313,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 7476057729542891127}
   - {fileID: 4348950796453944919}
   - {fileID: 4151412576483073660}
   - {fileID: 5787972814994381267}
+  _zOffsetTolerance: 0
 --- !u!114 &8502636351339952987
 MonoBehaviour:
   m_ObjectHideFlags: 0

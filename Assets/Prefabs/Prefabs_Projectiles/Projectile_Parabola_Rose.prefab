@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5676704679821280358}
   - component: {fileID: 241170347192899790}
-  - component: {fileID: 5938636333019026740}
   - component: {fileID: 7977837007417007903}
   - component: {fileID: 4383764550175946879}
   - component: {fileID: 1939376885473143086}
@@ -60,22 +59,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &5938636333019026740
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1216174275417893227}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.3
 --- !u!114 &7977837007417007903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,10 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _meshContainer: {fileID: 0}
-  _damage: 1
-  _healthAffectableTags:
-  - _tag: Player
-    index: 5
+  _damage: 0
+  _healthAffectableTags: []
   _impactTags:
   - _tag: Surface/Floor
     index: 13
@@ -235,7 +216,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5204140035691060338}
   m_BodyType: 1
-  m_Simulated: 0
+  m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
