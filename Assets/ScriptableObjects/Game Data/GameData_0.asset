@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a862ba43f60e5f45a538018f2391a9d, type: 3}
   m_Name: GameData_0
   m_EditorClassIdentifier: 
-  _frameRate: 60
+  _frameRate: 30
   _hurtTimeScale: 0.5
   _timeScaleAcceleration: 0.1
   _timeScaleDeceleration: 3

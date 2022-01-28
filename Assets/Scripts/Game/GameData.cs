@@ -294,9 +294,7 @@ public class GameData : ScriptableObject
 	/// <summary>Initializes Game's Data.</summary>
 	public void Initialize()
 	{
-		Application.targetFrameRate = frameRate;
-		Time.maximumDeltaTime = idealDeltaTime;
-		Time.fixedDeltaTime = idealDeltaTime;
+		UpdateFrameRate();		
 
 		allFactionsTags = new GameObjectTag[] { playerTag, enemyTag };
 		allWeaponsTags = new GameObjectTag[] { playerWeaponTag, enemyWeaponTag };
@@ -336,6 +334,19 @@ public class GameData : ScriptableObject
 		{
 			FSMLoop.ResetState();
 		}
+	}
+
+	/// <summary>Updates Frame Rate.</summary>
+	public void UpdateFrameRate()
+	{
+		float f = (float)frameRate;
+
+		Application.targetFrameRate = frameRate;
+
+		_idealDeltaTime = 1.0f / frameRate;
+
+		Time.maximumDeltaTime = idealDeltaTime;
+		Time.fixedDeltaTime = idealDeltaTime;
 	}
 }
 }

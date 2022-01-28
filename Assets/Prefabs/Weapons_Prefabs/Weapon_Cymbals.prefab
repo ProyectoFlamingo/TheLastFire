@@ -75,9 +75,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 2959677360392671994}
   - {fileID: 5604092616393381133}
+  _zOffsetTolerance: 0
 --- !u!114 &1589161141992018629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,6 +99,7 @@ MonoBehaviour:
   - _tag: Player
     index: 5
   _impactTags: []
+  _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
 --- !u!114 &4737316508548547063
@@ -111,6 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0de1b3f35b907f40acd80c31c5e092a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolObject: {fileID: 0}
   _character: {fileID: 0}
   _contactWeapon: {fileID: 1589161141992018629}
   debug: 0
@@ -569,7 +573,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 970e4942377d1154ea4954bd2f3c5c75, type: 2}
+      objectReference: {fileID: 2100000, guid: 41b41118e3942414b995741231e46b0a, type: 2}
     - target: {fileID: 2007591000536223373, guid: aebca1820cdcd374b8bab27df92826d5,
         type: 3}
       propertyPath: m_LocalRotation.y
