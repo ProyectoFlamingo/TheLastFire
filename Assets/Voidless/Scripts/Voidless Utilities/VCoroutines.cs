@@ -211,6 +211,8 @@ public static class VCoroutines
 			yield return null;
 		}
 
+		_transform.localPosition = _position;
+
 		if(onMoveEnds != null) onMoveEnds();
 	}
 

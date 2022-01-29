@@ -9,6 +9,8 @@ namespace Flamingo
 public class DevilBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
+	[SerializeField] private FloatRange _xLimits; 						/// <summary>Mateo's Limits on the X-Axis.</summary>
+	[Space(5f)]
 	[Header("Characters:")]
 	[SerializeField] private Devil _devil; 								/// <summary>Devil.</summary>
 	[SerializeField] private DevilTower _leftDevilTower; 				/// <summary>Left Tower.</summary>
@@ -38,6 +40,9 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	[SerializeField] private float _devilHP; 							/// <summary>Devil's HP.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets xLimits property.</summary>
+	public FloatRange xLimits { get { return _xLimits; } }
+
 	/// <summary>Gets devil property.</summary>
 	public Devil devil { get { return _devil; } }
 
@@ -119,6 +124,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 		Gizmos.DrawWireSphere(rightTowerSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(leftTowerDestinyPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(rightTowerDestinyPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(Vector3.right * xLimits.Min(), gizmosRadius);
+		Gizmos.DrawWireSphere(Vector3.right * xLimits.Max(), gizmosRadius);
 
 		if(floorWaypoints != null) foreach(Vector3 waypoint in floorWaypoints)
 		{
@@ -211,7 +218,13 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				break;
 			}
 
-			if(!leftTowerAlive && !rightTowerAlive && devilAlive) devil.BeginLaserRoutine();
+			Debug.Log("[DevilBehavior] Report. Left tower alive? " + (leftDevilTower.health.hp <= 0.0f) + ", Right tower alive? " + (rightDevilTower.health.hp <= 0.0f) + ", Devil alive? " + (devil.health.hp > 0.0f));
+
+			if(leftDevilTower.health.hp <= 0.0f && rightDevilTower.health.hp <= 0.0f && devil.health.hp > 0.0f)
+			{
+				Debug.Log("[DevilBehavior] WTF?");
+				devil.Initialize();
+			}
 		};
 
 		// Invoke Devil & Towers:
@@ -237,10 +250,14 @@ public class DevilBehavior : DestinoScriptableCoroutine
 		while(t < 1.0f)
 		{
 			float st = t * t;
+			Transform mateo = Game.mateo.transform;
+			Vector3 mateoPosition = mateo.position;
 			
 			devil.transform.position = Vector3.Lerp(devilSpawnPoint, devilDestinyPoint, st);
 			leftDevilTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, st);
 			rightDevilTower.transform.position = Vector3.Lerp(rightTowerSpawnPoint, rightTowerDestinyPoint, st);
+			mateoPosition.x = Mathf.Clamp(mateoPosition.x, xLimits.Min(), xLimits.Max());
+			mateo.position = Vector3.Lerp(mateo.position, mateoPosition, st);
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
@@ -259,8 +276,6 @@ public class DevilBehavior : DestinoScriptableCoroutine
 		while(devilShake.MoveNext()
 		|| leftTowerShake.MoveNext()
 		|| rightTowerShake.MoveNext()) yield return null;
-
-		devil.Initialize();
 
 		while(count > 0)
 		{

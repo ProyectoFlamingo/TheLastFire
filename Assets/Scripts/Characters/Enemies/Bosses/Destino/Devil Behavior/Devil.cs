@@ -51,7 +51,7 @@ public class Devil : Character
     /// <summary>Devil's instance initialization when loaded [Before scene loads].</summary>
     private void Awake()
     {
-        Initialize();
+        //Initialize();
     }
 
     /// <summary>Initializes Devil.</summary>
@@ -59,6 +59,7 @@ public class Devil : Character
     {
         this.DispatchCoroutine(ref laserRoutine);
         this.StartCoroutine(AIRoutine(), ref behaviorCoroutine);
+        BeginLaserRoutine();
     }
 
     /// <summary>Initializes Lasers' Routine.</summary>

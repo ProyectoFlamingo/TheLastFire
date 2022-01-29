@@ -92,7 +92,7 @@ public class ContactWeapon : PoolGameObject
 	public bool activated
 	{
 		get { return _activated; }
-		set { _activated = value; Debug.Log("[ContactWeapon] " + gameObject.name + " Activated Set To " + activated); }
+		set { _activated = value; }
 	}
 
 	/// <summary>Gets and Sets owner property.</summary>
