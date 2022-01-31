@@ -150,9 +150,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: df5dfb65d674e6a49b3519d70783e325, type: 2}
-  - {fileID: 2100000, guid: 89223e38119f25e40961929c573e585b, type: 2}
-  - {fileID: 2100000, guid: 68bd1b04a9da09f46822aa9b997a034c, type: 2}
+  - {fileID: 2100000, guid: 76a509dfa0457c744b7a4412a450b74b, type: 2}
+  - {fileID: 2100000, guid: 76a509dfa0457c744b7a4412a450b74b, type: 2}
+  - {fileID: 2100000, guid: 132779c397847c14bbe25bc1d9db10fd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -492,12 +492,12 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4328b91569d41fa4c9edb2ebe774aafb, type: 2}
-  - {fileID: 2100000, guid: 68bd1b04a9da09f46822aa9b997a034c, type: 2}
-  - {fileID: 2100000, guid: f1bfcb472a9f19a4badc389b8728fc25, type: 2}
-  - {fileID: 2100000, guid: a5d835f6a6c12ec458b969cf10cb38de, type: 2}
-  - {fileID: 2100000, guid: caf2e019039f37e41aef9f332603a95e, type: 2}
-  - {fileID: 2100000, guid: df5dfb65d674e6a49b3519d70783e325, type: 2}
+  - {fileID: 2100000, guid: cdb06b7ff51293d4684d6366385e9dba, type: 2}
+  - {fileID: 2100000, guid: 132779c397847c14bbe25bc1d9db10fd, type: 2}
+  - {fileID: 2100000, guid: 712605d6bcce479469867211781c160b, type: 2}
+  - {fileID: 2100000, guid: ef1c17f5e72635b4f9a62de847924ffd, type: 2}
+  - {fileID: 2100000, guid: 6135a996e57b0604aa7a0675a9a9ea8a, type: 2}
+  - {fileID: 2100000, guid: 76a509dfa0457c744b7a4412a450b74b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 5780702081713712475}
   _zOffsetTolerance: 0
@@ -701,8 +702,10 @@ MonoBehaviour:
   _amountTag:
     _tag: _EmissionColor
     _ID: 131
+  _blendTag:
+    _tag: Vector1_B487B05
+    _ID: 2420
   _maxSelfIllumination: 1
-  _maxFlashAmount: 1
   _duration: 0.45
   _cycles: 5
   _shake: 1

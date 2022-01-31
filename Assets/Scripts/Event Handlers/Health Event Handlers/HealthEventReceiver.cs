@@ -17,8 +17,8 @@ public class HealthEventReceiver : MonoBehaviour
 	[TabGroup("Main", "Flash")][SerializeField] private Color _flashColor; 											/// <summary>Flash's Color.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _selfIlluminationTag; 							/// <summary>Self-Illumination's Property Tag.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _amountTag; 									/// <summary>Flash Amount's Property Tag.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _blendTag; 										/// <summary>Flash Blend's Property Tag.</summary>
 	[TabGroup("Main", "Flash")][SerializeField][Range(0.0f, 1.0f)] private float _maxSelfIllumination; 				/// <summary>Maximum's Self-Illumination.</summary>
-	[TabGroup("Main", "Flash")][SerializeField][Range(0.0f, 1.0f)] private float _maxFlashAmount; 					/// <summary>Maximum's Flash Amount.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private float _duration; 											/// <summary>Flash's Duration.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private float _cycles; 												/// <summary>Flash's Cycles.</summary>
 	[Space(5f)]
@@ -100,11 +100,15 @@ public class HealthEventReceiver : MonoBehaviour
 		set { _amountTag = value; }
 	}
 
+	/// <summary>Gets and Sets blendTag property.</summary>
+	public MaterialTag blendTag
+	{
+		get { return _blendTag; }
+		set { _blendTag = value; }
+	}
+
 	/// <summary>Gets maxSelfIllumination property.</summary>
 	public float maxSelfIllumination { get { return _maxSelfIllumination; } }
-
-	/// <summary>Gets maxFlashAmount property.</summary>
-	public float maxFlashAmount { get { return _maxFlashAmount; } }
 
 	/// <summary>Gets duration property.</summary>
 	public float duration { get { return _duration; } }
@@ -205,6 +209,7 @@ public class HealthEventReceiver : MonoBehaviour
 				Material material = materials[i][j];
 				
 				if(material.HasProperty(selfIlluminationTag)) material.SetColor(selfIlluminationTag, colors[i][j]);
+				if(material.HasProperty(blendTag)) material.SetFloat(blendTag, 0);
 			}
 		}
 	}
@@ -260,7 +265,10 @@ public class HealthEventReceiver : MonoBehaviour
 			{
 				for(int j = 0; j < colors[i].Length; j++)
 				{
-					materials[i][j].SetColor(selfIlluminationTag, Color.Lerp(colors[i][j], flashColor, s));
+					Material material = materials[i][j];
+
+					if(material.HasProperty(blendTag)) material.SetFloat(blendTag, s);
+					if(material.HasProperty(selfIlluminationTag)) material.SetColor(selfIlluminationTag, Color.Lerp(colors[i][j], flashColor, s));
 				}
 			}
 
