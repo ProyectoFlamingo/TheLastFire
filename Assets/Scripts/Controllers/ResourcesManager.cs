@@ -17,11 +17,14 @@ public class ResourcesManager : Singleton<ResourcesManager>
 {
 	public event OnResourcesLoaded onResourcesLoaded; 															/// <summary>OnResourcesLoaded's Event Delegate.</summary>
 
+	[Space(5f)]
 	[TabGroup("Characters")][SerializeField] private AssetReference[] _charactersReferences; 					/// <summary>Characters' References.</summary>
 	[TabGroup("Projectiles")][SerializeField] private AssetReference[] _projectilesReferences; 					/// <summary>Projectiles' References.</summary>
 	[TabGroup("FXs", "Particle Effects")][SerializeField] private AssetReference[] _particleEffectsReferences; 	/// <summary>Particle-Effets' References.</summary>
 	[TabGroup("FXs", "Explodables")][SerializeField] private AssetReference[] _explodablesReferences; 			/// <summary>Explodables' References.</summary>
 	[TabGroup("Pool GameObjects")][SerializeField] private AssetReference[] _poolObjectsReferences; 			/// <summary>[Other] PoolGameObjects' references.</summary>
+	[Space(5f)]
+	[Header("Audio:")]
 	[TabGroup("Audio")][SerializeField] private FiniteStateAudioClipAssetReference[] _FSMLoopsReferences; 		/// <summary>FSM-AudioClips' References.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioClipAssetReference[] _loopsReferences; 					/// <summary>Loops' References.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioClipAssetReference[] _soundEffectsReferences; 				/// <summary>Sound-Effects' References.</summary>

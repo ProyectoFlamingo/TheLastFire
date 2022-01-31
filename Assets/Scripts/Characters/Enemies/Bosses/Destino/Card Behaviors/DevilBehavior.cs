@@ -218,13 +218,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				break;
 			}
 
-			Debug.Log("[DevilBehavior] Report. Left tower alive? " + (leftDevilTower.health.hp <= 0.0f) + ", Right tower alive? " + (rightDevilTower.health.hp <= 0.0f) + ", Devil alive? " + (devil.health.hp > 0.0f));
-
-			if(leftDevilTower.health.hp <= 0.0f && rightDevilTower.health.hp <= 0.0f && devil.health.hp > 0.0f)
-			{
-				Debug.Log("[DevilBehavior] WTF?");
-				devil.Initialize();
-			}
+			if(count == 1 && devil.health.hp > 0.0f) devil.Initialize();
 		};
 
 		// Invoke Devil & Towers:
