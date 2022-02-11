@@ -9292,8 +9292,9 @@ MonoBehaviour:
   _amountTag:
     _tag: _EmissionColor
     _ID: 131
+  _blendTag: _Blend
+  _flashColorTag: _OverlayColor
   _maxSelfIllumination: 1
-  _maxFlashAmount: 1
   _duration: 0.2
   _cycles: 2
   _shake: 1

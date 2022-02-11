@@ -194,7 +194,7 @@ public class DestinoBoss : Boss
 		base.Awake();
 		
 		EnablePhysics(false);
-
+		removableHead.gameObject.SetActive(false);
 		animatorController.CrossFade(idleCredential, clipFadeDuration);
 	}
 

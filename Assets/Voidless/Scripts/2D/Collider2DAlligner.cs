@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Voidless
 {
+[ExecuteInEditMode]
 public class Collider2DAlligner : MonoBehaviour
 {
-	[SerializeField] private Transform _transformA; 	/// <summary>Transform A's reference.</summary>
-	[SerializeField] private Transform _transformB; 	/// <summary>Transform B's reference.</summary>
+	[SerializeField] private Transform _relativeTo; 	/// <summary>Transform's Relativeness.</summary>
 	[SerializeField] private Vector3 _a; 				/// <summary>Vector A [relative to transform].</summary>
 	[SerializeField] private Vector3 _b; 				/// <summary>Vector B [relative to transform].</summary>
 #if UNITY_EDITOR
@@ -18,18 +18,11 @@ public class Collider2DAlligner : MonoBehaviour
 	[SerializeField] private float gizmosRadius; 		/// <summary>Gizmos' Radius.</summary>
 #endif
 
-	/// <summary>Gets and Sets transformA property.</summary>
-	public Transform transformA
+	/// <summary>Gets and Sets relativeTo property.</summary>
+	public Transform relativeTo
 	{
-		get { return _transformA; }
-		set { _transformA = value; }
-	}
-
-	/// <summary>Gets and Sets transformB property.</summary>
-	public Transform transformB
-	{
-		get { return _transformB; }
-		set { _transformB = value; }
+		get { return _relativeTo; }
+		set { _relativeTo = value; }
 	}
 
 	/// <summary>Gets and Sets a property.</summary>
@@ -50,13 +43,13 @@ public class Collider2DAlligner : MonoBehaviour
 	/// <summary>Draws Gizmos on Editor mode when Collider2DAlligner's instance is selected.</summary>
 	private void OnDrawGizmosSelected()
 	{
-		if(transformA == null || transformB == null) return;
+		if(relativeTo == null) return;
 
 		Gizmos.color = gizmosColor;
-		Gizmos.DrawSphere(transformA.TransformPoint(a), gizmosRadius);
-		Gizmos.DrawSphere(transformB.TransformPoint(b), gizmosRadius);
+		Gizmos.DrawSphere(relativeTo.TransformPoint(a), gizmosRadius);
+		Gizmos.DrawSphere(relativeTo.TransformPoint(b), gizmosRadius);
 
-		if(!Application.isPlaying) UpdateCollider();
+		//if(!Application.isPlaying) UpdateCollider();
 	}
 
 	/// <summary>Resets Collider2DAlligner's instance to its default values.</summary>

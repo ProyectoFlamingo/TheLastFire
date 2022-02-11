@@ -76,6 +76,8 @@ public class Game : Singleton<Game>
 	[SerializeField] private GameplayCameraController _cameraController; 	/// <summary>Gameplay's Camera Controller.</summary>
 	[SerializeField] private Camera _UICamera; 								/// <summary>UI's Camera.</summary>
 	[SerializeField] private GameplayGUIController _gameplayGUIController; 	/// <summary>Gameplay's GUI Controller.</summary>
+	[Space(5f)]
+	[SerializeField][Range(0.0f, 1.0f)] private float _timeScale; 			/// <summary>Test Time Scale.</summary>
 	private Boundaries2D _defaultCameraBoundaries; 							/// <summary>Default Camera's Boundaries2D.</summary>
 	private FloatRange _defaultDistanceRange; 								/// <summary>Default Camera's Distance Range.</summary>
 	private GameState _state; 												/// <summary>Game's State.</summary>
@@ -167,6 +169,13 @@ public class Game : Singleton<Game>
 		get { return Instance._boundariesModifiers; }
 		set { Instance._boundariesModifiers = value; }
 	}
+
+	/// <summary>Gets and Sets timeScale property.</summary>
+	public float timeScale
+	{
+		get { return _timeScale; }
+		set { _timeScale = value; }
+	}
 #endregion
 
 	/// <summary>Callback internally called immediately after Awake.</summary>
@@ -219,6 +228,8 @@ public class Game : Singleton<Game>
 			AddTargetToCamera(mateo.cameraTarget);
 			cameraController.TEST_CAMERAUPDATE();
 		}
+
+		//Time.timeScale = timeScale;
 #endif
 	}
 #endregion

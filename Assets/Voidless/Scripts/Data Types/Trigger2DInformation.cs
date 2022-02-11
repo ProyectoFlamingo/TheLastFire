@@ -56,6 +56,21 @@ public struct Trigger2DInformation
 		velocity = _velocity;
 	}
 
+	/// <summary>Trigger2DInformation's Constructor.</summary>
+	/// <param name="_collider">Collider2D's reference.</param>
+	/// <param name="_contactPoint">Point of contact.</param>
+	public Trigger2DInformation(Vector3 _origin, RaycastHit2D _hitInfo, Vector3 _velocity = default(Vector3)) : this()
+	{
+		if(_hitInfo.collider == null) return;
+
+		Vector3 point = _hitInfo.point;
+
+		collider = _hitInfo.collider;
+		contactPoint = point;
+		direction = point - _origin;
+		velocity = _velocity;
+	}
+
 	/// <summary>Creates a Trigger2DInformation structore from 2 Collider2Ds.</summary>
 	/// <param name="a">Collider2D A.</param>
 	/// <param name="b">Collider2D B.</param>

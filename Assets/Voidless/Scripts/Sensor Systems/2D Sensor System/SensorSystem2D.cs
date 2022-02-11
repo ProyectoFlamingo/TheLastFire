@@ -322,5 +322,11 @@ public class SensorSystem2D : SerializedMonoBehaviour
 
 		return ray;
 	}
+
+	/// <returns>Subsystem's Origin.</returns>
+	public Vector2 GetSubsystemOrigin(int index)
+	{
+		return transform.TransformDirection(subsystems[index].relativeOrigin);
+	}
 }
 }

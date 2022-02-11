@@ -23,7 +23,7 @@ public class BoxCollider2DAlligner : Collider2DAlligner
 	/// <summary>Updates Collider2D.</summary>
 	protected override void UpdateCollider()
 	{
-		if(transformA == null || transformB == null) return;
+		/*if(transformA == null || transformB == null) return;
 
 		Vector3 pointA = transformA.TransformPoint(a);
 		Vector3 pointB = transformB.TransformPoint(b);
@@ -32,7 +32,7 @@ public class BoxCollider2DAlligner : Collider2DAlligner
 
 		boxCollider.size = boxCollider.size.WithX(m);
 		transform.position = Vector3.Lerp(pointA, pointB, 0.5f);
-		transform.rotation = VQuaternion.RightLookRotation(d);
+		transform.rotation = VQuaternion.RightLookRotation(d);*/
 	}
 }
 }

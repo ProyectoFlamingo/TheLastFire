@@ -37,13 +37,16 @@ public class CapsuleCollider2DAlligner : Collider2DAlligner
 	/// <summary>Updates Collider2D.</summary>
 	protected override void UpdateCollider()
 	{
-		if(transformA == null || transformB == null || properties == TransformProperties.None) return;
+		if(relativeTo == null || properties == TransformProperties.None) return;
 
-		Vector3 pointA = transformA.TransformPoint(a);
-		Vector3 pointB = transformB.TransformPoint(b);
+		Vector3 pointA = relativeTo.position + relativeTo.rotation * Vector3.Scale(relativeTo.localScale, a);
+		Vector3 pointB = relativeTo.position + relativeTo.rotation * Vector3.Scale(relativeTo.localScale, b);
+		//Vector3 pointB = relativeTo.TransformPoint(b);
 		Vector2 d = pointB - pointA;
 		Vector2 size = Vector2.zero;
 		float m = d.magnitude;
+
+		Debug.Log("[CapsuleCollider2DAlligner] Magnitude: " + m);
 
 		switch(capsuleCollider.direction)
 		{
@@ -56,8 +59,12 @@ public class CapsuleCollider2DAlligner : Collider2DAlligner
 			break;
 		}
 
-		if((properties | TransformProperties.Position) == properties) transform.position = Vector3.Lerp(pointA, pointB, 0.5f);
-		if((properties | TransformProperties.Rotation) == properties) transform.rotation = VQuaternion.RightLookRotation(d, Vector3.forward);
+		if((properties | TransformProperties.Position) == properties)
+		{
+			capsuleCollider.offset = Vector2.zero;
+			capsuleCollider.transform.position = Vector3.Lerp(pointA, pointB, 0.5f);
+		}
+		if((properties | TransformProperties.Rotation) == properties) capsuleCollider.transform.rotation = VQuaternion.UpLookRotation(d);
 		if((properties | TransformProperties.Scale) == properties) capsuleCollider.size = size;
 	}
 }
