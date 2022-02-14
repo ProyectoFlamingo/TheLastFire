@@ -13,6 +13,7 @@ public class ImpactEventHandler : MonoBehaviour
 
 	[SerializeField] private bool _keepEvaluatingFarColliders; 				/// <summary>Keep Evaluating for far objects that entered trigger?.</summary>
 	[SerializeField] private HitCollider2D[] _hitBoxes; 					/// <summary>HitBoxes' Array.</summary>
+	[SerializeField] private List<HitCollider2D> _externalHitBoxes; 		/// <summary>Additional Hit-Boxes, external to the EventsHandler [e.g., Weapon].</summary>
 	[SerializeField] private float _zOffsetTolerance; 						/// <summary>Z-Offset's Tolerance.</summary>
 	private EventsHandler _eventsHandler; 									/// <summary>EventsHandler's Component.</summary>
 	private Dictionary<int, VTuple<Collider2D, Collider2D>> _tuples; 		/// <summary>Collider2Ds' Tuples.</summary>
@@ -30,6 +31,13 @@ public class ImpactEventHandler : MonoBehaviour
 	{
 		get { return _hitBoxes; }
 		set { _hitBoxes = value; }
+	}
+
+	/// <summary>Gets and Sets externalHitBoxes property.</summary>
+	public List<HitCollider2D> externalHitBoxes
+	{
+		get { return _externalHitBoxes; }
+		set { _externalHitBoxes = value; }
 	}
 
 	/// <summary>Gets and Sets zOffsetTolerance property.</summary>
@@ -80,6 +88,14 @@ public class ImpactEventHandler : MonoBehaviour
 			hitBox.SetTrigger(true);
 			hitBox.Activate(_activate);
 		}
+
+		if(externalHitBoxes != null)
+		foreach(HitCollider2D hitBox in externalHitBoxes)
+		{
+			hitBox.SetTrigger(true);
+			hitBox.Activate(_activate);
+		}
+
 	}
 
 	/// <summary>Sets all HitBoxes as Trigger.</summary>
@@ -88,6 +104,12 @@ public class ImpactEventHandler : MonoBehaviour
 	{
 		if(hitBoxes != null)
 		foreach(HitCollider2D hitBox in hitBoxes)
+		{
+			hitBox.SetTrigger(_set);
+		}
+
+		if(externalHitBoxes != null)
+		foreach(HitCollider2D hitBox in externalHitBoxes)
 		{
 			hitBox.SetTrigger(_set);
 		}
@@ -102,6 +124,29 @@ public class ImpactEventHandler : MonoBehaviour
 		int i = 0;
 
 		foreach(HitCollider2D hitBox in hitBoxes)
+		{
+			hitBox.detectableHitEvents = HitColliderEventTypes.EnterAndExit;
+
+			switch(_subscribe)
+			{
+				case true:
+				hitBox.onTriggerEvent2D += OnHitColliderTriggerEvent2D;
+				hitBox.ID = i;
+				break;
+
+				case false:
+				hitBox.onTriggerEvent2D -= OnHitColliderTriggerEvent2D;
+				break;
+			}
+
+			i++;
+		}
+
+		if(externalHitBoxes == null) return;
+
+		i = 0;
+
+		foreach(HitCollider2D hitBox in externalHitBoxes)
 		{
 			hitBox.detectableHitEvents = HitColliderEventTypes.EnterAndExit;
 
