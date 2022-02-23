@@ -50772,6 +50772,41 @@ PrefabInstance:
       propertyPath: _minSpeedForBraking
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.51476383
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.48478678
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5147625
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.48478812
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000022820491
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.22222233
+      objectReference: {fileID: 0}
+    - target: {fileID: 3105775708145641574, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.000000059604645
+      objectReference: {fileID: 0}
     - target: {fileID: 5017876632830186073, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _character

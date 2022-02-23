@@ -160,7 +160,9 @@ MonoBehaviour:
   - _tag: Player
     index: 5
   _impactTags: []
-  _rejectionTags: []
+  _rejectionTags:
+  - _tag: Weapon/Player
+    index: 9
   _trailRenderers: []
   _particleEffects: []
   effect: {fileID: 0}
@@ -214,6 +216,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 8593723572869265329}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!120 &1192488905715508995
 LineRenderer:

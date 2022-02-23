@@ -46,7 +46,7 @@ public class CapsuleCollider2DAlligner : Collider2DAlligner
 		Vector2 size = Vector2.zero;
 		float m = d.magnitude;
 
-		Debug.Log("[CapsuleCollider2DAlligner] Magnitude: " + m);
+		//Debug.Log("[CapsuleCollider2DAlligner] Magnitude: " + m);
 
 		switch(capsuleCollider.direction)
 		{

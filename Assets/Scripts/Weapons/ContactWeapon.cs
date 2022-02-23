@@ -194,6 +194,15 @@ public class ContactWeapon : PoolGameObject
 		impactEventHandler.ActivateHitBoxes(_activate);
 	}
 
+	/// <summary>Sets Owner and adds jointed Hit-Boxes.</summary>
+	/// <param name="_owner">Owner.</param>
+	/// <param name="_jointedHitBoxes">Jointed Hit-Boxes.</param>
+	public void SetOwner(GameObject _owner, params HitCollider2D[] _jointedHitBoxes)
+	{
+		owner = _owner;
+		if(_jointedHitBoxes != null) impactEventHandler.AddExternalHitBoxes(_jointedHitBoxes);
+	}
+
 	/// <summary>Event invoked when a Collision2D intersection is received.</summary>
 	/// <param name="_info">Trigger2D's Information.</param>
 	/// <param name="_eventType">Type of the event.</param>
@@ -221,7 +230,8 @@ public class ContactWeapon : PoolGameObject
 		}
 
 		/// \TODO Maybe separate into its own DamageApplier class?
-		if(healthAffectableTags != null) foreach(GameObjectTag tag in healthAffectableTags)
+		if(healthAffectableTags != null && !rejectionIDs.Contains(instanceID))
+		foreach(GameObjectTag tag in healthAffectableTags)
 		{
 			if(obj.CompareTag(tag))
 			{

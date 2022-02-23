@@ -78,6 +78,24 @@ public class ImpactEventHandler : MonoBehaviour
 		SubscribeToHitCollidersEvents(false);
 	}
 
+	/// <summary>Adds External Hit-Boxes.</summary>
+	/// <param name="_hitBoxes">External Hit-Boxes to add.</param>
+	public void AddExternalHitBoxes(params HitCollider2D[] _hitBoxes)
+	{
+		if(externalHitBoxes == null) externalHitBoxes = new List<HitCollider2D>();
+
+		foreach(HitCollider2D hitBox in _hitBoxes)
+		{
+			externalHitBoxes.Add(hitBox);
+		}
+	}
+
+	/// <summary>Removes External Hit-Boxes.</summary>
+	public void RemoveExternalHitBoxes()
+	{
+		externalHitBoxes.Clear();
+	}
+
 	/// <summary>Activates HitBoxes contained within ContactWeapon.</summary>
 	/// <param name="_activate">Activate? [true by default].</param>
 	public virtual void ActivateHitBoxes(bool _activate = true)

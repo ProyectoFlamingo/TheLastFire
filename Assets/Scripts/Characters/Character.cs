@@ -29,6 +29,7 @@ public class Character : PoolGameObject, IStateMachine
 	[Space(5f)]
 	[Header("Colliders & Hurt-Boxes:")]
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _hurtBoxes; 		/// <summary>Hurt-Boxes.</summary>
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _jointedHitBoxes; 	/// <summary>Jointed Hit-Boxes [for Contact-Weapons].</summary>
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _physicalColliders; 	/// <summary>Physical Colliders [Collider2Ds that don't have onTrigger enabled].</summary>
 	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _triggerColliders; 	/// <summary>Trigger Colliders [Collider2Ds that have onTrigger enabled, they can or cannot be the same Hurt-Boxes' triggers].</summary>
 //#if UNITY_EDITOR
@@ -99,6 +100,13 @@ public class Character : PoolGameObject, IStateMachine
 	{
 		get { return _hurtBoxes; }
 		set { _hurtBoxes = value; }
+	}
+
+	/// <summary>Gets and Sets jointedHitBoxes property.</summary>
+	public HitCollider2D[] jointedHitBoxes
+	{
+		get { return _jointedHitBoxes; }
+		set { _jointedHitBoxes = value; }
 	}
 
 	/// <summary>Gets animatorController Component.</summary>

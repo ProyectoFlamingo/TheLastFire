@@ -488,7 +488,7 @@ public class Mateo : Character
 
 		orientation = Vector3.right;
 		sword.ActivateHitBoxes(false);
-		sword.owner = gameObject;
+		sword.SetOwner(gameObject, jointedHitBoxes);
 
 		jumpAbility.onJumpStateChange += OnJumpStateChange;
 		wallEvaluator.onWallEvaluatorEvent += OnWallEvaluatorEvent;

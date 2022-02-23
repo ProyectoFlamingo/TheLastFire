@@ -3945,6 +3945,11 @@ PrefabInstance:
       propertyPath: _bowCredential._ID
       value: -1604644021
       objectReference: {fileID: 0}
+    - target: {fileID: 1357492255315632415, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _jointedHitBoxes.Array.data[0]
+      value: 
+      objectReference: {fileID: 229850153}
     - target: {fileID: 1404652897898759825, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -4653,7 +4658,7 @@ PrefabInstance:
     - target: {fileID: 4150128380501622652, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _timeScale
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4216834129122665011, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -5134,7 +5139,7 @@ PrefabInstance:
     - target: {fileID: 6077246908775133547, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.5
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6183066719409207097, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
@@ -5799,6 +5804,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6183066721007783622, guid: 3e8b33e1bd6457045935992270f9958b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 3e8b33e1bd6457045935992270f9958b, type: 3}
+--- !u!114 &229850153 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8851977955370060056, guid: 3e8b33e1bd6457045935992270f9958b,
+    type: 3}
+  m_PrefabInstance: {fileID: 229850152}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1440cb99ae83e4d46a7d5712b3d72c68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &236024320
 PrefabInstance:
   m_ObjectHideFlags: 0
