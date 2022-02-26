@@ -307,6 +307,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4914631231760126912}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &-9040860490006554968
 MonoBehaviour:
