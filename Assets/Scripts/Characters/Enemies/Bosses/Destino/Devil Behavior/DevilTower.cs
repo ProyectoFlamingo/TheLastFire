@@ -186,12 +186,13 @@ public class DevilTower : Character
 	{
 		base.OnObjectDeactivation();
 
-		for(int i = 0; i < muzzles.Length; i++)
+		foreach(KeyValuePair<int, int> pair in projectileIDIndexMapping)
 		{
-			ArrowProjectile projectile = indexProjectileMapping[i];
+			ArrowProjectile projectile = indexProjectileMapping[pair.Value];
 			if(projectile != null) projectile.OnObjectDeactivation();
-			indexProjectileMapping[i] = null;
 		}
+
+		indexProjectileMapping.Clear();
 		projectileIDIndexMapping.Clear();
 	}
 }

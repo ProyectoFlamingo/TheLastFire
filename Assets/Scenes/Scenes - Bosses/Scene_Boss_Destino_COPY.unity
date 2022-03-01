@@ -27908,8 +27908,8 @@ MonoBehaviour:
   _towerShakeDuration: 0.3
   _towerShakeSpeed: 2.1
   _towerShakeMagnitude: 0.5
-  _towerHP: 5
-  _devilHP: 10
+  _towerHP: 1
+  _devilHP: 1
 --- !u!4 &1848766689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1072178799982049426, guid: 032d0ca46aab862439e06efc371629cd,
@@ -33511,7 +33511,7 @@ PrefabInstance:
     - target: {fileID: 7984107566983066970, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1, type: 3}

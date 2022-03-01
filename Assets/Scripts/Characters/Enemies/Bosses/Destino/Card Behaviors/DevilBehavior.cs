@@ -278,8 +278,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 			{
 				towers.Clear();
 
-				if(leftDevilTower.active && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
-				if(rightDevilTower.active && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
+				if(leftDevilTower.health.hp > 0.0f && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
+				if(rightDevilTower.health.hp > 0.0f && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
 
 				if(towers.Count > 0)
 				{
@@ -288,7 +288,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				}
 
 				wait.ChangeDurationAndReset(spawnRate);
-				while(wait.MoveNext()) yield return null;
+				while(wait.MoveNext() && count > 0) yield return null;
 			}
 
 			wait.ChangeDurationAndReset(roundCooldown);
