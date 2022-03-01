@@ -218,7 +218,11 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				break;
 			}
 
-			if(count == 1 && devil.health.hp > 0.0f) devil.Initialize();
+			if(count == 1 && devil.health.hp > 0.0f)
+			{
+				devil.Initialize();
+
+			} else if(devil.health.hp <= 0.0f) count = 0;
 		};
 
 		// Invoke Devil & Towers:
@@ -276,20 +280,22 @@ public class DevilBehavior : DestinoScriptableCoroutine
 			/// Invoke Devils' Projectiles
 			for(int i = 0; i < length; i++)
 			{
-				towers.Clear();
-
-				if(leftDevilTower.health.hp > 0.0f && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
-				if(rightDevilTower.health.hp > 0.0f && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
-
-				if(towers.Count > 0)
-				{
-					tower = towers.Random();
-					tower.ShootArrow(GetTargetPoint());
-				}
-
-				wait.ChangeDurationAndReset(spawnRate);
-				while(wait.MoveNext() && count > 0) yield return null;
+				/// I don't know why...
 			}
+
+			towers.Clear();
+
+			if(leftDevilTower.health.hp > 0.0f && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
+			if(rightDevilTower.health.hp > 0.0f && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
+
+			if(towers.Count > 0)
+			{
+				tower = towers.Random();
+				tower.ShootArrow(GetTargetPoint());
+			}
+
+			wait.ChangeDurationAndReset(spawnRate);
+			while(wait.MoveNext() && count > 0) yield return null;
 
 			wait.ChangeDurationAndReset(roundCooldown);
 			while(wait.MoveNext() && count > 0) yield return null;
