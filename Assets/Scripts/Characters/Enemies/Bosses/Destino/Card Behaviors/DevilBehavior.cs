@@ -280,22 +280,22 @@ public class DevilBehavior : DestinoScriptableCoroutine
 			/// Invoke Devils' Projectiles
 			for(int i = 0; i < length; i++)
 			{
-				/// I don't know why...
+				if(count == 0) break;
+
+				towers.Clear();
+
+				if(leftDevilTower.health.hp > 0.0f && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
+				if(rightDevilTower.health.hp > 0.0f && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
+
+				if(towers.Count > 0)
+				{
+					tower = towers.Random();
+					tower.ShootArrow(GetTargetPoint());
+				}
+
+				wait.ChangeDurationAndReset(spawnRate);
+				while(wait.MoveNext() && count > 0) yield return null;
 			}
-
-			towers.Clear();
-
-			if(leftDevilTower.health.hp > 0.0f && leftDevilTower.HasAvailableMuzzle()) towers.Add(leftDevilTower);
-			if(rightDevilTower.health.hp > 0.0f && rightDevilTower.HasAvailableMuzzle()) towers.Add(rightDevilTower);
-
-			if(towers.Count > 0)
-			{
-				tower = towers.Random();
-				tower.ShootArrow(GetTargetPoint());
-			}
-
-			wait.ChangeDurationAndReset(spawnRate);
-			while(wait.MoveNext() && count > 0) yield return null;
 
 			wait.ChangeDurationAndReset(roundCooldown);
 			while(wait.MoveNext() && count > 0) yield return null;
@@ -303,8 +303,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 		t = 0.0f;
 
-		/// Lerp back Devil & Towers:
-		/*if(devilAlive || leftTowerAlive || rightTowerAlive) while(t < 1.0f)
+		/// FORCE Lerp back Devil & Towers:
+		if(devilAlive || leftTowerAlive || rightTowerAlive) while(t < 1.0f)
 		{
 			devil.transform.position = Vector3.Lerp(devilSpawnPoint, devilDestinyPoint, 1.0f - t);
 			leftDevilTower.transform.position = Vector3.Lerp(leftTowerSpawnPoint, leftTowerDestinyPoint, 1.0f - t);
@@ -312,7 +312,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
-		}*/
+		}
 
 		devil.gameObject.SetActive(false);
 		leftDevilTower.gameObject.SetActive(false);

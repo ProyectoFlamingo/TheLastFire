@@ -614,14 +614,20 @@ public class Projectile : ContactWeapon
 
 		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
 		Debug.Log("[Projectile] OnDeactivated...");
+
+		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
+		OnObjectDeactivation();
+	}
+
+	/// <summary>Callback invoked when the object is deactivated.</summary>
+	public override void OnObjectDeactivation()
+	{
+		base.OnObjectDeactivation();
 		if(activeSoundEffectLooper != null)
 		{
 			activeSoundEffectLooper.Stop();
 			activeSoundEffectLooper = null;
 		}
-
-		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
-		OnObjectDeactivation();
 	}
 }
 }

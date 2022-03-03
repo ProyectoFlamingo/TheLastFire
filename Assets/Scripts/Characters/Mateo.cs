@@ -1273,7 +1273,7 @@ public class Mateo : Character
 	/// <summary>Goes directly to Locomotion's State.</summary>
 	private void GoToLocomotionAnimation()
 	{
-		if(!jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
+		if(!this.HasStates(IDs.STATE_ALIVE) || !jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
 		//Debug.Log("[Mateo] Entering Locomotion..");
 		state |= IDs.STATE_MOVING;
 		
