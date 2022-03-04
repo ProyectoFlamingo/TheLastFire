@@ -83,7 +83,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
 --- !u!1 &3367938754900406665
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,6 +291,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4914631231760126912}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &4848349935350795301
 MonoBehaviour:

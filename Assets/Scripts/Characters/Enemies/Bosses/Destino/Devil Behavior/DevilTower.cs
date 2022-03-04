@@ -69,7 +69,7 @@ public class DevilTower : Character
 	/// <summary>Shoots Arrow Projectile.</summary>
 	/// <param name="_ray">Ray's Parameter.</param>
 	/// <returns>Whether it shoot an arrow [true if it did].</returns>
-	public bool ShootArrow(Vector3 _point)
+	public bool ShootArrow(Vector3 _point, ref ArrowProjectile projectile)
 	{
 		if(muzzles == null) return false;
 
@@ -81,7 +81,7 @@ public class DevilTower : Character
 		Vector3 direction = _point - origin;
 		//direction.z = origin.z;
 
-		ArrowProjectile projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, origin, direction) as ArrowProjectile;
+		projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, origin, direction) as ArrowProjectile;
 		
 		if(projectile == null) return false;
 

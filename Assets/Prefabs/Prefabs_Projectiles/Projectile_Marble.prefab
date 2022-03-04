@@ -126,6 +126,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 6800693875940303784}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &-346516117526479650
 MonoBehaviour:
@@ -259,7 +260,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
 --- !u!1 &7469749321631461876
 GameObject:
   m_ObjectHideFlags: 0

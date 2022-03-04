@@ -167,6 +167,7 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	public override IEnumerator Routine(DestinoBoss boss)
 	{
 		List<DevilTower> towers = new List<DevilTower>();
+		List<ArrowProjectile> projectiles = new List<ArrowProjectile>();
 		DevilTower tower = null;
 		int length = limits.Random();
 		int count = 3; // For left and right tower and the devil (1 + 1 + 1 duh?).
@@ -290,7 +291,10 @@ public class DevilBehavior : DestinoScriptableCoroutine
 				if(towers.Count > 0)
 				{
 					tower = towers.Random();
-					tower.ShootArrow(GetTargetPoint());
+
+					ArrowProjectile projectile = null;
+
+					if(tower.ShootArrow(GetTargetPoint(), ref projectile)) projectiles.Add(projectile);
 				}
 
 				wait.ChangeDurationAndReset(spawnRate);
@@ -321,6 +325,12 @@ public class DevilBehavior : DestinoScriptableCoroutine
 		devil.health.onHealthInstanceEvent -= onHealthEvent;
 		leftDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
 		rightDevilTower.health.onHealthInstanceEvent -= onHealthEvent;
+
+		/// FORCE IT!
+		foreach(ArrowProjectile arrow in projectiles)
+		{
+			arrow.OnObjectDeactivation();
+		}
 
 		InvokeCoroutineEnd();
 	}

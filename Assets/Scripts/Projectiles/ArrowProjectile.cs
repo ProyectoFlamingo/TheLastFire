@@ -130,15 +130,6 @@ public class ArrowProjectile : Projectile
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	public override void OnTriggerEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-/*#if UNITY_EDITOR
-		VDebug.Log(
-			"OnTriggerEvent invoked to class ",
-			name,
-			"Incrusted: ",
-			incrusted.ToString();
-		);
-#enfif*/
-
 		if(incrusted) return;
 
 		Collider2D collider = _info.collider;
@@ -179,6 +170,7 @@ public class ArrowProjectile : Projectile
 		spawnPosition = transform.position;
 		state = ArrowProjectileState.NotIntersectedWithIncrustable;
 		tipHitBox.SetTrigger(true);
+		chainCollider.enabled = true;
 		lineRenderer.enabled = true;
 		inverted = false;
 		incrustPhase = 0;
@@ -193,6 +185,7 @@ public class ArrowProjectile : Projectile
 		lineRenderer.SetPosition(0, transform.position);
 		lineRenderer.SetPosition(1, transform.position);
 		lineRenderer.enabled = false;
+		chainCollider.enabled = false;
 		base.OnObjectDeactivation();
 	}
 
