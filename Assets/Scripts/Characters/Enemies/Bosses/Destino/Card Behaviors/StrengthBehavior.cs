@@ -368,8 +368,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			while(instrumentRoutine.MoveNext()) yield return null;
 		}
 
-		AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
-		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex, true, boss.Sing);
+		/*AudioController.PlayFSMLoop(0, DestinoSceneController.Instance.mainLoopIndex);
+		AudioController.PlayFSMLoop(1, DestinoSceneController.Instance.mainLoopVoiceIndex, true, boss.Sing);*/
+
+		DestinoSceneController.ContinueLoop();
 
 		routine = DestinoSceneController.TakeDestinoToInitialPoint();
 
@@ -495,6 +497,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		trumpet.state = AnimationCommandState.None;
 		trumpet.animator.speed = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
 		trumpet.gameObject.SetActive(true);
+		trumpet.animatorController.Play(Game.data.emptyCredential);
 		trumpet.transform.position = trumpetSpawnPoint;
 
 		while(noteRoutine.MoveNext()) yield return null;
@@ -541,6 +544,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		cymbals.state = AnimationCommandState.None;
 		cymbals.animator.speed = Mathf.Lerp(1.0f, maxCymbalsAnimationSpeed, s);
 		cymbals.gameObject.SetActive(true);
+		cymbals.animatorController.Play(Game.data.emptyCredential);
 		cymbals.transform.position = initialPos;
 
 		while(noteRoutine.MoveNext()) yield return null;
@@ -578,6 +582,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		bool animationEnded = false;
 
 		_drumstick.gameObject.SetActive(true);
+		_drumstick.animatorController.Play(Game.data.emptyCredential);
 		_drumstick.state = AnimationCommandState.None;
 		_drumstick.animator.speed = Mathf.Lerp(1.0f, maxDrumstickAnimationSpeed, stageScalar);
 		_drumstick.animatorController.CrossFadeAndWait(drumstickAnimationCredential, 0.3f, 0, 0.0f, 0.0f, ()=>{ animationEnded = true; });

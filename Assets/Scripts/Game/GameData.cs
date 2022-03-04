@@ -64,6 +64,8 @@ public class GameData : ScriptableObject
 	[SerializeField] private GameObjectTag _ceilingTag; 										/// <summary>Ceiling surface's Type Tag.</summary>
 	[SerializeField] private GameObjectTag _outOfBoundsTag; 									/// <summary>Out-Of-Bounds' Tag.</summary>
 	[Space(5f)]
+	[SerializeField] private AnimatorCredential _emptyCredential; 								/// <summary>Empty's Animator Credential.</summary>
+	[Space(5f)]
 	[Header("Layers:")]
 	[SerializeField] private LayerValue _outOfBoundsLayer; 										/// <summary>Out of Bounds's Layer.</summary>
 	[SerializeField] private LayerValue _surfaceLayer; 											/// <summary>Surface's Layer.</summary>
@@ -231,6 +233,9 @@ public class GameData : ScriptableObject
 
 	/// <summary>Gets outOfBoundsTag property.</summary>
 	public GameObjectTag outOfBoundsTag { get { return _outOfBoundsTag; } }
+
+	/// <summary>Gets emptyCredential property.</summary>
+	public AnimatorCredential emptyCredential { get { return _emptyCredential; } }
 
 	/// <summary>Gets outOfBoundsLayer property.</summary>
 	public LayerValue outOfBoundsLayer { get { return _outOfBoundsLayer; } }
