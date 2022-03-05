@@ -52,12 +52,15 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	[SerializeField] private int[] _SFXsIndices; 				/// <summary>Sound Effects' Indices.</summary>
 	[Space(5f)]
 	[SerializeField] private float _landingDuration; 			/// <summary>Landing's Duration.</summary>
+	[Space(5f)]
+	[SerializeField] private float _nonDisplacementTolerance; 	/// <summary>Tolerance time if there is no jumping displacement happening despite being jumping.</summary>
 	private TimeConstrainedForceApplier2D[] _forcesAppliers; 	/// <summary>Forces' Appliers.</summary>
 	private FloatWrapper _scalarWrapper; 						/// <summary>Gravity's Scalar Wrapper.</summary>
 	private int _currentJumpIndex; 								/// <summary>Current Jump's Index.</summary>
 	private int _state; 										/// <summary>Current State.</summary>
 	private int _previousState; 								/// <summary>Previous State.</summary>
 	private int _ignoreResetMask; 								/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
+	private float _currentNonDisplacementTolerance; 			/// <summary>Current Non-Displacement Tolerance's.</summary>
 	private Rigidbody2D _rigidbody; 							/// <summary>Rigidbody's Component.</summary>
 	private DisplacementAccumulator2D _accumulator; 			/// <summary>displacementAccumulator's Component.</summary>
 	private GravityApplier _gravityApplier; 					/// <summary>GravityApplier's Component.</summary>
@@ -90,6 +93,16 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	{
 		get { return _landingDuration; }
 		set { _landingDuration = value; }
+	}
+
+	/// <summary>Gets nonDisplacementTolerance property.</summary>
+	public float nonDisplacementTolerance { get { return _nonDisplacementTolerance; } }
+
+	/// <summary>Gets and Sets currentNonDisplacementTolerance property.</summary>
+	public float currentNonDisplacementTolerance
+	{
+		get { return _currentNonDisplacementTolerance; }
+		set { _currentNonDisplacementTolerance = value; }
 	}
 
 	/// <summary>Gets and Sets progressForExtraJump property.</summary>
@@ -233,10 +246,21 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 		landingCooldown = new Cooldown(this, landingDuration, OnLandingCooldownEnds);
 		gravityApplier.onGroundedStateChange += OnGroundedStateChange;
 		currentJumpIndex = -1;
+		currentNonDisplacementTolerance = 0.0f;
 	}
 
 	/// <summary>Updates JumpAbility's instance at each Physics Thread's frame.</summary>
-	private void FixedUpdate(){ /*...*/ }
+	private void FixedUpdate()
+	{
+		/// Force it!!!
+		if(this.HasStates(STATE_ID_JUMPING) && gravityApplier.grounded)
+		{
+			if(currentNonDisplacementTolerance >= nonDisplacementTolerance)
+			OnGroundedStateChange(true);
+
+			currentNonDisplacementTolerance += Time.deltaTime;
+		}
+	}
 
 #region StateMachineCallbacks:
 	/// <summary>Enters int State.</summary>
@@ -250,6 +274,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 			gravityApplier.RequestScaleChange(GetInstanceID(), _scalarWrapper, scaleChangePriority);
 			CancelForce(currentJumpIndex);
 			currentJumpIndex = -1;
+			currentNonDisplacementTolerance = 0.0f;
 			this.RemoveStates(STATE_ID_JUMPING);
 			break;
 

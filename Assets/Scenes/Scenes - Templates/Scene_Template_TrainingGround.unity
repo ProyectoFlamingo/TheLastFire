@@ -4426,6 +4426,56 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 749979322}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &763610964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 763610966}
+  - component: {fileID: 763610965}
+  m_Layer: 0
+  m_Name: TEST_Vector3PairProjectileShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &763610965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763610964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0740876334260754a97c0a1e6c5945a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileIndex: 4
+  lifespan: 0
+  pairs:
+  - a: {x: -10, y: 7, z: 0}
+    b: {x: 10, y: -3, z: 0}
+  - a: {x: 10, y: 7, z: 0}
+    b: {x: -10, y: -3, z: 0}
+--- !u!4 &763610966
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 763610964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &783018329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7528,6 +7578,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5122952807910987805, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
+        type: 3}
+      propertyPath: _nonDisplacementTolerance
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5122952807910987807, guid: 90ffb49a39c443c41aefa42ac03f1dfd,
         type: 3}
@@ -13235,12 +13290,12 @@ GameObject:
   - component: {fileID: 2145260257}
   - component: {fileID: 2145260258}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TEST_ProjectileShooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2145260257
 Transform:
   m_ObjectHideFlags: 0
