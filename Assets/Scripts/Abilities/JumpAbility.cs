@@ -255,6 +255,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 		/// Force it!!!
 		if(this.HasStates(STATE_ID_JUMPING) && gravityApplier.grounded)
 		{
+			//Debug.Log("[JumpAbility] Im here with current time: " + currentNonDisplacementTolerance);
 			if(currentNonDisplacementTolerance >= nonDisplacementTolerance)
 			OnGroundedStateChange(true);
 
