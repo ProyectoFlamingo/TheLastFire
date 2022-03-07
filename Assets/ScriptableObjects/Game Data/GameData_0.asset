@@ -76,6 +76,9 @@ MonoBehaviour:
   _outOfBoundsTag:
     _tag: OutOfBounds
     index: 17
+  _emptyCredential:
+    _tag: Empty
+    _ID: -1459219776
   _outOfBoundsLayer:
     _value: 10
     _name: OutOfBounds

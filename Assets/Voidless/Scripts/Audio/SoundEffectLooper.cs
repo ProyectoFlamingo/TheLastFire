@@ -59,12 +59,14 @@ public class SoundEffectLooper : PoolGameObject
 	public void ResetLoop()
 	{
 		source.time = 0.0f;
+		source.volume = volumeScale;
 	}
 
 	/// <summary>Stops Looper.</summary>
 	public void Stop()
 	{
-		_source.Stop();
+		source.Stop();
+		source.volume = 0.0f;
 		OnObjectDeactivation();
 	}
 }

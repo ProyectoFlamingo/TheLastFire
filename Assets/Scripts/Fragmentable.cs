@@ -183,6 +183,7 @@ public class Fragmentable : PoolGameObject
 			if(piece != null)
 			{
 				pieceData = piecesData[i];
+				piece.gameObject.SetActive(true);
 				piece.transform.position = pieceData.position;
 				piece.transform.rotation = pieceData.rotation;
 				piece.transform.localScale = pieceData.scale;
@@ -232,6 +233,17 @@ public class Fragmentable : PoolGameObject
 				Fragmentate(_info.direction, null);
 				return;
 			}
+		}
+	}
+
+	/// <summary>Callback invoked when the object is deactivated.</summary>
+	public override void OnObjectDeactivation()
+	{
+		base.OnObjectDeactivation();
+		
+		foreach(HitCollider2D piece in pieces)
+		{
+			piece.gameObject.SetActive(false);
 		}
 	}
 

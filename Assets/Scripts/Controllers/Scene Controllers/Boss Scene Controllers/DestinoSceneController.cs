@@ -410,6 +410,12 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	}
 #endregion
 
+	public static void ContinueLoop()
+	{
+		DestinoSceneController s = Instance;
+		AudioController.PlayFSMLoops(s.destino.Sing, s.mainLoopLoopData, s.mainLoopVoiceLoopData);
+	}
+
 #region PrivateMethods:
 	/// <summary>Activates Scenery Group related to the given stage.</summary>
 	/// <param name="_stageID">Stage's ID.</param>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -107,7 +108,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 	/// <summary>Initializes Recources' Mappings.</summary>
 	private void InitializeResourcesMappings()
 	{
-		int totalProcesses = 1;
+		int totalProcesses = 8;
 		int processes = 0;
 
 		Action onProcessEnds = ()=>
@@ -115,28 +116,31 @@ public class ResourcesManager : Singleton<ResourcesManager>
 			processes++;
 			Debug.Log("[ResourcesManager] Process Ended. Current progress: " + processes + "/" + totalProcesses);
 
-			if(processes == totalProcesses && onResourcesLoaded != null)
-			onResourcesLoaded();
+			if(processes == totalProcesses)
+			{
+				if(onResourcesLoaded != null) onResourcesLoaded();
+				Debug.Log(ToString());
+			}
 		};
 
-		//InitializeCharactersMapping(onProcessEnds);
-		InitializeProjectilesMapping(onProcessEnds);
-		/*InitializeParticleEffectsMapping(onProcessEnds);
-		InitializeExplodablesMapping(onProcessEnds);
-		InitializePoolObjectsMapping(onProcessEnds);
-		InitializeFSMLoopsMapping(onProcessEnds);
-		InitializeLoopsMapping(onProcessEnds);
-		InitializeSoundEffectsMapping(onProcessEnds);*/
+		VAddressables.LoadComponentMapping<AssetReference, Character>(charactersReferences, (map)=> { _charactersMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<AssetReference, Projectile>(projectilesReferences, (map)=> { _projectilesMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<AssetReference, ParticleEffect>(particleEffectsReferences, (map)=> { _particleEffectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<AssetReference, PoolGameObject>(poolObjectsReferences, (map)=> { _poolObjectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<AssetReference, Explodable>(explodablesReferences, (map)=> { _explodablesMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<AssetReference, FiniteStateAudioClip>(FSMLoopsReferences, (map)=> { _FSMLoopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<AssetReference, AudioClip>(loopsReferences, (map)=> { _loopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<AssetReference, AudioClip>(soundEffectsReferences, (map)=> { _soundEffectsMap = map; onProcessEnds(); });
 	}
 
 	/// <summary>Releases Memory.</summary>
 	private void ReleaseMemory()
 	{
-		ReleaseMapping<Character>(ref _charactersMap);
-		ReleaseMapping<Projectile>(ref _projectilesMap);
-		ReleaseMapping<ParticleEffect>(ref _particleEffectsMap);
-		ReleaseMapping<Explodable>(ref _explodablesMap);
-		ReleaseMapping<PoolGameObject>(ref _poolObjectsMap);
+		ReleaseComponentMapping<Character>(ref _charactersMap);
+		ReleaseComponentMapping<Projectile>(ref _projectilesMap);
+		ReleaseComponentMapping<ParticleEffect>(ref _particleEffectsMap);
+		ReleaseComponentMapping<Explodable>(ref _explodablesMap);
+		ReleaseComponentMapping<PoolGameObject>(ref _poolObjectsMap);
 		ReleaseMapping<FiniteStateAudioClip>(ref _FSMLoopsMap);
 		ReleaseMapping<AudioClip>(ref _loopsMap);
 		ReleaseMapping<AudioClip>(ref _soundEffectsMap);
@@ -144,7 +148,20 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
 	/// <summary>Releases Objects contained in given Mapping.</summary>
 	/// <param name="map">Mapping's Reference.</param>
-	private void ReleaseMapping<T>(ref Dictionary<AssetReference, T> map) where T : class
+	private void ReleaseComponentMapping<T>(ref Dictionary<AssetReference, T> map) where T : MonoBehaviour
+	{
+		if(map == null) return;
+
+		foreach(T component in map.Values)
+		{
+			if(component != null)
+			Addressables.Release(component.gameObject);
+		}
+	}
+
+	/// <summary>Releases Objects contained in given Mapping.</summary>
+	/// <param name="map">Mapping's Reference.</param>
+	private void ReleaseMapping<T>(ref Dictionary<AssetReference, T> map) where T : UnityEngine.Object
 	{
 		if(map == null) return;
 
@@ -155,7 +172,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		}
 	}
 
-#region AsyncInitializations:
+#region AsyncInitializations[DEPRECATE]:
 	/// <summary>Initializes Characters' Mappings.</summary>
 	/// <param name="onCharactersInitialized">Callback invoked when the Characters have been initialized.</param>
 	private async void InitializeCharactersMapping(Action onCharactersInitialized = null)
@@ -377,13 +394,13 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		{
 			if(reference == null) continue;
 
-			GameObject obj = null;
+			UnityEngine.Object obj = null;
 			FiniteStateAudioClip FSMLoop = null;
 
-			try { obj = await VAddressables.LoadAssetAsync<GameObject>(reference); }
+			try { obj = await VAddressables.LoadAssetAsync<FiniteStateAudioClip>(reference); }
 			catch(Exception exception) { Debug.LogException(exception); }
 
-			if(obj != null) FSMLoop = obj.GetComponent<FiniteStateAudioClip>();
+			if(obj != null) FSMLoop = obj as FiniteStateAudioClip;
 			if(FSMLoop != null) FSMLoopsMap.Add(reference, FSMLoop);
 		}
 
@@ -580,5 +597,32 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return clip;
 	}
 #endregion
+
+	/// <returns>String representing all resources.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+		string EMPTY = "Empty...";
+
+		builder.AppendLine("Resources' Manager: \n");
+		builder.AppendLine("Characters' Map: ");
+		builder.AppendLine(charactersMap != null && charactersMap.Count > 0 ? charactersMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Projectiles' Map: ");
+		builder.AppendLine(projectilesMap != null && projectilesMap.Count > 0 ? projectilesMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Particle-Effects' Map: ");
+		builder.AppendLine(particleEffectsMap != null && particleEffectsMap.Count > 0 ? particleEffectsMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Explodables' Map: ");
+		builder.AppendLine(explodablesMap != null && explodablesMap.Count > 0 ? explodablesMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Pool-GameObjects' Map: ");
+		builder.AppendLine(poolObjectsMap != null && poolObjectsMap.Count > 0 ? poolObjectsMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("FSM-AudioClips' Map: ");
+		builder.AppendLine(FSMLoopsMap != null && FSMLoopsMap.Count > 0 ? FSMLoopsMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Loops' Map: ");
+		builder.AppendLine(loopsMap != null && loopsMap.Count > 0 ? loopsMap.DictionaryToString() : EMPTY);
+		builder.AppendLine("Sound-Effects' Map: ");
+		builder.AppendLine(soundEffectsMap != null && soundEffectsMap.Count > 0 ? soundEffectsMap.DictionaryToString() : EMPTY);
+
+		return builder.ToString();
+	}
 }
 }

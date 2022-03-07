@@ -52,6 +52,15 @@ public class TESTAddressables : MonoBehaviour
 		};
 	}
 
+	/// <summary>Callback invoked when TESTAddressables's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		foreach(Projectile projectile in projectiles)
+		{
+			Addressables.Release(projectile.gameObject);
+		}
+	}
+
 	private void AssignProjectile(int index, AssetReference reference)
 	{
 		Addressables.LoadAssetAsync<GameObject>(reference).Completed += (obj)=>

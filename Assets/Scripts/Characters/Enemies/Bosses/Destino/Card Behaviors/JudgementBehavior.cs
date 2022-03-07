@@ -455,6 +455,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		foreach(Fragmentable target in targets)
 		{
 			target.eventsHandler.onPoolGameObjectDeactivated -= onTargetDeactivation;
+			target.OnObjectDeactivation();
 			Game.RemoveTargetToCamera(target.cameraTarget);
 		}
 

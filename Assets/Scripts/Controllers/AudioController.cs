@@ -317,7 +317,6 @@ public class AudioController : Singleton<AudioController>
 			()=>
 			{
 				source.Stop();
-				//source.clip = null;
 				mixer.SetVolume(parameterName,  1.0f);
 				source.time = 0.0f;
 				if(onStopEnds != null) onStopEnds();
@@ -328,7 +327,6 @@ public class AudioController : Singleton<AudioController>
 		{
 			source.Stop();
 			source.clip = null;
-			//mixer.SetVolume(parameterName,  1.0f);
 			source.time = 0.0f;
 			if(onStopEnds != null) onStopEnds();
 		}
@@ -354,7 +352,6 @@ public class AudioController : Singleton<AudioController>
 			()=>
 			{
 				source.clip = null;
-				//Instance.StopFSMAudioClip(source, ref Instance.loopFSMCoroutines[_sourceIndex]);
 				source.Stop();
 				mixer.SetVolume(parameterName,  1.0f);
 				source.time = 0.0f;
@@ -364,9 +361,7 @@ public class AudioController : Singleton<AudioController>
 		else
 		{
 			source.clip = null;
-			//Instance.StopFSMAudioClip(source, ref Instance.loopFSMCoroutines[_sourceIndex]);
 			source.Stop();
-			//mixer.SetVolume(Instance.GetExposedParameterName(_type, _sourceIndex),  1.0f);
 			source.time = 0.0f;
 			if(onStopEnds != null) onStopEnds();
 		}
@@ -423,7 +418,6 @@ public class AudioController : Singleton<AudioController>
 	{
 		if(_index < 0) return null;
 		
-		//Debug.Log("[AudioController] PlayOneShot();");
 		AudioClip clip = Game.data.soundEffects[_index];
 		GetAudioSource(_type, _sourceIndex).PlayOneShot(clip, _volumeScale);
 
@@ -510,20 +504,3 @@ public class AudioController : Singleton<AudioController>
 	}
 }
 }
-
-/*
-
-	Create timestamps, each timeStamp defines a state and the beginning of each state
-
-	if(currentTime > timeStamp[i] && currentTime timeStamp[i + 1]) state = i;
-
-	OnnRebeginState() {
-		
-		ContinueFromState(state);
-
-	}
-
-	//Play Audio on Editor:
-	//https://answers.unity.com/questions/36388/how-to-play-audioclip-in-edit-mode.html#:~:text=The%20audio%20preview%20mode%20must,and%20your%20audio%20should%20work.
-
-*/

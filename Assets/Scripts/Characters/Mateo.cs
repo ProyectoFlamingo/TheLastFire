@@ -508,9 +508,18 @@ public class Mateo : Character
 		state |= IDs.STATE_FIRECONJURINGCAPACITY;
 	}
 
-	/// <summary>Updates Mateo's instance at each frame.</summary>
-	private void Update()
+	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
+	protected override void Start()
 	{
+		base.Start();
+		//health.GiveDamage(Mathf.Infinity);
+	}
+
+	/// <summary>Updates Mateo's instance at each frame.</summary>
+	protected override void Update()
+	{
+		base.Update();
+
 		if(!this.HasStates(IDs.STATE_ALIVE)) return;
 
 		RotateTowardsLeftAxes();
@@ -1196,6 +1205,8 @@ public class Mateo : Character
 			break;
 
 			case HealthEvent.HitStunEnds:
+				//if(health.hp <= 0.0f) return;
+
 				state &= ~IDs.STATE_HURT;
 				
 				if(health.hp > 0.0f)
@@ -1214,8 +1225,8 @@ public class Mateo : Character
 			case HealthEvent.FullyDepleted:
 				if(!this.HasStates(IDs.STATE_ALIVE)) return;
 
-				CancelAllActions();
 				this.ChangeState(IDs.STATE_DEAD);
+				CancelAllActions();
 				animatorController.CrossFadeAndWait(
 					deadCredential,
 					deadFadeDuration,
@@ -1262,7 +1273,7 @@ public class Mateo : Character
 	/// <summary>Goes directly to Locomotion's State.</summary>
 	private void GoToLocomotionAnimation()
 	{
-		if(!jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
+		if(!this.HasStates(IDs.STATE_ALIVE) || !jumpAbility.grounded || this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_MEDITATING)) return;
 		//Debug.Log("[Mateo] Entering Locomotion..");
 		state |= IDs.STATE_MOVING;
 		
