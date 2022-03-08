@@ -13537,7 +13537,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -26408,7 +26408,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -26540,6 +26540,9 @@ MonoBehaviour:
     b: {x: -12, y: 1, z: -5}
   - a: {x: 0, y: -8, z: -5}
     b: {x: 0, y: 1, z: -5}
+  _drumstickSpawnPointPair:
+    a: {x: 14, y: -7, z: -5}
+    b: {x: 10, y: 1, z: -5}
   _leftDrumstick: {fileID: 1811553757580849915}
   _rightDrumstick: {fileID: 426630502}
   _rightDrumstickRotation:
@@ -26563,6 +26566,9 @@ MonoBehaviour:
   _drumstickShakeDuration: 0.3
   _drumstickShakeSpeed: 5
   _drumstickShakeMagnitude: 0.7
+  _trumpetSpawnPointPair:
+    a: {x: 0, y: -8, z: -5}
+    b: {x: 0, y: 1, z: -5}
   _trumpet: {fileID: 4900582757622516936}
   _trumpetSoundIndex: 32
   _trumpetAnimationCredential:
@@ -26577,8 +26583,12 @@ MonoBehaviour:
   _trumpetShakeDuration: 2
   _trumpetShakeSpeed: 10
   _trumpetShakeMagnitude: 2
+  _cymbalSpawnPointPair:
+    a: {x: -18.08, y: -7, z: -5}
+    b: {x: -12, y: 1, z: -5}
   _cymbals: {fileID: 192449231}
   _cymbalSoundIndex: 34
+  _cymbalSpawnPoint: {x: 0, y: -0.8, z: 0}
   _cymbalsAnimationCredential:
     _tag: Clash
     _ID: -1494220937
@@ -27788,7 +27798,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -31420,75 +31430,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2617700653441179322}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &643533558070097213
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6126768980967227210, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_Name
-      value: Sword Slash 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 17
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6129494274563245154, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08, type: 3}
 --- !u!1001 &1359772970298244320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32694,6 +32635,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1983728}
     m_Modifications:
+    - target: {fileID: 1878545307, guid: 893210ea57f39c94d90c5cafd3f233aa, type: 3}
+      propertyPath: _hurtParticleEffect._particleEffectIndex
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 1878545307, guid: 893210ea57f39c94d90c5cafd3f233aa, type: 3}
+      propertyPath: _hurtSoundIndex
+      value: 77
+      objectReference: {fileID: 0}
     - target: {fileID: 6319558079540329212, guid: 893210ea57f39c94d90c5cafd3f233aa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32757,7 +32706,7 @@ PrefabInstance:
     - target: {fileID: 6699179469644701766, guid: 893210ea57f39c94d90c5cafd3f233aa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 893210ea57f39c94d90c5cafd3f233aa, type: 3}
@@ -32996,7 +32945,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}

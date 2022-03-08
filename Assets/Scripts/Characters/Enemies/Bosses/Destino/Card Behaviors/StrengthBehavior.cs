@@ -23,6 +23,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[SerializeField] private Vector3Pair[] _destinoSpawnPointsPairs; 														/// <summary>Destino Spawn-Points' Pairs.</summary>
 	[Space(5f)]
 	[Header("Drumsticks' Attributes:")]
+	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private Vector3Pair _drumstickSpawnPointPair; 				/// <summary>Drumsticks' Spawn-Point Pairs.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _leftDrumstick; 						/// <summary>Left Drumstick's AIContactWeapon.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _rightDrumstick; 						/// <summary>Right Drumstick's AIContactWeapon.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private EulerRotation _rightDrumstickRotation; 				/// <summary>Right Drumstick's Rotation.</summary>
@@ -40,6 +41,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private float _drumstickShakeMagnitude; 						/// <summary>Drumstick's Shake Magnitude.</summary>
 	[Space(5f)]
 	[Header("Trumpet's Attributes:")]
+	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private Vector3Pair _trumpetSpawnPointPair; 						/// <summary>Trumpet's Spawn-Point Pairs.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AIContactWeapon _trumpet; 								/// <summary>Trumpet's reference.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private int _trumpetSoundIndex; 									/// <summary>Trumpet Sound's Index.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AnimatorCredential _trumpetAnimationCredential; 			/// <summary>Trumpet's AnimatorCredential.</summary>
@@ -54,8 +56,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private float _trumpetShakeMagnitude; 							/// <summary>Trumpet's Shake Magnitude.</summary>
 	[Space(5f)]
 	[Header("Cymbals' Attributes:")]
+	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private Vector3Pair _cymbalSpawnPointPair; 						/// <summary>Cymbals' Spawn-Point Pairs.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AIContactWeapon _cymbals; 								/// <summary>Cymbals' Reference.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private int _cymbalSoundIndex; 									/// <summary>Cymbal Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private Vector3 _cymbalSpawnPoint; 								/// <summary>Cymbal's SSpawn Point.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AnimatorCredential _cymbalsAnimationCredential; 			/// <summary>Cymbals' AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private float _maxCymbalsSteeringScalar; 						/// <summary>Max Cymbals' Steering Scalar.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private float _maxCymbalsAnimationSpeed; 						/// <summary>Max Cymbals' Animation Speed.</summary>
@@ -113,6 +117,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets trumpetSpawnPoint property.</summary>
 	public Vector3 trumpetSpawnPoint { get { return _trumpetSpawnPoint; } }
+
+	/// <summary>Gets cymbalSpawnPoint property.</summary>
+	public Vector3 cymbalSpawnPoint { get { return _cymbalSpawnPoint; } }
 
 	/// <summary>Gets sourceIndex property.</summary>
 	public int sourceIndex { get { return _sourceIndex; } }
@@ -198,6 +205,15 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets destinoSpawnPointsPairs property.</summary>
 	public Vector3Pair[] destinoSpawnPointsPairs { get { return _destinoSpawnPointsPairs; } }
 
+	/// <summary>Gets drumstickSpawnPointPair property.</summary>
+	public Vector3Pair drumstickSpawnPointPair { get { return _drumstickSpawnPointPair; } }
+
+	/// <summary>Gets trumpetSpawnPointPair property.</summary>
+	public Vector3Pair trumpetSpawnPointPair { get { return _trumpetSpawnPointPair; } }
+
+	/// <summary>Gets cymbalSpawnPointPair property.</summary>
+	public Vector3Pair cymbalSpawnPointPair { get { return _cymbalSpawnPointPair; } }
+
 	/// <summary>Gets drumstickAnimationCredential property.</summary>
 	public AnimatorCredential drumstickAnimationCredential { get { return _drumstickAnimationCredential; } }
 
@@ -219,6 +235,13 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		Gizmos.DrawWireSphere(leftDrumstickSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(rightDrumstickSpawnPoint, gizmosRadius);
 		Gizmos.DrawWireSphere(trumpetSpawnPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(cymbalSpawnPoint, gizmosRadius);
+		Gizmos.DrawWireSphere(drumstickSpawnPointPair.a, gizmosRadius);
+		Gizmos.DrawWireSphere(drumstickSpawnPointPair.b, gizmosRadius);
+		Gizmos.DrawWireSphere(trumpetSpawnPointPair.a, gizmosRadius);
+		Gizmos.DrawWireSphere(trumpetSpawnPointPair.b, gizmosRadius);
+		Gizmos.DrawWireSphere(cymbalSpawnPointPair.a, gizmosRadius);
+		Gizmos.DrawWireSphere(cymbalSpawnPointPair.b, gizmosRadius);
 
 		if(destinoSpawnPointsPairs != null) foreach(Vector3Pair pair in destinoSpawnPointsPairs)
 		{
@@ -396,7 +419,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			DrumstickRoutine(leftDrumstick, leftDrumstickSpawnPoint, Math.Min, -1.0f, scalar, s, drumstickLength),
 			DrumstickRoutine(rightDrumstick, rightDrumstickSpawnPoint, Math.Max, 1.0f, scalar, s, drumstickLength)
 		};
-		IEnumerator noteRoutine = PlayNote(boss, boss.reFaNoteIndex);
+		IEnumerator noteRoutine = PlayNote(boss, boss.reFaNoteIndex, drumstickSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 
@@ -491,7 +514,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		float s = boss.stageScale;
 		float scalar = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
 		bool animationEnded = false;
-		IEnumerator noteRoutine = PlayNote(boss, boss.laReNoteIndex);
+		IEnumerator noteRoutine = PlayNote(boss, boss.laReNoteIndex, trumpetSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		trumpet.state = AnimationCommandState.None;
@@ -534,11 +557,11 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			- Stop steering once the Hit-Boxes are active
 		*/
 		Vector3 projectedMateoPosition = Vector3.zero;
-		Vector3 initialPos = Vector3.zero;
+		Vector3 initialPos = cymbalSpawnPoint;
 		float s = boss.stageScale;
 		float scalar = Mathf.Lerp(1.0f, maxCymbalsSteeringScalar, s);
 		bool animationEnded = false;
-		IEnumerator noteRoutine = PlayNote(boss, boss.siMiNoteIndex);
+		IEnumerator noteRoutine = PlayNote(boss, boss.siMiNoteIndex, cymbalSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		cymbals.state = AnimationCommandState.None;
@@ -607,9 +630,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <summary>Lerps through a waypoint pair and plays a note.</summary>
 	/// <param name="boss">Destino's Reference.</param>
 	/// <param name="noteCredential">Note's Credential's Index.</param>
-	private IEnumerator PlayNote(DestinoBoss boss, int noteCredential)
+	private IEnumerator PlayNote(DestinoBoss boss, int noteCredential, Vector3Pair _pair)
 	{
-		Vector3Pair pair  = destinoSpawnPointsPairs.Random();
+		//Vector3Pair pair = destinoSpawnPointsPairs.Random();
+		Vector3Pair pair = _pair;
 		float t = 0.0f;
 		Vector3 up = (pair.b - pair.a).normalized;
 		float inverseDuration = 1.0f / entranceLerpDuration;
