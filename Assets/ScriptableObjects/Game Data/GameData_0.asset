@@ -268,6 +268,7 @@ MonoBehaviour:
   - {fileID: 6087210596371985921, guid: 0efc16ffedb7bc3479ccc4f5ea9c7bb2, type: 3}
   - {fileID: 5544093970368514656, guid: 90f0fc57f886cc244b4122d22e5b9a0a, type: 3}
   - {fileID: 5522559647679942831, guid: dafba09958b5b8442b02a25e6452769a, type: 3}
+  - {fileID: 2146444845058050819, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08, type: 3}
   _explodables:
   - {fileID: 7757396531229370483, guid: 510f45f4d87997d48933833abca64959, type: 3}
   - {fileID: 7757396531229370483, guid: be71cb40b8fbe2c4ab5223202fadb6ef, type: 3}
