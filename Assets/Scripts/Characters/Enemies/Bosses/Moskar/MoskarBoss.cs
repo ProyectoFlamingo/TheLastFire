@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using UnityEngine.AddressableAssets;
 
 namespace Flamingo
 {
@@ -11,80 +12,84 @@ namespace Flamingo
 [RequireComponent(typeof(CircleCollider2D))]
 public class MoskarBoss : Boss
 {
-	private const int ID_TAUNT_1 = 1; 											/// <summary>Taunt 1's ID.</summary>
-	private const int ID_TAUNT_2 = 2; 											/// <summary>Taunt 1's ID.</summary>
-	private const int ID_LOCOMOTION_IDLE = 1; 									/// <summary>Idle Locomotion's ID.</summary>
-	private const int ID_LOCOMOTION_WALK = 2; 									/// <summary>Walk Locomotion's ID.</summary>
-	private const int ID_LOCOMOTION_FLY = 3; 									/// <summary>Fly Locomotion's ID.</summary>
-	private const int ID_LOCOMOTION_LAND = 4; 									/// <summary>Land Locomotion's ID.</summary>
+	private const int ID_TAUNT_1 = 1; 												/// <summary>Taunt 1's ID.</summary>
+	private const int ID_TAUNT_2 = 2; 												/// <summary>Taunt 1's ID.</summary>
+	private const int ID_LOCOMOTION_IDLE = 1; 										/// <summary>Idle Locomotion's ID.</summary>
+	private const int ID_LOCOMOTION_WALK = 2; 										/// <summary>Walk Locomotion's ID.</summary>
+	private const int ID_LOCOMOTION_FLY = 3; 										/// <summary>Fly Locomotion's ID.</summary>
+	private const int ID_LOCOMOTION_LAND = 4; 										/// <summary>Land Locomotion's ID.</summary>
 
 	[Space(5f)]
 	[Header("Moskar's Attributes:")]
-	[SerializeField] private int _phases; 										/// <summary>Moskar's Phases [how many times it divides].</summary>
-	[SerializeField] private FloatRange _scaleRange; 							/// <summary>Scale's Range.</summary>
-	[SerializeField] private FloatRange _sphereColliderSizeRange; 				/// <summary>Size Range for the SphereCollider that acts as the HitBox.</summary>
-	[SerializeField] private float _projectionTime; 							/// <summary>Moskar's Projection Time.</summary>
+	[SerializeField] private int _phases; 											/// <summary>Moskar's Phases [how many times it divides].</summary>
+	[SerializeField] private FloatRange _scaleRange; 								/// <summary>Scale's Range.</summary>
+	[SerializeField] private FloatRange _sphereColliderSizeRange; 					/// <summary>Size Range for the SphereCollider that acts as the HitBox.</summary>
+	[SerializeField] private float _projectionTime; 								/// <summary>Moskar's Projection Time.</summary>
 	[Space(5f)]
 	[Header("Moskar's Components:")]
-	[SerializeField] private FOVSight2D _sightSensor; 							/// <summary>FOVSight2D's Component.</summary>
-	[SerializeField] private Transform _tail; 									/// <summary>Moskar's Tail's Transform.</summary>
+	[SerializeField] private FOVSight2D _sightSensor; 								/// <summary>FOVSight2D's Component.</summary>
+	[SerializeField] private Transform _tail; 										/// <summary>Moskar's Tail's Transform.</summary>
 	[Space(5f)]
 	[Header("Introduction's Attributes:")]
-	[SerializeField] private float _waitBeforeTaunt; 							/// <summary>Seconds to wait before Taunting.</summary>
-	[SerializeField] private float _waitBeforeEndingTaunt; 						/// <summary>Seconds to wait before ceasing taunt.</summary>
-	[SerializeField] private float _waitBeforeIntro; 							/// <summary>Seconds to wait before beginning the Introduction.</summary>
+	[SerializeField] private float _waitBeforeTaunt; 								/// <summary>Seconds to wait before Taunting.</summary>
+	[SerializeField] private float _waitBeforeEndingTaunt; 							/// <summary>Seconds to wait before ceasing taunt.</summary>
+	[SerializeField] private float _waitBeforeIntro; 								/// <summary>Seconds to wait before beginning the Introduction.</summary>
 	[Space(5f)]
 	[Header("Warning's Attributes:")]
-	[SerializeField] private float _warningSpeed; 								/// <summary>Warning's Steering Speed.</summary>
-	[SerializeField] private float _dangerRadius; 								/// <summary>Danger's Radius.</summary>
-	[SerializeField] private float _fleeDistance; 								/// <summary>Flee distance between Moskar and Mateo.</summary>
+	[SerializeField] private float _warningSpeed; 									/// <summary>Warning's Steering Speed.</summary>
+	[SerializeField] private float _dangerRadius; 									/// <summary>Danger's Radius.</summary>
+	[SerializeField] private float _fleeDistance; 									/// <summary>Flee distance between Moskar and Mateo.</summary>
 	[Space(5f)]
 	[Header("Wander Attributes: ")]
-	[SerializeField] private IntRange _waypointsGeneration; 					/// <summary>Waypoints generated per Wander Round.</summary>
-	[SerializeField] private float _minDistanceToReachWaypoint; 				/// <summary>Minimum distance to reach Waypoint.</summary>
-	[SerializeField] private FloatRange _wanderSpeed; 							/// <summary>Wander's Max Speed's Range.</summary>
-	[SerializeField] private FloatRange _wanderInterval; 						/// <summary>Wander interval between each angle change [as a range].</summary>
+	[SerializeField] private IntRange _waypointsGeneration; 						/// <summary>Waypoints generated per Wander Round.</summary>
+	[SerializeField] private float _minDistanceToReachWaypoint; 					/// <summary>Minimum distance to reach Waypoint.</summary>
+	[SerializeField] private FloatRange _wanderSpeed; 								/// <summary>Wander's Max Speed's Range.</summary>
+	[SerializeField] private FloatRange _wanderInterval; 							/// <summary>Wander interval between each angle change [as a range].</summary>
 	[Space(5f)]
 	[Header("Evasion Attributes: ")]
-	[SerializeField] private FloatRange _evasionSpeed; 							/// <summary>Evasion's Speed's Range.</summary>
+	[SerializeField] private FloatRange _evasionSpeed; 								/// <summary>Evasion's Speed's Range.</summary>
 	[Space(5f)]
 	[Header("Attack's Attributes:")]
-	[SerializeField] private int _projectileIndex; 								/// <summary>Projectile's Index.</summary>
-	[SerializeField] private FloatRange _shootInterval; 						/// <summary>Shooting Interval's Range.</summary>
-	[SerializeField] private IntRange _fireBursts; 								/// <summary>Fire Bursts' Range.</summary>
+	[SerializeField] private AssetReference _projectileReference; 					/// <summary>Projectikle's Asset Reference.</summary>
+	[SerializeField] private int _projectileIndex; 									/// <summary>Projectile's Index.</summary>
+	[SerializeField] private FloatRange _shootInterval; 							/// <summary>Shooting Interval's Range.</summary>
+	[SerializeField] private IntRange _fireBursts; 									/// <summary>Fire Bursts' Range.</summary>
 	[Space(5f)]
 	[Header("Rotations' Attributes:")]
-	[SerializeField] private EulerRotation _walkingRotation; 					/// <summary>Moskar's Walking Rotation.</summary>
-	[SerializeField] private EulerRotation _flyingRotation; 					/// <summary>Moskar's Flying Rotation.</summary>
-	[SerializeField] private EulerRotation _fallingRotation; 					/// <summary>Moskar's Rotation when Falling.</summary>
-	[SerializeField] private float _rotationSpeed; 								/// <summary>Moskar's rotation speed.</summary>
-	[SerializeField] private float _rotationDuration; 							/// <summary>Falling Rotation's Duration.</summary>
+	[SerializeField] private EulerRotation _walkingRotation; 						/// <summary>Moskar's Walking Rotation.</summary>
+	[SerializeField] private EulerRotation _flyingRotation; 						/// <summary>Moskar's Flying Rotation.</summary>
+	[SerializeField] private EulerRotation _fallingRotation; 						/// <summary>Moskar's Rotation when Falling.</summary>
+	[SerializeField] private float _rotationSpeed; 									/// <summary>Moskar's rotation speed.</summary>
+	[SerializeField] private float _rotationDuration; 								/// <summary>Falling Rotation's Duration.</summary>
 	[Space(5f)]
 	[Header("Sounds FXs:")]
-	[SerializeField] private int _sourceIndex; 									/// <summary>Source Index where the SFXs are played.</summary>
-	[SerializeField] private int _hurtSoundIndex; 								/// <summary>Hurt SFX's Index.</summary>
-	[SerializeField] private int _fallenSoundIndex; 							/// <summary>Fallen SFX's Index.</summary>
+	[SerializeField] private int _sourceIndex; 										/// <summary>Source Index where the SFXs are played.</summary>
+	[SerializeField] private AudioClipAssetReference _hurtSoundReference; 			/// <summary>Hurt Sound's Asset Reference.</summary>
+	[SerializeField] private AudioClipAssetReference _fallenSoundReference; 		/// <summary>Fallen Sound's Asset Reference.</summary>
+	[SerializeField] private int _hurtSoundIndex; 									/// <summary>Hurt SFX's Index.</summary>
+	[SerializeField] private int _fallenSoundIndex; 								/// <summary>Fallen SFX's Index.</summary>
 	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
-	[SerializeField] private int _duplicateParticleEffectIndex; 				/// <summary>Duplication ParticleEffect's Index.</summary>
+	[SerializeField] private int _duplicateParticleEffectIndex; 					/// <summary>Duplication ParticleEffect's Index.</summary>
+	[SerializeField] private ParticleEffectEmissionData _duplicateParticleEffect; 	/// <summary>Duplication Particle-Effect's Emission Data.</summary>
 	[Space(5f)]
 	[Header("Animator's Attributes:")]
-	[SerializeField] private int _introAnimationLayer; 							/// <summary>Introduction Animation's Layer.</summary>
-	[SerializeField] private int _attackAnimationLayer; 						/// <summary>Attack Animation's Layer.</summary>
-	[SerializeField] private int _tauntAnimationLayer; 							/// <summary>Taunt Animation's Layer.</summary>
-	[SerializeField] private AnimatorCredential _vitalityIDCredential; 			/// <summary>Vitality ID's Animattor Credential.</summary>
-	[SerializeField] private AnimatorCredential _tauntIDCredential; 			/// <summary>Taunt ID's Animattor Credential.</summary>
-	[SerializeField] private AnimatorCredential _locomotionIDCredential; 		/// <summary>Locomotion ID's Animattor Credential.</summary>
-	[SerializeField] private AnimatorCredential _attackingIDCredential; 		/// <summary>Attacking ID's Animattor Credential.</summary>
-	private int _currentPhase; 													/// <summary>Current Phase of this Moskar's Reproduction.</summary>
-	private float _phaseProgress; 												/// <summary>Phase's Normalized Progress.</summary>
-	private float _speedScale; 													/// <summary>Additional Speed's Scale.</summary>
-	private SteeringVehicle2D _vehicle; 										/// <summary>SteeringVehicle2D's Component.</summary>
-	//private Rigidbody2D _rigidbody; 											/// <summary>Rigidbody2D's Component.</summary>
-	private CircleCollider2D _hurtBox; 											/// <summary>CircleCollider2D's Component.</summary>
-	private Coroutine attackCoroutine; 											/// <summary>AttackBehavior's Coroutine reference.</summary>
-	private Coroutine rotationCoroutine; 										/// <summary>Rotation Coroutine's Reference.</summary>
-	private Vector3[] waypoints; 												/// <summary>Allocated the waypoints so it can be visually debuged with Gizmos.</summary>
+	[SerializeField] private int _introAnimationLayer; 								/// <summary>Introduction Animation's Layer.</summary>
+	[SerializeField] private int _attackAnimationLayer; 							/// <summary>Attack Animation's Layer.</summary>
+	[SerializeField] private int _tauntAnimationLayer; 								/// <summary>Taunt Animation's Layer.</summary>
+	[SerializeField] private AnimatorCredential _vitalityIDCredential; 				/// <summary>Vitality ID's Animattor Credential.</summary>
+	[SerializeField] private AnimatorCredential _tauntIDCredential; 				/// <summary>Taunt ID's Animattor Credential.</summary>
+	[SerializeField] private AnimatorCredential _locomotionIDCredential; 			/// <summary>Locomotion ID's Animattor Credential.</summary>
+	[SerializeField] private AnimatorCredential _attackingIDCredential; 			/// <summary>Attacking ID's Animattor Credential.</summary>
+	private int _currentPhase; 														/// <summary>Current Phase of this Moskar's Reproduction.</summary>
+	private float _phaseProgress; 													/// <summary>Phase's Normalized Progress.</summary>
+	private float _speedScale; 														/// <summary>Additional Speed's Scale.</summary>
+	private SteeringVehicle2D _vehicle; 											/// <summary>SteeringVehicle2D's Component.</summary>
+	//private Rigidbody2D _rigidbody; 												/// <summary>Rigidbody2D's Component.</summary>
+	private CircleCollider2D _hurtBox; 												/// <summary>CircleCollider2D's Component.</summary>
+	private Coroutine attackCoroutine; 												/// <summary>AttackBehavior's Coroutine reference.</summary>
+	private Coroutine rotationCoroutine; 											/// <summary>Rotation Coroutine's Reference.</summary>
+	private Vector3[] waypoints; 													/// <summary>Allocated the waypoints so it can be visually debuged with Gizmos.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets walkingRotation property.</summary>
@@ -179,6 +184,9 @@ public class MoskarBoss : Boss
 	/// <summary>Gets tauntAnimationLayer property.</summary>
 	public int tauntAnimationLayer { get { return _tauntAnimationLayer; } }
 
+	/// <summary>Gets duplicateParticleEffect property.</summary>
+	public ParticleEffectEmissionData duplicateParticleEffect { get { return _duplicateParticleEffect; } }
+
 	/// <summary>Gets sightSensor property.</summary>
 	public FOVSight2D sightSensor { get { return _sightSensor; } }
 
@@ -221,6 +229,15 @@ public class MoskarBoss : Boss
 		get { return _sourceIndex; }
 		set { _sourceIndex = value; }
 	}
+
+	/// <summary>Gets projectileReference property.</summary>
+	public AssetReference projectileReference { get { return _projectileReference; } }
+
+	/// <summary>Gets hurtSoundReference property.</summary>
+	public AudioClipAssetReference hurtSoundReference { get { return _hurtSoundReference; } }
+
+	/// <summary>Gets fallenSoundReference property.</summary>
+	public AudioClipAssetReference fallenSoundReference { get { return _fallenSoundReference; } }
 
 	/// <summary>Gets and Sets projectileIndex property.</summary>
 	public int projectileIndex
@@ -367,11 +384,13 @@ public class MoskarBoss : Boss
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, hurtSoundIndex);
+			//AudioController.PlayOneShot(SourceType.SFX, sourceIndex, hurtSoundIndex);
+			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, ResourcesManager.GetAudioClip(hurtSoundReference, SourceType.SFX));
 			break;
 
 			case HealthEvent.FullyDepleted:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, hurtSoundIndex);
+			//AudioController.PlayOneShot(SourceType.SFX, sourceIndex, hurtSoundIndex);
+			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, ResourcesManager.GetAudioClip(hurtSoundReference, SourceType.SFX));
 			BeginDeathRoutine();
 			base.OnDeathRoutineEnds();
 			this.RemoveStates(IDs.STATE_ALIVE);
@@ -718,7 +737,8 @@ public class MoskarBoss : Boss
 
 			while(i < bursts)
 			{
-				Projectile crap = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, tail.transform.position, Vector3.down);
+				//Projectile crap = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, tail.transform.position, Vector3.down);
+				Projectile crap = PoolManager.RequestProjectile(Faction.Enemy, projectileReference, tail.transform.position, Vector3.down);
 
 				shootWait.ChangeDurationAndReset(crap.cooldownDuration);
 				animator.SetBool(attackingIDCredential, true);
@@ -759,7 +779,8 @@ public class MoskarBoss : Boss
 		rigidbody.bodyType = RigidbodyType2D.Dynamic;
 		rigidbody.gravityScale = 1.0f;
 
-		AudioController.PlayOneShot(SourceType.SFX, sourceIndex, fallenSoundIndex);
+		//AudioController.PlayOneShot(SourceType.SFX, sourceIndex, fallenSoundIndex);
+		AudioController.PlayOneShot(SourceType.SFX, sourceIndex, ResourcesManager.GetAudioClip(fallenSoundReference, SourceType.SFX));
 
 		while(t < 1.0f)
 		{

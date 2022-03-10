@@ -3,21 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
+using UnityEngine.AddressableAssets;
 
 namespace Flamingo
 {
 [Serializable]
 public class ParticleEffectEmissionData
 {
-	[SerializeField] private Transform _transform; 					/// <summary>Transform's Reference.</summary>
-	[SerializeField] private int _particleEffectIndex; 				/// <summary>ParticleEffect's Index.</summary>
-	[SerializeField] private Vector3[] _points; 					/// <summary>Points of ParticleEmission relative to the Transform.</summary>
+	[SerializeField] private Transform _transform; 						/// <summary>Transform's Reference.</summary>
+	[SerializeField] private AssetReference _particleEffectReference; 	/// <summary>Particle Effect's Reference.</summary>
+	[SerializeField] private int _particleEffectIndex; 					/// <summary>ParticleEffect's Index.</summary>
+	[SerializeField] private Vector3[] _points; 						/// <summary>Points of ParticleEmission relative to the Transform.</summary>
 
 	/// <summary>Gets and Sets transform property.</summary>
 	public Transform transform
 	{
 		get { return _transform; }
 		set { _transform = value; }
+	}
+
+	/// <summary>Gets and Sets particleEffectReference property.</summary>
+	public AssetReference particleEffectReference
+	{
+		get { return _particleEffectReference; }
+		set { _particleEffectReference = value; }
 	}
 
 	/// <summary>Gets and Sets particleEffectIndex property.</summary>
@@ -67,7 +76,8 @@ public class ParticleEffectEmissionData
 
 		foreach(Vector3 point in points)
 		{
-			PoolManager.RequestParticleEffect(particleEffectIndex, transform.TransformPoint(point), Quaternion.identity);
+			/*if(particleEffectReference.Empty()) PoolManager.RequestParticleEffect(particleEffectReference, transform.TransformPoint(point), Quaternion.identity);
+			else */PoolManager.RequestParticleEffect(particleEffectIndex, transform.TransformPoint(point), Quaternion.identity);
 		}	
 	}
 }

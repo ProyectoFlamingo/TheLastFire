@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using Voidless;
 using UnityEngine.Audio;
+using UnityEngine.AddressableAssets;
 
 /*
  - Calculate the total of Moskars to destroy:
@@ -24,43 +25,45 @@ namespace Flamingo
 public class MoskarSceneController : Singleton<MoskarSceneController>
 {
 	[Space(5f)]
-	[SerializeField] private float _fadeOutDuration; 				/// <summary>Fade-Out's Duration.</summary>
+	[SerializeField] private float _fadeOutDuration; 						/// <summary>Fade-Out's Duration.</summary>
 	[Space(5f)]
-	[SerializeField] private MoskarBoss _main; 						/// <summary>Initial Moskar's Reference.</summary>
+	[SerializeField] private MoskarBoss _main; 								/// <summary>Initial Moskar's Reference.</summary>
 	[Space(5f)]
 	[Header("Reproductions' Atrributes:")]
-	[SerializeField] private int _moskarIndex; 						/// <summary>Moskar's Index.</summary>
-	[SerializeField] private float _reproductionDuration; 			/// <summary>Reproduction Duration. Determines how long it lasts the reproduction's displacement and scaling.</summary>
-	[SerializeField] private float _reproductionPushForce; 			/// <summary>Reproduction's Push Force.</summary>
-	[SerializeField] private float _reproductionCountdown; 			/// <summary>Duration before creating another round of moskars.</summary>
-	[SerializeField] private float _speedScale; 					/// <summary>Remaining Moskars Speed Scale.</summary>
-	[SerializeField] private int _remainingMoskarsForSpeedScale; 	/// <summary>Minimum of Remaining Moskars needed for an additional speed scale.</summary>
+	[SerializeField] private AssetReference _moskarReference; 				/// <summary>Moskar's Reference.</summary>
+	[SerializeField] private int _moskarIndex; 								/// <summary>Moskar's Index.</summary>
+	[SerializeField] private float _reproductionDuration; 					/// <summary>Reproduction Duration. Determines how long it lasts the reproduction's displacement and scaling.</summary>
+	[SerializeField] private float _reproductionPushForce; 					/// <summary>Reproduction's Push Force.</summary>
+	[SerializeField] private float _reproductionCountdown; 					/// <summary>Duration before creating another round of moskars.</summary>
+	[SerializeField] private float _speedScale; 							/// <summary>Remaining Moskars Speed Scale.</summary>
+	[SerializeField] private int _remainingMoskarsForSpeedScale; 			/// <summary>Minimum of Remaining Moskars needed for an additional speed scale.</summary>
 	[Space(5f)]
 	[Header("Music's Attributes:")]
-	[SerializeField] private FloatRange _waitBetweenPiece; 			/// <summary>Wait Duration Between each piece.</summary>
-	[SerializeField] private int[] _piecesIndices; 					/// <summary>Pieces' Indices.</summary>
-	[SerializeField] private int _flyLoop; 							/// <summary>Fly's Loop Index.</summary>
-	[SerializeField] private int _remainingMoskarsForLastPiece; 	/// <summary>Maximum required of remaining Moskars for the last piece's loop to be reproduced.</summary>
-	[SerializeField] private int _sampleJumping; 					/// <summary>Sample Jumping by each iteration.</summary>
+	[SerializeField] private FloatRange _waitBetweenPiece; 					/// <summary>Wait Duration Between each piece.</summary>
+	[SerializeField] private int[] _piecesIndices; 							/// <summary>Pieces' Indices.</summary>
+	[SerializeField] private AudioClipAssetReference[] _piecesReferences; 	/// <summary>Pieces' Asset-References.</summary>
+	[SerializeField] private int _flyLoop; 									/// <summary>Fly's Loop Index.</summary>
+	[SerializeField] private int _remainingMoskarsForLastPiece; 			/// <summary>Maximum required of remaining Moskars for the last piece's loop to be reproduced.</summary>
+	[SerializeField] private int _sampleJumping; 							/// <summary>Sample Jumping by each iteration.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _moskarSFXVolume; 			/// <summary>Volume for Moskar's SFXs.</summary>
+	[Range(0.0f, 1.0f)] private float _moskarSFXVolume; 					/// <summary>Volume for Moskar's SFXs.</summary>
 	[Space(5f)]
 	[Header("Mandala's Attributes:")]
-	[SerializeField] private Mandala _enterMandala;					/// <summary>Enter Mandala's Reference.</summary>
-	[SerializeField] private Mandala _exitMandala;					/// <summary>Exit Mandala's Reference.</summary>
-	[SerializeField] private Vector3 _enterMandalaSpawnPosition; 	/// <summary>Enter Mandala's spawn Position.</summary>
-	[SerializeField] private Vector3 _exitMandalaSpawnPosition; 	/// <summary>Exit Mandala's spawn Position.</summary>
-	private Boundaries2DContainer _moskarBoundaries; 				/// <summary>Moskar's Boundaries.</summary>
-	private HashSet<MoskarBoss> _moskarReproductions; 				/// <summary>Moskar's Reproductions.</summary>
+	[SerializeField] private Mandala _enterMandala;							/// <summary>Enter Mandala's Reference.</summary>
+	[SerializeField] private Mandala _exitMandala;							/// <summary>Exit Mandala's Reference.</summary>
+	[SerializeField] private Vector3 _enterMandalaSpawnPosition; 			/// <summary>Enter Mandala's spawn Position.</summary>
+	[SerializeField] private Vector3 _exitMandalaSpawnPosition; 			/// <summary>Exit Mandala's spawn Position.</summary>
+	private Boundaries2DContainer _moskarBoundaries; 						/// <summary>Moskar's Boundaries.</summary>
+	private HashSet<MoskarBoss> _moskarReproductions; 						/// <summary>Moskar's Reproductions.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 					/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 					/// <summary>Gizmos' Radius.</summary>
+	[SerializeField] private Color gizmosColor; 							/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private float gizmosRadius; 							/// <summary>Gizmos' Radius.</summary>
 #endif
-	private Coroutine moskarReproductionsCountdown; 				/// <summary>MoskarReproductionsCountdown's Coroutine reference.</summary>
-	private float _totalMoskars; 									/// <summary>Total of Moskars.</summary>
-	private float _moskarsDestroyed; 								/// <summary>Moskars Destroyed.</summary>
+	private Coroutine moskarReproductionsCountdown; 						/// <summary>MoskarReproductionsCountdown's Coroutine reference.</summary>
+	private float _totalMoskars; 											/// <summary>Total of Moskars.</summary>
+	private float _moskarsDestroyed; 										/// <summary>Moskars Destroyed.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets fadeOutDuration property.</summary>
@@ -72,6 +75,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		get { return _main; }
 		set { _main = value; }
 	}
+
+	/// <summary>Gets moskarReference property.</summary>
+	public AssetReference moskarReference { get { return _moskarReference; } }
 
 	/// <summary>Gets moskarIndex property.</summary>
 	public int moskarIndex { get { return _moskarIndex; } }
@@ -152,6 +158,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		get { return _flyLoop; }
 		set { _flyLoop = value; }
 	}
+
+	/// <summary>Gets piecesReferences property.</summary>
+	public AudioClipAssetReference[] piecesReferences { get { return _piecesReferences; } }
 
 	/// <summary>Gets moskarBoundaries Component.</summary>
 	public Boundaries2DContainer moskarBoundaries
@@ -239,27 +248,14 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
 	private void Start()
 	{
-		if(piecesIndices != null)
-		{
-			int index = default(int);
-
-			for(int i = 0; i < piecesIndices.Length; i++)
-			{
-				index = piecesIndices[i];
-				AudioController.Play(SourceType.Loop, i, index, true);
-				AudioController.SetVolume(SourceType.Loop, i, 0.0f);
-			}
-		}
-
-		AudioController.Play(SourceType.Scenario, 0, flyLoop, true);
-		AudioController.SetVolume(SourceType.SFX, main.sourceIndex, moskarSFXVolume);
-
 		Game.EnablePlayerControl(false);
 		Game.FadeOutScreen(Color.black, fadeOutDuration,
 		()=>
 		{
 			Game.EnablePlayerControl(true);
-		});		
+		});	
+
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;	
 	}
 
 	/// <summary>Callback invoked when MoskarSceneController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
@@ -286,6 +282,27 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 				position.z
 			);
 		}
+	}
+
+	/// <summary>Event invoked when all the resources are loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		if(piecesIndices != null)
+		{
+			AudioClip piece = null;
+			//int index = default(int);
+
+			for(int i = 0; i < piecesIndices.Length; i++)
+			{
+				piece = ResourcesManager.GetAudioClip(piecesReferences[i], SourceType.Loop);
+				//index = piecesIndices[i];
+				AudioController.Play(SourceType.Loop, i, piece, true);
+				AudioController.SetVolume(SourceType.Loop, i, 0.0f);
+			}
+		}
+
+		AudioController.Play(SourceType.Scenario, 0, flyLoop, true);
+		AudioController.SetVolume(SourceType.SFX, main.sourceIndex, moskarSFXVolume);
 	}
 
 	/// <summary>Callback invoked when any Moskar Reproduction invokes an ID Event.</summary>
@@ -346,11 +363,13 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 
 			phase++;
 
-			PoolManager.RequestParticleEffect(moskar.duplicateParticleEffectIndex, moskar.transform.position, Quaternion.identity);
+			moskar.duplicateParticleEffect.EmitParticleEffects();
+			//PoolManager.RequestParticleEffect(moskar.duplicateParticleEffectIndex, moskar.transform.position, Quaternion.identity);
 
 			for(int i = 0; i < 2; i++)
 			{
-				reproduction = PoolManager.RequestPoolGameObject(moskarIndex, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
+				//reproduction = PoolManager.RequestPoolGameObject(moskarIndex, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
+				reproduction = PoolManager.RequestCharacter(moskarReference, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
 				SubscribeToMoskarEvents(reproduction);
 				reproduction.state = 0;
 				reproduction.AddStates(IDs.STATE_ATTACKING);

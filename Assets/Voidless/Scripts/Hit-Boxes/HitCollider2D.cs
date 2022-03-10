@@ -11,6 +11,12 @@ namespace Voidless
 public delegate void OnTriggerEvent2D(Collider2D _collider, HitColliderEventTypes _eventType, int _hitColliderID = 0);
 
 /// <summary>Event invoked when this Hit Collider2D intersects with another GameObject.</summary>
+/// <param name="_hitCollider">HitCollider2D that invoked the event.</param>
+/// <param name="_collider">Collider2D that was involved on the Hit Event.</param>
+/// <param name="_eventType">Type of the event.</param>
+public delegate void OnHitColliderTriggerEvent2D(HitCollider2D _hitCollider, Collider2D _collider, HitColliderEventTypes _eventType);
+
+/// <summary>Event invoked when this Hit Collider2D intersects with another GameObject.</summary>
 /// <param name="a">Collider2D A that sent Hit Event.</param>
 /// <param name="b">Collider2D B that was involved on the Hit Event.</param>
 /// <param name="_eventType">Type of the event.</param>
@@ -26,6 +32,7 @@ public delegate void OnCollisionEvent2D(Collision2D _collision, HitColliderEvent
 [RequireComponent(typeof(Rigidbody2D))]
 public class HitCollider2D : MonoBehaviour
 {
+	public event OnHitColliderTriggerEvent2D onHitColliderTriggerEvent; 	/// <summary>OnHitColliderTriggerEvent2D's event delegate.</summary>
 	public event OnTriggerEvent2D onTriggerEvent2D; 						/// <summary>OnTriggerEvent2D event delegate.</summary>
 	public event OnTriggerInstanceEvent2D onTriggerInstanceEvent2D; 		/// <summary>OnTriggerInstanceEvent2D event delegate.</summary>
 	public event OnCollisionEvent2D onCollisionEvent2D; 					/// <summary>OnCollisionEvent2D event delegate.</summary>
@@ -101,6 +108,7 @@ public class HitCollider2D : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D col)
 	{
 		if(!detectableHitEvents.HasFlag(HitColliderEventTypes.Enter)) return;
+		if(onHitColliderTriggerEvent != null) onHitColliderTriggerEvent(this, col, HitColliderEventTypes.Enter);
 		if(onTriggerEvent2D != null) onTriggerEvent2D(col, HitColliderEventTypes.Enter, ID);
 		if(onTriggerInstanceEvent2D != null) onTriggerInstanceEvent2D(collider, col, HitColliderEventTypes.Enter, ID);
 	}
@@ -110,6 +118,7 @@ public class HitCollider2D : MonoBehaviour
 	private void OnTriggerStay2D(Collider2D col)
 	{
 		if(!detectableHitEvents.HasFlag(HitColliderEventTypes.Stays)) return;
+		if(onHitColliderTriggerEvent != null) onHitColliderTriggerEvent(this, col, HitColliderEventTypes.Stays);
 		if(onTriggerEvent2D != null) onTriggerEvent2D(col, HitColliderEventTypes.Stays, ID);
 		if(onTriggerInstanceEvent2D != null) onTriggerInstanceEvent2D(collider, col, HitColliderEventTypes.Stays, ID);
 	}
@@ -119,6 +128,7 @@ public class HitCollider2D : MonoBehaviour
 	private void OnTriggerExit2D(Collider2D col)
 	{
 		if(!detectableHitEvents.HasFlag(HitColliderEventTypes.Exit)) return;
+		if(onHitColliderTriggerEvent != null) onHitColliderTriggerEvent(this, col, HitColliderEventTypes.Exit);
 		if(onTriggerEvent2D != null) onTriggerEvent2D(col, HitColliderEventTypes.Exit, ID);
 		if(onTriggerInstanceEvent2D != null) onTriggerInstanceEvent2D(collider, col, HitColliderEventTypes.Exit, ID);
 	}

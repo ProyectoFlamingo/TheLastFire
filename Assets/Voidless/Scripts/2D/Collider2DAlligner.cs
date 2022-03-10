@@ -8,14 +8,15 @@ namespace Voidless
 [ExecuteInEditMode]
 public class Collider2DAlligner : MonoBehaviour
 {
-	[SerializeField] private Transform _relativeTo; 	/// <summary>Transform's Relativeness.</summary>
-	[SerializeField] private Vector3 _a; 				/// <summary>Vector A [relative to transform].</summary>
-	[SerializeField] private Vector3 _b; 				/// <summary>Vector B [relative to transform].</summary>
+	[SerializeField] private Transform _relativeTo; 		/// <summary>Transform's Relativeness.</summary>
+	[SerializeField] private Transform _secondRelativeTo; 	/// <summary>Optional Transform's Relativeness for Vector B.</summary>
+	[SerializeField] private Vector3 _a; 					/// <summary>Vector A [relative to transform].</summary>
+	[SerializeField] private Vector3 _b; 					/// <summary>Vector B [relative to transform].</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 		/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 		/// <summary>Gizmos' Radius.</summary>
+	[SerializeField] private Color gizmosColor; 			/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private float gizmosRadius; 			/// <summary>Gizmos' Radius.</summary>
 #endif
 
 	/// <summary>Gets and Sets relativeTo property.</summary>
@@ -23,6 +24,13 @@ public class Collider2DAlligner : MonoBehaviour
 	{
 		get { return _relativeTo; }
 		set { _relativeTo = value; }
+	}
+
+	/// <summary>Gets and Sets secondRelativeTo property.</summary>
+	public Transform secondRelativeTo
+	{
+		get { return _secondRelativeTo; }
+		set { _secondRelativeTo = value; }
 	}
 
 	/// <summary>Gets and Sets a property.</summary>
@@ -47,7 +55,7 @@ public class Collider2DAlligner : MonoBehaviour
 
 		Gizmos.color = gizmosColor;
 		Gizmos.DrawSphere(relativeTo.TransformPoint(a), gizmosRadius);
-		Gizmos.DrawSphere(relativeTo.TransformPoint(b), gizmosRadius);
+		Gizmos.DrawSphere(secondRelativeTo != null ? secondRelativeTo.TransformPoint(b) : relativeTo.TransformPoint(b), gizmosRadius);
 
 		//if(!Application.isPlaying) UpdateCollider();
 	}

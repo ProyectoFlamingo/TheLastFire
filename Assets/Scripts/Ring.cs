@@ -16,6 +16,9 @@ public class Ring : PoolGameObject
 {
 	public event OnRingPassed onRingPassed; 									/// <summary>OnRingPassed event's delegate.</summary>
 
+	[SerializeField] private HitCollider2D _triggerA; 							/// <summary>Trigger A.</summary>
+	[SerializeField] private HitCollider2D _triggerB; 							/// <summary>Trigger B.</summary>
+	[Space(5f)]
 	[SerializeField] private ParticleEffectEmissionData _passedParticleEffect; 	/// <summary>Particle Effect Emission Data when the ring is passed.</summary>
 	[SerializeField] private int _particleEffectIndex; 							/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
 	[SerializeField] private int _soundEffectIndex; 							/// <summary>Sound Effect index to emit when ring is passed on.</summary>
@@ -28,11 +31,19 @@ public class Ring : PoolGameObject
 	[SerializeField] private HitCollider2D[] _hitBoxes; 						/// <summary>Ring's HitBoxes.</summary>
 	private Dictionary<int, Vector2> _directionsMapping; 						/// <summary>Direction's Mapping for each possible GameObject.</summary>
 	private HashSet<int> _passedOnMapping; 										/// <summary>Mapping of GameObjects that have passed through this Ring.</summary>
+	private HashSet<int> _passedOnTriggerA; 									/// <summary>GaameObjects that have passed on Trigger A.</summary>
+	private HashSet<int> _passedOnTriggerB; 									/// <summary>GaameObjects that have passed on Trigger B.</summary>
 	private VCameraTarget _cameraTarget; 										/// <summary>VCamera's Component.</summary>
 	private SelfMotionPerformer _selfMotionPerformer; 							/// <summary>SelfMotionPerformer's Component.</summary>
 	private bool _passedOn; 													/// <summary>Has an object already passed on this Ring?.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets triggerA property.</summary>
+	public HitCollider2D triggerA { get { return _triggerA; } }
+
+	/// <summary>Gets triggerB property.</summary>
+	public HitCollider2D triggerB { get { return _triggerB; } }
+
 	/// <summary>Gets passedParticleEffect property.</summary>
 	public ParticleEffectEmissionData passedParticleEffect { get { return _passedParticleEffect; } }
 
@@ -83,6 +94,20 @@ public class Ring : PoolGameObject
 		private set { _passedOnMapping = value; }
 	}
 
+	/// <summary>Gets and Sets passedOnTriggerA property.</summary>
+	public HashSet<int> passedOnTriggerA
+	{
+		get { return _passedOnTriggerA; }
+		private set { _passedOnTriggerA = value; }
+	}
+
+	/// <summary>Gets and Sets passedOnTriggerB property.</summary>
+	public HashSet<int> passedOnTriggerB
+	{
+		get { return _passedOnTriggerB; }
+		private set { _passedOnTriggerB = value; }
+	}
+
 	/// <summary>Gets cameraTarget Component.</summary>
 	public VCameraTarget cameraTarget
 	{ 
@@ -129,8 +154,11 @@ public class Ring : PoolGameObject
 	{
 		directionsMapping = new Dictionary<int, Vector2>();
 		passedOnMapping = new HashSet<int>();
+		passedOnTriggerA = new HashSet<int>();
+		passedOnTriggerB = new HashSet<int>();
 
-		if(hitBoxes != null)
+		/// Ye olde dot-product way:
+		/*if(hitBoxes != null)
 		{
 			int i = 0;
 			foreach(HitCollider2D hitBox in hitBoxes)
@@ -140,6 +168,17 @@ public class Ring : PoolGameObject
 				hitBox.ID = i;
 				i++;
 			}
+		}*/
+
+		/// The gay way:
+		if(triggerA != null && triggerB != null)
+		{
+			HitColliderEventTypes detectableEvents = HitColliderEventTypes.Enter | HitColliderEventTypes.Exit;
+			
+			triggerA.detectableHitEvents = detectableEvents;
+			triggerB.detectableHitEvents = detectableEvents;
+			triggerA.onHitColliderTriggerEvent += OnHitColliderTriggerEvent;
+			triggerB.onHitColliderTriggerEvent += OnHitColliderTriggerEvent;
 		}
 
 		passedOn = false;
@@ -151,6 +190,64 @@ public class Ring : PoolGameObject
 		if(hitBoxes != null) foreach(HitCollider2D hitBox in hitBoxes)
 		{
 			hitBox.onTriggerEvent2D -= OnTriggerEvent2D;
+		}
+	}
+
+	/// <summary>Event invoked when this Hit Collider2D intersects with another GameObject.</summary>
+	/// <param name="_hitCollider">HitCollider2D that invoked the event.</param>
+	/// <param name="_collider">Collider2D that was involved on the Hit Event.</param>
+	/// <param name="_eventType">Type of the event.</param>
+	public void OnHitColliderTriggerEvent(HitCollider2D _hitCollider, Collider2D _collider, HitColliderEventTypes _eventType)
+	{
+		if(_eventType == HitColliderEventTypes.Stays && detectableTags == null) return;
+
+		GameObject obj = _collider.gameObject;
+		int instanceID = obj.GetInstanceID();
+		bool detectable = false;
+
+		foreach(GameObjectTag tag in detectableTags)
+		{
+			if(obj.CompareTag(tag))
+			{
+				detectable = true;
+				break;
+			}
+		}
+
+		if(!detectable) return;
+
+		switch(_eventType)
+		{
+			case HitColliderEventTypes.Enter:
+			if(_hitCollider == triggerA)
+			{
+				passedOnTriggerA.Add(instanceID);
+
+			} else if(_hitCollider == triggerB)
+			{
+				passedOnTriggerB.Add(instanceID);
+			}
+			break;
+
+			case HitColliderEventTypes.Exit:
+			if(passedOnTriggerA.Contains(instanceID) && passedOnTriggerB.Contains(instanceID))
+			{
+				passedOnTriggerA.Remove(instanceID);
+				passedOnTriggerB.Remove(instanceID);
+				InvokeRingPassedEvent(_collider);
+			}
+			else
+			{
+				if(_hitCollider == triggerA)
+				{
+					passedOnTriggerA.Remove(instanceID);
+
+				} else if(_hitCollider == triggerB)
+				{
+					passedOnTriggerB.Remove(instanceID);
+				}
+			}
+			break;
 		}
 	}
 

@@ -105,7 +105,13 @@ public class PoolManager : Singleton<PoolManager>
 	/// <summary>Called after Awake, before the first Update.</summary>
 	protected void Start()
 	{
-		ResourcesManager.Instance.onResourcesLoaded += OnResourcesLoaded;
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
+	}
+
+	/// <summary>Callback invoked when PoolManager's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
 	}
 
 	/// <summary>Callback invoked when resources haven been loaded by the ResourcesLoader.</summary>
@@ -119,6 +125,21 @@ public class PoolManager : Singleton<PoolManager>
 	}
 
 #region AddressableFunctions:
+	/// <summary>Gets a Character from the Characters' Pool.</summary>
+	/// <param name="_reference">Character's Asset Reference.</param>
+	/// <param name="_position">Character's Position.</param>
+	/// <param name="_rotation">Character's Rotation.</param>
+	public static Character RequestCharacter(AssetReference _reference, Vector3 _position, Quaternion _rotation)
+	{
+		if(_reference.Empty()) return null;
+
+		GameObjectPool<Character> pool = null;
+
+		if(Instance.charactersPoolsMap.TryGetValue(_reference.RuntimeKey, out pool)) return null;
+
+		return pool.Recycle(_position, _rotation);
+	}
+
 	/// <summary>Gets a Projectile from the Projectiles' Pools.</summary>
 	/// <param name="_faction">Faction of the requester.</param>
 	/// <param name="_reference">Projectile's ID.</param>
@@ -128,6 +149,8 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested Projectile.</returns>
 	public static Projectile RequestProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _direction, GameObject _object = null)
 	{
+		if(_reference.Empty()) return null;
+		
 		GameObjectPool<Projectile> pool = null;
 
 		if(!Instance.projectilesPoolsMap.TryGetValue(_reference.RuntimeKey, out pool)) return null;
@@ -164,6 +187,8 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested Homing Projectile.</returns>
 	public static Projectile RequestHomingProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _direction, Transform _target, GameObject _object = null)
 	{
+		if(_reference.Empty()) return null;
+
 		Projectile projectile = RequestProjectile(_faction, _reference, _position, _direction, _object);
 
 		if(projectile == null) return null;
@@ -184,6 +209,8 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested Parabola Projectile.</returns>
 	public static Projectile RequestParabolaProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _target, float t, GameObject _object = null)
 	{
+		if(_reference.Empty()) return null;
+
 		Projectile projectile = RequestProjectile(_faction, _reference, _position, Vector3.zero, _object);
 
 		if(projectile == null) return null;
@@ -208,9 +235,22 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested PoolGameObject.</returns>
 	public static PoolGameObject RequestPoolGameObject(AssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
-		GameObjectPool<PoolGameObject> pool = null;
+		if(_reference.Empty()) return null;
 
-		return Instance.gameObjectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool) ? pool.Recycle(_position, _rotation) : null;
+		GameObjectPool<PoolGameObject> pool = null;
+		PoolGameObject obj = null;
+
+		try
+		{
+			if(Instance.gameObjectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool))
+			obj = pool.Recycle(_position, _rotation);
+		}
+		catch(Exception e)
+		{
+			Debug.LogError("Error catched when trying to retreive PoolGameObject from Asset Reference [" + _reference.ToString() + "]: " + e.Message);
+		}
+
+		return  obj;
 	}
 
 	/// <summary>Gets a ParticleEffect from the ParticleEffects' Pools.</summary>
@@ -220,9 +260,23 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested ParticleEffect.</returns>
 	public static ParticleEffect RequestParticleEffect(AssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
-		GameObjectPool<ParticleEffect> pool = null;
+		Debug.Log("[PoolManager] Calling RequestParticleEffect with AssetReference overload");
+		if(_reference.Empty()) return null;
 
-		return Instance.particleEffectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool) ? pool.Recycle(_position, _rotation) : null;
+		GameObjectPool<ParticleEffect> pool = null;
+		ParticleEffect effect = null;
+
+		try
+		{
+			if(Instance.particleEffectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool))
+			effect = pool.Recycle(_position, _rotation);
+		}
+		catch(Exception e)
+		{
+			Debug.LogError("Error catched when trying to retreive Particle-Effect from Asset Reference [" + _reference.ToString() + "]: " + e.Message);
+		}
+
+		return effect;
 	}
 
 	/// <summary>Gets a Explodable from the Explodables' Pools.</summary>
@@ -341,6 +395,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested ParticleEffect.</returns>
 	public static ParticleEffect RequestParticleEffect(int _index, Vector3 _position, Quaternion _rotation)
 	{
+		Debug.Log("[PoolManager] Calling RequestParticleEffect with int overload");
 		return _index > -1 ? Instance.particleEffectsPools[_index].Recycle(_position, _rotation) : null;
 	}
 

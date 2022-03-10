@@ -18,11 +18,13 @@ MonoBehaviour:
   m_GUID: f04ea13dd14ad184c811b975bb065b79
   m_SerializeEntries:
   - m_GUID: 8e98f4254b032564893133ce4247e946
-    m_Address: Assets/Prefabs/Character_Prefabs/Enemies/Bosses/Boss_Moskar.prefab
+    m_Address: Character_Boss_Moskar
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2340683740104089351, guid: 8e98f4254b032564893133ce4247e946,
+      type: 3}
+    m_TargetAsset: {fileID: 2340683740104089351, guid: 8e98f4254b032564893133ce4247e946,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

@@ -39,8 +39,10 @@ public class CapsuleCollider2DAlligner : Collider2DAlligner
 	{
 		if(relativeTo == null || properties == TransformProperties.None) return;
 
+		Transform relative2 = secondRelativeTo != null ? secondRelativeTo : relativeTo;
+
 		Vector3 pointA = relativeTo.position + relativeTo.rotation * Vector3.Scale(relativeTo.localScale, a);
-		Vector3 pointB = relativeTo.position + relativeTo.rotation * Vector3.Scale(relativeTo.localScale, b);
+		Vector3 pointB = relative2.position + relative2.rotation * Vector3.Scale(relative2.localScale, b);
 		//Vector3 pointB = relativeTo.TransformPoint(b);
 		Vector2 d = pointB - pointA;
 		Vector2 size = Vector2.zero;

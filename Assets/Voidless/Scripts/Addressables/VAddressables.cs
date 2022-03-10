@@ -10,7 +10,7 @@ using Object = UnityEngine.Object;
 
 namespace Voidless
 {
-public class VAddressables
+public static class VAddressables
 {
 	/// <summary>Loads Asset Asyncronously.</summary>
 	/// <param name="key">Asset's Reference.</param>
@@ -96,7 +96,7 @@ public class VAddressables
 
 		foreach(R reference in _references)
 		{
-			if(reference == null) continue;
+			if(reference.Empty()) continue;
 
 			GameObject obj = null;
 			T component = null;
@@ -122,7 +122,7 @@ public class VAddressables
 
 		foreach(R reference in _references)
 		{
-			if(reference == null) continue;
+			if(reference.Empty()) continue;
 
 			T obj = null;
 
@@ -133,6 +133,12 @@ public class VAddressables
 		}
 
 		if(onLoadingEnds != null) onLoadingEnds(map);
+	}
+
+	/// <returns>True if AssetReference has a Runtime-Key.</returns>
+	public static bool Empty(this AssetReference _reference)
+	{
+		return string.IsNullOrEmpty(_reference.RuntimeKey.ToString());
 	}
 }
 }

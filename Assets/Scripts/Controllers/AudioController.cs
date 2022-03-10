@@ -84,6 +84,18 @@ public class AudioController : Singleton<AudioController>
 		builder = new StringBuilder();
 	}
 
+	/// <summary>Called after Awake, before the first Update.</summary>
+	protected void Start()
+	{
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
+	}
+
+	/// <summary>Callback invoked when AudioController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+	}
+
 	/// <summary>Gets AudioSource according to the provided type, on the located index.</summary>
 	/// <param name="_type">AudioSource's Type [SourceType.Loop by default].</param>
 	/// <param name="_index">Optional index on the set of AudioSources [0 by default].</param>
@@ -132,18 +144,17 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="_aucioClip">AudioClip to play.</param>
 	/// <param name="_loop">Loop AudioClip? false as default.</param>
 	/// <returns>Playing AudioClip.</returns>
-	public static AudioClip Play(SourceType _type, int _sourceIndex, int _index, bool _loop = false)
+	public static AudioClip Play(SourceType _type, int _sourceIndex, AudioClip _clip, bool _loop = false)
 	{
-		if(_index < 0) return null;
+		if(_clip == null) return null;
 
 		AudioSource source = GetAudioSource(_type, _sourceIndex);
-		AudioClip clip = Game.data.loops[_index];
 		AudioMixer mixer = source.outputAudioMixerGroup.audioMixer;
 
 		/// I Still don't know if this is a correct answer...
-		if(source.clip != null && source.clip == clip) return clip;
+		if(source.clip != null && source.clip == _clip) return _clip;
 
-		if(mixer != null && (source.clip != null && source.clip != clip))
+		if(mixer != null && (source.clip != null && source.clip != _clip))
 		{ /// If there is an AudioMixer and there is a current AudioClip being played on the selected source that is not this Clip, fade the prior one before playing the new one.
 
 			string parameterName = Instance.GetExposedParameterName(_type, _sourceIndex);
@@ -152,7 +163,7 @@ public class AudioController : Singleton<AudioController>
 			Instance.StartCoroutine(mixer.FadeVolume(parameterName, Instance.fadeOutDuration, 0.0f, 
 			()=>
 			{
-				source.PlaySound(clip, _loop);
+				source.PlaySound(_clip, _loop);
 				Instance.StartCoroutine(mixer.FadeVolume(parameterName, Instance.fadeOutDuration, 1.0f, 
 				()=>
 				{
@@ -161,9 +172,23 @@ public class AudioController : Singleton<AudioController>
 
 			}), ref Instance.volumeFading);
 		}
-		else source.PlaySound(clip, _loop);
+		else source.PlaySound(_clip, _loop);
 
-		return clip;
+		return _clip;
+	}
+
+	/// <summary>Stops AudioSource, then assigns and plays AudioClip.</summary>
+	/// <param name="_audioSource">AudioSource to play sound.</param>
+	/// <param name="_aucioClip">AudioClip to play.</param>
+	/// <param name="_loop">Loop AudioClip? false as default.</param>
+	/// <returns>Playing AudioClip.</returns>
+	public static AudioClip Play(SourceType _type, int _sourceIndex, int _index, bool _loop = false)
+	{
+		if(_index < 0) return null;
+
+		AudioClip clip = Game.data.loops[_index];
+		
+		return Play(_type, _sourceIndex, clip, _loop);
 	}
 
 	/// <summary>Stops default AudioSource, then assigns and plays AudioClip.</summary>
@@ -414,14 +439,27 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="_indeex">AudioClip's index on the Game's Data to play.</param>
 	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
 	/// <returns>Playing AudioClip.</returns>
+	public static AudioClip PlayOneShot(SourceType _type, int _sourceIndex, AudioClip _clip, float _volumeScale = 1.0f)
+	{
+		if(_clip == null) return null;
+		
+		GetAudioSource(_type, _sourceIndex).PlayOneShot(_clip, _volumeScale);
+
+		return _clip;
+	}
+
+	/// <summary>Stacks and plays AudioClip on the given AudioSource.</summary>
+	/// <param name="_source">Source to use.</param>
+	/// <param name="_indeex">AudioClip's index on the Game's Data to play.</param>
+	/// <param name="_volumeScale">Normalized Volume's Scale [1.0f by default].</param>
+	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip PlayOneShot(SourceType _type, int _sourceIndex, int _index, float _volumeScale = 1.0f)
 	{
 		if(_index < 0) return null;
 		
 		AudioClip clip = Game.data.soundEffects[_index];
-		GetAudioSource(_type, _sourceIndex).PlayOneShot(clip, _volumeScale);
 
-		return clip;
+		return PlayOneShot(_type, _sourceIndex, clip, _volumeScale);
 	}
 
 	/// <summary>Stacks and plays AudioClip on the default AudioSource.</summary>
@@ -480,6 +518,12 @@ public class AudioController : Singleton<AudioController>
 		looper.Play();
 
 		return looper;
+	}
+
+	/// <summary>Callback invoked by ResourcesManager when its resources have been loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		/// What to do if resources load?
 	}
 
 	/// <summary>Gets proper exposed parameter name given the sourcetype and source index.</summary>
