@@ -74,6 +74,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 1
   _hitBoxes:
   - {fileID: 4857099441350097584}
+  _externalHitBoxes: []
   _zOffsetTolerance: 1
 --- !u!114 &4383764550175946879
 MonoBehaviour:
@@ -145,17 +146,23 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 5
   _distance: 0
-  _impactParticleEffectIndex: 0
-  _destroyedParticleEffectIndex: 0
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 0
-  _destroyedSoundEffectIndex: 0
+  _impactParticleEffectIndex: 10
+  _destroyedParticleEffectIndex: 10
+  _sourceIndex: 61
+  _impactSoundEffectIndex: 61
+  _destroyedSoundEffectIndex: 61
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
