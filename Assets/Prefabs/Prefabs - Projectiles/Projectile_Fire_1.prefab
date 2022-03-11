@@ -196,10 +196,16 @@ MonoBehaviour:
   _destroyedSoundEffectIndex: 31
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 0}
@@ -365,6 +371,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6315996167371360541, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315996167371360541, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315996167371360541, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6315996167371360541, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8665082448015516667, guid: 332c9e1ba1be7ff46b81417eb054266a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -375,9 +401,24 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8668122354627333647, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8673842702143980193, guid: 332c9e1ba1be7ff46b81417eb054266a,
         type: 3}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830293090272683137, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830293090272683137, guid: 332c9e1ba1be7ff46b81417eb054266a,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8830865009762514131, guid: 332c9e1ba1be7ff46b81417eb054266a,
