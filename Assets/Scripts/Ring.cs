@@ -35,7 +35,6 @@ public class Ring : PoolGameObject
 	private HashSet<int> _passedOnTriggerB; 									/// <summary>GaameObjects that have passed on Trigger B.</summary>
 	private VCameraTarget _cameraTarget; 										/// <summary>VCamera's Component.</summary>
 	private SelfMotionPerformer _selfMotionPerformer; 							/// <summary>SelfMotionPerformer's Component.</summary>
-	private bool _passedOn; 													/// <summary>Has an object already passed on this Ring?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets triggerA property.</summary>
@@ -127,13 +126,6 @@ public class Ring : PoolGameObject
 			return _selfMotionPerformer;
 		}
 	}
-
-	/// <summary>Gets and Sets passedOn property.</summary>
-	public bool passedOn
-	{
-		get { return _passedOn; }
-		set { _passedOn = value; }
-	}
 #endregion
 
 	/// <summary>Draws Gizmos on Editor mode when Ring's instance is selected.</summary>
@@ -146,7 +138,7 @@ public class Ring : PoolGameObject
 	/// <summary>Resets Ring's instance to its default values.</summary>
 	public void Reset()
 	{
-		passedOn = false;
+		if(passedOnMapping != null) passedOnMapping.Clear();
 	}
 
 	/// <summary>Ring's instance initialization.</summary>
@@ -158,7 +150,7 @@ public class Ring : PoolGameObject
 		passedOnTriggerB = new HashSet<int>();
 
 		/// Ye olde dot-product way:
-		/*if(hitBoxes != null)
+		if(hitBoxes != null)
 		{
 			int i = 0;
 			foreach(HitCollider2D hitBox in hitBoxes)
@@ -168,10 +160,10 @@ public class Ring : PoolGameObject
 				hitBox.ID = i;
 				i++;
 			}
-		}*/
+		}
 
 		/// The gay way:
-		if(triggerA != null && triggerB != null)
+		/*if(triggerA != null && triggerB != null)
 		{
 			HitColliderEventTypes detectableEvents = HitColliderEventTypes.Enter | HitColliderEventTypes.Exit;
 			
@@ -179,9 +171,7 @@ public class Ring : PoolGameObject
 			triggerB.detectableHitEvents = detectableEvents;
 			triggerA.onHitColliderTriggerEvent += OnHitColliderTriggerEvent;
 			triggerB.onHitColliderTriggerEvent += OnHitColliderTriggerEvent;
-		}
-
-		passedOn = false;
+		}*/
 	}
 
 	/// <summary>Callback invoked when Ring's instance is going to be destroyed and passed to the Garbage Collector.</summary>
@@ -258,7 +248,7 @@ public class Ring : PoolGameObject
 	/// <param name="_hitColliderID">Optional ID of the HitCollider2D.</param>
 	public void OnTriggerEvent2D(Collider2D _collider, HitColliderEventTypes _eventType, int _hitColliderID = 0)
 	{
-		if(_eventType == HitColliderEventTypes.Stays && detectableTags == null) return;
+		if(_eventType == HitColliderEventTypes.Stays || detectableTags == null) return;
 
 		GameObject obj = _collider.gameObject;
 		int instanceID = obj.GetInstanceID();
@@ -276,30 +266,27 @@ public class Ring : PoolGameObject
 
 		if(!detectable) return;
 
+		Vector2 direction = hitBox.transform.position - obj.transform.position;
+		direction.Normalize();
+		direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
+
 		switch(_eventType)
 		{
 			case HitColliderEventTypes.Enter:
-			if(!directionsMapping.ContainsKey(instanceID))
-			{
-				Vector2 direction = hitBox.transform.position - obj.transform.position;
-				direction.Normalize();
-				direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
+				if(directionsMapping.ContainsKey(instanceID)) return;		
+				
 				directionsMapping.Add(instanceID, direction);
 				passedOnMapping.Remove(instanceID);
 
-				//Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.cyan, 10.0f);
-			}
+				Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.cyan, 10.0f);
 			break;
 
 			case HitColliderEventTypes.Exit:
-			if(directionsMapping.ContainsKey(instanceID))
-			{
-				Vector2 direction = (obj.transform.position - hitBox.transform.position);
-				direction.Normalize();
-				direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
+				if(!directionsMapping.ContainsKey(instanceID)) return;
+
 				float dot = Vector2.Dot(direction, directionsMapping[instanceID]);
 
-				if(dot >= (1.0f - dotProductTolerance) && !passedOnMapping.Contains(instanceID))
+				if(dot <= (-1.0f + dotProductTolerance) && !passedOnMapping.Contains(instanceID))
 				{
 					passedOnMapping.Add(instanceID);
 					InvokeRingPassedEvent(_collider);
@@ -307,8 +294,7 @@ public class Ring : PoolGameObject
 
 				directionsMapping.Remove(instanceID);
 
-				//Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.yellow, 10.0f);
-			}
+				Debug.DrawRay(transform.position, direction.normalized * 5.0f, Color.yellow, 10.0f);
 			break;
 		}
 	}
@@ -318,8 +304,11 @@ public class Ring : PoolGameObject
 	/// <returns>Converted Vector.</returns>
 	private Vector2 ToRelativeOrientationVector(Quaternion r, Vector2 v)
 	{
-		Vector2 inverseVector = Quaternion.Inverse(r) * v;
-		return r * (inverseVector.x < 0.0f ? Vector2.left : Vector2.right);
+		Vector2 i = Quaternion.Inverse(r) * v;
+
+		Debug.DrawRay(transform.position, i * 5.0f, Color.red, 10.0f);
+
+		return r * (i.x < 0.0f ? Vector2.left : Vector2.right);
 	}
 
 	/// <summary>Invokes onRingPassed's Event.</summary>

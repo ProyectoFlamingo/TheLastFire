@@ -65,7 +65,7 @@ MonoBehaviour:
     index: 5
   - _tag: Ball
     index: 7
-  _dotProductTolerance: 0
+  _dotProductTolerance: 0.95
   _renderer: {fileID: 495920338341433375}
   _hitBoxes:
   - {fileID: 3517381661898979167}
@@ -163,7 +163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6417838895913946001
 Transform:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1666266938253424950
 Transform:
   m_ObjectHideFlags: 0
@@ -395,7 +395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7542318017308994352
 Transform:
   m_ObjectHideFlags: 0

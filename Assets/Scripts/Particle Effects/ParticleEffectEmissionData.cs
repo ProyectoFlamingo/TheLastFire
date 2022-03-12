@@ -76,8 +76,8 @@ public class ParticleEffectEmissionData
 
 		foreach(Vector3 point in points)
 		{
-			/*if(particleEffectReference.Empty()) PoolManager.RequestParticleEffect(particleEffectReference, transform.TransformPoint(point), Quaternion.identity);
-			else */PoolManager.RequestParticleEffect(particleEffectIndex, transform.TransformPoint(point), Quaternion.identity);
+			if(particleEffectIndex < 0) PoolManager.RequestParticleEffect(particleEffectReference, transform.TransformPoint(point), Quaternion.identity);
+			else PoolManager.RequestParticleEffect(particleEffectIndex, transform.TransformPoint(point), Quaternion.identity);
 		}	
 	}
 }

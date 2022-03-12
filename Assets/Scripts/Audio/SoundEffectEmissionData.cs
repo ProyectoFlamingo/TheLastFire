@@ -41,7 +41,7 @@ public struct SoundEffectEmissionData
 	/// <summary>Plays Sound Effect.</summary>
 	public void Play()
 	{
-		if(soundReference != null)
+		if(sourceIndex < 0)
 			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, ResourcesManager.GetAudioClip(soundReference, SourceType.SFX), volume);
 		else
 			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, soundIndex, volume);
