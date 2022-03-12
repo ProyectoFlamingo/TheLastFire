@@ -355,6 +355,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 		signDisplacement = HidehowSign(fireShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
 
+		miniGame.Terminate();
+
 		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.fireShowSign.SetActive(false);
 	}
@@ -512,6 +514,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		signDisplacement = HidehowSign(danceShowSign);
 		while(signDisplacement.MoveNext()) yield return null;
+
+		miniGame.Terminate();
 
 		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.danceShowSign.SetActive(false);

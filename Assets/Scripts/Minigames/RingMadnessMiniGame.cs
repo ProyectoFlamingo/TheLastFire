@@ -48,6 +48,7 @@ public class RingMadnessMiniGame : MiniGame
     {
         base.Terminate();
         ringsContainer.SubscribeToRingsDeactivations(false);
+        ringsContainer.ActivateRings(false);
     }
 
     /// <summary>Event invoked when a Collider passes a ring.</summary>

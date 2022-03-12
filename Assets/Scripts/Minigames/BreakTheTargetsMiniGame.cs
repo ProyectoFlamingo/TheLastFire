@@ -48,6 +48,7 @@ public class BreakTheTargetsMiniGame : MiniGame
     {
         base.Terminate();
         targetsContainer.SubscribeToTargetsDeactivations(false);
+        targetsContainer.ActivateTargets(false);
     }
 
     /// <summary>Callback invoked when a target is deactivated.</summary>
