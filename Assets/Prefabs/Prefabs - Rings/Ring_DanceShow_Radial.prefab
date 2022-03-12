@@ -186,6 +186,7 @@ MonoBehaviour:
   _renderer: {fileID: 495920338341433375}
   _hitBoxes:
   - {fileID: 6163397598182415101}
+  _speedThreshold: 10
 --- !u!114 &258912276433955661
 MonoBehaviour:
   m_ObjectHideFlags: 0

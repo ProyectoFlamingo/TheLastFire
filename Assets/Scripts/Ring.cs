@@ -29,6 +29,9 @@ public class Ring : PoolGameObject
 	[Range(0.0f, 1.0f)] private float _dotProductTolerance; 					/// <summary>Minimium Dot Product's Tolerance value to be considered passed.</summary>
 	[SerializeField] private Renderer _renderer; 								/// <summary>Ring Mesh's Renderer.</summary>
 	[SerializeField] private HitCollider2D[] _hitBoxes; 						/// <summary>Ring's HitBoxes.</summary>
+	[Space(5f)]
+	[Header("VERY SPECIAL CASE:")]
+	[SerializeField] private float _speedThreshold; 							/// <summary>Speed Threshold for TransformDeltaCalculators passing on Ring.</summary>
 	private Dictionary<int, Vector2> _directionsMapping; 						/// <summary>Direction's Mapping for each possible GameObject.</summary>
 	private HashSet<int> _passedOnMapping; 										/// <summary>Mapping of GameObjects that have passed through this Ring.</summary>
 	private HashSet<int> _passedOnTriggerA; 									/// <summary>GaameObjects that have passed on Trigger A.</summary>
@@ -71,6 +74,13 @@ public class Ring : PoolGameObject
 	{
 		get { return _dotProductTolerance; }
 		set { _dotProductTolerance = value; }
+	}
+
+	/// <summary>Gets and Sets speedThreshold property.</summary>
+	public float speedThreshold
+	{
+		get { return _speedThreshold; }
+		set { _speedThreshold = value; }
 	}
 
 	/// <summary>Gets renderer property.</summary>
@@ -267,8 +277,9 @@ public class Ring : PoolGameObject
 		if(!detectable) return;
 
 		Vector2 direction = hitBox.transform.position - obj.transform.position;
+		Quaternion rotation = hitBox.transform.rotation;
 		direction.Normalize();
-		direction = ToRelativeOrientationVector(hitBox.transform.rotation, direction);
+		direction = ToRelativeOrientationVector(rotation, direction);
 
 		switch(_eventType)
 		{
@@ -290,7 +301,28 @@ public class Ring : PoolGameObject
 				{
 					passedOnMapping.Add(instanceID);
 					InvokeRingPassedEvent(_collider);
+
+#region TEMPORAL_PATCH
+				} else if(!passedOnMapping.Contains(instanceID))
+				{
+					TransformDeltaCalculator deltaCalculator = obj.GetComponentInParent<TransformDeltaCalculator>();
+
+					if(deltaCalculator != null)
+					{
+						/// Convert velocity vector from world to local space.
+						Vector2 i = Quaternion.Inverse(rotation) * deltaCalculator.velocity;
+						float x = i.x;
+						bool differentOrientation  = Mathf.Sign(x) != Mathf.Sign(direction.x);
+
+						if(differentOrientation && Mathf.Abs(x) >= speedThreshold)
+						{
+							passedOnMapping.Add(instanceID);
+							InvokeRingPassedEvent(_collider);			
+						}
+						else Debug.Log("[Ring] Sign Different: " + differentOrientation + ". TransformDeltaCalculator's Speed: " + Mathf.Abs(x));
+					}
 				}
+#endregion
 
 				directionsMapping.Remove(instanceID);
 

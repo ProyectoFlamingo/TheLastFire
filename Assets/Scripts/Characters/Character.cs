@@ -13,6 +13,7 @@ namespace Flamingo
 [RequireComponent(typeof(Skeleton))]
 [RequireComponent(typeof(VCameraTarget))]
 [RequireComponent(typeof(HealthEventReceiver))]
+[RequireComponent(typeof(TransformDeltaCalculator))]
 public class Character : PoolGameObject, IStateMachine
 {			
 	[SerializeField] private Faction _faction; 														/// <summary>Character's Faction.</summary>
@@ -47,6 +48,7 @@ public class Character : PoolGameObject, IStateMachine
 	private Skeleton _skeleton; 																	/// <summary>Skeleton's Component.</summary>
 	private Rigidbody2D _rigidbody; 																/// <summary>Rigidbody2D's Component.</summary>
 	private HealthEventReceiver _healthEventReceiver; 												/// <summary>HealthEventReceiver's Component.</summary>
+	private TransformDeltaCalculator _deltaCalculator; 												/// <summary>TransformDeltaCalculator's Component.</summary>
 	protected Coroutine behaviorCoroutine; 															/// <summary>Main Behavior Coroutine's reference.</summary>
 
 #region Getters/Setters:
@@ -124,6 +126,16 @@ public class Character : PoolGameObject, IStateMachine
 	{
 		get { return _animationEventInvoker; }
 		set { _animationEventInvoker = value; }
+	}
+
+	/// <summary>Gets deltaCalculator Component.</summary>
+	public TransformDeltaCalculator deltaCalculator
+	{ 
+		get
+		{
+			if(_deltaCalculator == null) _deltaCalculator = GetComponent<TransformDeltaCalculator>();
+			return _deltaCalculator;
+		}
 	}
 
 	/// <summary>Gets animation Component.</summary>

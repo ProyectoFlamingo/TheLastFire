@@ -21,7 +21,7 @@ namespace Flamingo
 [RequireComponent(typeof(DashAbility))]
 [RequireComponent(typeof(RotationAbility))]
 [RequireComponent(typeof(ShootChargedProjectile))]
-[RequireComponent(typeof(TransformDeltaCalculator))]
+
 [RequireComponent(typeof(SensorSystem2D))]
 [RequireComponent(typeof(WallEvaluator))]
 [RequireComponent(typeof(SlopeEvaluator))]
@@ -128,7 +128,6 @@ public class Mateo : Character
 	private JumpAbility _jumpAbility; 																								/// <summary>JumpAbility's Component.</summary>
 	private ShootChargedProjectile _shootProjectile; 																				/// <summary>ShootChargedProjectile's Component.</summary>
 	private DashAbility _dashAbility; 																								/// <summary>DashAbility's Component.</summary>
-	private TransformDeltaCalculator _deltaCalculator; 																				/// <summary>TransformDeltaCalculator's Component.</summary>
 	private SensorSystem2D _sensorSystem; 																							/// <summary>SensorSystem2D's Component.</summary>
 	private WallEvaluator _wallEvaluator; 																							/// <summary>WallEvaluator's Component.</summary>
 	private SlopeEvaluator _slopeEvaluator; 																						/// <summary>SlopeEvaluator's Component.</summary>
@@ -402,16 +401,6 @@ public class Mateo : Character
 		{
 			if(_shootProjectile == null) _shootProjectile = GetComponent<ShootChargedProjectile>();
 			return _shootProjectile;
-		}
-	}
-
-	/// <summary>Gets deltaCalculator Component.</summary>
-	public TransformDeltaCalculator deltaCalculator
-	{ 
-		get
-		{
-			if(_deltaCalculator == null) _deltaCalculator = GetComponent<TransformDeltaCalculator>();
-			return _deltaCalculator;
 		}
 	}
 

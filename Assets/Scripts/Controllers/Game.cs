@@ -229,7 +229,7 @@ public class Game : Singleton<Game>
 			cameraController.TEST_CAMERAUPDATE();
 		}
 
-		Time.timeScale = timeScale;
+		//Time.timeScale = timeScale;
 #endif
 	}
 #endregion
