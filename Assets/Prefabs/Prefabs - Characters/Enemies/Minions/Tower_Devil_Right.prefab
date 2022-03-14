@@ -203,6 +203,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 3926330135269715659}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &7181145288936410943
 MonoBehaviour:
@@ -277,6 +278,7 @@ MonoBehaviour:
   _animation: {fileID: 0}
   _clipFadeDuration: 0
   _hurtBoxes: []
+  _jointedHitBoxes: []
   _physicalColliders: []
   _triggerColliders: []
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
@@ -288,6 +290,9 @@ MonoBehaviour:
   - {x: 0, y: 13.93, z: 0}
   _landingParticleEffect:
     _transform: {fileID: 6927731556747503309}
+    _particleEffectReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     _particleEffectIndex: 42
     _points:
     - {x: 1.5, y: 0.01, z: 2.45}
@@ -337,6 +342,9 @@ MonoBehaviour:
   _shakeMagnitude: 0.15
   _hurtParticleEffect:
     _transform: {fileID: 0}
+    _particleEffectReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     _particleEffectIndex: 0
     _points: []
   _hurtSoundIndex: 0
@@ -716,12 +724,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: df5dfb65d674e6a49b3519d70783e325, type: 2}
+      objectReference: {fileID: 2100000, guid: 8216d39d9df742b449ebfc96f0748712, type: 2}
     - target: {fileID: 4809032440416258036, guid: 524fcb68dc7266740865249223b100d1,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 50f4a7cf0c3457d48a11b1107bc7ca3c, type: 2}
+      objectReference: {fileID: 6114656528770353051, guid: f6412ec9687e7c04fbe0064c67774c4b,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524fcb68dc7266740865249223b100d1, type: 3}
 --- !u!4 &7471056545314929251 stripped

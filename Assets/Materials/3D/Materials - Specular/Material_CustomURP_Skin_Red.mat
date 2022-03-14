@@ -90,7 +90,7 @@ Material:
     - Vector1_B487B05: 0
     - Vector1_CD3A37C5: 0
     - _AlphaClip: 0
-    - _Blend: 0
+    - _Blend: 0.109
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
