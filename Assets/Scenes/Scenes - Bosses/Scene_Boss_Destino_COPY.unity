@@ -13793,7 +13793,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -13855,6 +13855,11 @@ PrefabInstance:
       propertyPath: _incrustSoundEffect.volume
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _fallPointData.showHandles
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: m_RootOrder
@@ -13914,6 +13919,9 @@ MonoBehaviour:
   _destinoSpawnPointsPairs:
   - a: {x: 0, y: 17.58, z: -5}
     b: {x: 0, y: 13, z: -5}
+  _slashZone:
+    a: {x: -22, y: 10, z: 0}
+    b: {x: 20, y: 10, z: 0}
   _entranceLerpDuration: 0.3
   _exitLerpDuration: 0.2
   _scythe: {fileID: 1296482790}
@@ -13944,8 +13952,8 @@ MonoBehaviour:
     _ID: 876292912
   _buildUpMaxSpeed: 20
   _buildUpMaxSteeringForce: 0.75
-  _swingMaxSpeed: 65
-  _swingMaxSteeringForce: 0.75
+  _swingMaxSpeed: 80
+  _swingMaxSteeringForce: 1
   _arrivalRadius: 2
   _maxSpeedScalar: 2
   _additionalYOffset: 7
@@ -19575,7 +19583,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -19626,6 +19634,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _incrustSoundEffect.volume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _fallPointData.showHandles
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -23927,6 +23940,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13f2f18aad7c31d4d9dd0424b50e706c, type: 3}
+--- !u!1 &1631926705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6454213616821555336, guid: bdb24498052e900489a206c3c27edc8f,
+    type: 3}
+  m_PrefabInstance: {fileID: 493066536}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1631926706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631926705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc36a56da2aaa2049b6a61cd5818c3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _space: 1
+  _size: {x: 47, y: 17, z: 0}
+  _center: {x: -1.4, y: 8.2, z: 0}
+  color: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1001 &1632678231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25409,7 +25444,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -25470,6 +25505,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _incrustSoundEffect.volume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _fallPointData.showHandles
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -26838,6 +26878,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _incrustSoundEffect.volume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
+        type: 3}
+      propertyPath: _fallPointData.showHandles
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576682883115261631, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
@@ -32371,7 +32416,7 @@ PrefabInstance:
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}
       propertyPath: _run
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4580468147391635085, guid: 7de7cb975f6eb9f41b3da0813bb78763,
         type: 3}

@@ -370,6 +370,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 			{
 				//reproduction = PoolManager.RequestPoolGameObject(moskarIndex, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
 				reproduction = PoolManager.RequestCharacter(moskarReference, moskar.transform.position, moskar.transform.rotation) as MoskarBoss;
+
+				if(reproduction == null) return;
+
 				SubscribeToMoskarEvents(reproduction);
 				reproduction.state = 0;
 				reproduction.AddStates(IDs.STATE_ATTACKING);

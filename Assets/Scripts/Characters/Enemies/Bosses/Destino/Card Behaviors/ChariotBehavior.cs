@@ -164,7 +164,15 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 
 		steeringSnake.InitializeLinkedList(Game.mateo.transform, spheres);
 
-		while(sequenceLength > 0) yield return null;
+		while(sequenceLength > 0)
+		{
+			foreach(Projectile sphere in spheres)
+			{
+				DestinoSceneController.Instance.boundaries.ContainInsideBoundaries(sphere.transform);
+			}
+			
+			yield return null;
+		}
 
 		InvokeCoroutineEnd();
 	}

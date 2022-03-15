@@ -7,6 +7,7 @@ using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
+[RequireComponent(typeof(Boundaries2DContainer))]
 public class DestinoSceneController : Singleton<DestinoSceneController>
 {
 	public const float WEIGHT_BLENDSHAPE_CURTAIN_CLOSED = 100.0f; 												/// <summary>Closed Curtain's Blend Shape's Weight.</summary>
@@ -85,6 +86,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float radius; 								/// <summary>Waypoints' Radius.</summary>
 	[TabGroup("Testing Group", "Gizmos")][SerializeField] private float rayLength; 								/// <summary>Ray's Length.</summary>
 //#endif
+	private Boundaries2DContainer _boundaries; 																	/// <summary>Scene's Boundaries.</summary>
 	private Vector2 mateoSpotLightVelocity; 																	/// <summary>Mateo Spot Light's Velocity reference.</summary>
 	private Vector2 destinoSpotLightVelocity; 																	/// <summary>Destino Spot Light's Velocity reference.</summary>
 	private bool _deckPresented; 																				/// <summary>Was the deck already presented tomm the Player?.</summary>
@@ -214,6 +216,16 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	{
 		get { return _curtainOpened; }
 		set { _curtainOpened = value; }
+	}
+
+	/// <summary>Gets boundaries Component.</summary>
+	public Boundaries2DContainer boundaries
+	{ 
+		get
+		{
+			if(_boundaries == null) _boundaries = GetComponent<Boundaries2DContainer>();
+			return _boundaries;
+		}
 	}
 #endregion
 	

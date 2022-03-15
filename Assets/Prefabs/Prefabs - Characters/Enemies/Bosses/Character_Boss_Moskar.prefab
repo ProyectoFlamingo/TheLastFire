@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1967025886408319941}
   - component: {fileID: 338106599592412250}
   - component: {fileID: 3482248678282691959}
+  - component: {fileID: 7441240321241487665}
   m_Layer: 0
   m_Name: Character_Boss_Moskar
   m_TagString: Enemy
@@ -539,6 +540,30 @@ MonoBehaviour:
     _particleEffectIndex: 0
     _points: []
   _hurtSoundIndex: 0
+--- !u!114 &7441240321241487665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340683740104089351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: -1
+  _magnitudeToChangePosition:
+    _distance: 0.01
+    _squareDistance: 0.0001
+  _magnitudeToChangeRotation:
+    _distance: 0.01
+    _squareDistance: 0.0001
+  debug: 1
+  positionRayColor: {r: 0, g: 1, b: 1, a: 1}
+  _rotationColorAlpha: 0.5
+  _gizmosRadius: 0.5
+  rayDuration: 0.15
 --- !u!95 &437732194
 Animator:
   serializedVersion: 3
@@ -762,12 +787,6 @@ SkinnedMeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 2340683740540276099}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &2363513463666225217 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -9171820829103473214, guid: b97e4ce644bc5ce47b712a82b0a80a9c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2340683740540276099}
-  m_PrefabAsset: {fileID: 0}
 --- !u!137 &5304756177147185369 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -1592725233364286118, guid: b97e4ce644bc5ce47b712a82b0a80a9c,
@@ -795,6 +814,12 @@ GameObject:
 --- !u!137 &1555278244752420009 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: -5337132627022061270, guid: b97e4ce644bc5ce47b712a82b0a80a9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2340683740540276099}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &2363513463666225217 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -9171820829103473214, guid: b97e4ce644bc5ce47b712a82b0a80a9c,
     type: 3}
   m_PrefabInstance: {fileID: 2340683740540276099}
   m_PrefabAsset: {fileID: 0}

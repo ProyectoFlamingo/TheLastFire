@@ -89,6 +89,21 @@ public class Boundaries2DContainer : MonoBehaviour
 		);
 	}
 
+	/// <summary>Contains Transform inside Boundaries.</summary>
+	/// <param name="_transform">Transform to contain.</param>
+	/// <param name="_axes">Axes to Contain [X and Y by default].</param>
+	public void ContainInsideBoundaries(Transform _transform, Axes3D _axes = Axes3D.XAndY)
+	{
+		Vector3 m = min;
+		Vector3 M = max;
+
+		_transform.position = new Vector3(
+			(_axes | Axes3D.X) == _axes ? Mathf.Clamp(_transform.position.x, m.x, M.x) : _transform.position.x,
+			(_axes | Axes3D.Y) == _axes ? Mathf.Clamp(_transform.position.y, m.y, M.y) : _transform.position.y,
+			(_axes | Axes3D.Z) == _axes ? Mathf.Clamp(_transform.position.z, m.z, M.z) : _transform.position.z
+		);
+	}
+
 	/// <param name="_space">Space Relativeness.</param>
 	/// <returns>Data to Boundaries2D.</returns>
 	public Boundaries2D ToBoundaries2D(Space _space = Space.World)

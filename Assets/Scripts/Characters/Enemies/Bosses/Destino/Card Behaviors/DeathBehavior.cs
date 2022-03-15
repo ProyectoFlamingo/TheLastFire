@@ -5,12 +5,15 @@ using UnityEngine;
 using Voidless;
 using Sirenix.OdinInspector;
 
+using Random = UnityEngine.Random;
+
 namespace Flamingo
 {
 public class DeathBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
 	[SerializeField] private Vector3Pair[] _destinoSpawnPointsPairs; 									/// <summary>Destino Spawn-Points' Pairs.</summary>
+	[SerializeField] private Vector3Pair _slashZone; 													/// <summary>Slash's Zone [the only parameters that will matter are the X's coordinates of both vectors].</summary>
 	[SerializeField] private float _entranceLerpDuration; 												/// <summary>Entrance Interpolation's Duration.</summary>
 	[SerializeField] private float _exitLerpDuration; 													/// <summary>Exit Interpolation's Duration.</summary>
 	[Space(5f)]
@@ -53,6 +56,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 #region Getters/Setters:
 	/// <summary>Gets destinoSpawnPointsPairs property.</summary>
 	public Vector3Pair[] destinoSpawnPointsPairs { get { return _destinoSpawnPointsPairs; } }
+
+	/// <summary>Gets slashZone property.</summary>
+	public Vector3Pair slashZone { get { return _slashZone; } }
 
 	/// <summary>Gets scythe property.</summary>
 	public AIContactWeapon scythe { get { return _scythe; } }
@@ -146,6 +152,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			Gizmos.DrawWireSphere(pair.a, gizmosRadius);
 			Gizmos.DrawWireSphere(pair.b, gizmosRadius);
 		}
+
+		Gizmos.DrawWireSphere(slashZone.a, gizmosRadius);
+		Gizmos.DrawWireSphere(slashZone.b, gizmosRadius);
 #endif
 	}
 
@@ -176,7 +185,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			scythe.state = scythe.state == AnimationCommandState.Active ? AnimationCommandState.Recovery : AnimationCommandState.Startup;
 			scythe.vehicle.maxSpeed = buildUpMaxSpeed;
 			scythe.vehicle.maxForce = buildUpMaxSteeringForce;
-			scythe.weapon.ActivateHitBoxes(false);
+			scythe.weapon.ActivateHitBoxes(scythe.state == AnimationCommandState.Recovery);
 			break;
 			
 			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
@@ -201,6 +210,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		int stage = boss.currentStage;
 		IEnumerator coroutine = null;
 		int animationHash = 0;
+		bool right = Random.Range(0, 5) <= 2;
 
 		switch(stage)
 		{
@@ -234,12 +244,16 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		scythe.vehicle.ResetVelocity();
 		scythe.gameObject.SetActive(true);
 		scythe.animatorController.CrossFade(entranceCredential);
+		scythe.weapon.ActivateHitBoxes(false);
 
 		Game.AddTargetToCamera(scythe.weapon.cameraTarget);
 		coroutine = GoTowards(entrancePosition);
 		while(coroutine.MoveNext()) yield return null;
 
-		coroutine = ChasingRoutine(boss, animationHash);
+		coroutine = GoTowards(right ? slashZone.b : slashZone.a);
+		while(coroutine.MoveNext()) yield return null;
+
+		coroutine = ChasingRoutine(boss, animationHash, right);
 		while(coroutine.MoveNext()) yield return null;
 
 		scythe.animatorController.CrossFade(exitCredential);
@@ -270,6 +284,69 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		}
 
 		scythe.transform.position = _point;
+	}
+
+	private IEnumerator ChasingRoutine(DestinoBoss boss, int _animationHash, bool _right)
+	{
+		float t = boss.stageScale;
+		float s = Mathf.Lerp(1.0f, maxSpeedScalar, t);
+		float x = _right ? slashZone.a.x : slashZone.b.x;
+		float a = s * Time.deltaTime;
+		bool animationEnded = false;
+
+		scythe.animatorController.CrossFade(_animationHash, 0.3f, 0, 0.0f, 0.0f);
+
+		yield return null;
+
+		AnimatorStateInfo info = scythe.animator.GetCurrentAnimatorStateInfo(0);
+		AnimatorTransitionInfo transitionInfo = scythe.animator.GetAnimatorTransitionInfo(0);
+		SecondsDelayWait wait = new SecondsDelayWait(transitionInfo.duration * info.length);
+
+		while(wait.MoveNext()) yield return null;
+
+		info = scythe.animator.GetCurrentAnimatorStateInfo(0);
+		wait.ChangeDurationAndReset(info.length);
+
+		while(!animationEnded || Mathf.Abs(scythe.transform.position.x - x) > 0.1f)
+		{
+			animationEnded = !wait.MoveNext();
+
+			int anchorIndex = (scythe.state != AnimationCommandState.Active) ? 1 : 0;
+			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, anchorIndex);
+			Vector3 scythePosition = scythe.transform.position;
+
+			if(scythe.state != AnimationCommandState.Active)
+			{
+				switch(animationEnded)
+				{
+					case true:
+						anchoredPosition.x = x;
+					break;
+
+					case false:
+						anchoredPosition.y += additionalYOffset;
+						anchoredPosition.x = scythe.transform.position.x;
+						RotateScythe(s);
+					break;
+				}
+
+			} else if(scythe.state == AnimationCommandState.Active)
+			{
+				anchoredPosition.x = x;
+			}
+
+			scythePosition += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * a;
+			scythePosition.y = Mathf.Max(scythePosition.y, clampedHeight);
+			scythePosition.x = Mathf.Clamp(scythePosition.x, slashZone.a.x, slashZone.b.x);
+			scythe.transform.position = scythePosition;
+			
+			a += (s * Time.deltaTime);
+
+			yield return null;
+		}
+
+		scythe.state = AnimationCommandState.None;
+		scythe.weapon.ActivateHitBoxes(false);
 	}
 
 	/// <summary>Mateo Chase's Routine.</summary>
