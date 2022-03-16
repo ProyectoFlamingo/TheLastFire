@@ -104,6 +104,21 @@ public class Boundaries2DContainer : MonoBehaviour
 		);
 	}
 
+	/// <summary>Contains Rigidbody2D inside Boundaries.</summary>
+	/// <param name="_body">Rigidbody2D to contain.</param>
+	/// <param name="_axes">Axes to Contain [X and Y by default].</param>
+	public void ContainInsideBoundaries(Rigidbody2D _body, Axes3D _axes = Axes3D.XAndY)
+	{
+		Vector3 m = min;
+		Vector3 M = max;
+
+		_body.transform.position = new Vector3(
+			(_axes | Axes3D.X) == _axes ? Mathf.Clamp(_body.position.x, m.x, M.x) : _body.position.x,
+			(_axes | Axes3D.Y) == _axes ? Mathf.Clamp(_body.position.y, m.y, M.y) : _body.position.y,
+			(_axes | Axes3D.Z) == _axes ? Mathf.Clamp(_body.transform.position.z, m.z, M.z) : _body.transform.position.z
+		);
+	}
+
 	/// <param name="_space">Space Relativeness.</param>
 	/// <returns>Data to Boundaries2D.</returns>
 	public Boundaries2D ToBoundaries2D(Space _space = Space.World)

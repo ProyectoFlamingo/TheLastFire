@@ -166,12 +166,12 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 
 		while(sequenceLength > 0)
 		{
+			yield return VCoroutines.WAIT_PHYSICS_THREAD;
+
 			foreach(Projectile sphere in spheres)
 			{
-				DestinoSceneController.Instance.boundaries.ContainInsideBoundaries(sphere.transform);
+				DestinoSceneController.Instance.boundaries.ContainInsideBoundaries(sphere.rigidbody);
 			}
-			
-			yield return null;
 		}
 
 		InvokeCoroutineEnd();

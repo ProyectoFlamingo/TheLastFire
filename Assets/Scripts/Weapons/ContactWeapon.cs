@@ -253,6 +253,7 @@ public class ContactWeapon : PoolGameObject
 
 						if(health != null)
 						{
+							//Debug.Log("[ContactWeapon] GameObject " + gameObject.name + " Applying damage. Position: " + transform.position + ", Target's Position: " + health.transform.position);
 							health.GiveDamage(damage, true, true, gameObject);
 							OnHealthInstanceDamaged(health);
 						}
