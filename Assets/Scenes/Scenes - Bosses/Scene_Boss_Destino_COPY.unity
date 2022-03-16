@@ -3650,6 +3650,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 7.064642e-10
       objectReference: {fileID: 0}
+    - target: {fileID: 822772873876904491, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _soundEffectsMatrix.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 822772873876904491, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _particleEffectsMatrix.Array.data[0].index
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 947942312915765893, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_IsActive
@@ -23964,7 +23974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _space: 1
-  _size: {x: 44.8, y: 13.36, z: 0}
+  _size: {x: 44.8, y: 12.89, z: 0}
   _center: {x: -1.4, y: 8.2, z: 0}
   color: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1001 &1632678231

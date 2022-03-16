@@ -178,16 +178,22 @@ MonoBehaviour:
   _maxSteeringForce: 15
   _distance: 0.1
   _impactParticleEffectIndex: 11
-  _destroyedParticleEffectIndex: 0
+  _destroyedParticleEffectIndex: 11
   _sourceIndex: 0
   _impactSoundEffectIndex: 64
   _destroyedSoundEffectIndex: 65
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 63
     volume: 0.25
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 64
     volume: 0.5
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -199,6 +205,9 @@ MonoBehaviour:
   _chainCollider: {fileID: 647280741651927097}
   _incrustSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 65
     volume: 1
 --- !u!114 &-2791383928529050341
@@ -550,6 +559,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 1
   _subID: 0
-  _particleEffectsMatrix: []
-  _soundEffectsMatrix: []
+  _particleEffectsMatrix:
+  - ID: 0
+    index: 11
+  _soundEffectsMatrix:
+  - ID: 0
+    index: 64
   _eventsHandler: {fileID: 0}
