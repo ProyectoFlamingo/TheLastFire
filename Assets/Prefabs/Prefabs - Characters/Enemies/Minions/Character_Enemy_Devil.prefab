@@ -534,8 +534,9 @@ GameObject:
   - component: {fileID: 3518008094071995058}
   - component: {fileID: 993146125800011967}
   - component: {fileID: 1878545307}
+  - component: {fileID: 464473473081912624}
   m_Layer: 0
-  m_Name: Character_Devil
+  m_Name: Character_Enemy_Devil
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,6 +592,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 5780702081713712475}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &5780702080738925849
 MonoBehaviour:
@@ -665,6 +667,7 @@ MonoBehaviour:
   _animation: {fileID: 0}
   _clipFadeDuration: 0
   _hurtBoxes: []
+  _jointedHitBoxes: []
   _physicalColliders: []
   _triggerColliders: []
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
@@ -715,6 +718,33 @@ MonoBehaviour:
   _shakeMagnitude: 0.3
   _hurtParticleEffect:
     _transform: {fileID: 0}
+    _particleEffectReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     _particleEffectIndex: 0
     _points: []
   _hurtSoundIndex: 0
+--- !u!114 &464473473081912624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6699179469644701766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: 0
+  _magnitudeToChangePosition:
+    _distance: 0
+    _squareDistance: 0
+  _magnitudeToChangeRotation:
+    _distance: 0
+    _squareDistance: 0
+  debug: 0
+  positionRayColor: {r: 0, g: 0, b: 0, a: 0}
+  _rotationColorAlpha: 0
+  _gizmosRadius: 0
+  rayDuration: 0

@@ -413,7 +413,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		float drumstickLength = drumstickRenderer.bounds.size.y;
 		int[] drumstickCombo = VArray.RandomSet(LEFT, RIGHT);
 		float s = boss.stageScale;
+		s = 1.0f; 		/// Normal Scale because we won't allow the stage affect the behavior of the animations...
 		float scalar = Mathf.Lerp(1.0f, maxDrumstickSteeringScalar, s);
+		//scalar = 1.0f; 	/// Same treatment for scalar since it depends of the stage...
 		IEnumerator[] drumsticksRoutines = new IEnumerator[]
 		{
 			DrumstickRoutine(leftDrumstick, leftDrumstickSpawnPoint, Math.Min, -1.0f, scalar, s, drumstickLength),
@@ -512,13 +514,15 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		Vector3 projectedMateoPosition = Vector3.zero;
 		Vector3 initialPos = trumpetSpawnPoint;
 		float s = boss.stageScale;
+		s = 1.0f; 		/// Normal Scale because we won't allow the stage affect the behavior of the animations...
 		float scalar = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
+		//scalar = 1.0f; 	/// Same treatment for scalar since it depends of the stage...
 		bool animationEnded = false;
 		IEnumerator noteRoutine = PlayNote(boss, boss.laReNoteIndex, trumpetSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		trumpet.state = AnimationCommandState.None;
-		trumpet.animator.speed = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
+		trumpet.animator.speed = Mathf.Lerp(1.0f, maxTrumpetAnimationSpeed, s);
 		trumpet.gameObject.SetActive(true);
 		trumpet.animatorController.Play(Game.data.emptyCredential);
 		trumpet.transform.position = trumpetSpawnPoint;
@@ -559,7 +563,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		Vector3 projectedMateoPosition = Vector3.zero;
 		Vector3 initialPos = cymbalSpawnPoint;
 		float s = boss.stageScale;
+		s = 1.0f; 		/// Normal Scale because we won't allow the stage affect the behavior of the animations...
 		float scalar = Mathf.Lerp(1.0f, maxCymbalsSteeringScalar, s);
+		//scalar = 1.0f; 	/// Same treatment for scalar since it depends of the stage...
 		bool animationEnded = false;
 		IEnumerator noteRoutine = PlayNote(boss, boss.siMiNoteIndex, cymbalSpawnPointPair);
 

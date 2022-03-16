@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 11400000}
   - component: {fileID: 393582703892377902}
   m_Layer: 0
-  m_Name: Mateo_Landing_Smoke.
+  m_Name: Mateo_Hard_Landing_Smoke.
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -640,7 +640,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.96
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
