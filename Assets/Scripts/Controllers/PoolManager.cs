@@ -395,7 +395,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <returns>Requested ParticleEffect.</returns>
 	public static ParticleEffect RequestParticleEffect(int _index, Vector3 _position, Quaternion _rotation)
 	{
-		Debug.Log("[PoolManager] Calling RequestParticleEffect with int overload");
+		//Debug.Log("[PoolManager] Calling RequestParticleEffect with int overload");
 		return _index > -1 ? Instance.particleEffectsPools[_index].Recycle(_position, _rotation) : null;
 	}
 

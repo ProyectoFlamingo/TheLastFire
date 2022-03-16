@@ -286,12 +286,18 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		scythe.transform.position = _point;
 	}
 
+	/// <summary>Mateo Chase's Routine.</summary>
+	/// <param name="boss">Destino's Reference.</param>
+	/// <param name="animationHash">Attack Animation's Hash to use.</param>
+	/// <param name="_right">Go to the right extreme? left if false.</param>
 	private IEnumerator ChasingRoutine(DestinoBoss boss, int _animationHash, bool _right)
 	{
+		Vector3 a = _right ? slashZone.b : slashZone.a;
+		Vector3 b = _right ? slashZone.a : slashZone.b;
 		float t = boss.stageScale;
 		float s = Mathf.Lerp(1.0f, maxSpeedScalar, t);
-		float x = _right ? slashZone.a.x : slashZone.b.x;
-		float a = s * Time.deltaTime;
+		float x = b.x;
+		float y = s * Time.deltaTime;
 		bool animationEnded = false;
 
 		scythe.animatorController.CrossFade(_animationHash, 0.3f, 0, 0.0f, 0.0f);
@@ -311,36 +317,34 @@ public class DeathBehavior : DestinoScriptableCoroutine
 		{
 			animationEnded = !wait.MoveNext();
 
-			int anchorIndex = (scythe.state != AnimationCommandState.Active) ? 1 : 0;
-			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(Game.mateo.transform.position, anchorIndex);
-			Vector3 scythePosition = scythe.transform.position;
+			Vector3 target = Vector3.zero;
 
-			if(scythe.state != AnimationCommandState.Active)
+			switch(scythe.state)
 			{
-				switch(animationEnded)
-				{
-					case true:
-						anchoredPosition.x = x;
-					break;
+				case AnimationCommandState.None:
+				case AnimationCommandState.Startup:
+				target = a;
+				break;
 
-					case false:
-						anchoredPosition.y += additionalYOffset;
-						anchoredPosition.x = scythe.transform.position.x;
-						RotateScythe(s);
-					break;
-				}
-
-			} else if(scythe.state == AnimationCommandState.Active)
-			{
-				anchoredPosition.x = x;
+				case AnimationCommandState.Active:
+				case AnimationCommandState.Recovery:
+				target = b;
+				break;
 			}
 
-			scythePosition += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * a;
+			int anchorIndex = (scythe.state != AnimationCommandState.Active) ? 1 : 0;
+			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(target, anchorIndex);
+			anchoredPosition = target;
+			Vector3 scythePosition = scythe.transform.position;
+
+			if(scythe.state != AnimationCommandState.Active && !animationEnded) RotateScythe(s);
+
+			scythePosition += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * y;
 			scythePosition.y = Mathf.Max(scythePosition.y, clampedHeight);
 			scythePosition.x = Mathf.Clamp(scythePosition.x, slashZone.a.x, slashZone.b.x);
 			scythe.transform.position = scythePosition;
 			
-			a += (s * Time.deltaTime);
+			y += (s * Time.deltaTime);
 
 			yield return null;
 		}

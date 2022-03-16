@@ -613,7 +613,7 @@ public class Projectile : ContactWeapon
 		}
 
 		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
-		Debug.Log("[Projectile] OnDeactivated...");
+		//Debug.Log("[Projectile] OnDeactivated...");
 
 		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
 		OnObjectDeactivation();

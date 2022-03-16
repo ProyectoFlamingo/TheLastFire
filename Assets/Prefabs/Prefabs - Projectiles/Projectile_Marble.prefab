@@ -80,8 +80,6 @@ MonoBehaviour:
   _impactTags:
   - _tag: Weapon/Player
     index: 9
-  - _tag: Surface/Floor
-    index: 13
   - _tag: Surface/Ceiling
     index: 15
   _rejectionTags: []
@@ -104,10 +102,16 @@ MonoBehaviour:
   _destroyedSoundEffectIndex: 17
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}

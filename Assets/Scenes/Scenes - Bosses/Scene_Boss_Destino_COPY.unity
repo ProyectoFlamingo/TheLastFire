@@ -4812,6 +4812,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5192313066437133584, guid: 3e8b33e1bd6457045935992270f9958b,
+        type: 3}
+      propertyPath: _distanceRange._max
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 5192313066437133588, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _size.x
@@ -23959,7 +23964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _space: 1
-  _size: {x: 47, y: 17, z: 0}
+  _size: {x: 47, y: 3, z: 0}
   _center: {x: -1.4, y: 8.2, z: 0}
   color: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1001 &1632678231

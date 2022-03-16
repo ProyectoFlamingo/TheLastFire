@@ -114,7 +114,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 	/// <summary>Requests card to the DeckController.</summary>
 	public void RequestCard()
 	{
-		Debug.Log("[DestinoBossAIController] RequestCard();");
+		//Debug.Log("[DestinoBossAIController] RequestCard();");
 		if(!character.HasStates(IDs.STATE_ALIVE)) return;
 
 		this.DispatchCoroutine(ref slashRoutine);
