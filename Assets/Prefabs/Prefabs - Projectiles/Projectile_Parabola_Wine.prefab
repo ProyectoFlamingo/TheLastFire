@@ -74,6 +74,7 @@ MonoBehaviour:
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4857099441350097584}
+  _externalHitBoxes: []
   _zOffsetTolerance: 1
 --- !u!114 &8121818084978278044
 MonoBehaviour:
@@ -156,10 +157,16 @@ MonoBehaviour:
   _destroyedSoundEffectIndex: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -320,7 +327,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8748892135801146194, guid: 9a9fa1cc307dd9b4da80495abc73e215, type: 3}
+  - {fileID: 2100006, guid: a08eca3ba277ee14f99f33282bb77721, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
