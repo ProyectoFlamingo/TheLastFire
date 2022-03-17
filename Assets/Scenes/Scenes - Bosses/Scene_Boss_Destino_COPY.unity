@@ -4720,7 +4720,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d90e16fbde31a3b4bad22b5b0df58915, type: 2}
+      objectReference: {fileID: 2100000, guid: 417da7f34d8587f4abbd870827cd895a, type: 2}
     - target: {fileID: 4935517395797006412, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: m_IsActive
@@ -4966,7 +4966,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d90e16fbde31a3b4bad22b5b0df58915, type: 2}
+      objectReference: {fileID: 2100000, guid: 417da7f34d8587f4abbd870827cd895a, type: 2}
     - target: {fileID: 6011331442452916324, guid: 3e8b33e1bd6457045935992270f9958b,
         type: 3}
       propertyPath: _a.y
@@ -25664,16 +25664,16 @@ MonoBehaviour:
     b: {x: -12, y: 1, z: -5}
   _cymbals: {fileID: 192449231}
   _cymbalSoundIndex: 34
-  _cymbalSpawnPoint: {x: 0, y: -0.8, z: 0}
+  _cymbalSpawnPoint: {x: 0, y: -3, z: 0}
   _cymbalsAnimationCredential:
     _tag: Clash
     _ID: -1494220937
-  _maxCymbalsSteeringScalar: 7
+  _maxCymbalsSteeringScalar: 3
   _maxCymbalsAnimationSpeed: 1
   _cymbalsShakeDuration: 0.7
   _cymbalsShakeSpeed: 15
   _cymbalsShakeMagnitude: 5
-  _cymbalsYOffset: 4
+  _cymbalsYOffset: 0
 --- !u!1 &1761724955
 GameObject:
   m_ObjectHideFlags: 0
