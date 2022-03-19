@@ -94,7 +94,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		Addressables.Initialize();
 		Addressables.InitializeAsync().Completed += (result)=>
 		{
-			Debug.Log("[ResourcesManager] Result: " + result.ToString());
+			//Debug.Log("[ResourcesManager] Result: " + result.ToString());
 			InitializeResourcesMappings();
 		};
 	}
@@ -114,7 +114,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		Action onProcessEnds = ()=>
 		{
 			processes++;
-			Debug.Log("[ResourcesManager] Process Ended. Current progress: " + processes + "/" + totalProcesses);
+			//Debug.Log("[ResourcesManager] Process Ended. Current progress: " + processes + "/" + totalProcesses);
 
 			if(processes == totalProcesses)
 			{

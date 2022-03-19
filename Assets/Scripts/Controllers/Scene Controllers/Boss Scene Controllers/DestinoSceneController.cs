@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Voidless;
 using Sirenix.OdinInspector;
 
@@ -13,6 +14,11 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	public const float WEIGHT_BLENDSHAPE_CURTAIN_CLOSED = 100.0f; 												/// <summary>Closed Curtain's Blend Shape's Weight.</summary>
 	public const float WEIGHT_BLENDSHAPE_CURTAIN_OPEN = 0.0f; 													/// <summary>Open Curtain's Blend Shape's Weight.</summary>
 
+	[Header("TEMPORAL:")]
+	[SerializeField] private Image logo; 																		/// <summary>Last Fire's Logo.</summary>
+	[SerializeField] private float logoStayDuration; 															/// <summary>Stay's Duration for Last Fire's Logo.</summary>
+	[SerializeField] private float logoFadeOutDuration; 														/// <summary>Fade-Out's Duration for Last Fire's Logo.</summary>
+	[Space(5f)]
 	[SerializeField] private DestinoBoss _destino; 																/// <summary>Destino's Reference.</summary>
 	[SerializeField] private DestinoBossAIController _destinoController; 										/// <summary>Destino's AI Controller.</summary>
 	[SerializeField] private Vector3Pair _destinoInitialSpawnPointPair; 										/// <summary>Spawn Point pair that refers for Destino's initial position.</summary>
@@ -276,10 +282,14 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 			StartCoroutine(
 				this.WaitSeconds(
 					cooldownBeforeReleasingPlayerControl,
-					()=> { Game.mateoController.enabled = true; }
+					()=> { /*Game.EnablePlayerControl(true);*/ }
 				)
 			);
 		}
+
+		Game.cameraController.enabled = false;
+		Game.EnablePlayerControl(false);
+		this.StartCoroutine(LogoCoroutine());
 	}
 
 	/// <summary>Updates DestinoSceneController's instance at each frame.</summary>
@@ -368,6 +378,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 					()=>
 					{
 						//Debug.Log("[DestinoSceneController] Now What?");
+						Game.ResetScene();
 					});
 				});
 			});
@@ -531,6 +542,31 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		}
 
 		if(onStateChangingEnds != null) onStateChangingEnds();
+	}
+
+	/// <summary>[TEMPORAL] Logo's Coroutine.</summary>
+	private IEnumerator LogoCoroutine()
+	{
+		SecondsDelayWait wait = new SecondsDelayWait(logoStayDuration);
+		float iD = 1.0f / logoFadeOutDuration;
+		float t = 0.0f;
+		Color a = logo.color;
+		Color b = a;
+		b.a = 0.0f;
+
+		while(wait.MoveNext()) yield return null;
+
+		while(t < 1.0f)
+		{
+			logo.color = Color.Lerp(a, b, t);
+			t += (Time.deltaTime * iD);
+
+			yield return null;
+		}
+
+		logo.color = b;
+		Game.cameraController.enabled = true;
+		Game.EnablePlayerControl(true);
 	}
 #endregion
 }

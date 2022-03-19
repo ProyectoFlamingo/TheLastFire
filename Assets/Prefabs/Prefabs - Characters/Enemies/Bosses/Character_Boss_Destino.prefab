@@ -8986,6 +8986,9 @@ MonoBehaviour:
         - {x: 0, y: 0, z: -1.2}
       _soundEffect:
         sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 
+          m_SubObjectName: 
         soundIndex: 51
         volume: 1
       _cooldown: 0.1
@@ -8999,6 +9002,9 @@ MonoBehaviour:
         - {x: 0, y: 1, z: -1.2}
       _soundEffect:
         sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 
+          m_SubObjectName: 
         soundIndex: 14
         volume: 1
       _cooldown: 1
@@ -9012,6 +9018,9 @@ MonoBehaviour:
         - {x: 0, y: 2, z: -1.2}
       _soundEffect:
         sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 
+          m_SubObjectName: 
         soundIndex: 5
         volume: 1
       _cooldown: 1.5
@@ -9284,6 +9293,10 @@ MonoBehaviour:
   _health: {fileID: 8965366077498841993}
   _flash: 1
   _renderers:
+  - {fileID: 3496857737543348059}
+  - {fileID: 7273892591905580572}
+  - {fileID: 6453533556375956619}
+  - {fileID: 4382291009576605616}
   - {fileID: 938529140046777233}
   - {fileID: 2383597835772387618}
   - {fileID: 82925207286811061}
@@ -9297,15 +9310,9 @@ MonoBehaviour:
   - {fileID: 1855768834438143603}
   - {fileID: 226460957142413060}
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _selfIlluminationTag:
-    _tag: _EmissionColor
-    _ID: 131
-  _amountTag:
-    _tag: _EmissionColor
-    _ID: 131
   _blendTag: _Blend
+  _baseColorTag: 
   _flashColorTag: _OverlayColor
-  _maxSelfIllumination: 1
   _duration: 0.2
   _cycles: 2
   _shake: 1

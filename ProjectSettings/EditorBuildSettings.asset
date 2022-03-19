@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Scenes - Interfaces/Scene_SplashScreen.unity
     guid: 66ff0e72b5ec54846a6d1a9dada5b08d
   - enabled: 0
@@ -38,6 +38,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Tests/Scene_LightningTest.unity
     guid: 671b7c592103b2a43b93acbe868c2012
+  - enabled: 0
+    path: Assets/Scenes/Tests/Scene_TEST_Flash.unity
+    guid: e16eb6f884846254d9924a3ce9d71690
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 6c60873fea1eac54e8319e2906d77d2e,
       type: 2}

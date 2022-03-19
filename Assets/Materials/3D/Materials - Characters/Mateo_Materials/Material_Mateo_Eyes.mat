@@ -21,14 +21,14 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Material_Mateo_Eyes
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f6f251ecdbf2fd8428b35261e3ffb54f,
+    type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 1990
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -38,6 +38,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: f1802795a41f03846a8cdbad382eb8af, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseTexture:
         m_Texture: {fileID: 2800000, guid: f1802795a41f03846a8cdbad382eb8af, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -77,6 +81,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: f1802795a41f03846a8cdbad382eb8af, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -93,7 +101,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 2800000, guid: 77b73a897339ed34e80b82359c226fbf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: a987d11303de26147ba54c48c9abd525, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionTexture:
         m_Texture: {fileID: 2800000, guid: a987d11303de26147ba54c48c9abd525, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -103,6 +119,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Specular_MetallicTexture:
+        m_Texture: {fileID: 2800000, guid: be726b7498c3d0a48917b1cfd3abdc9d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TerrainHolesTexture:
@@ -125,6 +145,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0
     - _DstBlend: 0
+    - _Emission: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
@@ -145,7 +166,9 @@ Material:
     - _MicroWindChannel: 0
     - _MicroWindMultiplier: 1
     - _NoiseScale: 0.5
+    - _Normal: 1
     - _NormalPower: 1
+    - _Occlusion: 1
     - _OcclusionPower: 0
     - _OcclusionStrength: 0
     - _QueueOffset: -10
@@ -189,5 +212,6 @@ Material:
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _GradientColor: {r: 0.9150943, g: 0.8955558, b: 0.876246, a: 0}
     - _MainColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999993, g: 0.19999993, b: 0.19999993, a: 1}

@@ -1960,6 +1960,10 @@ ShaderVariantCollection:
       variants:
       - keywords: BILLBOARD_FACE_CAMERA_POS _ADDITIONAL_LIGHTS _DEPTH_NO_MSAA
         passType: 0
+  - first: {fileID: -6465566751694194690, guid: f6f251ecdbf2fd8428b35261e3ffb54f,
+      type: 3}
+    second:
+      variants: []
   - first: {fileID: 4800000, guid: e7857e9d0c934dc4f83f270f8447b006, type: 3}
     second:
       variants:

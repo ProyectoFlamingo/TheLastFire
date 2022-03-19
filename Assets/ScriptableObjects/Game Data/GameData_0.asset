@@ -16,10 +16,10 @@ MonoBehaviour:
   _hurtTimeScale: 0.5
   _timeScaleAcceleration: 0.1
   _timeScaleDeceleration: 3
-  _firstSceneToLoad: Scene_TrainingGround_Projectiles&Explodables
+  _firstSceneToLoad: Scene_Boss_Destino_COPY
   _loadingSceneName: Scene_LoadingScreen
   _overworldSceneName: Scene_Overworld
-  _destinoSceneName: Scene_Boss_Destino
+  _destinoSceneName: Scene_Boss_Destino_COPY
   _moskarSceneName: Scene_Boss_Moskar
   _captainShantySceneName: Scene_Boss_CaptainShanty
   _oxfordTheFoxSceneName: Scene_Boss_OxfordTheFox

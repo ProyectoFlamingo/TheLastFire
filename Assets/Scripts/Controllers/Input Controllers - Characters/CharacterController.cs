@@ -340,7 +340,7 @@ public class CharacterController<T> : MonoBehaviour where T : Character
 			break;
 		}
 
-		Debug.Log("[CharacterController] Changed for: " + actionMapID);
+		//Debug.Log("[CharacterController] Changed for: " + actionMapID);
 		playerInput.SwitchCurrentActionMap(actionMapID);
 	}
 

@@ -15,12 +15,9 @@ public class HealthEventReceiver : MonoBehaviour
 	[TabGroup("Main", "Flash")][SerializeField] private bool _flash; 												/// <summary>Flash when damage is received?.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private Renderer[] _renderers; 										/// <summary>Renderer's to flash.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private Color _flashColor; 											/// <summary>Flash's Color.</summary>
-	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _selfIlluminationTag; 							/// <summary>Self-Illumination's Property Tag.</summary>
-	[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _amountTag; 									/// <summary>Flash Amount's Property Tag.</summary>
-	//[TabGroup("Main", "Flash")][SerializeField] private MaterialTag _blendTag; 										/// <summary>Flash Blend's Property Tag.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private string _blendTag; 											/// <summary>Flash Blend's Property Tag.</summary>
+	[TabGroup("Main", "Flash")][SerializeField] private string _baseColorTag; 										/// <summary>Base Color's Property Tag.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private string _flashColorTag; 										/// <summary>Flash Color's Property Tag.</summary>
-	[TabGroup("Main", "Flash")][SerializeField][Range(0.0f, 1.0f)] private float _maxSelfIllumination; 				/// <summary>Maximum's Self-Illumination.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private float _duration; 											/// <summary>Flash's Duration.</summary>
 	[TabGroup("Main", "Flash")][SerializeField] private float _cycles; 												/// <summary>Flash's Cycles.</summary>
 	[Space(5f)]
@@ -88,32 +85,18 @@ public class HealthEventReceiver : MonoBehaviour
 		set { _flashColor = value; }
 	}
 
-	/// <summary>Gets and Sets selfIlluminationTag property.</summary>
-	public MaterialTag selfIlluminationTag
-	{
-		get { return _selfIlluminationTag; }
-		set { _selfIlluminationTag = value; }
-	}
-
-	/// <summary>Gets and Sets amountTag property.</summary>
-	public MaterialTag amountTag
-	{
-		get { return _amountTag; }
-		set { _amountTag = value; }
-	}
-
-	/*/// <summary>Gets and Sets blendTag property.</summary>
-	public MaterialTag blendTag
-	{
-		get { return _blendTag; }
-		set { _blendTag = value; }
-	}*/
-
 	/// <summary>Gets and Sets blendTag property.</summary>
 	public string blendTag
 	{
 		get { return _blendTag; }
 		set { _blendTag = value; }
+	}
+
+	/// <summary>Gets and Sets baseColorTag property.</summary>
+	public string baseColorTag
+	{
+		get { return _baseColorTag; }
+		set { _baseColorTag = value; }
 	}
 
 	/// <summary>Gets and Sets flashColorTag property.</summary>
@@ -122,9 +105,6 @@ public class HealthEventReceiver : MonoBehaviour
 		get { return _flashColorTag; }
 		set { _flashColorTag = value; }
 	}
-
-	/// <summary>Gets maxSelfIllumination property.</summary>
-	public float maxSelfIllumination { get { return _maxSelfIllumination; } }
 
 	/// <summary>Gets duration property.</summary>
 	public float duration { get { return _duration; } }
@@ -205,12 +185,12 @@ public class HealthEventReceiver : MonoBehaviour
 			materials[i] = renderers[i].materials;
 			colors[i] = new Color[materials[i].Length];
 
-			for(int j = 0; j < colors[i].Length; j++)
+			/// Unnecessary...
+			/*for(int j = 0; j < colors[i].Length; j++)
 			{
 				Material material = materials[i][j];
 
-				if(material.HasProperty(selfIlluminationTag)) colors[i][j] = material.GetColor(selfIlluminationTag);
-			}
+			}*/
 		}
 	}
 
@@ -225,8 +205,7 @@ public class HealthEventReceiver : MonoBehaviour
 			{
 				Material material = materials[i][j];
 				
-				if(material.HasProperty(selfIlluminationTag)) material.SetColor(selfIlluminationTag, colors[i][j]);
-				if(material.HasProperty(blendTag)) material.SetFloat(blendTag, 0);
+				if(material.HasProperty(blendTag)) material.SetFloat(blendTag, 0.0f);
 			}
 		}
 	}
@@ -285,7 +264,6 @@ public class HealthEventReceiver : MonoBehaviour
 					Material material = materials[i][j];
 
 					if(material.HasProperty(blendTag)) material.SetFloat(blendTag, s);
-					if(material.HasProperty(selfIlluminationTag)) material.SetColor(selfIlluminationTag, Color.Lerp(colors[i][j], flashColor, s));
 				}
 			}
 

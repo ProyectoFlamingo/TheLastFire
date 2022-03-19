@@ -245,6 +245,10 @@ public class DevilBehavior : DestinoScriptableCoroutine
 		leftDevilTower.health.onHealthInstanceEvent += onHealthEvent;
 		rightDevilTower.health.onHealthInstanceEvent += onHealthEvent;
 
+		devil.Reset();
+		rightDevilTower.ResetMappings();
+		leftDevilTower.ResetMappings();
+
 		/// Lerp Devil & Towers:
 		while(t < 1.0f)
 		{

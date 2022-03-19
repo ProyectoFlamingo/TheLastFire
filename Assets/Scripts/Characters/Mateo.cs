@@ -21,7 +21,6 @@ namespace Flamingo
 [RequireComponent(typeof(DashAbility))]
 [RequireComponent(typeof(RotationAbility))]
 [RequireComponent(typeof(ShootChargedProjectile))]
-
 [RequireComponent(typeof(SensorSystem2D))]
 [RequireComponent(typeof(WallEvaluator))]
 [RequireComponent(typeof(SlopeEvaluator))]
@@ -101,6 +100,7 @@ public class Mateo : Character
 	[Space(5f)]
 	[TabGroup("Group A", "Sword Attacks")][SerializeField] private float _attackingGravityScale; 									/// <summary>Gravity Scale applied while attacking.</summary>
 	[TabGroup("Group A", "Sword Attacks")][SerializeField] private int _attackingScaleChangePriority; 								/// <summary>Scale Change's Priority while attacking.</summary>
+	[TabGroup("Group A", "Sword Attacks")][SerializeField] private SoundEffectEmissionData _swordSlashSoundEffect; 					/// <summary>Sword-Slash's Sound Effect's Emission Data.</summary>
 	[Space(5f)]
 	[Header("Jumping's Attributes:")]
 	[TabGroup("Group A", "Jumping")][SerializeField] private TrailRenderer _extraJumpTrailRenderer; 								/// <summary>Extra-Jump's Trail Renderer.</summary>
@@ -239,6 +239,9 @@ public class Mateo : Character
 
 	/// <summary>Gets scaleChangePriority property.</summary>
 	public int scaleChangePriority { get { return _scaleChangePriority; } }
+
+	/// <summary>Gets swordSlashSoundEffect property.</summary>
+	public SoundEffectEmissionData swordSlashSoundEffect { get { return _swordSlashSoundEffect; } }
 
 	/// <summary>Gets leftAxisXCredential property.</summary>
 	public AnimatorCredential leftAxisXCredential { get { return _leftAxisXCredential; } }
@@ -801,6 +804,8 @@ public class Mateo : Character
 			}
 		);
 		
+		///TEMPORAL:
+		swordSlashSoundEffect.Play();	
 	}
 
 	/// <summary>Cancels Attacks.</summary>
@@ -1253,6 +1258,10 @@ public class Mateo : Character
 
 			case IDs.ANIMATIONEVENT_ATTACKWINDOW:
 				state |= IDs.STATE_ATTACKWINDOW;
+			break;
+
+			case IDs.ANIMATIONEVENT_EMITSOUND_0:
+				swordSlashSoundEffect.Play();
 			break;
 		}
 	}

@@ -8,7 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Metal_01
-  m_Shader: {fileID: 4800000, guid: 95560e6ee78d67f4184120ac54f804ff, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: f6f251ecdbf2fd8428b35261e3ffb54f,
+    type: 3}
   m_ShaderKeywords: _ENABLEDETAILMAP_OFF _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
     _TESSELLATIONMODE_ON
   m_LightmapFlags: 4
@@ -20,6 +21,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: 70c95f5d30980b448a229bb05063d3c2, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -44,6 +49,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 9500ed754b679fe4eb14ce6d41f80d5b, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -56,8 +65,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 6786f4a78528d72478f865b57d8ba251, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _NormalTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 2800000, guid: 5eda53e64e9e5084bb56db7f0df0fe88, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -68,6 +85,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: b6aecf18a2e26dc4482d72ff379c2975, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Specular_MetallicTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -76,6 +97,7 @@ Material:
     - _AOSource: 0
     - _AlbedoDetail: 1
     - _AlphaCutoff: 0.5
+    - _Blend: 0
     - _BlendColor: 0
     - _BlendHeight: 1
     - _Brightness: 1
@@ -114,6 +136,7 @@ Material:
     - _Displacement_Strength: 0.00125
     - _DoubleSidedNormalMode: 0
     - _DstBlend: 0
+    - _Emission: 0
     - _EnableDetailMap: 0
     - _EnableDetailMask: 0
     - _GlobalWindInfluence: 1
@@ -121,11 +144,13 @@ Material:
     - _Glossiness: 0.8
     - _GlossyReflections: 1
     - _Height: 0
-    - _Metallic: 0
+    - _Metallic: 1
     - _MetallicSource: 0
     - _MetallicStrength: 1
     - _Mode: 0
+    - _Normal: 1
     - _NormalStrength: 1
+    - _Occlusion: 1
     - _OcclusionSourceMode: 0
     - _OcclusionStrength: 1
     - _OcclusionStrength1: 1
@@ -139,7 +164,7 @@ Material:
     - _ParallaxHeightScale: 0.02487383
     - _ParallaxReferencePlane: 1
     - _Smooth: 0.02
-    - _Smoothness: 1
+    - _Smoothness: 0.6
     - _SmoothnessMode2: 1
     - _SmoothnessModeSurface: 2
     - _SmoothnessMultiplier: 1
@@ -170,9 +195,10 @@ Material:
     - __dirty: 1
     m_Colors:
     - _AlbedoTint: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDetail: {r: 1, g: 1, b: 1, a: 1}
     - _DetailColor1: {r: 1, g: 1, b: 1, a: 0}
     - _DetailTint: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
+    - _OverlayColor: {r: 1, g: 1, b: 1, a: 1}

@@ -52,6 +52,13 @@ public class DevilTower : Character
 		if(landingParticleEffect != null) landingParticleEffect.DrawGizmos();
 	}
 
+	/// <summary>Resets DevilTower's instance to its default values.</summary>
+	public override void Reset()
+	{
+		base.Reset();
+		ResetMappings();
+	}
+
 	/// <summary>DevilTower's instance initialization when loaded [Before scene loads].</summary>
 	protected override void Awake()
 	{
@@ -59,6 +66,15 @@ public class DevilTower : Character
 		indexProjectileMapping = new Dictionary<int, ArrowProjectile>();
 		projectileIDIndexMapping = new Dictionary<int, int>();
 		health.inmunities = new GameObjectTag[] { Game.data.playerWeaponTag, Game.data.playerProjectileTag };
+
+		Reset();
+	}
+
+	/// <summary>Resets Mappings.</summary>
+	public void ResetMappings()
+	{
+		indexProjectileMapping.Clear();
+		projectileIDIndexMapping.Clear();
 
 		for(int i = 0; i < muzzles.Length; i++)
 		{
@@ -181,6 +197,13 @@ public class DevilTower : Character
 		projectileIDIndexMapping.Remove(instanceID);
 	}
 
+	/// <summary>Actions made when this Pool Object is being reseted.</summary>
+	public override void OnObjectReset()
+	{
+		base.OnObjectReset();
+		Reset();
+	}
+
 	/// <summary>Callback invoked when the object is deactivated.</summary>
 	public override void OnObjectDeactivation()
 	{
@@ -191,13 +214,7 @@ public class DevilTower : Character
 			if(projectile != null) projectile.OnObjectDeactivation();
 		}
 
-		indexProjectileMapping.Clear();
-		projectileIDIndexMapping.Clear();
-
-		for(int i = 0; i < muzzles.Length; i++)
-		{
-			indexProjectileMapping.Add(i, null);
-		}
+		ResetMappings();
 	}
 }
 }

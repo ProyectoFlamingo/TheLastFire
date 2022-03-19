@@ -60,7 +60,7 @@ public class PlayerInputController : MonoBehaviour
 		builder.Append(playerInput.playerIndex.ToString());
 		builder.Append(" Disabled.");
 
-		Debug.Log(builder.ToString());
+		//Debug.Log(builder.ToString());
 	}
 
 	/// <summary>TheLastFirePlayerInput's instance initialization when loaded [Before scene loads].</summary>
