@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 namespace Voidless
 {
 [Serializable]
-public class FiniteStateAudioClipAssetReference : AssetReferenceT<FiniteStateAudioClip>
+public class FiniteStateAudioClipAssetReference : VAssetReferenceT<FiniteStateAudioClip>
 {
 	/// <summary>FiniteStateAudioClipAssetReference default constructor.</summary>
 	public FiniteStateAudioClipAssetReference(string guid) : base(guid) { /*...*/ }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Voidless;
 
 namespace Flamingo
 {
@@ -10,7 +11,7 @@ namespace Flamingo
 public struct SoundEffectEmissionData
 {
 	public int sourceIndex; 					/// <summary>Source's Index.</summary>
-	public AssetReference soundReference; 		/// <summary>Sound's Asset Reference.</summary>	
+	public VAssetReference soundReference; 		/// <summary>Sound's Asset Reference.</summary>	
 	public int soundIndex; 						/// <summary>Sound's Index.</summary>
 	[Range(0.0f, 1.0f)] public float volume; 	/// <summary>Sound's Volume.</summary>
 
@@ -30,7 +31,7 @@ public struct SoundEffectEmissionData
 	/// <param name="_sourceIndex">Source's Index.</param>
 	/// <param name="_soundReference">Sound's Asset Reference.</param>
 	/// <param name="_volume">Sound's Volume.</param>
-	public SoundEffectEmissionData(int _sourceIndex, AssetReference _soundReference, float _volume = 1.0f) : this()
+	public SoundEffectEmissionData(int _sourceIndex, VAssetReference _soundReference, float _volume = 1.0f) : this()
 	{
 		sourceIndex = _sourceIndex;
 		soundReference = _soundReference;

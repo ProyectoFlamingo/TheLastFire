@@ -11,7 +11,7 @@ namespace Flamingo
 public class ParticleEffectEmissionData
 {
 	[SerializeField] private Transform _transform; 						/// <summary>Transform's Reference.</summary>
-	[SerializeField] private AssetReference _particleEffectReference; 	/// <summary>Particle Effect's Reference.</summary>
+	[SerializeField] private VAssetReference _particleEffectReference; 	/// <summary>Particle Effect's Reference.</summary>
 	[SerializeField] private int _particleEffectIndex; 					/// <summary>ParticleEffect's Index.</summary>
 	[SerializeField] private Vector3[] _points; 						/// <summary>Points of ParticleEmission relative to the Transform.</summary>
 
@@ -23,7 +23,7 @@ public class ParticleEffectEmissionData
 	}
 
 	/// <summary>Gets and Sets particleEffectReference property.</summary>
-	public AssetReference particleEffectReference
+	public VAssetReference particleEffectReference
 	{
 		get { return _particleEffectReference; }
 		set { _particleEffectReference = value; }

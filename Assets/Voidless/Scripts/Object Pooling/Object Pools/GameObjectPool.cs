@@ -23,7 +23,7 @@ public class GameObjectPool<T> : BaseObjectPool<T> where T : MonoBehaviour, IPoo
 	/// <param name="_referenceObject">Pool's Reference Prefab.</param>
 	/// <param name="_size">Pool's starting size.</param>
 	/// <param name="_limit">Pool's Limit.</param>
-	public GameObjectPool(T _referenceObject, int _size = 0, int _limit = int.MaxValue) : base(_referenceObject, _size, _limit)
+	public GameObjectPool(T _referenceObject, int _size = 1, int _limit = int.MaxValue) : base(_referenceObject, _size, _limit)
 	{
 		/// \TODO Not very sure yet:
 		/*if(_referenceObject != null)
@@ -44,6 +44,8 @@ public class GameObjectPool<T> : BaseObjectPool<T> where T : MonoBehaviour, IPoo
 			newObject = Object.Instantiate(referenceObject) as T;
 			newObject.gameObject.name = newObject.gameObject.name.Replace(TAG_CLONE, string.Empty);
 			//Object.DontDestroyOnLoad(newObject.gameObject);
+
+			//Debug.Log("[GameObjectPool] Do I have? " + newObject.ToString());
 
 			if(Count == 0)
 			{
@@ -121,8 +123,9 @@ public class GameObjectPool<T> : BaseObjectPool<T> where T : MonoBehaviour, IPoo
 
 	/// <summary>Creates an array of GameObjectPools from an array of PoolGameObjects.</summary>
 	/// <param name="_objects">Array of PoolGameObjects.</param>
+	/// <param name="_size">Default Pools' Size.</param>
 	/// <returns>Array of GameObjectPools from array of PoolGameObjects.</returns>
-	public static GameObjectPool<T>[] PopulatedPools(params T[] _objects)
+	public static GameObjectPool<T>[] PopulatedPools(int _size = 1, params T[] _objects)
 	{
 		if(_objects == null || _objects.Length == 0) return null;
 
@@ -132,7 +135,7 @@ public class GameObjectPool<T> : BaseObjectPool<T> where T : MonoBehaviour, IPoo
 
 		for(int i = 0; i < length; i++)
 		{
-			pools[i] = new GameObjectPool<T>(_objects[i]);
+			pools[i] = new GameObjectPool<T>(_objects[i], _size);
 		}
 
 		return pools;

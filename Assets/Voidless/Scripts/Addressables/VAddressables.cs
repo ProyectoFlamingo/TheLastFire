@@ -15,7 +15,7 @@ public static class VAddressables
 	/// <summary>Loads Asset Asyncronously.</summary>
 	/// <param name="key">Asset's Reference.</param>
 	/// <param name="onTaskFinished">Optional callback invoked when the Task have been finished.</param>
-	public static Task<T> LoadAssetAsync<T>(object key, Action onTaskFinished = null)
+	public static Task<T> LoadAssetAsync<T>(AssetReference key, Action onTaskFinished = null)
 	{
 		TaskCompletionSource<T> source = new TaskCompletionSource<T>();
 		AsyncOperationHandle<T> handle = Addressables.LoadAssetAsync<T>(key);
@@ -36,7 +36,7 @@ public static class VAddressables
 	/// <summary>Instantiates Asset Asyncronously.</summary>
 	/// <param name="key">Asset's Reference.</param>
 	/// <param name="onTaskFinished">Optional callback invoked when the Task have been finished.</param>
-	public static Task<GameObject> InstantiateAsync<T>(object key)
+	public static Task<GameObject> InstantiateAsync<T>(AssetReference key)
 	{
 		TaskCompletionSource<GameObject> source = new TaskCompletionSource<GameObject>();
 		AsyncOperationHandle<GameObject> handle = Addressables.InstantiateAsync(key);
@@ -54,19 +54,40 @@ public static class VAddressables
 
 	/// <summary>Generates a populated Dictionary of GameObjectPools with AssetReferences.</summary>
 	/// <param name="_map">Mapping of AssetReferences and already-loaded Pool-GameObjects.</param>
+	/// <param name="_size">Default Pools' Size.</param>
 	/// <returns>Populated Dictionary [if provided mapping had something].</returns>
-	public static Dictionary<object, GameObjectPool<T>> PopulaledPoolsMapping<T>(Dictionary<AssetReference, T> _map) where T : MonoBehaviour, IPoolObject
+	public static Dictionary<K, GameObjectPool<T>> PopulaledPoolsMapping<T, K>(Dictionary<K, T> _map, int _size = 1) where T : MonoBehaviour, IPoolObject where K : AssetReference
 	{
 		if(_map == null || _map.Count == 0) return null;
 
-		Dictionary<object, GameObjectPool<T>> map = new Dictionary<object, GameObjectPool<T>>();
+		Dictionary<K, GameObjectPool<T>> map = new Dictionary<K, GameObjectPool<T>>();
 
-		foreach(KeyValuePair<AssetReference, T> pair in _map)
+		foreach(KeyValuePair<K, T> pair in _map)
 		{
-			map.Add(pair.Key.RuntimeKey, new GameObjectPool<T>(pair.Value));
+			map.Add(pair.Key, new GameObjectPool<T>(pair.Value, _size));
 		}
 
 		return map;
+	}
+
+	/// <summary>Releases GameObjects contained on IEnumerable.</summary>
+	/// <param name="_components">Components' IEnumerable.</param>
+	public static void ReleaseComponents<T>(this IEnumerable<T> _components) where T : MonoBehaviour
+	{
+		foreach(T component in _components)
+		{
+			if(component != null) Addressables.Release(component.gameObject);
+		}
+	}
+
+	/// <summary>Releases GameObjects contained on IEnumerable.</summary>
+	/// <param name="_objects">Objects' IEnumerable.</param>
+	public static void ReleaseObjects<T>(this IEnumerable<T> _objects) where T : UnityEngine.Object
+	{
+		foreach(T obj in _objects)
+		{
+			if(obj != null) Addressables.Release(obj);
+		}
 	}
 
 	/// <summary>Releases objects contained in Pool.</summary>
@@ -139,6 +160,18 @@ public static class VAddressables
 	public static bool Empty(this AssetReference _reference)
 	{
 		return string.IsNullOrEmpty(_reference.RuntimeKey.ToString());
+	}
+
+	/// <returns>AssetReference's RuntimeKey.</returns>
+	public static Hash128 GetRuntimeKey(this AssetReference _reference)
+	{
+		return (Hash128)_reference.RuntimeKey;
+	}
+
+	/// <returns>AssetReference's RuntimeKey as string.</returns>
+	public static string GetKey(this AssetReference _reference)
+	{
+		return _reference.RuntimeKey.ToString();
 	}
 }
 }

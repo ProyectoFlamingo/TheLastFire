@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,78 +20,83 @@ public class ResourcesManager : Singleton<ResourcesManager>
 	public static event OnResourcesLoaded onResourcesLoaded; 														/// <summary>OnResourcesLoaded's Event Delegate.</summary>
 
 	[Space(5f)]
-	[TabGroup("Characters")][SerializeField] private AssetReference[] _charactersReferences; 						/// <summary>Characters' References.</summary>
-	[TabGroup("Projectiles")][SerializeField] private AssetReference[] _projectilesReferences; 						/// <summary>Projectiles' References.</summary>
-	[TabGroup("FXs", "Particle Effects")][SerializeField] private AssetReference[] _particleEffectsReferences; 		/// <summary>Particle-Effets' References.</summary>
-	[TabGroup("FXs", "Explodables")][SerializeField] private AssetReference[] _explodablesReferences; 				/// <summary>Explodables' References.</summary>
-	[TabGroup("Pool GameObjects")][SerializeField] private AssetReference[] _poolObjectsReferences; 				/// <summary>[Other] PoolGameObjects' references.</summary>
+	[TabGroup("Characters")][SerializeField] private VAssetReference[] _charactersReferences; 						/// <summary>Characters' References.</summary>
+	[TabGroup("Projectiles")][SerializeField] private VAssetReference[] _projectilesReferences; 					/// <summary>Projectiles' References.</summary>
+	[TabGroup("FXs", "Particle Effects")][SerializeField] private VAssetReference[] _particleEffectsReferences; 	/// <summary>Particle-Effets' References.</summary>
+	[TabGroup("FXs", "Explodables")][SerializeField] private VAssetReference[] _explodablesReferences; 				/// <summary>Explodables' References.</summary>
+	[TabGroup("Pool GameObjects")][SerializeField] private VAssetReference[] _poolObjectsReferences; 				/// <summary>[Other] PoolGameObjects' references.</summary>
 	[Space(5f)]
 	[Header("Audio:")]
-	[TabGroup("Audio", "Audio")][SerializeField] private FiniteStateAudioClipAssetReference[] _FSMLoopsReferences; 	/// <summary>FSM-AudioClips' References.</summary>
-	[TabGroup("Audio", "Audio")][SerializeField] private AudioClipAssetReference[] _loopsReferences; 				/// <summary>Loops' References.</summary>
-	[TabGroup("Audio", "Audio")][SerializeField] private AudioClipAssetReference[] _soundEffectsReferences; 		/// <summary>Sound-Effects' References.</summary>
-	private Dictionary<AssetReference, Character> _charactersMap; 													/// <summary>Characters' Mapping.</summary>
-	private Dictionary<AssetReference, Projectile> _projectilesMap; 												/// <summary>Projectiles' Mapping.</summary>
-	private Dictionary<AssetReference, ParticleEffect> _particleEffectsMap; 										/// <summary>Particle-Effects' Mapping.</summary>
-	private Dictionary<AssetReference, Explodable> _explodablesMap; 												/// <summary>Explodables' Mapping.</summary>
-	private Dictionary<AssetReference, PoolGameObject> _poolObjectsMap; 											/// <summary>PoolGameObjects' Mapping.</summary>
-	private Dictionary<AssetReference, FiniteStateAudioClip> _FSMLoopsMap; 											/// <summary>FSM Loops' Mapping.</summary>
-	private Dictionary<AssetReference, AudioClip> _loopsMap; 														/// <summary>Loops' Mapping.</summary>
-	private Dictionary<AssetReference, AudioClip> _soundEffectsMap; 												/// <summary>Sound-Effects' Map.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _FSMLoopsReferences; 					/// <summary>FSM-AudioClips' References.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _loopsReferences; 						/// <summary>Loops' References.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _soundEffectsReferences; 				/// <summary>Sound-Effects' References.</summary>
+	[Space(5f)]
+	[Header("TEST:")]
+	[SerializeField] private bool test; 																			/// <summary>Test?.</summary>
+	private Dictionary<VAssetReference, Character> _charactersMap; 													/// <summary>Characters' Mapping.</summary>
+	private Dictionary<VAssetReference, Projectile> _projectilesMap; 												/// <summary>Projectiles' Mapping.</summary>
+	private Dictionary<VAssetReference, ParticleEffect> _particleEffectsMap; 										/// <summary>Particle-Effects' Mapping.</summary>
+	private Dictionary<VAssetReference, Explodable> _explodablesMap; 												/// <summary>Explodables' Mapping.</summary>
+	private Dictionary<VAssetReference, PoolGameObject> _poolObjectsMap; 											/// <summary>PoolGameObjects' Mapping.</summary>
+	private Dictionary<VAssetReference, FiniteStateAudioClip> _FSMLoopsMap; 										/// <summary>FSM Loops' Mapping.</summary>
+	private Dictionary<VAssetReference, AudioClip> _loopsMap; 														/// <summary>Loops' Mapping.</summary>
+	private Dictionary<VAssetReference, AudioClip> _soundEffectsMap; 												/// <summary>Sound-Effects' Map.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets charactersReferences property.</summary>
-	public AssetReference[] charactersReferences { get { return _charactersReferences; } }
+	public VAssetReference[] charactersReferences { get { return _charactersReferences; } }
 
 	/// <summary>Gets projectilesReferences property.</summary>
-	public AssetReference[] projectilesReferences { get { return _projectilesReferences; } }
+	public VAssetReference[] projectilesReferences { get { return _projectilesReferences; } }
 
 	/// <summary>Gets particleEffectsReferences property.</summary>
-	public AssetReference[] particleEffectsReferences { get { return _particleEffectsReferences; } }
+	public VAssetReference[] particleEffectsReferences { get { return _particleEffectsReferences; } }
 
 	/// <summary>Gets explodablesReferences property.</summary>
-	public AssetReference[] explodablesReferences { get { return _explodablesReferences; } }
+	public VAssetReference[] explodablesReferences { get { return _explodablesReferences; } }
 
 	/// <summary>Gets poolObjectsReferences property.</summary>
-	public AssetReference[] poolObjectsReferences { get { return _poolObjectsReferences; } }
+	public VAssetReference[] poolObjectsReferences { get { return _poolObjectsReferences; } }
 
 	/// <summary>Gets FSMLoopsReferences property.</summary>
-	public FiniteStateAudioClipAssetReference[] FSMLoopsReferences { get { return _FSMLoopsReferences; } }
+	public VAssetReference[] FSMLoopsReferences { get { return _FSMLoopsReferences; } }
 
 	/// <summary>Gets loopsReferences property.</summary>
-	public AudioClipAssetReference[] loopsReferences { get { return _loopsReferences; } }
+	public VAssetReference[] loopsReferences { get { return _loopsReferences; } }
 
 	/// <summary>Gets soundEffectsReferences property.</summary>
-	public AudioClipAssetReference[] soundEffectsReferences { get { return _soundEffectsReferences; } }
+	public VAssetReference[] soundEffectsReferences { get { return _soundEffectsReferences; } }
 
 	/// <summary>Gets charactersMap property.</summary>
-	public Dictionary<AssetReference, Character> charactersMap { get { return _charactersMap; } }
+	public Dictionary<VAssetReference, Character> charactersMap { get { return _charactersMap; } }
 
 	/// <summary>Gets projectilesMap property.</summary>
-	public Dictionary<AssetReference, Projectile> projectilesMap { get { return _projectilesMap; } }
+	public Dictionary<VAssetReference, Projectile> projectilesMap { get { return _projectilesMap; } }
 
 	/// <summary>Gets particleEffectsMap property.</summary>
-	public Dictionary<AssetReference, ParticleEffect> particleEffectsMap { get { return _particleEffectsMap; } }
+	public Dictionary<VAssetReference, ParticleEffect> particleEffectsMap { get { return _particleEffectsMap; } }
 
 	/// <summary>Gets explodablesMap property.</summary>
-	public Dictionary<AssetReference, Explodable> explodablesMap { get { return _explodablesMap; } }
+	public Dictionary<VAssetReference, Explodable> explodablesMap { get { return _explodablesMap; } }
 
 	/// <summary>Gets poolObjectsMap property.</summary>
-	public Dictionary<AssetReference, PoolGameObject> poolObjectsMap { get { return _poolObjectsMap; } }
+	public Dictionary<VAssetReference, PoolGameObject> poolObjectsMap { get { return _poolObjectsMap; } }
 
 	/// <summary>Gets FSMLoopsMap property.</summary>
-	public Dictionary<AssetReference, FiniteStateAudioClip> FSMLoopsMap { get { return _FSMLoopsMap; } }
+	public Dictionary<VAssetReference, FiniteStateAudioClip> FSMLoopsMap { get { return _FSMLoopsMap; } }
 
 	/// <summary>Gets loopsMap property.</summary>
-	public Dictionary<AssetReference, AudioClip> loopsMap { get { return _loopsMap; } }
+	public Dictionary<VAssetReference, AudioClip> loopsMap { get { return _loopsMap; } }
 
 	/// <summary>Gets soundEffectsMap property.</summary>
-	public Dictionary<AssetReference, AudioClip> soundEffectsMap { get { return _soundEffectsMap; } }
+	public Dictionary<VAssetReference, AudioClip> soundEffectsMap { get { return _soundEffectsMap; } }
 #endregion
 
 	/// <summary>ResourcesManager's instance initialization when loaded [Before scene loads].</summary>
-	private void Awake()
+	protected override void OnAwake()
 	{
+		base.OnAwake();
+
 		Addressables.Initialize();
 		Addressables.InitializeAsync().Completed += (result)=>
 		{
@@ -118,65 +124,42 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
 			if(processes == totalProcesses)
 			{
-				if(onResourcesLoaded != null) onResourcesLoaded();
 				Debug.Log(ToString());
+				if(onResourcesLoaded != null) onResourcesLoaded();
+#if UNITY_EDITOR
+				if(test) Test();
+#endif
 			}
 		};
 
-		VAddressables.LoadComponentMapping<AssetReference, Character>(charactersReferences, (map)=> { _charactersMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<AssetReference, Projectile>(projectilesReferences, (map)=> { _projectilesMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<AssetReference, ParticleEffect>(particleEffectsReferences, (map)=> { _particleEffectsMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<AssetReference, PoolGameObject>(poolObjectsReferences, (map)=> { _poolObjectsMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<AssetReference, Explodable>(explodablesReferences, (map)=> { _explodablesMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<AssetReference, FiniteStateAudioClip>(FSMLoopsReferences, (map)=> { _FSMLoopsMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<AssetReference, AudioClip>(loopsReferences, (map)=> { _loopsMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<AssetReference, AudioClip>(soundEffectsReferences, (map)=> { _soundEffectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Character>(charactersReferences, (map)=> { _charactersMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Projectile>(projectilesReferences, (map)=> { _projectilesMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, ParticleEffect>(particleEffectsReferences, (map)=> { _particleEffectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, PoolGameObject>(poolObjectsReferences, (map)=> { _poolObjectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Explodable>(explodablesReferences, (map)=> { _explodablesMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, FiniteStateAudioClip>(FSMLoopsReferences, (map)=> { _FSMLoopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(loopsReferences, (map)=> { _loopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(soundEffectsReferences, (map)=> { _soundEffectsMap = map; onProcessEnds(); });
 	}
 
 	/// <summary>Releases Memory.</summary>
 	private void ReleaseMemory()
 	{
-		ReleaseComponentMapping<Character>(ref _charactersMap);
-		ReleaseComponentMapping<Projectile>(ref _projectilesMap);
-		ReleaseComponentMapping<ParticleEffect>(ref _particleEffectsMap);
-		ReleaseComponentMapping<Explodable>(ref _explodablesMap);
-		ReleaseComponentMapping<PoolGameObject>(ref _poolObjectsMap);
-		ReleaseMapping<FiniteStateAudioClip>(ref _FSMLoopsMap);
-		ReleaseMapping<AudioClip>(ref _loopsMap);
-		ReleaseMapping<AudioClip>(ref _soundEffectsMap);
-	}
-
-	/// <summary>Releases Objects contained in given Mapping.</summary>
-	/// <param name="map">Mapping's Reference.</param>
-	private void ReleaseComponentMapping<T>(ref Dictionary<AssetReference, T> map) where T : MonoBehaviour
-	{
-		if(map == null) return;
-
-		foreach(T component in map.Values)
-		{
-			if(component != null)
-			Addressables.Release(component.gameObject);
-		}
-	}
-
-	/// <summary>Releases Objects contained in given Mapping.</summary>
-	/// <param name="map">Mapping's Reference.</param>
-	private void ReleaseMapping<T>(ref Dictionary<AssetReference, T> map) where T : UnityEngine.Object
-	{
-		if(map == null) return;
-
-		foreach(T obj in map.Values)
-		{
-			if(obj != null)
-			Addressables.Release(obj);
-		}
+		charactersMap.Values.ReleaseComponents();
+		projectilesMap.Values.ReleaseComponents();
+		particleEffectsMap.Values.ReleaseComponents();
+		explodablesMap.Values.ReleaseComponents();
+		poolObjectsMap.Values.ReleaseComponents();
+		FSMLoopsMap.Values.ReleaseObjects();
+		loopsMap.Values.ReleaseObjects();
+		soundEffectsMap.Values.ReleaseObjects();
 	}
 
 #region Getters:
-	/// <summary>Gets Character stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets Character stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>Character stored on Dictionary [if there is any].</returns>
-	public static Character GetCharacter(AssetReference _key)
+	public static Character GetCharacter(VAssetReference _key)
 	{
 		if(Instance.charactersMap == null) return null;
 
@@ -187,10 +170,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return character;
 	}
 
-	/// <summary>Gets Projectile stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets Projectile stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>Projectile stored on Dictionary [if there is any].</returns>
-	public static Projectile GetProjectile(AssetReference _key)
+	public static Projectile GetProjectile(VAssetReference _key)
 	{
 		if(Instance.projectilesMap == null) return null;
 
@@ -201,10 +184,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return projectile;
 	}
 
-	/// <summary>Gets Particle-Effect stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets Particle-Effect stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>Particle-Effect stored on Dictionary [if there is any].</returns>
-	public static ParticleEffect GetParticleEffect(AssetReference _key)
+	public static ParticleEffect GetParticleEffect(VAssetReference _key)
 	{
 		if(Instance.particleEffectsMap == null) return null;
 
@@ -215,10 +198,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return effect;
 	}
 
-	/// <summary>Gets Explodable stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets Explodable stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>Explodable stored on Dictionary [if there is any].</returns>
-	public static Explodable GetExplodable(AssetReference _key)
+	public static Explodable GetExplodable(VAssetReference _key)
 	{
 		if(Instance.explodablesMap == null) return null;
 
@@ -229,10 +212,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return explodable;
 	}
 
-	/// <summary>Gets PoolGameObject stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets PoolGameObject stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>PoolGameObject stored on Dictionary [if there is any].</returns>
-	public static PoolGameObject GetPoolGameObject(AssetReference _key)
+	public static PoolGameObject GetPoolGameObject(VAssetReference _key)
 	{
 		if(Instance.poolObjectsMap == null) return null;
 
@@ -243,10 +226,10 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return poolObject;
 	}
 
-	/// <summary>Gets FSMAudioClip stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets FSMAudioClip stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>FSMAudioClip stored on Dictionary [if there is any].</returns>
-	public static FiniteStateAudioClip GetFSMClip(AssetReference _key)
+	public static FiniteStateAudioClip GetFSMClip(VAssetReference _key)
 	{
 		if(Instance.FSMLoopsMap == null) return null;
 
@@ -257,12 +240,12 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		return clip;
 	}
 
-	/// <summary>Gets AudioClip stored on Game's Data by given AssetReference's Key.</summary>
-	/// <param name="_key">AssetReference's Key [as AssetReference].</param>
+	/// <summary>Gets AudioClip stored on Game's Data by given VAssetReference's Key.</summary>
+	/// <param name="_key">VAssetReference's Key [as VAssetReference].</param>
 	/// <returns>AudioClip stored on Dictionary [if there is any].</returns>
-	public static AudioClip GetAudioClip(AssetReference _key, SourceType _type = SourceType.Default)
+	public static AudioClip GetAudioClip(VAssetReference _key, SourceType _type = SourceType.Default)
 	{
-		Dictionary<AssetReference, AudioClip> map = null;
+		Dictionary<VAssetReference, AudioClip> map = null;
 		AudioClip clip = null;
 
 		switch(_type)
@@ -309,6 +292,44 @@ public class ResourcesManager : Singleton<ResourcesManager>
 		builder.AppendLine(soundEffectsMap != null && soundEffectsMap.Count > 0 ? soundEffectsMap.DictionaryToString() : EMPTY);
 
 		return builder.ToString();
+	}
+
+	[Button("Debug VAssetReferences")]
+	/// <summary>Debug Purposes only....</summary>
+	private void DebugVAssetReferences()
+	{
+		VAssetReference a = null;
+
+		foreach(VAssetReference reference in soundEffectsReferences)
+		{
+			if(a != null) 
+			Debug.Log("[ResourcesManager] Is Reference { " + a + " } different than Reference { " + reference + " }? " + (a != reference));
+			a = reference;
+			/*Type t = typeof(VAssetReference);
+			PropertyInfo[] infos = t.GetProperties();
+
+			Debug.Log("[ResourcesManager] VAssetReference to String: " + reference.ToString());
+			Debug.Log("[ResourcesManager] RuntimeKey: " + reference.GetKey());
+
+			foreach(PropertyInfo info in infos)
+			{
+				Debug.Log(reference.ToString() + ": " + info.PropertyInfoToString());
+			}*/
+		}
+	}
+
+	/// <summary>Tests all Resources.</summary>
+	private void Test()
+	{
+		/*foreach(Character character in charactersMap.Values)
+		{
+			Instantiate(character, Vector3.zero, Quaternion.identity);
+		}*/
+
+		foreach(VAssetReference reference in charactersReferences)
+		{
+			Instantiate(charactersMap[reference], Vector3.zero, Quaternion.identity);	
+		}
 	}
 }
 }

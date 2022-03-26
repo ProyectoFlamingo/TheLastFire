@@ -516,15 +516,9 @@ MonoBehaviour:
   - {fileID: 6091767604319536358}
   - {fileID: 3131994991219382320}
   _flashColor: {r: 1, g: 1, b: 1, a: 1}
-  _selfIlluminationTag:
-    _tag: 
-    _ID: 0
-  _amountTag:
-    _tag: 
-    _ID: 0
   _blendTag: 
+  _baseColorTag: 
   _flashColorTag: 
-  _maxSelfIllumination: 0
   _duration: 0
   _cycles: 0
   _shake: 0

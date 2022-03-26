@@ -65,9 +65,13 @@ public abstract class BaseObjectPool<T> : IObjectPool<T>, IEnumerable<T> where T
 	/// <param name="_referenceObject">Pool's Reference Prefab.</param>
 	/// <param name="_size">Pool's starting size.</param>
 	/// <param name="_limit">Pool's Limit.</param>
-	public BaseObjectPool(T _referenceObject, int _size = 0, int _limit = int.MaxValue)
+	public BaseObjectPool(T _referenceObject, int _size = 1, int _limit = int.MaxValue)
 	{
-		if(_referenceObject == null) return;
+		if(_referenceObject == null)
+		{
+			//Debug.LogError("[BaseObjectPool] Reference Object is null...");
+			return;
+		}
 
 		poolStackQueue = new StackQueue<T>();
 		referenceObject = _referenceObject;
@@ -75,6 +79,7 @@ public abstract class BaseObjectPool<T> : IObjectPool<T>, IEnumerable<T> where T
 
 		for(int i = 0; i < _size; i++)
 		{
+			//Debug.Log("[BaseObjectPool] Adding Reference Object: " + _referenceObject.ToString());
 			Add();	
 		}
 	}
@@ -166,6 +171,8 @@ public abstract class BaseObjectPool<T> : IObjectPool<T>, IEnumerable<T> where T
     	builder.AppendLine(occupiedSlotsCount.ToString());
     	builder.Append("Vacant Slots': ");
     	builder.AppendLine(vacantSlotsCount.ToString());
+    	builder.Append("Size: ");
+    	builder.AppendLine(Count.ToString());
     	if(Count > 0)
     	{
     		int index = 0;

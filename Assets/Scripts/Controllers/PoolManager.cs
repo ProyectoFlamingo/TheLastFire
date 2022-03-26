@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,48 +10,50 @@ namespace Flamingo
 {
 public class PoolManager : Singleton<PoolManager>
 {
-	private Dictionary<object, GameObjectPool<Character>> _charactersPoolsMap; 				/// <summary>Mapping of Characters' Pools.</summary>
-	private Dictionary<object, GameObjectPool<Projectile>> _projectilesPoolsMap; 			/// <summary>Mapping of Projectiles' Pools.</summary>
-	private Dictionary<object, GameObjectPool<PoolGameObject>> _gameObjectsPoolsMap; 		/// <summary>Mapping of Pool-GameObjects' Pools.</summary>
-	private Dictionary<object, GameObjectPool<ParticleEffect>> _particleEffectsPoolsMap; 	/// <summary>Mapping of Particle-Effects' Pools.</summary>
-	private Dictionary<object, GameObjectPool<Explodable>> _explodablesPoolsMap; 			/// <summary>Mapping of Explodables' Pools.</summary>
-	private GameObjectPool<Projectile>[] _projectilesPools; 								/// <summary>Pools Projectiles.</summary>
-	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 							/// <summary>PoolGameObjects' Pools.</summary>
-	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 						/// <summary>Pools of Particle's Effects.</summary>
-	private GameObjectPool<Explodable>[] _explodablesPools; 								/// <summary>Pools of Explodables.</summary>
-	private GameObjectPool<SoundEffectLooper> _loopersPool; 								/// <summary>Pool of Sound-Effects' Loopers.</summary>
+	public static event OnResourcesLoaded onPoolsCreated; 											/// <summary>OnResourcesLoaded's Event Delegate.</summary>
+
+	private Dictionary<VAssetReference, GameObjectPool<Character>> _charactersPoolsMap; 				/// <summary>Mapping of Characters' Pools.</summary>
+	private Dictionary<VAssetReference, GameObjectPool<Projectile>> _projectilesPoolsMap; 			/// <summary>Mapping of Projectiles' Pools.</summary>
+	private Dictionary<VAssetReference, GameObjectPool<PoolGameObject>> _gameObjectsPoolsMap; 		/// <summary>Mapping of Pool-GameObjects' Pools.</summary>
+	private Dictionary<VAssetReference, GameObjectPool<ParticleEffect>> _particleEffectsPoolsMap; 	/// <summary>Mapping of Particle-Effects' Pools.</summary>
+	private Dictionary<VAssetReference, GameObjectPool<Explodable>> _explodablesPoolsMap; 			/// <summary>Mapping of Explodables' Pools.</summary>
+	private GameObjectPool<Projectile>[] _projectilesPools; 										/// <summary>Pools Projectiles.</summary>
+	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 									/// <summary>PoolGameObjects' Pools.</summary>
+	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 								/// <summary>Pools of Particle's Effects.</summary>
+	private GameObjectPool<Explodable>[] _explodablesPools; 										/// <summary>Pools of Explodables.</summary>
+	private GameObjectPool<SoundEffectLooper> _loopersPool; 										/// <summary>Pool of Sound-Effects' Loopers.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets charactersPoolsMap property.</summary>
-	public Dictionary<object, GameObjectPool<Character>> charactersPoolsMap
+	public Dictionary<VAssetReference, GameObjectPool<Character>> charactersPoolsMap
 	{
 		get { return _charactersPoolsMap; }
 		private set { _charactersPoolsMap = value; }
 	}
 
 	/// <summary>Gets and Sets projectilesPoolsMap property.</summary>
-	public Dictionary<object, GameObjectPool<Projectile>> projectilesPoolsMap
+	public Dictionary<VAssetReference, GameObjectPool<Projectile>> projectilesPoolsMap
 	{
 		get { return _projectilesPoolsMap; }
 		private set { _projectilesPoolsMap = value; }
 	}
 
 	/// <summary>Gets and Sets particleEffectsPoolsMap property.</summary>
-	public Dictionary<object, GameObjectPool<ParticleEffect>> particleEffectsPoolsMap
+	public Dictionary<VAssetReference, GameObjectPool<ParticleEffect>> particleEffectsPoolsMap
 	{
 		get { return _particleEffectsPoolsMap; }
 		private set { _particleEffectsPoolsMap = value; }
 	}
 
 	/// <summary>Gets and Sets explodablesPoolsMap property.</summary>
-	public Dictionary<object, GameObjectPool<Explodable>> explodablesPoolsMap
+	public Dictionary<VAssetReference, GameObjectPool<Explodable>> explodablesPoolsMap
 	{
 		get { return _explodablesPoolsMap; }
 		private set { _explodablesPoolsMap = value; }
 	}
 
 	/// <summary>Gets and Sets gameObjectsPoolsMap property.</summary>
-	public Dictionary<object, GameObjectPool<PoolGameObject>> gameObjectsPoolsMap
+	public Dictionary<VAssetReference, GameObjectPool<PoolGameObject>> gameObjectsPoolsMap
 	{
 		get { return _gameObjectsPoolsMap; }
 		private set { _gameObjectsPoolsMap = value; }
@@ -95,10 +98,12 @@ public class PoolManager : Singleton<PoolManager>
 	/// <summary>PoolManager's instance initialization.</summary>
 	protected override void OnAwake()
 	{
-		projectilesPools = GameObjectPool<Projectile>.PopulatedPools(Game.data.projectiles);
-		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(Game.data.poolObjects);
-		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(Game.data.particleEffects);
-		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(Game.data.explodables);
+		base.OnAwake();
+
+		projectilesPools = GameObjectPool<Projectile>.PopulatedPools(0, Game.data.projectiles);
+		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(0, Game.data.poolObjects);
+		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(0, Game.data.particleEffects);
+		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(0, Game.data.explodables);
 		loopersPool = new GameObjectPool<SoundEffectLooper>(Game.data.looper);
 	}
 
@@ -122,6 +127,9 @@ public class PoolManager : Singleton<PoolManager>
 		gameObjectsPoolsMap = VAddressables.PopulaledPoolsMapping(ResourcesManager.Instance.poolObjectsMap);
 		particleEffectsPoolsMap = VAddressables.PopulaledPoolsMapping(ResourcesManager.Instance.particleEffectsMap);
 		explodablesPoolsMap = VAddressables.PopulaledPoolsMapping(ResourcesManager.Instance.explodablesMap);
+
+		Test();
+		if(onPoolsCreated != null) onPoolsCreated();
 	}
 
 #region AddressableFunctions:
@@ -129,14 +137,20 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_reference">Character's Asset Reference.</param>
 	/// <param name="_position">Character's Position.</param>
 	/// <param name="_rotation">Character's Rotation.</param>
-	public static Character RequestCharacter(AssetReference _reference, Vector3 _position, Quaternion _rotation)
+	public static Character RequestCharacter(VAssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
 		if(_reference.Empty()) return null;
 
+		Debug.Log("[PoolManager] Requesting Character with VAssetReference " + _reference);
+
+		foreach(VAssetReference reference in Instance.charactersPoolsMap.Keys)
+		{
+			Debug.Log("[PoolManager] Comparing " + reference + " against " + _reference + ": " + (reference.GetKey() == _reference.GetKey() ? "Equal" : "Different"));
+		}
+
 		GameObjectPool<Character> pool = null;
 
-		if(Instance.charactersPoolsMap.TryGetValue(_reference.RuntimeKey, out pool)) return null;
-
+		Instance.charactersPoolsMap.TryGetValue(_reference, out pool);
 		return pool.Recycle(_position, _rotation);
 	}
 
@@ -147,18 +161,19 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_direction">Spawn direction for the Projectile.</param>
 	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
 	/// <returns>Requested Projectile.</returns>
-	public static Projectile RequestProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _direction, GameObject _object = null)
+	public static Projectile RequestProjectile(Faction _faction, VAssetReference _reference, Vector3 _position, Vector3 _direction, GameObject _object = null)
 	{
 		if(_reference.Empty()) return null;
 		
 		GameObjectPool<Projectile> pool = null;
 
-		if(!Instance.projectilesPoolsMap.TryGetValue(_reference.RuntimeKey, out pool)) return null;
+		Instance.projectilesPoolsMap.TryGetValue(_reference, out pool);
 
 		Projectile projectile = pool.Recycle(_position, Quaternion.identity);
-		string tag = _faction == Faction.Ally ? Game.data.playerProjectileTag : Game.data.enemyProjectileTag;
-
+		
 		if(projectile == null) return null;
+
+		string tag = _faction == Faction.Ally ? Game.data.playerProjectileTag : Game.data.enemyProjectileTag;
 
 		projectile.rigidbody.gravityScale = 0.0f;
 		projectile.rigidbody.isKinematic = true;
@@ -185,7 +200,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="target">Target's Function [null by default].</param>
 	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
 	/// <returns>Requested Homing Projectile.</returns>
-	public static Projectile RequestHomingProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _direction, Transform _target, GameObject _object = null)
+	public static Projectile RequestHomingProjectile(Faction _faction, VAssetReference _reference, Vector3 _position, Vector3 _direction, Transform _target, GameObject _object = null)
 	{
 		if(_reference.Empty()) return null;
 
@@ -207,7 +222,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="t">Time it should take the projectile to reach from its position to the given target.</param>
 	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
 	/// <returns>Requested Parabola Projectile.</returns>
-	public static Projectile RequestParabolaProjectile(Faction _faction, AssetReference _reference, Vector3 _position, Vector3 _target, float t, GameObject _object = null)
+	public static Projectile RequestParabolaProjectile(Faction _faction, VAssetReference _reference, Vector3 _position, Vector3 _target, float t, GameObject _object = null)
 	{
 		if(_reference.Empty()) return null;
 
@@ -233,24 +248,15 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_position">Spawn position for the GameObject.</param>
 	/// <param name="_rotation">Spawn rotation for the GameObject.</param>
 	/// <returns>Requested PoolGameObject.</returns>
-	public static PoolGameObject RequestPoolGameObject(AssetReference _reference, Vector3 _position, Quaternion _rotation)
+	public static PoolGameObject RequestPoolGameObject(VAssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
 		if(_reference.Empty()) return null;
 
 		GameObjectPool<PoolGameObject> pool = null;
-		PoolGameObject obj = null;
+		
+		Instance.gameObjectsPoolsMap.TryGetValue(_reference, out pool);
 
-		try
-		{
-			if(Instance.gameObjectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool))
-			obj = pool.Recycle(_position, _rotation);
-		}
-		catch(Exception e)
-		{
-			Debug.LogError("Error catched when trying to retreive PoolGameObject from Asset Reference [" + _reference.ToString() + "]: " + e.Message);
-		}
-
-		return  obj;
+		return pool.Recycle(_position, _rotation);
 	}
 
 	/// <summary>Gets a ParticleEffect from the ParticleEffects' Pools.</summary>
@@ -258,25 +264,15 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_position">Spawn's Position.</param>
 	/// <param name="_rotation">Spawn's Rotation.</param>
 	/// <returns>Requested ParticleEffect.</returns>
-	public static ParticleEffect RequestParticleEffect(AssetReference _reference, Vector3 _position, Quaternion _rotation)
+	public static ParticleEffect RequestParticleEffect(VAssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
-		Debug.Log("[PoolManager] Calling RequestParticleEffect with AssetReference overload");
 		if(_reference.Empty()) return null;
 
 		GameObjectPool<ParticleEffect> pool = null;
-		ParticleEffect effect = null;
 
-		try
-		{
-			if(Instance.particleEffectsPoolsMap.TryGetValue(_reference.RuntimeKey, out pool))
-			effect = pool.Recycle(_position, _rotation);
-		}
-		catch(Exception e)
-		{
-			Debug.LogError("Error catched when trying to retreive Particle-Effect from Asset Reference [" + _reference.ToString() + "]: " + e.Message);
-		}
+		Instance.particleEffectsPoolsMap.TryGetValue(_reference, out pool);
 
-		return effect;
+		return pool.Recycle(_position, _rotation);;
 	}
 
 	/// <summary>Gets a Explodable from the Explodables' Pools.</summary>
@@ -284,13 +280,15 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_position">Spawn's Position.</param>
 	/// <param name="_rotation">Spawn's Rotation.</param>
 	/// <param name="onExplosionEnds">Optional Callback invoked when the explosion ends.</param>
-	public static Explodable RequestExplodable(AssetReference _reference, Vector3 _position, Quaternion _rotation, Action onExplosionEnds = null)
+	public static Explodable RequestExplodable(VAssetReference _reference, Vector3 _position, Quaternion _rotation, Action onExplosionEnds = null)
 	{
 		GameObjectPool<Explodable> pool = null;
 
-		if(!Instance.explodablesPoolsMap.TryGetValue(_reference.RuntimeKey, out pool)) return null;
-
+		Instance.explodablesPoolsMap.TryGetValue(_reference, out pool);
 		Explodable explodable = pool.Recycle(_position, _rotation);
+
+		if(explodable == null) return null;
+
 		explodable.Explode(onExplosionEnds);
 		return explodable;
 	}
@@ -418,6 +416,29 @@ public class PoolManager : Singleton<PoolManager>
 	public static SoundEffectLooper RequestSoundEffectLooper()
 	{
 		return Instance.loopersPool.Recycle(Vector3.zero, Quaternion.identity);
+	}
+
+	/// <returns>String representing PoolManager.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.AppendLine("PoolManager: \n");
+		builder.AppendLine(charactersPoolsMap.DictionaryToString());
+
+		return builder.ToString();
+	}
+
+	/// <summary>Debugs Pools.</summary>
+	private void Test()
+	{
+		int i = 0;
+
+		foreach(KeyValuePair<VAssetReference, GameObjectPool<Character>> pairs in charactersPoolsMap)
+		{
+			Debug.Log("[PoolManager] Character-Pool #" + i + " of VAssetReference " + pairs.Key + ": " + pairs.Value.ToString());
+			i++;
+		}
 	}
 }
 }

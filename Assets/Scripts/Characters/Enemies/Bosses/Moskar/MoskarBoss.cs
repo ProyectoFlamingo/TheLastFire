@@ -50,7 +50,7 @@ public class MoskarBoss : Boss
 	[SerializeField] private FloatRange _evasionSpeed; 								/// <summary>Evasion's Speed's Range.</summary>
 	[Space(5f)]
 	[Header("Attack's Attributes:")]
-	[SerializeField] private AssetReference _projectileReference; 					/// <summary>Projectikle's Asset Reference.</summary>
+	[SerializeField] private VAssetReference _projectileReference; 					/// <summary>Projectikle's Asset Reference.</summary>
 	[SerializeField] private int _projectileIndex; 									/// <summary>Projectile's Index.</summary>
 	[SerializeField] private FloatRange _shootInterval; 							/// <summary>Shooting Interval's Range.</summary>
 	[SerializeField] private IntRange _fireBursts; 									/// <summary>Fire Bursts' Range.</summary>
@@ -64,8 +64,8 @@ public class MoskarBoss : Boss
 	[Space(5f)]
 	[Header("Sounds FXs:")]
 	[SerializeField] private int _sourceIndex; 										/// <summary>Source Index where the SFXs are played.</summary>
-	[SerializeField] private AudioClipAssetReference _hurtSoundReference; 			/// <summary>Hurt Sound's Asset Reference.</summary>
-	[SerializeField] private AudioClipAssetReference _fallenSoundReference; 		/// <summary>Fallen Sound's Asset Reference.</summary>
+	[SerializeField] private VAssetReference _hurtSoundReference; 					/// <summary>Hurt Sound's Asset Reference.</summary>
+	[SerializeField] private VAssetReference _fallenSoundReference; 				/// <summary>Fallen Sound's Asset Reference.</summary>
 	[SerializeField] private int _hurtSoundIndex; 									/// <summary>Hurt SFX's Index.</summary>
 	[SerializeField] private int _fallenSoundIndex; 								/// <summary>Fallen SFX's Index.</summary>
 	[Space(5f)]
@@ -231,13 +231,13 @@ public class MoskarBoss : Boss
 	}
 
 	/// <summary>Gets projectileReference property.</summary>
-	public AssetReference projectileReference { get { return _projectileReference; } }
+	public VAssetReference projectileReference { get { return _projectileReference; } }
 
 	/// <summary>Gets hurtSoundReference property.</summary>
-	public AudioClipAssetReference hurtSoundReference { get { return _hurtSoundReference; } }
+	public VAssetReference hurtSoundReference { get { return _hurtSoundReference; } }
 
 	/// <summary>Gets fallenSoundReference property.</summary>
-	public AudioClipAssetReference fallenSoundReference { get { return _fallenSoundReference; } }
+	public VAssetReference fallenSoundReference { get { return _fallenSoundReference; } }
 
 	/// <summary>Gets and Sets projectileIndex property.</summary>
 	public int projectileIndex

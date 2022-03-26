@@ -356,6 +356,44 @@ public static class VString
 		return builder.ToString();
 	}
 
+	/// <returns>PropertyInfo into String.</returns>
+	public static string PropertyInfoToString(this PropertyInfo _info)
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("PropertyInfo: { Attributes = ");
+		builder.Append(_info.Attributes.ToString());
+		builder.Append(", CanRead = ");
+		builder.Append(_info.CanRead.ToString());
+		builder.Append(", CanWrite = ");
+		builder.Append(_info.CanWrite.ToString());
+		builder.Append(", CustomAttributes = ");
+		builder.Append(_info.CustomAttributes.ToString());
+		builder.Append(", DeclaringType = ");
+		builder.Append(_info.DeclaringType.ToString());
+		builder.Append(", GetMethod = ");
+		builder.Append(_info.GetMethod.ToString());
+		builder.Append(", IsSpecialName = ");
+		builder.Append(_info.IsSpecialName.ToString());
+		builder.Append(", MemberType = ");
+		builder.Append(_info.MemberType.ToString());
+		builder.Append(", MetadataToken = ");
+		builder.Append(_info.MetadataToken.ToString());
+		builder.Append(", Module = ");
+		builder.Append(_info.Module.ToString());
+		builder.Append(", Name = ");
+		builder.Append(_info.Name.ToString());
+		builder.Append(", PropertyType = ");
+		builder.Append(_info.PropertyType.ToString());
+		builder.Append(", ReflectedType = ");
+		builder.Append(_info.ReflectedType.ToString());
+		/*builder.Append(", SetMethod = ");
+		builder.Append(_info.SetMethod.ToString());*/
+		builder.Append(" }");
+
+		return builder.ToString();
+	}
+
 	/*/// <summary>Creates a string representing a ICollection of generic type T and each of its containing elements.</summary>
 	/// <param name="_hashSet">ICollection of generic type T to represent to string.</param>
 	/// <returns>String representing ICollection of generic type T.</returns>
