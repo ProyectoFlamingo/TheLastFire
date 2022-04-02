@@ -32,7 +32,7 @@ public class HealthEventReceiver : MonoBehaviour
 	[TabGroup("FXs", "Particle Effects")][SerializeField] private ParticleEffectEmissionData _hurtParticleEffect; 	/// <summary>Hurt Particle Effect's Emission Data.</summary>
 	[Space(5f)]
 	[Header("Sound Effects:")]
-	[TabGroup("FXs", "Sound Effects")][SerializeField] private int _hurtSoundIndex; 								/// <summary>Hurt's Sound Index.</summary>
+	[TabGroup("FXs", "Sound Effects")][SerializeField] private SoundEffectEmissionData _hurtSoundEffect; 			/// <summary>Hurt's Sound-Effect's Emission Data.</summary>
 	private Material[][] _materials; 																				/// <summary>Materials contained on all Renderers.</summary>
 	private Color[][] _colors; 																						/// <summary>Colors of all materials.</summary>
 	private Coroutine flashRoutine; 																				/// <summary>Flash Coroutine's Reference.</summary>
@@ -124,8 +124,8 @@ public class HealthEventReceiver : MonoBehaviour
 	/// <summary>Gets hurtParticleEffect property.</summary>
 	public ParticleEffectEmissionData hurtParticleEffect { get { return _hurtParticleEffect; } }
 
-	/// <summary>Gets hurtSoundIndex property.</summary>
-	public int hurtSoundIndex { get { return _hurtSoundIndex; } }
+	/// <summary>Gets hurtSoundEffect property.</summary>
+	public SoundEffectEmissionData hurtSoundEffect { get { return _hurtSoundEffect; } }
 
 	/// <summary>Gets and Sets materials property.</summary>
 	public Material[][] materials
@@ -222,7 +222,7 @@ public class HealthEventReceiver : MonoBehaviour
 			if(flash) this.StartCoroutine(FlashRoutine(), ref flashRoutine);
 			if(shake) this.StartCoroutine(ShakeRoutine(), ref shakeRoutine);
 			hurtParticleEffect.EmitParticleEffects();
-			AudioController.PlayOneShot(SourceType.SFX, 0, hurtSoundIndex);
+			AudioController.PlayOneShot(SourceType.SFX, hurtSoundEffect.soundIndex, ResourcesManager.GetAudioClip(hurtSoundEffect.soundReference));
 		}
 	}
 

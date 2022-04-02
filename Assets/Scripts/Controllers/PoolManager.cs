@@ -128,7 +128,7 @@ public class PoolManager : Singleton<PoolManager>
 		particleEffectsPoolsMap = VAddressables.PopulaledPoolsMapping(ResourcesManager.Instance.particleEffectsMap);
 		explodablesPoolsMap = VAddressables.PopulaledPoolsMapping(ResourcesManager.Instance.explodablesMap);
 
-		Test();
+		//Test();
 		if(onPoolsCreated != null) onPoolsCreated();
 	}
 
@@ -140,13 +140,6 @@ public class PoolManager : Singleton<PoolManager>
 	public static Character RequestCharacter(VAssetReference _reference, Vector3 _position, Quaternion _rotation)
 	{
 		if(_reference.Empty()) return null;
-
-		Debug.Log("[PoolManager] Requesting Character with VAssetReference " + _reference);
-
-		foreach(VAssetReference reference in Instance.charactersPoolsMap.Keys)
-		{
-			Debug.Log("[PoolManager] Comparing " + reference + " against " + _reference + ": " + (reference.GetKey() == _reference.GetKey() ? "Equal" : "Different"));
-		}
 
 		GameObjectPool<Character> pool = null;
 

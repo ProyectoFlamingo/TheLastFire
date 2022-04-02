@@ -34,7 +34,6 @@ public class Mateo : Character
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisYCredential; 										/// <summary>Right Axis Y's Animator Credential.</summary>
 	[Space(5f)]
 	[Header("Animation Layers:")]
-	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 														/// <summary>Main's Animation Layer.</summary>
 	[TabGroup("Animations")][SerializeField] private int _fireConjuringAnimationLayer; 												/// <summary>Fire Conjuring's Animation Layer.</summary>
 	[Space(5f)]
 	[Header("Layer Weights' Change Durations:")]
@@ -138,9 +137,6 @@ public class Mateo : Character
 #region Getters/Setters:
 	/// <summary>Gets sword property.</summary>
 	public Sword sword { get { return _sword; } }
-
-	/// <summary>Gets mainAnimationLayer property.</summary>
-	public int mainAnimationLayer { get { return _mainAnimationLayer; } }
 
 	/// <summary>Gets fireConjuringAnimationLayer property.</summary>
 	public int fireConjuringAnimationLayer { get { return _fireConjuringAnimationLayer; } }
@@ -488,7 +484,7 @@ public class Mateo : Character
 		movementAbility.onBraking += OnMovementBraking;
 
 		animator.SetAllLayersWeight(0.0f);
-		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+		animator.SetLayerWeight(mainAnimationLayer, 1.0f);
 		scalarWrapper = new FloatWrapper(attackingGravityScale);
 
 		//Meditate(true);
@@ -519,7 +515,7 @@ public class Mateo : Character
 		if(animator == null) return;
 
 		/*bool x = this.HasAnyOfTheStates(IDs.STATE_JUMPING | IDs.STATE_MEDITATING | IDs.STATE_STANDINGUP | IDs.STATE_HURT | IDs.STATE_DEAD | IDs.STATE_ATTACKING | IDs.STATE_BRAKING | IDs.STATE_CROUCHING);
-		if(!this.HasStates(IDs.STATE_MEDITATING) && animator.GetLayerWeight(_mainAnimationLayer) > 0.0f && !x)
+		if(!this.HasStates(IDs.STATE_MEDITATING) && animator.GetLayerWeight(mainAnimationLayer) > 0.0f && !x)
 		GoToLocomotionAnimation();*/
 
 		//BrakingEvaluation();
@@ -1014,7 +1010,7 @@ public class Mateo : Character
 		dashAbility.CancelDash();
 		DischargeFire();
 		animator.SetAllLayersWeight(0.0f);
-		animator.SetLayerWeight(_mainAnimationLayer, 1.0f);
+		animator.SetLayerWeight(mainAnimationLayer, 1.0f);
 		attackedOnAir = false;
 
 		/// Remove all action flags:

@@ -8,7 +8,7 @@ namespace Voidless
 /// <summary>Callback invoked when a Pool Event happens.</summary>
 public delegate void OnPoolObjectEvent();
 
-public class PoolGameObject : MonoBehaviour, IPoolObject
+public class PoolGameObject : VMonoBehaviour, IPoolObject
 {
 	public event OnPoolObjectEvent onPoolObjectCreation; 				/// <summary>Event invoked when this object is created.</summary>
 	public event OnPoolObjectEvent onPoolObjectReset; 					/// <summary>Event invoked when this object is recycled.</summary>

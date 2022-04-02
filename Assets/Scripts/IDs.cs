@@ -62,5 +62,11 @@ public static class IDs
 	public const int STATE_FOLLOWTARGET = 1 << 16; 				/// <summary>Following Target's State ID.</summary>
 	public const int STATE_ATTACKWINDOW = 1 << 17; 				/// <summary>Attack-Window's State ID.</summary>
 #endregion
+
+#region CoroutinesIDs:
+	public const int COROUTINE_DEFAULT = 0; 					/// <summary>Default Coroutine's ID.</summary>
+	public const int COROUTINE_ATTACK = 1; 						/// <summary>Attack Coroutine's ID.</summary>
+	public const int COROUTINE_ROTATION = 2; 					/// <summary>Rotation Coroutine's ID.</summary>
+#endregion
 }
 }

@@ -17,6 +17,14 @@ public enum AnimationFrameRate
 
 public static class VAnimator
 {
+	public static readonly AnimatorCredential CREDENTIAL_EMPTY; 	/// <summary>Empty's Animator-Credential.</summary>
+
+	/// <summary>VAnimator's static constructor.</summary>
+	static VAnimator()
+	{
+		CREDENTIAL_EMPTY = "Empty";
+	}
+
 	/// <returns>AnimationFrameRate's enum into frame rate [as integer].</returns>
 	public static int ToFrameRate(this AnimationFrameRate _frameRate)
 	{

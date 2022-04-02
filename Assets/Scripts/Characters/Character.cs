@@ -8,6 +8,20 @@ using Sirenix.OdinInspector;
 
 namespace Flamingo
 {
+public enum StateChange
+{
+	Enter,
+	Exit,
+	Added,
+	Removed
+}
+
+/// <summary>Event invoked when a Character's state is changed.</summary>
+/// <param name="_character">Character that invokes the event.</param>
+/// <param name="_state">State Flags.</param>
+/// <param name="_stateChange">Type of State Change.</param>
+public delegate void OnStateChanged(Character _character, int _state, StateChange _stateChange);
+
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(EventsHandler))]
 [RequireComponent(typeof(Skeleton))]
@@ -15,7 +29,9 @@ namespace Flamingo
 [RequireComponent(typeof(HealthEventReceiver))]
 [RequireComponent(typeof(TransformDeltaCalculator))]
 public class Character : PoolGameObject, IStateMachine
-{			
+{
+	public event OnStateChanged onStateChanged; 													/// <summary>OnStateChanged event's delegate.</summary>
+
 	[SerializeField] private Faction _faction; 														/// <summary>Character's Faction.</summary>
 	[Header("Animation's Attributes:")]	
 	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 					/// <summary>Animator's Parent.</summary>
@@ -24,6 +40,9 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 		/// <summary>VAnimatorController's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
+	[Space(5f)]
+	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 						/// <summary>Main Animations' Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 					/// <summary>Attack Animations' Layer.</summary>
 	[Space(5f)]
 	[Range(0.0f, 1.0f)]
 	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 						/// <summary>Default's AnimationClip Fade's Duration.</summary>
@@ -49,7 +68,8 @@ public class Character : PoolGameObject, IStateMachine
 	private Rigidbody2D _rigidbody; 																/// <summary>Rigidbody2D's Component.</summary>
 	private HealthEventReceiver _healthEventReceiver; 												/// <summary>HealthEventReceiver's Component.</summary>
 	private TransformDeltaCalculator _deltaCalculator; 												/// <summary>TransformDeltaCalculator's Component.</summary>
-	protected Coroutine behaviorCoroutine; 															/// <summary>Main Behavior Coroutine's reference.</summary>
+	public Coroutine behaviorCoroutine; 															/// <summary>Main Behavior Coroutine's reference.</summary>
+	public Dictionary<int, Coroutine> coroutinesMap; 											/// <summary>Coroutines' Mapping.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets faction property.</summary>
@@ -155,6 +175,12 @@ public class Character : PoolGameObject, IStateMachine
 		set { _clipFadeDuration = value; }
 	}
 
+	/// <summary>Gets mainAnimationLayer property.</summary>
+	public int mainAnimationLayer { get { return _mainAnimationLayer; } }
+
+	/// <summary>Gets attackAnimationLayer property.</summary>
+	public int attackAnimationLayer { get { return _attackAnimationLayer; } }
+
 	/// <summary>Gets and Sets state property.</summary>
 	public int state
 	{
@@ -259,6 +285,8 @@ public class Character : PoolGameObject, IStateMachine
 
 		/// Add Character reference to self-contained EventsHandler:
 		eventsHandler.character = this;
+		coroutinesMap = new Dictionary<int, Coroutine>();
+		coroutinesMap.Add(IDs.COROUTINE_DEFAULT, null);
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
@@ -282,19 +310,31 @@ public class Character : PoolGameObject, IStateMachine
 #region IFiniteStateMachine:
 	/// <summary>Enters int State.</summary>
 	/// <param name="_state">int State that will be entered.</param>
-	public virtual void OnEnterState(int _state) {/*...*/}
+	public virtual void OnEnterState(int _state)
+	{
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Enter);
+	}
 
 	/// <summary>Exits int State.</summary>
 	/// <param name="_state">int State that will be left.</param>
-	public virtual void OnExitState(int _state) {/*...*/}
+	public virtual void OnExitState(int _state)
+	{
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Exit);
+	}
 
 	/// <summary>Callback invoked when new state's flags are added.</summary>
 	/// <param name="_state">State's flags that were added.</param>
-	public virtual void OnStatesAdded(int _state) {/*...*/}
+	public virtual void OnStatesAdded(int _state)
+	{
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Added);
+	}
 
 	/// <summary>Callback invoked when new state's flags are removed.</summary>
 	/// <param name="_state">State's flags that were removed.</param>
-	public virtual void OnStatesRemoved(int _state) {/*...*/}
+	public virtual void OnStatesRemoved(int _state)
+	{
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Removed);
+	}
 #endregion
 
 #region Colliders&HurtBoxesEnabling:
