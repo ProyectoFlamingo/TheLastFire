@@ -307,7 +307,7 @@ MonoBehaviour:
   - 1
   forceStageTesting: 0
   testStage: 0
-  _phases: 2
+  _phases: 5
   _sightSensor: {fileID: 2340683739067092507}
   _tail: {fileID: 2340683739127628720}
   _projectileReference:
