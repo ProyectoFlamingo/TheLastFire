@@ -52,7 +52,23 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 	[Header("Wander Attributes: ")]
 	[SerializeField] private FloatRange _wanderSpeed; 				/// <summary>Wander's Max Speed's Range.</summary>
 	[SerializeField] private FloatRange _wanderInterval; 			/// <summary>Wander interval between each angle change [as a range].</summary>
+	[Space(5f)]
+	[Header("Flocking Weights:")]
+	[SerializeField] private float _leaderSeekWeight; 				/// <summary>Leader-Seek's Weight.</summary>
+	[SerializeField] private float _separationWeight; 				/// <summary>Separation's Weight.</summary>
+	[SerializeField] private float _cohesionWeight; 				/// <summary>Cohesion's Weight.</summary>
+#if UNITY_EDITOR
+	[Space(5f)]
+	[Header("Moskar Gizmos' Attributes:")]
+	[SerializeField] private Color leaderColor; 					/// <summary>Leader's Color.</summary>
+	[SerializeField] private Color leaderSeekForceColor; 			/// <summary>Leader-Seek Force's Color.</summary>
+	[SerializeField] private Color separationForceColor; 			/// <summary>Separarion Force's Color.</summary>
+	[SerializeField] private Color cohesionForceColor; 				/// <summary>Cohesion Force's Color.</summary>
+	[SerializeField] private float leaderSphereRadius; 				/// <summary>Leader Sphere's Radius.</summary>
+#endif
 	private Dictionary<int, MoskarBoss> _reproductions; 			/// <summary>Moskar's Reproductions.</summary>
+	private Dictionary<int, SteeringVehicle2D> _neighborhood; 		/// <summary>Moskars' group with the exception of the leader.</summary>
+	private MoskarBoss _leader; 									/// <summary>Leader's Reference.</summary>
 	private float _phaseProgress; 									/// <summary>Phase's Normalized Progress.</summary>
 	private float _speedScale; 										/// <summary>Additional Speed's Scale.</summary>
 	private float _totalMoskars; 									/// <summary>Total Moskars that will be reproduced.</summary>
@@ -132,6 +148,15 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 	/// <summary>Gets reproductionPushForce property.</summary>
 	public float reproductionPushForce { get { return _reproductionPushForce; } }
 
+	/// <summary>Gets leaderSeekWeight property.</summary>
+	public float leaderSeekWeight { get { return _leaderSeekWeight; } }
+
+	/// <summary>Gets separationWeight property.</summary>
+	public float separationWeight { get { return _separationWeight; } }
+
+	/// <summary>Gets cohesionWeight property.</summary>
+	public float cohesionWeight { get { return _cohesionWeight; } }
+
 	/// <summary>Gets and Sets totalMoskars property.</summary>
 	public float totalMoskars
 	{
@@ -158,6 +183,20 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 	{
 		get { return _reproductions; }
 		private set { _reproductions = value; }
+	}
+
+	/// <summary>Gets and Sets neighborhood property.</summary>
+	public Dictionary<int, SteeringVehicle2D> neighborhood
+	{
+		get { return _neighborhood; }
+		private set { _neighborhood = value; }
+	}
+
+	/// <summary>Gets and Sets leader property.</summary>
+	public MoskarBoss leader
+	{
+		get { return _leader; }
+		private set { _leader = value; }
 	}
 
 	/// <summary>Gets and Sets boundaries property.</summary>
@@ -188,6 +227,11 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		{
 			Gizmos.DrawWireSphere(waypoint, 0.2f);
 		}
+
+		if(leader == null) return;
+
+		Gizmos.color = leaderColor.WithAlpha(0.5f);
+		Gizmos.DrawSphere(leader.transform.position, leaderSphereRadius);
 	}
 
 	/// <summary>MoskarBossAIController's instance initialization.</summary>
@@ -200,6 +244,8 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		character.sightSensor.enabled = true;
 		character.meshParent.transform.localScale = scale;
 		reproductions = new Dictionary<int, MoskarBoss>();
+		neighborhood = new Dictionary<int, SteeringVehicle2D>();
+		leader = character;
 
 		totalMoskars = 0.0f;
 		speedScale = 1.0f; 	/// I Dunno What to do with it...
@@ -293,7 +339,6 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		float sizeScale = scaleRange.Lerp(it);
 		Vector3 scale = Vector3.one * sizeScale;
 
-		
 		_moskar.duplicateParticleEffect.EmitParticleEffects();
 
 		for(int i = 0; i < 2; i++)
@@ -318,12 +363,65 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 			reproduction.StartCoroutine(reproduction.meshParent.RegularScale(sizeScale, reproductionDuration));
 			reproductionPushes[i].ApplyForce();
 		}
+
+		UpdateLeader();
+	}
+
+	/// <summary>Updates who ought to be the leader and who are its subordinates [neighborhood].</summary>
+	private void UpdateLeader()
+	{
+		/// Choose a Moskar leader...
+		int minPhase = int.MaxValue;
+
+		foreach(MoskarBoss moskar in reproductions.Values)
+		{
+			if(moskar.currentPhase < minPhase)
+			{
+				leader = moskar;
+				minPhase = moskar.currentPhase;
+			}
+		}
+
+		/// Add all Moskars except the boss as neighbors...
+		neighborhood.Clear();
+
+		foreach(MoskarBoss moskar in reproductions.Values)
+		{
+			if(leader != moskar) neighborhood.Add(moskar.GetInstanceID(), moskar.vehicle);
+		}
 	}
 
 	/// <summary>Makes all Moskar reproductions emulate a flocking steering behavior.</summary>
 	private void FlockBehavior()
 	{
+		/*IEnumerator<Vector2> separationForces = SteeringVehicle2D.GetSeparationForces(neighborhood.Values);
+		IEnumerator<Vector2> cohesionForces = SteeringVehicle2D.GetCohesionForces(neighborhood.Values);
 
+		separationForces.MoveNext();
+		cohesionForces.MoveNext();
+
+		foreach(MoskarBoss moskar in reproductions.Values)
+		{
+			if(moskar == leader) continue;
+
+			SteeringVehicle2D vehicle = moskar.vehicle;
+			Vector2 separationForce = vehicle.GetSeekForce(separationForces.Current) * separationWeight;
+			Vector2 cohesionForce = vehicle.GetSeekForce(cohesionForces.Current) * cohesionWeight;
+			Vector2 leaderSeekForce = vehicle.GetSeekForce(leader.transform.position) * leaderSeekWeight;
+			Vector2 sum = separationForce + cohesionForce + leaderSeekForce;
+
+			moskar.rigidbody.MoveIn3D(sum * Time.fixedDeltaTime);
+
+			separationForces.MoveNext();
+			cohesionForces.MoveNext();
+
+#if UNITY_EDITOR
+			Debug.DrawRay(moskar.transform.position, separationForce, separationForceColor);
+			Debug.DrawRay(moskar.transform.position, cohesionForce, cohesionForceColor);
+			Debug.DrawRay(moskar.transform.position, leaderSeekForce, leaderSeekForceColor);
+			Debug.DrawRay(moskar.transform.position, sum, Color.white);
+#endif
+		}*/
 	}
 
 	/// <summary>Enters Wander State.</summary>
@@ -366,8 +464,8 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		_moskar.DispatchCoroutine(ref _moskar.behaviorCoroutine);
 
 		_moskar.StartCoroutine(_moskar.meshParent.PivotToRotation(_moskar.flyingRotation, _moskar.rotationDuration, TransformRelativeness.Local), ref _moskar.rotationCoroutine);
-		_moskar.StartCoroutine(ErraticFlyingBehavior(_moskar), ref _moskar.behaviorCoroutine);
 		_moskar.StartCoroutine(AttackBehavior(_moskar), ref _moskar.attackCoroutine);
+		if(_moskar == leader) _moskar.StartCoroutine(ErraticFlyingBehavior(_moskar), ref _moskar.behaviorCoroutine);
 	}
 #endregion
 
@@ -382,6 +480,9 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 
 		if(moskar == null) return;
 
+		UpdateLeader();
+
+		bool isLeader = moskar == leader;
 		int state = moskar.state;
 
 		switch(_stateChange)
@@ -390,11 +491,13 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 				if((_state | IDs.STATE_IDLE) == _state)
 				{ /// Wander Coroutine:
 					EnterWanderState(moskar);
+					/// Now all Moskars must enter wander state when Mateo meditates...
 				
 				} else if((_state | IDs.STATE_TARGETONSIGHT) == _state)
 				{ /// Warning Coroutine:
 					EnterAttackState(moskar);
 					//EnterWarningState();
+					/// Now all Moskars must enter flocking state with the exception of the leader
 
 				} else if((_state | IDs.STATE_ATTACKING) == _state)
 				{ /// Attack Coroutine:
@@ -512,6 +615,11 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		Game.AddTargetToCamera(_moskar.cameraTarget);
 
 		_moskar.StartCoroutine(WanderBehaviour(_moskar), ref _moskar.behaviorCoroutine);
+
+		CreateMoskarReproductions(character);
+		CreateMoskarReproductions(character);
+		CreateMoskarReproductions(character);
+		CreateMoskarReproductions(character);
 	}
 
 	/// <summary>Wander's Steering Beahviour Coroutine.</summary>

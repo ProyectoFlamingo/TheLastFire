@@ -19,7 +19,15 @@ public static class VGUILayout
 
 		valueText = GUILayout.TextField(valueText, _maxLength, _options);
 
-		return int.TryParse(valueText, out x) ? x : _value;
+		switch(valueText)
+		{
+			case "":
+			case " ":
+				return 0;
+
+			default:
+				return int.TryParse(valueText, out x) ? x : _value;
+		}
 	}
 
 	/// <summary>FloatField for GUILayout [given that the original API does not provide it].</summary>
@@ -34,7 +42,18 @@ public static class VGUILayout
 
 		valueText = GUILayout.TextField(valueText, _maxLength, _options);
 
-		return float.TryParse(valueText, out x) ? x : _value;
+		switch(valueText)
+		{
+			case "":
+			case " ":
+				return 0.0f;
+
+			case ".":
+				return 0.1f;
+
+			default:
+				return float.TryParse(valueText, out x) ? x : _value;
+		}
 	}
 }
 }
