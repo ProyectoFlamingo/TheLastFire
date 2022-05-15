@@ -278,8 +278,8 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 2
   _distance: 5
-  _impactParticleEffectIndex: 0
-  _destroyedParticleEffectIndex: 0
+  _impactParticleEffectIndex: 25
+  _destroyedParticleEffectIndex: 25
   _sourceIndex: 1
   _impactSoundEffectIndex: -1
   _destroyedSoundEffectIndex: -1

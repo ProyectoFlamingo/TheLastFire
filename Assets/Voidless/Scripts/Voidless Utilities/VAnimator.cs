@@ -65,6 +65,17 @@ public static class VAnimator
 		return true;
 	}
 
+	/// <summary>Gets Animator's current animation time.</summary>
+	/// <param name="_animator">Animator Reference.</param>
+	/// <param name="_layer">Animation's Layer [0 by default].</param>
+	/// <returns>Current Animation's Time.</returns>
+	public static float GetCurrentTime(this Animator _animator, int _layer = 0)
+	{
+		AnimatorStateInfo info = _animator.GetCurrentAnimatorStateInfo(_layer);
+		
+		return info.normalizedTime % 1.0f;
+	}
+
 	/// <param name="_animator">Animator to retrieve current AnimatorStateInfo from.</param>
 	/// <param name="_layerID">Layer's ID [0 by default].</param>
 	/// <returns>Animator's Current AnimatorStateInfo's normalizedTime property, but clamped at 1.0f.</returns>

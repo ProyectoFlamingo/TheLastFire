@@ -220,9 +220,10 @@ public static class VVector2
 		float aDistance = a.magnitude;
 		float bDistance = b.magnitude;
 		float dot = ((a.x * b.x) + (a.y * b.y));
-		float angle = (Mathf.Acos(dot / (aDistance * bDistance)));
+		float x = dot / (aDistance * bDistance);
+		float angle = Mathf.Acos(x);
 
-		return aDistance * Mathf.Cos(angle * Mathf.Rad2Deg);
+		return aDistance * Mathf.Cos(angle);
 	}
 
 	/// <summary>Calculates Vector projection of Vector A into B.</summary>

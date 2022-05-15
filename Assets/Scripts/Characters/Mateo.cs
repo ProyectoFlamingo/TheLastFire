@@ -514,7 +514,7 @@ public class Mateo : Character
 
 		if(animator == null) return;
 
-		/*bool x = this.HasAnyOfTheStates(IDs.STATE_JUMPING | IDs.STATE_MEDITATING | IDs.STATE_STANDINGUP | IDs.STATE_HURT | IDs.STATE_DEAD | IDs.STATE_ATTACKING | IDs.STATE_BRAKING | IDs.STATE_CROUCHING);
+		/*bool x = this.HasAnyOfTheStates(IDs.STATE_JUMPING | IDs.STATE_MEDITATING | IDs.STATE_STANDINGUP | IDs.STATE_HURT | IDs.STATE_DEAD | IDs.STATE_ATTACKING_0 | IDs.STATE_BRAKING | IDs.STATE_CROUCHING);
 		if(!this.HasStates(IDs.STATE_MEDITATING) && animator.GetLayerWeight(mainAnimationLayer) > 0.0f && !x)
 		GoToLocomotionAnimation();*/
 
@@ -547,7 +547,7 @@ public class Mateo : Character
 		|| this.HasStates(IDs.STATE_HURT)
 		|| this.HasStates(IDs.STATE_CROUCHING)
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
-		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING))
+		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING_0))
 		|| dashAbility.state == DashState.Dashing
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| (wallEvaluator.walled && Mathf.Sign(_axes.x) == Mathf.Sign(direction.x))) return;
@@ -708,7 +708,7 @@ public class Mateo : Character
 		*/
 		if(jumpAbility.HasStates(JumpAbility.STATE_ID_GROUNDED)
 		&& deltaCalculator.deltaPosition.sqrMagnitude == 0.0f
-		&& (this.HasStates(IDs.STATE_ALIVE) && !this.HasStates(IDs.STATE_ATTACKING) && !this.HasStates(IDs.STATE_CROUCHING) && !this.HasStates(IDs.STATE_CHARGINGFIRE) && !this.HasStates(IDs.STATE_STANDINGUP)))
+		&& (this.HasStates(IDs.STATE_ALIVE) && !this.HasStates(IDs.STATE_ATTACKING_0) && !this.HasStates(IDs.STATE_CROUCHING) && !this.HasStates(IDs.STATE_CHARGINGFIRE) && !this.HasStates(IDs.STATE_STANDINGUP)))
 		{
 			meditationWaitTime += Time.deltaTime;
 
@@ -757,7 +757,7 @@ public class Mateo : Character
 		if(!this.HasStates(IDs.STATE_ATTACKWINDOW)
 		&& (!this.HasStates(IDs.STATE_ALIVE)
 		|| this.HasStates(IDs.STATE_HURT)
-		|| this.HasStates(IDs.STATE_ATTACKING)
+		|| this.HasStates(IDs.STATE_ATTACKING_0)
 		|| wallEvaluator.state == WallEvaluationEvent.Bouncing
 		|| jumpAbility.HasStates(JumpAbility.STATE_ID_LANDING)
 		|| attackedOnAir)) return;
@@ -783,7 +783,7 @@ public class Mateo : Character
 			animationHash = jumpAbility.GetJumpIndex() > 0 ? additionalJumpSwordAttackCredential : normalJumpSwordAttackCredential;
 		}
 
-		state |= IDs.STATE_ATTACKING;
+		state |= IDs.STATE_ATTACKING_0;
 		state &= ~IDs.STATE_ATTACKWINDOW;
 
 		animatorController.DeactivateLayer(mainAnimationLayer);
@@ -810,7 +810,7 @@ public class Mateo : Character
 		//hurtBox.SetActive(true);
 		health.OnInvincibilityCooldownEnds();
 		sword.ActivateHitBoxes(false);
-		state &= ~IDs.STATE_ATTACKING;
+		state &= ~IDs.STATE_ATTACKING_0;
 		jumpAbility.gravityApplier.RejectScaleChange(GetInstanceID());
 	}
 #endregion
@@ -919,7 +919,7 @@ public class Mateo : Character
 		*/
 		if(this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_STANDINGUP)
 		|| !this.HasStates(IDs.STATE_ALIVE)
-		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING))) return;
+		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING_0))) return;
 
 		Meditate(false, IDs.STATE_JUMPING);
 
@@ -939,7 +939,7 @@ public class Mateo : Character
 	{
 		if(!this.HasStates(IDs.STATE_ALIVE)
 		|| !jumpAbility.grounded
-		|| this.HasAnyOfTheStates(IDs.STATE_CROUCHING | IDs.STATE_JUMPING | IDs.STATE_ATTACKING | IDs.STATE_MEDITATING | IDs.STATE_HURT | IDs.STATE_STANDINGUP)) return;
+		|| this.HasAnyOfTheStates(IDs.STATE_CROUCHING | IDs.STATE_JUMPING | IDs.STATE_ATTACKING_0 | IDs.STATE_MEDITATING | IDs.STATE_HURT | IDs.STATE_STANDINGUP)) return;
 
 		state |= IDs.STATE_CROUCHING;
 		animatorController.CrossFade(crouchCredential, crouchFadeDuration, mainAnimationLayer);
@@ -1014,7 +1014,7 @@ public class Mateo : Character
 		attackedOnAir = false;
 
 		/// Remove all action flags:
-		state &= ~(IDs.STATE_ATTACKING | IDs.STATE_JUMPING | IDs.STATE_CROUCHING | IDs.STATE_CHARGINGFIRE | IDs.STATE_MEDITATING | IDs.STATE_BRAKING | IDs.STATE_STANDINGUP | IDs.STATE_ATTACKWINDOW);
+		state &= ~(IDs.STATE_ATTACKING_0 | IDs.STATE_JUMPING | IDs.STATE_CROUCHING | IDs.STATE_CHARGINGFIRE | IDs.STATE_MEDITATING | IDs.STATE_BRAKING | IDs.STATE_STANDINGUP | IDs.STATE_ATTACKWINDOW);
 
 		/// Re-evaluate Callbacks:
 		OnJumpStateChange(jumpAbility.state, jumpAbility.GetJumpIndex());
@@ -1031,7 +1031,7 @@ public class Mateo : Character
 	{
 		if(!this.HasStates(IDs.STATE_ALIVE)) return;
 
-		if(!this.HasStates(IDs.STATE_ATTACKING))
+		if(!this.HasStates(IDs.STATE_ATTACKING_0))
 		{
 			animator.SetFloat(leftAxisXCredential, _axes.x);
 			animator.SetFloat(leftAxisYCredential, _axes.y);

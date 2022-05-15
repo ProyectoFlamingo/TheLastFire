@@ -441,7 +441,7 @@ public class ShantyBoss : Boss
 		if(Game.state == GameState.Transitioning) return;
 
 		this.RemoveStates(IDs.STATE_IDLE);
-		this.AddStates(IDs.STATE_ATTACKING);
+		this.AddStates(IDs.STATE_ATTACKING_0);
 		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 
 		switch(currentStage)
@@ -750,7 +750,7 @@ public class ShantyBoss : Boss
 		this.StartCoroutine(animation.CrossFadeAndWait(untiedAnnimation, 0.3f, PlayMode.StopSameLayer, 0.0f,
 		()=>
 		{
-			this.AddStates(IDs.STATE_ATTACKING);
+			this.AddStates(IDs.STATE_ATTACKING_0);
 		}));
 	}
 
@@ -763,7 +763,7 @@ public class ShantyBoss : Boss
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
 			animation.CrossFade(idleAnimation);
 
-		} else if((_state | IDs.STATE_ATTACKING) == _state)
+		} else if((_state | IDs.STATE_ATTACKING_0) == _state)
 		{
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 			BeginAttackRoutine();
@@ -771,11 +771,11 @@ public class ShantyBoss : Boss
 		} else if((_state | IDs.STATE_HURT) == _state)
 		{
 			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_DAMAGE);
-			this.RemoveStates(IDs.STATE_ATTACKING);
+			this.RemoveStates(IDs.STATE_ATTACKING_0);
 			/*this.StartCoroutine(animator.WaitForAnimatorState(0, 0.0f,
 			()=>
 			{
-				this.AddStates(IDs.STATE_ATTACKING);
+				this.AddStates(IDs.STATE_ATTACKING_0);
 			}));*/
 		}
 	}
@@ -957,7 +957,7 @@ public class ShantyBoss : Boss
 
 				//animator.SetInteger(vitalityIDCredential, damageID);
 				animation.CrossFade(damageClip);
-				this.RemoveStates(IDs.STATE_ATTACKING);
+				this.RemoveStates(IDs.STATE_ATTACKING_0);
 				this.AddStates(IDs.STATE_HURT);
 				break;
 			}

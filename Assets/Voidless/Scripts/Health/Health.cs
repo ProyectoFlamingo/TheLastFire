@@ -266,10 +266,14 @@ public class Health : MonoBehaviour, IStateMachine
         builder.AppendLine(hp.ToString());
         builder.Append("Max HP: ");
         builder.AppendLine(maxHP.ToString());
-        builder.Append("On Hit-Stun: ");
-        builder.AppendLine(onHitStun.ToString());
-        builder.Append("On Invincibility: ");
-        builder.AppendLine(onInvincibility.ToString());
+
+        if(Application.isPlaying)
+        {
+            builder.Append("On Hit-Stun: ");
+            builder.AppendLine(onHitStun.ToString());
+            builder.Append("On Invincibility: ");
+            builder.AppendLine(onInvincibility.ToString());
+        }
 
         return builder.ToString();
     }

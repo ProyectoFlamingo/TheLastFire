@@ -10,8 +10,8 @@ namespace Flamingo
 {
 public enum StateChange
 {
-	Enter,
-	Exit,
+	Entered,
+	Left,
 	Added,
 	Removed
 }
@@ -30,46 +30,48 @@ public delegate void OnStateChanged(Character _character, int _state, StateChang
 [RequireComponent(typeof(TransformDeltaCalculator))]
 public class Character : PoolGameObject, IStateMachine
 {
-	public event OnStateChanged onStateChanged; 													/// <summary>OnStateChanged event's delegate.</summary>
+	public event OnStateChanged onStateChanged; 														/// <summary>OnStateChanged event's delegate.</summary>
 
-	[SerializeField] private Faction _faction; 														/// <summary>Character's Faction.</summary>
+	[InfoBox("@ToString()")]
+	[SerializeField] private Faction _faction; 															/// <summary>Character's Faction.</summary>
 	[Header("Animation's Attributes:")]	
-	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 					/// <summary>Animator's Parent.</summary>
-	[TabGroup("Animations")][SerializeField] private Transform _meshParent; 						/// <summary>Mesh's Parent.</summary>
-	[TabGroup("Animations")][SerializeField] private Animator _animator; 							/// <summary>Animator's Component.</summary>
-	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 		/// <summary>VAnimatorController's Component.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 	/// <summary>AnimationEventInvoker's Component.</summary>
-	[TabGroup("Animations")][SerializeField] private Animation _animation; 							/// <summary>Animation's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private Transform _animatorParent; 						/// <summary>Animator's Parent.</summary>
+	[TabGroup("Animations")][SerializeField] private Transform _meshParent; 							/// <summary>Mesh's Parent.</summary>
+	[TabGroup("Animations")][SerializeField] private Animator _animator; 								/// <summary>Animator's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 			/// <summary>VAnimatorController's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 		/// <summary>AnimationEventInvoker's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private Animation _animation; 								/// <summary>Animation's Component.</summary>
+	[TabGroup("Animations")][SerializeField] private OnAnimatorMoveOverrider _onAnimatorMoveOverrider; 	/// <summary>OnAnimatorMoveOverrider component attached to the Animator's GameObject.</summary>
 	[Space(5f)]
-	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 						/// <summary>Main Animations' Layer.</summary>
-	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 					/// <summary>Attack Animations' Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 							/// <summary>Main Animations' Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 						/// <summary>Attack Animations' Layer.</summary>
 	[Space(5f)]
 	[Range(0.0f, 1.0f)]
-	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 						/// <summary>Default's AnimationClip Fade's Duration.</summary>
+	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 							/// <summary>Default's AnimationClip Fade's Duration.</summary>
 	[Space(5f)]
 	[Header("Colliders & Hurt-Boxes:")]
-	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _hurtBoxes; 		/// <summary>Hurt-Boxes.</summary>
-	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _jointedHitBoxes; 	/// <summary>Jointed Hit-Boxes [for Contact-Weapons].</summary>
-	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _physicalColliders; 	/// <summary>Physical Colliders [Collider2Ds that don't have onTrigger enabled].</summary>
-	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _triggerColliders; 	/// <summary>Trigger Colliders [Collider2Ds that have onTrigger enabled, they can or cannot be the same Hurt-Boxes' triggers].</summary>
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _hurtBoxes; 			/// <summary>Hurt-Boxes.</summary>
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D[] _jointedHitBoxes; 		/// <summary>Jointed Hit-Boxes [for Contact-Weapons].</summary>
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _physicalColliders; 		/// <summary>Physical Colliders [Collider2Ds that don't have onTrigger enabled].</summary>
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private Collider2D[] _triggerColliders; 		/// <summary>Trigger Colliders [Collider2Ds that have onTrigger enabled, they can or cannot be the same Hurt-Boxes' triggers].</summary>
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[TabGroup("Gizmos")][SerializeField] protected Color gizmosColor; 								/// <summary>Gizmos' Color.</summary>
-	[TabGroup("Gizmos")][SerializeField] protected float gizmosRadius; 								/// <summary>Gizmos' Radius.</summary>
+	[TabGroup("Gizmos")][SerializeField] protected Color gizmosColor; 									/// <summary>Gizmos' Color.</summary>
+	[TabGroup("Gizmos")][SerializeField] protected float gizmosRadius; 									/// <summary>Gizmos' Radius.</summary>
 //#endif
-	private int _state; 																			/// <summary>Character's Current State.</summary>
-	private int _previousState; 																	/// <summary>Character's Previous Current State.</summary>
-	public int ignoreResetMask { get; set; } 														/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
-	private Health _health; 																		/// <summary>Health's Component.</summary>
-	private EventsHandler _eventsHandler; 															/// <summary>EventsHandler's Component.</summary>
-	private VCameraTarget _cameraTarget; 															/// <summary>VCameraTarget's Component.</summary>
-	private Skeleton _skeleton; 																	/// <summary>Skeleton's Component.</summary>
-	private Rigidbody2D _rigidbody; 																/// <summary>Rigidbody2D's Component.</summary>
-	private HealthEventReceiver _healthEventReceiver; 												/// <summary>HealthEventReceiver's Component.</summary>
-	private TransformDeltaCalculator _deltaCalculator; 												/// <summary>TransformDeltaCalculator's Component.</summary>
-	public Coroutine behaviorCoroutine; 															/// <summary>Main Behavior Coroutine's reference.</summary>
-	public Dictionary<int, Coroutine> coroutinesMap; 											/// <summary>Coroutines' Mapping.</summary>
+	private int _state; 																				/// <summary>Character's Current State.</summary>
+	private int _previousState; 																		/// <summary>Character's Previous Current State.</summary>
+	public int ignoreResetMask { get; set; } 															/// <summary>Mask that selectively contains state to ignore resetting if they were added again [with AddState's method]. As it is 0 by default, it won't ignore resetting any state [~0 = 11111111]</summary>
+	private Health _health; 																			/// <summary>Health's Component.</summary>
+	private EventsHandler _eventsHandler; 																/// <summary>EventsHandler's Component.</summary>
+	private VCameraTarget _cameraTarget; 																/// <summary>VCameraTarget's Component.</summary>
+	private Skeleton _skeleton; 																		/// <summary>Skeleton's Component.</summary>
+	private Rigidbody2D _rigidbody; 																	/// <summary>Rigidbody2D's Component.</summary>
+	private HealthEventReceiver _healthEventReceiver; 													/// <summary>HealthEventReceiver's Component.</summary>
+	private TransformDeltaCalculator _deltaCalculator; 													/// <summary>TransformDeltaCalculator's Component.</summary>
+	public Coroutine behaviorCoroutine; 																/// <summary>Main Behavior Coroutine's reference.</summary>
+	public Dictionary<int, Coroutine> coroutinesMap; 													/// <summary>Coroutines' Mapping.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets faction property.</summary>
@@ -146,6 +148,13 @@ public class Character : PoolGameObject, IStateMachine
 	{
 		get { return _animationEventInvoker; }
 		set { _animationEventInvoker = value; }
+	}
+
+	/// <summary>Gets and Sets onAnimatorMoveOverrider property.</summary>
+	public OnAnimatorMoveOverrider onAnimatorMoveOverrider
+	{
+		get { return _onAnimatorMoveOverrider; }
+		set { _onAnimatorMoveOverrider = value; }
 	}
 
 	/// <summary>Gets deltaCalculator Component.</summary>
@@ -312,14 +321,14 @@ public class Character : PoolGameObject, IStateMachine
 	/// <param name="_state">int State that will be entered.</param>
 	public virtual void OnEnterState(int _state)
 	{
-		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Enter);
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Entered);
 	}
 
 	/// <summary>Exits int State.</summary>
 	/// <param name="_state">int State that will be left.</param>
 	public virtual void OnExitState(int _state)
 	{
-		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Exit);
+		if(onStateChanged != null) onStateChanged(this, _state, StateChange.Left);
 	}
 
 	/// <summary>Callback invoked when new state's flags are added.</summary>
@@ -435,30 +444,6 @@ public class Character : PoolGameObject, IStateMachine
 	}
 
 #region StringDebugging:
-	/// <returns>States to string</returns>
-	public virtual string StatesToString()
-	{
-		StringBuilder builder = new StringBuilder();
-
-		builder.AppendLine("State Mask:");
-		builder.Append("Alive: ");
-		builder.AppendLine(this.HasState(IDs.STATE_ALIVE).ToString());
-		builder.Append("Idle: ");
-		builder.AppendLine(this.HasState(IDs.STATE_IDLE).ToString());
-		builder.Append("PlayerOnSight: ");
-		builder.AppendLine(this.HasState(IDs.STATE_TARGETONSIGHT).ToString());
-		builder.Append("FollowPlayer: ");
-		builder.AppendLine(this.HasState(IDs.STATE_FOLLOWTARGET).ToString());
-		builder.Append("Attack: ");
-		builder.AppendLine(this.HasState(IDs.STATE_ATTACKING).ToString());
-		builder.Append("Vulnerable: ");
-		builder.Append(this.HasState(IDs.STATE_VULNERABLE).ToString());
-		builder.Append("Hurt: ");
-		builder.Append(this.HasState(IDs.STATE_HURT).ToString());
-
-		return builder.ToString();
-	}
-
 	/// <returns>String representing enemy's stats.</returns>
 	public override string ToString()
 	{
@@ -468,7 +453,11 @@ public class Character : PoolGameObject, IStateMachine
 		builder.AppendLine(" Character: ");
 		builder.Append("Faction: ");
 		builder.AppendLine(faction.ToString());
-		builder.AppendLine(StatesToString());
+		builder.AppendLine();
+		builder.Append("Previous States: ");
+		builder.AppendLine(IDs.GetStates(previousState));
+		builder.Append("States: ");
+		builder.AppendLine(IDs.GetStates(state));
 		builder.AppendLine();
 		builder.AppendLine(health.ToString());
 

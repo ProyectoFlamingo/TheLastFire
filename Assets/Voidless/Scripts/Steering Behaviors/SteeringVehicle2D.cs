@@ -21,9 +21,11 @@ public class SteeringVehicle2D : MonoBehaviour
 	[SerializeField] private float _maxForce; 			/// <summary>Vehicle's Maximum Steering Force.</summary>
 	[SerializeField] private float _mass; 				/// <summary>Vehicle's Mass.</summary>
 	[Space(5f)]
+	[SerializeField] private float _radius; 			/// <summary>Vehicle's Radius.</summary>
+	[Space(5f)]
 	[Header("Wander's Attributes:")]
 	[SerializeField] private float _offset; 			/// <summary>Wander's Offset [Circle Distance].</summary>
-	[SerializeField] private float _radius; 			/// <summary>Wander's Radius.</summary>
+	[SerializeField] private float _wanderRadius; 		/// <summary>Wander's Radius.</summary>
 	[SerializeField] private float _angleChange; 		/// <summary>Wander's Angle Change.</summary>
 	[Space(5f)]
 	[Header("Flocking Attributes:")]
@@ -65,6 +67,13 @@ public class SteeringVehicle2D : MonoBehaviour
 	{
 		get { return _offset; }
 		set { _offset = value; }
+	}
+
+	/// <summary>Gets and Sets wanderRadius property.</summary>
+	public float wanderRadius
+	{
+		get { return _wanderRadius; }
+		set { _wanderRadius = value; }
 	}
 
 	/// <summary>Gets and Sets radius property.</summary>
@@ -131,10 +140,11 @@ public class SteeringVehicle2D : MonoBehaviour
 		{
 			Vector3 circleCenter = transform.position + (Vector3)(offset != 0.0f ? velocity.normalized * offset : Vector2.zero);
 
-			Gizmos.DrawWireSphere(circleCenter, radius);
+			Gizmos.DrawWireSphere(circleCenter, wanderRadius);
 		}
 
 		Gizmos.DrawRay(transform.position, velocity);
+		Gizmos.DrawWireSphere(transform.position, radius);
 	}
 #endif
 
@@ -188,23 +198,30 @@ public class SteeringVehicle2D : MonoBehaviour
 
 	/// <summary>Displaces towards velocity.</summary>
 	/// <param name="dt">Delta Time.</param>
-	public void Displace(float dt) { transform.position += ((Vector3)velocity * dt); }
+	public void Displace(float dt) { transform.position += ((Vector3)velocity * dt).NaNFilter(); }
+
+	/// <summary>Projects the vehicle on given time.</summary>
+	/// <param name="t">Time's Projection [1.0f by default].</param>
+	public Vector2 Project(float t = 1.0f) { return GetPosition() + (velocity * t); }
 
 	/// <summary>Rotates towards velocity.</summary>
 	/// <param name="dt">Delta Time.</param>
-	public void Rotate(float dt)
+	/// <param name="_fix">Fix rotation when direction's x from the transform is less than 0.0f? false by default.</param>
+	public void Rotate(float dt, bool _fix = false)
 	{
-		Rotate((Vector3)velocity, dt);
+		Rotate((Vector3)velocity, dt, _fix);
 	}
 
 	/// <summary>Rotates towards given direction.</summary>
 	/// <param name="d">Direction to rotate towards.</param>
 	/// <param name="dt">Delta Time.</param>
-	public void Rotate(Vector3 d, float dt)
+	/// <param name="_fix">Fix rotation when direction's x from the transform is less than 0.0f? false by default.</param>
+	public void Rotate(Vector3 d, float dt, bool _fix = false)
 	{
 		if(velocity.sqrMagnitude == 0.0f) return;
 
-		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(d), rotationSpeed * dt);
+		Quaternion rotation = _fix ? VQuaternion.LookRotation(d, Vector3.up) : Quaternion.LookRotation(d) ;
+		transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, rotationSpeed * dt);
 	}
 
 #region LocalFunctions:
@@ -224,10 +241,16 @@ public class SteeringVehicle2D : MonoBehaviour
 		return GetFleeForce(transform.position, t, ref velocity, maxSpeed, maxForce, mass);
 	}
 
+	/// <returns>Wandering Point.</returns>
+	public Vector2 GetWanderPoint()
+	{
+		return GetWanderPoint(transform.position, ref velocity, maxSpeed, maxForce, offset, wanderRadius, ref wanderAngle, angleChange, mass);
+	}
+
 	/// <returns>Wandering Steering Force.</returns>
 	public Vector2 GetWanderForce()
 	{
-		return GetWanderForce(transform.position, ref velocity, maxSpeed, maxForce, offset, radius, ref wanderAngle, angleChange, mass);
+		return GetWanderForce(transform.position, ref velocity, maxSpeed, maxForce, offset, wanderRadius, ref wanderAngle, angleChange, mass);
 	}
 
 	/// <summary>Gets Arrival Weight between vehicle and target.</summary>
@@ -400,9 +423,31 @@ public class SteeringVehicle2D : MonoBehaviour
 		return steering;
 	}
 
+	/// <summary>Gets Wandering Point.</summary>
+	/// <param name="p">Vehicle's Position.</param>
+	/// <param name="v">Velocity's reference.</param>
+	/// <param name="s">Vehicle's Maximum Speed.</param>
+	/// <param name="f">Vehicle's Maximum Steering Force.</param>
+	/// <param name="d">Circle's Distance from the position.</param>
+	/// <param name="r">Circle's Radius.</param>
+	/// <param name="a">Wander Angle's reference.</param>
+	/// <param name="m">Vehicle's Mass [1.0 by default].</param>
+	/// <returns>Wandering Point [without steering force applied].</returns>
+	public static Vector2 GetWanderPoint(Vector2 p, ref Vector2 v, float s, float f, float d, float r, ref float a, float c, float m = 1.0f)
+	{
+		Vector2 displacement = (v.sqrMagnitude == 0.0f ? Vector2.right : v.normalized) * r;
+		Vector2 circleCenter = p + (v.normalized * d);
+
+		a += Random.Range(-c, c);
+
+		/// No need to rotate the vector if there is no angle...
+		if(a != 0.0f) displacement = displacement.Rotate(a);
+
+		return (circleCenter + displacement);
+	}
+
 	/// <summary>Gets Wandering Steering Force.</summary>
 	/// <param name="p">Vehicle's Position.</param>
-	/// <param name="t">Target's position.</param>
 	/// <param name="v">Velocity's reference.</param>
 	/// <param name="s">Vehicle's Maximum Speed.</param>
 	/// <param name="f">Vehicle's Maximum Steering Force.</param>
@@ -413,19 +458,11 @@ public class SteeringVehicle2D : MonoBehaviour
 	/// <returns>Wandering Steering Force.</returns>
 	public static Vector2 GetWanderForce(Vector2 p, ref Vector2 v, float s, float f, float d, float r, ref float a, float c, float m = 1.0f)
 	{
-		Vector2 displacement = Vector2.right * r;
-		Vector2 circleCenter = p + (v.normalized * d);
-		Vector2 target = Vector2.zero;
-
-		a += Random.Range(-c, c);
-
-		/// No need to rotate the vector if there is no angle...
-		if(a != 0.0f) displacement = displacement.Rotate(a);
-
-		target = circleCenter + displacement;
+		Vector2 target = GetWanderPoint(p, ref v, s, f, d, r, ref a, c, m);
 
 #if UNITY_EDITOR
 		Debug.DrawRay(target, Vector3.back * 5.0f, Color.cyan, 5.0f);
+		Debug.DrawRay(p, target - p, Color.cyan, 5.0f);
 #endif
 
 		return GetSeekForce(p, target, ref v, s, f, m);

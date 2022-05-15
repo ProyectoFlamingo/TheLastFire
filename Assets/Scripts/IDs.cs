@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,19 +49,24 @@ public static class IDs
 	public const int STATE_MOVING = 1 << 2; 					/// <summary>Moving's State ID.</summary>
 	public const int STATE_HURT = 1 << 3; 						/// <summary>Hurt's State ID.</summary>
 	public const int STATE_COLLIDED = 1 << 4; 					/// <summary>Collided's State ID.</summary>
-	public const int STATE_ATTACKING = 1 << 5; 					/// <summary>Attacking's State ID.</summary>
-	public const int STATE_VULNERABLE = 1 << 6; 				/// <summary>Vulnerable's State ID.</summary>
-	public const int STATE_MEDITATING = 1 << 7; 				/// <summary>Meditating's State ID.</summary>
-	public const int STATE_SWORDEQUIPPED = 1 << 8; 				/// <summary>Sword Equipped's State ID.</summary>
-	public const int STATE_FIRECONJURINGCAPACITY = 1 << 9; 		/// <summary>Mire Conjuring's Capacity State's ID.</summary>
-	public const int STATE_JUMPING = 1 << 10; 					/// <summary>Jumping's State ID.</summary>
-	public const int STATE_CHARGINGFIRE = 1 << 11; 				/// <summary>Fire Conjuring's State ID.</summary>
-	public const int STATE_CROUCHING = 1 << 12; 				/// <summary>Crouching's State ID.</summary>
-	public const int STATE_BRAKING = 1 << 13; 					/// <summary>Braking's State ID.</summary>
-	public const int STATE_STANDINGUP = 1 << 14; 				/// <summary>Standing Up's State ID.</summary>
-	public const int STATE_TARGETONSIGHT = 1 << 15; 			/// <summary>Target On-Sight's State ID.</summary>
-	public const int STATE_FOLLOWTARGET = 1 << 16; 				/// <summary>Following Target's State ID.</summary>
-	public const int STATE_ATTACKWINDOW = 1 << 17; 				/// <summary>Attack-Window's State ID.</summary>
+	public const int STATE_ATTACKING_0 = 1 << 5; 				/// <summary>Attacking Type 0's State ID.</summary>
+	public const int STATE_ATTACKING_1 = 1 << 6; 				/// <summary>Attacking Type 1's State ID.</summary>
+	public const int STATE_ATTACKING_2 = 1 << 7; 				/// <summary>Attacking Type 2's State ID.</summary>
+	public const int STATE_ATTACKING_3 = 1 << 8; 				/// <summary>Attacking Type 3's State ID.</summary>
+	public const int STATE_ATTACKING_4 = 1 << 9; 				/// <summary>Attacking Type 4's State ID.</summary>
+	public const int STATE_VULNERABLE = 1 << 10; 				/// <summary>Vulnerable's State ID.</summary>
+	public const int STATE_MEDITATING = 1 << 12; 				/// <summary>Meditating's State ID.</summary>
+	public const int STATE_SWORDEQUIPPED = 1 << 14; 			/// <summary>Sword Equipped's State ID.</summary>
+	public const int STATE_FIRECONJURINGCAPACITY = 1 << 15; 	/// <summary>Mire Conjuring's Capacity State's ID.</summary>
+	public const int STATE_JUMPING = 1 << 16; 					/// <summary>Jumping's State ID.</summary>
+	public const int STATE_CHARGINGFIRE = 1 << 17; 				/// <summary>Fire Conjuring's State ID.</summary>
+	public const int STATE_CROUCHING = 1 << 18; 				/// <summary>Crouching's State ID.</summary>
+	public const int STATE_BRAKING = 1 << 19; 					/// <summary>Braking's State ID.</summary>
+	public const int STATE_STANDINGUP = 1 << 20; 				/// <summary>Standing Up's State ID.</summary>
+	public const int STATE_TARGETONSIGHT = 1 << 21; 			/// <summary>Target On-Sight's State ID.</summary>
+	public const int STATE_FOLLOWTARGET = 1 << 22; 				/// <summary>Following Target's State ID.</summary>
+	public const int STATE_ATTACKWINDOW = 1 << 23; 				/// <summary>Attack-Window's State ID.</summary>
+	public const int STATE_EVADE = 1 << 24; 					/// <summary>Evade's State ID.</summary>
 #endregion
 
 #region CoroutinesIDs:
@@ -68,5 +74,45 @@ public static class IDs
 	public const int COROUTINE_ATTACK = 1; 						/// <summary>Attack Coroutine's ID.</summary>
 	public const int COROUTINE_ROTATION = 2; 					/// <summary>Rotation Coroutine's ID.</summary>
 #endregion
+
+	/// <returns>States contained on integer.</returns>
+	public static string GetStates(int _state)
+	{
+		if(_state == 0) return "DEAD";
+
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("{ ");
+
+		if((_state | STATE_ALIVE) == _state) builder.Append("ALIVE, ");
+		else builder.Append("DEAD [ALIVE is not turned on], ");
+		if((_state | STATE_IDLE) == _state) builder.Append("IDLE, ");
+		if((_state | STATE_MOVING) == _state) builder.Append("MOVING, ");
+		if((_state | STATE_HURT) == _state) builder.Append("HURT, ");
+		if((_state | STATE_COLLIDED) == _state) builder.Append("COLLIDED, ");
+		if((_state | STATE_ATTACKING_0) == _state) builder.Append("ATTACKING_0, ");
+		if((_state | STATE_ATTACKING_1) == _state) builder.Append("ATTACKING_1, ");
+		if((_state | STATE_ATTACKING_2) == _state) builder.Append("ATTACKING_2, ");
+		if((_state | STATE_ATTACKING_3) == _state) builder.Append("ATTACKING_3, ");
+		if((_state | STATE_ATTACKING_4) == _state) builder.Append("ATTACKING_4, ");
+		if((_state | STATE_VULNERABLE) == _state) builder.Append("VULNERABLE, ");
+		if((_state | STATE_MEDITATING) == _state) builder.Append("MEDITATING, ");
+		if((_state | STATE_SWORDEQUIPPED) == _state) builder.Append("SWORDEQUIPPED, ");
+		if((_state | STATE_FIRECONJURINGCAPACITY) == _state) builder.Append("FIRECONJURINGCAPACITY, ");
+		if((_state | STATE_JUMPING) == _state) builder.Append("JUMPING, ");
+		if((_state | STATE_CHARGINGFIRE) == _state) builder.Append("CHARGINGFIRE, ");
+		if((_state | STATE_CROUCHING) == _state) builder.Append("CROUCHING, ");
+		if((_state | STATE_BRAKING) == _state) builder.Append("BRAKING, ");
+		if((_state | STATE_STANDINGUP) == _state) builder.Append("STANDINGUP, ");
+		if((_state | STATE_TARGETONSIGHT) == _state) builder.Append("TARGETONSIGHT, ");
+		if((_state | STATE_FOLLOWTARGET) == _state) builder.Append("FOLLOWTARGET, ");
+		if((_state | STATE_ATTACKWINDOW) == _state) builder.Append("ATTACKWINDOW, ");
+		if((_state | STATE_EVADE) == _state) builder.Append("EVADE, ");
+
+		builder.Remove(builder.Length - 2, 2); 	/// Remove ", "
+		builder.Append(" }");
+
+		return builder.ToString();
+	}
 }
 }

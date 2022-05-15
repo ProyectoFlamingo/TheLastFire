@@ -6,9 +6,17 @@ using Voidless;
 
 using Random = UnityEngine.Random;
 
+public enum SteeringBehaviorTestingType
+{
+	Wander,
+	Flocking
+}
+
 [RequireComponent(typeof(Boundaries2DContainer))]
 public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 {
+	[SerializeField] private SteeringBehaviorTestingType type; 		/// <summary>Testing's Type.</summary>
+	[Space(5f)]
 	[SerializeField] private SteeringVehicle2D reference; 			/// <summary>Vehicle's Reference for Prefab.</summary>
 	[SerializeField] private int copies; 							/// <summary>Vehicle copies.</summary>
 	[Space(5f)]
@@ -33,6 +41,15 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 	[SerializeField] private FloatRange rubberbandingForceScale; 	/// <summary>Rubberbanding's Force Range Scale.</summary>
 	[SerializeField] private float rubberbandingRadius; 			/// <summary>Rubberbanding's Radius.</summary>
 	[Space(5f)]
+	[Header("Containment Attributes:")]
+	[SerializeField] private float edgeDistanceTolerance; 			/// <summary>Edge distance tolerance [for boundaries].</summary>
+	[SerializeField]
+	[Range(0.0f, 5.0f)] private float containmentWeight; 			/// <summary>Containment's Weight.</summary>
+	[Space(5f)]
+	[Header("Wander Attributes:")]
+	[SerializeField]
+	[Range(0.0f, 5.0f)] private float wanderWeight; 				/// <summary>Wander's Weight.</summary>
+	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
 	[SerializeField] private Color gizmosColor; 					/// <summary>Gizmos' Color.</summary>
 	[SerializeField] private Color leaderColor; 					/// <summary>Leader's Color.</summary>
@@ -43,13 +60,50 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 	[SerializeField] private float leaderSphereRadius; 				/// <summary>Leader Sphere's Radius.</summary>
 	private SteeringVehicle2D main; 								/// <summary>Main's Steering Vehicle 2D.</summary>
 	private List<SteeringVehicle2D> vehicles; 						/// <summary>Subordinate Vehicles.</summary>
-	private Boundaries2DContainer boundariesContainer; 				/// <summary>BoundariesContainer's Component.</summary>
+	private Boundaries2DContainer _boundariesContainer; 				/// <summary>BoundariesContainer's Component.</summary>
 	private Vector3[] waypoints; 									/// <summary>Waypoints.</summary>
 	private IEnumerator<Vector3> waypointsIterator; 				/// <summary>Waypoints' Iterator.</summary>
 	private Vector2 scrollPosition;
 
+	/// <summary>Gets boundariesContainer Component.</summary>
+	public Boundaries2DContainer boundariesContainer
+	{ 
+		get
+		{
+			if(_boundariesContainer == null) _boundariesContainer = GetComponent<Boundaries2DContainer>();
+			return _boundariesContainer;
+		}
+	}
+
 	/// <summary>OnGUI is called for rendering and handling GUI events.</summary>
 	private void OnGUI()
+	{
+		GUILayout.Label("Edge Distance Tolerance: " + edgeDistanceTolerance);
+		edgeDistanceTolerance = GUILayout.HorizontalSlider(edgeDistanceTolerance, 0.0f, 25.0f);
+		GUILayout.Label("Containment Weight: " + containmentWeight);
+		containmentWeight = GUILayout.HorizontalSlider(containmentWeight, 0.0f, 5.0f);
+
+		switch(type)
+		{
+			case SteeringBehaviorTestingType.Wander:
+				WanderTestingOnGUI();
+			break;
+
+			case SteeringBehaviorTestingType.Flocking:
+				FlockingTestingOnGUI();
+			break;
+		}
+	}
+
+	/// <summary>OnGUI for Wander Testing.</summary>
+	private void WanderTestingOnGUI()
+	{
+		GUILayout.Label("Wander Weight: " + wanderWeight);
+		wanderWeight = GUILayout.HorizontalSlider(wanderWeight, 0.0f, 5.0f);
+	}
+
+	/// <summary>OnGUI for Flocking Testing.</summary>
+	private void FlockingTestingOnGUI()
 	{
 		float newMaxSpeed = main.maxSpeed;
 		float newMaxForce = main.maxForce;
@@ -141,21 +195,45 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 	/// <summary>Draws Gizmos on Editor mode.</summary>
 	private void OnDrawGizmos()
 	{
-		if(main != null && applyRubberbanding)
+		/// Draw Boundary's Limits:
+		Vector3 min = boundariesContainer.min;
+		Vector3 max = boundariesContainer.max;
+
+		min.x += edgeDistanceTolerance;
+		min.y += edgeDistanceTolerance;
+		max.x -= edgeDistanceTolerance;
+		max.y -= edgeDistanceTolerance;
+
+		Vector3 bottomLeftPoint = min;
+		Vector3 bottomRightPoint = new Vector3(max.x, min.y, min.z);
+		Vector3 topLeftPoint = new Vector3(min.x, max.y, min.z);
+		Vector3 topRightPoint = max;
+		
+		Gizmos.DrawLine(bottomLeftPoint, bottomRightPoint);
+		Gizmos.DrawLine(bottomLeftPoint, topLeftPoint);
+		Gizmos.DrawLine(topLeftPoint, topRightPoint);
+		Gizmos.DrawLine(bottomRightPoint, topRightPoint);
+
+		switch(type)
 		{
-			Gizmos.color = leaderColor;
-			Gizmos.DrawWireSphere(main.transform.position, rubberbandingRadius);
-		}
+			case SteeringBehaviorTestingType.Flocking:
+				if(main != null && applyRubberbanding)
+				{
+					Gizmos.color = leaderColor;
+					Gizmos.DrawWireSphere(main.transform.position, rubberbandingRadius);
+				}
 
-		Gizmos.color = gizmosColor;
+				Gizmos.color = gizmosColor;
 
-		if(waypoints == null) return;
+				if(waypoints == null) return;
 
-		float radius = minDistanceToReachTarget * minDistanceToReachTarget;
+				float radius = minDistanceToReachTarget * minDistanceToReachTarget;
 
-		foreach(Vector3 waypoint in waypoints)
-		{
-			Gizmos.DrawWireSphere(waypoint, radius);
+				foreach(Vector3 waypoint in waypoints)
+				{
+					Gizmos.DrawWireSphere(waypoint, radius);
+				}
+			break;
 		}
 	}
 
@@ -163,9 +241,22 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 	/// <summary>TEST_FlockingSteeringBehaviors2D's instance initialization.</summary>
 	private void Awake()
 	{
-		boundariesContainer = GetComponent<Boundaries2DContainer>();
-		waypointsIterator = WaypointsIterator();	
-		UpdateNeighborhood();
+		switch(type)
+		{
+			case SteeringBehaviorTestingType.Wander:
+				SteeringVehicle2D vehicle = Instantiate(reference, boundariesContainer.Random(), Quaternion.identity) as SteeringVehicle2D;
+				if(vehicle != null)
+				{
+					main = vehicle;
+					StartCoroutine(WanderBehaviour(vehicle));
+				}
+			break;
+
+			case SteeringBehaviorTestingType.Flocking:
+				waypointsIterator = WaypointsIterator();	
+				UpdateNeighborhood();		
+			break;
+		}
 	}
 
 	/// <summary>TEST_FlockingSteeringBehaviors2D's starting actions before 1st Update frame.</summary>
@@ -175,23 +266,37 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 	}
 	
 	/// <summary>TEST_FlockingSteeringBehaviors2D's tick at each frame.</summary>
-	private void Update ()
+	private void Update()
 	{
-		boundariesContainer.ContainInsideBoundaries(main.transform);
+		if(main != null)
+		{
+			boundariesContainer.ContainInsideBoundaries(main.transform);
+			
+		}
 
 		if(vehicles == null) return;
 
 		foreach(SteeringVehicle2D vehicle in vehicles)
 		{
 			boundariesContainer.ContainInsideBoundaries(vehicle.transform);
+			boundariesContainer.GetContainmentForce(vehicle, edgeDistanceTolerance);
 		}
 	}
 
 	/// <summary>Updates TEST_FlockingSteeringBehaviors2D's instance at each Physics Thread's frame.</summary>
 	private void FixedUpdate()
 	{
-		UpdateVehicles();
-		RubberbandingAdjustment();
+		switch(type)
+		{
+			case SteeringBehaviorTestingType.Wander:
+				
+			break;
+
+			case SteeringBehaviorTestingType.Flocking:
+				UpdateVehicles();
+				RubberbandingAdjustment();		
+			break;
+		}
 	}
 #endregion
 
@@ -236,6 +341,7 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 			float weight = (!isMain ? leaderSeekWeight : waypointSeekWeight);
 			Vector2 target = (Vector2)(!isMain ? main.transform.position : (waypointsIterator.Current));
 			Vector2 mainSeekForce = vehicle.GetSeekForce(target) * weight;
+			Vector2 containmentForce = boundariesContainer.GetContainmentForce(vehicle, edgeDistanceTolerance) * containmentWeight;
 			Vector2 separationForce = Vector2.zero; 
 			Vector2 cohesionForce = Vector2.zero; 
 			Vector2 allignments = Vector2.zero; 
@@ -248,7 +354,7 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 				allignments = vehicle.GetAllignment(vehicles) * allignmentWeight;	
 			}
 
-			sum = (Vector3)(mainSeekForce + separationForce + cohesionForce + allignments);
+			sum = (Vector3)(mainSeekForce + separationForce + cohesionForce + allignments + containmentForce);
 			/*vehicle.ApplyForce(mainSeekForce);
 			vehicle.ApplyForce(separationForce);
 			vehicle.ApplyForce(cohesionForce);
@@ -350,6 +456,49 @@ public class TEST_FlockingSteeringBehaviors2D : MonoBehaviour
 					direction = waypoint - main.transform.position;
 				}
 			}
+		}
+	}
+
+	/// <summary>Wander Behavior.</summary>
+	/// <param name="_vehicle">Vehicle thaat will perform the Wander Behavior.</param>
+	private IEnumerator WanderBehaviour(SteeringVehicle2D _vehicle)
+	{
+		FloatRange waitInterval = new FloatRange(0.3f, 0.65f);
+		SecondsDelayWait wait = new SecondsDelayWait(waitInterval.Random());
+		Vector2 target = Vector2.zero;
+		Vector2 direction = Vector2.zero;
+		Vector2 force = Vector2.zero;
+		float distance = minDistanceToReachTarget * minDistanceToReachTarget;
+
+		while(true)
+		{
+			target = _vehicle.GetWanderPoint();
+			direction = target - _vehicle.GetPosition();
+
+			while(direction.sqrMagnitude > distance && wait.MoveNext())
+			{
+				force = boundariesContainer.GetContainmentForce(_vehicle, edgeDistanceTolerance) * containmentWeight;
+				if(force.sqrMagnitude == 0.0f) force += _vehicle.GetSeekForce(target) * wanderWeight;
+
+#if UNITY_EDITOR
+				Debug.DrawRay(_vehicle.transform.position, force, Color.cyan);
+#endif
+
+				/*if(force.sqrMagnitude > 0.0f)
+				{*/
+					_vehicle.ApplyForce(force);
+					_vehicle.Displace(Time.fixedDeltaTime);
+					_vehicle.Rotate(Time.fixedDeltaTime);
+				//}
+
+				direction = target - _vehicle.GetPosition();
+
+				yield return VCoroutines.WAIT_PHYSICS_THREAD;
+			}
+
+			wait.ChangeDurationAndReset(waitInterval.Random());
+
+			yield return VCoroutines.WAIT_PHYSICS_THREAD;
 		}
 	}
 }

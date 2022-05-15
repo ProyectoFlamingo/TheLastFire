@@ -56,7 +56,7 @@ public class Boundaries2DContainer : MonoBehaviour
 		Vector3 bottomRightPoint = new Vector3(max.x, min.y, min.z);
 		Vector3 topLeftPoint = new Vector3(min.x, max.y, min.z);
 		Vector3 topRightPoint = max;
-		
+
 		Gizmos.DrawLine(bottomLeftPoint, bottomRightPoint);
 		Gizmos.DrawLine(bottomLeftPoint, topLeftPoint);
 		Gizmos.DrawLine(topLeftPoint, topRightPoint);
@@ -86,6 +86,61 @@ public class Boundaries2DContainer : MonoBehaviour
 			UnityEngine.Random.Range(m.x, M.x),
 			UnityEngine.Random.Range(m.y, M.y),
 			UnityEngine.Random.Range(m.z, M.z)
+		);
+	}
+
+	/// <summary>Gets containment steering forces of vehicle inside boundaries container.</summary>
+	/// <param name="_vehicle">Vehicle to evaluate.</param>
+	/// <param name="_toleranceDistance">Tolerance distance. If the distance between the vehicle and any of the borders is less than the tolerance, a flee force will be calculated.</param>
+	public Vector2 GetContainmentForce(SteeringVehicle2D _vehicle, float _toleranceDistance)
+	{
+		ValueVTuple<Vector2, Vector2>[] segments = new ValueVTuple<Vector2, Vector2>[4];
+		Vector3 bottomLeftPoint = min;
+		Vector3 bottomRightPoint = new Vector3(max.x, min.y, min.z);
+		Vector3 topLeftPoint = new Vector3(min.x, max.y, min.z);
+		Vector3 topRightPoint = max;
+		Vector2 sum = Vector2.zero;
+		float distance = _toleranceDistance * _toleranceDistance;
+
+		segments[0] = new ValueVTuple<Vector2, Vector2>(bottomRightPoint, bottomLeftPoint);
+		segments[1] = new ValueVTuple<Vector2, Vector2>(bottomLeftPoint, topLeftPoint);
+		segments[2] = new ValueVTuple<Vector2, Vector2>(topLeftPoint, topRightPoint);
+		segments[3] = new ValueVTuple<Vector2, Vector2>(topRightPoint, bottomRightPoint);
+
+		Vector2 projection = _vehicle.Project();
+
+		foreach(ValueVTuple<Vector2, Vector2> pair in segments)
+		{
+			Vector2 a = projection - pair.Item2;
+			Vector2 b = pair.Item1 - pair.Item2;
+			Vector2 p = pair.Item2 + VVector2.VectorProjection(a, b);
+			Vector2 d = projection - p;
+
+#if UNITY_EDITOR
+			/*Debug.DrawRay(pair.Item2, a, Color.white);
+			Debug.DrawRay(pair.Item2, b, Color.white);*/
+			Debug.DrawRay(p, d, Color.white);
+#endif
+
+			if(d.sqrMagnitude < distance) sum += _vehicle.GetFleeForce(p);
+		}
+
+		return sum;
+	}
+
+	/// <summary>Clamps a point inside the boundaries.</summary>
+	/// <param name="_point">Point to contain.</param>
+	/// <param name="_axes">Axes to Contain [X and Y by default].</param>
+	/// <returns>Clamped point.</returns>
+	public Vector3 Clamp(Vector3 _point, Axes3D _axes = Axes3D.XAndY)
+	{
+		Vector3 m = min;
+		Vector3 M = max;
+
+		return new Vector3(
+			(_axes | Axes3D.X) == _axes ? Mathf.Clamp(_point.x, m.x, M.x) : _point.x,
+			(_axes | Axes3D.Y) == _axes ? Mathf.Clamp(_point.y, m.y, M.y) : _point.y,
+			(_axes | Axes3D.Z) == _axes ? Mathf.Clamp(_point.z, m.z, M.z) : _point.z
 		);
 	}
 

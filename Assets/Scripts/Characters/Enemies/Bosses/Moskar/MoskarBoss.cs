@@ -55,6 +55,8 @@ public class MoskarBoss : Boss
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _taunt2Credential; 	/// <summary>Taunt 2's Animator Credential.</summary>
 	[Space(5f)]
 	[TabGroup("Animations")][SerializeField] private int _introAnimationLayer; 				/// <summary>Intro's Animation Layer.</summary>
+	[Space(5f)]
+	[SerializeField] private TrailRenderer _tackleTrailRenderer; 							/// <summary>Tackle's Trail Renderer.</summary>
 	private SteeringVehicle2D _vehicle; 													/// <summary>SteeringVehicle2D's Component.</summary>
 	public Coroutine attackCoroutine; 														/// <summary>Attack's Coroutine.</summary>
 	public Coroutine rotationCoroutine; 													/// <summary>Rotation's Coroutine.</summary>
@@ -150,6 +152,9 @@ public class MoskarBoss : Boss
 	/// <summary>Gets tail property.</summary>
 	public Transform tail { get { return _tail; } }
 
+	/// <summary>Gets tackleTrailRenderer property.</summary>
+	public TrailRenderer tackleTrailRenderer { get { return _tackleTrailRenderer; } }
+
 	/// <summary>Gets vehicle Component.</summary>
 	public SteeringVehicle2D vehicle
 	{ 
@@ -173,8 +178,12 @@ public class MoskarBoss : Boss
 		sightSensor.onSightEvent += OnSightEvent;
 		eventsHandler.onTriggerEvent += OnTriggerEvent;
 
+		sightSensor.enabled = false;
+
 		coroutinesMap.Add(IDs.COROUTINE_ATTACK, null);
 		coroutinesMap.Add(IDs.COROUTINE_ROTATION, null);
+
+		tackleTrailRenderer.enabled = false;
 	}
 
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
@@ -196,7 +205,7 @@ public class MoskarBoss : Boss
 	/// <returns>Poop that was shot.</returns>
 	public Projectile ShootPoop(Vector3 _direction)
 	{
-		this.AddStates(IDs.STATE_ATTACKING);
+		this.AddStates(IDs.STATE_ATTACKING_0);
 		animator.SetLayerWeight(attackAnimationLayer, 1.0f);
 		animatorController.CancelCrossFading(attackAnimationLayer);
 		animatorController.CrossFadeAndWait(poopCredential, clipFadeDuration, attackAnimationLayer, Mathf.NegativeInfinity, 0.0f,
@@ -204,7 +213,7 @@ public class MoskarBoss : Boss
 		{
 			animatorController.Play(VAnimator.CREDENTIAL_EMPTY, attackAnimationLayer);
 			animator.SetLayerWeight(attackAnimationLayer, 0.0f);
-			this.RemoveStates(IDs.STATE_ATTACKING);
+			this.RemoveStates(IDs.STATE_ATTACKING_0);
 		});
 
 		return PoolManager.RequestProjectile(Faction.Enemy, projectileReference, tail.transform.position, _direction);

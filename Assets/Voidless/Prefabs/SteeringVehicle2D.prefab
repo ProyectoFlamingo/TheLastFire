@@ -44,12 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fcc7d97e47d69e4cab3af0ac3223cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 5
-  _maxForce: 0.55
+  _maxSpeed: 10
+  _maxForce: 0.3
   _mass: 1
-  _offset: 1
   _radius: 2
-  _angleChange: 1
+  _offset: 4
+  _wanderRadius: 2
+  _angleChange: 70
   _separationRadius: 5
   _cohesionRadius: 5
   _allignmentRadius: 5
