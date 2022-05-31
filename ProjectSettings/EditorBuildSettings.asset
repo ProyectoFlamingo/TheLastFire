@@ -23,7 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Scenes - Mini-Games/Scene_Mini-Game_BasketBall.unity
     guid: c1ab5b6c15406e0439cf8f011e244b38
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Moskar.unity
     guid: e0966502a506e364b8e92d4e617460ed
   - enabled: 0
