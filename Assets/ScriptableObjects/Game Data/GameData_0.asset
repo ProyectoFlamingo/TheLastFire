@@ -16,10 +16,10 @@ MonoBehaviour:
   _hurtTimeScale: 0.5
   _timeScaleAcceleration: 0.1
   _timeScaleDeceleration: 3
-  _firstSceneToLoad: Scene_Boss_Destino_COPY
+  _firstSceneToLoad: Scene_Boss_Destino
   _loadingSceneName: Scene_LoadingScreen
   _overworldSceneName: Scene_Overworld
-  _destinoSceneName: Scene_Boss_Destino_COPY
+  _destinoSceneName: Scene_Boss_Destino
   _moskarSceneName: Scene_Boss_Moskar
   _captainShantySceneName: Scene_Boss_CaptainShanty
   _oxfordTheFoxSceneName: Scene_Boss_OxfordTheFox
@@ -221,15 +221,15 @@ MonoBehaviour:
   - {fileID: 5991511715978692823, guid: 061bb0a11a6e9b3418a4ef201c6f4113, type: 3}
   - {fileID: 8794394515965911205, guid: 148afe93d2471be48aaef341f52c6c3c, type: 3}
   - {fileID: 9075504153970139333, guid: 99c85ee94331e3a4b8fac6f5b04db405, type: 3}
-  - {fileID: 91173677976709334, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
-  - {fileID: 5271159883592656078, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
-  - {fileID: 2865075430554431865, guid: aa8d6482d70a23445b4b2a928ed1b845, type: 3}
-  - {fileID: 3682682372088323882, guid: e473029e4c70ad543a6879b82a732f4f, type: 3}
-  - {fileID: 7041335668634373212, guid: b395d5d6eb4b4b846acc021ee036b744, type: 3}
-  - {fileID: 6306249289954181648, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
-  - {fileID: 3209865493363014059, guid: f06e78284f831ae469c74624ab5d513b, type: 3}
-  - {fileID: 6306249289954181648, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
-  - {fileID: 6306249289954181648, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+  - {fileID: 91173677976709334, guid: dd740f7ca2f0f6249b30bf4539f7f86f, type: 3}
+  - {fileID: 5271159883592656078, guid: 344ca815cb4de574d8cd0942a6557511, type: 3}
+  - {fileID: 2865075430554431865, guid: e7243693850bc6b40aee35a31f1288b6, type: 3}
+  - {fileID: 3682682372088323882, guid: d24a3077107949041b3ac65f28c586b1, type: 3}
+  - {fileID: 7041335668634373212, guid: 4a4bca29d6cd614409186d5658a8176b, type: 3}
+  - {fileID: 6306249289954181648, guid: 640bfa6d4bb87454e9923412d9fb2a8e, type: 3}
+  - {fileID: 3209865493363014059, guid: b0cb4c298481cae4998c70e6faa9ad4a, type: 3}
+  - {fileID: 6306249289954181648, guid: 640bfa6d4bb87454e9923412d9fb2a8e, type: 3}
+  - {fileID: 6306249289954181648, guid: 640bfa6d4bb87454e9923412d9fb2a8e, type: 3}
   - {fileID: 6866182791540146165, guid: bf935788565e6f24cb3bf8bc871c2ec8, type: 3}
   - {fileID: 8794394515965911205, guid: 148afe93d2471be48aaef341f52c6c3c, type: 3}
   - {fileID: 6972153726185558701, guid: 9050f7f208b708f4d81ef0495d3176d7, type: 3}
@@ -239,8 +239,8 @@ MonoBehaviour:
   - {fileID: 4330004709741446421, guid: 4e380b8e94c0faf4987a47cc4e350245, type: 3}
   - {fileID: 2757906412654105323, guid: 83815da667b15ec4cb805cb3ec69b11d, type: 3}
   - {fileID: 8116085811945136806, guid: a70113af926a3e840bfb55e7eeb824c9, type: 3}
-  - {fileID: 393582703892377902, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
-  - {fileID: 2831254372492750524, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
+  - {fileID: 393582703892377902, guid: 0f1a7f88bd0342e41992914b4d34b29f, type: 3}
+  - {fileID: 2831254372492750524, guid: cd5f977f01da62f4082f15e00a86d50b, type: 3}
   - {fileID: 5518850293222957044, guid: 208f4513cff2f1248be14eb87e5a1c1d, type: 3}
   - {fileID: 2349323602256729043, guid: 332c9e1ba1be7ff46b81417eb054266a, type: 3}
   - {fileID: 7071014092291976372, guid: 9804934245098114f96ca2077a77ff0d, type: 3}
