@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Voidless
 {
-[Serializable	]
+[Serializable]
 public struct ProbabilityRange
 {
 	public FloatRange range; 		/// <summary>Probability's Range.</summary>

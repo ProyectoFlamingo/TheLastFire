@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 using Random = UnityEngine.Random;
 
@@ -14,6 +15,7 @@ public class RandomDistributionSystem
 	private const float MIN = 0.0f; 									/// <summary>Range's Minimum Value.</summary>
 	private const float MAX = 1.0f; 									/// <summary>Range's Maximum Value.</summary>
 
+	[InfoBox("@ToString()")]
 	[SerializeField] private ProbabilityRange[] _probabilityRanges; 	/// <summary>Set of ProbabilityRanges.</summary>
 
 	/// <summary>Gets and Sets probabilityRanges property.</summary>
@@ -30,6 +32,24 @@ public class RandomDistributionSystem
 		probabilityRanges = _probabilityRanges;
 	}
 
+	/// <summary>Creates a copy of this instance.</summary>
+	/// <param name="_default">Set probability ranges to default? true by default.</param>
+	/// <returns>Copy of Random Distribution system.</returns>
+	public RandomDistributionSystem Copy(bool _default = true)
+	{
+		RandomDistributionSystem system = new RandomDistributionSystem(new ProbabilityRange[probabilityRanges.Length]);
+
+		for(int i = 0; i < probabilityRanges.Length; i++)
+		{
+			system.probabilityRanges[i] = probabilityRanges[i];
+		}
+
+		if(_default) system.Reset();
+
+		return system;
+	}
+
+	[OnInspectorGUI]
 	/// <summary>Redistributes the Probability Ranges' Set.</summary>
 	public void Redistribute()
 	{
@@ -40,13 +60,42 @@ public class RandomDistributionSystem
 			ProbabilityRange probabilityRange = probabilityRanges[i];
 
 			probabilityRange.min = Mathf.Clamp(probabilityRange.min, min, MAX);
-			probabilityRange.max = Mathf.Clamp(probabilityRange.max, MIN, MAX);
+			probabilityRange.max = Mathf.Clamp(probabilityRange.max, probabilityRange.min, MAX);
 			min = probabilityRange.max;
 
 			probabilityRanges[i] = probabilityRange;
 		}
 	}
 
+	[Button("Reset")]
+	/// <summary>Resets Probability Ranges.</summary>
+	public void Reset()
+	{
+		for(int i = 0; i < probabilityRanges.Length; i++)
+		{
+			probabilityRanges[i].Reset();
+		}
+	}
+
+	[Button("Test for Errors")]
+	/// <summary>Tests system [10,000 consecutive iterations].</summary>
+	private void TestForErrors()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append("Test Random-Chain (10,000 iterations): { ");
+
+		for(int i = 0; i < 10000; i++)
+		{
+			builder.Append(GetRandomIndex());
+		}
+
+		builder.Append(" }");
+
+		Debug.Log(builder.ToString());
+	}
+
+	[Button("Test Random")]
 	/// <returns>Random Index.</returns>
 	public int GetRandomIndex()
 	{
@@ -92,14 +141,8 @@ public class RandomDistributionSystem
 			min = max;
 		}
 
-		/// CONTINGENCY IN CASE THE ALGORITHM ISN'T PERFECT:
-		int gayRandom = Random.Range(0, 2);
-
-		probabilityRange =  probabilityRanges[gayRandom];
-		probabilityRange.repetitions++;
-		probabilityRanges[gayRandom] = probabilityRange;
-
-		return gayRandom;
+		Debug.LogError("[RandomDistributionSystem] Bad Calculations. Code will return -1 (The code shouldn't get to this point...)");
+		return -1;
 	}
 
 	/// <returns>String representing set of Probability Ranges.</returns>

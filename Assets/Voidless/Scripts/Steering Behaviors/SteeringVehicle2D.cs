@@ -15,7 +15,7 @@ Steps:
 
 namespace Voidless
 {
-public class SteeringVehicle2D : MonoBehaviour
+public class SteeringVehicle2D : VMonoBehaviour
 {
 	[SerializeField] private float _maxSpeed; 			/// <summary>Vehicle's Maximum Speed.</summary>
 	[SerializeField] private float _maxForce; 			/// <summary>Vehicle's Maximum Steering Force.</summary>

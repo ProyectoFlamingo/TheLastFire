@@ -151,11 +151,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 292381600, guid: 7a3984e5d3b23354b859410fe3d33e4b, type: 3}
       propertyPath: _center.y
-      value: 13
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292381600, guid: 7a3984e5d3b23354b859410fe3d33e4b, type: 3}
       propertyPath: _size.x
-      value: 70
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292381600, guid: 7a3984e5d3b23354b859410fe3d33e4b, type: 3}
       propertyPath: _center.x
@@ -163,7 +163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 292381600, guid: 7a3984e5d3b23354b859410fe3d33e4b, type: 3}
       propertyPath: _size.y
-      value: 38
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 292381604, guid: 7a3984e5d3b23354b859410fe3d33e4b, type: 3}
       propertyPath: _maxDistanceChangeSpeed

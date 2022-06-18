@@ -98,6 +98,9 @@ public class Blackboard<T, N>
 	}
 
 #region PublicMethods:
+	/// <returns>True if internal Dictionary contains given key.</returns>
+	public bool ContainsKey(T _key) { return dictionary != null ? dictionary.ContainsKey(_key) : false; }
+
 	/// <summary>Gets entry registered on T key.</summary>
 	/// <param name="_key">Key where the Entry is registered.</param>
 	/// <returns>Entry registered on T key.</returns>
@@ -117,7 +120,11 @@ public class Blackboard<T, N>
 	public void AddEntry(T _key, N _value)
 	{
 		if(!dictionary.ContainsKey(_key)) dictionary.Add(_key, _value);
-		else Debug.Log("[Blackboard] Blackboard already contains key " + _key.ToString());
+		else
+		{
+			//Debug.Log("[Blackboard] Blackboard already contains key " + _key.ToString());
+			UpdateEntry(_key, _value);
+		}
 	}
 
 	/// <summary>Updates value stored on key.</summary>

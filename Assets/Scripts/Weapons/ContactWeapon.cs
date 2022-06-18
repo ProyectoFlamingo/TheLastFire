@@ -14,6 +14,7 @@ namespace Flamingo
 [RequireComponent(typeof(VirtualAnchorContainer))]
 public class ContactWeapon : PoolGameObject
 {
+	[SerializeField] private string _name; 														/// <summary>Weapon's Name.</summary>
 	[Space(5f)]
 	[SerializeField] private GameObject _meshContainer; 										/// <summary>Mesh Container.</summary>
 	[Space(5f)]
@@ -39,6 +40,13 @@ public class ContactWeapon : PoolGameObject
 	private VCameraTarget _cameraTarget; 														/// <summary>VCameraTarget's Component.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets and Sets name property.</summary>
+	public string name
+	{
+		get { return _name; }
+		set { _name = value; }
+	}
+
 	/// <summary>Gets and Sets meshContainer property.</summary>
 	public GameObject meshContainer
 	{

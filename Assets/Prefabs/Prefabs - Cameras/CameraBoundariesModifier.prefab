@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1581544438721717833}
   - component: {fileID: 1581544438721717832}
   m_Layer: 0
-  m_Name: CameraBoundariesModifier_FloorTerrains
+  m_Name: CameraBoundariesModifier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1581544438721717837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -52.3, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _space: 1
-  _size: {x: 57, y: 15, z: 0}
+  _size: {x: 50, y: 20, z: 0}
   _center: {x: 0, y: 0, z: 0}
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 1, g: 1, b: 1, a: 0.29411766}
 --- !u!61 &1581544438721717833
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -73,7 +73,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 57, y: 15}
+  m_Size: {x: 50, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &1581544438721717832
 MonoBehaviour:
@@ -90,3 +90,8 @@ MonoBehaviour:
   _playerTag:
     _tag: Player
     index: 5
+  _interpolationDuration: 0.35
+  _setDistance: 0
+  _distanceRange:
+    _min: 0
+    _max: 0
