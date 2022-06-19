@@ -203,6 +203,7 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 					List<ChoiceFlowVisualGraphNode> choices = choicesContainer.GetChoices(graph);
 					ChoiceFlowVisualGraphNode choice = null;
 					int length = Mathf.Min(choices.Count, UI.choicesButtons.Length);
+					WorldSpaceButton wsButton = null;
 					Button button = null;
 					Text buttonText = null;
 
@@ -212,9 +213,10 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 					for(int i = 0; i < length; i++)
 					{
 						choice = choices[i];
-						button = UI.choicesButtons[i];
-						button.gameObject.SetActive(true);
-						buttonText = button.GetComponentInChildren<Text>();
+						wsButton = UI.choicesButtons[i];
+						button = wsButton.button;
+						wsButton.gameObject.SetActive(true);
+						buttonText = wsButton.text;
 
 						buttonText.text = choice.choice;
 						button.onClick.AddListener(choice.InvokeSelectionEvent);

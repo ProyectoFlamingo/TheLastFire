@@ -158,6 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: 
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -176,6 +177,8 @@ MonoBehaviour:
     index: 7
   - _tag: Projectile/Enemy
     index: 12
+  - _tag: WorldSpaceUIElement
+    index: 20
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []

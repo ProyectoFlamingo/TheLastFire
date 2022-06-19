@@ -17,6 +17,7 @@ TagManager:
   - OutOfBounds
   - Explodable
   - Tower
+  - WorldSpaceUIElement
   layers:
   - Default
   - TransparentFX

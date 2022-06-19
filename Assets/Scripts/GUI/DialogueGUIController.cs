@@ -11,19 +11,19 @@ public class DialogueGUIController : Singleton<DialogueGUIController>
 {
 	[Space(5f)]
 	[Header("Containers:")]
-	[SerializeField] private GameObject _dialogueBoxContainer; 	/// <summary>Dialogue Box's Container.</summary>
-	[SerializeField] private GameObject _choicesContainer; 		/// <summary>Choices' Container.</summary>
+	[SerializeField] private GameObject _dialogueBoxContainer; 		/// <summary>Dialogue Box's Container.</summary>
+	[SerializeField] private GameObject _choicesContainer; 			/// <summary>Choices' Container.</summary>
 	[Space(5f)]
 	[Header("Dialogue Box's Attributes:")]
-	[SerializeField] private Text _speakerText; 				/// <summary>Speaker's Text.</summary>
-	[SerializeField] private Text _dialogueText; 				/// <summary>Dialogue's Text.</summary>
+	[SerializeField] private Text _speakerText; 					/// <summary>Speaker's Text.</summary>
+	[SerializeField] private Text _dialogueText; 					/// <summary>Dialogue's Text.</summary>
 	[Space(5f)]
 	[Header("Choices' Attributes:")]
-	[SerializeField] private Button[] _choicesButtons; 			/// <summary>Choices' Buttons.</summary>
+	[SerializeField] private WorldSpaceButton[] _choicesButtons; 	/// <summary>Choices' Buttons.</summary>
 	[Space(5f)]
 	[Header("Animations' Attributes:")]
-	[SerializeField] private float _scaleDownDuration; 			/// <summary>Scale-Down's Duration.</summary>
-	[SerializeField] private float _scaleUpDuration; 			/// <summary>Scale-Up's Duration.</summary>
+	[SerializeField] private float _scaleDownDuration; 				/// <summary>Scale-Down's Duration.</summary>
+	[SerializeField] private float _scaleUpDuration; 				/// <summary>Scale-Up's Duration.</summary>
 
 	/// <summary>Gets dialogueBoxContainer property.</summary>
 	public GameObject dialogueBoxContainer { get { return _dialogueBoxContainer; } }
@@ -38,7 +38,7 @@ public class DialogueGUIController : Singleton<DialogueGUIController>
 	public Text dialogueText { get { return _dialogueText; } }
 
 	/// <summary>Gets choicesButtons property.</summary>
-	public Button[] choicesButtons { get { return _choicesButtons; } }
+	public WorldSpaceButton[] choicesButtons { get { return _choicesButtons; } }
 
 	/// <summary>Gets scaleDownDuration property.</summary>
 	public float scaleDownDuration { get { return _scaleDownDuration; } }
@@ -70,10 +70,13 @@ public class DialogueGUIController : Singleton<DialogueGUIController>
 	/// <param name="_activate">Activate? true by default.</param>
 	public void ActivateButtons(bool _activate  = true)
 	{
-		foreach(Button button in choicesButtons)
+		foreach(WorldSpaceButton worldSpaceButton in choicesButtons)
 		{
-			button.onClick.RemoveAllListeners();
-			button.gameObject.SetActive(_activate);
+			/*Debug.Log("[DialogueGUIController] World Space Button? " + worldSpaceButton != null);
+			Debug.Log("[DialogueGUIController] Button? " + worldSpaceButton.button != null);*/
+
+			worldSpaceButton.button.onClick.RemoveAllListeners();
+			worldSpaceButton.gameObject.SetActive(_activate);
 		}
 	}
 
