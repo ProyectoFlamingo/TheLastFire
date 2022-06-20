@@ -52,7 +52,7 @@ MonoBehaviour:
   editor_ActiveNode: 0
   position: {x: 1997.6501, y: 796.20013}
   _floatPropertiyModiffiers: []
-  _choice: Your fault
+  _choice: a Hero!
   references:
     version: 1
     00000000:
@@ -195,7 +195,9 @@ MonoBehaviour:
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: But why? every good citizen has to lean towards a side.
+  _dialogue: 'I know, we''re so foxy!
+
+'
   references:
     version: 1
     00000000:
@@ -218,6 +220,37 @@ MonoBehaviour:
         Connections:
         - node_guid: 942021d8-b5cd-4803-80d2-757278790959
           port_guid: a46c03f5-2dc7-4f1e-8097-2a65350d2e90
+--- !u!114 &-8476327388162371703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: fa2aa2c6-fecb-4140-afb8-bfe4f482ed13
+  editor_ActiveNode: 0
+  position: {x: 3201, y: 552}
+  _floatPropertiyModiffiers: []
+  _choice: I know it in my bones!
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 4ae229f1-6685-4ebb-ae16-f782dfd52359
+        Connections:
+        - node_guid: 016e9932-964d-4d58-947a-866cd173621d
+          port_guid: 599bcf26-81c9-4892-9e2a-bda5bd22f1ef
 --- !u!114 &-8210185463570483629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,7 +266,69 @@ MonoBehaviour:
   overrideProperty: 0
   guid: 840eab56-b9fa-4603-8b8c-880b1c4880c6
   Name: Value_1
-  abstractData: 3
+  abstractData: 0.5
+--- !u!114 &-8188089452380989313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fb518ae4a9c4146bb5f078a5478d35, type: 3}
+  m_Name: Choices Container Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  internal_guid: 016e9932-964d-4d58-947a-866cd173621d
+  editor_ActiveNode: 0
+  position: {x: 2875, y: 744}
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 8055182f-0b50-4ab7-ad47-938817aeb5e4
+        Connections:
+        - node_guid: cf494abc-bfa1-4615-acca-c7aeb5c981b0
+          port_guid: f4e27323-fa6e-41f2-81df-396d9daa720c
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 599bcf26-81c9-4892-9e2a-bda5bd22f1ef
+        Connections:
+        - node_guid: fa2aa2c6-fecb-4140-afb8-bfe4f482ed13
+          port_guid: 4ae229f1-6685-4ebb-ae16-f782dfd52359
+    00000002:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: c9bfbf74-7dac-4a75-a8ff-d691143f011f
+        Connections:
+        - node_guid: 5898e5dd-0849-4f66-84d6-40f8f0d19b71
+          port_guid: b538f6aa-dae3-42c9-89df-26eaa72211f0
+    00000003:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: b04952a3-37be-4ad7-ace4-fa81c155f672
+        Connections:
+        - node_guid: f11a06a7-c669-496d-b095-c6ed3539b01d
+          port_guid: 199d9b45-bb38-4cb6-b952-794925ae8902
 --- !u!114 &-8166817010418518684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -310,13 +405,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
   internal_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
   editor_ActiveNode: 0
-  position: {x: 2292, y: -1229}
+  position: {x: 2266, y: -1778}
   _playOnce: 0
   _animations: []
-  _speaker: 
-  _dialogue: I will ban you from Twitter fam
+  _speaker: Oxford the Fox
+  _dialogue: Well, how about you pick a subject?
   references:
     version: 1
     00000000:
@@ -329,6 +427,36 @@ MonoBehaviour:
         Connections:
         - node_guid: 68131608-e75d-4fa4-a8a9-7eb3276cb9bf
           port_guid: 5b30932d-e5b3-4c27-9bdb-b0398f8e16a7
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: b872cecb-7781-40fd-bfb3-f7f4d700b7ad
+        Connections:
+        - node_guid: 75c8d00b-2d3a-4194-b382-45619fd3cb8d
+          port_guid: 5228ecad-b833-4833-9382-d60d8e463893
+    00000002:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 401586fd-d122-458e-8ec4-fdbbfc3976d8
+        Connections:
+        - node_guid: 73b90df9-7783-47ab-a020-a1eb832a0395
+          port_guid: c6977ee0-ff13-49f9-886d-79c319def3db
+    00000003:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 6114b2b3-c099-442b-a4e3-d09c7fcf9f58
+        Connections:
+        - node_guid: e15e75d2-6274-4373-a69e-bb30990271b2
+          port_guid: 90e38c55-7be7-4911-a432-5436346a9d0d
 --- !u!114 &-7900755650511978370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,6 +506,85 @@ MonoBehaviour:
         Connections:
         - node_guid: f7cfc18f-5c6b-4b1e-98d6-2ee659aae0b9
           port_guid: c60f4987-edcd-4de9-9fca-ff76234b0901
+--- !u!114 &-7053419396661218035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: f7b5b45c-5e73-4d29-be28-760a19d8e0d7
+  editor_ActiveNode: 0
+  position: {x: 3195, y: -1656}
+  _playOnce: 0
+  _animations: []
+  _speaker: 
+  _dialogue: I know it cause I'm a fox. And we foxes always see and think in advace.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 4024443c-cb94-4951-bfa0-565c8a6dada4
+        Connections:
+        - node_guid: 0e7d3908-b3bb-4d6f-9441-930c746ebda9
+          port_guid: 7ceaee15-31b4-47a0-99aa-217501d2d546
+--- !u!114 &-6912791852681991100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  internal_guid: 0e7d3908-b3bb-4d6f-9441-930c746ebda9
+  editor_ActiveNode: 0
+  position: {x: 2878, y: -1656}
+  _playOnce: 0
+  _animations: []
+  _speaker: 
+  _dialogue: 'Here''s a little secret:
+
+    Mexico will win the next world cup!'
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 61c6563a-d384-4865-8059-369ae50dc60f
+        Connections:
+        - node_guid: 73b90df9-7783-47ab-a020-a1eb832a0395
+          port_guid: dd0cb247-68d9-417f-900e-8f13f78889cc
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 7ceaee15-31b4-47a0-99aa-217501d2d546
+        Connections:
+        - node_guid: f7b5b45c-5e73-4d29-be28-760a19d8e0d7
+          port_guid: 4024443c-cb94-4951-bfa0-565c8a6dada4
 --- !u!114 &-6869719602136025707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,7 +606,7 @@ MonoBehaviour:
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Tell me a little bit about yourself...
+  _dialogue: Is something troubling you kido?
   references:
     version: 1
     00000000:
@@ -437,7 +644,7 @@ MonoBehaviour:
   overrideProperty: 0
   guid: c143f3cf-1888-4054-8f7e-664af285462f
   Name: Value_0
-  abstractData: 1
+  abstractData: 0
 --- !u!114 &-6380334657677213930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -515,6 +722,37 @@ MonoBehaviour:
         Connections:
         - node_guid: fd6398d3-4ec3-44df-917c-bd918d5c267b
           port_guid: bb323a3a-91ee-4ae1-8a99-0ce119c8e851
+--- !u!114 &-5883687036099980656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 75c8d00b-2d3a-4194-b382-45619fd3cb8d
+  editor_ActiveNode: 0
+  position: {x: 2559, y: -1868}
+  _floatPropertiyModiffiers: []
+  _choice: Love
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 5228ecad-b833-4833-9382-d60d8e463893
+        Connections:
+        - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
+          port_guid: b872cecb-7781-40fd-bfb3-f7f4d700b7ad
 --- !u!114 &-5085957384756646256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,7 +774,7 @@ MonoBehaviour:
   _playOnce: 1
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Hello, Astro Boy. I am the Fox.
+  _dialogue: Ok.
   references:
     version: 1
     00000000:
@@ -643,6 +881,37 @@ MonoBehaviour:
         Connections:
         - node_guid: 686e3eef-80dc-44b3-a2a8-41b13d45c5aa
           port_guid: d487dc36-95d4-445f-982c-c2497e1bf6b7
+--- !u!114 &-4850562951203647207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: f11a06a7-c669-496d-b095-c6ed3539b01d
+  editor_ActiveNode: 0
+  position: {x: 3200, y: 999}
+  _floatPropertiyModiffiers: []
+  _choice: I've yet to proove myself a hero.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 199d9b45-bb38-4cb6-b952-794925ae8902
+        Connections:
+        - node_guid: 016e9932-964d-4d58-947a-866cd173621d
+          port_guid: b04952a3-37be-4ad7-ace4-fa81c155f672
 --- !u!114 &-4771069992494870876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -769,7 +1038,7 @@ MonoBehaviour:
   - propertyKey: Value_5
     operation: 1
     x: 0.5
-  _choice: Left-Wing, I lack brain cells
+  _choice: You talk funny.
   references:
     version: 1
     00000000:
@@ -959,8 +1228,6 @@ MonoBehaviour:
         CanBeRemoved: 0
         guid: 0e54f833-ecc7-46f3-a6e9-8e3827ad49fa
         Connections:
-        - node_guid: 5266af46-b0ee-401e-ac4b-12968965304b
-          port_guid: 9c443f60-8496-411b-8ccb-a424f6e0882b
         - node_guid: 13afceab-0a6e-4681-89cb-3e41752f12ae
           port_guid: 32663b37-f6ef-46fa-8778-9453c0f0af6f
         - node_guid: fd3b1f08-a315-4e38-b02f-3f1a840297fa
@@ -975,6 +1242,48 @@ MonoBehaviour:
         Connections:
         - node_guid: 74f48258-efe6-4b24-a5ff-a150515976de
           port_guid: 7c6500aa-a599-41f0-b44a-9ce20584926b
+--- !u!114 &-792894037578609405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  internal_guid: 060f6e7f-826e-4496-b366-bdc9b6ddb621
+  editor_ActiveNode: 0
+  position: {x: 1632.3502, y: 1583.7501}
+  _playOnce: 0
+  _animations: []
+  _speaker: 
+  _dialogue: Ok, let me know if I can help.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 59d0898a-48d6-45bd-b24d-8ab2becdc1b7
+        Connections:
+        - node_guid: 5266af46-b0ee-401e-ac4b-12968965304b
+          port_guid: 9c443f60-8496-411b-8ccb-a424f6e0882b
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 1aa747e0-6495-4760-a365-f1c16984a51e
+        Connections: []
 --- !u!114 &-703570053738389082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +1341,38 @@ MonoBehaviour:
   overrideProperty: 0
   guid: 193e58b9-2a3d-4fee-8017-1180898c9f8a
   Name: Value_2
-  abstractData: -3.7
+  abstractData: 0
+--- !u!114 &-108048825907586965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 5898e5dd-0849-4f66-84d6-40f8f0d19b71
+  editor_ActiveNode: 0
+  position: {x: 3196, y: 768}
+  _floatPropertiyModiffiers: []
+  _choice: uh? not sure.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: b538f6aa-dae3-42c9-89df-26eaa72211f0
+        Connections:
+        - node_guid: 016e9932-964d-4d58-947a-866cd173621d
+          port_guid: c9bfbf74-7dac-4a75-a8ff-d691143f011f
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,6 +1441,17 @@ MonoBehaviour:
   - {fileID: 4648098529568102127}
   - {fileID: -9188458935278331335}
   - {fileID: 8855778338989744822}
+  - {fileID: 7655058220053250912}
+  - {fileID: -8188089452380989313}
+  - {fileID: -8476327388162371703}
+  - {fileID: -108048825907586965}
+  - {fileID: -4850562951203647207}
+  - {fileID: -5883687036099980656}
+  - {fileID: 7055553530206125381}
+  - {fileID: 5488014022024002951}
+  - {fileID: -6912791852681991100}
+  - {fileID: -7053419396661218035}
+  - {fileID: -792894037578609405}
   BlackboardProperties:
   - {fileID: -6777924966455175767}
   - {fileID: -8210185463570483629}
@@ -1128,7 +1479,7 @@ MonoBehaviour:
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: So...Right-Wing or Left-Wing?
+  _dialogue: Have you ever talked to a fox before?
   references:
     version: 1
     00000000:
@@ -1216,7 +1567,7 @@ MonoBehaviour:
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Gee boy, I got lazy to write.  This was going to be just a demo example...
+  _dialogue: 'Look at you kiddo, with your cape and all. What are you? '
   references:
     version: 1
     00000000:
@@ -1393,7 +1744,7 @@ MonoBehaviour:
   editor_ActiveNode: 0
   position: {x: 2000.1001, y: 992.30005}
   _floatPropertiyModiffiers: []
-  _choice: Sleep...
+  _choice: "I don\xB4t know."
   references:
     version: 1
     00000000:
@@ -1814,13 +2165,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
   internal_guid: 91d37852-ea92-4303-bd46-b77b49f7cc91
   editor_ActiveNode: 0
   position: {x: 2308.6174, y: 743.1025}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: I'll therefore assume my responsibility.
+  _dialogue: Oh boy! The wolrld could use a hero just about now.
   references:
     version: 1
     00000000:
@@ -1833,6 +2185,16 @@ MonoBehaviour:
         Connections:
         - node_guid: aac41590-3f90-4d9d-be21-40f780aec7e8
           port_guid: 6eb96661-ce61-476a-ad4f-44322b93610c
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 1161f5e4-e5bd-4dba-b01b-1d29c7e76e00
+        Connections:
+        - node_guid: cf494abc-bfa1-4615-acca-c7aeb5c981b0
+          port_guid: 2bc2f760-770b-4244-9d60-19073a5f9ddf
 --- !u!114 &4721811896334415417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1998,6 +2360,37 @@ MonoBehaviour:
         Connections:
         - node_guid: 4f2187d3-b397-44f2-92a1-fa73290649eb
           port_guid: a540ddb2-7732-4d82-8c17-a2c55df1bf96
+--- !u!114 &5488014022024002951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: e15e75d2-6274-4373-a69e-bb30990271b2
+  editor_ActiveNode: 0
+  position: {x: 2564, y: -1438}
+  _floatPropertiyModiffiers: []
+  _choice: Business
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 90e38c55-7be7-4911-a432-5436346a9d0d
+        Connections:
+        - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
+          port_guid: 6114b2b3-c099-442b-a4e3-d09c7fcf9f58
 --- !u!114 &6009531610311354559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2192,6 +2585,48 @@ MonoBehaviour:
           port_guid: 3d97b28e-24bd-4e89-acad-38d04e5df676
         - node_guid: f2492ba9-0719-4da2-8eec-74eae78e3044
           port_guid: ef710250-50f9-4a0b-a419-9aee6981a583
+--- !u!114 &7055553530206125381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  internal_guid: 73b90df9-7783-47ab-a020-a1eb832a0395
+  editor_ActiveNode: 0
+  position: {x: 2562, y: -1655}
+  _floatPropertiyModiffiers: []
+  _choice: Sports
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: c6977ee0-ff13-49f9-886d-79c319def3db
+        Connections:
+        - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
+          port_guid: 401586fd-d122-458e-8ec4-fdbbfc3976d8
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: dd0cb247-68d9-417f-900e-8f13f78889cc
+        Connections:
+        - node_guid: 0e7d3908-b3bb-4d6f-9441-930c746ebda9
+          port_guid: 61c6563a-d384-4865-8059-369ae50dc60f
 --- !u!114 &7295465614567699638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,7 +2649,7 @@ MonoBehaviour:
   - propertyKey: Value_5
     operation: 4
     x: 0
-  _choice: None, politics are lame
+  _choice: Yes. I love foxes.
   references:
     version: 1
     00000000:
@@ -2259,7 +2694,7 @@ MonoBehaviour:
   - propertyKey: Value_5
     operation: 0
     x: 0.2
-  _choice: Right-Wing,  MAGA
+  _choice: No, tell me something interesting.
   references:
     version: 1
     00000000:
@@ -2282,6 +2717,50 @@ MonoBehaviour:
         Connections:
         - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
           port_guid: 1942c6fd-13b4-4b24-bbfb-9a1d9c1822cf
+--- !u!114 &7655058220053250912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  internal_guid: cf494abc-bfa1-4615-acca-c7aeb5c981b0
+  editor_ActiveNode: 0
+  position: {x: 2595, y: 743}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: What makes you think you are a hero?
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 2bc2f760-770b-4244-9d60-19073a5f9ddf
+        Connections:
+        - node_guid: 91d37852-ea92-4303-bd46-b77b49f7cc91
+          port_guid: 1161f5e4-e5bd-4dba-b01b-1d29c7e76e00
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: f4e27323-fa6e-41f2-81df-396d9daa720c
+        Connections:
+        - node_guid: 016e9932-964d-4d58-947a-866cd173621d
+          port_guid: 8055182f-0b50-4ab7-ad47-938817aeb5e4
 --- !u!114 &8013776249322887773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2344,12 +2823,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 5266af46-b0ee-401e-ac4b-12968965304b
   editor_ActiveNode: 0
-  position: {x: 1624, y: 1853.5596}
+  position: {x: 1624, y: 1895.4003}
   _floatPropertiyModiffiers:
   - propertyKey: Value_0
     operation: 0
     x: 0.5
-  _choice: Okay
+  _choice: No, I'm fine.
   references:
     version: 1
     00000000:
@@ -2370,8 +2849,8 @@ MonoBehaviour:
         CanBeRemoved: 1
         guid: 9c443f60-8496-411b-8ccb-a424f6e0882b
         Connections:
-        - node_guid: 43a80542-c079-44ac-a25a-3ae6f1ccb074
-          port_guid: 0e54f833-ecc7-46f3-a6e9-8e3827ad49fa
+        - node_guid: 060f6e7f-826e-4496-b366-bdc9b6ddb621
+          port_guid: 59d0898a-48d6-45bd-b24d-8ab2becdc1b7
 --- !u!114 &8622548026658976527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,7 +2960,7 @@ MonoBehaviour:
   editor_ActiveNode: 0
   position: {x: 2002, y: 1222}
   _floatPropertiyModiffiers: []
-  _choice: May I help you?
+  _choice: a Villan.
   references:
     version: 1
     00000000:
