@@ -18,8 +18,9 @@ public class DialogueGUIController : Singleton<DialogueGUIController>
 	[SerializeField] private Text _speakerText; 					/// <summary>Speaker's Text.</summary>
 	[SerializeField] private Text _dialogueText; 					/// <summary>Dialogue's Text.</summary>
 	[Space(5f)]
-	[Header("Choices' Attributes:")]
+	[Header("Buttons:")]
 	[SerializeField] private WorldSpaceButton[] _choicesButtons; 	/// <summary>Choices' Buttons.</summary>
+	[SerializeField] private WorldSpaceButton _skipButton; 	/// <summary>Skip's Button.</summary>
 	[Space(5f)]
 	[Header("Animations' Attributes:")]
 	[SerializeField] private float _scaleDownDuration; 				/// <summary>Scale-Down's Duration.</summary>
@@ -39,6 +40,9 @@ public class DialogueGUIController : Singleton<DialogueGUIController>
 
 	/// <summary>Gets choicesButtons property.</summary>
 	public WorldSpaceButton[] choicesButtons { get { return _choicesButtons; } }
+
+	/// <summary>Gets skipButton property.</summary>
+	public WorldSpaceButton skipButton { get { return _skipButton; } }
 
 	/// <summary>Gets scaleDownDuration property.</summary>
 	public float scaleDownDuration { get { return _scaleDownDuration; } }

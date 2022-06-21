@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 //using System.Type;
+
+using Random = UnityEngine.Random;
 
 namespace Voidless
 {
@@ -185,6 +188,12 @@ public static class VInterfaces
 		if(addedStates != 0) _sm.OnStatesAdded(addedStates);
 	}
 #endregion
+
+	/// <returns>Random Element f.</returns>
+	public static T RandomElement<T>(this IEnumerable<T> _enumerable)
+	{
+		return _enumerable != null ? _enumerable.ElementAt(Random.Range(0, _enumerable.Count())) : default(T);
+	}
 
 	/// <summary>Iterates through all iterators and returns false once all iterators cannot move next.</summary>
 	/// <param name="_iterators">Iterators to evaluate.</param>

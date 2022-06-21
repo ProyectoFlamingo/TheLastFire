@@ -32,7 +32,8 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	[Header("Dialogue's Attributes:")]
 	[SerializeField] private float _textWriteSpeed; 									/// <summary>Text's Writting Speed.</summary>
 	[SerializeField] private float _waitAfterTextIsWritten; 							/// <summary>Additional Wait after the text is written before doing the next step.</summary>
-	private Coroutine graphCoroutine;
+	private Coroutine graphCoroutine; 													/// <summary>Graph's Coroutine.</summary>
+	private bool _skipDialogue; 														/// <summary>Skip Dialogue?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets floatProperties property.</summary>
@@ -47,6 +48,13 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	{
 		get { return _distributionSystem; }
 		set { _distributionSystem = value; }
+	}
+
+	/// <summary>Gets and Sets skipDialogue property.</summary>
+	public bool skipDialogue
+	{
+		get { return _skipDialogue; }
+		set { _skipDialogue = value; }
 	}
 
 	/// <summary>Gets dialogueGraphContainer property.</summary>
@@ -71,6 +79,7 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
 	private void Start()
 	{
+		DialogueGUIController.Instance.skipButton.button.onClick.AddListener(OnSkipSelected);
 		UpdateBlackboardProperties();
 		StartCoroutine(IterateTroughDialogueGraph());
 	}
@@ -78,6 +87,7 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	/// <summary>OxfordTheFoxFlowSystemController's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()
 	{
+		skipDialogue = false;
 		Reset();
 	}
 
@@ -157,6 +167,12 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 		this.StartCoroutine(IterateTroughDialogueGraph(), ref graphCoroutine);
 	}
 
+	/// <summary>Callbaack invoked when the Skip button is selected.</summary>
+	private void OnSkipSelected()
+	{
+		skipDialogue = true;
+	}
+
 	/// <summary>Iterates through Dialogue's Graph.</summary>
 	private IEnumerator IterateTroughDialogueGraph()
 	{
@@ -172,6 +188,8 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 		LinkedList<FlowVisualGraphNode> nodes = dialogueGraphContainer.currentNodes;
 		FlowVisualGraphNode node = dialogueGraphContainer.currentNode;
 		bool condition = true;
+
+		skipDialogue = false;
 		UI.gameObject.SetActive(true);
 		UI.dialogueBoxContainer.gameObject.SetActive(false);
 		UI.choicesContainer.gameObject.SetActive(false);
@@ -187,6 +205,9 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 				case FlowNodeType.Dialogue:
 					//Debug.Log("[OxfordTheFoxFlowSystemController] Processig a Dialogue's Node...");
 					DialogueFlowVisualGraphNode dialogueNode = node as DialogueFlowVisualGraphNode;
+					
+					//if(dialogueNode.played && dialogueNode.playOnce) break;
+
 					IEnumerator dialogueIteration = DialogueIteration(dialogueNode);
 
 					UI.dialogueBoxContainer.gameObject.SetActive(true);
@@ -261,7 +282,7 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 
 		UI.speakerText.text = node.speaker;
 
-		while(i < dialogue.Length)
+		while(i < dialogue.Length && !skipDialogue)
 		{
 			while(wait.MoveNext()) yield return null;
 			wait.Reset();
@@ -271,8 +292,14 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 			i++;
 		}
 
-		wait.ChangeDurationAndReset(waitAfterTextIsWritten);
-		while(wait.MoveNext()) yield return null;
+		if(!skipDialogue)
+		{
+			wait.ChangeDurationAndReset(waitAfterTextIsWritten);
+			while(wait.MoveNext()) yield return null;
+		}
+
+		//node.played = true;
+		skipDialogue = false;
 	}
 
 	/// <summary>Iterates through Show's Graph.</summary>

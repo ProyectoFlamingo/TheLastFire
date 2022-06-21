@@ -27,6 +27,9 @@ public class FlowVisualGraphNode : VisualGraphNode
 	/// <summary>Gets Flow Node's Type.</summary>
 	public virtual FlowNodeType nodeType { get { return FlowNodeType.None; } }
 
+	/// <summary>Resets FlowVisualGraphNode's instance to its default values.</summary>
+	public virtual void Reset() { /*...*/ }
+
 	/// <summary>Called when created. Use this to add required ports and additional setup/// </summary>
     public override void Init()
     {
@@ -95,6 +98,9 @@ public class FlowVisualGraphNode : VisualGraphNode
 		return null;
 	}
 
+	/// <summary>Gets Node from Port with specified name.</summary>
+	/// <param name="name">Name of the Port.</param>
+	/// <returns>First node found on port with given name.</returns>
     public FlowVisualGraphNode GetNodeFromPortWithName(string name)
     {
     	VisualGraphPort port = FindPortByName(name);
