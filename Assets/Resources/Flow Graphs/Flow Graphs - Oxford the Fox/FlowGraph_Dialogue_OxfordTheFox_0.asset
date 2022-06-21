@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
   internal_guid: 27b8cac9-7291-4981-a2fa-ae9962b0c4ae
   editor_ActiveNode: 0
-  position: {x: 2317.775, y: 1242.6825}
+  position: {x: 2970, y: 1226}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Yes, stop nagging me!
+  _dialogue: Any evil plans?
   references:
     version: 1
     00000000:
@@ -33,6 +34,16 @@ MonoBehaviour:
         Connections:
         - node_guid: aca031a0-550b-48ce-bc34-9dd26de6c61e
           port_guid: 98f1c6c8-78c8-4189-a8ea-5d58d8c13455
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 64992113-4b2f-4e07-9b6b-34bab3b493e1
+        Connections:
+        - node_guid: 4ccbcd63-f9b8-4b87-a611-89070df47a66
+          port_guid: 53e68393-7a3a-4488-bd3b-39ba21e1a86d
 --- !u!114 &-9053950288133482083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,7 +61,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: aac41590-3f90-4d9d-be21-40f780aec7e8
   editor_ActiveNode: 0
-  position: {x: 1997.6501, y: 796.20013}
+  position: {x: 2519, y: 765}
   _floatPropertiyModiffiers: []
   _choice: a Hero!
   references:
@@ -92,12 +103,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 069f34db-1a32-4146-96fc-268c92774d10
   editor_ActiveNode: 0
-  position: {x: 2925.4463, y: -574.5549}
+  position: {x: 3422, y: -579}
   _floatPropertiyModiffiers:
   - propertyKey: Value_4
     operation: 0
     x: 0.7
-  _choice: Says who?
+  _choice: Foxes are awesome!
   references:
     version: 1
     00000000:
@@ -138,7 +149,7 @@ MonoBehaviour:
   - id: 2
   internal_guid: 7246f4af-bbcb-4d97-8798-575989aec8c4
   editor_ActiveNode: 0
-  position: {x: 1025, y: -836}
+  position: {x: 884, y: -887}
   _predicateSets:
   - predicates:
     - propertyKey: Value_0
@@ -191,7 +202,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 349ad29c-7c4e-4992-9b30-9da334847a77
   editor_ActiveNode: 0
-  position: {x: 2293, y: -734}
+  position: {x: 2584, y: -724}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -220,6 +231,37 @@ MonoBehaviour:
         Connections:
         - node_guid: 942021d8-b5cd-4803-80d2-757278790959
           port_guid: a46c03f5-2dc7-4f1e-8097-2a65350d2e90
+--- !u!114 &-8577228063917478785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 63b1e63d-6afe-409a-9d77-ee7e340a0bbd
+  editor_ActiveNode: 0
+  position: {x: 3858.5208, y: 1557}
+  _floatPropertiyModiffiers: []
+  _choice: No one can stop me.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 797a397b-aa21-496a-a365-7c2abae7c3ac
+        Connections:
+        - node_guid: 4ccbcd63-f9b8-4b87-a611-89070df47a66
+          port_guid: 0e9fd08c-19f1-4768-9e81-46076c25a9d1
 --- !u!114 &-8476327388162371703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +278,7 @@ MonoBehaviour:
   - id: 0
   internal_guid: fa2aa2c6-fecb-4140-afb8-bfe4f482ed13
   editor_ActiveNode: 0
-  position: {x: 3201, y: 552}
+  position: {x: 4248, y: 531}
   _floatPropertiyModiffiers: []
   _choice: I know it in my bones!
   references:
@@ -286,7 +328,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: 016e9932-964d-4d58-947a-866cd173621d
   editor_ActiveNode: 0
-  position: {x: 2875, y: 744}
+  position: {x: 3771, y: 727}
   references:
     version: 1
     00000000:
@@ -345,11 +387,11 @@ MonoBehaviour:
   - id: 0
   internal_guid: bef1127b-99f9-4e00-b60c-efe0beb4b3d0
   editor_ActiveNode: 0
-  position: {x: 3221.835, y: 2171.2246}
+  position: {x: 4363.624, y: 2168.5586}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: You ought  to train both your mind and body, lazy  ass mofo...
+  _dialogue: yep. that's where we are now. Cool, isn't it?
   references:
     version: 1
     00000000:
@@ -360,8 +402,42 @@ MonoBehaviour:
         CanBeRemoved: 0
         guid: 58536f49-e7d0-49da-a273-7fce8bfb10cf
         Connections:
-        - node_guid: edb2e700-b7e1-48dc-a453-64a5a2e2ee2b
-          port_guid: af1c5a61-32b4-48f7-a402-b42db2a933e3
+        - node_guid: f2492ba9-0719-4da2-8eec-74eae78e3044
+          port_guid: 3740d8bc-d71f-4c7a-8823-9787c8ef920c
+--- !u!114 &-8112140514701718079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 89d82d98-b3c7-4208-b057-1e5a7835b834
+  editor_ActiveNode: 0
+  position: {x: 4440.5, y: 180.80003}
+  _playOnce: 1
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: Why were the foxes hunting rabbits? Because they were in the mood for
+    fast food!
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 58702394-ae3c-4bca-8d32-92eb7c51c1e6
+        Connections:
+        - node_guid: 485f017b-06b3-45e4-8d97-53ca4f599919
+          port_guid: 1e1fbe55-bfe4-45b5-848b-79192ccff7e1
 --- !u!114 &-7994369332456846338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,7 +486,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
   editor_ActiveNode: 0
-  position: {x: 2266, y: -1778}
+  position: {x: 2596.6426, y: -1671.9375}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -489,7 +565,7 @@ MonoBehaviour:
   - id: 0
   internal_guid: 882427a7-0c30-404f-acb8-60efc9afd6d4
   editor_ActiveNode: 0
-  position: {x: 2316, y: 340}
+  position: {x: 3026, y: 314}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -522,10 +598,10 @@ MonoBehaviour:
   - id: 0
   internal_guid: f7b5b45c-5e73-4d29-be28-760a19d8e0d7
   editor_ActiveNode: 0
-  position: {x: 3195, y: -1656}
+  position: {x: 4117.354, y: -1611.9407}
   _playOnce: 0
   _animations: []
-  _speaker: 
+  _speaker: Oxford the Fox
   _dialogue: I know it cause I'm a fox. And we foxes always see and think in advace.
   references:
     version: 1
@@ -556,10 +632,10 @@ MonoBehaviour:
   - id: 1
   internal_guid: 0e7d3908-b3bb-4d6f-9441-930c746ebda9
   editor_ActiveNode: 0
-  position: {x: 2878, y: -1656}
+  position: {x: 3707.354, y: -1612.9407}
   _playOnce: 0
   _animations: []
-  _speaker: 
+  _speaker: Oxford the Fox
   _dialogue: 'Here''s a little secret:
 
     Mexico will win the next world cup!'
@@ -602,11 +678,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: cee50256-bbe9-4e81-a655-999189b9abbc
   editor_ActiveNode: 0
-  position: {x: 1011, y: 2018.5596}
+  position: {x: 1175, y: 1991}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Is something troubling you kido?
+  _dialogue: Is something troubling you?
   references:
     version: 1
     00000000:
@@ -644,7 +720,7 @@ MonoBehaviour:
   overrideProperty: 0
   guid: c143f3cf-1888-4054-8f7e-664af285462f
   Name: Value_0
-  abstractData: 0
+  abstractData: 0.5
 --- !u!114 &-6380334657677213930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,11 +738,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: 13afceab-0a6e-4681-89cb-3e41752f12ae
   editor_ActiveNode: 0
-  position: {x: 1976, y: 1963.5596}
+  position: {x: 2517, y: 1914}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: It is imperative for me to know thy enemy
+  _dialogue: We all do kiddo.
   references:
     version: 1
     00000000:
@@ -703,13 +779,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
   internal_guid: d94af5b1-9136-49fb-835e-10e51999237b
   editor_ActiveNode: 0
-  position: {x: 2314, y: 102}
+  position: {x: 3024, y: 76}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: To provide a gameplay challenge...
+  _dialogue: Once upon a time, there was a group of foxes who lived in the forest.
+    They were very cunning and clever, and they often outwitted the other animals
+    in the forest. The other animals didn't like foxes because they often tricked
+    them.
   references:
     version: 1
     00000000:
@@ -722,6 +802,16 @@ MonoBehaviour:
         Connections:
         - node_guid: fd6398d3-4ec3-44df-917c-bd918d5c267b
           port_guid: bb323a3a-91ee-4ae1-8a99-0ce119c8e851
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 3713234d-cafe-45fe-be71-c24ed25f46ad
+        Connections:
+        - node_guid: 815eb0cb-6e55-4d7c-a692-d6d024f1031b
+          port_guid: eea3f444-ca3b-40ec-9526-cd2ec5073abd
 --- !u!114 &-5883687036099980656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -736,9 +826,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
   internal_guid: 75c8d00b-2d3a-4194-b382-45619fd3cb8d
   editor_ActiveNode: 0
-  position: {x: 2559, y: -1868}
+  position: {x: 3200.354, y: -1825.9407}
   _floatPropertiyModiffiers: []
   _choice: Love
   references:
@@ -753,6 +844,83 @@ MonoBehaviour:
         Connections:
         - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
           port_guid: b872cecb-7781-40fd-bfb3-f7f4d700b7ad
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: a90aa927-0a16-47ff-9492-f058c2780a8f
+        Connections:
+        - node_guid: 08017a2a-1fb1-40d0-92bd-ff51eb1a2192
+          port_guid: 9872797b-e7de-4e74-8e42-64db10d661f1
+--- !u!114 &-5645896260556794247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: b0d446f5-c43c-4d97-bef5-6c37f7f442cb
+  editor_ActiveNode: 0
+  position: {x: 4889.45, y: -596.935}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: 'Insomniacs are sick human beings...
+
+    ...how do they even sleep
+    at night?'
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 51f25b9f-024b-49ab-ab6f-19ed6b08baae
+        Connections:
+        - node_guid: 423a81ab-9501-4356-9dbb-e4d219848694
+          port_guid: 2b71d1b5-3282-4865-96b5-d2593e8f1fe4
+--- !u!114 &-5190096154186999066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 4419db2b-ecac-40eb-b505-646d4d44d156
+  editor_ActiveNode: 0
+  position: {x: 3846.958, y: 1110.8947}
+  _floatPropertiyModiffiers: []
+  _choice: Wouldn't you like to know.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 3a15764e-da3d-472a-8819-e6c617735f1c
+        Connections:
+        - node_guid: 4ccbcd63-f9b8-4b87-a611-89070df47a66
+          port_guid: 9c12d922-b22e-49b9-a903-3ee3358f9610
 --- !u!114 &-5085957384756646256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,11 +938,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: 74e9233d-8b1c-433b-ad04-7c448e674fe0
   editor_ActiveNode: 0
-  position: {x: 382.3649, y: 29.000042}
+  position: {x: 395, y: -2}
   _playOnce: 1
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Ok.
+  _dialogue: Hello there kiddo.
   references:
     version: 1
     00000000:
@@ -815,7 +983,7 @@ MonoBehaviour:
   - id: 2
   internal_guid: 942021d8-b5cd-4803-80d2-757278790959
   editor_ActiveNode: 0
-  position: {x: 2571, y: -735}
+  position: {x: 2992, y: -725}
   references:
     version: 1
     00000000:
@@ -864,11 +1032,12 @@ MonoBehaviour:
   - id: 0
   internal_guid: a3e2eb4d-e370-4c59-89eb-6227d0241a3f
   editor_ActiveNode: 0
-  position: {x: 2290, y: -991}
+  position: {x: 2712, y: -1018}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Me too. Thinking is overrated.
+  _dialogue: I do beg your pardon, kiddo. I was not aware that my manner of speech
+    was unusual.
   references:
     version: 1
     00000000:
@@ -897,7 +1066,7 @@ MonoBehaviour:
   - id: 0
   internal_guid: f11a06a7-c669-496d-b095-c6ed3539b01d
   editor_ActiveNode: 0
-  position: {x: 3200, y: 999}
+  position: {x: 4247, y: 978}
   _floatPropertiyModiffiers: []
   _choice: I've yet to proove myself a hero.
   references:
@@ -927,11 +1096,14 @@ MonoBehaviour:
   Ports:
   - id: 0
   - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
   internal_guid: 423a81ab-9501-4356-9dbb-e4d219848694
   editor_ActiveNode: 0
-  position: {x: 2921, y: -269}
+  position: {x: 3879, y: -245}
   _floatPropertiyModiffiers: []
-  _choice: Yes
+  _choice: Human joke.
   references:
     version: 1
     00000000:
@@ -954,6 +1126,168 @@ MonoBehaviour:
         Connections:
         - node_guid: 59192bf3-8d84-4f1d-83b1-535a8ed72e88
           port_guid: fa56fdd2-5d71-49aa-bc7d-6c08e2a89db3
+    00000002:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 7fb17626-2006-4a80-a989-8b7757acb2a9
+        Connections:
+        - node_guid: ae342f48-d27f-4a9d-b3aa-d8bcd0c861cc
+          port_guid: 9867c3cc-78e4-445a-b11d-91b84c71baaa
+    00000003:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 2b71d1b5-3282-4865-96b5-d2593e8f1fe4
+        Connections:
+        - node_guid: b0d446f5-c43c-4d97-bef5-6c37f7f442cb
+          port_guid: 51f25b9f-024b-49ab-ab6f-19ed6b08baae
+    00000004:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 4360f9fc-a666-447e-a2a1-52c60ebe2c90
+        Connections:
+        - node_guid: 07450285-55ff-46e6-bfa8-4ed0c776f2a0
+          port_guid: 236823d7-666d-4d65-9c06-d4196e7b3ced
+--- !u!114 &-4542245832608386612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 07450285-55ff-46e6-bfa8-4ed0c776f2a0
+  editor_ActiveNode: 0
+  position: {x: 4888.87, y: -344.935}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: 'What do sperm and lawyers have in common?
+
+    1 in 3 million have
+    a chance in becoming a human being.'
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 236823d7-666d-4d65-9c06-d4196e7b3ced
+        Connections:
+        - node_guid: 423a81ab-9501-4356-9dbb-e4d219848694
+          port_guid: 4360f9fc-a666-447e-a2a1-52c60ebe2c90
+--- !u!114 &-4373820154955188799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: a53942ee-fc96-4541-987a-5cc6459abee2
+  editor_ActiveNode: 0
+  position: {x: 3910.9504, y: 254.45001}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: After that, the foxes became even more respected by the other animals
+    in the forest, and they lived happily ever after.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 54294400-00d4-43db-888a-fd16629e90be
+        Connections:
+        - node_guid: 815eb0cb-6e55-4d7c-a692-d6d024f1031b
+          port_guid: 8f8c5b8f-96bd-43ff-8fdd-a6049fa4599c
+--- !u!114 &-3653292423378760045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fb518ae4a9c4146bb5f078a5478d35, type: 3}
+  m_Name: Choices Container Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  - id: 2
+  - id: 3
+  internal_guid: 4ccbcd63-f9b8-4b87-a611-89070df47a66
+  editor_ActiveNode: 0
+  position: {x: 3400.3499, y: 1262.3937}
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 53e68393-7a3a-4488-bd3b-39ba21e1a86d
+        Connections:
+        - node_guid: 27b8cac9-7291-4981-a2fa-ae9962b0c4ae
+          port_guid: 64992113-4b2f-4e07-9b6b-34bab3b493e1
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 9c12d922-b22e-49b9-a903-3ee3358f9610
+        Connections:
+        - node_guid: 4419db2b-ecac-40eb-b505-646d4d44d156
+          port_guid: 3a15764e-da3d-472a-8819-e6c617735f1c
+    00000002:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 32fedc50-68f3-4cb1-8b12-9b096c434197
+        Connections:
+        - node_guid: a0273582-5f0e-4659-9de2-bc59c82ae007
+          port_guid: 3638e7ce-9fbc-4eb0-ae86-7a78d179d05e
+    00000003:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 0e9fd08c-19f1-4768-9e81-46076c25a9d1
+        Connections:
+        - node_guid: 63b1e63d-6afe-409a-9d77-ee7e340a0bbd
+          port_guid: 797a397b-aa21-496a-a365-7c2abae7c3ac
 --- !u!114 &-3407145676576357158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,7 +1307,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: c3e2812a-b887-4e29-be7a-56eb45a06352
   editor_ActiveNode: 0
-  position: {x: 1300, y: 2020.5596}
+  position: {x: 1591, y: 1993}
   references:
     version: 1
     00000000:
@@ -1033,7 +1367,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 686e3eef-80dc-44b3-a2a8-41b13d45c5aa
   editor_ActiveNode: 0
-  position: {x: 1961.0417, y: -934.25055}
+  position: {x: 2154, y: -965}
   _floatPropertiyModiffiers:
   - propertyKey: Value_5
     operation: 1
@@ -1080,7 +1414,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: 75b8d5b1-59c5-4d5c-8545-20c82788dc88
   editor_ActiveNode: 0
-  position: {x: 1699, y: 6}
+  position: {x: 2139, y: 22}
   references:
     version: 1
     00000000:
@@ -1123,6 +1457,73 @@ MonoBehaviour:
         Connections:
         - node_guid: f7cfc18f-5c6b-4b1e-98d6-2ee659aae0b9
           port_guid: 88e42b3c-af89-4473-8a6d-bff2cf45af8f
+--- !u!114 &-2867925391157690011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 020fa894-1fb9-48c9-951d-5beb73bc7a2a
+  editor_ActiveNode: 0
+  position: {x: 4892.0005, y: 184.00005}
+  _playOnce: 1
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: Why was the fox angry at being underappreciated? Because it didn't like
+    being taken fur granted.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 12441a22-5676-482a-850b-6357836b0602
+        Connections: []
+--- !u!114 &-2451636603213447982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: ae342f48-d27f-4a9d-b3aa-d8bcd0c861cc
+  editor_ActiveNode: 0
+  position: {x: 4460.2573, y: -350.225}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: 'The average human being eats 8 spiders
+
+    Whenever I cook for them'
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 9867c3cc-78e4-445a-b11d-91b84c71baaa
+        Connections:
+        - node_guid: 423a81ab-9501-4356-9dbb-e4d219848694
+          port_guid: 7fb17626-2006-4a80-a989-8b7757acb2a9
 --- !u!114 &-2007856795650250399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1143,7 +1544,7 @@ MonoBehaviour:
   - id: 4
   internal_guid: 873e62b5-b0ee-45c9-b2b3-3ae55f11c540
   editor_ActiveNode: 0
-  position: {x: 669.29474, y: 29.067562}
+  position: {x: 819.8068, y: -2.9999611}
   references:
     version: 1
     00000000:
@@ -1213,11 +1614,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: 43a80542-c079-44ac-a25a-3ae6f1ccb074
   editor_ActiveNode: 0
-  position: {x: 2304, y: 1852.5596}
+  position: {x: 2939.2285, y: 1916.0417}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Do you  even lift bruh?
+  _dialogue: Search within.
   references:
     version: 1
     00000000:
@@ -1230,8 +1631,6 @@ MonoBehaviour:
         Connections:
         - node_guid: 13afceab-0a6e-4681-89cb-3e41752f12ae
           port_guid: 32663b37-f6ef-46fa-8778-9453c0f0af6f
-        - node_guid: fd3b1f08-a315-4e38-b02f-3f1a840297fa
-          port_guid: c64616f8-a79a-4d39-810a-437f6e230b08
     00000001:
       type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
       data:
@@ -1259,10 +1658,10 @@ MonoBehaviour:
   - id: 1
   internal_guid: 060f6e7f-826e-4496-b366-bdc9b6ddb621
   editor_ActiveNode: 0
-  position: {x: 1632.3502, y: 1583.7501}
+  position: {x: 2017.506, y: 1546.7527}
   _playOnce: 0
   _animations: []
-  _speaker: 
+  _speaker: Oxford the Fox
   _dialogue: Ok, let me know if I can help.
   references:
     version: 1
@@ -1301,9 +1700,9 @@ MonoBehaviour:
   - id: 1
   internal_guid: fd6398d3-4ec3-44df-917c-bd918d5c267b
   editor_ActiveNode: 0
-  position: {x: 2019, y: 102}
+  position: {x: 2588, y: 104}
   _floatPropertiyModiffiers: []
-  _choice: Why are you here?
+  _choice: Tell me a story.
   references:
     version: 1
     00000000:
@@ -1341,7 +1740,7 @@ MonoBehaviour:
   overrideProperty: 0
   guid: 193e58b9-2a3d-4fee-8017-1180898c9f8a
   Name: Value_2
-  abstractData: 0
+  abstractData: -0.8
 --- !u!114 &-108048825907586965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1358,7 +1757,7 @@ MonoBehaviour:
   - id: 0
   internal_guid: 5898e5dd-0849-4f66-84d6-40f8f0d19b71
   editor_ActiveNode: 0
-  position: {x: 3196, y: 768}
+  position: {x: 4243, y: 747}
   _floatPropertiyModiffiers: []
   _choice: uh? not sure.
   references:
@@ -1414,7 +1813,6 @@ MonoBehaviour:
   - {fileID: 6768305579205655354}
   - {fileID: -7370219099702744251}
   - {fileID: -6063670110749837529}
-  - {fileID: 4721811896334415417}
   - {fileID: 3781897460200132718}
   - {fileID: -4771069992494870876}
   - {fileID: 6663425993649705845}
@@ -1452,6 +1850,20 @@ MonoBehaviour:
   - {fileID: -6912791852681991100}
   - {fileID: -7053419396661218035}
   - {fileID: -792894037578609405}
+  - {fileID: 3928497921787920041}
+  - {fileID: 3802671211384056668}
+  - {fileID: 8352033984632128382}
+  - {fileID: -4373820154955188799}
+  - {fileID: 5477138735960481012}
+  - {fileID: -8112140514701718079}
+  - {fileID: -2867925391157690011}
+  - {fileID: -5645896260556794247}
+  - {fileID: -2451636603213447982}
+  - {fileID: -4542245832608386612}
+  - {fileID: -3653292423378760045}
+  - {fileID: -5190096154186999066}
+  - {fileID: 2223152143887230717}
+  - {fileID: -8577228063917478785}
   BlackboardProperties:
   - {fileID: -6777924966455175767}
   - {fileID: -8210185463570483629}
@@ -1475,7 +1887,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 1e0c257e-e756-426b-b586-635234847052
   editor_ActiveNode: 0
-  position: {x: 1360, y: -836}
+  position: {x: 1341, y: -886}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -1519,11 +1931,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: 3c214150-5ac6-47b3-bfb8-298b29b7c191
   editor_ActiveNode: 0
-  position: {x: 1409, y: 5}
+  position: {x: 1734, y: 21}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Well, what to do, what to say...
+  _dialogue: "What\xB4s on your mind?"
   references:
     version: 1
     00000000:
@@ -1563,7 +1975,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 9da6ea02-92cf-4fc4-8ebb-d7732735775e
   editor_ActiveNode: 0
-  position: {x: 1387.0024, y: 927.355}
+  position: {x: 1695, y: 899}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -1606,11 +2018,12 @@ MonoBehaviour:
   - id: 0
   internal_guid: 43c60b08-5f6d-4a1a-8ee6-1a1404f2ef4a
   editor_ActiveNode: 0
-  position: {x: 3222.4465, y: -581.5549}
+  position: {x: 3890, y: -560}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Rebel scum...
+  _dialogue: Foxes are interesting because they are one of the few animals that can
+    survive in both cold and warm climates.
   references:
     version: 1
     00000000:
@@ -1640,12 +2053,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: f2492ba9-0719-4da2-8eec-74eae78e3044
   editor_ActiveNode: 0
-  position: {x: 2909.251, y: 2020.7689}
+  position: {x: 3909, y: 2166}
   _floatPropertiyModiffiers:
   - propertyKey: Value_1
     operation: 0
     x: 1
-  _choice: Sometimes...
+  _choice: Queretaverso?
   references:
     version: 1
     00000000:
@@ -1664,10 +2077,10 @@ MonoBehaviour:
         Name: Exit
         Direction: 1
         CanBeRemoved: 1
-        guid: ef710250-50f9-4a0b-a419-9aee6981a583
+        guid: 3740d8bc-d71f-4c7a-8823-9787c8ef920c
         Connections:
-        - node_guid: b01bfbdc-46c0-4c5a-85a6-88777f4caeeb
-          port_guid: d4a72d27-ffd5-40bc-8db1-f8bfce3f0a7d
+        - node_guid: bef1127b-99f9-4e00-b60c-efe0beb4b3d0
+          port_guid: 58536f49-e7d0-49da-a273-7fce8bfb10cf
 --- !u!114 &1367006545118234090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1686,7 +2099,7 @@ MonoBehaviour:
   - id: 2
   internal_guid: afd8762e-a42f-4e20-87cd-e7528017138c
   editor_ActiveNode: 0
-  position: {x: 1071, y: 5}
+  position: {x: 1277, y: 21}
   _predicateSets:
   - predicates:
     - propertyKey: Value_3
@@ -1742,7 +2155,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: afb4eec9-2b99-4caa-84eb-8544b1d90c62
   editor_ActiveNode: 0
-  position: {x: 2000.1001, y: 992.30005}
+  position: {x: 2521, y: 961}
   _floatPropertiyModiffiers: []
   _choice: "I don\xB4t know."
   references:
@@ -1783,11 +2196,11 @@ MonoBehaviour:
   - id: 0
   internal_guid: 4f2187d3-b397-44f2-92a1-fa73290649eb
   editor_ActiveNode: 0
-  position: {x: 3218, y: -845}
+  position: {x: 3886, y: -823}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Of course I am, you ought to obey me.
+  _dialogue: Might I ask what brings you to these parts?
   references:
     version: 1
     00000000:
@@ -1819,7 +2232,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: 8e56ffc2-8285-4bbe-9c71-c1912535a4a2
   editor_ActiveNode: 0
-  position: {x: 1646, y: -837}
+  position: {x: 1737, y: -885}
   references:
     version: 1
     00000000:
@@ -1862,6 +2275,37 @@ MonoBehaviour:
         Connections:
         - node_guid: cc2b677d-495c-49f4-9a91-cbbf12a5297e
           port_guid: 5a7f0811-fb9f-4e61-a226-f7d3c93e8ffc
+--- !u!114 &2223152143887230717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
+  m_Name: Choice Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: a0273582-5f0e-4659-9de2-bc59c82ae007
+  editor_ActiveNode: 0
+  position: {x: 3853.521, y: 1323.8529}
+  _floatPropertiyModiffiers: []
+  _choice: Destroy this game.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 3638e7ce-9fbc-4eb0-ae86-7a78d179d05e
+        Connections:
+        - node_guid: 4ccbcd63-f9b8-4b87-a611-89070df47a66
+          port_guid: 32fedc50-68f3-4cb1-8b12-9b096c434197
 --- !u!114 &2614474378578392782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1879,11 +2323,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: fd3b1f08-a315-4e38-b02f-3f1a840297fa
   editor_ActiveNode: 0
-  position: {x: 1979, y: 2207.5596}
+  position: {x: 2503.4373, y: 2346.9602}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: You are such a jerk!
+  _dialogue: How can I help?
   references:
     version: 1
     00000000:
@@ -1902,10 +2346,10 @@ MonoBehaviour:
         Name: Exit
         Direction: 1
         CanBeRemoved: 1
-        guid: c64616f8-a79a-4d39-810a-437f6e230b08
+        guid: 2532c43e-1e1d-4c67-91b4-53a68729bd02
         Connections:
-        - node_guid: 43a80542-c079-44ac-a25a-3ae6f1ccb074
-          port_guid: 0e54f833-ecc7-46f3-a6e9-8e3827ad49fa
+        - node_guid: 74f48258-efe6-4b24-a5ff-a150515976de
+          port_guid: 7c6500aa-a599-41f0-b44a-9ce20584926b
 --- !u!114 &3741725220790986289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1924,7 +2368,7 @@ MonoBehaviour:
   - id: 2
   internal_guid: 98fd461f-70bb-4cc0-b928-24223efa13d1
   editor_ActiveNode: 0
-  position: {x: 1083.0715, y: 926.8776}
+  position: {x: 1247, y: 899}
   _predicateSets:
   - predicates:
     - propertyKey: Value_3
@@ -1976,11 +2420,11 @@ MonoBehaviour:
   - id: 0
   internal_guid: be296408-1db9-427e-b44b-d31c352e1de3
   editor_ActiveNode: 0
-  position: {x: 2317.0278, y: 993.49005}
+  position: {x: 2969, y: 976}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Zzz...
+  _dialogue: Then you are clueless.
   references:
     version: 1
     00000000:
@@ -2011,7 +2455,7 @@ MonoBehaviour:
   - id: 2
   internal_guid: 5793023a-cd35-4ebe-ae1a-56d04d27486a
   editor_ActiveNode: 0
-  position: {x: 2599, y: -41}
+  position: {x: 3084.215, y: -154.25499}
   references:
     version: 1
     00000000:
@@ -2022,8 +2466,8 @@ MonoBehaviour:
         CanBeRemoved: 0
         guid: a52ef462-3787-4e40-a14c-a165faa98800
         Connections:
-        - node_guid: 1ec69a9a-2442-4851-a5fd-b141daf8dc73
-          port_guid: adfa4f45-f3e3-4459-a477-bde2fbc1a4bb
+        - node_guid: 07d2cb51-b6dc-4340-8700-9af87e3905b1
+          port_guid: 0edf7f0a-e390-45c9-b238-6240240074a9
     00000001:
       type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
       data:
@@ -2044,6 +2488,74 @@ MonoBehaviour:
         Connections:
         - node_guid: 485f017b-06b3-45e4-8d97-53ca4f599919
           port_guid: 6a72eb79-cdd6-466b-9bdd-92ca298a8411
+--- !u!114 &3802671211384056668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: 08017a2a-1fb1-40d0-92bd-ff51eb1a2192
+  editor_ActiveNode: 0
+  position: {x: 3702, y: -1889}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: Love is a complex emotion that is often difficult to understand. It
+    can make people act in strange and unexpected ways.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 9872797b-e7de-4e74-8e42-64db10d661f1
+        Connections:
+        - node_guid: 75c8d00b-2d3a-4194-b382-45619fd3cb8d
+          port_guid: a90aa927-0a16-47ff-9492-f058c2780a8f
+--- !u!114 &3928497921787920041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: db59c28e-fccd-4883-912b-8a31c4ddb924
+  editor_ActiveNode: 0
+  position: {x: 3705, y: -1288}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: Foxes are often involved in businesses that require cunning and intelligence,
+    such as trading, investments, and the like.
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: d2f0075f-1231-4b4d-9b6b-83c54a15ccc2
+        Connections:
+        - node_guid: e15e75d2-6274-4373-a69e-bb30990271b2
+          port_guid: b84d39e0-6f81-4344-b8b2-cde560785dad
 --- !u!114 &4058425255254661036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2061,12 +2573,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 070bc20e-38cb-4fb7-864f-62afcc461c14
   editor_ActiveNode: 0
-  position: {x: 1628.502, y: 2426.4583}
+  position: {x: 2025, y: 2394}
   _floatPropertiyModiffiers:
   - propertyKey: Value_4
     operation: 4
     x: 0
-  _choice: No
+  _choice: Yes. I need support.
   references:
     version: 1
     00000000:
@@ -2108,7 +2620,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: 1f80a018-5052-4907-a47a-66fa288bf118
   editor_ActiveNode: 0
-  position: {x: 1691.0616, y: 926.51886}
+  position: {x: 2084, y: 899}
   references:
     version: 1
     00000000:
@@ -2168,11 +2680,11 @@ MonoBehaviour:
   - id: 1
   internal_guid: 91d37852-ea92-4303-bd46-b77b49f7cc91
   editor_ActiveNode: 0
-  position: {x: 2308.6174, y: 743.1025}
+  position: {x: 2961, y: 726}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Oh boy! The wolrld could use a hero just about now.
+  _dialogue: Oh boy! The world could use a hero just about now.
   references:
     version: 1
     00000000:
@@ -2195,48 +2707,6 @@ MonoBehaviour:
         Connections:
         - node_guid: cf494abc-bfa1-4615-acca-c7aeb5c981b0
           port_guid: 2bc2f760-770b-4244-9d60-19073a5f9ddf
---- !u!114 &4721811896334415417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 313e5d0fb0ceefd4b8c52c629f42709a, type: 3}
-  m_Name: Choice Flow Visual Graph Node
-  m_EditorClassIdentifier: 
-  Ports:
-  - id: 0
-  - id: 1
-  internal_guid: 1ec69a9a-2442-4851-a5fd-b141daf8dc73
-  editor_ActiveNode: 0
-  position: {x: 2312, y: -99}
-  _floatPropertiyModiffiers: []
-  _choice: No, are you?
-  references:
-    version: 1
-    00000000:
-      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
-      data:
-        Name: Input
-        Direction: 0
-        CanBeRemoved: 0
-        guid: d2d451c6-c6fa-4d87-939b-564ad1c8268e
-        Connections:
-        - node_guid: 07d2cb51-b6dc-4340-8700-9af87e3905b1
-          port_guid: 0edf7f0a-e390-45c9-b238-6240240074a9
-    00000001:
-      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
-      data:
-        Name: Exit
-        Direction: 1
-        CanBeRemoved: 1
-        guid: adfa4f45-f3e3-4459-a477-bde2fbc1a4bb
-        Connections:
-        - node_guid: 5793023a-cd35-4ebe-ae1a-56d04d27486a
-          port_guid: a52ef462-3787-4e40-a14c-a165faa98800
 --- !u!114 &4803401697913602145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2256,7 +2726,7 @@ MonoBehaviour:
   - id: 3
   internal_guid: 74f48258-efe6-4b24-a5ff-a150515976de
   editor_ActiveNode: 0
-  position: {x: 2577, y: 1852.5596}
+  position: {x: 3426, y: 2026}
   references:
     version: 1
     00000000:
@@ -2269,6 +2739,8 @@ MonoBehaviour:
         Connections:
         - node_guid: 43a80542-c079-44ac-a25a-3ae6f1ccb074
           port_guid: 310c0012-90de-4496-ae81-f4cd366f5e96
+        - node_guid: fd3b1f08-a315-4e38-b02f-3f1a840297fa
+          port_guid: 2532c43e-1e1d-4c67-91b4-53a68729bd02
     00000001:
       type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
       data:
@@ -2314,7 +2786,7 @@ MonoBehaviour:
   overrideProperty: 0
   guid: 936c4a54-47ec-4028-b950-266c5d17116c
   Name: Value_3
-  abstractData: 0
+  abstractData: 1.5
 --- !u!114 &5258527097588379437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2332,12 +2804,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 65b30d7a-a8b5-4419-a639-b0a95556a456
   editor_ActiveNode: 0
-  position: {x: 2920, y: -784}
+  position: {x: 3417, y: -788}
   _floatPropertiyModiffiers:
   - propertyKey: Value_2
     operation: 1
     x: 0.5
-  _choice: Oh gee, you are right
+  _choice: What can you do for me?
   references:
     version: 1
     00000000:
@@ -2360,6 +2832,39 @@ MonoBehaviour:
         Connections:
         - node_guid: 4f2187d3-b397-44f2-92a1-fa73290649eb
           port_guid: a540ddb2-7732-4d82-8c17-a2c55df1bf96
+--- !u!114 &5477138735960481012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  internal_guid: a2c622a5-63cf-4939-beac-d7d559eecc8b
+  editor_ActiveNode: 0
+  position: {x: 4889.2505, y: -87.55001}
+  _playOnce: 1
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: ' Where did the fox go to buy a new tail? To the re-tail store.'
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: 44a86d5f-9943-45f0-b246-4476a8f325be
+        Connections:
+        - node_guid: 485f017b-06b3-45e4-8d97-53ca4f599919
+          port_guid: e377f5c8-0dba-47e5-a064-f0a82db17dfe
 --- !u!114 &5488014022024002951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2374,9 +2879,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
+  - id: 1
   internal_guid: e15e75d2-6274-4373-a69e-bb30990271b2
   editor_ActiveNode: 0
-  position: {x: 2564, y: -1438}
+  position: {x: 3213.3542, y: -1395.9407}
   _floatPropertiyModiffiers: []
   _choice: Business
   references:
@@ -2391,6 +2897,16 @@ MonoBehaviour:
         Connections:
         - node_guid: d53085fe-d788-4586-8231-6b7fc25d1afd
           port_guid: 6114b2b3-c099-442b-a4e3-d09c7fcf9f58
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: b84d39e0-6f81-4344-b8b2-cde560785dad
+        Connections:
+        - node_guid: db59c28e-fccd-4883-912b-8a31c4ddb924
+          port_guid: d2f0075f-1231-4b4d-9b6b-83c54a15ccc2
 --- !u!114 &6009531610311354559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,11 +2923,11 @@ MonoBehaviour:
   - id: 0
   internal_guid: 9c6f18ce-a208-4ca3-a0f4-42eb7d6a8ff8
   editor_ActiveNode: 0
-  position: {x: 3228, y: -12}
-  _playOnce: 0
+  position: {x: 4446.25, y: -89.70001}
+  _playOnce: 1
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Too bbad, I was gonna offer you something...
+  _dialogue: Why did the fox cross the road? To hunt the chicken.
   references:
     version: 1
     00000000:
@@ -2441,9 +2957,9 @@ MonoBehaviour:
   - id: 1
   internal_guid: 07d2cb51-b6dc-4340-8700-9af87e3905b1
   editor_ActiveNode: 0
-  position: {x: 2019, y: -100}
+  position: {x: 2588, y: -98}
   _floatPropertiyModiffiers: []
-  _choice: Hungry?
+  _choice: Tell me a joke.
   references:
     version: 1
     00000000:
@@ -2464,8 +2980,8 @@ MonoBehaviour:
         CanBeRemoved: 1
         guid: 0edf7f0a-e390-45c9-b238-6240240074a9
         Connections:
-        - node_guid: 1ec69a9a-2442-4851-a5fd-b141daf8dc73
-          port_guid: d2d451c6-c6fa-4d87-939b-564ad1c8268e
+        - node_guid: 5793023a-cd35-4ebe-ae1a-56d04d27486a
+          port_guid: a52ef462-3787-4e40-a14c-a165faa98800
 --- !u!114 &6663425993649705845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2481,11 +2997,14 @@ MonoBehaviour:
   Ports:
   - id: 0
   - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
   internal_guid: 485f017b-06b3-45e4-8d97-53ca4f599919
   editor_ActiveNode: 0
-  position: {x: 2923, y: -13}
+  position: {x: 3881, y: 11}
   _floatPropertiyModiffiers: []
-  _choice: No
+  _choice: Foxes joke.
   references:
     version: 1
     00000000:
@@ -2508,6 +3027,34 @@ MonoBehaviour:
         Connections:
         - node_guid: 9c6f18ce-a208-4ca3-a0f4-42eb7d6a8ff8
           port_guid: ede1f395-8102-4e48-9374-721f073c4d51
+    00000002:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: e377f5c8-0dba-47e5-a064-f0a82db17dfe
+        Connections:
+        - node_guid: a2c622a5-63cf-4939-beac-d7d559eecc8b
+          port_guid: 44a86d5f-9943-45f0-b246-4476a8f325be
+    00000003:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 0fb4d5ef-93a6-48bb-afd4-317ff8822819
+        Connections: []
+    00000004:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 1e1fbe55-bfe4-45b5-848b-79192ccff7e1
+        Connections:
+        - node_guid: 89d82d98-b3c7-4208-b057-1e5a7835b834
+          port_guid: 58702394-ae3c-4bca-8d32-92eb7c51c1e6
 --- !u!114 &6768305579205655354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2525,9 +3072,9 @@ MonoBehaviour:
   - id: 1
   internal_guid: f7cfc18f-5c6b-4b1e-98d6-2ee659aae0b9
   editor_ActiveNode: 0
-  position: {x: 2022, y: 309}
+  position: {x: 2591, y: 311}
   _floatPropertiyModiffiers: []
-  _choice: Where are my things?
+  _choice: Why am I here?
   references:
     version: 1
     00000000:
@@ -2566,11 +3113,11 @@ MonoBehaviour:
   - id: 0
   internal_guid: b01bfbdc-46c0-4c5a-85a6-88777f4caeeb
   editor_ActiveNode: 0
-  position: {x: 3229.845, y: 1848.0596}
+  position: {x: 4371.624, y: 1901.831}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: Good  enough!
+  _dialogue: The point of life is to live it. Simple as that.
   references:
     version: 1
     00000000:
@@ -2583,8 +3130,6 @@ MonoBehaviour:
         Connections:
         - node_guid: 96bc55bd-adfc-4ec3-86f2-919f24f72d4a
           port_guid: 3d97b28e-24bd-4e89-acad-38d04e5df676
-        - node_guid: f2492ba9-0719-4da2-8eec-74eae78e3044
-          port_guid: ef710250-50f9-4a0b-a419-9aee6981a583
 --- !u!114 &7055553530206125381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2602,7 +3147,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 73b90df9-7783-47ab-a020-a1eb832a0395
   editor_ActiveNode: 0
-  position: {x: 2562, y: -1655}
+  position: {x: 3203.3542, y: -1612.9407}
   _floatPropertiyModiffiers: []
   _choice: Sports
   references:
@@ -2644,7 +3189,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: cc2b677d-495c-49f4-9a91-cbbf12a5297e
   editor_ActiveNode: 0
-  position: {x: 1967.0835, y: -657.16504}
+  position: {x: 2153, y: -692}
   _floatPropertiyModiffiers:
   - propertyKey: Value_5
     operation: 4
@@ -2689,7 +3234,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 68131608-e75d-4fa4-a8a9-7eb3276cb9bf
   editor_ActiveNode: 0
-  position: {x: 1960.5626, y: -1201.169}
+  position: {x: 2159, y: -1199}
   _floatPropertiyModiffiers:
   - propertyKey: Value_5
     operation: 0
@@ -2734,7 +3279,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: cf494abc-bfa1-4615-acca-c7aeb5c981b0
   editor_ActiveNode: 0
-  position: {x: 2595, y: 743}
+  position: {x: 3370, y: 726}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
@@ -2778,12 +3323,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 96bc55bd-adfc-4ec3-86f2-919f24f72d4a
   editor_ActiveNode: 0
-  position: {x: 2905, y: 1758.5596}
+  position: {x: 3905, y: 1904}
   _floatPropertiyModiffiers:
   - propertyKey: Value_2
     operation: 1
     x: 0.8
-  _choice: Yes, I am  swole
+  _choice: What's the point of it all?
   references:
     version: 1
     00000000:
@@ -2806,6 +3351,53 @@ MonoBehaviour:
         Connections:
         - node_guid: b01bfbdc-46c0-4c5a-85a6-88777f4caeeb
           port_guid: d4a72d27-ffd5-40bc-8db1-f8bfce3f0a7d
+--- !u!114 &8352033984632128382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 819f58639b0f0964d9058a6a7badd4e2, type: 3}
+  m_Name: Dialogue Flow Visual Graph Node
+  m_EditorClassIdentifier: 
+  Ports:
+  - id: 0
+  - id: 1
+  internal_guid: 815eb0cb-6e55-4d7c-a692-d6d024f1031b
+  editor_ActiveNode: 0
+  position: {x: 3448.8245, y: 106.836464}
+  _playOnce: 0
+  _animations: []
+  _speaker: Oxford the Fox
+  _dialogue: One day, a group of hunters came to the forest to hunt the foxes. The
+    foxes were very clever but the hunters had greater numbers. However the foxes
+    outwitted the humans.  one of the foxes was injured in the process. The other
+    foxes took him back to their den and nursed him back to health
+  references:
+    version: 1
+    00000000:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Input
+        Direction: 0
+        CanBeRemoved: 0
+        guid: eea3f444-ca3b-40ec-9526-cd2ec5073abd
+        Connections:
+        - node_guid: d94af5b1-9136-49fb-835e-10e51999237b
+          port_guid: 3713234d-cafe-45fe-be71-c24ed25f46ad
+    00000001:
+      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
+      data:
+        Name: Exit
+        Direction: 1
+        CanBeRemoved: 1
+        guid: 8f8c5b8f-96bd-43ff-8fdd-a6049fa4599c
+        Connections:
+        - node_guid: a53942ee-fc96-4541-987a-5cc6459abee2
+          port_guid: 54294400-00d4-43db-888a-fd16629e90be
 --- !u!114 &8408720463727582947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2823,7 +3415,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: 5266af46-b0ee-401e-ac4b-12968965304b
   editor_ActiveNode: 0
-  position: {x: 1624, y: 1895.4003}
+  position: {x: 2020, y: 1863}
   _floatPropertiyModiffiers:
   - propertyKey: Value_0
     operation: 0
@@ -2868,12 +3460,12 @@ MonoBehaviour:
   - id: 1
   internal_guid: 5d3f9197-8a62-454e-b695-176c20dd9d5d
   editor_ActiveNode: 0
-  position: {x: 1629.2471, y: 2127.9563}
+  position: {x: 2026.5209, y: 2144.668}
   _floatPropertiyModiffiers:
   - propertyKey: Value_1
     operation: 0
     x: 0.5
-  _choice: Why?
+  _choice: I have some questions.
   references:
     version: 1
     00000000:
@@ -2910,15 +3502,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Ports:
   - id: 0
-  - id: 1
   internal_guid: edb2e700-b7e1-48dc-a453-64a5a2e2ee2b
   editor_ActiveNode: 0
-  position: {x: 2916, y: 2290.749}
+  position: {x: 3916, y: 2436}
   _floatPropertiyModiffiers:
   - propertyKey: Value_3
     operation: 0
     x: 1.5
-  _choice: No, I don't need to
+  _choice: Never mind.
   references:
     version: 1
     00000000:
@@ -2931,16 +3522,6 @@ MonoBehaviour:
         Connections:
         - node_guid: 74f48258-efe6-4b24-a5ff-a150515976de
           port_guid: e9600ec8-4118-4828-a705-4f63bfeb86cb
-    00000001:
-      type: {class: VisualGraphPort, ns: VisualGraphRuntime, asm: VisualGraphRuntime}
-      data:
-        Name: Exit
-        Direction: 1
-        CanBeRemoved: 1
-        guid: af1c5a61-32b4-48f7-a402-b42db2a933e3
-        Connections:
-        - node_guid: bef1127b-99f9-4e00-b60c-efe0beb4b3d0
-          port_guid: 58536f49-e7d0-49da-a273-7fce8bfb10cf
 --- !u!114 &8855778338989744822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2958,7 +3539,7 @@ MonoBehaviour:
   - id: 1
   internal_guid: aca031a0-550b-48ce-bc34-9dd26de6c61e
   editor_ActiveNode: 0
-  position: {x: 2002, y: 1222}
+  position: {x: 2523, y: 1191}
   _floatPropertiyModiffiers: []
   _choice: a Villan.
   references:
@@ -2999,11 +3580,12 @@ MonoBehaviour:
   - id: 0
   internal_guid: 59192bf3-8d84-4f1d-83b1-535a8ed72e88
   editor_ActiveNode: 0
-  position: {x: 3221, y: -270}
+  position: {x: 4456.29, y: -594.5475}
   _playOnce: 0
   _animations: []
   _speaker: Oxford the Fox
-  _dialogue: I don't care...
+  _dialogue: "Some people think being working class is a negative thing but I think
+    there\u2019s loads of benefits. I\u2019ve claimed them all."
   references:
     version: 1
     00000000:
