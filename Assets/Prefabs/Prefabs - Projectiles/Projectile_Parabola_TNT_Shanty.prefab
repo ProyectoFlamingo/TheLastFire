@@ -200,9 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 7890409840483429500}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &7807340246942760897
 MonoBehaviour:
@@ -217,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: 
   _meshContainer: {fileID: 8379186790476956916}
   _damage: 1
   _healthAffectableTags: []
@@ -228,7 +231,6 @@ MonoBehaviour:
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 1
   _repelTags: []
   _speedMode: 1
@@ -238,25 +240,53 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 5
   _distance: 5
-  _impactParticleEffectIndex: 0
-  _destroyedParticleEffectIndex: 0
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 0
-  _destroyedSoundEffectIndex: 0
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player
     index: 11
-  _explodableIndex: 0
-  _fireEffectIndex: 0
+  _explodableReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _fireEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _fuse: {fileID: 8190695335403940318}
   _fuseDuration: 5
   _fuseLength: 0.5

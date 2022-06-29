@@ -34,7 +34,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 	[SerializeField] private float _positioningDuration; 					/// <summary>Card Positioning's Duration.</summary>
 	[Space(5f)]
 	[Header("Deck Presentation's Attributes:")]
-	[SerializeField] private int _spawnEffectIndex; 						/// <summary>Deck's apparition Particle Effect's index.</summary>
+	[SerializeField] private VAssetReference _spawnEffectReference; 		/// <summary>Deck's Spawn Particle-Effect's VAssetReference.</summary>
 	[SerializeField] private Vector3 _presentationPoint; 					/// <summary>Deck Presentation's Point.</summary>
 	[SerializeField] private float _cardSpacing; 							/// <summary>Spacing between each card when the deck is presented.</summary>
 	[SerializeField] private float _deckPositioningDuration; 				/// <summary>Deck Positioning's Duration.</summary>
@@ -84,8 +84,8 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 	/// <summary>Gets presentationPoint property.</summary>
 	public Vector3 presentationPoint { get { return _presentationPoint; } }
 
-	/// <summary>Gets spawnEffectIndex property.</summary>
-	public int spawnEffectIndex { get { return _spawnEffectIndex; } }
+	/// <summary>Gets spawnEffectReference property.</summary>
+	public VAssetReference spawnEffectReference { get { return _spawnEffectReference; } }
 
 	/// <summary>Gets rotationDuration property.</summary>
 	public float rotationDuration { get { return _rotationDuration; } }
@@ -332,7 +332,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 		t = 0.0f;
 
-		AudioController.PlayOneShot(SourceType.SFX, soundEffect.sourceIndex, soundEffect.soundIndex, soundEffect.volume);
+		soundEffect.Play();
 
 		while(t < 1.0f)
 		{
@@ -435,8 +435,6 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 		t = 0.0f;
 
-		//AudioController.PlayOneShot(SourceType.SFX, shuffleSoundEffect.sourceIndex, shuffleSoundEffect.soundIndex, shuffleSoundEffect.volume);
-
 		float[] y = new float[(int)Mathf.Ceil(shufflingCycles * 2.0f)];
 		bool[] p = new bool[y.Length];
 		int ind = 0;
@@ -467,7 +465,7 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 
 			if(t >= y[ind] && !p[ind])
 			{
-				AudioController.PlayOneShot(SourceType.SFX, shuffleSoundEffect.sourceIndex, shuffleSoundEffect.soundIndex, shuffleSoundEffect.volume);
+				shuffleSoundEffect.Play();
 				p[ind] = true;
 				ind++;
 			}
@@ -591,7 +589,8 @@ public class DestinoDeckController : DestinoScriptableCoroutine
 			card.transform.localScale = destinyScale;
 		}
 
-		PoolManager.RequestParticleEffect(spawnEffectIndex, deckPoint, Quaternion.identity);
+		//PoolManager.RequestParticleEffect(spawnEffectIndex, deckPoint, Quaternion.identity);
+		PoolManager.RequestParticleEffect(spawnEffectReference, deckPoint, Quaternion.identity);
 	}
 }
 }

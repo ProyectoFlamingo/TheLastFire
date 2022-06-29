@@ -12,7 +12,6 @@ public class ParticleEffectEmissionData
 {
 	[SerializeField] private Transform _transform; 						/// <summary>Transform's Reference.</summary>
 	[SerializeField] private VAssetReference _particleEffectReference; 	/// <summary>Particle Effect's Reference.</summary>
-	[SerializeField] private int _particleEffectIndex; 					/// <summary>ParticleEffect's Index.</summary>
 	[SerializeField] private Vector3[] _points; 						/// <summary>Points of ParticleEmission relative to the Transform.</summary>
 
 	/// <summary>Gets and Sets transform property.</summary>
@@ -27,13 +26,6 @@ public class ParticleEffectEmissionData
 	{
 		get { return _particleEffectReference; }
 		set { _particleEffectReference = value; }
-	}
-
-	/// <summary>Gets and Sets particleEffectIndex property.</summary>
-	public int particleEffectIndex
-	{
-		get { return _particleEffectIndex; }
-		set { _particleEffectIndex = value; }
 	}
 
 	/// <summary>Gets and Sets points property.</summary>
@@ -60,25 +52,26 @@ public class ParticleEffectEmissionData
 
 	/// <summary>ParticleEffectEmissionData default constructor.</summary>
 	/// <param name="_transform">Transform's Reference.</param>
-	/// <param name="_particleEffectIbdex">ParticleEffect's Index.</param>
+	/// <param name="_particleEffectReference">ParticleEffect's Reference.</param>
 	/// <param name="_points">Spawn Points [relative to the Transform].</param>
-	public ParticleEffectEmissionData(Transform _transform, int _particleEffectIndex, params Vector3[] _points)
+	public ParticleEffectEmissionData(Transform _transform, VAssetReference _particleEffectReference, params Vector3[] _points)
 	{
 		transform = _transform;
-		particleEffectIndex = _particleEffectIndex;
+		particleEffectReference = _particleEffectReference;
 		points = _points;
 	}
 
 	/// <summary>Emits ParticleEffects.</summary>
-	public void EmitParticleEffects()
+	/// <param name="scale">Particle Effect's Scale [1.0f by default].</param>
+	public void EmitParticleEffects(float scale = 1.0f)
 	{
-		if(transform == null || points == null) return;
+		if(transform == null) return;
 
-		foreach(Vector3 point in points)
+		if(points != null) foreach(Vector3 point in points)
 		{
-			if(particleEffectIndex < 0) PoolManager.RequestParticleEffect(particleEffectReference, transform.TransformPoint(point), Quaternion.identity);
-			else PoolManager.RequestParticleEffect(particleEffectIndex, transform.TransformPoint(point), Quaternion.identity);
-		}	
+			PoolManager.RequestParticleEffect(particleEffectReference, transform.TransformPoint(point), Quaternion.identity, scale);
+		}
+		else PoolManager.RequestParticleEffect(particleEffectReference, transform.position, Quaternion.identity, scale);
 	}
 }
 }

@@ -85,7 +85,7 @@ public class EmitSoundEffectEventsListener : EventsListener
 	{
 		if(!IDEventsDic.ContainsKey(_ID)) return;
 
-		AudioController.PlayOneShot(SourceType.SFX, 0, IDEventsDic[_ID]);
+		//AudioController.PlayOneShot(SourceType.SFX, 0, IDEventsDic[_ID]);
 	}
 
 	/// <summary>Callback invoked when a Collision2D intersection is received.</summary>
@@ -98,7 +98,7 @@ public class EmitSoundEffectEventsListener : EventsListener
 
 		if(!impactEventsDic.ContainsKey(tag)) return;
 
-		AudioController.PlayOneShot(SourceType.SFX, 0, impactEventsDic[tag]);
+		//AudioController.PlayOneShot(SourceType.SFX, 0, impactEventsDic[tag]);
 	}
 
 	/// <summary>Callback invoked when the GameObject is deactivated.</summary>
@@ -108,7 +108,7 @@ public class EmitSoundEffectEventsListener : EventsListener
 	{
 		if(!deactivationEventsDic.ContainsKey(_cause)) return;
 
-		AudioController.PlayOneShot(SourceType.SFX, 0, deactivationEventsDic[_cause]);
+		//AudioController.PlayOneShot(SourceType.SFX, 0, deactivationEventsDic[_cause]);
 	}
 }
 }

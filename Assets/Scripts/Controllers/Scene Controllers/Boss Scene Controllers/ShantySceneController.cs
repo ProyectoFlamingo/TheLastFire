@@ -17,7 +17,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	[SerializeField] private ShantyShip _shantyShip; 							/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
 	[Header("Audio's Attributes:")]
-	[SerializeField] private int _loopIndex; 									/// <summary>Loop's Index.</summary>
+	[SerializeField] private VAssetReference _loopReference; 					/// <summary>Loop's Reference.</summary>
 	[Space(5f)]
 	[Header("Camera Boundaries' Modifiers:")]
 	[SerializeField] private Camera2DBoundariesModifier _stage1CameraSettings; 	/// <summary>Camera Settings for Stage 1.</summary>
@@ -54,7 +54,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	[Space(5f)]
 	[Header("Particle Effects:")]
 	[SerializeField] private Vector3[] _smokeSpawnPositions; 					/// <summary>Spawn Positions for the Some's ParticleEffect.</summary>
-	[SerializeField] private int _smokeEffectIndex; 							/// <summary>Smoke ParticleEffect's Index.</summary>
+	[SerializeField] private VAssetReference _smokeEffectReference; 			/// <summary>Smoke ParticleEffect's Reference.</summary>
 	[Space(5f)]
 	[SerializeField] private TransformData _stage1ShipTransformData; 			/// <summary>Stage 1's Ship Transform Data.</summary>
 	[SerializeField] private TransformData _stage2ShipTransformData; 			/// <summary>Stage 2's Ship Transform Data.</summary>
@@ -105,11 +105,11 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	/// <summary>Gets shantyShip property.</summary>
 	public ShantyShip shantyShip { get { return _shantyShip; } }
 
-	/// <summary>Gets loopIndex property.</summary>
-	public int loopIndex { get { return _loopIndex; } }
+	/// <summary>Gets loopReference property.</summary>
+	public VAssetReference loopReference { get { return _loopReference; } }
 
-	/// <summary>Gets smokeEffectIndex property.</summary>
-	public int smokeEffectIndex { get { return _smokeEffectIndex; } }
+	/// <summary>Gets smokeEffectReference property.</summary>
+	public VAssetReference smokeEffectReference { get { return _smokeEffectReference; } }
 
 	/// <summary>Gets stage1MateoPosition property.</summary>
 	public Vector3 stage1MateoPosition { get { return _stage1MateoPosition; } }
@@ -235,7 +235,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	/// <summary>ShantySceneController's instance initialization.</summary>
 	private void Awake()
 	{
-		AudioController.Play(SourceType.Loop, 0, loopIndex);
+		AudioController.Play(SourceType.Loop, 0, loopReference);
 		
 		if(shanty != null)
 		{
@@ -304,7 +304,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 
 				foreach(Vector3 position in smokeSpawnPositions)
 				{
-					effect = PoolManager.RequestParticleEffect(smokeEffectIndex, position, Quaternion.identity);
+					effect = PoolManager.RequestParticleEffect(smokeEffectReference, position, Quaternion.identity);
 				}
 
 				this.StartCoroutine(this.WaitSeconds(waitBeforeFade,

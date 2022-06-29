@@ -18,41 +18,77 @@ MonoBehaviour:
   m_GUID: 46ce046fe95e55545946a9ab37797205
   m_SerializeEntries:
   - m_GUID: 01111a7dff3094144b2af30228a6e6f0
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Destino_Breaks.wav
+    m_Address: SFX_Destino_Breaks
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 01111a7dff3094144b2af30228a6e6f0, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 01111a7dff3094144b2af30228a6e6f0, type: 3}
+  - m_GUID: 039dce14793b4894ba7cf908142bb3e4
+    m_Address: New Dawn Fades
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 039dce14793b4894ba7cf908142bb3e4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 039dce14793b4894ba7cf908142bb3e4, type: 3}
   - m_GUID: 053d0aaa5ee56e3469f1cf8d67c4654f
-    m_Address: Assets/Audio/SFX/Cartas/Devil/SFX_Chain_Reppel.wav
+    m_Address: SFX_Chain_Reppel
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 053d0aaa5ee56e3469f1cf8d67c4654f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 053d0aaa5ee56e3469f1cf8d67c4654f, type: 3}
   - m_GUID: 056801fb703f7d340aae2729b72c1b2d
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Bone_Impact_3.wav
+    m_Address: SFX_Bone_Impact_3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 056801fb703f7d340aae2729b72c1b2d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 056801fb703f7d340aae2729b72c1b2d, type: 3}
+  - m_GUID: 05951d9e0ab6e1345b094f75077c4788
+    m_Address: Ambient01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 05951d9e0ab6e1345b094f75077c4788, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 05951d9e0ab6e1345b094f75077c4788, type: 3}
   - m_GUID: 07b92fc6d93da3143b47cba97d4b51d4
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Destino_Head_Hit.wav
+    m_Address: SFX_Destino_Head_Hit
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 07b92fc6d93da3143b47cba97d4b51d4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 07b92fc6d93da3143b47cba97d4b51d4, type: 3}
   - m_GUID: 095801a34f42d244188bd09c68542017
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_TNT_Explosion.mp3
+    m_Address: SFX_TNT_Explosion
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 095801a34f42d244188bd09c68542017, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 095801a34f42d244188bd09c68542017, type: 3}
+  - m_GUID: 0efb2883b1a63994196b829aa0b35768
+    m_Address: FireShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 0efb2883b1a63994196b829aa0b35768, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 0efb2883b1a63994196b829aa0b35768, type: 3}
+  - m_GUID: 0f47530e83fb397449aa99a0e5640d33
+    m_Address: Poop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 0f47530e83fb397449aa99a0e5640d33, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 0f47530e83fb397449aa99a0e5640d33, type: 3}
   - m_GUID: 1007f75827cbfc049a5a707a93a6c9e1
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/SFX_Magic_Click.ogg
+    m_Address: SFX_Magic_Click
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 1007f75827cbfc049a5a707a93a6c9e1, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 1007f75827cbfc049a5a707a93a6c9e1, type: 3}
+  - m_GUID: 106fded88b574644ebbbc785b99df62c
+    m_Address: SFX_Sword_Slash (pickme)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 106fded88b574644ebbbc785b99df62c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 106fded88b574644ebbbc785b99df62c, type: 3}
+  - m_GUID: 1189d5d3322d01748b93570f376c1a9e
+    m_Address: Day of the Lords
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 1189d5d3322d01748b93570f376c1a9e, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 1189d5d3322d01748b93570f376c1a9e, type: 3}
   - m_GUID: 156a48476f799cf4d934b63619873aca
     m_Address: La
     m_ReadOnly: 0
@@ -60,101 +96,161 @@ MonoBehaviour:
     m_MainAsset: {fileID: 8300000, guid: 156a48476f799cf4d934b63619873aca, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 156a48476f799cf4d934b63619873aca, type: 3}
   - m_GUID: 15971af5e355b3e44bdca519661b30e3
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Bomb_bounce_alt.mp3
+    m_Address: SFX_Bomb_bounce_alt
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 15971af5e355b3e44bdca519661b30e3, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 15971af5e355b3e44bdca519661b30e3, type: 3}
+  - m_GUID: 16575b40c52319849b24c971afbda361
+    m_Address: Moskar_Fly
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 16575b40c52319849b24c971afbda361, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 16575b40c52319849b24c971afbda361, type: 3}
+  - m_GUID: 16de27c482074194a96204e15a48eca2
+    m_Address: Candidate
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 16de27c482074194a96204e15a48eca2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 16de27c482074194a96204e15a48eca2, type: 3}
+  - m_GUID: 189ac5eeb34dfba4bb94eef0d434e5d9
+    m_Address: A Disturbance in the Force
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 189ac5eeb34dfba4bb94eef0d434e5d9, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 189ac5eeb34dfba4bb94eef0d434e5d9, type: 3}
   - m_GUID: 19e6a7f3e8de77f47bdbe4529e5ba2ce
-    m_Address: Assets/Audio/SFX/Impacts/White_Marble.mp3
+    m_Address: White_Marble
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 19e6a7f3e8de77f47bdbe4529e5ba2ce, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 19e6a7f3e8de77f47bdbe4529e5ba2ce, type: 3}
   - m_GUID: 19f783d9fddedfd4ca1410b0ec3513f7
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/SFX_Magic_Cape2.wav
+    m_Address: SFX_Magic_Cape2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 19f783d9fddedfd4ca1410b0ec3513f7, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 19f783d9fddedfd4ca1410b0ec3513f7, type: 3}
   - m_GUID: 1a62e796abaf2c140b8010d12d027955
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Falling_Moskar.mp3
+    m_Address: Falling_Moskar
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 1a62e796abaf2c140b8010d12d027955, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 1a62e796abaf2c140b8010d12d027955, type: 3}
   - m_GUID: 1b8726c296aeeba43bd4a682304cb4d2
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Poop_2.aif
+    m_Address: Poop_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 1b8726c296aeeba43bd4a682304cb4d2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 1b8726c296aeeba43bd4a682304cb4d2, type: 3}
   - m_GUID: 1e1f18245eb010f48ae891c45038efc8
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Evil_Portal_Vanishes.wav
+    m_Address: SFX_Evil_Portal_Vanishes
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 1e1f18245eb010f48ae891c45038efc8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 1e1f18245eb010f48ae891c45038efc8, type: 3}
+  - m_GUID: 206f9483958219c43b917b3eec1ac40b
+    m_Address: SwordShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 206f9483958219c43b917b3eec1ac40b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 206f9483958219c43b917b3eec1ac40b, type: 3}
   - m_GUID: 22a5087783026ae4ea6e3a473a82790c
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Walk.mp3
+    m_Address: Water_Walk
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 22a5087783026ae4ea6e3a473a82790c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 22a5087783026ae4ea6e3a473a82790c, type: 3}
   - m_GUID: 2474b62f63366934a992ee6884f689c9
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Step3.mp3
+    m_Address: Water_Step3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 2474b62f63366934a992ee6884f689c9, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 2474b62f63366934a992ee6884f689c9, type: 3}
   - m_GUID: 2543449ca4d611a4fb03ee2f2e7a616a
-    m_Address: Assets/Audio/SFX/Cartas/Devil/SFX_Chain_Dig.wav
+    m_Address: SFX_Chain_Dig
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 2543449ca4d611a4fb03ee2f2e7a616a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 2543449ca4d611a4fb03ee2f2e7a616a, type: 3}
   - m_GUID: 26424066067ddf3439161f590dc28e4a
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Shanty_Bounces_Bomb.mp3
+    m_Address: SFX_Shanty_Bounces_Bomb
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 26424066067ddf3439161f590dc28e4a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 26424066067ddf3439161f590dc28e4a, type: 3}
   - m_GUID: 26cecc7bbe0c14a40becd1a0f8caf62c
-    m_Address: Assets/Audio/SFX/Cartas/Devil/SFX_Chains_In_Motion.wav
+    m_Address: SFX_Chains_In_Motion
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 26cecc7bbe0c14a40becd1a0f8caf62c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 26cecc7bbe0c14a40becd1a0f8caf62c, type: 3}
   - m_GUID: 27fcdba796102484697d5a3e146c9706
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Hit.wav
+    m_Address: Fire_Hit
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 27fcdba796102484697d5a3e146c9706, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 27fcdba796102484697d5a3e146c9706, type: 3}
   - m_GUID: 2d96822c404129b4689a2d788fc87dbb
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Cannon_2.mp3
+    m_Address: SFX_Cannon_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 2d96822c404129b4689a2d788fc87dbb, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 2d96822c404129b4689a2d788fc87dbb, type: 3}
   - m_GUID: 2faec7dd573340e428393995591ea006
-    m_Address: Assets/Audio/SFX/Cartas/SFX_Pulling_Card.wav
+    m_Address: SFX_Pulling_Card
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 2faec7dd573340e428393995591ea006, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 2faec7dd573340e428393995591ea006, type: 3}
+  - m_GUID: 32cecd5ea3c4ab54ca20895e03a594e1
+    m_Address: Sword Found
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 32cecd5ea3c4ab54ca20895e03a594e1, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 32cecd5ea3c4ab54ca20895e03a594e1, type: 3}
+  - m_GUID: 35620c106ca2a9c4e85d9e9a827f6e5a
+    m_Address: Moskar_Loop_6
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 35620c106ca2a9c4e85d9e9a827f6e5a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 35620c106ca2a9c4e85d9e9a827f6e5a, type: 3}
+  - m_GUID: 36354d138b43c7e4f9ce08508b3e5eea
+    m_Address: Moskar_Loop_7
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 36354d138b43c7e4f9ce08508b3e5eea, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 36354d138b43c7e4f9ce08508b3e5eea, type: 3}
   - m_GUID: 369ed01e93d065d4abe6b218088164d9
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Shanty_raises_sword_for_Cannon.mp3
+    m_Address: SFX_Shanty_raises_sword_for_Cannon
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 369ed01e93d065d4abe6b218088164d9, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 369ed01e93d065d4abe6b218088164d9, type: 3}
+  - m_GUID: 36b9fa602d571414ba3d289d8fa9b8fd
+    m_Address: Low Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 36b9fa602d571414ba3d289d8fa9b8fd, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 36b9fa602d571414ba3d289d8fa9b8fd, type: 3}
+  - m_GUID: 378e9207fcb67af45a6d87ee9ab963f4
+    m_Address: Wilderness
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 378e9207fcb67af45a6d87ee9ab963f4, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 378e9207fcb67af45a6d87ee9ab963f4, type: 3}
+  - m_GUID: 395070aeb38f86940aaa8852782be0dc
+    m_Address: DestinoTheme_WithoutVoice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 395070aeb38f86940aaa8852782be0dc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 395070aeb38f86940aaa8852782be0dc, type: 3}
   - m_GUID: 397e388d2d8312b49ab91eea7da10036
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Bomb_Bounce_alt2.mp3
+    m_Address: SFX_Bomb_Bounce_alt2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 397e388d2d8312b49ab91eea7da10036, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 397e388d2d8312b49ab91eea7da10036, type: 3}
   - m_GUID: 3b945713637785543b8c395239e49c83
     m_Address: La-Re_Horn
     m_ReadOnly: 0
@@ -162,215 +258,353 @@ MonoBehaviour:
     m_MainAsset: {fileID: 8300000, guid: 3b945713637785543b8c395239e49c83, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 3b945713637785543b8c395239e49c83, type: 3}
   - m_GUID: 3b96299dd5bda444f8df01a77456c60f
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Destino_Dying1.mp3
+    m_Address: SFX_Destino_Dying1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 3b96299dd5bda444f8df01a77456c60f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 3b96299dd5bda444f8df01a77456c60f, type: 3}
   - m_GUID: 3bf7a74ff182f6848b79406b57705f0a
-    m_Address: Assets/Audio/SFX/Impacts/Bamboo_Cut.mp3
+    m_Address: Bamboo_Cut
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 3bf7a74ff182f6848b79406b57705f0a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 3bf7a74ff182f6848b79406b57705f0a, type: 3}
   - m_GUID: 3d72ffc3afb516e4e84d91fc0c521442
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Moskar_Taunt.mp3
+    m_Address: Moskar_Taunt
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 3d72ffc3afb516e4e84d91fc0c521442, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 3d72ffc3afb516e4e84d91fc0c521442, type: 3}
   - m_GUID: 3ee4eb6f3e3004847b7a988f335bf344
-    m_Address: Assets/Audio/SFX/Impacts/Black_Marble.wav
+    m_Address: Black_Marble
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 3ee4eb6f3e3004847b7a988f335bf344, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 3ee4eb6f3e3004847b7a988f335bf344, type: 3}
+  - m_GUID: 4228c095c17596242ad05f92330dec2f
+    m_Address: DestinoTheme_Voice
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4228c095c17596242ad05f92330dec2f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4228c095c17596242ad05f92330dec2f, type: 3}
   - m_GUID: 42630af3ac66b6443896602148fa22bf
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Bomb_bounce.mp3
+    m_Address: SFX_Bomb_bounce
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 42630af3ac66b6443896602148fa22bf, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 42630af3ac66b6443896602148fa22bf, type: 3}
+  - m_GUID: 4268dc5a79104d04a884b2b90bb11873
+    m_Address: DanceShow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4268dc5a79104d04a884b2b90bb11873, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4268dc5a79104d04a884b2b90bb11873, type: 3}
   - m_GUID: 4493943020c910a4b9498a1920aad559
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Wane.wav
+    m_Address: Fire_Wane
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4493943020c910a4b9498a1920aad559, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4493943020c910a4b9498a1920aad559, type: 3}
   - m_GUID: 44c946c747bf2a744ab3f71ebacc08cd
     m_Address: Cut_Clean
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 8300000, guid: 44c946c747bf2a744ab3f71ebacc08cd, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 44c946c747bf2a744ab3f71ebacc08cd, type: 3}
-  - m_GUID: 463b840442875874ea3726a83f338b05
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Sword03.wav
+  - m_GUID: 4599793155bc59643b415602dd927f97
+    m_Address: Cicadas-SFX-1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4599793155bc59643b415602dd927f97, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4599793155bc59643b415602dd927f97, type: 3}
+  - m_GUID: 463b840442875874ea3726a83f338b05
+    m_Address: Sword03
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 463b840442875874ea3726a83f338b05, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 463b840442875874ea3726a83f338b05, type: 3}
   - m_GUID: 490f55b066a773f4c85fa7caf9ffba64
     m_Address: Hit_DeathScythe
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 8300000, guid: 490f55b066a773f4c85fa7caf9ffba64, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 490f55b066a773f4c85fa7caf9ffba64, type: 3}
+  - m_GUID: 4aacfa805c1d17942af56a5babf3fd4a
+    m_Address: TheGarden
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4aacfa805c1d17942af56a5babf3fd4a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4aacfa805c1d17942af56a5babf3fd4a, type: 3}
   - m_GUID: 4ab62c308ec8d3f4a8ee60c308697fc2
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Destino_Head_Drops.wav
+    m_Address: SFX_Destino_Head_Drops
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4ab62c308ec8d3f4a8ee60c308697fc2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4ab62c308ec8d3f4a8ee60c308697fc2, type: 3}
   - m_GUID: 4b73797d5104d434aafb41b5ff6d1e7e
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Grass_Left_Step.wav
+    m_Address: Grass_Left_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4b73797d5104d434aafb41b5ff6d1e7e, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4b73797d5104d434aafb41b5ff6d1e7e, type: 3}
+  - m_GUID: 4b7e2bfdaadc47349a5a99968fb66b3a
+    m_Address: Deeper Low Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4b7e2bfdaadc47349a5a99968fb66b3a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4b7e2bfdaadc47349a5a99968fb66b3a, type: 3}
   - m_GUID: 4cc831d2b3240324e95af71ce8095d9c
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Shot_Sword_Hit_1.wav
+    m_Address: Shot_Sword_Hit_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4cc831d2b3240324e95af71ce8095d9c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4cc831d2b3240324e95af71ce8095d9c, type: 3}
   - m_GUID: 4f11818c1c6db3342ae8bc045dde6fd0
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Hit3.wav
+    m_Address: Fire_Hit3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4f11818c1c6db3342ae8bc045dde6fd0, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4f11818c1c6db3342ae8bc045dde6fd0, type: 3}
   - m_GUID: 4fa179c8352ade74c926d2b2eb3fa0a8
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Destino_Dying0.mp3
+    m_Address: SFX_Destino_Dying0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 4fa179c8352ade74c926d2b2eb3fa0a8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4fa179c8352ade74c926d2b2eb3fa0a8, type: 3}
   - m_GUID: 50fd67d64f5026f4f898e8a74ab0eecb
-    m_Address: Assets/Audio/SFX/Cartas/Death/Death_BuildUp.wav
+    m_Address: Death_BuildUp
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 50fd67d64f5026f4f898e8a74ab0eecb, type: 3}
   - m_GUID: 5136d53966711ae449f75fe679005e7a
-    m_Address: Assets/Audio/SFX/Destino/Musical Attack/Hit_Cymbals.wav
+    m_Address: Hit_Cymbals
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 5136d53966711ae449f75fe679005e7a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 5136d53966711ae449f75fe679005e7a, type: 3}
+  - m_GUID: 51f10cf74655f484e8502dd93ee2301a
+    m_Address: Cicadas-SFX-2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 51f10cf74655f484e8502dd93ee2301a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 51f10cf74655f484e8502dd93ee2301a, type: 3}
   - m_GUID: 55d9d1113cb8e1142bb98a3c286f2e1d
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Conjure.wav
+    m_Address: Fire_Conjure
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 55d9d1113cb8e1142bb98a3c286f2e1d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 55d9d1113cb8e1142bb98a3c286f2e1d, type: 3}
   - m_GUID: 5c7b4c325b27a504ea40504f16a587c2
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Hit2.wav
+    m_Address: Fire_Hit2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 5c7b4c325b27a504ea40504f16a587c2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 5c7b4c325b27a504ea40504f16a587c2, type: 3}
   - m_GUID: 5de45ec86d0f46142854d6783f7ed8e2
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Step2.mp3
+    m_Address: Water_Step2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 5de45ec86d0f46142854d6783f7ed8e2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 5de45ec86d0f46142854d6783f7ed8e2, type: 3}
+  - m_GUID: 64f2ad827d9510946b37dda9d4353567
+    m_Address: Drum_Roll
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 64f2ad827d9510946b37dda9d4353567, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 64f2ad827d9510946b37dda9d4353567, type: 3}
   - m_GUID: 65483ae191371a2478c80b832e942b75
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Bomb_Hitting_Mateo.mp3
+    m_Address: SFX_Bomb_Hitting_Mateo
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 65483ae191371a2478c80b832e942b75, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 65483ae191371a2478c80b832e942b75, type: 3}
   - m_GUID: 6578e6d68ac696648a9ce597be9c21e0
-    m_Address: Assets/Audio/SFX/Impacts/Ring_dust_01.wav
+    m_Address: Ring_dust_01
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 6578e6d68ac696648a9ce597be9c21e0, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6578e6d68ac696648a9ce597be9c21e0, type: 3}
   - m_GUID: 66b1c41ca5b52a441a1e038bae61e56c
-    m_Address: Assets/Audio/SFX/Mateo/Movement/Dash.wav
+    m_Address: Dash
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 66b1c41ca5b52a441a1e038bae61e56c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 66b1c41ca5b52a441a1e038bae61e56c, type: 3}
   - m_GUID: 6a5dab527869c9f4987c8400bf6db9ce
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Ouch_Moskar.mp3
+    m_Address: Ouch_Moskar
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 6a5dab527869c9f4987c8400bf6db9ce, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6a5dab527869c9f4987c8400bf6db9ce, type: 3}
   - m_GUID: 6aa999e7b9316484c8aa0f6922b0c060
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Destino_Dying2.mp3
+    m_Address: SFX_Destino_Dying2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 6aa999e7b9316484c8aa0f6922b0c060, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6aa999e7b9316484c8aa0f6922b0c060, type: 3}
   - m_GUID: 6c39c1a2c6ca5d74c91586187a2b4848
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Bone_Impact_2.wav
+    m_Address: SFX_Bone_Impact_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 6c39c1a2c6ca5d74c91586187a2b4848, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6c39c1a2c6ca5d74c91586187a2b4848, type: 3}
+  - m_GUID: 6c62d37a4120d9a42bae65e40b855fd1
+    m_Address: Moskar_Loop_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 6c62d37a4120d9a42bae65e40b855fd1, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6c62d37a4120d9a42bae65e40b855fd1, type: 3}
+  - m_GUID: 6c7b33a0e0d6b8c47b2a9787f788211b
+    m_Address: Small-Insects-SFX-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 6c7b33a0e0d6b8c47b2a9787f788211b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6c7b33a0e0d6b8c47b2a9787f788211b, type: 3}
   - m_GUID: 6de8bbe5a13e2294b8f52b195c536543
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Shanty_throw.mp3
+    m_Address: SFX_Shanty_throw
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 6de8bbe5a13e2294b8f52b195c536543, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 6de8bbe5a13e2294b8f52b195c536543, type: 3}
+  - m_GUID: 702836d2735a2dd4db7e3ea5ca474ddc
+    m_Address: Moskar_Loop_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 702836d2735a2dd4db7e3ea5ca474ddc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 702836d2735a2dd4db7e3ea5ca474ddc, type: 3}
   - m_GUID: 73b1f4b0d83cce8489acb8b63fd18c9c
-    m_Address: Assets/Audio/SFX/Mateo/Movement/Jump.wav
+    m_Address: Jump
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 73b1f4b0d83cce8489acb8b63fd18c9c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 73b1f4b0d83cce8489acb8b63fd18c9c, type: 3}
   - m_GUID: 74d3fd00a1140cc42b5172822ef51f54
-    m_Address: Assets/Audio/SFX/Impacts/Ball_Bounce 1.wav
+    m_Address: Ball_Bounce 1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 74d3fd00a1140cc42b5172822ef51f54, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 74d3fd00a1140cc42b5172822ef51f54, type: 3}
+  - m_GUID: 753dcc3b86f460b4193957c2c7ae315c
+    m_Address: Small-Insects-SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 753dcc3b86f460b4193957c2c7ae315c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 753dcc3b86f460b4193957c2c7ae315c, type: 3}
   - m_GUID: 79db4ee46fe0b2747ad1bde40e187dbb
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Fly_disapears.mp3
+    m_Address: Fly_disapears
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 79db4ee46fe0b2747ad1bde40e187dbb, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 79db4ee46fe0b2747ad1bde40e187dbb, type: 3}
   - m_GUID: 7ad029d78914f1e46a9e9f9079f072b1
     m_Address: Do
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 8300000, guid: 7ad029d78914f1e46a9e9f9079f072b1, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 7ad029d78914f1e46a9e9f9079f072b1, type: 3}
+  - m_GUID: 7bac2f3f8e3e2364c93252ea4b8b3a80
+    m_Address: Tree-Wind-SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7bac2f3f8e3e2364c93252ea4b8b3a80, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7bac2f3f8e3e2364c93252ea4b8b3a80, type: 3}
+  - m_GUID: 7c5fe2a995cd61744bc4fe8e82a3566c
+    m_Address: Bounce
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7c5fe2a995cd61744bc4fe8e82a3566c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7c5fe2a995cd61744bc4fe8e82a3566c, type: 3}
+  - m_GUID: 7d2ac0856d1adbc41852352a96f05e08
+    m_Address: CaptainShantyTheme
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7d2ac0856d1adbc41852352a96f05e08, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7d2ac0856d1adbc41852352a96f05e08, type: 3}
+  - m_GUID: 7d6f93a7d20794649b7717e53395e1ba
+    m_Address: MagicCarpet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7d6f93a7d20794649b7717e53395e1ba, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7d6f93a7d20794649b7717e53395e1ba, type: 3}
+  - m_GUID: 7df52f2543f341e44a9d4707c26cab80
+    m_Address: Sword_Drop_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7df52f2543f341e44a9d4707c26cab80, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7df52f2543f341e44a9d4707c26cab80, type: 3}
   - m_GUID: 7e073fbd79128394d892b1ab66ef787b
     m_Address: Death_Card
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 8300000, guid: 7e073fbd79128394d892b1ab66ef787b, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 7e073fbd79128394d892b1ab66ef787b, type: 3}
+  - m_GUID: 7e3539eeb5eee104ca6aa325ff0b9289
+    m_Address: Clean Cut
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 7e3539eeb5eee104ca6aa325ff0b9289, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 7e3539eeb5eee104ca6aa325ff0b9289, type: 3}
+  - m_GUID: 803aae7751b00f14087c47916e2c5483
+    m_Address: Laugh_Evil
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 803aae7751b00f14087c47916e2c5483, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 803aae7751b00f14087c47916e2c5483, type: 3}
+  - m_GUID: 811dca237306ab04a8e9f926c2371246
+    m_Address: Tree-Wind-SFX-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 811dca237306ab04a8e9f926c2371246, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 811dca237306ab04a8e9f926c2371246, type: 3}
   - m_GUID: 820c6e7680ead014a9b605560e3c84a8
-    m_Address: Assets/Audio/SFX/Ambience/Audience/Curtain_Opens.wav
+    m_Address: Curtain_Opens
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 820c6e7680ead014a9b605560e3c84a8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 820c6e7680ead014a9b605560e3c84a8, type: 3}
+  - m_GUID: 821033c7628016549ab32cab00fe4e84
+    m_Address: Magic Spell
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 821033c7628016549ab32cab00fe4e84, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 821033c7628016549ab32cab00fe4e84, type: 3}
+  - m_GUID: 825ef3399b5342944961517c4bca60e7
+    m_Address: Re-Fa_Drumstick
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 825ef3399b5342944961517c4bca60e7, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 825ef3399b5342944961517c4bca60e7, type: 3}
   - m_GUID: 8464d8e67bbadba419c1aa8ad2db95c5
-    m_Address: Assets/Audio/SFX/Destino/Musical Attack/Hit_Drumsticks.wav
+    m_Address: Hit_Drumsticks
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 8464d8e67bbadba419c1aa8ad2db95c5, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8464d8e67bbadba419c1aa8ad2db95c5, type: 3}
+  - m_GUID: 84c0e5bba6079ed439cc7a3c3f00e858
+    m_Address: Birds-SFX-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 84c0e5bba6079ed439cc7a3c3f00e858, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 84c0e5bba6079ed439cc7a3c3f00e858, type: 3}
+  - m_GUID: 85ed17a830cf270439d4ae8de0331fb9
+    m_Address: Flies-SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 85ed17a830cf270439d4ae8de0331fb9, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 85ed17a830cf270439d4ae8de0331fb9, type: 3}
   - m_GUID: 87ba16861fccea0469906f39985325a0
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Cannon_3.mp3
+    m_Address: SFX_Cannon_3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 87ba16861fccea0469906f39985325a0, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 87ba16861fccea0469906f39985325a0, type: 3}
   - m_GUID: 88c9e0c231e3360419e5c6c10b6e5a12
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Bone_Break.wav
+    m_Address: SFX_Bone_Break
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 88c9e0c231e3360419e5c6c10b6e5a12, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 88c9e0c231e3360419e5c6c10b6e5a12, type: 3}
   - m_GUID: 8b425b956413f394094330e1df272de7
     m_Address: Fa
     m_ReadOnly: 0
@@ -378,263 +612,455 @@ MonoBehaviour:
     m_MainAsset: {fileID: 8300000, guid: 8b425b956413f394094330e1df272de7, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 8b425b956413f394094330e1df272de7, type: 3}
   - m_GUID: 8bbdde1ab7c3226498a94de00c407a14
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Shanty_Bounce_alt.mp3
+    m_Address: SFX_Shanty_Bounce_alt
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 8bbdde1ab7c3226498a94de00c407a14, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8bbdde1ab7c3226498a94de00c407a14, type: 3}
   - m_GUID: 8d0d578f55ff93b49b1613ebc167053c
     m_Address: Re
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 8300000, guid: 8d0d578f55ff93b49b1613ebc167053c, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: 8d0d578f55ff93b49b1613ebc167053c, type: 3}
+  - m_GUID: 8e4eb829e5abc41478c3b22451ef9df3
+    m_Address: Disorder
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 8e4eb829e5abc41478c3b22451ef9df3, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8e4eb829e5abc41478c3b22451ef9df3, type: 3}
+  - m_GUID: 8e658f3589a9eae49b1948d74f41635a
+    m_Address: Sword vs Metal
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 8e658f3589a9eae49b1948d74f41635a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8e658f3589a9eae49b1948d74f41635a, type: 3}
+  - m_GUID: 8ee5e075a358e0144b703977e1d45a5f
+    m_Address: FirstEncounter
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 8ee5e075a358e0144b703977e1d45a5f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 8ee5e075a358e0144b703977e1d45a5f, type: 3}
   - m_GUID: 90d23a6dbb15bc14b9187ba534e13c0a
-    m_Address: Assets/Audio/SFX/Mateo/Movement/Land.wav
+    m_Address: Land
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 90d23a6dbb15bc14b9187ba534e13c0a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 90d23a6dbb15bc14b9187ba534e13c0a, type: 3}
   - m_GUID: 916377c990fd81e47a6ad872b8b9f415
-    m_Address: Assets/Audio/SFX/Cartas/SFX_Flip_Card.wav
+    m_Address: SFX_Flip_Card
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 916377c990fd81e47a6ad872b8b9f415, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 916377c990fd81e47a6ad872b8b9f415, type: 3}
   - m_GUID: 9459d45988b092f4e8f7ff3772844093
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Sword01.wav
+    m_Address: Sword01
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 9459d45988b092f4e8f7ff3772844093, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9459d45988b092f4e8f7ff3772844093, type: 3}
+  - m_GUID: 945cf539ffad9be4fb4f5daf3b6e5038
+    m_Address: Water-SFX-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 945cf539ffad9be4fb4f5daf3b6e5038, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 945cf539ffad9be4fb4f5daf3b6e5038, type: 3}
   - m_GUID: 960c58a0c3be37747ad861fd60da2e46
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Wood_Left_Step.wav
+    m_Address: Wood_Left_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 960c58a0c3be37747ad861fd60da2e46, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 960c58a0c3be37747ad861fd60da2e46, type: 3}
+  - m_GUID: 9842a9a31937aa94389b7e89f568aedc
+    m_Address: Water-Pond-SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 9842a9a31937aa94389b7e89f568aedc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9842a9a31937aa94389b7e89f568aedc, type: 3}
   - m_GUID: 99d3ffe9445ac414887cdc8da2e4ad56
-    m_Address: Assets/Audio/SFX/Cartas/SFX_Card Hit.wav
+    m_Address: SFX_Card Hit
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 99d3ffe9445ac414887cdc8da2e4ad56, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 99d3ffe9445ac414887cdc8da2e4ad56, type: 3}
   - m_GUID: 9c32be46d6c974a45b63340e7ae2fd2a
-    m_Address: Assets/Audio/SFX/Destino/Musical Attack/Hit_Horn.wav
+    m_Address: Hit_Horn
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 9c32be46d6c974a45b63340e7ae2fd2a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9c32be46d6c974a45b63340e7ae2fd2a, type: 3}
+  - m_GUID: 9c860239a1f606d4a848543467020852
+    m_Address: Birds-SFX-2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 9c860239a1f606d4a848543467020852, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9c860239a1f606d4a848543467020852, type: 3}
+  - m_GUID: 9d433a17652612b4ba3b33e1da4c06d9
+    m_Address: Laughter_01
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 9d433a17652612b4ba3b33e1da4c06d9, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9d433a17652612b4ba3b33e1da4c06d9, type: 3}
+  - m_GUID: 9f8311df9565d184eb646cc33dee3349
+    m_Address: Flies-SFX-1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 9f8311df9565d184eb646cc33dee3349, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9f8311df9565d184eb646cc33dee3349, type: 3}
+  - m_GUID: 9fa8043bcac46ba4b9ed8b18d32a1468
+    m_Address: I Remember Nothing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 9fa8043bcac46ba4b9ed8b18d32a1468, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9fa8043bcac46ba4b9ed8b18d32a1468, type: 3}
   - m_GUID: 9fb325f7fdb85c748ab0474f1779e8c3
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Right_Step.wav
+    m_Address: Water_Right_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: 9fb325f7fdb85c748ab0474f1779e8c3, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 9fb325f7fdb85c748ab0474f1779e8c3, type: 3}
+  - m_GUID: a02ea38f2f45e6c40bf4effea7a0db1f
+    m_Address: Si-Mi_Cymbals
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: a02ea38f2f45e6c40bf4effea7a0db1f, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a02ea38f2f45e6c40bf4effea7a0db1f, type: 3}
   - m_GUID: a0890df599ce90140851c34df3919cbc
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Cannon.mp3
+    m_Address: SFX_Cannon
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a0890df599ce90140851c34df3919cbc, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a0890df599ce90140851c34df3919cbc, type: 3}
   - m_GUID: a49d1ba764c58f3459899399a465c6e6
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Destino_Head_Cut.mp3
+    m_Address: SFX_Destino_Head_Cut
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a49d1ba764c58f3459899399a465c6e6, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a49d1ba764c58f3459899399a465c6e6, type: 3}
   - m_GUID: a652342c8c60de44595a5d6c71f488d2
-    m_Address: Assets/Audio/SFX/Ambience/Audience/Applause.wav
+    m_Address: Applause
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a652342c8c60de44595a5d6c71f488d2, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a652342c8c60de44595a5d6c71f488d2, type: 3}
   - m_GUID: a763bd12a18c9b84b92133a5e8800d24
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_TNT_Explodes_Ship.mp3
+    m_Address: SFX_TNT_Explodes_Ship
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a763bd12a18c9b84b92133a5e8800d24, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a763bd12a18c9b84b92133a5e8800d24, type: 3}
   - m_GUID: a84147dcb3a443c4792e46af24202fb3
-    m_Address: Assets/Audio/SFX/Cartas/SFX_Card_Flying.wav
+    m_Address: SFX_Card_Flying
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a84147dcb3a443c4792e46af24202fb3, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a84147dcb3a443c4792e46af24202fb3, type: 3}
+  - m_GUID: a8865688ea1766d488ffabbc228af599
+    m_Address: Moskar_Loop_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: a8865688ea1766d488ffabbc228af599, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a8865688ea1766d488ffabbc228af599, type: 3}
   - m_GUID: a901ec61ffe5eae4c842f37168791608
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Shot_Sword_Hit_3.wav
+    m_Address: Shot_Sword_Hit_3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: a901ec61ffe5eae4c842f37168791608, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: a901ec61ffe5eae4c842f37168791608, type: 3}
+  - m_GUID: aa1aedfa5c30a20429f6c534e29966c5
+    m_Address: Night-Insects-SFX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: aa1aedfa5c30a20429f6c534e29966c5, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: aa1aedfa5c30a20429f6c534e29966c5, type: 3}
   - m_GUID: abc68f40bf18dd748b4099f0fbf251af
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_TNT_Anticipatio.mp3
+    m_Address: SFX_TNT_Anticipatio
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: abc68f40bf18dd748b4099f0fbf251af, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: abc68f40bf18dd748b4099f0fbf251af, type: 3}
+  - m_GUID: aceebb3f4a134e84eaad6575c8cf5734
+    m_Address: Shadowplay
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: aceebb3f4a134e84eaad6575c8cf5734, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: aceebb3f4a134e84eaad6575c8cf5734, type: 3}
   - m_GUID: b1c254bc5f7f039459d7f321a4e812d5
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Pirate_Ship_at_Bay.mp3
+    m_Address: SFX_Pirate_Ship_at_Bay
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b1c254bc5f7f039459d7f321a4e812d5, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b1c254bc5f7f039459d7f321a4e812d5, type: 3}
+  - m_GUID: b2114371553ee634a9ee2f8dba396260
+    m_Address: Laughter_02
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: b2114371553ee634a9ee2f8dba396260, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b2114371553ee634a9ee2f8dba396260, type: 3}
   - m_GUID: b28b085803e0951469bb9218d37233ad
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Shanty_raises_sword_for_Cannon_2.mp3
+    m_Address: SFX_Shanty_raises_sword_for_Cannon_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b28b085803e0951469bb9218d37233ad, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b28b085803e0951469bb9218d37233ad, type: 3}
   - m_GUID: b545047d42338ac4e9e02f7a76f64baf
-    m_Address: Assets/Audio/SFX/Moskar_SFX/Fly_died.mp3
+    m_Address: Fly_died
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b545047d42338ac4e9e02f7a76f64baf, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b545047d42338ac4e9e02f7a76f64baf, type: 3}
   - m_GUID: b624fefbfbe7822419a5b0e86889b57d
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Step1.mp3
+    m_Address: Water_Step1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b624fefbfbe7822419a5b0e86889b57d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b624fefbfbe7822419a5b0e86889b57d, type: 3}
   - m_GUID: b707d8e47f6689148a556b42da7e9645
-    m_Address: Assets/Audio/SFX/Destino/Laugh_Destino.wav
+    m_Address: Laugh_Destino
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b707d8e47f6689148a556b42da7e9645, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b707d8e47f6689148a556b42da7e9645, type: 3}
   - m_GUID: b890b94f74cb7934eaaf5768ab73c87b
-    m_Address: Assets/Audio/SFX/Cartas/SFX_Card_Shuffle.wav
+    m_Address: SFX_Card_Shuffle
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: b890b94f74cb7934eaaf5768ab73c87b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: b890b94f74cb7934eaaf5768ab73c87b, type: 3}
   - m_GUID: bc17fb6fbf1453e45b85772ed32d2740
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Release.wav
+    m_Address: Fire_Release
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: bc17fb6fbf1453e45b85772ed32d2740, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: bc17fb6fbf1453e45b85772ed32d2740, type: 3}
   - m_GUID: bc3e65fcb06e6954dab579c1490dbaa7
-    m_Address: Assets/Audio/SFX/Impacts/Target_Hit.mp3
+    m_Address: Target_Hit
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: bc3e65fcb06e6954dab579c1490dbaa7, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: bc3e65fcb06e6954dab579c1490dbaa7, type: 3}
+  - m_GUID: bdfc7987a905b034bb3bdbb2f2579b78
+    m_Address: Gong Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: bdfc7987a905b034bb3bdbb2f2579b78, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: bdfc7987a905b034bb3bdbb2f2579b78, type: 3}
   - m_GUID: be86fa31467f71142886cf246e36f5ec
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Sword02.wav
+    m_Address: Sword02
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: be86fa31467f71142886cf246e36f5ec, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: be86fa31467f71142886cf246e36f5ec, type: 3}
+  - m_GUID: bee06a807af39ef4f9bc8a8f10d6e0ee
+    m_Address: Orchestra_Tunning
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: bee06a807af39ef4f9bc8a8f10d6e0ee, type: 3}
   - m_GUID: c156a5e34c7350540b2c71d5aa23b7ec
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/SFX_Magic_Dash_OK.mp3
+    m_Address: SFX_Magic_Dash_OK
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: c156a5e34c7350540b2c71d5aa23b7ec, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: c156a5e34c7350540b2c71d5aa23b7ec, type: 3}
   - m_GUID: c1dcaf73c4ce971498ac9c4e5024201a
-    m_Address: Assets/Audio/SFX/Ambience/Audience/Gasp.wav
+    m_Address: Gasp
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: c1dcaf73c4ce971498ac9c4e5024201a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: c1dcaf73c4ce971498ac9c4e5024201a, type: 3}
+  - m_GUID: c7e0b8dd6eec0f343b1042249d1206d6
+    m_Address: Build and Out
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: c7e0b8dd6eec0f343b1042249d1206d6, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: c7e0b8dd6eec0f343b1042249d1206d6, type: 3}
+  - m_GUID: c8243fb355fffec418b5b5b1af01fa48
+    m_Address: Sword Drop
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: c8243fb355fffec418b5b5b1af01fa48, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: c8243fb355fffec418b5b5b1af01fa48, type: 3}
+  - m_GUID: c84dc3ce4f5f7384db632c3ebd47ef6b
+    m_Address: Insight
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: c84dc3ce4f5f7384db632c3ebd47ef6b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: c84dc3ce4f5f7384db632c3ebd47ef6b, type: 3}
+  - m_GUID: caf382200cfa92e4f9fe731d84f1ff35
+    m_Address: Moskar_Loop_1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: caf382200cfa92e4f9fe731d84f1ff35, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: caf382200cfa92e4f9fe731d84f1ff35, type: 3}
+  - m_GUID: ceba6e668d359cb40891a67b7f90a655
+    m_Address: Oboro (Day)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: ceba6e668d359cb40891a67b7f90a655, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ceba6e668d359cb40891a67b7f90a655, type: 3}
+  - m_GUID: d28e924d3ec510649a0a7cc01c9bc265
+    m_Address: Deep Low Hit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: d28e924d3ec510649a0a7cc01c9bc265, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: d28e924d3ec510649a0a7cc01c9bc265, type: 3}
+  - m_GUID: d87cb72a933616b4786b88a5d76b3c95
+    m_Address: DestinosOpera
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: d87cb72a933616b4786b88a5d76b3c95, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: d87cb72a933616b4786b88a5d76b3c95, type: 3}
   - m_GUID: d894ba9c9bbad1d43925cc2919b6b3ad
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Destino_Head_Hit_Alternate.wav
+    m_Address: SFX_Destino_Head_Hit_Alternate
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: d894ba9c9bbad1d43925cc2919b6b3ad, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: d894ba9c9bbad1d43925cc2919b6b3ad, type: 3}
+  - m_GUID: d9105891e43db5d46ac5cab792ab15fe
+    m_Address: Sword Pick Up
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: d9105891e43db5d46ac5cab792ab15fe, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: d9105891e43db5d46ac5cab792ab15fe, type: 3}
   - m_GUID: dad3704d6d6c43f478dc888b4e334526
-    m_Address: Assets/Audio/SFX/Impacts/Secret.wav
+    m_Address: Secret
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: dad3704d6d6c43f478dc888b4e334526, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: dad3704d6d6c43f478dc888b4e334526, type: 3}
   - m_GUID: df278aa4e10275842ab4192c1d1aa398
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Destino_Dying3.mp3
+    m_Address: SFX_Destino_Dying3
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: df278aa4e10275842ab4192c1d1aa398, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: df278aa4e10275842ab4192c1d1aa398, type: 3}
   - m_GUID: e20bf26002c08d947a87591ae252f313
-    m_Address: Assets/Audio/SFX/Destino_SFX/SFX_Bone_Impact_1.wav
+    m_Address: SFX_Bone_Impact_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: e20bf26002c08d947a87591ae252f313, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e20bf26002c08d947a87591ae252f313, type: 3}
+  - m_GUID: e3446e64e2cbe6741928574b2c421875
+    m_Address: Heavy_Sword_Hit_4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: e3446e64e2cbe6741928574b2c421875, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e3446e64e2cbe6741928574b2c421875, type: 3}
+  - m_GUID: e366aaef9f743ff4aaec8781a8a4ae93
+    m_Address: Shizima II (Night)
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: e366aaef9f743ff4aaec8781a8a4ae93, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e366aaef9f743ff4aaec8781a8a4ae93, type: 3}
   - m_GUID: e3e7bc30e323dec41bd5d53e5784412d
-    m_Address: Assets/Audio/SFX/Mateo/Movement/Hurt.wav
+    m_Address: Hurt
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: e3e7bc30e323dec41bd5d53e5784412d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e3e7bc30e323dec41bd5d53e5784412d, type: 3}
+  - m_GUID: e48edfda1f75c174a835d7d94cb3d648
+    m_Address: She's Lost Control
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: e48edfda1f75c174a835d7d94cb3d648, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e48edfda1f75c174a835d7d94cb3d648, type: 3}
   - m_GUID: e854ce1d95cc4cd4aa2da50a2a27e42d
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Dark_Teleportation.wav
+    m_Address: SFX_Dark_Teleportation
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: e854ce1d95cc4cd4aa2da50a2a27e42d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e854ce1d95cc4cd4aa2da50a2a27e42d, type: 3}
   - m_GUID: e875075851d3d3a4394194618a245b4e
-    m_Address: Assets/Audio/SFX/Destino/Destinos_DeathSFX/SFX_Final_Cry.mp3
+    m_Address: SFX_Final_Cry
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: e875075851d3d3a4394194618a245b4e, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: e875075851d3d3a4394194618a245b4e, type: 3}
+  - m_GUID: ea365bb9c214de848a4dfc525109eb6d
+    m_Address: Si
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: ea365bb9c214de848a4dfc525109eb6d, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ea365bb9c214de848a4dfc525109eb6d, type: 3}
   - m_GUID: ea42c3161f1592a47974c75a08f7b178
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Max_Charge.wav
+    m_Address: Fire_Max_Charge
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ea42c3161f1592a47974c75a08f7b178, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ea42c3161f1592a47974c75a08f7b178, type: 3}
   - m_GUID: ec2ac1d5b75523d4fb198d5919eb3aa5
-    m_Address: Assets/Audio/SFX/Ambience/Audience/Booing.wav
+    m_Address: Booing
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ec2ac1d5b75523d4fb198d5919eb3aa5, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ec2ac1d5b75523d4fb198d5919eb3aa5, type: 3}
   - m_GUID: ec63139b037fed54e8fbd7ff097f009b
-    m_Address: Assets/Audio/SFX/Mateo/Fire/Fire_Miss.wav
+    m_Address: Fire_Miss
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ec63139b037fed54e8fbd7ff097f009b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ec63139b037fed54e8fbd7ff097f009b, type: 3}
   - m_GUID: ed0186d83ca68f540b64fe3a026b2470
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Steel_Right_Step.wav
+    m_Address: Steel_Right_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ed0186d83ca68f540b64fe3a026b2470, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ed0186d83ca68f540b64fe3a026b2470, type: 3}
   - m_GUID: ee4b33a01f327484a9fe8376d09a03de
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Water_Left_Step.wav
+    m_Address: Water_Left_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ee4b33a01f327484a9fe8376d09a03de, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ee4b33a01f327484a9fe8376d09a03de, type: 3}
   - m_GUID: eef738ada0d86734da585a636527544c
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/SFX_Magic_Cape.wav
+    m_Address: SFX_Magic_Cape
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: eef738ada0d86734da585a636527544c, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: eef738ada0d86734da585a636527544c, type: 3}
   - m_GUID: ef4e31a57bbccb44fa805271feb797e8
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Wood_Right_Step.wav
+    m_Address: Wood_Right_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ef4e31a57bbccb44fa805271feb797e8, type: 3}
+  - m_GUID: f255e9a0f7ee8ab4a8df43e966158fa6
+    m_Address: Moskar_Loop_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: f255e9a0f7ee8ab4a8df43e966158fa6, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f255e9a0f7ee8ab4a8df43e966158fa6, type: 3}
   - m_GUID: f293d42cf9450c64b9eca63765ed38ab
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Steel_Left_Step.wav
+    m_Address: Steel_Left_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: f293d42cf9450c64b9eca63765ed38ab, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f293d42cf9450c64b9eca63765ed38ab, type: 3}
+  - m_GUID: f3e3e4f9c26de704c86eecb1fc4d37ae
+    m_Address: Interzone
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: f3e3e4f9c26de704c86eecb1fc4d37ae, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f3e3e4f9c26de704c86eecb1fc4d37ae, type: 3}
+  - m_GUID: f46750829dd1ba947859e8d309038163
+    m_Address: Sword_Drop_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: f46750829dd1ba947859e8d309038163, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f46750829dd1ba947859e8d309038163, type: 3}
+  - m_GUID: f53a9c23cdf0630408877b6ddea02301
+    m_Address: SpotLight
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: f53a9c23cdf0630408877b6ddea02301, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f53a9c23cdf0630408877b6ddea02301, type: 3}
   - m_GUID: f5815b9cf6877bb4484153230d3b2b5b
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/SFX_Dash_Magic_Notes.mp3
+    m_Address: SFX_Dash_Magic_Notes
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: f5815b9cf6877bb4484153230d3b2b5b, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: f5815b9cf6877bb4484153230d3b2b5b, type: 3}
   - m_GUID: f5e51fb11fd0aba44a0a158826e5e8d1
     m_Address: Mi
     m_ReadOnly: 0
@@ -642,23 +1068,29 @@ MonoBehaviour:
     m_MainAsset: {fileID: 8300000, guid: f5e51fb11fd0aba44a0a158826e5e8d1, type: 3}
     m_TargetAsset: {fileID: 8300000, guid: f5e51fb11fd0aba44a0a158826e5e8d1, type: 3}
   - m_GUID: fa3c2a5fdb53567478fe4cc8134641a6
-    m_Address: Assets/Audio/SFX/Shanty_SFX/SFX_Bomb_Returned.mp3
+    m_Address: SFX_Bomb_Returned
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: fa3c2a5fdb53567478fe4cc8134641a6, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: fa3c2a5fdb53567478fe4cc8134641a6, type: 3}
   - m_GUID: fa5c95b748dfc5a46b7809169a69c4ba
-    m_Address: Assets/Audio/SFX/Mateo_SFX/Movement/Grass_Right_Step.wav
+    m_Address: Grass_Right_Step
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: fa5c95b748dfc5a46b7809169a69c4ba, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: fa5c95b748dfc5a46b7809169a69c4ba, type: 3}
   - m_GUID: fc7010f347399764cb3fcf759c90fd86
-    m_Address: Assets/Audio/SFX/Mateo/Sword/Shot_Sword_Hit_2.wav
+    m_Address: Shot_Sword_Hit_2
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8300000, guid: fc7010f347399764cb3fcf759c90fd86, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: fc7010f347399764cb3fcf759c90fd86, type: 3}
+  - m_GUID: ffdde1dfb3f52dd438c9eb24389e60b8
+    m_Address: Moskar_Loop_8
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: ffdde1dfb3f52dd438c9eb24389e60b8, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: ffdde1dfb3f52dd438c9eb24389e60b8, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

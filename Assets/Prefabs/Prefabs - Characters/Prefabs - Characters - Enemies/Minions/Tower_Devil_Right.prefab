@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 1719477434972800494}
   - component: {fileID: 8061647486325334673}
   - component: {fileID: 3720207880488621080}
+  - component: {fileID: 5091061457647303455}
   m_Layer: 8
   m_Name: Tower_Devil_Right
   m_TagString: Untagged
@@ -200,6 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 3926330135269715659}
@@ -276,6 +278,9 @@ MonoBehaviour:
   _animatorController: {fileID: 0}
   _animationEventInvoker: {fileID: 0}
   _animation: {fileID: 0}
+  _onAnimatorMoveOverrider: {fileID: 0}
+  _mainAnimationLayer: 0
+  _attackAnimationLayer: 0
   _clipFadeDuration: 0
   _hurtBoxes: []
   _jointedHitBoxes: []
@@ -284,6 +289,9 @@ MonoBehaviour:
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
   _projectileIndex: 4
+  _projectileReference:
+    m_AssetGUID: f51e2828ef1fa8b4d853a93e53bfb622
+    m_SubObjectName: 
   _muzzles:
   - {x: 0, y: 6.55, z: 0}
   - {x: 0, y: 10.25, z: 0}
@@ -341,7 +349,37 @@ MonoBehaviour:
       m_SubObjectName: 
     _particleEffectIndex: 0
     _points: []
-  _hurtSoundIndex: 0
+  _hurtSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
+--- !u!114 &5091061457647303455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6927731556747503308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: 0
+  _magnitudeToChangePosition:
+    _distance: 0
+    _squareDistance: 0
+  _magnitudeToChangeRotation:
+    _distance: 0
+    _squareDistance: 0
+  debug: 0
+  positionRayColor: {r: 0, g: 0, b: 0, a: 0}
+  _rotationColorAlpha: 0
+  _gizmosRadius: 0
+  rayDuration: 0
 --- !u!1 &7003291783104604951
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,21 +765,15 @@ PrefabInstance:
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 524fcb68dc7266740865249223b100d1, type: 3}
---- !u!4 &7471056545314929251 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 524fcb68dc7266740865249223b100d1,
+--- !u!23 &4410238021251690514 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6705982133095624090, guid: 524fcb68dc7266740865249223b100d1,
     type: 3}
   m_PrefabInstance: {fileID: 6927731556138556808}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &2493061953051712124 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 4809032440416258036, guid: 524fcb68dc7266740865249223b100d1,
-    type: 3}
-  m_PrefabInstance: {fileID: 6927731556138556808}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &2908064180557025015 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -3999271426136435841, guid: 524fcb68dc7266740865249223b100d1,
     type: 3}
   m_PrefabInstance: {fileID: 6927731556138556808}
   m_PrefabAsset: {fileID: 0}
@@ -775,9 +807,15 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 6927731556138556808}
   m_PrefabAsset: {fileID: 0}
---- !u!23 &4410238021251690514 stripped
+--- !u!4 &7471056545314929251 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 524fcb68dc7266740865249223b100d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6927731556138556808}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2908064180557025015 stripped
 MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6705982133095624090, guid: 524fcb68dc7266740865249223b100d1,
+  m_CorrespondingSourceObject: {fileID: -3999271426136435841, guid: 524fcb68dc7266740865249223b100d1,
     type: 3}
   m_PrefabInstance: {fileID: 6927731556138556808}
   m_PrefabAsset: {fileID: 0}

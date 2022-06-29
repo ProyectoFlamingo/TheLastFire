@@ -438,11 +438,6 @@ public class Character : PoolGameObject, IStateMachine
 	}
 #endregion
 
-	public void EmitSoundEffect(int _index, int _source = 0, float _volumeScale = 1.0f)
-	{
-		AudioController.PlayOneShot(SourceType.SFX, _source, _index, _volumeScale);
-	}
-
 #region StringDebugging:
 	/// <returns>String representing enemy's stats.</returns>
 	public override string ToString()

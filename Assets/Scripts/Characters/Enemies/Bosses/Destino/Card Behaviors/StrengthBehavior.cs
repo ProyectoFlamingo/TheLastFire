@@ -28,7 +28,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AIContactWeapon _rightDrumstick; 						/// <summary>Right Drumstick's AIContactWeapon.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private EulerRotation _rightDrumstickRotation; 				/// <summary>Right Drumstick's Rotation.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private EulerRotation _leftDrumstickRotation; 				/// <summary>Left Drumstick's Rotation.</summary>
-	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private int _drumstickSoundIndex; 							/// <summary>Drumsticks Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private SoundEffectEmissionData _drumstickSoundEffect; 		/// <summary>Drumsticks Sound-Effect's Data.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private AnimatorCredential _drumstickAnimationCredential; 	/// <summary>Drumstick's AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private IntRange _drumBeatsSequence; 							/// <summary>Drumstickes' beats sequence's range.</summary>
 	[TabGroup("Weapons Group", "Drumsticks")][SerializeField] private Vector3 _leftDrumstickSpawnPoint; 					/// <summary>Left Drumstick's Spawn Position.</summary>
@@ -43,7 +43,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Header("Trumpet's Attributes:")]
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private Vector3Pair _trumpetSpawnPointPair; 						/// <summary>Trumpet's Spawn-Point Pairs.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AIContactWeapon _trumpet; 								/// <summary>Trumpet's reference.</summary>
-	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private int _trumpetSoundIndex; 									/// <summary>Trumpet Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private SoundEffectEmissionData _trumpetSoundEffect; 			/// <summary>Trumpet Sound-Effect's Data.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private AnimatorCredential _trumpetAnimationCredential; 			/// <summary>Trumpet's AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private Vector3 _trumpetSpawnPoint; 								/// <summary>Trumpet's Spawn Position.</summary>
 	[TabGroup("Weapons Group", "Trumpet")][SerializeField] private float _maxTrumpetSteeringScalar; 						/// <summary>Max Trumpet's Steering Scalar.</summary>
@@ -58,7 +58,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	[Header("Cymbals' Attributes:")]
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private Vector3Pair _cymbalSpawnPointPair; 						/// <summary>Cymbals' Spawn-Point Pairs.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AIContactWeapon _cymbals; 								/// <summary>Cymbals' Reference.</summary>
-	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private int _cymbalSoundIndex; 									/// <summary>Cymbal Sound's Index.</summary>
+	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private SoundEffectEmissionData _cymbalSoundEffect; 				/// <summary>Cymbal Sound-Effect's Data.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private Vector3 _cymbalSpawnPoint; 								/// <summary>Cymbal's SSpawn Point.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private AnimatorCredential _cymbalsAnimationCredential; 			/// <summary>Cymbals' AnimatorCredential.</summary>
 	[TabGroup("Weapons Group", "Cymbals")][SerializeField] private float _maxCymbalsSteeringScalar; 						/// <summary>Max Cymbals' Steering Scalar.</summary>
@@ -193,14 +193,14 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets exitLerpDuration property.</summary>
 	public float exitLerpDuration { get { return _exitLerpDuration; } }
 
-	/// <summary>Gets drumstickSoundIndex property.</summary>
-	public int drumstickSoundIndex { get { return _drumstickSoundIndex; } }
+	/// <summary>Gets drumstickSoundEffect property.</summary>
+	public SoundEffectEmissionData drumstickSoundEffect { get { return _drumstickSoundEffect; } }
 
-	/// <summary>Gets trumpetSoundIndex property.</summary>
-	public int trumpetSoundIndex { get { return _trumpetSoundIndex; } }
+	/// <summary>Gets trumpetSoundEffect property.</summary>
+	public SoundEffectEmissionData trumpetSoundEffect { get { return _trumpetSoundEffect; } }
 
-	/// <summary>Gets cymbalSoundIndex property.</summary>
-	public int cymbalSoundIndex { get { return _cymbalSoundIndex; } }
+	/// <summary>Gets cymbalSoundEffect property.</summary>
+	public SoundEffectEmissionData cymbalSoundEffect { get { return _cymbalSoundEffect; } }
 
 	/// <summary>Gets destinoSpawnPointsPairs property.</summary>
 	public Vector3Pair[] destinoSpawnPointsPairs { get { return _destinoSpawnPointsPairs; } }
@@ -286,7 +286,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			break;
 
 			case IDs.ANIMATIONEVENT_EMITSOUND_0:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, drumstickSoundIndex);
+			drumstickSoundEffect.Play();
 			break;
 		}
 	}
@@ -307,7 +307,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			break;
 
 			case IDs.ANIMATIONEVENT_EMITSOUND_0:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, drumstickSoundIndex);
+			drumstickSoundEffect.Play();
 			break;
 		}
 	}
@@ -328,7 +328,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			break;
 
 			case IDs.ANIMATIONEVENT_EMITSOUND_0:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, cymbalSoundIndex);
+			cymbalSoundEffect.Play();
 			break;
 		}
 	}
@@ -349,7 +349,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			break;
 
 			case IDs.ANIMATIONEVENT_EMITSOUND_0:
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, trumpetSoundIndex);
+			trumpetSoundEffect.Play();
 			break;
 		}
 	}
@@ -421,7 +421,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			DrumstickRoutine(leftDrumstick, leftDrumstickSpawnPoint, Math.Min, -1.0f, scalar, s, drumstickLength),
 			DrumstickRoutine(rightDrumstick, rightDrumstickSpawnPoint, Math.Max, 1.0f, scalar, s, drumstickLength)
 		};
-		IEnumerator noteRoutine = PlayNote(boss, boss.reFaNoteIndex, drumstickSpawnPointPair);
+		IEnumerator noteRoutine = PlayNote(boss, boss.lalaCredential, boss.reFaNote, drumstickSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 
@@ -518,7 +518,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		float scalar = Mathf.Lerp(1.0f, maxTrumpetSteeringScalar, s);
 		//scalar = 1.0f; 	/// Same treatment for scalar since it depends of the stage...
 		bool animationEnded = false;
-		IEnumerator noteRoutine = PlayNote(boss, boss.laReNoteIndex, trumpetSpawnPointPair);
+		IEnumerator noteRoutine = PlayNote(boss, boss.lalaCredential, boss.laReNote, trumpetSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		trumpet.state = AnimationCommandState.None;
@@ -567,7 +567,7 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		float scalar = Mathf.Lerp(1.0f, maxCymbalsSteeringScalar, s);
 		//scalar = 1.0f; 	/// Same treatment for scalar since it depends of the stage...
 		bool animationEnded = false;
-		IEnumerator noteRoutine = PlayNote(boss, boss.siMiNoteIndex, cymbalSpawnPointPair);
+		IEnumerator noteRoutine = PlayNote(boss, boss.lalaCredential, boss.siMiNote, cymbalSpawnPointPair);
 
 		boss.animatorController.Play(boss.lalaCredential);
 		cymbals.state = AnimationCommandState.None;
@@ -635,8 +635,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Lerps through a waypoint pair and plays a note.</summary>
 	/// <param name="boss">Destino's Reference.</param>
-	/// <param name="noteCredential">Note's Credential's Index.</param>
-	private IEnumerator PlayNote(DestinoBoss boss, int noteCredential, Vector3Pair _pair)
+	/// <param name="animationCredential">Animation's Credential.</param>
+	/// <param name="noteData">Note's Sound-Effect's Data.</param>
+	private IEnumerator PlayNote(DestinoBoss boss, int animationCredential, SoundEffectEmissionData noteData, Vector3Pair _pair)
 	{
 		//Vector3Pair pair = destinoSpawnPointsPairs.Random();
 		Vector3Pair pair = _pair;
@@ -655,10 +656,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 			yield return null;
 		}
 
-		AudioClip clip = AudioController.PlayOneShot(SourceType.SFX, 1, noteCredential);
+		AudioClip clip = noteData.Play();
 		SecondsDelayWait wait = new SecondsDelayWait(clip.length);
 		boss.transform.position = pair.b;
-		boss.animatorController.PlayAndWait(noteCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
+		boss.animatorController.PlayAndWait(animationCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
 
 		while(!playFinished) yield return null;
 

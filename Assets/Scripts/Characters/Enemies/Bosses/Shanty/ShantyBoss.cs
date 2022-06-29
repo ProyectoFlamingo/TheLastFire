@@ -13,131 +13,132 @@ namespace Flamingo
 [RequireComponent(typeof(RigidbodyMovementAbility))]
 public class ShantyBoss : Boss
 {
-	public const int ID_WAYPOINTSPAIR_HELM = 0; 						/// <summary>Helm's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_DECK = 1; 						/// <summary>Deck's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 					/// <summary>Left Stair's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 					/// <summary>Right Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_HELM = 0; 							/// <summary>Helm's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_DECK = 1; 							/// <summary>Deck's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 						/// <summary>Left Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 						/// <summary>Right Stair's Waypoints' Pair ID.</summary>
 	
-	public const int ID_ANIMATIONSTATE_INTRO = 0; 						/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_TIED = 1; 						/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_IDLE = 2; 						/// <summary>Idle's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_ATTACK = 3; 						/// <summary>Attack's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_DAMAGE = 4; 						/// <summary>Damage's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_SHOOT_AIR = 0; 							/// <summary>Shoot's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACL_HIT_TENNIS = 1; 							/// <summary>Tennis Hit's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_BOMB_THROW = 2; 							/// <summary>Bomb Throw's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_BARREL_THROW = 3; 						/// <summary>Barrel Throw's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_BOMB = 0; 								/// <summary>Bomb Damage's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_SWORD = 1; 								/// <summary>Sword Damage's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_CRY = 2; 								/// <summary>Cry's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_BARREL = 3; 								/// <summary>Barrel Damage's State ID [for AnimatorController].</summary>
-	public const int ID_IDLE = 0; 										/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_LAUGH = 1; 										/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_TAUNT = 2; 										/// <summary>Intro's State ID [for AnimatorController].</summary>
+	public const int ID_ANIMATIONSTATE_INTRO = 0; 							/// <summary>Intro's State ID [for AnimatorController].</summary>
+	public const int ID_ANIMATIONSTATE_TIED = 1; 							/// <summary>Intro's State ID [for AnimatorController].</summary>
+	public const int ID_ANIMATIONSTATE_IDLE = 2; 							/// <summary>Idle's State ID [for AnimatorController].</summary>
+	public const int ID_ANIMATIONSTATE_ATTACK = 3; 							/// <summary>Attack's State ID [for AnimatorController].</summary>
+	public const int ID_ANIMATIONSTATE_DAMAGE = 4; 							/// <summary>Damage's State ID [for AnimatorController].</summary>
+	public const int ID_ATTACK_SHOOT_AIR = 0; 								/// <summary>Shoot's State ID [for AnimatorController].</summary>
+	public const int ID_ATTACL_HIT_TENNIS = 1; 								/// <summary>Tennis Hit's State ID [for AnimatorController].</summary>
+	public const int ID_ATTACK_BOMB_THROW = 2; 								/// <summary>Bomb Throw's State ID [for AnimatorController].</summary>
+	public const int ID_ATTACK_BARREL_THROW = 3; 							/// <summary>Barrel Throw's State ID [for AnimatorController].</summary>
+	public const int ID_DAMAGE_BOMB = 0; 									/// <summary>Bomb Damage's State ID [for AnimatorController].</summary>
+	public const int ID_DAMAGE_SWORD = 1; 									/// <summary>Sword Damage's State ID [for AnimatorController].</summary>
+	public const int ID_DAMAGE_CRY = 2; 									/// <summary>Cry's State ID [for AnimatorController].</summary>
+	public const int ID_DAMAGE_BARREL = 3; 									/// <summary>Barrel Damage's State ID [for AnimatorController].</summary>
+	public const int ID_IDLE = 0; 											/// <summary>Intro's State ID [for AnimatorController].</summary>
+	public const int ID_LAUGH = 1; 											/// <summary>Intro's State ID [for AnimatorController].</summary>
+	public const int ID_TAUNT = 2; 											/// <summary>Intro's State ID [for AnimatorController].</summary>
 
 	[Space(10f)]
 	[Header("Shanty's Attributes:")]
 	[Space(5f)]
-	[SerializeField] private ShantyShip _ship; 							/// <summary>Shanty's Ship.</summary>
+	[SerializeField] private ShantyShip _ship; 								/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
 	[Header("Weapons' Atrributes:")]
-	[SerializeField] private ContactWeapon _sword; 						/// <summary>Shanty's Sword.</summary>
-	[SerializeField] private Transform _falseSword; 					/// <summary>False Sword's Reference (the one stuck to the rigging).</summary>
+	[SerializeField] private ContactWeapon _sword; 							/// <summary>Shanty's Sword.</summary>
+	[SerializeField] private Transform _falseSword; 						/// <summary>False Sword's Reference (the one stuck to the rigging).</summary>
 	[Space(5f)]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _windowPercentage; 				/// <summary>Time-window before swinging sword (to hit bomb).</summary>
+	[Range(0.0f, 1.0f)] private float _windowPercentage; 					/// <summary>Time-window before swinging sword (to hit bomb).</summary>
 	[Space(5f)]
 	[Header("Stage 1 Bomb's Attributes:")]
-	[SerializeField] private int _bombIndex; 							/// <summary>Bomb's Index.</summary>
-	[SerializeField] private float _bombProjectionTime; 				/// <summary>Bomb's Projection Time.</summary>
+	[SerializeField] private int _bombIndex; 								/// <summary>Bomb's Index.</summary>
+	[SerializeField] private VAssetReference _bombReference; 				/// <summary>Bomb's Reference.</summary>
+	[SerializeField] private float _bombProjectionTime; 					/// <summary>Bomb's Projection Time.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 		/// <summary>Bomb Projection Time's Percentage.</summary>
+	[Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 			/// <summary>Bomb Projection Time's Percentage.</summary>
 	[Space(5f)]
 	[Header("Stage 2 Bomb's Attributes:")]
-	[SerializeField] private int _bouncingBombIndex; 					/// <summary>Bouncing Bomb's Index.</summary>
-	[SerializeField] private float _bouncingBombProjectionTime; 		/// <summary>Bouncing Bomb's Projection Time.</summary>
+	[SerializeField] private VAssetReference _bouncingBombReference; 		/// <summary>Bouncing Bomb's Reference.</summary>
+	[SerializeField] private float _bouncingBombProjectionTime; 			/// <summary>Bouncing Bomb's Projection Time.</summary>
 	[Space(5f)]
 	[Header("Stage 1 TNT's Attributes:")]
-	[SerializeField] private int _TNTIndex; 							/// <summary>TNT's Index.</summary>
-	[SerializeField] private int _stage1ExplodableIndex; 				/// <summary>Explodable;s Index for TNT on Stage 1.</summary>
-	[SerializeField] private float _stage1TNTFuseDuration; 				/// <summary>Fuse Duration for TNT on Stage 1.</summary>
-	[SerializeField] private float _TNTProjectionTime; 					/// <summary>TNT's Projection Time.</summary>
+	[SerializeField] private VAssetReference _TNTReference; 				/// <summary>TNT's Reference.</summary>
+	[SerializeField] private VAssetReference _stage1ExplodableReference; 	/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
+	[SerializeField] private float _stage1TNTFuseDuration; 					/// <summary>Fuse Duration for TNT on Stage 1.</summary>
+	[SerializeField] private float _TNTProjectionTime; 						/// <summary>TNT's Projection Time.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 		/// <summary>TNT Projection Time's Percentage.</summary>
+	[Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 			/// <summary>TNT Projection Time's Percentage.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 		/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
+	[Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 			/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 				/// <summary>Time Scale when throwing TNT.</summary>
+	[Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 					/// <summary>Time Scale when throwing TNT.</summary>
 	[Space(5f)]
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 	/// <summary>Health Limit's Percentage for TNT.</summary>
+	[Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 		/// <summary>Health Limit's Percentage for TNT.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 	/// <summary>Health Limit's Percentage for TNT.</summary>
+	[Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 		/// <summary>Health Limit's Percentage for TNT.</summary>
 	[Space(5f)]
 	[Header("Stage 2's TNT's Attributes:")]
-	[SerializeField] private int _stage2ExplodableIndex; 				/// <summary>Explodable;s Index for TNT on Stage 2.</summary>
-	[SerializeField] private float _stage2TNTFuseDuration; 				/// <summary>Fuse Duration for TNT on Stage 2.</summary>
-	[SerializeField] private float _stairParabolaTime; 					/// <summary>Duration from throw to beginning of stair.</summary>
-	[SerializeField] private float _stairSlideDuration; 				/// <summary>Stair Slide's Duration.</summary>
-	[SerializeField] private float _sidewaysMovementSpeed; 				/// <summary>Sideways' Movement Speed.</summary>
-	[SerializeField] private float _TNTRotationSpeed; 					/// <summary>TNT's Rotation Angular Speed.</summary>
+	[SerializeField] private VAssetReference _stage2ExplodableReference; 	/// <summary>Explodable's Reference for TNT on Stage 2.</summary>
+	[SerializeField] private float _stage2TNTFuseDuration; 					/// <summary>Fuse Duration for TNT on Stage 2.</summary>
+	[SerializeField] private float _stairParabolaTime; 						/// <summary>Duration from throw to beginning of stair.</summary>
+	[SerializeField] private float _stairSlideDuration; 					/// <summary>Stair Slide's Duration.</summary>
+	[SerializeField] private float _sidewaysMovementSpeed; 					/// <summary>Sideways' Movement Speed.</summary>
+	[SerializeField] private float _TNTRotationSpeed; 						/// <summary>TNT's Rotation Angular Speed.</summary>
 	[Space(5f)]
 	[Header("Whack-A-Mole's Attributes:")]
-	[SerializeField] private float _vectorPairInterpolationDuration; 	/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
-	[SerializeField] private float _waitBeforeWaypointReturn; 			/// <summary>Wait before Waypoint's Return.</summary>
+	[SerializeField] private float _vectorPairInterpolationDuration; 		/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
+	[SerializeField] private float _waitBeforeWaypointReturn; 				/// <summary>Wait before Waypoint's Return.</summary>
 	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 		/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
+	[Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 			/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
 	[Space(5f)]
 	[Header("Duel's Attributes:")]
-	[SerializeField] private FloatRange _attackRadiusRange; 			/// <summary>Attacks' Radius Range.</summary>
-	[SerializeField] private FloatRange _strongAttackWaitInterval; 		/// <summary>Strong Attack's Wait Interval.</summary>
-	[SerializeField] private float _movementSpeed; 						/// <summary>Movement's Speed.</summary>
-	[SerializeField] private float _rotationSpeed; 						/// <summary>Rotation's Speed.</summary>
-	[SerializeField] private float _regressionDuration; 				/// <summary>Regression's Duration.</summary>
-	[SerializeField] private float _attackDistance; 					/// <summary>Attack's Distance.</summary>
-	[SerializeField] private float _normalAttackCooldownDuration; 		/// <summary>Normal Attack Cooldown's Duration.</summary>
-	[SerializeField] private float _strongAttackCooldownDuration; 		/// <summary>Strong Attack Cooldown's Duration.</summary>
+	[SerializeField] private FloatRange _attackRadiusRange; 				/// <summary>Attacks' Radius Range.</summary>
+	[SerializeField] private FloatRange _strongAttackWaitInterval; 			/// <summary>Strong Attack's Wait Interval.</summary>
+	[SerializeField] private float _movementSpeed; 							/// <summary>Movement's Speed.</summary>
+	[SerializeField] private float _rotationSpeed; 							/// <summary>Rotation's Speed.</summary>
+	[SerializeField] private float _regressionDuration; 					/// <summary>Regression's Duration.</summary>
+	[SerializeField] private float _attackDistance; 						/// <summary>Attack's Distance.</summary>
+	[SerializeField] private float _normalAttackCooldownDuration; 			/// <summary>Normal Attack Cooldown's Duration.</summary>
+	[SerializeField] private float _strongAttackCooldownDuration; 			/// <summary>Strong Attack Cooldown's Duration.</summary>
 	[Space(5f)]
 	[Header("Inmunities:")]
-	[SerializeField] private GameObjectTag[] _stage1Inmunities; 		/// <summary>Inmunities on Stage 1.</summary>
-	[SerializeField] private GameObjectTag[] _stage2Inmunities; 		/// <summary>Inmunities on Stage 2.</summary>
+	[SerializeField] private GameObjectTag[] _stage1Inmunities; 			/// <summary>Inmunities on Stage 1.</summary>
+	[SerializeField] private GameObjectTag[] _stage2Inmunities; 			/// <summary>Inmunities on Stage 2.</summary>
 	[Space(5f)]
 	[Header("Animator's Attributes:")]
-	[SerializeField] private AnimatorCredential _stateIDCredential; 	/// <summary>State ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _attackIDCredential; 	/// <summary>Attack ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _idleIDCredential; 		/// <summary>Idle ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _vitalityIDCredential; 	/// <summary>Vitality ID's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _stateIDCredential; 		/// <summary>State ID's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _attackIDCredential; 		/// <summary>Attack ID's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _idleIDCredential; 			/// <summary>Idle ID's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _vitalityIDCredential; 		/// <summary>Vitality ID's AnimatorCredential.</summary>
 	[Space(5f)]
 	[Header("Animations:")]
-	[SerializeField] private AnimationClip[] tiedAnimations; 			/// <summary>Tied Animations.</summary>
-	[SerializeField] private AnimationClip untiedAnnimation; 			/// <summary>Untied's Animation.</summary>
-	[SerializeField] private AnimationClip idleAnimation; 				/// <summary>Idle's Animation.</summary>
-	[SerializeField] private AnimationClip laughAnimation; 				/// <summary>Laugh's Animation.</summary>
-	[SerializeField] private AnimationClip tauntAnimation; 				/// <summary>Taun's Animation.</summary>
-	[SerializeField] private AnimationClip tiredAnimation; 				/// <summary>Tired's Animation.</summary>
-	[SerializeField] private AnimationClip shootAnimation; 				/// <summary>Shoot's Animation.</summary>
-	[SerializeField] private AnimationClip throwBarrelAnimation; 		/// <summary>Throw Barrel's Animation.</summary>
-	[SerializeField] private AnimationClip throwBombAnimation; 			/// <summary>Throw Bomb's Animation.</summary>
-	[SerializeField] private AnimationClip tenninsHitAnimation; 		/// <summary>tennis Hit's Animation.</summary>
-	[SerializeField] private AnimationClip hitBombAnimation; 			/// <summary>Hit Bomb's Animation.</summary>
-	[SerializeField] private AnimationClip hitBarrelAnimation; 			/// <summary>Hit Barrel's Animation.</summary>
-	[SerializeField] private AnimationClip hitSwordAnimation; 			/// <summary>Hit Sword's Animation.</summary>
-	[SerializeField] private AnimationClip cryAnimation; 				/// <summary>Cry's Animation.</summary>
-	[SerializeField] private AnimationClip normalAttackAnimation; 		/// <summary>Normal Attack's Animation.</summary>
-	[SerializeField] private AnimationClip strongAttackAnimation; 		/// <summary>Strong Attack's Animation.</summary>
-	[SerializeField] private AnimationClip backStepAnimation; 			/// <summary>Back-Setp Animation.</summary>
-	private Coroutine coroutine; 										/// <summary>Coroutine's Reference.</summary>
-	private Coroutine TNTRotationCoroutine; 							/// <summary>TNT's Rotation Coroutine's Reference.</summary>
-	private Behavior attackBehavior; 									/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
-	private Projectile _bomb; 											/// <summary>Bomb's Reference.</summary>
-	private Projectile _TNT; 											/// <summary>TNT's Reference.</summary>
-	private JumpAbility _jumpAbility; 									/// <summary>JumpAbility's Component.</summary>
-	private DashAbility _dashAbility; 									/// <summary>DashAbility's Component.</summary>
-	private RigidbodyMovementAbility _movementAbility; 					/// <summary>MovementAbility's Component.</summary>
-	private Cooldown _normalAttackCooldown; 							/// <summary>Normal Attack's Cooldown.</summary>
-	private Cooldown _strongAttackCooldown; 							/// <summary>Strong Attack's Cooldown.</summary>
-	private Line _line; 												/// <summary>Current Stair's Line.</summary>
-	private bool _tntActive; 											/// <summary>Is the TNT Coroutine's Running?.</summary>
+	[SerializeField] private AnimationClip[] tiedAnimations; 				/// <summary>Tied Animations.</summary>
+	[SerializeField] private AnimationClip untiedAnnimation; 				/// <summary>Untied's Animation.</summary>
+	[SerializeField] private AnimationClip idleAnimation; 					/// <summary>Idle's Animation.</summary>
+	[SerializeField] private AnimationClip laughAnimation; 					/// <summary>Laugh's Animation.</summary>
+	[SerializeField] private AnimationClip tauntAnimation; 					/// <summary>Taun's Animation.</summary>
+	[SerializeField] private AnimationClip tiredAnimation; 					/// <summary>Tired's Animation.</summary>
+	[SerializeField] private AnimationClip shootAnimation; 					/// <summary>Shoot's Animation.</summary>
+	[SerializeField] private AnimationClip throwBarrelAnimation; 			/// <summary>Throw Barrel's Animation.</summary>
+	[SerializeField] private AnimationClip throwBombAnimation; 				/// <summary>Throw Bomb's Animation.</summary>
+	[SerializeField] private AnimationClip tenninsHitAnimation; 			/// <summary>tennis Hit's Animation.</summary>
+	[SerializeField] private AnimationClip hitBombAnimation; 				/// <summary>Hit Bomb's Animation.</summary>
+	[SerializeField] private AnimationClip hitBarrelAnimation; 				/// <summary>Hit Barrel's Animation.</summary>
+	[SerializeField] private AnimationClip hitSwordAnimation; 				/// <summary>Hit Sword's Animation.</summary>
+	[SerializeField] private AnimationClip cryAnimation; 					/// <summary>Cry's Animation.</summary>
+	[SerializeField] private AnimationClip normalAttackAnimation; 			/// <summary>Normal Attack's Animation.</summary>
+	[SerializeField] private AnimationClip strongAttackAnimation; 			/// <summary>Strong Attack's Animation.</summary>
+	[SerializeField] private AnimationClip backStepAnimation; 				/// <summary>Back-Setp Animation.</summary>
+	private Coroutine coroutine; 											/// <summary>Coroutine's Reference.</summary>
+	private Coroutine TNTRotationCoroutine; 								/// <summary>TNT's Rotation Coroutine's Reference.</summary>
+	private Behavior attackBehavior; 										/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
+	private Projectile _bomb; 												/// <summary>Bomb's Reference.</summary>
+	private Projectile _TNT; 												/// <summary>TNT's Reference.</summary>
+	private JumpAbility _jumpAbility; 										/// <summary>JumpAbility's Component.</summary>
+	private DashAbility _dashAbility; 										/// <summary>DashAbility's Component.</summary>
+	private RigidbodyMovementAbility _movementAbility; 						/// <summary>MovementAbility's Component.</summary>
+	private Cooldown _normalAttackCooldown; 								/// <summary>Normal Attack's Cooldown.</summary>
+	private Cooldown _strongAttackCooldown; 								/// <summary>Strong Attack's Cooldown.</summary>
+	private Line _line; 													/// <summary>Current Stair's Line.</summary>
+	private bool _tntActive; 												/// <summary>Is the TNT Coroutine's Running?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets ship property.</summary>
@@ -147,20 +148,20 @@ public class ShantyBoss : Boss
 		set { _ship = value; }
 	}
 
-	/// <summary>Gets bombIndex property.</summary>
-	public int bombIndex { get { return _bombIndex; } }
+	/// <summary>Gets bombReference property.</summary>
+	public VAssetReference bombReference { get { return _bombReference; } }
 
-	/// <summary>Gets bouncingBombIndex property.</summary>
-	public int bouncingBombIndex { get { return _bouncingBombIndex; } }
+	/// <summary>Gets bouncingBombReference property.</summary>
+	public VAssetReference bouncingBombReference { get { return _bouncingBombReference; } }
 
-	/// <summary>Gets TNTIndex property.</summary>
-	public int TNTIndex { get { return _TNTIndex; } }
+	/// <summary>Gets TNTReference property.</summary>
+	public VAssetReference TNTReference { get { return _TNTReference; } }
 
-	/// <summary>Gets stage1ExplodableIndex property.</summary>
-	public int stage1ExplodableIndex { get { return _stage1ExplodableIndex; } }
+	/// <summary>Gets stage1ExplodableReference property.</summary>
+	public VAssetReference stage1ExplodableReference { get { return _stage1ExplodableReference; } }
 
-	/// <summary>Gets stage2ExplodableIndex property.</summary>
-	public int stage2ExplodableIndex { get { return _stage2ExplodableIndex; } }
+	/// <summary>Gets stage2ExplodableReference property.</summary>
+	public VAssetReference stage2ExplodableReference { get { return _stage2ExplodableReference; } }
 
 	/// <summary>Gets bombProjectionTime property.</summary>
 	public float bombProjectionTime { get { return _bombProjectionTime; } }
@@ -496,23 +497,23 @@ public class ShantyBoss : Boss
 	/// <summary>Picks Bomb.</summary>
 	public void PickBomb()
 	{
-		int index = 0;
+		VAssetReference reference = null;
 		float time = 0.0f;
 
 		switch(currentStage)
 		{
 			case STAGE_1:
-			index = bombIndex;
+			reference = bombReference;
 			time = bombProjectionTime;
 			break;
 
 			case STAGE_2:
-			index = bouncingBombIndex;
+			reference = bouncingBombReference;
 			time = bouncingBombProjectionTime;
 			break;
 		}
 
-		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, index, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
+		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, reference, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
 		bomb.activated = false;
 		bomb.ActivateHitBoxes(false);
 		bomb.transform.parent = skeleton.rightHand;
@@ -523,18 +524,18 @@ public class ShantyBoss : Boss
 	{
 		if(bomb == null) return;
 
-		int index = 0;
+		VAssetReference reference = null;
 		float time = 0.0f;
 
 		switch(currentStage)
 		{
 			case STAGE_1:
-			index = bombIndex;
+			reference = bombReference;
 			time = bombProjectionTime;
 			break;
 
 			case STAGE_2:
-			index = bouncingBombIndex;
+			reference = bouncingBombReference;
 			time = bouncingBombProjectionTime;
 
 			this.StartCoroutine(this.WaitSeconds(time,
@@ -561,7 +562,7 @@ public class ShantyBoss : Boss
 
 		bomb.transform.parent = null;
 		bomb.OnObjectDeactivation();
-		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, index, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
+		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, reference, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
 		bomb.rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		bomb.rigidbody.isKinematic = true;
 		bomb.rigidbody.gravityScale = 0.0f;
@@ -607,7 +608,7 @@ public class ShantyBoss : Boss
 	{
 		Vector3 anchoredPosition = Vector3.zero;
 
-		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTIndex, skeleton.rightHand.position, Game.mateo.transform.position, TNTProjectionTime, gameObject);
+		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTReference, skeleton.rightHand.position, Game.mateo.transform.position, TNTProjectionTime, gameObject);
 		anchoredPosition = TNT.anchorContainer.GetAnchoredPosition(skeleton.rightHand.position, 0);
 		TNT.transform.position = anchoredPosition;
 		TNT.activated = false;
@@ -630,14 +631,14 @@ public class ShantyBoss : Boss
 		float fuseDuration = 0.0f;
 		float damage = 0.0f;
 		float t = 0.0f;
-		int explodableIndex = 0;
+		VAssetReference reference = null;
 
 		switch(currentStage)
 		{
 			case STAGE_1:
 			p = Game.mateo.transform.position;
 			t = TNTProjectionTime;
-			explodableIndex = stage1ExplodableIndex;
+			reference = stage1ExplodableReference;
 			impactTags = new GameObjectTag[] { Game.data.floorTag, Game.data.playerTag, Game.data.playerProjectileTag };
 			flamableTags = new GameObjectTag[] { Game.data.playerProjectileTag };
 			fuseDuration = stage1TNTFuseDuration;
@@ -647,7 +648,7 @@ public class ShantyBoss : Boss
 			case STAGE_2:
 			p = line.a;
 			t = stairParabolaTime;
-			explodableIndex = stage2ExplodableIndex;
+			reference = stage2ExplodableReference;
 			impactTags = new GameObjectTag[] { Game.data.playerTag };
 			flamableTags = new GameObjectTag[] { Game.data.playerProjectileTag };
 			fuseDuration = stage2TNTFuseDuration;
@@ -657,7 +658,7 @@ public class ShantyBoss : Boss
 
 		TNT.transform.parent = null;
 		TNT.OnObjectDeactivation();
-		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTIndex, skeleton.rightHand.position, p, t, gameObject);
+		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTReference, skeleton.rightHand.position, p, t, gameObject);
 		anchoredPosition = TNT.anchorContainer.GetAnchoredPosition(skeleton.rightHand.position, 0);
 		TNT.transform.position = anchoredPosition;
 		TNT.ActivateHitBoxes(true);
@@ -674,7 +675,7 @@ public class ShantyBoss : Boss
 		BombParabolaProjectile TNTBomb = TNT as BombParabolaProjectile;
 		TNTBomb.fuseDuration = fuseDuration;
 		TNTBomb.ChangeState(BombState.WickOn);
-		TNTBomb.explodableIndex = explodableIndex;
+		TNTBomb.explodableReference = reference;
 
 		IEnumerator routine = null;
 

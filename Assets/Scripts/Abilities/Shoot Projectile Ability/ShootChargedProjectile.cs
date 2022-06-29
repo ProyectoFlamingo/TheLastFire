@@ -8,26 +8,28 @@ namespace Flamingo
 {
 public class ShootChargedProjectile : ShootProjectile
 {
-	public const int STATE_ID_UNCHARGED = 0; 						/// <summary>Uncharged's State ID.</summary>
-	public const int STATE_ID_CHARGING = 1; 						/// <summary>Charging's State ID.</summary>
-	public const int STATE_ID_CHARGED = 2; 							/// <summary>Fully Charged's State ID.</summary>
-	public const int STATE_ID_RELEASED = 3; 						/// <summary>Charge Released's State ID.</summary>
+	public const int STATE_ID_UNCHARGED = 0; 											/// <summary>Uncharged's State ID.</summary>
+	public const int STATE_ID_CHARGING = 1; 											/// <summary>Charging's State ID.</summary>
+	public const int STATE_ID_CHARGED = 2; 												/// <summary>Fully Charged's State ID.</summary>
+	public const int STATE_ID_RELEASED = 3; 											/// <summary>Charge Released's State ID.</summary>
 
 	[Space(5f)]
 	[Header("ShootChargedProjectile's Attributes:")]
-	[SerializeField] private FloatRange _speedRange; 				/// <summary>Projectile's Speed Range.</summary>
-	[SerializeField] private int _chargedProjectileID; 				/// <summary>Charged Projectile's ID.</summary>
-	[SerializeField] private float _minimumCharge; 					/// <summary>Minimum charge required for the projectile to be propeled.</summary>
-	[SerializeField] private float _chargeDuration; 				/// <summary>Charge's Duration.</summary>
-	[SerializeField] private float _speedChargeDuration; 			/// <summary>Speed Charge's Duration.</summary>
+	[SerializeField] private FloatRange _speedRange; 									/// <summary>Projectile's Speed Range.</summary>
+	[SerializeField] private VAssetReference _chargedProjectileReference; 				/// <summary>Charged Projectile's Reference.</summary>
+	[SerializeField] private int _chargedProjectileID; 									/// <summary>Charged Projectile's ID.</summary>
+	[SerializeField] private float _minimumCharge; 										/// <summary>Minimum charge required for the projectile to be propeled.</summary>
+	[SerializeField] private float _chargeDuration; 									/// <summary>Charge's Duration.</summary>
+	[SerializeField] private float _speedChargeDuration; 								/// <summary>Speed Charge's Duration.</summary>
 	[Space(5f)]
 	[Header("Sounds' Settings:")]
-	[SerializeField] private int _projectileCreationSoundIndex; 	/// <summary>Projectile Creation's Sound Index.</summary>
-	[SerializeField] private int _maxChargeSoundIndex; 				/// <summary>Max Charge's Sound Index.</summary>
-	[SerializeField] private int _releaseSoundIndex; 				/// <summary>Shoot Release's Sound Index.</summary>
-	private float _currentCharge; 									/// <summary>Current Charge's Value.</summary>
-	private float _currentSpeedCharge; 								/// <summary>Current Speed Charge's Value.</summary>
-	private int _ID; 												/// <summary>Current Projectile's ID.</summary>
+	[SerializeField] private SoundEffectEmissionData _projectileCreationSoundEffect; 	/// <summary>Projectile Creation's Sound-Effect's Data.</summary>
+	[SerializeField] private SoundEffectEmissionData _maxChargeSoundEffect; 			/// <summary>Max Charge's Sound-Effect's Data.</summary>
+	[SerializeField] private SoundEffectEmissionData _releaseSoundEffect; 				/// <summary>Shoot Release's Sound-Effect's Data.</summary>
+	private VAssetReference _reference; 												/// <summary>Current Projectile's Reference.</summary>
+	private float _currentCharge; 														/// <summary>Current Charge's Value.</summary>
+	private float _currentSpeedCharge; 													/// <summary>Current Speed Charge's Value.</summary>
+	private int _ID; 																	/// <summary>Current Projectile's ID.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets speedRange property.</summary>
@@ -35,6 +37,13 @@ public class ShootChargedProjectile : ShootProjectile
 	{
 		get { return _speedRange; }
 		set { _speedRange = value; }
+	}
+
+	/// <summary>Gets and Sets chargedProjectileReference property.</summary>
+	public VAssetReference chargedProjectileReference
+	{
+		get { return _chargedProjectileReference; }
+		set { _chargedProjectileReference = value; }
 	}
 
 	/// <summary>Gets and Sets chargedProjectileID property.</summary>
@@ -79,25 +88,32 @@ public class ShootChargedProjectile : ShootProjectile
 		set { _currentSpeedCharge = value; }
 	}
 
-	/// <summary>Gets and Sets projectileCreationSoundIndex property.</summary>
-	public int projectileCreationSoundIndex
+	/// <summary>Gets and Sets projectileCreationSoundEffect property.</summary>
+	public SoundEffectEmissionData projectileCreationSoundEffect
 	{
-		get { return _projectileCreationSoundIndex; }
-		set { _projectileCreationSoundIndex = value; }
+		get { return _projectileCreationSoundEffect; }
+		set { _projectileCreationSoundEffect = value; }
 	}
 
-	/// <summary>Gets and Sets maxChargeSoundIndex property.</summary>
-	public int maxChargeSoundIndex
+	/// <summary>Gets and Sets maxChargeSoundEffect property.</summary>
+	public SoundEffectEmissionData maxChargeSoundEffect
 	{
-		get { return _maxChargeSoundIndex; }
-		set { _maxChargeSoundIndex = value; }
+		get { return _maxChargeSoundEffect; }
+		set { _maxChargeSoundEffect = value; }
 	}
 
-	/// <summary>Gets and Sets releaseSoundIndex property.</summary>
-	public int releaseSoundIndex
+	/// <summary>Gets and Sets releaseSoundEffect property.</summary>
+	public SoundEffectEmissionData releaseSoundEffect
 	{
-		get { return _releaseSoundIndex; }
-		set { _releaseSoundIndex = value; }
+		get { return _releaseSoundEffect; }
+		set { _releaseSoundEffect = value; }
+	}
+
+	/// <summary>Gets and Sets reference property.</summary>
+	public VAssetReference reference
+	{
+		get { return _reference; }
+		set { _reference = value; }
 	}
 
 	/// <summary>Gets and Sets ID property.</summary>
@@ -116,6 +132,7 @@ public class ShootChargedProjectile : ShootProjectile
 	{
 		currentCharge = 0.0f;
 		currentSpeedCharge = 0.0f;
+		reference = projectileReference;
 		ID = projectileID;
 
 		if(projectile != null)
@@ -155,6 +172,7 @@ public class ShootChargedProjectile : ShootProjectile
 
 		if(currentCharge >= chargeDuration && ID != chargedProjectileID)
 		{
+			reference = chargedProjectileReference;
 			ID = chargedProjectileID;
 
 			if(muzzle != null)
@@ -177,10 +195,11 @@ public class ShootChargedProjectile : ShootProjectile
 	/// <summary>Creates Projectile and parents it to the muzzle [if such exists].</summary>
 	public void CreateProjectile()
 	{
-		if(ID == projectileID) AudioController.PlayOneShot(SourceType.SFX, 0, projectileCreationSoundIndex);
-		else if(ID == chargedProjectileID) AudioController.PlayOneShot(SourceType.SFX, 0, maxChargeSoundIndex);
+		if(/*ID == projectileID*/reference == projectileReference) projectileCreationSoundEffect.Play();
+		else if(/*ID == chargedProjectileID*/reference == chargedProjectileReference) maxChargeSoundEffect.Play();
 
-		projectile = PoolManager.RequestProjectile(faction, ID, muzzle.position, Vector3.zero);
+		//projectile = PoolManager.RequestProjectile(faction, ID, muzzle.position, Vector3.zero);
+		projectile = PoolManager.RequestProjectile(faction, reference, muzzle.position, Vector3.zero);
 		projectile.transform.parent = muzzle;
 		projectile.activated = false;
 		projectile.ActivateHitBoxes(false);
@@ -206,11 +225,12 @@ public class ShootChargedProjectile : ShootProjectile
 
 		if(currentCharge < minimumCharge) return false;
 
-		AudioController.PlayOneShot(SourceType.SFX, 0, releaseSoundIndex);
+		releaseSoundEffect.Play();
 
 		float t = currentSpeedCharge / speedChargeDuration;
 
-		return Shoot(ID, _origin, _direction, speedRange.Lerp(t));
+		//return Shoot(ID, _origin, _direction, speedRange.Lerp(t));
+		return Shoot(reference, _origin, _direction, speedRange.Lerp(t));
 	}
 }
 }

@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 3037706fc810a1249913d927feba4aae
   m_SerializeEntries:
   - m_GUID: 05729ccca8bca724b80aa225032af021
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_TEST_0.prefab
+    m_Address: ParticleEffect_TEST_0
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 4056756371081143906, guid: 05729ccca8bca724b80aa225032af021,
@@ -26,31 +26,53 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 4056756371081143906, guid: 05729ccca8bca724b80aa225032af021,
       type: 3}
   - m_GUID: 061bb0a11a6e9b3418a4ef201c6f4113
-    m_Address: Assets/Prefabs/Particle Effects/Particle_Dust_Effect.prefab
+    m_Address: ParticleEffect_Dust_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 92522934931914738, guid: 061bb0a11a6e9b3418a4ef201c6f4113,
+      type: 3}
+    m_TargetAsset: {fileID: 92522934931914738, guid: 061bb0a11a6e9b3418a4ef201c6f4113,
+      type: 3}
+  - m_GUID: 0e83547a5bcf95d40bac9eac6a4758a6
+    m_Address: ParticleEffect_Flame_Red_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 721682070875501325, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+      type: 3}
+    m_TargetAsset: {fileID: 721682070875501325, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+      type: 3}
   - m_GUID: 0efc16ffedb7bc3479ccc4f5ea9c7bb2
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Dark_Vortex.prefab
+    m_Address: ParticleEffect_Vortex_Dark_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8223618417429928963, guid: 0efc16ffedb7bc3479ccc4f5ea9c7bb2,
+      type: 3}
+    m_TargetAsset: {fileID: 8223618417429928963, guid: 0efc16ffedb7bc3479ccc4f5ea9c7bb2,
+      type: 3}
+  - m_GUID: 0f1a7f88bd0342e41992914b4d34b29f
+    m_Address: ParticleEffect_Hit_SmokePuff
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 100000, guid: 0f1a7f88bd0342e41992914b4d34b29f, type: 3}
+    m_TargetAsset: {fileID: 100000, guid: 0f1a7f88bd0342e41992914b4d34b29f, type: 3}
   - m_GUID: 148afe93d2471be48aaef341f52c6c3c
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Jump.prefab
+    m_Address: ParticleEffect_Spawning_Stars_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8794394515965911202, guid: 148afe93d2471be48aaef341f52c6c3c,
+      type: 3}
+    m_TargetAsset: {fileID: 8794394515965911202, guid: 148afe93d2471be48aaef341f52c6c3c,
+      type: 3}
   - m_GUID: 171a1e6316e533e42a2c67fcd68e1c0e
-    m_Address: Assets/Prefabs/Particle Effects/Particle_Effect_Magia.prefab
+    m_Address: ParticleEffect_MagicDust
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8261471168224033498, guid: 171a1e6316e533e42a2c67fcd68e1c0e,
+      type: 3}
+    m_TargetAsset: {fileID: 8261471168224033498, guid: 171a1e6316e533e42a2c67fcd68e1c0e,
+      type: 3}
   - m_GUID: 1e7a285dfc7bb5b4ba7aa36972485e97
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Smoke.prefab
+    m_Address: ParticleEffect_Smoke
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 768137856227910986, guid: 1e7a285dfc7bb5b4ba7aa36972485e97,
@@ -58,116 +80,199 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 768137856227910986, guid: 1e7a285dfc7bb5b4ba7aa36972485e97,
       type: 3}
   - m_GUID: 206d277357ff4ec4787bc814cb5b3b4c
-    m_Address: Assets/Prefabs/ParticleEffect_Flame_Red.prefab
+    m_Address: ParticleEffect_Flame_Red_4
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 8081931510148939188, guid: 206d277357ff4ec4787bc814cb5b3b4c,
+      type: 3}
+    m_TargetAsset: {fileID: 8081931510148939188, guid: 206d277357ff4ec4787bc814cb5b3b4c,
+      type: 3}
   - m_GUID: 208f4513cff2f1248be14eb87e5a1c1d
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Splash.prefab
+    m_Address: ParticleEffect_Splash_Water
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 1457833346727359496, guid: 208f4513cff2f1248be14eb87e5a1c1d,
+      type: 3}
+    m_TargetAsset: {fileID: 1457833346727359496, guid: 208f4513cff2f1248be14eb87e5a1c1d,
+      type: 3}
   - m_GUID: 332c9e1ba1be7ff46b81417eb054266a
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Flame_0.prefab
+    m_Address: ParticleEffect_Flame_Red_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 714505747782571720, guid: 332c9e1ba1be7ff46b81417eb054266a,
+      type: 3}
+    m_TargetAsset: {fileID: 714505747782571720, guid: 332c9e1ba1be7ff46b81417eb054266a,
+      type: 3}
+  - m_GUID: 344ca815cb4de574d8cd0942a6557511
+    m_Address: ParticleEffect_Hit_Rock
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1040608886635896, guid: 344ca815cb4de574d8cd0942a6557511,
+      type: 3}
+    m_TargetAsset: {fileID: 1040608886635896, guid: 344ca815cb4de574d8cd0942a6557511,
+      type: 3}
   - m_GUID: 3826d98c4a0db0040b9d9a400bebf4cd
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX3 Prefabs/Misc/Mateo_Initial.Jump_Smoke..prefab
+    m_Address: ParticleEffect_Smoke_InitialJump_Normal_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 100000, guid: 3826d98c4a0db0040b9d9a400bebf4cd, type: 3}
+    m_TargetAsset: {fileID: 100000, guid: 3826d98c4a0db0040b9d9a400bebf4cd, type: 3}
+  - m_GUID: 3f64f0d15969d7042ba9f67b85c3a98b
+    m_Address: ParticleEffect_Flame_Blue_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8081931510148939188, guid: 3f64f0d15969d7042ba9f67b85c3a98b,
+      type: 3}
+    m_TargetAsset: {fileID: 8081931510148939188, guid: 3f64f0d15969d7042ba9f67b85c3a98b,
+      type: 3}
   - m_GUID: 40a16e0a24c989a40b60a9e7cfc239dc
-    m_Address: Assets/Prefabs/Particle Effects/Particle_Dash_Effect.prefab
+    m_Address: ParticleEffect_DashDust_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3706590169568369577, guid: 40a16e0a24c989a40b60a9e7cfc239dc,
+      type: 3}
+    m_TargetAsset: {fileID: 3706590169568369577, guid: 40a16e0a24c989a40b60a9e7cfc239dc,
+      type: 3}
+  - m_GUID: 4a4bca29d6cd614409186d5658a8176b
+    m_Address: ParticleEffect_Hit_Magic
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1845240806346120, guid: 4a4bca29d6cd614409186d5658a8176b,
+      type: 3}
+    m_TargetAsset: {fileID: 1845240806346120, guid: 4a4bca29d6cd614409186d5658a8176b,
+      type: 3}
   - m_GUID: 4e380b8e94c0faf4987a47cc4e350245
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Step_Water.prefab
+    m_Address: ParticleEffect_Step_Water_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 4330004709741446442, guid: 4e380b8e94c0faf4987a47cc4e350245,
+      type: 3}
+    m_TargetAsset: {fileID: 4330004709741446442, guid: 4e380b8e94c0faf4987a47cc4e350245,
+      type: 3}
+  - m_GUID: 515a647c555e81949a02105b8ddae9d1
+    m_Address: ParticleEffect_Hit_Flame_Blue_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 999127407534851724, guid: 515a647c555e81949a02105b8ddae9d1,
+      type: 3}
+    m_TargetAsset: {fileID: 999127407534851724, guid: 515a647c555e81949a02105b8ddae9d1,
+      type: 3}
   - m_GUID: 578345b0d94d6c64d993a63ab28c64b8
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Trumpet.prefab
+    m_Address: ParticleEffect_TrumpetNotes
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7018960284511089073, guid: 578345b0d94d6c64d993a63ab28c64b8,
+      type: 3}
+    m_TargetAsset: {fileID: 7018960284511089073, guid: 578345b0d94d6c64d993a63ab28c64b8,
+      type: 3}
   - m_GUID: 596a36bc9b04f0a45b1342b3c119b504
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Flash_White_Hit.prefab
+    m_Address: ParticleEffect_Flash_White
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3746736719559483459, guid: 596a36bc9b04f0a45b1342b3c119b504,
+      type: 3}
+    m_TargetAsset: {fileID: 3746736719559483459, guid: 596a36bc9b04f0a45b1342b3c119b504,
+      type: 3}
+  - m_GUID: 6360217e91cc7114da84ad7ea1a7e989
+    m_Address: ParticleEffect_DustSplash_Orange
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8643014019700470877, guid: 6360217e91cc7114da84ad7ea1a7e989,
+      type: 3}
+    m_TargetAsset: {fileID: 8643014019700470877, guid: 6360217e91cc7114da84ad7ea1a7e989,
+      type: 3}
+  - m_GUID: 640bfa6d4bb87454e9923412d9fb2a8e
+    m_Address: ParticleEffect_Spawning_Stars_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 100006, guid: 640bfa6d4bb87454e9923412d9fb2a8e, type: 3}
+    m_TargetAsset: {fileID: 100006, guid: 640bfa6d4bb87454e9923412d9fb2a8e, type: 3}
   - m_GUID: 6433f965fe057e648ae27099f89d6355
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX3 Prefabs/Misc/Mateo_Hard_Landing_Smoke..prefab
+    m_Address: ParticleEffect_Smoke_Landing_Hard_Normal_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 100000, guid: 6433f965fe057e648ae27099f89d6355, type: 3}
+    m_TargetAsset: {fileID: 100000, guid: 6433f965fe057e648ae27099f89d6355, type: 3}
+  - m_GUID: 65baaa2e9b406b142937a2354712657c
+    m_Address: ParticleEffect_Flame_Red_5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 6566543230060489974, guid: 65baaa2e9b406b142937a2354712657c,
+      type: 3}
+    m_TargetAsset: {fileID: 6566543230060489974, guid: 65baaa2e9b406b142937a2354712657c,
+      type: 3}
   - m_GUID: 69d01e33ea01aaa40a1768f2d2d84033
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX3 Prefabs/Misc/Mateo_Soft_Landing_Smoke..prefab
+    m_Address: ParticleEffect_Smoke_Landing_Soft_Normal_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 100000, guid: 69d01e33ea01aaa40a1768f2d2d84033, type: 3}
+    m_TargetAsset: {fileID: 100000, guid: 69d01e33ea01aaa40a1768f2d2d84033, type: 3}
   - m_GUID: 7416e839a67b42747977d67aeb83b9db
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Dizzy.prefab
+    m_Address: ParticleEffect_Dizzy
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7908371009296042771, guid: 7416e839a67b42747977d67aeb83b9db,
+      type: 3}
+    m_TargetAsset: {fileID: 7908371009296042771, guid: 7416e839a67b42747977d67aeb83b9db,
+      type: 3}
+  - m_GUID: 7a15ccff3dbbf894093d8cd7e5e2fe08
+    m_Address: ParticleEffect_Slash_Sword_0
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 6126768980967227210, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
+      type: 3}
+    m_TargetAsset: {fileID: 6126768980967227210, guid: 7a15ccff3dbbf894093d8cd7e5e2fe08,
+      type: 3}
   - m_GUID: 7af93d4e2464efa42bb7b7d734349fb6
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Hit_Crashes.prefab
+    m_Address: ParticleEffect_Hit_CymbalsCrashes
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2380970356293177854, guid: 7af93d4e2464efa42bb7b7d734349fb6,
+      type: 3}
+    m_TargetAsset: {fileID: 2380970356293177854, guid: 7af93d4e2464efa42bb7b7d734349fb6,
+      type: 3}
   - m_GUID: 7b61a519c057af548a2bb8a0fc9b1080
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Dash 1.prefab
+    m_Address: ParticleEffect_DashDust_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 2444224504586316941, guid: 7b61a519c057af548a2bb8a0fc9b1080,
+      type: 3}
+    m_TargetAsset: {fileID: 2444224504586316941, guid: 7b61a519c057af548a2bb8a0fc9b1080,
+      type: 3}
   - m_GUID: 7e705ca85bfe88a418b5d0175149fa77
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_SwordTrail.prefab
+    m_Address: ParticleEffect_SwordTrail_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 802059692198086884, guid: 7e705ca85bfe88a418b5d0175149fa77,
+      type: 3}
+    m_TargetAsset: {fileID: 802059692198086884, guid: 7e705ca85bfe88a418b5d0175149fa77,
+      type: 3}
   - m_GUID: 83815da667b15ec4cb805cb3ec69b11d
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Step_Wood.prefab
+    m_Address: ParticleEffect_Step_Wood_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 83cd9cc9f9c88824ba18dc59b05ae328
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX3 Prefabs/Misc/CFX3_Hit_SmokePuff.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
-    m_TargetAsset: {fileID: 100000, guid: 83cd9cc9f9c88824ba18dc59b05ae328, type: 3}
+    m_MainAsset: {fileID: 2757906412654105322, guid: 83815da667b15ec4cb805cb3ec69b11d,
+      type: 3}
+    m_TargetAsset: {fileID: 2757906412654105322, guid: 83815da667b15ec4cb805cb3ec69b11d,
+      type: 3}
   - m_GUID: 841ed073cbc0e5a43968718a41f01a31
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Step_Steel.prefab
+    m_Address: ParticleEffect_Step_Steel_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: 8fc06027b01064e4f885fd8dd2929310
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX2 Prefabs/Pickup
-      Items/CFX2_PickupStar.prefab
+    m_MainAsset: {fileID: 2038017754843348876, guid: 841ed073cbc0e5a43968718a41f01a31,
+      type: 3}
+    m_TargetAsset: {fileID: 2038017754843348876, guid: 841ed073cbc0e5a43968718a41f01a31,
+      type: 3}
+  - m_GUID: 8c97e91c93b86a54d81845f033e71608
+    m_Address: ParticleEffect_SwordTrail_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
-    m_TargetAsset: {fileID: 100006, guid: 8fc06027b01064e4f885fd8dd2929310, type: 3}
+    m_MainAsset: {fileID: 1804267025680207742, guid: 8c97e91c93b86a54d81845f033e71608,
+      type: 3}
+    m_TargetAsset: {fileID: 1804267025680207742, guid: 8c97e91c93b86a54d81845f033e71608,
+      type: 3}
   - m_GUID: 9050f7f208b708f4d81ef0495d3176d7
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Ripple_Water.prefab
+    m_Address: ParticleEffect_Ripple_Water
     m_ReadOnly: 0
     m_SerializedLabels: []
     m_MainAsset: {fileID: 6972153726185558699, guid: 9050f7f208b708f4d81ef0495d3176d7,
@@ -175,155 +280,175 @@ MonoBehaviour:
     m_TargetAsset: {fileID: 6972153726185558699, guid: 9050f7f208b708f4d81ef0495d3176d7,
       type: 3}
   - m_GUID: 90f0fc57f886cc244b4122d22e5b9a0a
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Destino_Puff.prefab
+    m_Address: ParticleEffect_MagicSmoke_Dark_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7501708171872796968, guid: 90f0fc57f886cc244b4122d22e5b9a0a,
+      type: 3}
+    m_TargetAsset: {fileID: 7501708171872796968, guid: 90f0fc57f886cc244b4122d22e5b9a0a,
+      type: 3}
   - m_GUID: 9804934245098114f96ca2077a77ff0d
-    m_Address: Assets/Prefabs/Particle Systems/ParticleEffect_FireHit7.prefab
+    m_Address: ParticleEffect_Explosion_Fire_Red_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3984064775155770924, guid: 9804934245098114f96ca2077a77ff0d,
+      type: 3}
+    m_TargetAsset: {fileID: 3984064775155770924, guid: 9804934245098114f96ca2077a77ff0d,
+      type: 3}
   - m_GUID: 99c85ee94331e3a4b8fac6f5b04db405
-    m_Address: Assets/Prefabs/Particle Effects/Particle_HitFlameRed_Effect .prefab
+    m_Address: ParticleEffect_Hit_Flame_Red_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 6519144772966450457, guid: 99c85ee94331e3a4b8fac6f5b04db405,
+      type: 3}
+    m_TargetAsset: {fileID: 6519144772966450457, guid: 99c85ee94331e3a4b8fac6f5b04db405,
+      type: 3}
   - m_GUID: a1f9665ad5e31b24a9ed90a12ca5ed1f
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Hit_Sticks.prefab
+    m_Address: ParticleEffect_Hit_Drumstick
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 7145356298802739174, guid: a1f9665ad5e31b24a9ed90a12ca5ed1f,
+      type: 3}
+    m_TargetAsset: {fileID: 7145356298802739174, guid: a1f9665ad5e31b24a9ed90a12ca5ed1f,
+      type: 3}
   - m_GUID: a3de2ea4d1a132a49a402524c65f8996
-    m_Address: Assets/Prefabs/Particle Effects/Particle_Jump.prefab
+    m_Address: ParticleEffect_Smoke_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: a40b64bf23366dc42a892af2c6ff6140
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX Prefabs/Misc/CFX_MagicPoof.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
-    m_TargetAsset: {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
+    m_MainAsset: {fileID: 5659883470496678487, guid: a3de2ea4d1a132a49a402524c65f8996,
+      type: 3}
+    m_TargetAsset: {fileID: 5659883470496678487, guid: a3de2ea4d1a132a49a402524c65f8996,
+      type: 3}
   - m_GUID: a53bdab9c6abc6847aac2c4a84252f6c
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Step_Grass.prefab
+    m_Address: ParticleEffect_Step_Grass_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3740105899325972866, guid: a53bdab9c6abc6847aac2c4a84252f6c,
+      type: 3}
+    m_TargetAsset: {fileID: 3740105899325972866, guid: a53bdab9c6abc6847aac2c4a84252f6c,
+      type: 3}
   - m_GUID: a70113af926a3e840bfb55e7eeb824c9
-    m_Address: Assets/Prefabs/Flame_Red.prefab
+    m_Address: ParticleEffect_Flame_Red_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: a97415c6b57076f41a6621a7b51d63a3
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX2 Prefabs/Debris
-      Hits/CFX2_RockHit.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3,
+    m_MainAsset: {fileID: 8081931510148939188, guid: a70113af926a3e840bfb55e7eeb824c9,
       type: 3}
-    m_TargetAsset: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3,
-      type: 3}
-  - m_GUID: aa8d6482d70a23445b4b2a928ed1b845
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX2 Prefabs/Explosions/CFX2_WWExplosion_C.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
-      type: 3}
-    m_TargetAsset: {fileID: 1965343156803978, guid: aa8d6482d70a23445b4b2a928ed1b845,
+    m_TargetAsset: {fileID: 8081931510148939188, guid: a70113af926a3e840bfb55e7eeb824c9,
       type: 3}
   - m_GUID: b013666642c319b488e962306595a381
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Step_Steel2.prefab
+    m_Address: ParticleEffect_Step_Steel_1
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: b2eaf9e4871c6334096dea4c4549602b
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Blue_Fire_Mateo_8.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: b395d5d6eb4b4b846acc021ee036b744
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX4 Prefabs/Magic/CFX4
-      Magic Hit.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744,
+    m_MainAsset: {fileID: 6306778630193998042, guid: b013666642c319b488e962306595a381,
       type: 3}
-    m_TargetAsset: {fileID: 1845240806346120, guid: b395d5d6eb4b4b846acc021ee036b744,
+    m_TargetAsset: {fileID: 6306778630193998042, guid: b013666642c319b488e962306595a381,
+      type: 3}
+  - m_GUID: b0cb4c298481cae4998c70e6faa9ad4a
+    m_Address: ParticleEffect_Hit_Spark_White
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 100000, guid: b0cb4c298481cae4998c70e6faa9ad4a, type: 3}
+    m_TargetAsset: {fileID: 100000, guid: b0cb4c298481cae4998c70e6faa9ad4a, type: 3}
+  - m_GUID: b2eaf9e4871c6334096dea4c4549602b
+    m_Address: ParticleEffect_Flame_Blue_2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 714505747782571720, guid: b2eaf9e4871c6334096dea4c4549602b,
+      type: 3}
+    m_TargetAsset: {fileID: 714505747782571720, guid: b2eaf9e4871c6334096dea4c4549602b,
       type: 3}
   - m_GUID: b61f9a978637dc146ad728fde0c34453
-    m_Address: Assets/Prefabs/Particle Systems/ParticleEffect_Step_Water.prefab
+    m_Address: ParticleEffect_Step_Water_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3909552795146324245, guid: b61f9a978637dc146ad728fde0c34453,
+      type: 3}
+    m_TargetAsset: {fileID: 3909552795146324245, guid: b61f9a978637dc146ad728fde0c34453,
+      type: 3}
   - m_GUID: bf430f4564c05364481da2de15e0abba
-    m_Address: Assets/Prefabs/Particle Effects/Particle_Effect_Walking_On_Water.prefab
+    m_Address: ParticleEffect_WalkingOnWater
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 3361486786737482977, guid: bf430f4564c05364481da2de15e0abba,
+      type: 3}
+    m_TargetAsset: {fileID: 3361486786737482977, guid: bf430f4564c05364481da2de15e0abba,
+      type: 3}
   - m_GUID: bf935788565e6f24cb3bf8bc871c2ec8
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Hit.prefab
+    m_Address: ParticleEffect_Hit_Default
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 6866182791540146164, guid: bf935788565e6f24cb3bf8bc871c2ec8,
+      type: 3}
+    m_TargetAsset: {fileID: 6866182791540146164, guid: bf935788565e6f24cb3bf8bc871c2ec8,
+      type: 3}
+  - m_GUID: cd5f977f01da62f4082f15e00a86d50b
+    m_Address: ParticleEffect_MagicPoof
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 100018, guid: cd5f977f01da62f4082f15e00a86d50b, type: 3}
+    m_TargetAsset: {fileID: 100018, guid: cd5f977f01da62f4082f15e00a86d50b, type: 3}
+  - m_GUID: d24a3077107949041b3ac65f28c586b1
+    m_Address: ParticleEffect_Skull_Explosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 1280141305896002, guid: d24a3077107949041b3ac65f28c586b1,
+      type: 3}
+    m_TargetAsset: {fileID: 1280141305896002, guid: d24a3077107949041b3ac65f28c586b1,
+      type: 3}
   - m_GUID: d58ad6a3241988c44b8b47bce25a5c57
-    m_Address: Assets/Prefabs/Particle Effects/ParticleEffect_Explosion_Fire_0.prefab
+    m_Address: ParticleEffect_Explosion_Fire_Red_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 5801250260708253776, guid: d58ad6a3241988c44b8b47bce25a5c57,
+      type: 3}
+    m_TargetAsset: {fileID: 5801250260708253776, guid: d58ad6a3241988c44b8b47bce25a5c57,
+      type: 3}
   - m_GUID: d95fcd6b39dda6c4ca12610f55838f9d
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Hit_Cymbals.prefab
+    m_Address: ParticleEffect_Hit_Cymbals
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 6612945921242583785, guid: d95fcd6b39dda6c4ca12610f55838f9d,
+      type: 3}
+    m_TargetAsset: {fileID: 6612945921242583785, guid: d95fcd6b39dda6c4ca12610f55838f9d,
+      type: 3}
+  - m_GUID: d979445141a314e23a84d8ea9eee5852
+    m_Address: ParticleEffect_Flame_Red_3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 52167505174165354, guid: d979445141a314e23a84d8ea9eee5852,
+      type: 3}
+    m_TargetAsset: {fileID: 52167505174165354, guid: d979445141a314e23a84d8ea9eee5852,
+      type: 3}
   - m_GUID: dafba09958b5b8442b02a25e6452769a
-    m_Address: Assets/Prefabs/Particle Effects/ParticlesDestino/ParticleEffect_Purple_Energy_Vortex.prefab
+    m_Address: ParticleEffect_Purple_Energy_Vortex
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: e473029e4c70ad543a6879b82a732f4f
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX3 Prefabs/Misc/CFX3_Skull_Explosion.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    m_MainAsset: {fileID: 1280141305896002, guid: e473029e4c70ad543a6879b82a732f4f,
+    m_MainAsset: {fileID: 985440349734481432, guid: dafba09958b5b8442b02a25e6452769a,
       type: 3}
-    m_TargetAsset: {fileID: 1280141305896002, guid: e473029e4c70ad543a6879b82a732f4f,
+    m_TargetAsset: {fileID: 985440349734481432, guid: dafba09958b5b8442b02a25e6452769a,
       type: 3}
-  - m_GUID: f06e78284f831ae469c74624ab5d513b
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_C
-      White.prefab
+  - m_GUID: dd740f7ca2f0f6249b30bf4539f7f86f
+    m_Address: ParticleEffect_Hit_ComicStyle
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
-  - m_GUID: f95ff734540a0d749be6571b6cb5b37f
-    m_Address: Assets/Assets - Non-Flamingo/JMO Assets/Cartoon FX/CFX Prefabs/Hits/CFX_Hit_A
-      Red+RandomText.prefab
+    m_MainAsset: {fileID: 100004, guid: dd740f7ca2f0f6249b30bf4539f7f86f, type: 3}
+    m_TargetAsset: {fileID: 100004, guid: dd740f7ca2f0f6249b30bf4539f7f86f, type: 3}
+  - m_GUID: e7243693850bc6b40aee35a31f1288b6
+    m_Address: ParticleEffect_Explosion_DarkMagic
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
-    m_TargetAsset: {fileID: 100004, guid: f95ff734540a0d749be6571b6cb5b37f, type: 3}
+    m_MainAsset: {fileID: 1965343156803978, guid: e7243693850bc6b40aee35a31f1288b6,
+      type: 3}
+    m_TargetAsset: {fileID: 1965343156803978, guid: e7243693850bc6b40aee35a31f1288b6,
+      type: 3}
   - m_GUID: fc78da998a6f1d749bf61a8d687bf399
-    m_Address: Assets/Prefabs/Particle Systems/ParticleEffect_BlueFireHit7.prefab
+    m_Address: ParticleEffect_Explosion_Fire_Blue_0
     m_ReadOnly: 0
     m_SerializedLabels: []
-    m_MainAsset: {fileID: 0}
-    m_TargetAsset: {fileID: 0}
+    m_MainAsset: {fileID: 5917933270765592104, guid: fc78da998a6f1d749bf61a8d687bf399,
+      type: 3}
+    m_TargetAsset: {fileID: 5917933270765592104, guid: fc78da998a6f1d749bf61a8d687bf399,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

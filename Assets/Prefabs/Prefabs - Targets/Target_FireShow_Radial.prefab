@@ -70,6 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 5894028918324482987}
@@ -116,6 +117,16 @@ MonoBehaviour:
   _tags:
   - _tag: Projectile/Player
     index: 11
+  _destructionParticleEffectReference:
+    m_AssetGUID: dd740f7ca2f0f6249b30bf4539f7f86f
+    m_SubObjectName: 
+  _destructionSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: bc3e65fcb06e6954dab579c1490dbaa7
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _destructionParticleEffectIndex: 5
   _destructionSoundEffectIndex: 36
 --- !u!114 &939755407774362535

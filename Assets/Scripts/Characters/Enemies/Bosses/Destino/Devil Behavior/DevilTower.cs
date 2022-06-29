@@ -10,14 +10,14 @@ namespace Flamingo
 {
 public class DevilTower : Character
 {
-	[SerializeField] private int _projectileIndex; 									/// <summary>Arrow Projectile's Index.</summary>
+	[SerializeField] private VAssetReference _projectileReference; 					/// <summary>Arrow Projectile's Reference.</summary>
 	[SerializeField] private Vector3[] _muzzles; 									/// <summary>Muzzles.</summary>
 	[SerializeField] private ParticleEffectEmissionData _landingParticleEffect; 	/// <summary>Landing Particle Effect's Emission Data.</summary>
 	private Dictionary<int, ArrowProjectile> _indexProjectileMapping; 				/// <summary>Mapping of Index with arrow Projectile.</summary>
 	private Dictionary<int, int> _projectileIDIndexMapping; 						/// <summary>Mapping of Projectile IDs with Index.</summary>
 
-	/// <summary>Gets projectileIndex property.</summary>
-	public int projectileIndex { get { return _projectileIndex; } }
+	/// <summary>Gets projectileReference property.</summary>
+	public VAssetReference projectileReference { get { return _projectileReference; } }
 
 	/// <summary>Gets muzzles property.</summary>
 	public Vector3[] muzzles { get { return _muzzles; } }
@@ -97,7 +97,7 @@ public class DevilTower : Character
 		Vector3 direction = _point - origin;
 		//direction.z = origin.z;
 
-		projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, origin, direction) as ArrowProjectile;
+		projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileReference, origin, direction) as ArrowProjectile;
 		
 		if(projectile == null) return false;
 

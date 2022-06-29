@@ -12,12 +12,12 @@ namespace Flamingo
 [RequireComponent(typeof(VCameraTarget))]
 public class BreakableTarget : PoolGameObject
 {
-	[SerializeField] private GameObjectTag[] _tags; 				/// <summary>Tags of GameObjects that can break this target.</summary>
-	[SerializeField] private int _destructionParticleEffectIndex; 	/// <summary>Destruction's Particle Effect's Index.</summary>
-	[SerializeField] private int _destructionSoundEffectIndex; 		/// <summary>Destruction's Sound Effect's Index.</summary>
-	private SelfMotionPerformer _selfMotionPerformer; 				/// <summary>SelfMotionPerformer's Component.</summary>
-	private EventsHandler _eventsHandler; 							/// <summary>EventsHandler's Component.</summary>
-	private VCameraTarget _cameraTarget; 							/// <summary>VCameraTarget's Component.</summary>
+	[SerializeField] private GameObjectTag[] _tags; 								/// <summary>Tags of GameObjects that can break this target.</summary>
+	[SerializeField] private VAssetReference _destructionParticleEffectReference; 	/// <summary>Destruction's Particle Effect's Reference.</summary>
+	[SerializeField] private SoundEffectEmissionData _destructionSoundEffect; 		/// <summary>Destruction's Sound-Effect's Data.</summary>
+	private SelfMotionPerformer _selfMotionPerformer; 								/// <summary>SelfMotionPerformer's Component.</summary>
+	private EventsHandler _eventsHandler; 											/// <summary>EventsHandler's Component.</summary>
+	private VCameraTarget _cameraTarget; 											/// <summary>VCameraTarget's Component.</summary>
 
 	/// <summary>Gets and Sets tags property.</summary>
 	public GameObjectTag[] tags
@@ -26,18 +26,18 @@ public class BreakableTarget : PoolGameObject
 		set { _tags = value; }
 	}
 
-	/// <summary>Gets and Sets destructionParticleEffectIndex property.</summary>
-	public int destructionParticleEffectIndex
+	/// <summary>Gets and Sets destructionParticleEffectReference property.</summary>
+	public VAssetReference destructionParticleEffectReference
 	{
-		get { return _destructionParticleEffectIndex; }
-		set { _destructionParticleEffectIndex = value; }
+		get { return _destructionParticleEffectReference; }
+		set { _destructionParticleEffectReference = value; }
 	}
 
-	/// <summary>Gets and Sets destructionSoundEffectIndex property.</summary>
-	public int destructionSoundEffectIndex
+	/// <summary>Gets and Sets destructionSoundEffect property.</summary>
+	public SoundEffectEmissionData destructionSoundEffect
 	{
-		get { return _destructionSoundEffectIndex; }
-		set { _destructionSoundEffectIndex = value; }
+		get { return _destructionSoundEffect; }
+		set { _destructionSoundEffect = value; }
 	}
 
 	/// <summary>Gets selfMotionPerformer Component.</summary>
@@ -97,8 +97,8 @@ public class BreakableTarget : PoolGameObject
 		{
 			if(obj.CompareTag(tag))
 			{
-				PoolManager.RequestParticleEffect(destructionParticleEffectIndex, transform.position, Quaternion.identity);
-				AudioController.PlayOneShot(SourceType.SFX, 0, destructionSoundEffectIndex);
+				PoolManager.RequestParticleEffect(destructionParticleEffectReference, transform.position, Quaternion.identity);
+				destructionSoundEffect.Play();
 				eventsHandler.InvokeDeactivationEvent(DeactivationCause.Destroyed, _info);
 				OnObjectDeactivation();
 				return;

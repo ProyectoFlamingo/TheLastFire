@@ -143,7 +143,7 @@ public class TransformDeltaCalculator : MonoBehaviour
 		Reset();
 	}
 	/// <summary>Updates TransformDeltaCalculator's instance at each frame.</summary>
-	private void Update()
+	private void LateUpdate()
 	{
 		if(detectionType.HasFlag(TransformProperties.Position)) UpdateVelocity();
 		if(detectionType.HasFlag(TransformProperties.Rotation)) UpdateAngularVelocity();

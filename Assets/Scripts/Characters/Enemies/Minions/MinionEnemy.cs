@@ -9,19 +9,19 @@ namespace Flamingo
 [RequireComponent(typeof(LineRenderer))]
 public class MinionEnemy : Enemy
 {
-	[SerializeField] private Vector3 _muzzlePoint; 				/// <summary>Muzzle's Point.</summary>
-	[SerializeField] private ProjectileType _projectileType; 	/// <summary>Projectile's Type to shoot.</summary>
-	[SerializeField] private int _projectileIndex; 				/// <summary>Projectile's Index.</summary>
-	[SerializeField] private float _projectionTime; 			/// <summary>Parabola Projectile's Projection Time.</summary>
-	[SerializeField] private FOVSight2D _FOVSight; 				/// <summary>FOVSight2D's Component.</summary>
+	[SerializeField] private Vector3 _muzzlePoint; 					/// <summary>Muzzle's Point.</summary>
+	[SerializeField] private ProjectileType _projectileType; 		/// <summary>Projectile's Type to shoot.</summary>
+	[SerializeField] private VAssetReference _projectileReference; 	/// <summary>Projectile's Reference.</summary>
+	[SerializeField] private float _projectionTime; 				/// <summary>Parabola Projectile's Projection Time.</summary>
+	[SerializeField] private FOVSight2D _FOVSight; 					/// <summary>FOVSight2D's Component.</summary>
 /*#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 				/// <summary>Gizmos' Color.</summary>
-	[SerializeField] private float gizmosRadius; 				/// <summary>Gizmos' Radius.</summary>
+	[SerializeField] private Color gizmosColor; 					/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private float gizmosRadius; 					/// <summary>Gizmos' Radius.</summary>
 #endif*/
-	private LineRenderer _laserRenderer; 						/// <summary>Laser's LineRenderer.</summary>
-	protected Coroutine stateCoroutine; 						/// <summary>State Coroutine.</summary>
+	private LineRenderer _laserRenderer; 							/// <summary>Laser's LineRenderer.</summary>
+	protected Coroutine stateCoroutine; 							/// <summary>State Coroutine.</summary>
 
 	/// <summary>Gets and Sets muzzlePoint property.</summary>
 	public Vector3 muzzlePoint
@@ -37,11 +37,11 @@ public class MinionEnemy : Enemy
 		set { _projectileType = value; }
 	}
 
-	/// <summary>Gets and Sets projectileIndex property.</summary>
-	public int projectileIndex
+	/// <summary>Gets and Sets projectileReference property.</summary>
+	public VAssetReference projectileReference
 	{
-		get { return _projectileIndex; }
-		set { _projectileIndex = value; }
+		get { return _projectileReference; }
+		set { _projectileReference = value; }
 	}
 
 	/// <summary>Gets and Sets projectionTime property.</summary>
@@ -158,16 +158,16 @@ public class MinionEnemy : Enemy
 			switch(projectileType)
 			{
 				case ProjectileType.Normal:
-				projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, muzzlePoint, direction);
+				projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileReference, muzzlePoint, direction);
 				projectile.rigidbody.MoveRotation(VQuaternion.RightLookRotation(direction));
 				break;
 
 				case ProjectileType.Homing:
-				projectile = PoolManager.RequestHomingProjectile(Faction.Enemy, projectileIndex, muzzlePoint, direction, Game.mateo.transform);
+				projectile = PoolManager.RequestHomingProjectile(Faction.Enemy, projectileReference, muzzlePoint, direction, Game.mateo.transform);
 				break;
 
 				case ProjectileType.Parabola:
-				projectile = PoolManager.RequestParabolaProjectile(Faction.Enemy, projectileIndex, muzzlePoint, projectedMateoPosition, projectionTime);
+				projectile = PoolManager.RequestParabolaProjectile(Faction.Enemy, projectileReference, muzzlePoint, projectedMateoPosition, projectionTime);
 				break;
 			}
 

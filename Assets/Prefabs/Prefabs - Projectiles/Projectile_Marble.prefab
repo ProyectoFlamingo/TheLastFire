@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: Marble
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -85,7 +86,6 @@ MonoBehaviour:
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
@@ -95,11 +95,34 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 0.2
   _distance: 1
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: 344ca815cb4de574d8cd0942a6557511
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _impactParticleEffectIndex: 6
   _destroyedParticleEffectIndex: -1
   _sourceIndex: 0
   _impactSoundEffectIndex: 37
   _destroyedSoundEffectIndex: 17
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 19e6a7f3e8de77f47bdbe4529e5ba2ce
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: e3e7bc30e323dec41bd5d53e5784412d
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
@@ -127,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 6800693875940303784}

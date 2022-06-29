@@ -3,11 +3,24 @@ using System.Collections;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Voidless
 {
 public static class VDebug
 {
+	/// <summary>Internally calls EditorUtiliy's Display Dialog [useful for runtime].</summary>
+	public static bool DisplayDialog(string title, string message, string accept, string cancel = "", bool defaultResult = true)
+	{
+#if UNITY_EDITOR
+		defaultResult = !string.IsNullOrEmpty(cancel) ? EditorUtility.DisplayDialog(title, message, accept, cancel) : EditorUtility.DisplayDialog(title, message, accept);
+#endif
+
+		return defaultResult;
+	}
+
 	/// <summary>Debugs Message on given Format and Color.</summary>
 	/// <param name="_message">Message to debug to the console.</param>
 	/// <param name="_format">Text's Format [Normal by default].</param>

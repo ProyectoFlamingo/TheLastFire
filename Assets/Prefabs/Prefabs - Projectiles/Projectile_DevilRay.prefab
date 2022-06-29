@@ -157,6 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: DevilRay
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -175,7 +176,6 @@ MonoBehaviour:
   _trailRenderers:
   - {fileID: 8317198787627129775}
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 1
@@ -185,17 +185,46 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 2
   _distance: 5
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _impactParticleEffectIndex: 0
   _destroyedParticleEffectIndex: 0
   _sourceIndex: 1
   _impactSoundEffectIndex: -1
   _destroyedSoundEffectIndex: -1
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
@@ -211,9 +240,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4914631231760126912}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &-9040860490006554968
 MonoBehaviour:

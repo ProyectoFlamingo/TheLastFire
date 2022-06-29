@@ -228,11 +228,11 @@ public class MoskarBoss : Boss
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			AudioController.PlayOneShot(SourceType.SFX, hurtSoundEffect.sourceIndex, ResourcesManager.GetAudioClip(hurtSoundEffect.soundReference, SourceType.SFX));
+			hurtSoundEffect.Play();
 			break;
 
 			case HealthEvent.FullyDepleted:
-			AudioController.PlayOneShot(SourceType.SFX, hurtSoundEffect.sourceIndex, ResourcesManager.GetAudioClip(hurtSoundEffect.soundReference, SourceType.SFX));
+			hurtSoundEffect.Play();
 			BeginDeathRoutine();
 			base.OnDeathRoutineEnds();
 			this.RemoveStates(IDs.STATE_ALIVE);
@@ -362,7 +362,8 @@ public class MoskarBoss : Boss
 		rigidbody.bodyType = RigidbodyType2D.Dynamic;
 		rigidbody.gravityScale = 1.0f;
 
-		AudioController.PlayOneShot(SourceType.SFX, fallenSoundEffect.sourceIndex, ResourcesManager.GetAudioClip(fallenSoundEffect.soundReference, SourceType.SFX));
+		//AudioController.PlayOneShot(SourceType.SFX, fallenSoundEffect.sourceIndex, ResourcesManager.GetAudioClip(fallenSoundEffect.soundReference, SourceType.SFX));
+		fallenSoundEffect.Play();
 
 		while(t < 1.0f)
 		{

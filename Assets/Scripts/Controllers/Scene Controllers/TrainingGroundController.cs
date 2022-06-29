@@ -9,7 +9,7 @@ namespace Flamingo
 {
 public class TrainingGroundController : Singleton<TrainingGroundController>
 {
-	[SerializeField] private int _soundEffectIndex; 					/// <summary>Particle Effect's Index on the Game's Data.</summary>
+	[SerializeField] private SoundEffectEmissionData _soundEffect; 		/// <summary>Sound-Effect's Reference.</summary>
 	[SerializeField] private Mateo _mateo; 								/// <summary>Mateo's Reference.</summary>
 	[SerializeField] private EventsHandler[] _targetImpactHandlers; 	/// <summary>Target's EventsHandlers' Components.</summary>
 	[SerializeField] private EventsHandler[] _marbleImpactHandlers; 	/// <summary>Marble's EventsHandlers' Components.</summary>
@@ -22,26 +22,6 @@ public class TrainingGroundController : Singleton<TrainingGroundController>
 	[SerializeField] private int _targetsScore; 						/// <summary>Targets' Score.</summary>
 	private int _marblesScore; 											/// <summary>Marbles' Score.</summary>
 	[SerializeField] private int _petrolsScore; 						/// <summary>Petrols' Score.</summary>
-
-
-public void Cheer()
-	{
-		if(targetsScore == 0) 
-		{
-			int index = soundEffectIndex;
-		AudioController.PlayOneShot(SourceType.Scenario, 0, index);
-		}
-	}
-
-void Cheer2()
-	{
-		if(petrolsScore == 0) 
-		{
-			int index = soundEffectIndex;
-		AudioController.PlayOneShot(SourceType.Scenario, 0, index);
-		}
-		
-	}
 
 	/// <summary>Gets and Sets mateo property.</summary>
 	public Mateo mateo
@@ -70,11 +50,11 @@ void Cheer2()
 		}
 	}
 
-	/// <summary>Gets and Sets soundEffectIndex property.</summary>
-	public int soundEffectIndex
+	/// <summary>Gets and Sets soundEffect property.</summary>
+	public SoundEffectEmissionData soundEffect
 	{
-		get { return _soundEffectIndex; }
-		set { _soundEffectIndex = value; }
+		get { return _soundEffect; }
+		set { _soundEffect = value; }
 	}
 
 	/// <summary>Gets and Sets marblesScore property.</summary>
@@ -160,6 +140,27 @@ void Cheer2()
 	{
 		petrolsScore--;
 		Cheer2();
+	}
+
+	private void Cheer()
+	{
+		if(targetsScore == 0) 
+		{
+			/*int index = soundEffectIndex;
+			AudioController.PlayOneShot(SourceType.Scenario, 0, index);*/
+			soundEffect.Play();
+		}
+	}
+
+	private void Cheer2()
+	{
+		if(petrolsScore == 0) 
+		{
+			/*int index = soundEffectIndex;
+			AudioController.PlayOneShot(SourceType.Scenario, 0, index);*/
+			soundEffect.Play();
+		}
+		
 	}
 }
 }

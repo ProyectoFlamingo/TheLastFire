@@ -178,6 +178,8 @@ GameObject:
   - component: {fileID: 1614921204212439701}
   - component: {fileID: -9040860490006554968}
   - component: {fileID: 361476487889030304}
+  - component: {fileID: 7409396405660054405}
+  - component: {fileID: 8126946125672792970}
   m_Layer: 0
   m_Name: Projectile_Poop
   m_TagString: Projectile/Enemy
@@ -251,6 +253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: 
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -268,7 +271,6 @@ MonoBehaviour:
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 1
@@ -278,11 +280,29 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 2
   _distance: 5
-  _impactParticleEffectIndex: 25
-  _destroyedParticleEffectIndex: 25
-  _sourceIndex: 1
-  _impactSoundEffectIndex: -1
-  _destroyedSoundEffectIndex: -1
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: 208f4513cff2f1248be14eb87e5a1c1d
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 208f4513cff2f1248be14eb87e5a1c1d
+    m_SubObjectName: 
+  _impactSoundEffect:
+    sourceIndex: 1
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _destroyedSoundEffect:
+    sourceIndex: 1
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
@@ -310,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 4914631231760126912}
@@ -329,7 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _poolObject: {fileID: 0}
   _character: {fileID: 0}
-  _contactWeapon: {fileID: 0}
+  _contactWeapon: {fileID: 3776002058642984422}
   debug: 0
 --- !u!114 &361476487889030304
 MonoBehaviour:
@@ -350,3 +371,36 @@ MonoBehaviour:
     index: 0
   _soundEffectsMatrix: []
   _eventsHandler: {fileID: 0}
+--- !u!114 &7409396405660054405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968317203677032462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 0.7, y: 0.7, z: 0.7}
+  _centerOffset: {x: 0, y: 0, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8126946125672792970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4968317203677032462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors: []
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.1

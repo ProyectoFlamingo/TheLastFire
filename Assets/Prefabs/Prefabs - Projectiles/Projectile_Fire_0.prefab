@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _name: 
+  _name: Flame0
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -182,7 +182,6 @@ MonoBehaviour:
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
@@ -192,11 +191,29 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 0
   _distance: 0
-  _impactParticleEffectIndex: 28
-  _destroyedParticleEffectIndex: 0
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 25
-  _destroyedSoundEffectIndex: -1
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: fc78da998a6f1d749bf61a8d687bf399
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 5c7b4c325b27a504ea40504f16a587c2
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
@@ -224,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 6018926314240788814}

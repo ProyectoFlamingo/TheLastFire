@@ -258,7 +258,7 @@ public class Game : Singleton<Game>
 	/// <summary>Resets FSM Loop's States.</summary>
 	public static void ResetFSMLoopStates()
 	{
-		if(data != null) data.ResetFSMLoopStates();
+		AudioController.ResetFSMLoopStates();
 	}
 
 	/// <returns>Mateo's Position.</returns>

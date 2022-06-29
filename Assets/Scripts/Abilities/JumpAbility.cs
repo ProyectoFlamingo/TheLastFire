@@ -49,7 +49,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	[SerializeField]
 	[Range(0.0f, 1.0f)] private float _progressForExtraJump; 	/// <summary>Minimum Progress required for extra jump.</summary>
 	[SerializeField] private ForceInformation2D[] _forcesInfo; 	/// <summary>Force's Information.</summary>
-	[SerializeField] private int[] _SFXsIndices; 				/// <summary>Sound Effects' Indices.</summary>
+	[SerializeField] private SoundEffectEmissionData[] _SFXs; 	/// <summary>Sound Effects' Indices.</summary>
 	[Space(5f)]
 	[SerializeField] private float _landingDuration; 			/// <summary>Landing's Duration.</summary>
 	[Space(5f)]
@@ -182,11 +182,11 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 		set { _forcesAppliers = value; }
 	}
 
-	/// <summary>Gets and Sets SFXsIndices property.</summary>
-	public int[] SFXsIndices
+	/// <summary>Gets and Sets SFXs property.</summary>
+	public SoundEffectEmissionData[] SFXs
 	{
-		get { return _SFXsIndices; }
-		set { _SFXsIndices = value; }
+		get { return _SFXs; }
+		set { _SFXs = value; }
 	}
 
 	/// <summary>Gets and Sets scalarWrapper property.</summary>
@@ -443,10 +443,10 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 
 		forceApplier.ApplyForce();
 
-		if(SFXsIndices != null && SFXsIndices.Length > 0)
+		if(SFXs != null && SFXs.Length > 0)
 		{
-			int index = Mathf.Clamp(currentJumpIndex, 0, SFXsIndices.Length);
-			AudioController.PlayOneShot(SourceType.SFX, 0, SFXsIndices[index]);
+			int index = Mathf.Clamp(currentJumpIndex, 0, SFXs.Length);
+			SFXs[index].Play();
 		}
 
 		this.ChangeState(STATE_ID_JUMPING);

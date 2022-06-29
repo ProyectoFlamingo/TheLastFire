@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2038017754843348878}
   - component: {fileID: 2038017754843348879}
   m_Layer: 0
-  m_Name: ParticleEffect_Step_Steel
+  m_Name: ParticleEffect_Step_Steel_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

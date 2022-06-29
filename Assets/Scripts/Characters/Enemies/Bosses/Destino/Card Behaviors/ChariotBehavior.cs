@@ -18,6 +18,8 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 {
 	[SerializeField] private Vector3 _projectileSpawnPosition; 			/// <summary>Projectiles' Spawn Position.</summary>
 	[Header("Projectiles:")]
+	[SerializeField] private VAssetReference _petrolSphereReference; 	/// <summary>Petrol Sphere's Reference.</summary>
+	[SerializeField] private VAssetReference _marbleSphereReference; 	/// <summary>Marble Sphere's Reference.</summary>
 	[SerializeField] private int _petrolSphereID; 						/// <summary>Petrol Sphere's ID.</summary>
 	[SerializeField] private int _marbleSphereID; 						/// <summary>Marble Sphere's ID.</summary>
 	[Space(5f)]
@@ -33,6 +35,12 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets projectileSpawnPosition property.</summary>
 	public Vector3 projectileSpawnPosition { get { return _projectileSpawnPosition; } }
+
+	/// <summary>Gets petrolSphereReference property.</summary>
+	public VAssetReference petrolSphereReference { get { return _petrolSphereReference; } }
+
+	/// <summary>Gets marbleSphereReference property.</summary>
+	public VAssetReference marbleSphereReference { get { return _marbleSphereReference; } }
 
 	/// <summary>Gets petrolSphereID property.</summary>
 	public int petrolSphereID { get { return _petrolSphereID; } }
@@ -112,6 +120,7 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 		float inverseSplit = 1.0f / durationSplit;
 		float t = 0.0f;
 		HashSet<int> indexSet = new HashSet<int>();
+		HashSet<VAssetReference> referenceSet = new HashSet<VAssetReference>();
 		Vector3 center = projectileSpawnPosition;
 
 		for(int i = 0; i < sequenceLength; i++)
@@ -119,15 +128,19 @@ public class ChariotBehavior : DestinoScriptableCoroutine
 			/// Distribute the Random Sequence:
 			Projectile sphere = null; 
 			int index = Random.Range(0, 2) == 0 ? petrolSphereID : marbleSphereID;
+			VAssetReference reference = Random.Range(0, 2) == 0 ? petrolSphereReference : marbleSphereReference;
 			indexSet.Add(index);
+			referenceSet.Add(reference);
 
 			if(i == (sequenceLength - 1))
 			{ /// At the final iteration. Evaluate if the sequence has at least one of each sphere:
 				if(!indexSet.Contains(petrolSphereID)) index = petrolSphereID;
 				if(!indexSet.Contains(marbleSphereID)) index = marbleSphereID;
+				if(!referenceSet.Contains(petrolSphereReference)) reference = petrolSphereReference;
+				if(!referenceSet.Contains(marbleSphereReference)) reference = marbleSphereReference;
 			}
 
-			sphere = PoolManager.RequestHomingProjectile(Faction.Enemy, index, center, Vector3.zero, null);
+			sphere = PoolManager.RequestHomingProjectile(Faction.Enemy, reference, center, Vector3.zero, null);
 			sphere.eventsHandler.onContactWeaponDeactivated += OnContactWeaponDeactivated;
 			sphere.gameObject.name += ("_" + i);
 			sphere.activated = false;

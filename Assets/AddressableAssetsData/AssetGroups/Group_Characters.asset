@@ -25,6 +25,14 @@ MonoBehaviour:
       type: 3}
     m_TargetAsset: {fileID: 2340683740104089351, guid: 8e98f4254b032564893133ce4247e946,
       type: 3}
+  - m_GUID: ad024adc994f8874ab1e313f97b35b8b
+    m_Address: Character_Mateo
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8008086697508232388, guid: ad024adc994f8874ab1e313f97b35b8b,
+      type: 3}
+    m_TargetAsset: {fileID: 8008086697508232388, guid: ad024adc994f8874ab1e313f97b35b8b,
+      type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

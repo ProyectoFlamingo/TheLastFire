@@ -42,7 +42,6 @@ public class Projectile : ContactWeapon
 {
 	public event OnDeactivated onDeactivated; 										/// <summary>OnDeactivated's Event Delegate.</summary>
 
-	[SerializeField] private ParticleEffect effect; 								/// <summary>???.</summary>
 	[Space(5f)]
 	[Header("Projectile's Attributes:")]
 	[SerializeField] private ProjectileType _projectileType; 						/// <summary>Projectile's Type.</summary>
@@ -58,13 +57,13 @@ public class Projectile : ContactWeapon
 	[SerializeField] private float _distance; 										/// <summary>Distance from Parent's Projectile.</summary>
 	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
-	[SerializeField] private int _impactParticleEffectIndex; 						/// <summary>Index of ParticleEffect to emit when the projectile impacts.</summary>
-	[SerializeField] private int _destroyedParticleEffectIndex; 					/// <summary>Index of ParticleEffect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private VAssetReference _spawnParticleEffectReference; 		/// <summary>Reference of ParticleEffect to emit when the projectile impacts.</summary>
+	[SerializeField] private VAssetReference _impactParticleEffectReference; 		/// <summary>Reference of ParticleEffect to emit when the projectile impacts.</summary>
+	[SerializeField] private VAssetReference _destroyedParticleEffectReference; 	/// <summary>Reference of ParticleEffect to emit when the projectile is destroyed.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Attributes:")]
-	[SerializeField] private int _sourceIndex; 										/// <summary>Sound Effect's Source Index.</summary>
-	[SerializeField] private int _impactSoundEffectIndex; 							/// <summary>Index of Sound Effect to emit when the projectile impacts.</summary>
-	[SerializeField] private int _destroyedSoundEffectIndex; 						/// <summary>Index of Sound Effect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private SoundEffectEmissionData _impactSoundEffect; 			/// <summary>Impact's Sound-Effect.</summary>
+	[SerializeField] private SoundEffectEmissionData _destroyedSoundEffect; 		/// <summary>Destroyed's Sound-Effect.</summary>
 	[SerializeField] private SoundEffectEmissionData _activeLoopingSoundEffect; 	/// <summary>Sound-Effect emitted in a loop state while the Projectile is active.</summary>
 	[SerializeField] private SoundEffectEmissionData _repelSoundEffect; 			/// <summary>Sound-Effect emitted when repelled.</summary>
 #if UNITY_EDITOR
@@ -211,39 +210,39 @@ public class Projectile : ContactWeapon
 		set { _rotateTowardsDirection = value; }
 	}
 
-	/// <summary>Gets and Sets sourceIndex property.</summary>
-	public int sourceIndex
+	/// <summary>Gets and Sets spawnParticleEffectReference property.</summary>
+	public VAssetReference spawnParticleEffectReference
 	{
-		get { return _sourceIndex; }
-		set { _sourceIndex = value; }
+		get { return _spawnParticleEffectReference; }
+		set { _spawnParticleEffectReference = value; }
 	}
 
-	/// <summary>Gets and Sets impactParticleEffectIndex property.</summary>
-	public int impactParticleEffectIndex
+	/// <summary>Gets and Sets impactParticleEffectReference property.</summary>
+	public VAssetReference impactParticleEffectReference
 	{
-		get { return _impactParticleEffectIndex; }
-		set { _impactParticleEffectIndex = value; }
+		get { return _impactParticleEffectReference; }
+		set { _impactParticleEffectReference = value; }
 	}
 
-	/// <summary>Gets and Sets destroyedParticleEffectIndex property.</summary>
-	public int destroyedParticleEffectIndex
+	/// <summary>Gets and Sets destroyedParticleEffectReference property.</summary>
+	public VAssetReference destroyedParticleEffectReference
 	{
-		get { return _destroyedParticleEffectIndex; }
-		set { _destroyedParticleEffectIndex = value; }
+		get { return _destroyedParticleEffectReference; }
+		set { _destroyedParticleEffectReference = value; }
 	}
 
-	/// <summary>Gets and Sets impactSoundEffectIndex property.</summary>
-	public int impactSoundEffectIndex
+	/// <summary>Gets and Sets impactSoundEffect property.</summary>
+	public SoundEffectEmissionData impactSoundEffect
 	{
-		get { return _impactSoundEffectIndex; }
-		set { _impactSoundEffectIndex = value; }
+		get { return _impactSoundEffect; }
+		set { _impactSoundEffect = value; }
 	}
 
-	/// <summary>Gets and Sets destroyedSoundEffectIndex property.</summary>
-	public int destroyedSoundEffectIndex
+	/// <summary>Gets and Sets destroyedSoundEffect property.</summary>
+	public SoundEffectEmissionData destroyedSoundEffect
 	{
-		get { return _destroyedSoundEffectIndex; }
-		set { _destroyedSoundEffectIndex = value; }
+		get { return _destroyedSoundEffect; }
+		set { _destroyedSoundEffect = value; }
 	}
 
 	/// <summary>Gets and Sets activeLoopingSoundEffect property.</summary>
@@ -416,7 +415,7 @@ public class Projectile : ContactWeapon
 		lastPosition = transform.position;
 		velocity = Vector2.zero;
 		target = null;
-		if(effect != null) effect.Play();
+		if(spawnParticleEffectReference != null) PoolManager.RequestParticleEffect(spawnParticleEffectReference, transform.position, Quaternion.identity);
 		if(trailRenderers != null) foreach(TrailRenderer trailRenderer in trailRenderers)
 		{
 			for(int i = 0; i < trailRenderer.positionCount; i++)
@@ -425,8 +424,8 @@ public class Projectile : ContactWeapon
 			}
 		}
 
-		if(activeLoopingSoundEffect.soundIndex > 0)
-		activeSoundEffectLooper = AudioController.LoopSoundEffect(activeLoopingSoundEffect.soundIndex, activeLoopingSoundEffect.volume);
+		if(activeLoopingSoundEffect.soundReference != null)
+		activeSoundEffectLooper = AudioController.LoopSoundEffect(activeLoopingSoundEffect.soundReference, activeLoopingSoundEffect.volume);
 	}
 #endregion
 
@@ -478,7 +477,7 @@ public class Projectile : ContactWeapon
 		owner = newOwner;
 		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_REPELLED, _info);
 
-		AudioController.PlayOneShot(SourceType.SFX, repelSoundEffect.sourceIndex, repelSoundEffect.soundIndex, repelSoundEffect.volume);
+		repelSoundEffect.Play();
 
 		/// \TODO Deprecate this call (and delete ProjectileEventsHandler's Component)
 		projectileEventsHandler.InvokeProjectileEvent(this, IDs.EVENT_REPELLED);
@@ -602,13 +601,15 @@ public class Projectile : ContactWeapon
 		switch(_cause)
 		{
 			case DeactivationCause.Impacted:
-			PoolManager.RequestParticleEffect(impactParticleEffectIndex, transform.position, Quaternion.identity);
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, impactSoundEffectIndex);
+			//PoolManager.RequestParticleEffect(impactParticleEffectIndex, transform.position, Quaternion.identity);
+			PoolManager.RequestParticleEffect(impactParticleEffectReference, transform.position, Quaternion.identity);
+			impactSoundEffect.Play();
 			break;
 
 			case DeactivationCause.Destroyed:
-			PoolManager.RequestParticleEffect(destroyedParticleEffectIndex, transform.position, Quaternion.identity);
-			AudioController.PlayOneShot(SourceType.SFX, sourceIndex, destroyedSoundEffectIndex);
+			//PoolManager.RequestParticleEffect(destroyedParticleEffectIndex, transform.position, Quaternion.identity);
+			PoolManager.RequestParticleEffect(destroyedParticleEffectReference, transform.position, Quaternion.identity);
+			destroyedSoundEffect.Play();
 			break;
 		}
 

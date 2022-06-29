@@ -69,14 +69,12 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	[TabGroup("Scenery Group", "Judgement's Scenery")][SerializeField] private Transform _danceShowSign; 		/// <summary>Dance Show's Sign.</summary>
 	[Space(5f)]
 	[Header("Loops' Indices:")]
-	[TabGroup("Audio")][SerializeField] private int _mainLoopIndex; 											/// <summary>Main Loop's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _mainLoopVoiceIndex; 										/// <summary>Main Loop's Voice Index.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioLoopData _mainLoopLoopData; 								/// <summary>Main Loop's  Data.</summary>
 	[TabGroup("Audio")][SerializeField] private AudioLoopData _mainLoopVoiceLoopData; 							/// <summary>Main Loop's Voice Loop Data.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Indices:")]
-	[TabGroup("Audio")][SerializeField] private int _orchestraTunningSoundIndex; 								/// <summary>Orchestra Tunning Sound FX's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _curtainOpeningSoundIndex; 									/// <summary>Curtain's Opening Sound FX's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _orchestraTunningSoundEffect; 			/// <summary>Orchestra Tunning Sound FX's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _curtainOpeningSoundEffect; 			/// <summary>Curtain's Opening Sound FX's Data.</summary>
 	[Space(5f)]
 	[TabGroup("Dead Cutscene")]
 	[Header("Dead's Cutscene:")]
@@ -192,23 +190,17 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Gets danceShowSign property.</summary>
 	public Transform danceShowSign { get { return _danceShowSign; } }
 
-	/// <summary>Gets mainLoopIndex property.</summary>
-	public int mainLoopIndex { get { return _mainLoopIndex; } }
-
-	/// <summary>Gets mainLoopVoiceIndex property.</summary>
-	public int mainLoopVoiceIndex { get { return _mainLoopVoiceIndex; } }
-
-	/// <summary>Gets orchestraTunningSoundIndex property.</summary>
-	public int orchestraTunningSoundIndex { get { return _orchestraTunningSoundIndex; } }
-
-	/// <summary>Gets curtainOpeningSoundIndex property.</summary>
-	public int curtainOpeningSoundIndex { get { return _curtainOpeningSoundIndex; } }
-
 	/// <summary>Gets mainLoopLoopData property.</summary>
 	public AudioLoopData mainLoopLoopData { get { return _mainLoopLoopData; } }
 
 	/// <summary>Gets mainLoopVoiceLoopData property.</summary>
 	public AudioLoopData mainLoopVoiceLoopData { get { return _mainLoopVoiceLoopData; } }
+
+	/// <summary>Gets orchestraTunningSoundEffect property.</summary>
+	public SoundEffectEmissionData orchestraTunningSoundEffect { get { return _orchestraTunningSoundEffect; } }
+
+	/// <summary>Gets curtainOpeningSoundEffect property.</summary>
+	public SoundEffectEmissionData curtainOpeningSoundEffect { get { return _curtainOpeningSoundEffect; } }
 
 	/// <summary>Gets and Sets deckPresented property.</summary>
 	public bool deckPresented
@@ -270,9 +262,10 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 		Game.mateo.Meditate();
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
-		Game.ResetFSMLoopStates();
+		AudioController.ResetFSMLoopStates();
 
-		AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
+		//AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
+		AudioClip clip = orchestraTunningSoundEffect.Play();
 		SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
 
 		/// Turn-off Player's Control:
@@ -405,7 +398,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 				curtainOpened = true;
 				
-				AudioClip openingClip = AudioController.PlayOneShot(SourceType.Scenario, 1, curtainOpeningSoundIndex);
+				//AudioClip openingClip = AudioController.PlayOneShot(SourceType.Scenario, 1, curtainOpeningSoundIndex);
+				AudioClip openingClip = curtainOpeningSoundEffect.Play();
 
 				AudioController.Stop(SourceType.Scenario, 0);
 				SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>

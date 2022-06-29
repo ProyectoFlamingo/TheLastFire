@@ -13,20 +13,20 @@ namespace Flamingo
 [RequireComponent(typeof(Rigidbody2D))]
 public class Fragmentable : PoolGameObject
 {
-	[SerializeField] private GameObjectTag[] _tags; 						/// <summary>Tags of GameObjects that fragment this Object.</summary>
-	[SerializeField] private HitCollider2D[] _pieces; 						/// <summary>Fragmentable's Pieces.</summary>
-	[SerializeField] private float _forceScalar; 							/// <summary>Additional Force's Scalar.</summary>
-	[SerializeField] private float _fragmentationDuration; 					/// <summary>Fragmentation's Duration.</summary>
+	[SerializeField] private GameObjectTag[] _tags; 							/// <summary>Tags of GameObjects that fragment this Object.</summary>
+	[SerializeField] private HitCollider2D[] _pieces; 							/// <summary>Fragmentable's Pieces.</summary>
+	[SerializeField] private float _forceScalar; 								/// <summary>Additional Force's Scalar.</summary>
+	[SerializeField] private float _fragmentationDuration; 						/// <summary>Fragmentation's Duration.</summary>
 	[Space(5f)]
-	[SerializeField] private ParticleEffectEmissionData _particleEffect; 	/// <summary>Particle Effect Emitted when this Fragmentable is fragmented.</summary>
-	[SerializeField] private int _soundIndex; 								/// <summary>Sound Index.</summary>
-	private TransformData[] _piecesData; 									/// <summary>Fragmentable Pieces' Bake data.</summary>
-	private bool _fragmented; 												/// <summary>Is the object fragmented?.</summary>
-	private Rigidbody2D _rigidbody; 										/// <summary>Rigidbody's Component.</summary>
-	private EventsHandler _eventsHandler; 									/// <summary>EventsHandler's Component.</summary>
-	private VCameraTarget _cameraTarget; 									/// <summary>VCameraTarget's Component.</summary>
-	private ImpactEventHandler _impactHandler; 								/// <summary>ImpactEventsHandler's Component.</summary>
-	private Coroutine defragmentation; 										/// <summary>Defragmentation's Coroutine reference.</summary>
+	[SerializeField] private ParticleEffectEmissionData _particleEffect; 		/// <summary>Particle Effect Emitted when this Fragmentable is fragmented.</summary>
+	[SerializeField] private SoundEffectEmissionData _fragmentedSoundEffect; 	/// <summary>Fragmented Sound-Effect's Data.</summary>
+	private TransformData[] _piecesData; 										/// <summary>Fragmentable Pieces' Bake data.</summary>
+	private bool _fragmented; 													/// <summary>Is the object fragmented?.</summary>
+	private Rigidbody2D _rigidbody; 											/// <summary>Rigidbody's Component.</summary>
+	private EventsHandler _eventsHandler; 										/// <summary>EventsHandler's Component.</summary>
+	private VCameraTarget _cameraTarget; 										/// <summary>VCameraTarget's Component.</summary>
+	private ImpactEventHandler _impactHandler; 									/// <summary>ImpactEventsHandler's Component.</summary>
+	private Coroutine defragmentation; 											/// <summary>Defragmentation's Coroutine reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets tags property.</summary>
@@ -114,8 +114,8 @@ public class Fragmentable : PoolGameObject
 	/// <summary>Gets particleEffect property.</summary>
 	public ParticleEffectEmissionData particleEffect { get { return _particleEffect; } }
 
-	/// <summary>Gets soundIndex property.</summary>
-	public int soundIndex { get { return _soundIndex; } }
+	/// <summary>Gets fragmentedSoundEffect property.</summary>
+	public SoundEffectEmissionData fragmentedSoundEffect { get { return _fragmentedSoundEffect; } }
 #endregion
 
 	/// <summary>Draws Gizmos on Editor mode when Fragmentable's instance is selected.</summary>
@@ -165,7 +165,7 @@ public class Fragmentable : PoolGameObject
 
 		fragmented = true;
 		particleEffect.EmitParticleEffects();
-		AudioController.PlayOneShot(SourceType.SFX, 0, soundIndex);
+		fragmentedSoundEffect.Play();
 
 		this.StartCoroutine(Fragmentation(_force, onFragmentationEnds), ref defragmentation);
 	}

@@ -15,51 +15,51 @@ public class DestinoBoss : Boss
 {
 	[Space(5f)]
 	[Header("Animator's Credentials:")]
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _emptyCredential; 							/// <summary>Empty's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 							/// <summary>Idle's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _singCredential; 							/// <summary>Sing's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 							/// <summary>Laugh's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lalaCredential; 							/// <summary>Lala's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laaaCredential; 							/// <summary>Laaa's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 							/// <summary>Dead's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _emptyCredential; 								/// <summary>Empty's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 								/// <summary>Idle's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _singCredential; 								/// <summary>Sing's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 								/// <summary>Laugh's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _lalaCredential; 								/// <summary>Lala's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laaaCredential; 								/// <summary>Laaa's Animator Credential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _deadCredential; 								/// <summary>Dead's Animator Credential.</summary>
 	[Space(5f)]
-	[TabGroup("Animations")][SerializeField] private FloatRange _laughFrequency; 									/// <summary>Laughing's Frequency.</summary>
+	[TabGroup("Animations")][SerializeField] private FloatRange _laughFrequency; 										/// <summary>Laughing's Frequency.</summary>
 	[Header("Heads' Attributes:")]
-	[TabGroup("Group A", "Head")][SerializeField] private Transform _headPivot; 									/// <summary>Head's Pivot [for both Heads].</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private Transform _rigHead; 										/// <summary>Destino's Rig Head.</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private Transform _removableHead; 								/// <summary>Destino's Removable Head.</summary>
-	[TabGroup("Group A", "Head")][SerializeField] private HitCollider2D _headHurtBox; 								/// <summary>Removable Head's HutrBox.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _headPivot; 										/// <summary>Head's Pivot [for both Heads].</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _rigHead; 											/// <summary>Destino's Rig Head.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private Transform _removableHead; 									/// <summary>Destino's Removable Head.</summary>
+	[TabGroup("Group A", "Head")][SerializeField] private HitCollider2D _headHurtBox; 									/// <summary>Removable Head's HutrBox.</summary>
 	[Space(5f)]
 	[Header("Sound FXs' References:")]
 	[Header("Destino's Sounds:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _damageTakenSoundIndex; 						/// <summary>Damage taken's Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laughSoundIndex; 							/// <summary>Laugh's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _damageTakenSoundEffect; 	/// <summary>Damage taken's Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _laughSoundEffect; 			/// <summary>Laugh's Sound-Effect's Data.</summary>
 	[Space(5f)]
 	[Header("Death's Sounds:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _buildUpSoundIndex; 							/// <summary>Build-Up's Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _swingSoundIndex; 							/// <summary>Swing's Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _buildUpSoundEffect; 		/// <summary>Build-Up's Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _swingSoundEffect; 			/// <summary>Swing's Sound-Effect's Data.</summary>
 	[Space(5f)]
 	[Header("Voice Notes:")]
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _doNoteIndex; 								/// <summary>Do's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _faNoteIndex; 								/// <summary>Fa's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laNoteIndex; 								/// <summary>La's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _miNoteIndex; 								/// <summary>Mi's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _reNoteIndex; 								/// <summary>Re's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _siNoteIndex; 								/// <summary>Si's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _laReNoteIndex; 								/// <summary>La-Re's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _reFaNoteIndex; 								/// <summary>Re-Fa's Note Sound's Index.</summary>
-	[TabGroup("Group B", "Sound Effects")][SerializeField] private int _siMiNoteIndex; 								/// <summary>Si-Mi's Note Sound's Index.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _doNote; 					/// <summary>Do's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _faNote; 					/// <summary>Fa's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _laNote; 					/// <summary>La's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _miNote; 					/// <summary>Mi's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _reNote; 					/// <summary>Re's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _siNote; 					/// <summary>Si's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _laReNote; 					/// <summary>La-Re's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _reFaNote; 					/// <summary>Re-Fa's Note Sound-Effect's Data.</summary>
+	[TabGroup("Group B", "Sound Effects")][SerializeField] private SoundEffectEmissionData _siMiNote; 					/// <summary>Si-Mi's Note Sound-Effect's Data.</summary>
 //#if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Destino's Test:")]
-	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private bool test; 					/// <summary>Test?.</summary>
-	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private int testCardIndex; 			/// <summary>Test's Card Index.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private bool test; 						/// <summary>Test?.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private int testCardIndex; 				/// <summary>Test's Card Index.</summary>
 	[Space(5f)]
-	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private MeshFilter headMeshFilter; 	/// <summary>Removable Head's MeshFilter Component.</summary>
+	[TabGroup("Testing Group", "Testing (Editor-Mode Only)")][SerializeField] private MeshFilter headMeshFilter; 		/// <summary>Removable Head's MeshFilter Component.</summary>
 //#endif
-	private RigidbodyMovementAbility _movementAbility; 																/// <summary>RigidbodyMovementAbility's Component.</summary>
-	private RotationAbility _rotationAbility; 																		/// <summary>RotationAbility's Component.</summary>
-	private JumpAbility _jumpAbility; 																				/// <summary>JumpAbility's Component.</summary>
+	private RigidbodyMovementAbility _movementAbility; 																	/// <summary>RigidbodyMovementAbility's Component.</summary>
+	private RotationAbility _rotationAbility; 																			/// <summary>RotationAbility's Component.</summary>
+	private JumpAbility _jumpAbility; 																					/// <summary>JumpAbility's Component.</summary>
 	
 	private Vector2 axes;
 
@@ -112,44 +112,44 @@ public class DestinoBoss : Boss
 	/// <summary>Gets headHurtBox property.</summary>
 	public HitCollider2D headHurtBox { get { return _headHurtBox; } }
 
-	/// <summary>Gets damageTakenSoundIndex property.</summary>
-	public int damageTakenSoundIndex { get { return _damageTakenSoundIndex; } }
+	/// <summary>Gets damageTakenSoundEffect property.</summary>
+	public SoundEffectEmissionData damageTakenSoundEffect { get { return _damageTakenSoundEffect; } }
 
-	/// <summary>Gets laughSoundIndex property.</summary>
-	public int laughSoundIndex { get { return _laughSoundIndex; } }
+	/// <summary>Gets laughSoundEffect property.</summary>
+	public SoundEffectEmissionData laughSoundEffect { get { return _laughSoundEffect; } }
 
-	/// <summary>Gets buildUpSoundIndex property.</summary>
-	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
+	/// <summary>Gets buildUpSoundEffect property.</summary>
+	public SoundEffectEmissionData buildUpSoundEffect { get { return _buildUpSoundEffect; } }
 
-	/// <summary>Gets swingSoundIndex property.</summary>
-	public int swingSoundIndex { get { return _swingSoundIndex; } }
+	/// <summary>Gets swingSoundEffect property.</summary>
+	public SoundEffectEmissionData swingSoundEffect { get { return _swingSoundEffect; } }
 
-	/// <summary>Gets doNoteIndex property.</summary>
-	public int doNoteIndex { get { return _doNoteIndex; } }
+	/// <summary>Gets doNote property.</summary>
+	public SoundEffectEmissionData doNote { get { return _doNote; } }
 
-	/// <summary>Gets faNoteIndex property.</summary>
-	public int faNoteIndex { get { return _faNoteIndex; } }
+	/// <summary>Gets faNote property.</summary>
+	public SoundEffectEmissionData faNote { get { return _faNote; } }
 
-	/// <summary>Gets laNoteIndex property.</summary>
-	public int laNoteIndex { get { return _laNoteIndex; } }
+	/// <summary>Gets laNote property.</summary>
+	public SoundEffectEmissionData laNote { get { return _laNote; } }
 
-	/// <summary>Gets miNoteIndex property.</summary>
-	public int miNoteIndex { get { return _miNoteIndex; } }
+	/// <summary>Gets miNote property.</summary>
+	public SoundEffectEmissionData miNote { get { return _miNote; } }
 
-	/// <summary>Gets reNoteIndex property.</summary>
-	public int reNoteIndex { get { return _reNoteIndex; } }
+	/// <summary>Gets reNote property.</summary>
+	public SoundEffectEmissionData reNote { get { return _reNote; } }
 
-	/// <summary>Gets siNoteIndex property.</summary>
-	public int siNoteIndex { get { return _siNoteIndex; } }
+	/// <summary>Gets siNote property.</summary>
+	public SoundEffectEmissionData siNote { get { return _siNote; } }
 
-	/// <summary>Gets laReNoteIndex property.</summary>
-	public int laReNoteIndex { get { return _laReNoteIndex; } }
+	/// <summary>Gets laReNote property.</summary>
+	public SoundEffectEmissionData laReNote { get { return _laReNote; } }
 
-	/// <summary>Gets reFaNoteIndex property.</summary>
-	public int reFaNoteIndex { get { return _reFaNoteIndex; } }
+	/// <summary>Gets reFaNote property.</summary>
+	public SoundEffectEmissionData reFaNote { get { return _reFaNote; } }
 
-	/// <summary>Gets siMiNoteIndex property.</summary>
-	public int siMiNoteIndex { get { return _siMiNoteIndex; } }
+	/// <summary>Gets siMiNote property.</summary>
+	public SoundEffectEmissionData siMiNote { get { return _siMiNote; } }
 
 	/// <summary>Gets movementAbility Component.</summary>
 	public RigidbodyMovementAbility movementAbility
@@ -259,7 +259,7 @@ public class DestinoBoss : Boss
 	/// <summary>Makes Destino Sing.</summary>
 	public void Sing()
 	{
-		FiniteStateAudioClip clip = Game.data.FSMLoops[DestinoSceneController.Instance.mainLoopVoiceIndex];
+		FiniteStateAudioClip clip = ResourcesManager.GetFSMClip(DestinoSceneController.Instance.mainLoopLoopData.soundReference);
 		animatorController.Play(_singCredential, 0, clip.normalizedTime);
 		clip.SetStateToCurrentTime();
 	}
@@ -285,7 +285,8 @@ public class DestinoBoss : Boss
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			AudioController.PlayOneShot(SourceType.SFX, 0, damageTakenSoundIndex);
+			//AudioController.PlayOneShot(SourceType.SFX, 0, damageTakenSoundIndex);
+			damageTakenSoundEffect.Play();
 			break;
 		}
 	}

@@ -46,10 +46,9 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	[TabGroup("Scythe")][SerializeField] private float _additionalYOffset; 								/// <summary>Additional Y-Offset [while on Build-Up].</summary>
 	[TabGroup("Scythe")][SerializeField] private float _clampedHeight; 									/// <summary>Clamped Height for the Scythe.</summary>
 	[Space(5f)]
-	[Header("Sound Effects::")]
-	[SerializeField] private int _buildUpSoundIndex; 													/// <summary>Build-Up's Sound's Index.</summary>
-	[SerializeField] private int _swingSoundIndex; 														/// <summary>Swing's Sound's Index.</summary>
-	[SerializeField] private int _sourceIndex; 															/// <summary>Sound Effects' Source Index.</summary>
+	[Header("Sound Effects:")]
+	[SerializeField] private SoundEffectEmissionData _buildUpSoundEffect; 								/// <summary>Build-Up's Sound-Effect's Data.</summary>
+	[SerializeField] private SoundEffectEmissionData _swingSoundEffect; 								/// <summary>Swing's Sound-Effect's Data.</summary>
 	private AnimationEventInvoker _animationsEventInvoker; 												/// <summary>AnimationsEventInvoker's Component.</summary>
 	private Coroutine scytheRotation; 																	/// <summary>Scythe's Rotation Coroutine Reference.</summary>
 
@@ -126,14 +125,11 @@ public class DeathBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets clampedHeight property.</summary>
 	public float clampedHeight { get { return _clampedHeight; } }
 
-	/// <summary>Gets buildUpSoundIndex property.</summary>
-	public int buildUpSoundIndex { get { return _buildUpSoundIndex; } }
+	/// <summary>Gets buildUpSoundEffect property.</summary>
+	public SoundEffectEmissionData buildUpSoundEffect { get { return _buildUpSoundEffect; } }
 
-	/// <summary>Gets swingSoundIndex property.</summary>
-	public int swingSoundIndex { get { return _swingSoundIndex; } }
-
-	/// <summary>Gets sourceIndex property.</summary>
-	public int sourceIndex { get { return _sourceIndex; } }
+	/// <summary>Gets swingSoundEffect property.</summary>
+	public SoundEffectEmissionData swingSoundEffect { get { return _swingSoundEffect; } }
 #endregion
 
 	/// <summary>Callback invoked when drawing Gizmos.</summary>
@@ -193,11 +189,11 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			scythe.vehicle.maxSpeed = swingMaxSpeed;
 			scythe.vehicle.maxForce = swingMaxSteeringForce;
 			scythe.weapon.ActivateHitBoxes(true);
-			AudioController.PlayOneShot(SourceType.Scenario, sourceIndex, swingSoundIndex);
+			swingSoundEffect.Play();
 			break;
 
 			case IDs.ANIMATIONEVENT_EMITSOUND_0:
-			AudioController.PlayOneShot(SourceType.Scenario, sourceIndex, buildUpSoundIndex);
+			buildUpSoundEffect.Play();
 			break;
 		}
 	}
@@ -415,7 +411,7 @@ public class DeathBehavior : DestinoScriptableCoroutine
 
 		boss.transform.position = pair.b;
 		boss.animatorController.PlayAndWait(boss.laughCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
-		AudioController.PlayOneShot(SourceType.SFX, 0, boss.laughSoundIndex);
+		boss.laughSoundEffect.Play();
 
 		while(!playFinished) yield return null;
 

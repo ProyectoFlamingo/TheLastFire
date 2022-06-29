@@ -8,11 +8,12 @@ namespace Flamingo
 {
 public class ShootProjectile : MonoBehaviour
 {
-	[SerializeField] private Transform _muzzle; 				/// <summary>Muzzle's Transform.</summary>
-	[SerializeField] private Faction _faction; 					/// <summary>Shooter's Faction.</summary>
-	[SerializeField] private int _projectileID; 				/// <summary>Pprojectile's ID.</summary>
-	private Projectile _projectile; 							/// <summary>Projectile to shoot.</summary>
-	private Cooldown _cooldown; 								/// <summary>Cooldown's Reference.</summary>
+	[SerializeField] private Transform _muzzle; 					/// <summary>Muzzle's Transform.</summary>
+	[SerializeField] private Faction _faction; 						/// <summary>Shooter's Faction.</summary>
+	[SerializeField] private VAssetReference _projectileReference; 	/// <summary>Projectile's Reference.</summary>
+	[SerializeField] private int _projectileID; 					/// <summary>Pprojectile's ID.</summary>
+	private Projectile _projectile; 								/// <summary>Projectile to shoot.</summary>
+	private Cooldown _cooldown; 									/// <summary>Cooldown's Reference.</summary>
 
 	/// <summary>Gets and Sets muzzle property.</summary>
 	public Transform muzzle
@@ -26,6 +27,13 @@ public class ShootProjectile : MonoBehaviour
 	{
 		get { return _faction; }
 		set { _faction = value; }
+	}
+
+	/// <summary>Gets and Sets projectileReference property.</summary>
+	public VAssetReference projectileReference
+	{
+		get { return _projectileReference; }
+		set { _projectileReference = value; }
 	}
 
 	/// <summary>Gets and Sets projectileID property.</summary>
@@ -63,11 +71,11 @@ public class ShootProjectile : MonoBehaviour
 	protected virtual void OnAwake() { /*...*/ }
 
 	/// <summary>Shoots Projectile from pool of given ID.</summary>
-	/// <param name="_ID">Projectile's ID.</param>
+	/// <param name="_reference">Projectile's Reference.</param>
 	/// <param name="_origin">Shoot's Origin.</param>
 	/// <param name="_direction">Shoot's Direction.</param>
 	/// <returns>True if projectile could be shot.</returns>
-	public bool Shoot(int _ID, Vector3 _origin, Vector3 _direction, float? _speed = default(float?))
+	public bool Shoot(VAssetReference _reference, Vector3 _origin, Vector3 _direction, float? _speed = default(float?))
 	{
 		if(onCooldown) return false;
 
@@ -77,7 +85,7 @@ public class ShootProjectile : MonoBehaviour
 		/*float angle = Vector2.SignedAngle(_origin, _direction);
 		Quaternion rotation = Quaternion.Euler(0.0f, 0.0f, angle /*Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg);*/
 
-		if(projectile == null) projectile = PoolManager.RequestProjectile(faction, _ID, _origin, _direction);
+		if(projectile == null) projectile = PoolManager.RequestProjectile(faction, _reference, _origin, _direction);
 		else projectile.OnObjectReset();
 		
 		projectile.direction = _direction;
@@ -104,7 +112,7 @@ public class ShootProjectile : MonoBehaviour
 	/// <returns>True if projectile could be shot.</returns>
 	public virtual bool Shoot(Vector3 _origin, Vector3 _direction, float? _speed = default(float?))
 	{
-		return Shoot(projectileID, _origin, _direction);
+		return Shoot(projectileReference, _origin, _direction);
 	}
 }
 }

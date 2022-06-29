@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Text;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
 using UnityEngine.AddressableAssets;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Flamingo
 {
@@ -17,10 +21,6 @@ public class PoolManager : Singleton<PoolManager>
 	private Dictionary<VAssetReference, GameObjectPool<PoolGameObject>> _gameObjectsPoolsMap; 		/// <summary>Mapping of Pool-GameObjects' Pools.</summary>
 	private Dictionary<VAssetReference, GameObjectPool<ParticleEffect>> _particleEffectsPoolsMap; 	/// <summary>Mapping of Particle-Effects' Pools.</summary>
 	private Dictionary<VAssetReference, GameObjectPool<Explodable>> _explodablesPoolsMap; 			/// <summary>Mapping of Explodables' Pools.</summary>
-	private GameObjectPool<Projectile>[] _projectilesPools; 										/// <summary>Pools Projectiles.</summary>
-	private GameObjectPool<PoolGameObject>[] _gameObjectsPools; 									/// <summary>PoolGameObjects' Pools.</summary>
-	private GameObjectPool<ParticleEffect>[] _particleEffectsPools; 								/// <summary>Pools of Particle's Effects.</summary>
-	private GameObjectPool<Explodable>[] _explodablesPools; 										/// <summary>Pools of Explodables.</summary>
 	private GameObjectPool<SoundEffectLooper> _loopersPool; 										/// <summary>Pool of Sound-Effects' Loopers.</summary>
 
 #region Getters/Setters:
@@ -59,34 +59,6 @@ public class PoolManager : Singleton<PoolManager>
 		private set { _gameObjectsPoolsMap = value; }
 	}
 
-	/// <summary>Gets and Sets projectilesPools property.</summary>
-	public GameObjectPool<Projectile>[] projectilesPools
-	{
-		get { return _projectilesPools; }
-		private set { _projectilesPools = value; }
-	}
-
-	/// <summary>Gets and Sets gameObjectsPools property.</summary>
-	public GameObjectPool<PoolGameObject>[] gameObjectsPools
-	{
-		get { return _gameObjectsPools; }
-		private set { _gameObjectsPools = value; }
-	}
-
-	/// <summary>Gets and Sets particleEffectsPools property.</summary>
-	public GameObjectPool<ParticleEffect>[] particleEffectsPools
-	{
-		get { return _particleEffectsPools; }
-		private set { _particleEffectsPools = value; }
-	}
-
-	/// <summary>Gets and Sets explodablesPools property.</summary>
-	public GameObjectPool<Explodable>[] explodablesPools
-	{
-		get { return _explodablesPools; }
-		private set { _explodablesPools = value; }
-	}
-
 	/// <summary>Gets and Sets loopersPool property.</summary>
 	public GameObjectPool<SoundEffectLooper> loopersPool
 	{
@@ -100,10 +72,6 @@ public class PoolManager : Singleton<PoolManager>
 	{
 		base.OnAwake();
 
-		projectilesPools = GameObjectPool<Projectile>.PopulatedPools(0, Game.data.projectiles);
-		gameObjectsPools = GameObjectPool<PoolGameObject>.PopulatedPools(0, Game.data.poolObjects);
-		particleEffectsPools = GameObjectPool<ParticleEffect>.PopulatedPools(0, Game.data.particleEffects);
-		explodablesPools = GameObjectPool<Explodable>.PopulatedPools(0, Game.data.explodables);
 		loopersPool = new GameObjectPool<SoundEffectLooper>(Game.data.looper);
 	}
 
@@ -143,7 +111,17 @@ public class PoolManager : Singleton<PoolManager>
 
 		GameObjectPool<Character> pool = null;
 
-		Instance.charactersPoolsMap.TryGetValue(_reference, out pool);
+		try
+		{
+			if(!Instance.charactersPoolsMap.TryGetValue(_reference, out pool))
+			ShowErrorWindow(_reference, "Character");
+		}
+		catch(Exception e)
+		{
+			ShowErrorWindow(_reference, "Character", e.Message);
+			return null;
+		}
+
 		return pool.Recycle(_position, _rotation);
 	}
 
@@ -160,7 +138,16 @@ public class PoolManager : Singleton<PoolManager>
 		
 		GameObjectPool<Projectile> pool = null;
 
-		Instance.projectilesPoolsMap.TryGetValue(_reference, out pool);
+		try
+		{
+			if(!Instance.projectilesPoolsMap.TryGetValue(_reference, out pool))
+			ShowErrorWindow(_reference, "Projectile");
+		}
+		catch(Exception e)
+		{
+			ShowErrorWindow(_reference, "Projectile", e.Message);
+			return null;
+		}
 
 		Projectile projectile = pool.Recycle(_position, Quaternion.identity);
 		
@@ -247,7 +234,16 @@ public class PoolManager : Singleton<PoolManager>
 
 		GameObjectPool<PoolGameObject> pool = null;
 		
-		Instance.gameObjectsPoolsMap.TryGetValue(_reference, out pool);
+		try
+		{
+			if(!Instance.gameObjectsPoolsMap.TryGetValue(_reference, out pool))
+			ShowErrorWindow(_reference, "Pool Object");
+		}
+		catch(Exception e)
+		{
+			ShowErrorWindow(_reference, "Pool Object", e.Message);
+			return null;
+		}
 
 		return pool.Recycle(_position, _rotation);
 	}
@@ -256,16 +252,30 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="_reference">ParticleEffect's index on the pools.</param>
 	/// <param name="_position">Spawn's Position.</param>
 	/// <param name="_rotation">Spawn's Rotation.</param>
+	/// <param name="_scale">Particle-Effect's Scale [1.0f by default].</param>
 	/// <returns>Requested ParticleEffect.</returns>
-	public static ParticleEffect RequestParticleEffect(VAssetReference _reference, Vector3 _position, Quaternion _rotation)
+	public static ParticleEffect RequestParticleEffect(VAssetReference _reference, Vector3 _position, Quaternion _rotation, float _scale = 1.0f)
 	{
 		if(_reference.Empty()) return null;
 
 		GameObjectPool<ParticleEffect> pool = null;
 
-		Instance.particleEffectsPoolsMap.TryGetValue(_reference, out pool);
+		try
+		{
+			if(!Instance.particleEffectsPoolsMap.TryGetValue(_reference, out pool))
+			ShowErrorWindow(_reference, "Particle-Effect");
+		}
+		catch(Exception e)
+		{
+			ShowErrorWindow(_reference, "Particle-Effect", e.Message);
+			return null;
+		}
 
-		return pool.Recycle(_position, _rotation);;
+		ParticleEffect effect = pool.Recycle(_position, _rotation);
+
+		effect.transform.localScale = Vector3.one * _scale;
+
+		return effect;
 	}
 
 	/// <summary>Gets a Explodable from the Explodables' Pools.</summary>
@@ -277,130 +287,20 @@ public class PoolManager : Singleton<PoolManager>
 	{
 		GameObjectPool<Explodable> pool = null;
 
-		Instance.explodablesPoolsMap.TryGetValue(_reference, out pool);
-		Explodable explodable = pool.Recycle(_position, _rotation);
-
-		if(explodable == null) return null;
-
-		explodable.Explode(onExplosionEnds);
-		return explodable;
-	}
-#endregion
-
-#region IndexFunctions:
-	/// <summary>Gets a Projectile from the Projectiles' Pools.</summary>
-	/// <param name="_faction">Faction of the requester.</param>
-	/// <param name="_ID">Projectile's ID.</param>
-	/// <param name="_position">Spawn position for the Projectile.</param>
-	/// <param name="_direction">Spawn direction for the Projectile.</param>
-	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
-	/// <returns>Requested Projectile.</returns>
-	public static Projectile RequestProjectile(Faction _faction, int _ID, Vector3 _position, Vector3 _direction, GameObject _object = null)
-	{
-		if(_ID < 0) return null;
-
-		GameObjectPool<Projectile> pool = Instance.projectilesPools[_ID];
-		Projectile projectile = pool.Recycle(_position, Quaternion.identity);
-		string tag = _faction == Faction.Ally ? Game.data.playerProjectileTag : Game.data.enemyProjectileTag;
-
-		if(projectile == null) return null;
-
-		projectile.rigidbody.gravityScale = 0.0f;
-		projectile.rigidbody.isKinematic = true;
-		projectile.rigidbody.bodyType = RigidbodyType2D.Kinematic;
-		projectile.projectileType = ProjectileType.Normal;
-		projectile.direction = _direction.normalized;
-		projectile.gameObject.tag = tag;
-		projectile.owner = _object;
-		if(projectile.transform.parent != pool.poolGroup) projectile.transform.parent = null;
-
-		foreach(HitCollider2D hitBox in projectile.impactEventHandler.hitBoxes)
+		try
 		{
-			hitBox.gameObject.tag = tag;
+			if(!Instance.explodablesPoolsMap.TryGetValue(_reference, out pool))
+			ShowErrorWindow(_reference, "Explodable");
+		}
+		catch(Exception e)
+		{
+			ShowErrorWindow(_reference, "Explodable", e.Message);
+			return null;
 		}
 
-		return projectile;
-	}
-
-	/// <summary>Gets a Homing Projectile from the Projectiles' Pools.</summary>
-	/// <param name="_faction">Faction of the requester.</param>
-	/// <param name="_ID">Projectile's ID.</param>
-	/// <param name="_position">Spawn position for the Projectile.</param>
-	/// <param name="_direction">Spawn direction for the Projectile.</param>
-	/// <param name="target">Target's Function [null by default].</param>
-	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
-	/// <returns>Requested Homing Projectile.</returns>
-	public static Projectile RequestHomingProjectile(Faction _faction, int _ID, Vector3 _position, Vector3 _direction, Transform _target, GameObject _object = null)
-	{
-		Projectile projectile = RequestProjectile(_faction, _ID, _position, _direction, _object);
-
-		if(projectile == null) return null;
-
-		projectile.projectileType = ProjectileType.Homing;
-		projectile.target = _target;
-		
-		return projectile;
-	}
-
-	/// <summary>Gets a Parabola Projectile from the Projectiles' Pools.</summary>
-	/// <param name="_faction">Faction of the requester.</param>
-	/// <param name="_ID">Projectile's ID.</param>
-	/// <param name="_position">Spawn position for the Projectile.</param>
-	/// <param name="_target">Target that will determine the ParabolaProjectile's velocity.</param>
-	/// <param name="t">Time it should take the projectile to reach from its position to the given target.</param>
-	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
-	/// <returns>Requested Parabola Projectile.</returns>
-	public static Projectile RequestParabolaProjectile(Faction _faction, int _ID, Vector3 _position, Vector3 _target, float t, GameObject _object = null)
-	{
-		Projectile projectile = RequestProjectile(_faction, _ID, _position, Vector3.zero, _object);
-
-		if(projectile == null) return null;
-
-		Vector3 velocity = VPhysics.ProjectileDesiredVelocity(t, _position, _target, Physics.gravity, projectile.speedMode == SpeedMode.Accelerating);
-		float magnitude = velocity.magnitude;
-
-		projectile.projectileType = ProjectileType.Parabola;
-		projectile.direction = velocity;
-		projectile.speed = magnitude;
-		projectile.parabolaTime = t;
-
-		Debug.DrawRay(_position, velocity, Color.magenta, 3.0f);
-
-		return projectile;
-	}
-
-	/// <summary>Gets a PoolGameObject from the PoolGameObjects' Pools.</summary>
-	/// <param name="_index">GameObject's ID.</param>
-	/// <param name="_position">Spawn position for the GameObject.</param>
-	/// <param name="_rotation">Spawn rotation for the GameObject.</param>
-	/// <returns>Requested PoolGameObject.</returns>
-	public static PoolGameObject RequestPoolGameObject(int _index, Vector3 _position, Quaternion _rotation)
-	{
-		return _index > -1 ? Instance.gameObjectsPools[_index].Recycle(_position, _rotation) : null;
-	}
-
-	/// <summary>Gets a ParticleEffect from the ParticleEffects' Pools.</summary>
-	/// <param name="_index">ParticleEffect's index on the pools.</param>
-	/// <param name="_position">Spawn's Position.</param>
-	/// <param name="_rotation">Spawn's Rotation.</param>
-	/// <returns>Requested ParticleEffect.</returns>
-	public static ParticleEffect RequestParticleEffect(int _index, Vector3 _position, Quaternion _rotation)
-	{
-		//Debug.Log("[PoolManager] Calling RequestParticleEffect with int overload");
-		return _index > -1 ? Instance.particleEffectsPools[_index].Recycle(_position, _rotation) : null;
-	}
-
-	/// <summary>Gets a Explodable from the Explodables' Pools.</summary>
-	/// <param name="_index">Explodable's index on the pools.</param>
-	/// <param name="_position">Spawn's Position.</param>
-	/// <param name="_rotation">Spawn's Rotation.</param>
-	/// <param name="onExplosionEnds">Optional Callback invoked when the explosion ends.</param>
-	public static Explodable RequestExplodable(int _index, Vector3 _position, Quaternion _rotation, Action onExplosionEnds = null)
-	{
-		if(_index < 0) return null;
-
-		Explodable explodable = Instance.explodablesPools[_index].Recycle(_position, _rotation);
+		Explodable explodable = pool.Recycle(_position, _rotation);
 		explodable.Explode(onExplosionEnds);
+
 		return explodable;
 	}
 #endregion
@@ -420,6 +320,42 @@ public class PoolManager : Singleton<PoolManager>
 		builder.AppendLine(charactersPoolsMap.DictionaryToString());
 
 		return builder.ToString();
+	}
+
+	/// <summary>Shows an error window when an AssetReference is not assigned into a ResourcesManager's mapping [Editor only].</summary>
+	/// <param name="_referece">Reference that wasn't assigned into mapping.</param>
+	/// <param name="_objectType">Type of Pool-Object.</param>
+	/// <param name="_additionalMessage">Optional Additional Error Message [empty by default].</param>
+	private static async void ShowErrorWindow(VAssetReference _reference, string _objectType, string _additionalErrorMessage = "")
+	{
+#if UNITY_EDITOR
+		try
+		{
+			UnityEngine.Object obj = await VAddressables.LoadAssetAsync<UnityEngine.Object>(_reference);
+			
+			StringBuilder titleBuilder = new StringBuilder();
+			StringBuilder messageBuilder = new StringBuilder();
+
+			titleBuilder.Append("Error: ");
+			titleBuilder.Append(_objectType);
+			titleBuilder.Append("'s VAssetReference not added into ResourcesManager's Mapping!");
+
+			messageBuilder.Append("Make sure to add ");
+			messageBuilder.Append(obj.name);
+			messageBuilder.Append(" into ResourcesManager ");
+			messageBuilder.Append(_objectType);
+			messageBuilder.Append("'s Mapping.");
+
+			if(!string.IsNullOrEmpty(_additionalErrorMessage))
+			{
+				messageBuilder.Append(" Additional Error Message: ");
+				messageBuilder.Append(_additionalErrorMessage);
+			}
+
+			VDebug.DisplayDialog(titleBuilder.ToString(), messageBuilder.ToString(), "Okay...");
+		}
+		catch(Exception e) { Debug.LogException(e); }
+#endif
 	}
 
 	/// <summary>Debugs Pools.</summary>

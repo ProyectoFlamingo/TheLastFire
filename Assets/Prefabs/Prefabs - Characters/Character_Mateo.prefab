@@ -3698,6 +3698,8 @@ GameObject:
   - component: {fileID: 816615253183640344}
   - component: {fileID: 776307173561012445}
   - component: {fileID: 376015538600726561}
+  - component: {fileID: 3032708895403668275}
+  - component: {fileID: 1964802415}
   m_Layer: 15
   m_Name: FootImpactHandler_Right
   m_TagString: Untagged
@@ -3776,11 +3778,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 375424309583309812}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 6402624548111327035}
   _externalHitBoxes: []
-  _zOffsetTolerance: 0
+  _zOffsetTolerance: 5
+--- !u!114 &3032708895403668275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5212157115882745909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7445b0c7b503e854fb6a2b320c673b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sqrMagnitudeRange:
+    _min: 0.1
+    _max: 4
+  _interactionMatrix:
+    _keysList: 02000000
+    _valuesList:
+    - sourceIndex: 0
+      soundReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+      soundIndex: 18
+      volume: 0
+--- !u!114 &1964802415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5212157115882745909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463beac9066f74941a55fb6c100cca2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sqrMagnitudeRange:
+    _min: 0.1
+    _max: 4
+  _interactionMatrix:
+    _keysList: 02000000
+    _valuesList:
+    - _transform: {fileID: 161669708373839121}
+      _particleEffectReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+      _particleEffectIndex: 18
+      _points:
+      - {x: 0, y: 0, z: 0}
 --- !u!1 &5286770584109147361
 GameObject:
   m_ObjectHideFlags: 0
@@ -4716,6 +4768,8 @@ GameObject:
   - component: {fileID: 8529114761967125206}
   - component: {fileID: 6960174186506250016}
   - component: {fileID: 8258221080527211287}
+  - component: {fileID: 656313268563309034}
+  - component: {fileID: 156585894}
   m_Layer: 15
   m_Name: FootImpactHandler_Left
   m_TagString: Untagged
@@ -4794,11 +4848,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 375424309583309812}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 8219024001397313108}
   _externalHitBoxes: []
-  _zOffsetTolerance: 0
+  _zOffsetTolerance: 5
+--- !u!114 &656313268563309034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212504904015593603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7445b0c7b503e854fb6a2b320c673b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sqrMagnitudeRange:
+    _min: 0.1
+    _max: 4
+  _interactionMatrix:
+    _keysList: 02000000
+    _valuesList:
+    - sourceIndex: 0
+      soundReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+      soundIndex: 18
+      volume: 0
+--- !u!114 &156585894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7212504904015593603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463beac9066f74941a55fb6c100cca2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sqrMagnitudeRange:
+    _min: 0.1
+    _max: 4
+  _interactionMatrix:
+    _keysList: 02000000
+    _valuesList:
+    - _transform: {fileID: 4089923120059329605}
+      _particleEffectReference:
+        m_AssetGUID: 
+        m_SubObjectName: 
+      _particleEffectIndex: 18
+      _points:
+      - {x: 0, y: 0, z: 0}
 --- !u!1 &7243461608124605698
 GameObject:
   m_ObjectHideFlags: 0
@@ -5162,7 +5266,7 @@ GameObject:
   - component: {fileID: 4499335686989975958}
   - component: {fileID: 8657780807075406482}
   m_Layer: 0
-  m_Name: Character_Player_Mateo_FromDestino
+  m_Name: Character_Mateo
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5362,7 +5466,7 @@ MonoBehaviour:
   _initialJumpParticleEffect:
     _transform: {fileID: 8008086697508232411}
     _particleEffectReference:
-      m_AssetGUID: 
+      m_AssetGUID: 6433f965fe057e648ae27099f89d6355
       m_SubObjectName: 
     _particleEffectIndex: 41
     _points:
@@ -5370,7 +5474,7 @@ MonoBehaviour:
   _additionalJumpParticleEffect:
     _transform: {fileID: 8008086697508232411}
     _particleEffectReference:
-      m_AssetGUID: 
+      m_AssetGUID: 3826d98c4a0db0040b9d9a400bebf4cd
       m_SubObjectName: 
     _particleEffectIndex: 9
     _points:
@@ -5378,7 +5482,7 @@ MonoBehaviour:
   _softLandingParticleEffect:
     _transform: {fileID: 8008086697508232411}
     _particleEffectReference:
-      m_AssetGUID: 
+      m_AssetGUID: 69d01e33ea01aaa40a1768f2d2d84033
       m_SubObjectName: 
     _particleEffectIndex: 42
     _points:
@@ -5386,7 +5490,7 @@ MonoBehaviour:
   _hardLandingParticleEffect:
     _transform: {fileID: 8008086697508232411}
     _particleEffectReference:
-      m_AssetGUID: 
+      m_AssetGUID: 6433f965fe057e648ae27099f89d6355
       m_SubObjectName: 
     _particleEffectIndex: 38
     _points:
@@ -5530,7 +5634,7 @@ MonoBehaviour:
   - force: {x: 0, y: 20}
     duration: 0.3
     forceMode: 2
-  _SFXsIndices: 1200000012000000
+  _SFXs: []
   _landingDuration: 0.05
   _nonDisplacementTolerance: 0.1
 --- !u!114 &8008086697508232412
@@ -5622,14 +5726,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _muzzle: {fileID: 2393874735423023903}
   _faction: 1
+  _projectileReference:
+    m_AssetGUID: 95723413e0f437d4e93f5798e3121470
+    m_SubObjectName: 
   _projectileID: 0
   _speedRange:
     _min: 20
     _max: 50
+  _chargedProjectileReference:
+    m_AssetGUID: 69bd56b9b3c584c49b741e1ce57113e8
+    m_SubObjectName: 
   _chargedProjectileID: 1
   _minimumCharge: 0
   _chargeDuration: 0.65
   _speedChargeDuration: 1.2
+  _projectileCreationSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 55d9d1113cb8e1142bb98a3c286f2e1d
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _maxChargeSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: ea42c3161f1592a47974c75a08f7b178
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _releaseSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: bc17fb6fbf1453e45b85772ed32d2740
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _projectileCreationSoundIndex: 23
   _maxChargeSoundIndex: 28
   _releaseSoundIndex: 30
@@ -6875,12 +7006,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9, type: 3}
---- !u!4 &749828523143110967 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6393736610623988778, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
-    type: 3}
-  m_PrefabInstance: {fileID: 5970911654836274461}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &2082089547491070966 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 5636784806839965419, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
@@ -6902,6 +7027,12 @@ MonoBehaviour:
 --- !u!4 &2914827095833045170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8840420173171027375, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5970911654836274461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &749828523143110967 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6393736610623988778, guid: f1b2f4aacfc39dd4e9c2742b062e7dd9,
     type: 3}
   m_PrefabInstance: {fileID: 5970911654836274461}
   m_PrefabAsset: {fileID: 0}

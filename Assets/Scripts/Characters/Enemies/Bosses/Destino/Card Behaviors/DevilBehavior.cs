@@ -9,35 +9,35 @@ namespace Flamingo
 public class DevilBehavior : DestinoScriptableCoroutine
 {
 	[Space(5f)]
-	[SerializeField] private FloatRange _xLimits; 						/// <summary>Mateo's Limits on the X-Axis.</summary>
+	[SerializeField] private FloatRange _xLimits; 							/// <summary>Mateo's Limits on the X-Axis.</summary>
 	[Space(5f)]
 	[Header("Characters:")]
-	[SerializeField] private Devil _devil; 								/// <summary>Devil.</summary>
-	[SerializeField] private DevilTower _leftDevilTower; 				/// <summary>Left Tower.</summary>
-	[SerializeField] private DevilTower _rightDevilTower; 				/// <summary>Right Tower.</summary>
+	[SerializeField] private Devil _devil; 									/// <summary>Devil.</summary>
+	[SerializeField] private DevilTower _leftDevilTower; 					/// <summary>Left Tower.</summary>
+	[SerializeField] private DevilTower _rightDevilTower; 					/// <summary>Right Tower.</summary>
 	[Space(5f)]
-	[SerializeField] private int _arrowProjectileIndex; 				/// <summary>Arrow Projectile's Index.</summary>
-	[SerializeField] private IntRange _rounds; 							/// <summary>Arrows Rounds per-routine.</summary>
-	[SerializeField] private IntRange _limits; 							/// <summary>Arrows' Limits per round.</summary>
-	[SerializeField] private float[] _projectilesSpawnRates; 			/// <summary>Arrow Projectile's Spawn Rate.</summary>
-	[SerializeField] private float _projectionTime; 					/// <summary>Mateo Position's Projection's Time.</summary>
-	[SerializeField] private float _roundCooldown; 						/// <summary>Cooldown duration per-round.</summary>
+	[SerializeField] private VAssetReference _arrowProjectileReference; 	/// <summary>Arrow Projectile's Reference.</summary>
+	[SerializeField] private IntRange _rounds; 								/// <summary>Arrows Rounds per-routine.</summary>
+	[SerializeField] private IntRange _limits; 								/// <summary>Arrows' Limits per round.</summary>
+	[SerializeField] private float[] _projectilesSpawnRates; 				/// <summary>Arrow Projectile's Spawn Rate.</summary>
+	[SerializeField] private float _projectionTime; 						/// <summary>Mateo Position's Projection's Time.</summary>
+	[SerializeField] private float _roundCooldown; 							/// <summary>Cooldown duration per-round.</summary>
 	[Space(5f)]
-	[SerializeField] private Vector3[] _floorWaypoints; 				/// <summary>Floor's Waypoints.</summary>
+	[SerializeField] private Vector3[] _floorWaypoints; 					/// <summary>Floor's Waypoints.</summary>
 	[Space(5f)]
 	[Header("Devil Scenery's Attributes:")]
-	[SerializeField] private Vector3 _devilSpawnPoint; 					/// <summary>Devil's Spawn Point.</summary>
-	[SerializeField] private Vector3 _devilDestinyPoint; 				/// <summary>Devil's Destiny Point.</summary>
-	[SerializeField] private Vector3 _leftTowerSpawnPoint; 				/// <summary>Left Tower's Spawn Point.</summary>
-	[SerializeField] private Vector3 _rightTowerSpawnPoint; 			/// <summary>Right Tower's Spawn Point.</summary>
-	[SerializeField] private Vector3 _leftTowerDestinyPoint; 			/// <summary>Left Tower's Destiny Point.</summary>
-	[SerializeField] private Vector3 _rightTowerDestinyPoint; 			/// <summary>Right Tower's Destiny Point.</summary>
-	[SerializeField] private float _towerInterpolationDuration; 		/// <summary>Towers' Fall Duration.</summary>
-	[SerializeField] private float _towerShakeDuration; 				/// <summary>Towers' Shake Duration.</summary>
-	[SerializeField] private float _towerShakeSpeed; 					/// <summary>Towers' Shake Speed.</summary>
-	[SerializeField] private float _towerShakeMagnitude; 				/// <summary>Towers' Shake Megnitude.</summary>
-	[SerializeField] private float _towerHP; 							/// <summary>Towers' starting HP.</summary>
-	[SerializeField] private float _devilHP; 							/// <summary>Devil's HP.</summary>
+	[SerializeField] private Vector3 _devilSpawnPoint; 						/// <summary>Devil's Spawn Point.</summary>
+	[SerializeField] private Vector3 _devilDestinyPoint; 					/// <summary>Devil's Destiny Point.</summary>
+	[SerializeField] private Vector3 _leftTowerSpawnPoint; 					/// <summary>Left Tower's Spawn Point.</summary>
+	[SerializeField] private Vector3 _rightTowerSpawnPoint; 				/// <summary>Right Tower's Spawn Point.</summary>
+	[SerializeField] private Vector3 _leftTowerDestinyPoint; 				/// <summary>Left Tower's Destiny Point.</summary>
+	[SerializeField] private Vector3 _rightTowerDestinyPoint; 				/// <summary>Right Tower's Destiny Point.</summary>
+	[SerializeField] private float _towerInterpolationDuration; 			/// <summary>Towers' Fall Duration.</summary>
+	[SerializeField] private float _towerShakeDuration; 					/// <summary>Towers' Shake Duration.</summary>
+	[SerializeField] private float _towerShakeSpeed; 						/// <summary>Towers' Shake Speed.</summary>
+	[SerializeField] private float _towerShakeMagnitude; 					/// <summary>Towers' Shake Megnitude.</summary>
+	[SerializeField] private float _towerHP; 								/// <summary>Towers' starting HP.</summary>
+	[SerializeField] private float _devilHP; 								/// <summary>Devil's HP.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets xLimits property.</summary>
@@ -52,8 +52,8 @@ public class DevilBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets rightDevilTower property.</summary>
 	public DevilTower rightDevilTower { get { return _rightDevilTower; } }
 
-	/// <summary>Gets arrowProjectileIndex property.</summary>
-	public int arrowProjectileIndex { get { return _arrowProjectileIndex; } }
+	/// <summary>Gets arrowProjectileReference property.</summary>
+	public VAssetReference arrowProjectileReference { get { return _arrowProjectileReference; } }
 
 	/// <summary>Gets rounds property.</summary>
 	public IntRange rounds { get { return _rounds; } }

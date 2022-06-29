@@ -85,7 +85,7 @@ public class EmitExplosionEventsListener : EventsListener
 	{
 		if(!IDEventsDic.ContainsKey(_ID)) return;
 
-		PoolManager.RequestExplodable(IDEventsDic[_ID], transform.position, Quaternion.identity);
+		//PoolManager.RequestExplodable(IDEventsDic[_ID], transform.position, Quaternion.identity);
 	}
 
 	/// <summary>Callback invoked when a Collision2D intersection is received.</summary>
@@ -98,7 +98,7 @@ public class EmitExplosionEventsListener : EventsListener
 
 		if(!impactEventsDic.ContainsKey(tag)) return;
 
-		PoolManager.RequestExplodable(impactEventsDic[tag], _info.contactPoint, Quaternion.identity);
+		//PoolManager.RequestExplodable(impactEventsDic[tag], _info.contactPoint, Quaternion.identity);
 	}
 
 	/// <summary>Callback invoked when the GameObject is deactivated.</summary>
@@ -108,7 +108,7 @@ public class EmitExplosionEventsListener : EventsListener
 	{
 		if(!deactivationEventsDic.ContainsKey(_cause)) return;
 
-		PoolManager.RequestExplodable(deactivationEventsDic[_cause], transform.position, Quaternion.identity);
+		//PoolManager.RequestExplodable(deactivationEventsDic[_cause], transform.position, Quaternion.identity);
 	}
 }
 }

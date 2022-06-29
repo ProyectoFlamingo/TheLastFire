@@ -8,9 +8,9 @@ using Flamingo;
 
 public class TEST_ShootProjectilesWithVector3Pair : MonoBehaviour
 {
-	[SerializeField] private int projectileIndex; 	/// <summary>Projectile's Index.</summary>
-	[SerializeField] private float lifespan; 		/// <summary>Projectile's Lifespan.</summary>
-	[SerializeField] private Vector3Pair[] pairs; 	/// <summary>Pairs [A = Origin, B = Target].</summary>
+	[SerializeField] private VAssetReference projectileReference; 	/// <summary>Projectile's Reference.</summary>
+	[SerializeField] private float lifespan; 						/// <summary>Projectile's Lifespan.</summary>
+	[SerializeField] private Vector3Pair[] pairs; 					/// <summary>Pairs [A = Origin, B = Target].</summary>
 
 	/// <summary>Draws Gizmos on Editor mode when TEST_ShootProjectilesWithVector3Pair's instance is selected.</summary>
 	private void OnDrawGizmosSelected()
@@ -33,7 +33,7 @@ public class TEST_ShootProjectilesWithVector3Pair : MonoBehaviour
 		if(pairs != null) foreach(Vector3Pair pair in pairs)
 		{
 			Vector3 d = pair.b - pair.a;
-			Projectile p = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, pair.a, d);
+			Projectile p = PoolManager.RequestProjectile(Faction.Enemy, projectileReference, pair.a, d);
 			p.lifespan = lifespan;
 		}
 	}

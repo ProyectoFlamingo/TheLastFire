@@ -92,7 +92,7 @@ public class EmitParticleEffectEventsListener : EventsListener
 	{
 		if(!IDEventsDic.ContainsKey(_ID)) return;
 
-		PoolManager.RequestParticleEffect(IDEventsDic[_ID], transform.position, Quaternion.identity);
+		////PoolManager.RequestParticleEffect(IDEventsDic[_ID], transform.position, Quaternion.identity);
 	}
 
 	/// <summary>Callback invoked when a Collision2D intersection is received.</summary>
@@ -105,7 +105,7 @@ public class EmitParticleEffectEventsListener : EventsListener
 
 		if(!impactEventsDic.ContainsKey(tag)) return;
 
-		PoolManager.RequestParticleEffect(impactEventsDic[tag], _info.contactPoint, Quaternion.identity);
+		////PoolManager.RequestParticleEffect(impactEventsDic[tag], _info.contactPoint, Quaternion.identity);
 	}
 
 	/// <summary>Callback invoked when the GameObject is deactivated.</summary>
@@ -115,7 +115,7 @@ public class EmitParticleEffectEventsListener : EventsListener
 	{
 		if(!deactivationEventsDic.ContainsKey(_cause)) return;
 
-		PoolManager.RequestParticleEffect(deactivationEventsDic[_cause], transform.position, Quaternion.identity);
+		//PoolManager.RequestParticleEffect(deactivationEventsDic[_cause], transform.position, Quaternion.identity);
 	}
 }
 }

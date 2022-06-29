@@ -222,6 +222,8 @@ GameObject:
   - component: {fileID: 7807340246942760897}
   - component: {fileID: -8338976305958156496}
   - component: {fileID: -2355294115682744728}
+  - component: {fileID: 9120452505314942342}
+  - component: {fileID: 8470880918868654429}
   m_Layer: 15
   m_Name: Projectile_Parabola_Bomb_Shanty
   m_TagString: Projectile/Enemy
@@ -278,9 +280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 7890409840483429500}
+  _externalHitBoxes: []
   _zOffsetTolerance: 0
 --- !u!114 &7807340246942760897
 MonoBehaviour:
@@ -295,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: 
   _meshContainer: {fileID: 0}
   _damage: 1
   _healthAffectableTags:
@@ -306,7 +311,6 @@ MonoBehaviour:
   _rejectionTags: []
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 1
   _repelTags:
   - _tag: Weapon/Player
@@ -320,25 +324,53 @@ MonoBehaviour:
   _rotateTowardsDirection: 0
   _maxSteeringForce: 5
   _distance: 5
-  _impactParticleEffectIndex: 0
-  _destroyedParticleEffectIndex: 0
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 0
-  _destroyedSoundEffectIndex: 0
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
     soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player
     index: 11
-  _explodableIndex: 0
-  _fireEffectIndex: 0
+  _explodableReference:
+    m_AssetGUID: 510f45f4d87997d48933833abca64959
+    m_SubObjectName: 
+  _fireEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _fuse: {fileID: 8190695335403940318}
   _fuseDuration: 5
   _fuseLength: 0.5
@@ -371,6 +403,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tags: []
+--- !u!114 &9120452505314942342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807340246942760902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 2, y: 2, z: 2}
+  _centerOffset: {x: 0, y: 0, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &8470880918868654429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807340246942760902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 919250a296c08d740ad71655a3613cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _anchors:
+  - Item1: {fileID: 7807340246942760907}
+    Item2: {x: 0, y: -1, z: 0}
+  gizmosColor: {r: 1, g: 0, b: 1, a: 0.5}
+  gizmosRadius: 0.1
 --- !u!1 &7890409840483429379
 GameObject:
   m_ObjectHideFlags: 0

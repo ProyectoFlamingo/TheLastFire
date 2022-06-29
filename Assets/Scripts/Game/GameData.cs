@@ -70,23 +70,8 @@ public class GameData : ScriptableObject
 	[SerializeField] private LayerValue _outOfBoundsLayer; 										/// <summary>Out of Bounds's Layer.</summary>
 	[SerializeField] private LayerValue _surfaceLayer; 											/// <summary>Surface's Layer.</summary>
 	[Space(5f)]
-	[Header("Projectiles:")]
-	[PreviewField]
-	[TabGroup("Pool GameObjects")][SerializeField] private Projectile[] _projectiles; 			/// <summary>Game's Projectiles.</summary>
-	[Space(5f)]
-	[SerializeField] private PoolGameObject[] _poolObjects; 									/// <summary>Pool GameObjects.</summary>
-	[Space(5f)]
-	[Header("Audios:")]
+	[Header("Audio:")]
 	[TabGroup("Audio")][SerializeField] private SoundEffectLooper _looper; 						/// <summary>Sound-Effect's Looper Reference.</summary>
-	[TabGroup("Audio")][SerializeField] private FiniteStateAudioClip[] _FSMLoops; 				/// <summary>Finite-State's Loop Effects.</summary>
-	[TabGroup("Audio")][SerializeField] private AudioClip[] _loops; 							/// <summary>Loop Effects.</summary>
-	[TabGroup("Audio")][SerializeField] private AudioClip[] _soundEffects; 						/// <summary>Sounds' Effects.</summary>
-	[Space(5f)]
-	[Header("Particle Effects:")]
-	[TabGroup("Pool GameObjects")][SerializeField] private ParticleEffect[] _particleEffects; 	/// <summary>Particle Effects.</summary>
-	[Space(5f)]
-	[Header("Explodables:")]
-	[TabGroup("Pool GameObjects")][SerializeField] private Explodable[] _explodables; 			/// <summary>Explodables.</summary>
 	[HideInInspector] public FloatWrapper _ceilingDotProductThreshold; 							/// <summary>Dot-Product Threshold for the Ceiling.</summary>
 	[HideInInspector] public FloatWrapper _floorDotProductThreshold; 							/// <summary>Dot-Product Threshold for the Floor.</summary>
 	[HideInInspector] public FloatWrapper _ceilingAngleThreshold; 								/// <summary>Angle Threshold for the Ceiling.</summary>
@@ -243,29 +228,8 @@ public class GameData : ScriptableObject
 	/// <summary>Gets surfaceLayer property.</summary>
 	public LayerValue surfaceLayer { get { return _surfaceLayer; } }
 
-	/// <summary>Gets projectiles property.</summary>
-	public Projectile[] projectiles { get { return _projectiles; } }
-
-	/// <summary>Gets poolObjects property.</summary>
-	public PoolGameObject[] poolObjects { get { return _poolObjects; } }
-
-	/// <summary>Gets FSMLoops property.</summary>
-	public FiniteStateAudioClip[] FSMLoops { get { return _FSMLoops; } }
-
 	/// <summary>Gets looper property.</summary>
 	public SoundEffectLooper looper { get { return _looper; } }
-
-	/// <summary>Gets loops property.</summary>
-	public AudioClip[] loops { get { return _loops; } }
-
-	/// <summary>Gets soundEffects property.</summary>
-	public AudioClip[] soundEffects { get { return _soundEffects; } }
-
-	/// <summary>Gets particleEffects property.</summary>
-	public ParticleEffect[] particleEffects { get { return _particleEffects; } }
-
-	/// <summary>Gets explodables property.</summary>
-	public Explodable[] explodables { get { return _explodables; } }
 
 	/// <summary>Gets and Sets allFactionsTags property.</summary>
 	public GameObjectTag[] allFactionsTags
@@ -328,17 +292,6 @@ public class GameData : ScriptableObject
 
     	QualitySettings.maxQueuedFrames = 2;
 #endif
-	}
-
-	/// <summary>Resets FSM Loop's States.</summary>
-	public void ResetFSMLoopStates()
-	{
-		if(FSMLoops == null) return;
-
-		foreach(FiniteStateAudioClip FSMLoop in FSMLoops)
-		{
-			FSMLoop.ResetState();
-		}
 	}
 
 	/// <summary>Updates Frame Rate.</summary>

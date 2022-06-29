@@ -17,20 +17,20 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 {
 	[Space(5f)]
 	[Header("Bomb's Attributes:")]
-	[SerializeField] private GameObjectTag[] _flamableTags; 	/// <summary>Tags of GameObjects that are considered flamable.</summary>
-	[SerializeField] private int _explodableIndex; 				/// <summary>Explodable's Index.</summary>
+	[SerializeField] private GameObjectTag[] _flamableTags; 		/// <summary>Tags of GameObjects that are considered flamable.</summary>
+	[SerializeField] private VAssetReference _explodableReference; 	/// <summary>Explodable's Reference.</summary>
 	[Space(5f)]
 	[Header("Fuse's Attributes:")]
-	[SerializeField] private int _fireEffectIndex; 				/// <summary>Fire Effect's Index.</summary>
-	[SerializeField] private LineRenderer _fuse; 				/// <summary>Bomb's Fuse.</summary>
-	[SerializeField] private float _fuseDuration; 				/// <summary>Fuse's Duration.</summary>
-	[SerializeField] private float _fuseLength; 				/// <summary>Fuse's Length.</summary>
-	private float _currentFuseLength; 							/// <summary>Current Fuse's Length.</summary>
-	private BombState _state; 									/// <summary>Current Bomb's State.</summary>
-	private BombState _previousState; 							/// <summary>Current Bomb's Previous State.</summary>
-	private ParticleEffect _fuseFire; 							/// <summary>Fuse Fire's ParticleEffect.</summary>
-	private Coroutine fuseRoutine; 								/// <summary>Fuse Coroutines' Reference.</summary>
-	private Explodable _explosion; 								/// <summary>Explosion's Reference.</summary>
+	[SerializeField] private VAssetReference _fireEffectReference; 	/// <summary>Fire Particle-Effect's Reference.</summary>
+	[SerializeField] private LineRenderer _fuse; 					/// <summary>Bomb's Fuse.</summary>
+	[SerializeField] private float _fuseDuration; 					/// <summary>Fuse's Duration.</summary>
+	[SerializeField] private float _fuseLength; 					/// <summary>Fuse's Length.</summary>
+	private float _currentFuseLength; 								/// <summary>Current Fuse's Length.</summary>
+	private BombState _state; 										/// <summary>Current Bomb's State.</summary>
+	private BombState _previousState; 								/// <summary>Current Bomb's Previous State.</summary>
+	private ParticleEffect _fuseFire; 								/// <summary>Fuse Fire's ParticleEffect.</summary>
+	private Coroutine fuseRoutine; 									/// <summary>Fuse Coroutines' Reference.</summary>
+	private Explodable _explosion; 									/// <summary>Explosion's Reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets flamableTags property.</summary>
@@ -40,18 +40,18 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		set { _flamableTags = value; }
 	}
 
-	/// <summary>Gets and Sets explodableIndex property.</summary>
-	public int explodableIndex
+	/// <summary>Gets and Sets explodableReference property.</summary>
+	public VAssetReference explodableReference
 	{
-		get { return _explodableIndex; }
-		set { _explodableIndex = value; }
+		get { return _explodableReference; }
+		set { _explodableReference = value; }
 	}
 
-	/// <summary>Gets and Sets fireEffectIndex property.</summary>
-	public int fireEffectIndex
+	/// <summary>Gets and Sets fireEffectReference property.</summary>
+	public VAssetReference fireEffectReference
 	{
-		get { return _fireEffectIndex; }
-		set { _fireEffectIndex = value; }
+		get { return _fireEffectReference; }
+		set { _fireEffectReference = value; }
 	}
 
 	/// <summary>Gets and Sets fuse property.</summary>
@@ -147,13 +147,15 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 			break;
 
 			case BombState.WickOn:
-			fuseFire = PoolManager.RequestParticleEffect(fireEffectIndex, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
+			//fuseFire = PoolManager.RequestParticleEffect(fireEffectIndex, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
+			fuseFire = PoolManager.RequestParticleEffect(fireEffectReference, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
 			fuseFire.transform.parent = transform;
 			this.StartCoroutine(FuseOnRoutine(), ref fuseRoutine);
 			break;
 
 			case BombState.Exploding:
-			explosion = PoolManager.RequestExplodable(explodableIndex, transform.position, transform.rotation);
+			//explosion = PoolManager.RequestExplodable(explodableIndex, transform.position, transform.rotation);
+			explosion = PoolManager.RequestExplodable(explodableReference, transform.position, transform.rotation);
 			break;
 		}
 	}

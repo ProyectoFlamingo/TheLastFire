@@ -20,8 +20,7 @@ public class Ring : PoolGameObject
 	[SerializeField] private HitCollider2D _triggerB; 							/// <summary>Trigger B.</summary>
 	[Space(5f)]
 	[SerializeField] private ParticleEffectEmissionData _passedParticleEffect; 	/// <summary>Particle Effect Emission Data when the ring is passed.</summary>
-	[SerializeField] private int _particleEffectIndex; 							/// <summary>ParticleEffect index to emit when ring is passed on?.</summary>
-	[SerializeField] private int _soundEffectIndex; 							/// <summary>Sound Effect index to emit when ring is passed on.</summary>
+	[SerializeField] private SoundEffectEmissionData _soundEffect; 				/// <summary>Sound-Effect's Emission Data.</summary>
 	[Space(5f)]
 	[SerializeField] private bool _deactivateWhenPassedOn; 						/// <summary>Deactivate ring when passed on it?.</summary>
 	[SerializeField] private GameObjectTag[] _detectableTags; 					/// <summary>Tags of GameObjects that are detectable by the ring.</summary>
@@ -49,11 +48,8 @@ public class Ring : PoolGameObject
 	/// <summary>Gets passedParticleEffect property.</summary>
 	public ParticleEffectEmissionData passedParticleEffect { get { return _passedParticleEffect; } }
 
-	/// <summary>Gets particleEffectIndex property.</summary>
-	public int particleEffectIndex { get { return _particleEffectIndex; } }
-
-	/// <summary>Gets soundEffectIndex property.</summary>
-	public int soundEffectIndex { get { return _soundEffectIndex; } }
+	/// <summary>Gets soundEffect property.</summary>
+	public SoundEffectEmissionData soundEffect { get { return _soundEffect; } }
 
 	/// <summary>Gets and Sets deactivateWhenPassedOn property.</summary>
 	public bool deactivateWhenPassedOn
@@ -347,9 +343,8 @@ public class Ring : PoolGameObject
 	/// <param name="_collider">Collider that passed the ring.</param>
 	private void InvokeRingPassedEvent(Collider2D _collider)
 	{
-		//PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, Quaternion.identity);
 		passedParticleEffect.EmitParticleEffects();
-		AudioController.PlayOneShot(SourceType.SFX, 0, soundEffectIndex);
+		soundEffect.Play();
 		Reset();
 
 		if(onRingPassed != null) onRingPassed(_collider);

@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
-  _meshContainer: {fileID: 0}
+  _name: ArrowProjectile
+  _meshContainer: {fileID: 2306116881200870641}
   _damage: 1
   _healthAffectableTags:
   - _tag: Player
@@ -177,22 +178,42 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 15
   _distance: 0.1
+  _impactParticleEffectReference:
+    m_AssetGUID: b0cb4c298481cae4998c70e6faa9ad4a
+    m_SubObjectName: 
+  _destroyedParticleEffectReference:
+    m_AssetGUID: b0cb4c298481cae4998c70e6faa9ad4a
+    m_SubObjectName: 
   _impactParticleEffectIndex: 11
   _destroyedParticleEffectIndex: 11
   _sourceIndex: 0
   _impactSoundEffectIndex: 64
   _destroyedSoundEffectIndex: 65
+  _impactSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 053d0aaa5ee56e3469f1cf8d67c4654f
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _destroyedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 2543449ca4d611a4fb03ee2f2e7a616a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
-      m_AssetGUID: 
+      m_AssetGUID: 26cecc7bbe0c14a40becd1a0f8caf62c
       m_SubObjectName: 
     soundIndex: 63
     volume: 0.25
   _repelSoundEffect:
     sourceIndex: 0
     soundReference:
-      m_AssetGUID: 
+      m_AssetGUID: 053d0aaa5ee56e3469f1cf8d67c4654f
       m_SubObjectName: 
     soundIndex: 64
     volume: 0.5
@@ -222,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 8593723572869265329}

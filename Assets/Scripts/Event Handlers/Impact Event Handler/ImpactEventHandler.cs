@@ -11,6 +11,7 @@ public class ImpactEventHandler : MonoBehaviour
 {
 	private const float DEFAULT_OFFSET_Z = 1.0f; 							/// <summary>Default  Offset for the Z-Axis.</summary>
 
+	[SerializeField] private TransformDeltaCalculator _deltaCalculator; 	/// <summary>Optional Transform Delta Calculator, will be used for calculating velolcity on the Trigger2DInformation.</summary>
 	[SerializeField] private bool _keepEvaluatingFarColliders; 				/// <summary>Keep Evaluating for far objects that entered trigger?.</summary>
 	[SerializeField] private HitCollider2D[] _hitBoxes; 					/// <summary>HitBoxes' Array.</summary>
 	[SerializeField] private List<HitCollider2D> _externalHitBoxes; 		/// <summary>Additional Hit-Boxes, external to the EventsHandler [e.g., Weapon].</summary>
@@ -18,6 +19,13 @@ public class ImpactEventHandler : MonoBehaviour
 	private EventsHandler _eventsHandler; 									/// <summary>EventsHandler's Component.</summary>
 	private Dictionary<int, VTuple<Collider2D, Collider2D>> _tuples; 		/// <summary>Collider2Ds' Tuples.</summary>
 	private Coroutine zEvaluation; 											/// <summary>Z-Axis' Evaluation Coroutine's reference.</summary>
+
+	/// <summary>Gets and Sets deltaCalculator property.</summary>
+	public TransformDeltaCalculator deltaCalculator
+	{
+		get { return _deltaCalculator; }
+		set { _deltaCalculator = value; }
+	}
 
 	/// <summary>Gets and Sets keepEvaluatingFarColliders property.</summary>
 	public bool keepEvaluatingFarColliders
@@ -205,7 +213,7 @@ public class ImpactEventHandler : MonoBehaviour
 				if(!tuples.ContainsKey(instanceID)) tuples.Add(instanceID, tuple);
 
 				if(zEvaluation == null && keepEvaluatingFarColliders) this.StartCoroutine(ZEvaluationRoutine(), ref zEvaluation);
-
+				Debug.Log("[ImpactEventHandler] Returning for: " + _collider.gameObject.name + " with Delta-Z: " + deltaZ);
 				return;
 			}
 			break;
@@ -229,7 +237,7 @@ public class ImpactEventHandler : MonoBehaviour
 		);
 #endif*/
 
-		Trigger2DInformation info = new Trigger2DInformation(collider, _collider);
+		Trigger2DInformation info = new Trigger2DInformation(collider, _collider, deltaCalculator != null ? deltaCalculator.velocity : Vector3.zero);
 		eventsHandler.InvokeTriggerEvent(info, _eventType, _ID);
 		return;
 	}
@@ -252,7 +260,7 @@ public class ImpactEventHandler : MonoBehaviour
 
 				if(deltaZ <= tolerance)
 				{
-					Trigger2DInformation info = new Trigger2DInformation(b, a);
+					Trigger2DInformation info = new Trigger2DInformation(b, a, deltaCalculator != null ? deltaCalculator.velocity : Vector3.zero);
 					eventsHandler.InvokeTriggerEvent(info, HitColliderEventTypes.Enter, 0);
 
 					indices.Add(pair.Key);

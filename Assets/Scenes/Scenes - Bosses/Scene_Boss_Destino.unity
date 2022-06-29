@@ -174,7 +174,12 @@ MonoBehaviour:
   _minDistanceToReachTarget: 0
   gizmosColor: {r: 0, g: 1, b: 1, a: 1}
   gizmosRadius: 0.25
-  _cards: []
+  _cards:
+  - {fileID: 5843153311697141451}
+  - {fileID: 896434854}
+  - {fileID: 1830994055}
+  - {fileID: 1367846393}
+  - {fileID: 1750687476}
   _headFallPointData:
     _parent: {fileID: 0}
     _position: {x: 0, y: 2.3, z: 1}
@@ -215,9 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d529db533bdb03e46ab55f7d342b7646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  drawGizmos: 0
-  gizmosColor: {r: 0, g: 0, b: 0, a: 0}
-  gizmosRadius: 0
+  drawGizmos: 1
+  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmosRadius: 0.5
   _cards:
   - {fileID: 5843153311697141451}
   - {fileID: 896434854}
@@ -236,7 +241,9 @@ MonoBehaviour:
   _deckPoint: {x: 0, y: 5, z: 3}
   _cardOffset: 0.2
   _positioningDuration: 0.5
-  _spawnEffectIndex: 50
+  _spawnEffectReference:
+    m_AssetGUID: 90f0fc57f886cc244b4122d22e5b9a0a
+    m_SubObjectName: 
   _presentationPoint: {x: 0, y: 7, z: 2}
   _cardSpacing: 3.5
   _deckPositioningDuration: 0.5
@@ -9507,6 +9514,46 @@ PrefabInstance:
       propertyPath: logoFadeOutDuration
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _orchestraTunningSoundEffect.soundReference.m_AssetGUID
+      value: 90d23a6dbb15bc14b9187ba534e13c0a
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _curtainOpeningSoundEffect.soundReference.m_AssetGUID
+      value: 820c6e7680ead014a9b605560e3c84a8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _curtainOpeningSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _orchestraTunningSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _mainLoopLoopData.soundReference.m_AssetGUID
+      value: 395070aeb38f86940aaa8852782be0dc
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _mainLoopVoiceLoopData.soundReference.m_AssetGUID
+      value: 89bfa2b1c0f1bb54cae540866022a46e
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _mainLoopLoopData.loopType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454213616821555350, guid: bdb24498052e900489a206c3c27edc8f,
+        type: 3}
+      propertyPath: _mainLoopVoiceLoopData.loopType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6454213616821555351, guid: bdb24498052e900489a206c3c27edc8f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13491,7 +13538,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 445359474dbcbf440961dd60cebae4d6, type: 2}
+  sharedProfile: {fileID: 0}
 --- !u!4 &853135430
 Transform:
   m_ObjectHideFlags: 0
@@ -14335,9 +14382,20 @@ MonoBehaviour:
   _maxSpeedScalar: 2
   _additionalYOffset: 7
   _clampedHeight: 10
-  _buildUpSoundIndex: 62
-  _swingSoundIndex: 2
-  _sourceIndex: 0
+  _buildUpSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _swingSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 490f55b066a773f4c85fa7caf9ffba64
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
 --- !u!4 &907821229 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2820567389141206707, guid: 13f2f18aad7c31d4d9dd0424b50e706c,
@@ -20122,7 +20180,7 @@ MonoBehaviour:
     _deactivateTargetsWhenMinigameEnds: 1
   _swordShowPieceDurationPercentage: 0.3
   _swordShowSuccessPercentage: 0.678
-  _swordTargetIndices: 02000000
+  _swordTargetReferences: []
   _swordTargetsWaypoints:
   - a: {x: -12, y: 19, z: 0}
     b: {x: -12, y: 12.5, z: 0}
@@ -20198,19 +20256,49 @@ MonoBehaviour:
     _timeLimit: 0
     _ringsContainer: {fileID: 780673782}
     _deactivateRingsWhenMiniGameEnds: 1
-  _fireShowPieceIndex: 2
-  _swordShowPieceIndex: 3
-  _danceShowPieceIndex: 4
-  _applauseSoundIndex: 14
-  _booingSoundIndex: 15
+  _fireShowPieceSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 0efb2883b1a63994196b829aa0b35768
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _swordShowPieceSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 206f9483958219c43b917b3eec1ac40b
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _danceShowPieceSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 4268dc5a79104d04a884b2b90bb11873
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _applauseSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: a652342c8c60de44595a5d6c71f488d2
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _booingSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: ec2ac1d5b75523d4fb198d5919eb3aa5
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _showSignSpawnPoint: {x: 0, y: 12, z: -8}
   _showSignPresentationPoint: {x: 0, y: 11, z: -8}
   _showSignDestinyPoint: {x: 0, y: 11, z: -6}
   _signEntranceDuration: 1
   _signExitDuration: 1
   _signIdleDuration: 1
-  _trashProjectilesIndices: 0600000008000000
-  _applauseObjectsIndices: 07000000
+  _trashProjectilesReferences: []
+  _applauseObjectsReferences: []
   _trashProjectilesWaypoints:
   - {x: -15, y: 0, z: -8}
   - {x: -10, y: 0, z: -8}
@@ -26110,7 +26198,13 @@ MonoBehaviour:
   _leftDrumstickRotation:
     _eulerAngles: {x: 0, y: 0, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}
-  _drumstickSoundIndex: 33
+  _drumstickSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 8464d8e67bbadba419c1aa8ad2db95c5
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _drumstickAnimationCredential:
     _tag: Attack
     _ID: 1080829965
@@ -26129,7 +26223,13 @@ MonoBehaviour:
     a: {x: 0, y: -8, z: -5}
     b: {x: 0, y: 1, z: -5}
   _trumpet: {fileID: 4900582757622516936}
-  _trumpetSoundIndex: 32
+  _trumpetSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 9c32be46d6c974a45b63340e7ae2fd2a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _trumpetAnimationCredential:
     _tag: Attack
     _ID: 1080829965
@@ -26146,7 +26246,13 @@ MonoBehaviour:
     a: {x: -18.08, y: -7, z: -5}
     b: {x: -12, y: 1, z: -5}
   _cymbals: {fileID: 192449231}
-  _cymbalSoundIndex: 34
+  _cymbalSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 5136d53966711ae449f75fe679005e7a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _cymbalSpawnPoint: {x: 0, y: -3, z: 0}
   _cymbalsAnimationCredential:
     _tag: Clash
@@ -27469,7 +27575,9 @@ MonoBehaviour:
   _devil: {fileID: 1100624405}
   _leftDevilTower: {fileID: 938493287}
   _rightDevilTower: {fileID: 1148493650}
-  _arrowProjectileIndex: 4
+  _arrowProjectileReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _rounds:
     _min: 1
     _max: 1
@@ -31778,7 +31886,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 5135843920560793742}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 5135843920560793743}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ea8500a481a7c54f80ba57b2527ccf8, type: 3}
@@ -32644,8 +32752,163 @@ PrefabInstance:
       propertyPath: _deadFXs._FXsPairs.Array.data[9]._cooldown
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _doNote.soundReference.m_AssetGUID
+      value: 7ad029d78914f1e46a9e9f9079f072b1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _doNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _faNote.soundReference.m_AssetGUID
+      value: 8b425b956413f394094330e1df272de7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laNote.soundReference.m_AssetGUID
+      value: 156a48476f799cf4d934b63619873aca
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _miNote.soundReference.m_AssetGUID
+      value: f5e51fb11fd0aba44a0a158826e5e8d1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reNote.soundReference.m_AssetGUID
+      value: 8d0d578f55ff93b49b1613ebc167053c
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siNote.soundReference.m_AssetGUID
+      value: ea365bb9c214de848a4dfc525109eb6d
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laReNote.soundReference.m_AssetGUID
+      value: 156a48476f799cf4d934b63619873aca
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reFaNote.soundReference.m_AssetGUID
+      value: 825ef3399b5342944961517c4bca60e7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siMiNote.soundReference.m_AssetGUID
+      value: a02ea38f2f45e6c40bf4effea7a0db1f
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siMiNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reFaNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laReNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _siNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _reNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _faNote.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _damageTakenSoundEffect.soundReference.m_AssetGUID
+      value: 66b1c41ca5b52a441a1e038bae61e56c
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laughSoundEffect.soundReference.m_AssetGUID
+      value: b707d8e47f6689148a556b42da7e9645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _damageTakenSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _laughSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _buildUpSoundEffect.soundReference.m_AssetGUID
+      value: 50fd67d64f5026f4f898e8a74ab0eecb
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _swingSoundEffect.soundReference.m_AssetGUID
+      value: 490f55b066a773f4c85fa7caf9ffba64
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _swingSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965366077498841998, guid: 16d6b59009cf8314aa995cfa634e8c92,
+        type: 3}
+      propertyPath: _buildUpSoundEffect.volume
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16d6b59009cf8314aa995cfa634e8c92, type: 3}
+--- !u!1 &5135843920560793743 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3701848998754718909, guid: 16d6b59009cf8314aa995cfa634e8c92,
+    type: 3}
+  m_PrefabInstance: {fileID: 5135843920560793742}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5135843920560793744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5135843920560793743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: 1
+  _magnitudeToChangePosition:
+    _distance: 0.01
+    _squareDistance: 0.0001
+  _magnitudeToChangeRotation:
+    _distance: 0
+    _squareDistance: 0
+  debug: 1
+  positionRayColor: {r: 0, g: 1, b: 1, a: 1}
+  _rotationColorAlpha: 0
+  _gizmosRadius: 0
+  rayDuration: 0.1
 --- !u!1001 &5780702081370152370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33219,6 +33482,12 @@ MonoBehaviour:
   gizmosColor: {r: 1, g: 0, b: 0, a: 1}
   gizmosRadius: 0.5
   _projectileSpawnPosition: {x: 0, y: 9, z: 0}
+  _petrolSphereReference:
+    m_AssetGUID: d3af5c0f01cb90642b38554e3254f35d
+    m_SubObjectName: 
+  _marbleSphereReference:
+    m_AssetGUID: 0dfb82171f0f48a439f888291821ed6d
+    m_SubObjectName: 
   _petrolSphereID: 3
   _marbleSphereID: 2
   _sequenceLimits:

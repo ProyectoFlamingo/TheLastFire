@@ -175,8 +175,15 @@ public class ParticleEffect : MonoBehaviour, IPoolObject
 
 		foreach(ParticleSystem system in systems)
 		{
-			system.Play(_withChildren);
-			StartCooldown(system);
+			try
+			{
+				system.Play(_withChildren);
+				StartCooldown(system);
+			}
+			catch(Exception e)
+			{
+				Debug.LogError(gameObject.name + ": " + e.Message, gameObject);
+			}
 		}
 
 		statesMask = FLAG_IS_ALIVE | FLAG_IS_PLAYING;
@@ -223,7 +230,14 @@ public class ParticleEffect : MonoBehaviour, IPoolObject
 		
 		foreach(ParticleSystem system in systems)
 		{
-			system.Stop(_withChildren);
+			try
+			{
+				system.Stop(_withChildren);
+			}
+			catch(Exception e)
+			{
+				Debug.LogError(gameObject.name + ": " + e.Message, gameObject);
+			}
 		}
 
 		StopCooldowns();

@@ -52,6 +52,16 @@ MonoBehaviour:
     index: 5
   - _tag: Enemy
     index: 8
+  _particleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _soundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 0
   _particleEffectIndex: 24
   _soundEffectIndex: 24
   _radius: 5

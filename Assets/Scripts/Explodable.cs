@@ -15,21 +15,21 @@ namespace Flamingo
 
 public class Explodable : PoolGameObject
 {
-	[SerializeField] private LayerMask _healthAffectableMask; 		/// <summary>Mask that contains GameObjects affected by the explosion.</summary>
-	[SerializeField] private GameObjectTag[] _affectableTags; 		/// <summary>Tags of GameObjects potentially affected by the explosion.</summary>
-	[SerializeField] private int _particleEffectIndex; 				/// <summary>Particle Effect's Index.</summary>
-	[SerializeField] private int _soundEffectIndex; 				/// <summary>Sound Effect's Index.</summary>
-	[SerializeField] private float _radius; 						/// <summary>Blast's Radius.</summary>
-	[SerializeField] private float _expansionDuration; 				/// <summary>Radius Expansion's Duration.</summary>
-	[SerializeField] private float _maxRadiusDuration; 				/// <summary>How much does the explosion at its maximum radius lasts.</summary>
-	[SerializeField] private float _damage; 						/// <summary>Damage that this explosion applies.</summary>
-	private float _currentRadius; 									/// <summary>Current Radius' Value.</summary>
+	[SerializeField] private LayerMask _healthAffectableMask; 			/// <summary>Mask that contains GameObjects affected by the explosion.</summary>
+	[SerializeField] private GameObjectTag[] _affectableTags; 			/// <summary>Tags of GameObjects potentially affected by the explosion.</summary>
+	[SerializeField] private VAssetReference _particleEffectReference; 	/// <summary>Particle-Effect's Reference.</summary>
+	[SerializeField] private SoundEffectEmissionData _soundEffect; 		/// <summary>Explosion's Sound-Effect.</summary>
+	[SerializeField] private float _radius; 							/// <summary>Blast's Radius.</summary>
+	[SerializeField] private float _expansionDuration; 					/// <summary>Radius Expansion's Duration.</summary>
+	[SerializeField] private float _maxRadiusDuration; 					/// <summary>How much does the explosion at its maximum radius lasts.</summary>
+	[SerializeField] private float _damage; 							/// <summary>Damage that this explosion applies.</summary>
+	private float _currentRadius; 										/// <summary>Current Radius' Value.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
-	[SerializeField] private Color gizmosColor; 					/// <summary>Gizmos' Color.</summary>
+	[SerializeField] private Color gizmosColor; 						/// <summary>Gizmos' Color.</summary>
 #endif
-	private Coroutine explosionExpansion; 							/// <summary>Explosion's Coroutine reference.</summary>
+	private Coroutine explosionExpansion; 								/// <summary>Explosion's Coroutine reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets healthAffectableMask property.</summary>
@@ -46,18 +46,18 @@ public class Explodable : PoolGameObject
 		set { _affectableTags = value; }
 	}
 
-	/// <summary>Gets and Sets particleEffectIndex property.</summary>
-	public int particleEffectIndex
+	/// <summary>Gets and Sets particleEffectReference property.</summary>
+	public VAssetReference particleEffectReference
 	{
-		get { return _particleEffectIndex; }
-		set { _particleEffectIndex = value; }
+		get { return _particleEffectReference; }
+		set { _particleEffectReference = value; }
 	}
 
-	/// <summary>Gets and Sets soundEffectIndex property.</summary>
-	public int soundEffectIndex
+	/// <summary>Gets and Sets soundEffect property.</summary>
+	public SoundEffectEmissionData soundEffect
 	{
-		get { return _soundEffectIndex; }
-		set { _soundEffectIndex = value; }
+		get { return _soundEffect; }
+		set { _soundEffect = value; }
 	}
 
 	/// <summary>Gets and Sets radius property.</summary>
@@ -112,8 +112,9 @@ public class Explodable : PoolGameObject
 	{
 		if(explosionExpansion != null) return;
 
-		PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, transform.rotation);
-		AudioController.PlayOneShot(SourceType.SFX, 0,soundEffectIndex);
+		//PoolManager.RequestParticleEffect(particleEffectIndex, transform.position, transform.rotation);
+		PoolManager.RequestParticleEffect(particleEffectReference, transform.position, transform.rotation);
+		soundEffect.Play();
 		this.StartCoroutine(ExplosionExpansion(onExplosionEnds), ref explosionExpansion);
 	}
 

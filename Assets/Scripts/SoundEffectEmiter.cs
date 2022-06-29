@@ -8,7 +8,7 @@ namespace Flamingo
 {
 public class SoundEffectEmiter : MonoBehaviour
 {
-	[SerializeField] private int _source; 			/// <summary>Sound Effects' Source.</summary>
+	/*[SerializeField] private int _source; 			/// <summary>Sound Effects' Source.</summary>
 	[SerializeField] private float _volumeScale; 	/// <summary>Sound Effect's Volume Scale.</summary>
 
 	/// <summary>Gets and Sets source property.</summary>
@@ -37,6 +37,6 @@ public class SoundEffectEmiter : MonoBehaviour
 	public void EmitSoundEffect(int _index)
 	{
 		AudioController.PlayOneShot(SourceType.SFX, source, _index, volumeScale);
-	}
+	}*/
 }
 }

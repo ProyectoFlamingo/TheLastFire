@@ -8,7 +8,7 @@ namespace Flamingo
 {
 public class TrainingGroundElement : MonoBehaviour
 {
-	[SerializeField] private int _worldSpaceTextIndex; 				/// <summary>World-Space Text's Index.</summary>
+	[SerializeField] private VAssetReference _worldSpaceTextReference; 				/// <summary>World-Space Text's Reference.</summary>
 	[SerializeField] private Vector3 _textPositionOffset; 			/// <summary>Text's Position's Offset.</summary>
 	[TextArea(1, 5)] [SerializeField] private string _text; 		/// <summary>Default Text.</summary>
 	private WorldSpaceText _worldSpaceText; 						/// <summary>World-Space's Text.</summary>
@@ -19,8 +19,8 @@ public class TrainingGroundElement : MonoBehaviour
 	[SerializeField] protected float gizmosRadius; 					/// <summary>Gizmos' Radius.</summary>
 #endif
 
-	/// <summary>Gets worldSpaceTextIndex property.</summary>
-	public int worldSpaceTextIndex { get { return _worldSpaceTextIndex; } }
+	/// <summary>Gets worldSpaceTextReference property.</summary>
+	public VAssetReference worldSpaceTextReference { get { return _worldSpaceTextReference; } }
 
 	/// <summary>Gets textPositionOffset property.</summary>
 	public Vector3 textPositionOffset { get { return transform.position + _textPositionOffset; } }
@@ -60,7 +60,7 @@ public class TrainingGroundElement : MonoBehaviour
 	/// <summary>TrainingGroundElement's starting actions before 1st Update frame.</summary>
 	private void Start ()
 	{
-		worldSpaceText = PoolManager.RequestPoolGameObject(worldSpaceTextIndex, textPositionOffset, Quaternion.identity) as WorldSpaceText;
+		worldSpaceText = PoolManager.RequestPoolGameObject(worldSpaceTextReference, textPositionOffset, Quaternion.identity) as WorldSpaceText;
 
 		if(worldSpaceText != null) UpdateText();
 	}

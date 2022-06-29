@@ -155,7 +155,7 @@ public class ArrowProjectile : Projectile
 						activeSoundEffectLooper = null;
 					}
 
-					AudioController.PlayOneShot(SourceType.SFX, incrustSoundEffect.sourceIndex, incrustSoundEffect.soundIndex, incrustSoundEffect.volume);
+					incrustSoundEffect.Play();
 				}
 
 				return;

@@ -228,7 +228,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 		bool activatedEvent = false;
 		SoundEffectEmissionData data = _card.flyingSoundEffect;
 
-		AudioController.PlayOneShot(SourceType.SFX, data.sourceIndex, data.soundIndex, data.volume);
+		data.Play();
 
 		while(t < 1.0f)
 		{
@@ -242,7 +242,7 @@ public class DestinoBossAIController : CharacterAIController<DestinoBoss>
 				activatedEvent = true;
 				ThrowHeadIntoFloor();
 				_card.headHitParticleEffect.EmitParticleEffects();
-				AudioController.PlayOneShot(SourceType.SFX, 0, _card.headHitSoundIndex);
+				_card.headHitSoundEffect.Play();
 			}
 
 			t += (Time.deltaTime * inverseSlashDuration);

@@ -69,14 +69,55 @@ MonoBehaviour:
   _slashSpeed: 5
   _hitParticleEffect:
     _transform: {fileID: 3982232222608576051}
+    _particleEffectReference:
+      m_AssetGUID: cd5f977f01da62f4082f15e00a86d50b
+      m_SubObjectName: 
     _particleEffectIndex: 24
     _points:
     - {x: 0, y: 0, z: 0}
   _headHitParticleEffect:
     _transform: {fileID: 3982232222608576051}
+    _particleEffectReference:
+      m_AssetGUID: cd5f977f01da62f4082f15e00a86d50b
+      m_SubObjectName: 
     _particleEffectIndex: 24
     _points:
     - {x: 0, y: 0, z: 0}
+  _flyingSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: a84147dcb3a443c4792e46af24202fb3
+      m_SubObjectName: 
+    soundIndex: 78
+    volume: 1
+  _flipSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 916377c990fd81e47a6ad872b8b9f415
+      m_SubObjectName: 
+    soundIndex: 80
+    volume: 1
+  _incrustSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 2faec7dd573340e428393995591ea006
+      m_SubObjectName: 
+    soundIndex: 81
+    volume: 1
+  _hitSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 3bf7a74ff182f6848b79406b57705f0a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
+  _headHitSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 3bf7a74ff182f6848b79406b57705f0a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _hitSoundIndex: 41
   _headHitSoundIndex: 41
   cardMeshFilter: {fileID: 0}

@@ -86,10 +86,23 @@ public struct FloatRange : IRange<float>, ISerializationCallbackReceiver
 	/// <returns>Clamped value.</returns>
 	public float Clamp(float x)
 	{
-		float min = Min();
-		float max = Max();
+		float m = Min();
+		float M = Max();
 
-		return x < min ? min : x > max ? max : x;
+		return x < m ? m : x > M ? M : x;
+	}
+
+	/// <summary>Remaps input into normalized range.</summary>
+	/// <param name="clamp">Clamp input? true by default.</param>
+	/// <returns>Remapped input.</returns>
+	public float RemapToNormalizedRange(float x, bool clamp = true)
+	{
+		float m = Min();
+		float M = Max();
+
+		if(clamp) x = Clamp(x);
+
+		return (x - m) / (M - m);
 	}
 
 	/// <summary>Evaluates if given value is inside the range.</summary>

@@ -31,7 +31,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[Header("Sword Show's Attributes:")]
 	[TabGroup("Show Group", "Sword Show")][SerializeField][Range(0.0f, 1.0f)] private float _swordShowPieceDurationPercentage; 	/// <summary>Duration's Percentage of the Sword's Show [determines how much the Show will last].</summary>
 	[TabGroup("Show Group", "Sword Show")][SerializeField][Range(0.0f, 1.0f)] private float _swordShowSuccessPercentage; 		/// <summary>Success' Percentage for the Sword Show.</summary>
-	[TabGroup("Show Group", "Sword Show")][SerializeField] private int[] _swordTargetIndices; 									/// <summary>Sword Target's Indices on the Game's Data.</summary>
+	[TabGroup("Show Group", "Sword Show")][SerializeField] private VAssetReference[] _swordTargetReferences; 					/// <summary>Sword Target's References on the Game's Data.</summary>
 	[TabGroup("Show Group", "Sword Show")][SerializeField] private Vector3Pair[] _swordTargetsWaypoints; 						/// <summary>Sword Targets' Waypoints.</summary>
 	[TabGroup("Show Group", "Sword Show")][SerializeField] private FloatRange _waitBetweenSwordTarget; 							/// <summary>Wait between each Sword Target.</summary>
 	[TabGroup("Show Group", "Sword Show")][SerializeField] private float _swordTargetShakeDuration; 							/// <summary>Sword Target's Shake Duration.</summary>
@@ -49,13 +49,13 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[TabGroup("Show Group", "Dance Show")][SerializeField] private RingMadnessMiniGame[] _stage3RingMadnessMiniGames; 			/// <summary>Available Ring-Madness' Mini-Games for Stage 3.</summary>
 	[Space(5f)]
 	[Header("Loops:")]
-	[TabGroup("Audio")][SerializeField] private int _fireShowPieceIndex; 														/// <summary>Fire Show's Piece's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _swordShowPieceIndex; 														/// <summary>Sword Show's Piece's Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _danceShowPieceIndex; 														/// <summary>Dance Show's Piece's Index.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _fireShowPieceSoundEffect; 								/// <summary>Fire Show's Piece's Soun-Effect's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _swordShowPieceSoundEffect; 							/// <summary>Sword Show's Piece's Soun-Effect's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _danceShowPieceSoundEffect; 							/// <summary>Dance Show's Piece's Soun-Effect's Data.</summary>
 	[Space(5f)]
 	[Header("Sound Effects:")]
-	[TabGroup("Audio")][SerializeField] private int _applauseSoundIndex; 														/// <summary>Applause's Sound Index.</summary>
-	[TabGroup("Audio")][SerializeField] private int _booingSoundIndex; 															/// <summary>Booing's Sound Index.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _applauseSoundEffect; 									/// <summary>Applause's Sound-Effect's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _booingSoundEffect; 									/// <summary>Booing's Sound-Effect's Data.</summary>
 	[Space(5f)]
 	[Header("Signs' Attributes:")]
 	[TabGroup("Signs")][SerializeField] private Vector3 _showSignSpawnPoint; 													/// <summary>Show Sign's Spawn Point.</summary>
@@ -66,8 +66,8 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[TabGroup("Signs")][SerializeField] private float _signIdleDuration; 														/// <summary>Sign Idle's Duration.</summary>
 	[Space(5f)]
 	[Header("Crowd's Attributes:")]
-	[TabGroup("Crowd")][SerializeField] private int[] _trashProjectilesIndices; 												/// <summary>Indices of all the trash (Parabola) Projectiles.</summary>
-	[TabGroup("Crowd")][SerializeField] private int[] _applauseObjectsIndices; 													/// <summary>Indices of objects thrown at an applause.</summary>
+	[TabGroup("Crowd")][SerializeField] private VAssetReference[] _trashProjectilesReferences; 									/// <summary>References of all the trash (Parabola) Projectiles.</summary>
+	[TabGroup("Crowd")][SerializeField] private VAssetReference[] _applauseObjectsReferences; 									/// <summary>References of objects thrown at an applause.</summary>
 	[TabGroup("Crowd")][SerializeField] private Vector3[] _trashProjectilesWaypoints; 											/// <summary>Trash Projectiles' Waypoints.</summary>
 	[TabGroup("Crowd")][SerializeField] private IntRange _trashProjectilesPerRound; 											/// <summary>Range of Trash projectiles per round.</summary>
 	[TabGroup("Crowd")][SerializeField] private FloatRange _trashProjectileCooldown; 											/// <summary>Cooldown duration's range per trash Projectile.</summary>
@@ -93,29 +93,29 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <summary>Gets stage3RingMadnessMiniGames property.</summary>
 	public RingMadnessMiniGame[] stage3RingMadnessMiniGames { get { return _stage3RingMadnessMiniGames; } }
 
-	/// <summary>Gets fireShowPieceIndex property.</summary>
-	public int fireShowPieceIndex { get { return _fireShowPieceIndex; } }
+	/// <summary>Gets fireShowPieceSoundEffect property.</summary>
+	public SoundEffectEmissionData fireShowPieceSoundEffect { get { return _fireShowPieceSoundEffect; } }
 
-	/// <summary>Gets swordShowPieceIndex property.</summary>
-	public int swordShowPieceIndex { get { return _swordShowPieceIndex; } }
+	/// <summary>Gets swordShowPieceSoundEffect property.</summary>
+	public SoundEffectEmissionData swordShowPieceSoundEffect { get { return _swordShowPieceSoundEffect; } }
 
-	/// <summary>Gets danceShowPieceIndex property.</summary>
-	public int danceShowPieceIndex { get { return _danceShowPieceIndex; } }
+	/// <summary>Gets danceShowPieceSoundEffect property.</summary>
+	public SoundEffectEmissionData danceShowPieceSoundEffect { get { return _danceShowPieceSoundEffect; } }
 
-	/// <summary>Gets applauseSoundIndex property.</summary>
-	public int applauseSoundIndex { get { return _applauseSoundIndex; } }
+	/// <summary>Gets applauseSoundEffect property.</summary>
+	public SoundEffectEmissionData applauseSoundEffect { get { return _applauseSoundEffect; } }
 
-	/// <summary>Gets booingSoundIndex property.</summary>
-	public int booingSoundIndex { get { return _booingSoundIndex; } }
+	/// <summary>Gets booingSoundEffect property.</summary>
+	public SoundEffectEmissionData booingSoundEffect { get { return _booingSoundEffect; } }
 
-	/// <summary>Gets swordTargetIndices property.</summary>
-	public int[] swordTargetIndices { get { return _swordTargetIndices; } }
+	/// <summary>Gets swordTargetReferences property.</summary>
+	public VAssetReference[] swordTargetReferences { get { return _swordTargetReferences; } }
 
-	/// <summary>Gets trashProjectilesIndices property.</summary>
-	public int[] trashProjectilesIndices { get { return _trashProjectilesIndices; } }
+	/// <summary>Gets trashProjectilesReferences property.</summary>
+	public VAssetReference[] trashProjectilesReferences { get { return _trashProjectilesReferences; } }
 
-	/// <summary>Gets applauseObjectsIndices property.</summary>
-	public int[] applauseObjectsIndices { get { return _applauseObjectsIndices; } }
+	/// <summary>Gets applauseObjectsReferences property.</summary>
+	public VAssetReference[] applauseObjectsReferences { get { return _applauseObjectsReferences; } }
 
 	/// <summary>Gets trashProjectilesWaypoints property.</summary>
 	public Vector3[] trashProjectilesWaypoints { get { return _trashProjectilesWaypoints; } }
@@ -343,7 +343,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
-		clip = AudioController.Play(SourceType.Loop, 0, fireShowPieceIndex, false);
+		clip = fireShowPieceSoundEffect.Play();
 		miniGame.timeLimit = clip.length * fireShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnBreakTheTargetsMiniGameEvent);
 
@@ -357,7 +357,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		miniGame.Terminate();
 
-		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.fireShowSign.SetActive(false);
 	}
 
@@ -405,7 +404,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		while(signDisplacement.MoveNext()) yield return null;
 
-		clip = AudioController.Play(SourceType.Loop, 0, swordShowPieceIndex, false);
+		clip = swordShowPieceSoundEffect.Play();
 		wait.ChangeDurationAndReset(clip.length * swordShowPieceDurationPercentage);
 
 		/// While the Sword-Show's Piece Keeps Playing Keep Throwing Targets...
@@ -417,7 +416,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			Vector3 origin = pair.a;
 			Vector3 destiny = pair.b;
 			Ray ray = new Ray(origin, destiny - origin);
-			Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetIndices.Random(), origin, Quaternion.identity) as Fragmentable;
+			Fragmentable fragmentableTarget = PoolManager.RequestPoolGameObject(swordTargetReferences.Random(), origin, Quaternion.identity) as Fragmentable;
 			SecondsDelayWait waitBetweenTarget = new SecondsDelayWait(waitBetweenSwordTarget.Random());
 
 			if(fragmentableTarget == null) yield break;
@@ -465,7 +464,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		while(showJudgement.MoveNext()) yield return null;
 
-		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.swordShowSign.SetActive(false);
 	}
 
@@ -503,7 +501,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
-		clip = AudioController.Play(SourceType.Loop, 0, danceShowPieceIndex, false);
+		clip = danceShowPieceSoundEffect.Play();
 		miniGame.timeLimit = clip.length * danceShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnRingMadnessMiniGameEvent);
 
@@ -517,7 +515,6 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		miniGame.Terminate();
 
-		//AudioController.Stop(SourceType.Loop, 0);
 		DestinoSceneController.Instance.danceShowSign.SetActive(false);
 	}
 
@@ -526,29 +523,30 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	/// <param name="_achievePercentageForSuccess">Required percentage for the show to be susccessful.</param>
 	private IEnumerator EvaluateShow(float _ratio, float _achievePercentageForSuccess)
 	{
-		int soundIndex = 0;
 		int rounds = 0;
 		Faction faction = Faction.None;
 		int[] projectilesIndices = null;
+		VAssetReference[] projectilesReferences = null;
+		SoundEffectEmissionData soundEffect = default(SoundEffectEmissionData);
 
 		switch(_ratio >= _achievePercentageForSuccess)
 		{
 			case true:
-			soundIndex = applauseSoundIndex;
+			soundEffect = applauseSoundEffect;
 			rounds = trashProjectilesPerRound.Random();
 			faction = Faction.Ally;
-			projectilesIndices = applauseObjectsIndices;
+			projectilesReferences = applauseObjectsReferences;
 			break;
 
 			case false:
-			soundIndex = booingSoundIndex;
+			soundEffect = booingSoundEffect;
 			rounds = trashProjectilesPerRound.Random();
 			faction = Faction.Enemy;
-			projectilesIndices = trashProjectilesIndices;
+			projectilesReferences = trashProjectilesReferences;
 			break;
 		}
 
-		AudioController.PlayOneShot(SourceType.Scenario, 0, soundIndex);
+		soundEffect.Play();
 
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 		//int rounds = trashProjectilesPerRound.Random();
@@ -558,7 +556,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			wait.ChangeDurationAndReset(trashProjectileCooldown.Random());
 			PoolManager.RequestParabolaProjectile(
 				faction,
-				projectilesIndices.Random(),
+				projectilesReferences.Random(),
 				trashProjectilesWaypoints.Random(),
 				Game.ProjectMateoPosition(mateoPositionProjection.Random()),
 				trashProjectileTime

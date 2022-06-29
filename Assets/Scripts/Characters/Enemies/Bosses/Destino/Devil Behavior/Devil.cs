@@ -11,15 +11,15 @@ public class Devil : Character
 {
     [Space(5f)]
     [Header("Devil's Attributes:")]
-    [SerializeField] private Vector3 _leftEyePoint;     /// <summary>Left-Eye's Point.</summary>
-    [SerializeField] private Vector3 _rightEyePoint;    /// <summary>Right-Eye's Point.</summary>
-    [SerializeField] private int _rayProjectileIndex;   /// <summary>Ray Projectile's Index.</summary>
-    [SerializeField] private int _projectileIndex;      /// <summary>Projectile's Index.</summary>
-    [SerializeField] private FloatRange _waitRange;     /// <summary>[Random] Wait Interval Before Each Shooting.</summary>
-    [SerializeField] private float _waitBetweenShots;   /// <summary>Wait between pair of shots.</summary>
-    [SerializeField] private float _projectionTime;     /// <summary>Projection Time used to get Mateo's Extrapolation.</summary>
-    private Coroutine laserRoutine;                     /// <summary>Lasers' Coroutine reference.</summary>
-    private HashSet<Projectile> _projectiles;           /// <summary>Projectiles that the Devil shoots.</summary>
+    [SerializeField] private Vector3 _leftEyePoint;                     /// <summary>Left-Eye's Point.</summary>
+    [SerializeField] private Vector3 _rightEyePoint;                    /// <summary>Right-Eye's Point.</summary>
+    [SerializeField] private VAssetReference _rayProjectileReference;   /// <summary>Ray Projectile's Reference.</summary>
+    [SerializeField] private VAssetReference _projectileReference;      /// <summary>Projectile's Reference.</summary>
+    [SerializeField] private FloatRange _waitRange;                     /// <summary>[Random] Wait Interval Before Each Shooting.</summary>
+    [SerializeField] private float _waitBetweenShots;                   /// <summary>Wait between pair of shots.</summary>
+    [SerializeField] private float _projectionTime;                     /// <summary>Projection Time used to get Mateo's Extrapolation.</summary>
+    private Coroutine laserRoutine;                                     /// <summary>Lasers' Coroutine reference.</summary>
+    private HashSet<Projectile> _projectiles;                           /// <summary>Projectiles that the Devil shoots.</summary>
 
     /// <summary>Gets leftEyePoint property.</summary>
     public Vector3 leftEyePoint { get { return _leftEyePoint; } }
@@ -27,11 +27,11 @@ public class Devil : Character
     /// <summary>Gets rightEyePoint property.</summary>
     public Vector3 rightEyePoint { get { return _rightEyePoint; } }
 
-    /// <summary>Gets rayProjectileIndex property.</summary>
-    public int rayProjectileIndex { get { return _rayProjectileIndex; } }
+    /// <summary>Gets rayProjectileReference property.</summary>
+    public VAssetReference rayProjectileReference { get { return _rayProjectileReference; } }
 
-    /// <summary>Gets projectileIndex property.</summary>
-    public int projectileIndex { get { return _projectileIndex; } }
+    /// <summary>Gets projectileReference property.</summary>
+    public VAssetReference projectileReference { get { return _projectileReference; } }
 
     /// <summary>Gets waitRange property.</summary>
     public FloatRange waitRange { get { return _waitRange; } }
@@ -105,8 +105,8 @@ public class Devil : Character
         Vector3 c = Vector3.Lerp(a, b, 0.5f);
         Vector3 direction = (Vector3)Game.ProjectMateoPosition(projectionTime) - c;
 
-        Projectile pA = PoolManager.RequestProjectile(Faction.Enemy, rayProjectileIndex, a, direction);
-        Projectile pB = PoolManager.RequestProjectile(Faction.Enemy, rayProjectileIndex, b, direction);
+        Projectile pA = PoolManager.RequestProjectile(Faction.Enemy, rayProjectileReference, a, direction);
+        Projectile pB = PoolManager.RequestProjectile(Faction.Enemy, rayProjectileReference, b, direction);
 
         pA.onPoolObjectDeactivation -= OnProjectileDeactivated;
         pB.onPoolObjectDeactivation -= OnProjectileDeactivated;
@@ -121,7 +121,7 @@ public class Devil : Character
     private void ShootNail(Vector3 _handPosition)
     {
         Vector3 direction = (Vector3)Game.ProjectMateoPosition(projectionTime) - _handPosition;
-        Projectile projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, _handPosition, direction);
+        Projectile projectile = PoolManager.RequestProjectile(Faction.Enemy, projectileReference, _handPosition, direction);
     
         if(projectile != null)
         {

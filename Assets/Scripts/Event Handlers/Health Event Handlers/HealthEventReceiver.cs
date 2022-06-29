@@ -222,7 +222,7 @@ public class HealthEventReceiver : MonoBehaviour
 			if(flash) this.StartCoroutine(FlashRoutine(), ref flashRoutine);
 			if(shake) this.StartCoroutine(ShakeRoutine(), ref shakeRoutine);
 			hurtParticleEffect.EmitParticleEffects();
-			AudioController.PlayOneShot(SourceType.SFX, hurtSoundEffect.soundIndex, ResourcesManager.GetAudioClip(hurtSoundEffect.soundReference));
+			hurtSoundEffect.Play();
 		}
 	}
 

@@ -20,7 +20,7 @@ public class ShantyShip : MonoBehaviour
 	[SerializeField] private AnimatorCredential _stateIDCredential; 	/// <summary>State ID's Animator Credential.</summary>
 	[SerializeField] private HitCollider2D _ropeHitBox; 				/// <summary>Rope's HitBox.</summary>
 	[Space(5f)]
-	[SerializeField] private int _projectileIndex; 						/// <summary>Projectile's Index.</summary>
+	[SerializeField] private VAssetReference _projectileReference; 		/// <summary>Projectile's Reference.</summary>
 	[SerializeField] private Transform[] _cannons; 						/// <summary>Cannons.</summary>
 	[Space(5f)]
 	[SerializeField] private AnimationClip dockedAnimation; 			/// <summary>Docked's AnimationClip.</summary>
@@ -37,8 +37,8 @@ public class ShantyShip : MonoBehaviour
 	/// <summary>Gets ropeHitBox property.</summary>
 	public HitCollider2D ropeHitBox { get { return _ropeHitBox; } }
 
-	/// <summary>Gets projectileIndex property.</summary>
-	public int projectileIndex { get { return _projectileIndex; } }
+	/// <summary>Gets projectileReference property.</summary>
+	public VAssetReference projectileReference { get { return _projectileReference; } }
 
 	/// <summary>Gets cannons property.</summary>
 	public Transform[] cannons { get { return _cannons; } }
@@ -134,7 +134,7 @@ public class ShantyShip : MonoBehaviour
 
 		foreach(Transform cannon in cannons)
 		{
-			PoolManager.RequestProjectile(Faction.Enemy, projectileIndex, cannon.position, cannon.forward);
+			PoolManager.RequestProjectile(Faction.Enemy, projectileReference, cannon.position, cannon.forward);
 		}
 	}
 

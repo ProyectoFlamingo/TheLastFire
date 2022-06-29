@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 7476057729542891127}
@@ -411,6 +412,13 @@ MonoBehaviour:
       m_SubObjectName: 
     _particleEffectIndex: 0
     _points: []
+  _fragmentedSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 3bf7a74ff182f6848b79406b57705f0a
+      m_SubObjectName: 
+    soundIndex: 0
+    volume: 1
   _soundIndex: 41
 --- !u!114 &1120269327644755655
 MonoBehaviour:
