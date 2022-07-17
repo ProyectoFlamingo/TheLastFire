@@ -5960,56 +5960,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ResourcesManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _charactersReferences.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _projectilesReferences.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _particleEffectsReferences.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _dontDestroyOnLoad
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _charactersReferences.Array.data[0].m_AssetGUID
-      value: 6433f965fe057e648ae27099f89d6355
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _projectilesReferences.Array.data[0].m_AssetGUID
-      value: 95723413e0f437d4e93f5798e3121470
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _projectilesReferences.Array.data[1].m_AssetGUID
-      value: 69bd56b9b3c584c49b741e1ce57113e8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _particleEffectsReferences.Array.data[0].m_AssetGUID
-      value: 6433f965fe057e648ae27099f89d6355
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _particleEffectsReferences.Array.data[1].m_AssetGUID
-      value: 69d01e33ea01aaa40a1768f2d2d84033
-      objectReference: {fileID: 0}
-    - target: {fileID: 7984107566983066971, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1,
-        type: 3}
-      propertyPath: _particleEffectsReferences.Array.data[2].m_AssetGUID
-      value: 3826d98c4a0db0040b9d9a400bebf4cd
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0bf0a6e2ac8dda34a9c6a02839665dd1, type: 3}
 --- !u!4 &1016142378 stripped
@@ -6858,6 +6808,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2098259578}
   - {fileID: 1966040737}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -11702,7 +11653,7 @@ PrefabInstance:
     - target: {fileID: 1581544438721717834, guid: 2c648ea0499ddf844babfb085acc0f05,
         type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1581544438721717834, guid: 2c648ea0499ddf844babfb085acc0f05,
         type: 3}
@@ -11738,6 +11689,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CameraBoundariesModifier
+      objectReference: {fileID: 0}
+    - target: {fileID: 1581544438721717837, guid: 2c648ea0499ddf844babfb085acc0f05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c648ea0499ddf844babfb085acc0f05, type: 3}
@@ -12819,6 +12775,101 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2090512898}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2098259577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098259578}
+  - component: {fileID: 2098259581}
+  - component: {fileID: 2098259580}
+  - component: {fileID: 2098259579}
+  m_Layer: 0
+  m_Name: TriggerZone_CameraBoundariesModifier
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2098259578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098259577}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1115533193}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2098259579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098259577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c441fe80195be4c995b2d35f92b39a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _tags:
+  - _tag: Player
+    index: 5
+  gizmosColor: {r: 1, g: 0, b: 0, a: 0}
+  _setDistance: 0
+  _distanceRange:
+    _min: 0
+    _max: 0
+--- !u!114 &2098259580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098259577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc36a56da2aaa2049b6a61cd5818c3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _space: 1
+  _size: {x: 70, y: 30, z: 0}
+  _center: {x: 0, y: 10, z: 0}
+  color: {r: 1, g: 1, b: 1, a: 0.5}
+--- !u!61 &2098259581
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098259577}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 10}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 70, y: 30}
+  m_EdgeRadius: 0
 --- !u!1001 &2111036354
 PrefabInstance:
   m_ObjectHideFlags: 0

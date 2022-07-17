@@ -190,9 +190,9 @@ public abstract class CharacterAIController<T> : MonoBehaviour, IStateMachine wh
 	{
 		StringBuilder builder = new StringBuilder();
 
-		builder.Append("Previous State(s: )");
+		builder.Append("Previous State(s): ");
 		builder.AppendLine(IDs.GetStates(previousState));
-		builder.Append("State(s: )");
+		builder.Append("State(s): ");
 		builder.AppendLine(IDs.GetStates(state));
 
 #if UNITY_EDITOR

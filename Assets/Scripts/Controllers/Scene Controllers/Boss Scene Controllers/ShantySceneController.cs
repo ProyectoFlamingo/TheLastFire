@@ -12,6 +12,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 {
 	[Space(5f)]
 	[SerializeField] private ShantyBoss _shanty; 								/// <summary>Captain Shanty's Reference.</summary>
+	[SerializeField] private ShantyBossAIController _shantyController; 			/// <summary>Shanty's AI Controller.</summary>
 	[Space(5f)]
 	[Header("Ship's Attributes:")]
 	[SerializeField] private ShantyShip _shantyShip; 							/// <summary>Shanty's Ship.</summary>
@@ -71,6 +72,9 @@ public class ShantySceneController : Singleton<ShantySceneController>
 #region Getters/Setters:
 	/// <summary>Gets shanty property.</summary>
 	public ShantyBoss shanty { get { return _shanty; } }
+
+	/// <summary>Gets shantyController property.</summary>
+	public ShantyBossAIController shantyController { get { return _shantyController; } }
 
 	/// <summary>Gets shipScale property.</summary>
 	public Vector3 shipScale { get { return _shipScale; } }
@@ -255,13 +259,14 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	private void Introduction()
 	{
 		if(shanty == null
+		|| shantyController
 		|| shanty.animator == null
 		|| shantyShip == null) return;
 
 		shantyShip.ropeHitBox.onTriggerEvent2D -= OnRopeHit; 			/// Just in case...
 		shantyShip.ropeHitBox.onTriggerEvent2D += OnRopeHit;
 
-		shanty.OnTie(shantyShip.transform, stage1ShantyPosition);
+		shantyController.OnTie(shantyShip.transform, stage1ShantyPosition);
 		shantyShip.GoToState(ShantyShip.ID_STATE_DOCKED);
 	}
 
@@ -325,7 +330,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 							{
 								Game.state = GameState.Playing;
 								Game.EnablePlayerControl(true);
-								shanty.BeginAttackRoutine();
+								shantyController.BeginAttackRoutine();
 							});
 						}));
 					});
@@ -352,7 +357,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 							{
 								Game.state = GameState.Playing;
 								Game.EnablePlayerControl(true);
-								shanty.BeginAttackRoutine();
+								shantyController.BeginAttackRoutine();
 							});
 						}));
 					});
@@ -383,7 +388,7 @@ public class ShantySceneController : Singleton<ShantySceneController>
 			shantyShip.ropeHitBox.onTriggerEvent2D -= OnRopeHit; 		/// Just in case...
 			shantyShip.ropeHitBox.gameObject.SetActive(false);
 
-			shanty.OnUntie();
+			shantyController.OnUntie();
 		}
 	}
 

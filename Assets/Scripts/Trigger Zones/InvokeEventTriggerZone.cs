@@ -40,7 +40,7 @@ public abstract class InvokeEventTriggerZone : TriggerZone<InvokeEventTriggerZon
 	/// <summary>Callback internally invoked when a GameObject's Collider2D exits the TriggerZone.</summary>
 	/// <param name="_collider">Collider2D that Exits.</param>
 	/// <param name="_trigger">Next Trigger that ought to be attended.</param>
-	protected override void OnExit(Collider2D _collider, InvokeEventTriggerZone _trigger)
+	protected override void OnExit(Collider2D _collider, TriggerZone<InvokeEventTriggerZone> _trigger)
 	{
 		if(OnExitEvent != null) OnExitEvent.Invoke();
 	}

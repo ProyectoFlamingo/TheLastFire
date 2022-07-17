@@ -45,10 +45,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
   _charactersReferences: []
-  _projectilesReferences: []
-  _particleEffectsReferences: []
+  _projectilesReferences:
+  - m_AssetGUID: 95723413e0f437d4e93f5798e3121470
+    m_SubObjectName: 
+  - m_AssetGUID: 69bd56b9b3c584c49b741e1ce57113e8
+    m_SubObjectName: 
+  _particleEffectsReferences:
+  - m_AssetGUID: 6433f965fe057e648ae27099f89d6355
+    m_SubObjectName: 
+  - m_AssetGUID: 69d01e33ea01aaa40a1768f2d2d84033
+    m_SubObjectName: 
+  - m_AssetGUID: 3826d98c4a0db0040b9d9a400bebf4cd
+    m_SubObjectName: 
   _explodablesReferences: []
   _poolObjectsReferences: []
   _FSMLoopsReferences: []
   _loopsReferences: []
   _soundEffectsReferences: []
+  test: 0

@@ -14,14 +14,17 @@ public class DialogueFlowVisualGraphNode : FlowVisualGraphNode
 	/// <summary>Gets Flow Node's Type.</summary>
 	public override FlowNodeType nodeType { get { return FlowNodeType.Dialogue; } }
 
-	[SerializeField] private bool _playOnce; 				/// <summary>Play this dialogue just once?.</summary>
-	[SerializeField] private string[] _animations; 			/// <summary>Possible Animations to play while the dialogue is happening.</summary>
-	[SerializeField] private string _speaker; 				/// <summary>Dialogue's Speaker.</summary>
-	[TextArea][SerializeField] public string _dialogue; 	/// <summary>Dialogue's text.</summary>
-	private bool _played; 									/// <summary>Has this Dialogued been already played?.</summary>
+	[SerializeField] private bool _playOnce; 						/// <summary>Play this dialogue just once?.</summary>
+	[SerializeField] private AnimationFunctionData[] _animations; 	/// <summary>Possible Animations' Data to play while the dialogue is happening.</summary>
+	[SerializeField] private string _speaker; 						/// <summary>Dialogue's Speaker.</summary>
+	[TextArea][SerializeField] public string _dialogue; 			/// <summary>Dialogue's text.</summary>
+	private bool _played; 											/// <summary>Has this Dialogued been already played?.</summary>
 
 	/// <summary>Gets playOnce property.</summary>
 	public bool playOnce { get { return _playOnce; } }
+
+	/// <summary>Gets animations property.</summary>
+	public AnimationFunctionData[] animations { get { return _animations; } }
 
 	/// <summary>Gets speaker property.</summary>
 	public string speaker { get { return _speaker; } }

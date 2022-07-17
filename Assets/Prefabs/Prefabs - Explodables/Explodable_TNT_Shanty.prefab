@@ -60,10 +60,7 @@ MonoBehaviour:
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
-  _particleEffectIndex: 24
-  _soundEffectIndex: 24
   _radius: 5
   _expansionDuration: 0.3
   _maxRadiusDuration: 0.4

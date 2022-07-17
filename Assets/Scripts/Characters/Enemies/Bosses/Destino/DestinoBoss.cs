@@ -317,8 +317,6 @@ public class DestinoBoss : Boss
 		IEnumerator routine = base.DeathRoutine(onDeathRoutineEnds);
 		
 		while(routine.MoveNext()) yield return null;
-
-		Debug.Log("[DestinoBoss] WTF!!");
 	}
 
 	/// <summary>Idle's Routine [normal idle and random laughs].</summary>
