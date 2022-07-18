@@ -19,6 +19,7 @@ public enum EventType
 
 public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystemController>
 {
+	[SerializeField] private OxfordTheFoxBoss _oxfordTheFox; 							/// <summary>Oxford the Boss' Reference.</summary>
 	[Space(5f)]
 	[SerializeField] private StringFloatDictionary _floatProperties; 					/// <summary>Float Properties [for Graph's Blackboard].</summary>
 	[SerializeField] private RandomDistributionSystem _distributionSystem; 				/// <summary>Random's Distribution System.</summary>
@@ -36,6 +37,9 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	private bool _skipDialogue; 														/// <summary>Skip Dialogue?.</summary>
 
 #region Getters/Setters:
+	/// <summary>Gets oxfordTheFox property.</summary>
+	public OxfordTheFoxBoss oxfordTheFox { get { return _oxfordTheFox; } }
+
 	/// <summary>Gets and Sets floatProperties property.</summary>
 	public StringFloatDictionary floatProperties
 	{
@@ -280,6 +284,8 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 		string dialogue = node.dialogue;
 		int i = 0;
 
+		//Debug.Log("[OxfordTheFoxFlowSystemController] Dialogue Length: " + dialogue.Length);
+
 		UI.speakerText.text = node.speaker;
 
 		while(i < dialogue.Length && !skipDialogue)
@@ -287,7 +293,37 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 			while(wait.MoveNext()) yield return null;
 			wait.Reset();
 
-			builder.Append(dialogue[i]);
+			char c = dialogue[i];
+
+/// Begins Animation Evaluation:
+			if(c == '<')
+			{
+				StringBuilder chain = new StringBuilder();
+				i++;
+
+				while(true)
+				{
+					//Debug.Log("[OxfordTheFoxFlowSystemController] Current Index [Animation Evaluation]: " + i);
+					c = dialogue[i];
+					i++;
+
+					if(c == '>') break;
+					else chain.Append(c);
+				}
+
+				int index = 0;
+
+				if(Int32.TryParse(chain.ToString(), out index))
+				{
+					IEnumerator animationIteration = node.animations[index].Execute(oxfordTheFox.animatorController);
+					while(animationIteration.MoveNext()) yield return null;
+				}
+
+				continue;
+			}
+/// Ends Animation Evaluation
+
+			builder.Append(c);
 			UI.dialogueText.text = builder.ToString();
 			i++;
 		}

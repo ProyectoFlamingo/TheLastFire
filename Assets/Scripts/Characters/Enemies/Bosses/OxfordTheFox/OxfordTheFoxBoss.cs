@@ -8,9 +8,13 @@ namespace Flamingo
 {
 public class OxfordTheFoxBoss : Boss
 {
+	[SerializeField] private AnimatorCredential _defaultAnimation; 	/// <summary>Default Animation.</summary>
 	[Range(0.0f, 3.0f)] public float speed;
 	[Range(0.0f, 3.0f)] public float fadeDuration;
 	public AnimationClip[] animations;
+
+	/// <summary>Gets defaultAnimation property.</summary>
+	public AnimatorCredential defaultAnimation { get { return _defaultAnimation; } }
 
 #region UnityMethods:
 	/// <summary>OxfordTheFoxBoss's instance initialization.</summary>
@@ -25,6 +29,11 @@ public class OxfordTheFoxBoss : Boss
 		StartCoroutine(AnimationTest());
 
 		//animation.Blend(clip, weight, fadeDuration)
+	}
+
+	public void GoToDefaultAnimation()
+	{
+
 	}
 
 	private IEnumerator AnimationTest()
