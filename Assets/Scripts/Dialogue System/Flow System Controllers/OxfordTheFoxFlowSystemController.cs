@@ -85,7 +85,8 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 	{
 		DialogueGUIController.Instance.skipButton.button.onClick.AddListener(OnSkipSelected);
 		UpdateBlackboardProperties();
-		StartCoroutine(IterateTroughDialogueGraph());
+		Game.AddTargetToCamera(DialogueGUIController.Instance.GetComponent<VCameraTarget>());
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
 	}
 
 	/// <summary>OxfordTheFoxFlowSystemController's instance initialization when loaded [Before scene loads].</summary>
@@ -102,6 +103,18 @@ public class OxfordTheFoxFlowSystemController : Singleton<OxfordTheFoxFlowSystem
 		{
 			floatProperties[key] = 0.0f;
 		}*/
+	}
+
+	/// <summary>Callback invoked when OxfordTheFoxFlowSystemController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+	}
+
+	/// <summary>Callback invoked when the resorces are loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		StartCoroutine(IterateTroughDialogueGraph());
 	}
 
 	/// <returns>Random EventType.</returns>

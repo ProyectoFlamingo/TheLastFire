@@ -109,38 +109,29 @@ MonoBehaviour:
   _destroyedParticleEffectReference:
     m_AssetGUID: d24a3077107949041b3ac65f28c586b1
     m_SubObjectName: 
-  _impactParticleEffectIndex: 8
-  _destroyedParticleEffectIndex: 0
-  _sourceIndex: 1
-  _impactSoundEffectIndex: 42
-  _destroyedSoundEffectIndex: -1
   _impactSoundEffect:
     sourceIndex: 1
     soundReference:
       m_AssetGUID: fc7010f347399764cb3fcf759c90fd86
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
   _destroyedSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7682601556303024489
@@ -191,11 +182,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 0
   _subID: 0
-  _particleEffectsMatrix:
-  - ID: 128
-    index: 0
-  _soundEffectsMatrix: []
-  _eventsHandler: {fileID: 0}
 --- !u!114 &6461304165785446541
 MonoBehaviour:
   m_ObjectHideFlags: 0

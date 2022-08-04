@@ -18,70 +18,83 @@ namespace Flamingo
 [CreateAssetMenu]
 public class GameData : ScriptableObject
 {
-	public const string PATH_SCENE_TOLOAD = "SceneToLoad"; 										/// <summary>Scene to Load's Path on the Player Prefs [or default].</summary>
-	public const string PATH_SCENE_DEFAULT = "Scene_LoadingScreen"; 							/// <summary>Default Scene to Load's Path.</summary>
-	public const string PATH_SCENE_LOADING = "Scene_LoadingScreen"; 							/// <summary>Loading Scene's Path.</summary>
+	public const string PATH_SCENE_TOLOAD = "SceneToLoad"; 															/// <summary>Scene to Load's Path on the Player Prefs [or default].</summary>
+	public const string PATH_SCENE_DEFAULT = "Scene_LoadingScreen"; 												/// <summary>Default Scene to Load's Path.</summary>
+	public const string PATH_SCENE_LOADING = "Scene_LoadingScreen"; 												/// <summary>Loading Scene's Path.</summary>
 
 	[Header("Configurations:")]
-	[SerializeField] [Range(0, 60)] private int _frameRate; 									/// <summary>Game's Frame rate.</summary>
-	[SerializeField] [Range(0.0f, 1.0f)] private float _hurtTimeScale; 							/// <summary>Hurt's Time-Scale.</summary>
-	[SerializeField] private float _timeScaleAcceleration; 										/// <summary>Time-Scale change's Acceleration.</summary>
-	[SerializeField] private float _timeScaleDeceleration; 										/// <summary>Time-Scale change's Deceleration.</summary>
+	[SerializeField] [Range(0, 60)] private int _frameRate; 														/// <summary>Game's Frame rate.</summary>
+	[SerializeField] [Range(0.0f, 1.0f)] private float _hurtTimeScale; 												/// <summary>Hurt's Time-Scale.</summary>
+	[SerializeField] private float _timeScaleAcceleration; 															/// <summary>Time-Scale change's Acceleration.</summary>
+	[SerializeField] private float _timeScaleDeceleration; 															/// <summary>Time-Scale change's Deceleration.</summary>
 	[Space(5f)]
-	[SerializeField] private string _firstSceneToLoad; 											/// <summary>First Scene to Load.</summary>
-	[SerializeField] private string _loadingSceneName; 											/// <summary>Loading Scene's Name.</summary>
-	[SerializeField] private string _overworldSceneName; 										/// <summary>Overworld Scene's Name.</summary>
-	[SerializeField] private string _destinoSceneName; 											/// <summary>Destuino Scene's Name.</summary>
-	[SerializeField] private string _moskarSceneName; 											/// <summary>Moskar Scene's Name.</summary>
-	[SerializeField] private string _captainShantySceneName; 									/// <summary>Captain Shanty Scene's Name.</summary>
-	[SerializeField] private string _oxfordTheFoxSceneName; 									/// <summary>Oxford the Fox Scene's Name.</summary>
-	[SerializeField] private string _miauxiSceneName; 											/// <summary>Miauxi Scene's Name.</summary>
-	[SerializeField] private string _rinocircusSceneName; 										/// <summary>Rinocircus Scene's Name.</summary>
-	[SerializeField] private string _moctechzumaSceneName; 										/// <summary>Moctechzuma Scene's Name.</summary>
-	[SerializeField] private string[] _trainingGroundScenesNames; 								/// <summary>Training Grounds' Scenes' Names.</summary>
+	[SerializeField] private string _firstSceneToLoad; 																/// <summary>First Scene to Load.</summary>
+	[SerializeField] private string _loadingSceneName; 																/// <summary>Loading Scene's Name.</summary>
+	[SerializeField] private string _overworldSceneName; 															/// <summary>Overworld Scene's Name.</summary>
+	[SerializeField] private string _destinoSceneName; 																/// <summary>Destuino Scene's Name.</summary>
+	[SerializeField] private string _moskarSceneName; 																/// <summary>Moskar Scene's Name.</summary>
+	[SerializeField] private string _captainShantySceneName; 														/// <summary>Captain Shanty Scene's Name.</summary>
+	[SerializeField] private string _oxfordTheFoxSceneName; 														/// <summary>Oxford the Fox Scene's Name.</summary>
+	[SerializeField] private string _miauxiSceneName; 																/// <summary>Miauxi Scene's Name.</summary>
+	[SerializeField] private string _rinocircusSceneName; 															/// <summary>Rinocircus Scene's Name.</summary>
+	[SerializeField] private string _moctechzumaSceneName; 															/// <summary>Moctechzuma Scene's Name.</summary>
+	[SerializeField] private string[] _trainingGroundScenesNames; 													/// <summary>Training Grounds' Scenes' Names.</summary>
 	[Space(5f)]
-	[Header("Rotations:")]
-	[SerializeField] private EulerRotation _stareAtBackgroundRotation; 							/// <summary>Stare at Boss's Rotation.</summary>
-	[SerializeField] private EulerRotation _stareAtPlayerRotation; 								/// <summary>Stare At Player's Rotation.</summary>
+	[Header("Essential VAssetReferences:")]
 	[Space(5f)]
-	[Header("Camera Configurations:")]
-	[SerializeField] private float _deathZoom; 													/// <summary>Death's Zoom.</summary>
-	[Header("Camera Shaking's Attributes:")]
-	[SerializeField] private FloatRange _damageCameraShakeDuration; 							/// <summary>Camera Shake's Duration when Mateo receives damage.</summary>
-	[SerializeField] private FloatRange _damageCameraShakeSpeed; 								/// <summary>Camera Shake's Speed when Mateo receives damage.</summary>
-	[SerializeField] private FloatRange _damageCameraShakeMagnitude; 							/// <summary>Camera Shake's Magnitude when Mateo receives damage.</summary>
-	[Space(5f)]
-	[Header("Tags:")]
-	[SerializeField] private GameObjectTag _playerTag; 											/// <summary>Player's Tag.</summary>
-	[SerializeField] private GameObjectTag _enemyTag; 											/// <summary>Enemy's Tag.</summary>
-	[SerializeField] private GameObjectTag _playerWeaponTag; 									/// <summary>Player Weapon's Tag.</summary>
-	[SerializeField] private GameObjectTag _enemyWeaponTag; 									/// <summary>Enemy Weapon's Tag.</summary>
-	[SerializeField] private GameObjectTag _playerProjectileTag; 								/// <summary>Player Projectile's Tag.</summary>
-	[SerializeField] private GameObjectTag _enemyProjectileTag; 								/// <summary>Enemy Projectile's Tag.</summary>
-	[SerializeField] private GameObjectTag _explodableTag; 										/// <summary>Explodable 's Tag.</summary>
-	[SerializeField] private GameObjectTag _floorTag; 											/// <summary>Floor surface's Type Tag.</summary>
-	[SerializeField] private GameObjectTag _wallTag; 											/// <summary>Wall surface's Type Tag.</summary>
-	[SerializeField] private GameObjectTag _ceilingTag; 										/// <summary>Ceiling surface's Type Tag.</summary>
-	[SerializeField] private GameObjectTag _outOfBoundsTag; 									/// <summary>Out-Of-Bounds' Tag.</summary>
-	[Space(5f)]
-	[SerializeField] private AnimatorCredential _emptyCredential; 								/// <summary>Empty's Animator Credential.</summary>
-	[Space(5f)]
-	[Header("Layers:")]
-	[SerializeField] private LayerValue _outOfBoundsLayer; 										/// <summary>Out of Bounds's Layer.</summary>
-	[SerializeField] private LayerValue _surfaceLayer; 											/// <summary>Surface's Layer.</summary>
+	[TabGroup("Characters")][SerializeField] private VAssetReference[] _charactersReferences; 						/// <summary>Characters' References.</summary>
+	[TabGroup("Projectiles")][SerializeField] private VAssetReference[] _projectilesReferences; 					/// <summary>Projectiles' References.</summary>
+	[TabGroup("FXs", "Particle Effects")][SerializeField] private VAssetReference[] _particleEffectsReferences; 	/// <summary>Particle-Effets' References.</summary>
+	[TabGroup("FXs", "Explodables")][SerializeField] private VAssetReference[] _explodablesReferences; 				/// <summary>Explodables' References.</summary>
+	[TabGroup("Pool GameObjects")][SerializeField] private VAssetReference[] _poolObjectsReferences; 				/// <summary>[Other] PoolGameObjects' references.</summary>
 	[Space(5f)]
 	[Header("Audio:")]
-	[TabGroup("Audio")][SerializeField] private SoundEffectLooper _looper; 						/// <summary>Sound-Effect's Looper Reference.</summary>
-	[HideInInspector] public FloatWrapper _ceilingDotProductThreshold; 							/// <summary>Dot-Product Threshold for the Ceiling.</summary>
-	[HideInInspector] public FloatWrapper _floorDotProductThreshold; 							/// <summary>Dot-Product Threshold for the Floor.</summary>
-	[HideInInspector] public FloatWrapper _ceilingAngleThreshold; 								/// <summary>Angle Threshold for the Ceiling.</summary>
-	[HideInInspector] public FloatWrapper _floorAngleThreshold; 								/// <summary>Angle Threshold for the Floor.</summary>
-	private GameObjectTag[] _allFactionsTags; 													/// <summary>All Factions' Tags.</summary>
-	private GameObjectTag[] _allWeaponsTags; 													/// <summary>All Weapons' Tags.</summary>
-	private GameObjectTag[] _allProjectilesTags; 												/// <summary>All Projectiles' Tags.</summary>
-	private float _idealDeltaTime; 																/// <summary>Ideal delta time.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _FSMLoopsReferences; 					/// <summary>FSM-AudioClips' References.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _loopsReferences; 						/// <summary>Loops' References.</summary>
+	[TabGroup("Audio", "Audio")][SerializeField] private VAssetReference[] _soundEffectsReferences; 				/// <summary>Sound-Effects' References.</summary>
+	[Space(5f)]
+	[Header("Rotations:")]
+	[SerializeField] private EulerRotation _stareAtBackgroundRotation; 												/// <summary>Stare at Boss's Rotation.</summary>
+	[SerializeField] private EulerRotation _stareAtPlayerRotation; 													/// <summary>Stare At Player's Rotation.</summary>
+	[Space(5f)]
+	[Header("Camera Configurations:")]
+	[SerializeField] private float _deathZoom; 																		/// <summary>Death's Zoom.</summary>
+	[Header("Camera Shaking's Attributes:")]
+	[SerializeField] private FloatRange _damageCameraShakeDuration; 												/// <summary>Camera Shake's Duration when Mateo receives damage.</summary>
+	[SerializeField] private FloatRange _damageCameraShakeSpeed; 													/// <summary>Camera Shake's Speed when Mateo receives damage.</summary>
+	[SerializeField] private FloatRange _damageCameraShakeMagnitude; 												/// <summary>Camera Shake's Magnitude when Mateo receives damage.</summary>
+	[Space(5f)]
+	[Header("Tags:")]
+	[SerializeField] private GameObjectTag _playerTag; 																/// <summary>Player's Tag.</summary>
+	[SerializeField] private GameObjectTag _enemyTag; 																/// <summary>Enemy's Tag.</summary>
+	[SerializeField] private GameObjectTag _playerWeaponTag; 														/// <summary>Player Weapon's Tag.</summary>
+	[SerializeField] private GameObjectTag _enemyWeaponTag; 														/// <summary>Enemy Weapon's Tag.</summary>
+	[SerializeField] private GameObjectTag _playerProjectileTag; 													/// <summary>Player Projectile's Tag.</summary>
+	[SerializeField] private GameObjectTag _enemyProjectileTag; 													/// <summary>Enemy Projectile's Tag.</summary>
+	[SerializeField] private GameObjectTag _explodableTag; 															/// <summary>Explodable 's Tag.</summary>
+	[SerializeField] private GameObjectTag _floorTag; 																/// <summary>Floor surface's Type Tag.</summary>
+	[SerializeField] private GameObjectTag _wallTag; 																/// <summary>Wall surface's Type Tag.</summary>
+	[SerializeField] private GameObjectTag _ceilingTag; 															/// <summary>Ceiling surface's Type Tag.</summary>
+	[SerializeField] private GameObjectTag _outOfBoundsTag; 														/// <summary>Out-Of-Bounds' Tag.</summary>
+	[Space(5f)]
+	[SerializeField] private AnimatorCredential _emptyCredential; 													/// <summary>Empty's Animator Credential.</summary>
+	[Space(5f)]
+	[Header("Layers:")]
+	[SerializeField] private LayerValue _outOfBoundsLayer; 															/// <summary>Out of Bounds's Layer.</summary>
+	[SerializeField] private LayerValue _surfaceLayer; 																/// <summary>Surface's Layer.</summary>
+	[Space(5f)]
+	[Header("Audio:")]
+	[TabGroup("Audio")][SerializeField] private SoundEffectLooper _looper; 											/// <summary>Sound-Effect's Looper Reference.</summary>
+	[HideInInspector] public FloatWrapper _ceilingDotProductThreshold; 												/// <summary>Dot-Product Threshold for the Ceiling.</summary>
+	[HideInInspector] public FloatWrapper _floorDotProductThreshold; 												/// <summary>Dot-Product Threshold for the Floor.</summary>
+	[HideInInspector] public FloatWrapper _ceilingAngleThreshold; 													/// <summary>Angle Threshold for the Ceiling.</summary>
+	[HideInInspector] public FloatWrapper _floorAngleThreshold; 													/// <summary>Angle Threshold for the Floor.</summary>
+	private GameObjectTag[] _allFactionsTags; 																		/// <summary>All Factions' Tags.</summary>
+	private GameObjectTag[] _allWeaponsTags; 																		/// <summary>All Weapons' Tags.</summary>
+	private GameObjectTag[] _allProjectilesTags; 																	/// <summary>All Projectiles' Tags.</summary>
+	private float _idealDeltaTime; 																					/// <summary>Ideal delta time.</summary>
 #if UNITY_EDITOR
-	[HideInInspector] public bool showDotProducts; 												/// <summary>Enable settings for Dot Products' Thresholds? if false, it will show settings for the Angles' Thresholds.</summary>
+	[HideInInspector] public bool showDotProducts; 																	/// <summary>Enable settings for Dot Products' Thresholds? if false, it will show settings for the Angles' Thresholds.</summary>
 #endif
 
 #region Getters:
@@ -145,6 +158,30 @@ public class GameData : ScriptableObject
 
 	/// <summary>Gets trainingGroundScenesNames property.</summary>
 	public string[] trainingGroundScenesNames { get { return _trainingGroundScenesNames; } }
+
+	/// <summary>Gets charactersReferences property.</summary>
+	public VAssetReference[] charactersReferences { get { return _charactersReferences; } }
+
+	/// <summary>Gets projectilesReferences property.</summary>
+	public VAssetReference[] projectilesReferences { get { return _projectilesReferences; } }
+
+	/// <summary>Gets particleEffectsReferences property.</summary>
+	public VAssetReference[] particleEffectsReferences { get { return _particleEffectsReferences; } }
+
+	/// <summary>Gets explodablesReferences property.</summary>
+	public VAssetReference[] explodablesReferences { get { return _explodablesReferences; } }
+
+	/// <summary>Gets poolObjectsReferences property.</summary>
+	public VAssetReference[] poolObjectsReferences { get { return _poolObjectsReferences; } }
+
+	/// <summary>Gets FSMLoopsReferences property.</summary>
+	public VAssetReference[] FSMLoopsReferences { get { return _FSMLoopsReferences; } }
+
+	/// <summary>Gets loopsReferences property.</summary>
+	public VAssetReference[] loopsReferences { get { return _loopsReferences; } }
+
+	/// <summary>Gets soundEffectsReferences property.</summary>
+	public VAssetReference[] soundEffectsReferences { get { return _soundEffectsReferences; } }
 
 	/// <summary>Gets stareAtBackgroundRotation property.</summary>
 	public EulerRotation stareAtBackgroundRotation { get { return _stareAtBackgroundRotation; } }

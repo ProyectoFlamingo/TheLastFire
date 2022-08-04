@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem.UI;
 using Voidless;
+using UnityEngine.SceneManagement;
 
 namespace Flamingo
 {
@@ -17,18 +18,22 @@ public enum GUIState
 
 [RequireComponent(typeof(ScreenFaderGUI))]
 [RequireComponent(typeof(Canvas))]
-public class GameplayGUIController : MonoBehaviour
+public class GameplayGUIController : Singleton<GameplayGUIController>
 {
 	public const int ID_STATE_PAUSED = 0; 								/// <summary>Paused's Event's ID.</summary>
 	public const int ID_STATE_UNPAUSED = 1; 							/// <summary>Un-Paused's Event's ID.</summary>
 
 	public event OnIDEvent onIDEvent; 									/// <summary>OnIDEvent's Delegate.</summary>
 
+	[Space(5f)]
 	[SerializeField] private InputSystemUIInputModule _inputModule; 	/// <summary>Input's Module.</summary>
 	[Space(5f)]
 	[Header("General Settings:")]
 	[SerializeField] private float _scaleUpDuration; 					/// <summary>Scale-Up's Duration.</summary>
 	[SerializeField] private float _scaleDownDuration; 					/// <summary>Scale-Down's Duration.</summary>
+	[Space(5f)]
+	[SerializeField] private GameObject _imageContainerGroup; 			/// <summary>Image-Container's Group.</summary>
+	[SerializeField] private Image _mainImage; 							/// <summary>Main Image.</summary>
 	[Space(5f)]
 	[Header("Pause UI's Attributes:")]
 	[SerializeField] private GameObject _pauseMenuGroup; 				/// <summary>Pause Menu's Group.</summary>
@@ -54,8 +59,14 @@ public class GameplayGUIController : MonoBehaviour
 	/// <summary>Gets scaleDownDuration property.</summary>
 	public float scaleDownDuration { get { return _scaleDownDuration; } }
 
+	/// <summary>Gets imageContainerGroup property.</summary>
+	public GameObject imageContainerGroup { get { return _imageContainerGroup; } }
+
 	/// <summary>Gets pauseMenuGroup property.</summary>
 	public GameObject pauseMenuGroup { get { return _pauseMenuGroup; } }
+
+	/// <summary>Gets mainImage property.</summary>
+	public Image mainImage { get { return _mainImage; } }
 
 	/// <summary>Gets pauseSettingsButton property.</summary>
 	public Button pauseSettingsButton { get { return _pauseSettingsButton; } }
@@ -109,12 +120,20 @@ public class GameplayGUIController : MonoBehaviour
 		state = GUIState.None;
 		pauseMenuGroup.SetActive(false);
 		AddListenersToButtons();
+		SetButtonNames();
 	}
 
 	/// <summary>GameplayGUIController's starting actions before 1st Update frame.</summary>
 	private void Start ()
 	{
 		inputModule.ActivateModule();
+	}
+
+	/// <summary>[TEMPORAL] Sets the names of the buttons.</summary>
+	private void SetButtonNames()
+	{
+		pauseExitButton.GetComponentInChildren<Text>().text = "Reset";
+		pauseSettingsButton.GetComponentInChildren<Text>().text = "Exit";
 	}
 
 	/// <summary>Enables Pause's Menu.</summary>
@@ -129,9 +148,17 @@ public class GameplayGUIController : MonoBehaviour
 		Selectable[] selectables = new Selectable[] { pauseSettingsButton, pauseContinueButton, pauseExitButton };
 
 		EnableElements(false, selectables);
+		imageContainerGroup.SetActive(false);
 		pauseMenuGroup.SetActive(true);
 		ScaleUIElementsInstatly(_enable, buttons);
 		this.StartCoroutine(ScaleUIElements(_enable, VMath.EaseOutBounce, OnPauseTransitionEnds, buttons), ref coroutine);
+	
+		string sceneName = SceneManager.GetActiveScene().name;
+
+		if(sceneName == Game.data.overworldSceneName)
+		{
+			pauseSettingsButton.SetActive(false);	
+		}
 	}
 
 	/// <summary>Invokes OnIDEvent.</summary>
@@ -149,10 +176,23 @@ public class GameplayGUIController : MonoBehaviour
 		pauseExitButton.onClick.AddListener(OnPauseExitSelected);
 	}
 
+	/// <summary>Sets Main Image.</summary>
+	/// <param name="_settings">Image's Settings.</param>
+	public static void SetMainImage(ImageSettings _settings)
+	{
+		Image mainImage = Instance.mainImage;
+		RectTransform rectTransform = mainImage.transform as RectTransform;
+
+		mainImage.sprite = _settings.sprite;
+		mainImage.color = _settings.color;
+		rectTransform.sizeDelta = new Vector2(_settings.width, _settings.height);
+	}
+
 	/// <summary>Callback internally invoked when Settings' Option is selected on the Pause Menu.</summary>
 	private void OnPauseSettingsSelected()
 	{
 		Game.OnPause();
+		Game.LoadScene(Game.data.overworldSceneName);
 		//EnablePauseMenu(false);
 	}
 
@@ -189,6 +229,13 @@ public class GameplayGUIController : MonoBehaviour
 		}
 
 		this.DispatchCoroutine(ref coroutine);
+	}
+
+	/// <summary>Enables Main Image's View.</summary>
+	/// <param name="_enable">Enable? True by default.</param>
+	public static void EnableImageView(bool _enable = true)
+	{
+		Instance.imageContainerGroup.SetActive(_enable);
 	}
 
 	/// <summary>Enables Selectable Elements.</summary>

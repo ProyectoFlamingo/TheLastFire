@@ -115,7 +115,7 @@ public class MovementAbility : MonoBehaviour
 	/// <param name="deltaTime">Delta Time's Value.</param>
 	/// <param name="scale">Additional scalar [1.0f by default].</param>
 	/// <returns>Displacement Vector.</returns>
-	protected virtual Vector2 CalculateDisplacement(Vector2 direction, float deltaTime,float scale = 1.0f)
+	protected virtual Vector2 CalculateDisplacement(Vector2 direction, float deltaTime, float scale = 1.0f)
 	{
 		Vector2 displacement = direction * speed * scale;
 		

@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 62e31d87ab45b0d4c95cfa801a9c2999
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 4aacfa805c1d17942af56a5babf3fd4a
+    m_Address: TheGarden
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 8300000, guid: 4aacfa805c1d17942af56a5babf3fd4a, type: 3}
+    m_TargetAsset: {fileID: 8300000, guid: 4aacfa805c1d17942af56a5babf3fd4a, type: 3}
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 3df256a00caeb714fb16a297e2125e88, type: 2}
   m_SchemaSet:

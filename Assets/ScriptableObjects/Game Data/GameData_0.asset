@@ -16,7 +16,7 @@ MonoBehaviour:
   _hurtTimeScale: 0.5
   _timeScaleAcceleration: 0.1
   _timeScaleDeceleration: 3
-  _firstSceneToLoad: Scene_Boss_Destino
+  _firstSceneToLoad: Scene_Overworld
   _loadingSceneName: Scene_LoadingScreen
   _overworldSceneName: Scene_Overworld
   _destinoSceneName: Scene_Boss_Destino
@@ -27,6 +27,58 @@ MonoBehaviour:
   _rinocircusSceneName: Scene_Boss_Rinocircus
   _moctechzumaSceneName: Scene_Boss_Moctechzuma
   _trainingGroundScenesNames: []
+  _charactersReferences: []
+  _projectilesReferences:
+  - m_AssetGUID: 95723413e0f437d4e93f5798e3121470
+    m_SubObjectName: 
+  - m_AssetGUID: 69bd56b9b3c584c49b741e1ce57113e8
+    m_SubObjectName: 
+  _particleEffectsReferences:
+  - m_AssetGUID: 3826d98c4a0db0040b9d9a400bebf4cd
+    m_SubObjectName: 
+  - m_AssetGUID: 6433f965fe057e648ae27099f89d6355
+    m_SubObjectName: 
+  - m_AssetGUID: 69d01e33ea01aaa40a1768f2d2d84033
+    m_SubObjectName: 
+  - m_AssetGUID: 9804934245098114f96ca2077a77ff0d
+    m_SubObjectName: 
+  - m_AssetGUID: d58ad6a3241988c44b8b47bce25a5c57
+    m_SubObjectName: 
+  - m_AssetGUID: fc78da998a6f1d749bf61a8d687bf399
+    m_SubObjectName: 
+  _explodablesReferences: []
+  _poolObjectsReferences: []
+  _FSMLoopsReferences: []
+  _loopsReferences: []
+  _soundEffectsReferences:
+  - m_AssetGUID: 73b1f4b0d83cce8489acb8b63fd18c9c
+    m_SubObjectName: 
+  - m_AssetGUID: 66b1c41ca5b52a441a1e038bae61e56c
+    m_SubObjectName: 
+  - m_AssetGUID: 106fded88b574644ebbbc785b99df62c
+    m_SubObjectName: 
+  - m_AssetGUID: 9459d45988b092f4e8f7ff3772844093
+    m_SubObjectName: 
+  - m_AssetGUID: be86fa31467f71142886cf246e36f5ec
+    m_SubObjectName: 
+  - m_AssetGUID: 463b840442875874ea3726a83f338b05
+    m_SubObjectName: 
+  - m_AssetGUID: 27fcdba796102484697d5a3e146c9706
+    m_SubObjectName: 
+  - m_AssetGUID: 4493943020c910a4b9498a1920aad559
+    m_SubObjectName: 
+  - m_AssetGUID: 55d9d1113cb8e1142bb98a3c286f2e1d
+    m_SubObjectName: 
+  - m_AssetGUID: bc17fb6fbf1453e45b85772ed32d2740
+    m_SubObjectName: 
+  - m_AssetGUID: ea42c3161f1592a47974c75a08f7b178
+    m_SubObjectName: 
+  - m_AssetGUID: ec63139b037fed54e8fbd7ff097f009b
+    m_SubObjectName: 
+  - m_AssetGUID: 5c7b4c325b27a504ea40504f16a587c2
+    m_SubObjectName: 
+  - m_AssetGUID: 4f11818c1c6db3342ae8bc045dde6fd0
+    m_SubObjectName: 
   _stareAtBackgroundRotation:
     _eulerAngles: {x: 0, y: 0, z: 0}
     _rotation: {x: 0, y: 0, z: 0, w: 1}

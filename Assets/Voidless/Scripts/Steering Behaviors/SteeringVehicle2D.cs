@@ -165,9 +165,10 @@ public class SteeringVehicle2D : VMonoBehaviour
 
 	/// <summary>Applies force to velocity.</summary>
 	/// <param name="force">Force to apply.</param>
-	public void ApplyForce(Vector2 force)
+	/// <returns>Applied Force.</returns>
+	public Vector2 ApplyForce(Vector2 force)
 	{
-		float sqrMagnitude = (maxForce * maxForce);
+		/*float sqrMagnitude = (maxForce * maxForce);
 		
 		if(force.sqrMagnitude > sqrMagnitude)
 		{
@@ -177,7 +178,33 @@ public class SteeringVehicle2D : VMonoBehaviour
 		}
 
 		velocity += force;
-		velocity = Vector2.ClampMagnitude(velocity, maxSpeed);
+		velocity = Vector2.ClampMagnitude(velocity, maxSpeed);*/
+		velocity = ApplyForce(force, ref velocity, maxSpeed, maxForce);
+
+		return velocity;
+	}
+
+	/// <summary>Applies force to velocity.</summary>
+	/// <param name="force">Force to apply.</param>
+	/// <param name="v">Velocity's reference.</param>
+	/// <param name="s">Vehicle's Maximum Speed.</param>
+	/// <param name="f">Vehicle's Maximum Steering Force.</param>
+	/// <returns>Applied Force.</returns>
+	public static Vector2 ApplyForce(Vector2 force, ref Vector2 v, float s, float f)
+	{
+		float sm = (f * f);
+		
+		if(force.sqrMagnitude > sm)
+		{
+			float m = Mathf.Sqrt(sm);
+			//force = Vector2.ClampMagnitude(force, f);
+			force *= (f / m);
+		}
+
+		v += force;
+		v = Vector2.ClampMagnitude(v, s);
+
+		return v;
 	}
 
 	/// <returns>Vehicle's Velocity.</returns>

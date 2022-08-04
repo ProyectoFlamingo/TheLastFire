@@ -304,6 +304,7 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 	/// <summary>Draws Gizmos on Editor mode when MoskarBossAIController's instance is selected.</summary>
 	protected override void OnDrawGizmosSelected()
 	{
+#if UNITY_EDITOR
 		base.OnDrawGizmosSelected();
 
 		Gizmos.DrawWireSphere(initialPosition, 0.5f);
@@ -323,6 +324,7 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 
 		Gizmos.color = leaderColor.WithAlpha(0.5f);
 		Gizmos.DrawSphere(leader.transform.position, leaderSphereRadius);
+#endif
 	}
 
 	/// <summary>MoskarBossAIController's instance initialization.</summary>
@@ -367,6 +369,12 @@ public class MoskarBossAIController : CharacterAIController<MoskarBoss>
 		base.FixedUpdate();
 		//FlockBehavior();
 		ContainReproductionsOnScenario();
+	}
+
+	/// <summary>Callback invoked when MoskarBossAIController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		if(Game.mateo != null) Game.mateo.eventsHandler.onIDEvent -= OnMateoIDEvent;
 	}
 #endregion
 

@@ -541,7 +541,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 					trumpetSpawnPoint.y,
 					0.0f
 				);
-				trumpet.transform.position += (Vector3)(trumpet.vehicle.GetSeekForce(projectedMateoPosition)) * Time.deltaTime * scalar;
+				Vector3 seekForce = (Vector3)(trumpet.vehicle.GetSeekForce(projectedMateoPosition));
+				seekForce = trumpet.vehicle.ApplyForce(seekForce);
+				trumpet.transform.position += seekForce * Time.deltaTime * scalar;
 			}
 			yield return null;
 		}
@@ -590,7 +592,9 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 					Mathf.Max(Game.mateo.transform.position.y, cymbalsYOffset),
 					0.0f
 				);
-				cymbals.transform.position += (Vector3)(cymbals.vehicle.GetSeekForce(projectedMateoPosition)) * Time.deltaTime * scalar;
+				Vector3 seekForce = (Vector3)(cymbals.vehicle.GetSeekForce(projectedMateoPosition));
+				seekForce = cymbals.vehicle.ApplyForce(seekForce);
+				cymbals.transform.position += seekForce * Time.deltaTime * scalar;
 			}
 			yield return null;
 		}
@@ -624,7 +628,10 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 				mateoPosition.x = f(mateoPosition.x + (drumstickLength * sign), 0.0f);
 				mateoPosition.y = _spawnPosition.y;
 
-				_drumstick.transform.position += (Vector3)(_drumstick.vehicle.GetSeekForce(mateoPosition)) * Time.deltaTime * steeringScalar;
+				Vector3 seekForce = (Vector3)(_drumstick.vehicle.GetSeekForce(mateoPosition));
+				seekForce = _drumstick.vehicle.ApplyForce(seekForce);
+
+				_drumstick.transform.position += seekForce * Time.deltaTime * steeringScalar;
 			}
 
 			yield return null;
@@ -661,7 +668,13 @@ public class StrengthBehavior : DestinoScriptableCoroutine
 		boss.transform.position = pair.b;
 		boss.animatorController.PlayAndWait(animationCredential, 0, Mathf.NegativeInfinity, 0.0f, onPlayFinished);
 
-		while(!playFinished) yield return null;
+		/// \TODO SOLVE...
+		/*while(!playFinished)
+		{
+			Debug.Log("[StrengthBehavior] Play Not Finished...");
+			yield return null;
+		}*/
+		while(wait.MoveNext()) yield return null;
 
 		t = 0.0f;
 		inverseDuration = 1.0f / exitLerpDuration;

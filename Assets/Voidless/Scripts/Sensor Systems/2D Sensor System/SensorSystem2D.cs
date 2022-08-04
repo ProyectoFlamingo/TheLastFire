@@ -105,6 +105,20 @@ public class SensorSystem2D : SerializedMonoBehaviour
 	public bool GetSubsystemDetection(int _subsystemIndex, out RaycastHit2D _hit)
 	{
 		_hit = default(RaycastHit2D);
+		Vector2 sensorOrigin = Vector2.zero;
+
+		return GetSubsystemDetection(_subsystemIndex, out _hit, out sensorOrigin);
+	}
+
+	/// <summary>Evaluates if the sensor subsystem detects a hit.</summary>
+	/// <param name="_subsystemIndex">Subsystem's Index.</param>
+	/// <param name="_hit">Hit information passed by reference.</param>
+	/// <param name="_sensorOrigin">Sensor Origin's passed by reference.</param>
+	/// <returns>True if hit with something, false otherwise.</returns>
+	public bool GetSubsystemDetection(int _subsystemIndex, out RaycastHit2D _hit, out Vector2 _sensorOrigin)
+	{
+		_hit = default(RaycastHit2D);
+		_sensorOrigin = Vector2.zero;
 
 		if(!subsystems.CheckIfIndexBetweenBounds(_subsystemIndex))
 		{
@@ -117,6 +131,7 @@ public class SensorSystem2D : SerializedMonoBehaviour
 		foreach(SensorData2D sensorData in subsystem)
 		{
 			Ray2D ray = ConvertToRay2D(subsystem, sensorData);
+			_sensorOrigin = ray.origin;
 
 			switch(sensorData.sensorType)
 			{

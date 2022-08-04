@@ -41,6 +41,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 	private Dictionary<VAssetReference, FiniteStateAudioClip> _FSMLoopsMap; 										/// <summary>FSM Loops' Mapping.</summary>
 	private Dictionary<VAssetReference, AudioClip> _loopsMap; 														/// <summary>Loops' Mapping.</summary>
 	private Dictionary<VAssetReference, AudioClip> _soundEffectsMap; 												/// <summary>Sound-Effects' Map.</summary>
+	private bool _loaded; 																							/// <summary>Are all resources loaded?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets charactersReferences property.</summary>
@@ -90,19 +91,39 @@ public class ResourcesManager : Singleton<ResourcesManager>
 
 	/// <summary>Gets soundEffectsMap property.</summary>
 	public Dictionary<VAssetReference, AudioClip> soundEffectsMap { get { return _soundEffectsMap; } }
+
+	/// <summary>Gets and Sets loaded property.</summary>
+	public static bool loaded
+	{
+		get { return Instance._loaded; }
+		private set { Instance._loaded = value; }
+	}
 #endregion
 
 	/// <summary>ResourcesManager's instance initialization when loaded [Before scene loads].</summary>
 	protected override void OnAwake()
 	{
-		base.OnAwake();
+#if !UNITY_EDITOR
+		PlayerPrefs.DeleteKey(Addressables.kAddressablesRuntimeDataPath);
+#endif
 
+		base.OnAwake();
+		loaded = false;
 		Addressables.Initialize();
 		Addressables.InitializeAsync().Completed += (result)=>
 		{
 			//Debug.Log("[ResourcesManager] Result: " + result.ToString());
 			InitializeResourcesMappings();
 		};
+		/*this.StartCoroutine(this.WaitSeconds(1.5f, ()=>
+		{
+			Addressables.InitializeAsync().Completed += (result)=>
+			{
+				//Debug.Log("[ResourcesManager] Result: " + result.ToString());
+				InitializeResourcesMappings();
+			};
+		}
+		));*/
 	}
 
 	/// <summary>Callback invoked when ResourcesManager's instance is going to be destroyed and passed to the Garbage Collector.</summary>
@@ -125,6 +146,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 			if(processes == totalProcesses)
 			{
 				Debug.Log(ToString());
+				loaded = true;
 				if(onResourcesLoaded != null) onResourcesLoaded();
 #if UNITY_EDITOR
 				if(test) Test();
@@ -132,27 +154,27 @@ public class ResourcesManager : Singleton<ResourcesManager>
 			}
 		};
 
-		VAddressables.LoadComponentMapping<VAssetReference, Character>(charactersReferences, (map)=> { _charactersMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<VAssetReference, Projectile>(projectilesReferences, (map)=> { _projectilesMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<VAssetReference, ParticleEffect>(particleEffectsReferences, (map)=> { _particleEffectsMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<VAssetReference, PoolGameObject>(poolObjectsReferences, (map)=> { _poolObjectsMap = map; onProcessEnds(); });
-		VAddressables.LoadComponentMapping<VAssetReference, Explodable>(explodablesReferences, (map)=> { _explodablesMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<VAssetReference, FiniteStateAudioClip>(FSMLoopsReferences, (map)=> { _FSMLoopsMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(loopsReferences, (map)=> { _loopsMap = map; onProcessEnds(); });
-		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(soundEffectsReferences, (map)=> { _soundEffectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Character>(ReferencesUnion(charactersReferences, Game.data.charactersReferences), (map)=> { _charactersMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Projectile>(ReferencesUnion(projectilesReferences, Game.data.projectilesReferences), (map)=> { _projectilesMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, ParticleEffect>(ReferencesUnion(particleEffectsReferences, Game.data.particleEffectsReferences), (map)=> { _particleEffectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, PoolGameObject>(ReferencesUnion(poolObjectsReferences, Game.data.poolObjectsReferences), (map)=> { _poolObjectsMap = map; onProcessEnds(); });
+		VAddressables.LoadComponentMapping<VAssetReference, Explodable>(ReferencesUnion(explodablesReferences, Game.data.explodablesReferences), (map)=> { _explodablesMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, FiniteStateAudioClip>(ReferencesUnion(FSMLoopsReferences, Game.data.FSMLoopsReferences), (map)=> { _FSMLoopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(ReferencesUnion(loopsReferences, Game.data.loopsReferences), (map)=> { _loopsMap = map; onProcessEnds(); });
+		VAddressables.LoadAssetMapping<VAssetReference, AudioClip>(ReferencesUnion(soundEffectsReferences, Game.data.soundEffectsReferences), (map)=> { _soundEffectsMap = map; onProcessEnds(); });
 	}
 
 	/// <summary>Releases Memory.</summary>
 	private void ReleaseMemory()
 	{
-		charactersMap.Values.ReleaseComponents();
-		projectilesMap.Values.ReleaseComponents();
-		particleEffectsMap.Values.ReleaseComponents();
-		explodablesMap.Values.ReleaseComponents();
-		poolObjectsMap.Values.ReleaseComponents();
-		FSMLoopsMap.Values.ReleaseObjects();
-		loopsMap.Values.ReleaseObjects();
-		soundEffectsMap.Values.ReleaseObjects();
+		if(charactersMap != null) charactersMap.Values.ReleaseComponents();
+		if(projectilesMap != null) projectilesMap.Values.ReleaseComponents();
+		if(particleEffectsMap != null) particleEffectsMap.Values.ReleaseComponents();
+		if(explodablesMap != null) explodablesMap.Values.ReleaseComponents();
+		if(poolObjectsMap != null) poolObjectsMap.Values.ReleaseComponents();
+		if(FSMLoopsMap != null) FSMLoopsMap.Values.ReleaseObjects();
+		if(loopsMap != null) loopsMap.Values.ReleaseObjects();
+		if(soundEffectsMap != null) soundEffectsMap.Values.ReleaseObjects();
 	}
 
 #region Getters:
@@ -316,6 +338,27 @@ public class ResourcesManager : Singleton<ResourcesManager>
 				Debug.Log(reference.ToString() + ": " + info.PropertyInfoToString());
 			}*/
 		}
+	}
+
+	/// <summary>Makes a union of Reference List A with Reference List B.</summary>
+	/// <param name="a">Reference Array A.</param>
+	/// <param name="b">Reference Array B.</param>
+	/// <returns>Union of Arrays.</returns>
+	private VAssetReference[] ReferencesUnion(VAssetReference[] a, VAssetReference[] b)
+	{
+		if(b == null || b.Length == 0) return a;
+
+		List<VAssetReference> list = new List<VAssetReference>(a);
+		HashSet<VAssetReference> referenceSet = new HashSet<VAssetReference>(a);
+
+		foreach(VAssetReference reference in b)
+		{
+			if(!referenceSet.Contains(reference)) list.Add(reference);
+		}
+
+		Debug.Log("[ResourcesManager] Collection A: " + a.CollectionToString() + ". Collection B: " + b.CollectionToString() + ". Union: " + list.CollectionToString());
+
+		return list.ToArray();
 	}
 
 	/// <summary>Tests all Resources.</summary>

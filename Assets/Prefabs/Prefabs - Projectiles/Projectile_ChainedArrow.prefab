@@ -166,7 +166,6 @@ MonoBehaviour:
     index: 9
   _trailRenderers: []
   _particleEffects: []
-  effect: {fileID: 0}
   _projectileType: 0
   _repelTags:
   - _tag: Weapon/Player
@@ -178,44 +177,38 @@ MonoBehaviour:
   _rotateTowardsDirection: 1
   _maxSteeringForce: 15
   _distance: 0.1
+  _spawnParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
   _impactParticleEffectReference:
     m_AssetGUID: b0cb4c298481cae4998c70e6faa9ad4a
     m_SubObjectName: 
   _destroyedParticleEffectReference:
     m_AssetGUID: b0cb4c298481cae4998c70e6faa9ad4a
     m_SubObjectName: 
-  _impactParticleEffectIndex: 11
-  _destroyedParticleEffectIndex: 11
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 64
-  _destroyedSoundEffectIndex: 65
   _impactSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 053d0aaa5ee56e3469f1cf8d67c4654f
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
   _destroyedSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 2543449ca4d611a4fb03ee2f2e7a616a
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 26cecc7bbe0c14a40becd1a0f8caf62c
       m_SubObjectName: 
-    soundIndex: 63
     volume: 0.25
   _repelSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 053d0aaa5ee56e3469f1cf8d67c4654f
       m_SubObjectName: 
-    soundIndex: 64
     volume: 0.5
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _incrustTolerance: 0
@@ -229,7 +222,6 @@ MonoBehaviour:
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 65
     volume: 1
 --- !u!114 &-2791383928529050341
 MonoBehaviour:
@@ -581,10 +573,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 1
   _subID: 0
-  _particleEffectsMatrix:
-  - ID: 0
-    index: 11
-  _soundEffectsMatrix:
-  - ID: 0
-    index: 64
-  _eventsHandler: {fileID: 0}

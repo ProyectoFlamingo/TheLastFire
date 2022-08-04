@@ -560,11 +560,13 @@ public class Mateo : Character
 		float scale = (jumpAbility.HasStates(JumpAbility.STATE_ID_JUMPING) ? jumpingMovementScale : 1.0f) * _scale;
 
 		//transform.rotation = Quaternion.Euler(0.0f, _axes.x < 0.0f ? 180.0f : 0.0f, 0.0f);
-		if(!this.HasStates(IDs.STATE_MEDITATING)) movementAbility.Move(slopeEvaluator.normalAdjuster.right.normalized * _axes.magnitude, scale, Space.World);
-		slopeEvaluator.normalAdjuster.forward = _axes.x > 0.0f ? Vector3.forward : Vector3.back;
-		orientation = _axes.x > 0.0f ? Vector3.right : Vector3.left;
+		Vector2 movement = slopeEvaluator.GetOrientation(_axes);
 
-		//if(jumpAbility.grounded) GoToLocomotionAnimation();
+		if(!this.HasStates(IDs.STATE_MEDITATING))
+		{
+			movementAbility.Move(movement * _axes.magnitude, scale, Space.World);
+		}
+		orientation = slopeEvaluator.normalAdjuster.right.x > 0.0f ? Vector2.right : Vector2.left;
 	}
 
 	/// \TODO DEPRECATE. Now it is made on a callback...
@@ -913,11 +915,13 @@ public class Mateo : Character
 	public void Jump(Vector2 _axes)
 	{
 		/* Jump if:
+			- Not on ground, but also not on an additional jump window
 			- Not meditating or hurt.
 			- Alive.
 			- Grounded, but not attacking.
 		*/
-		if(this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_STANDINGUP)
+		if(/*!jumpAbility.grounded && jumpAbility.currentJumpIndex <= 0
+		|| */this.HasAnyOfTheStates(IDs.STATE_HURT | IDs.STATE_STANDINGUP)
 		|| !this.HasStates(IDs.STATE_ALIVE)
 		|| (jumpAbility.grounded && this.HasStates(IDs.STATE_ATTACKING_0))) return;
 
@@ -1310,5 +1314,18 @@ public class Mateo : Character
 		}
 	}
 #endregion
+
+	/// <returns>String representing enemy's stats.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.Append(base.ToString());
+		builder.AppendLine(jumpAbility.gravityApplier.ToString());
+		builder.AppendLine(jumpAbility.ToString());
+		builder.AppendLine(slopeEvaluator.ToString());
+
+		return builder.ToString();
+	}
 }
 }

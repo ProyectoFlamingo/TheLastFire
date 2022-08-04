@@ -193,6 +193,34 @@ public static class VString
 		return _object.GetType().Name;
 	}
 
+	/// <summary>Gets Named Bit Chain from Integer.</summary>
+	/// <param name="x">Byte to get Bit Chain from.</param>
+	/// <param name="names">Names of each Bit Chain's Flag.</param>
+	/// <returns>String representing Bit Chain.</returns>
+	public static string GetNamedBitChain(int x, params string[] names)
+	{
+		StringBuilder builder = new StringBuilder();
+		int l = names == null ? -1 : names.Length;
+
+		builder.Append("{ ");
+
+		for(int i = 0; i < l; i++)
+		{
+			int f = 1 << i;
+			string name = i < l ? names[i] : i.ToString();
+
+			if((x | f) == x)
+			{
+				builder.Append(name);
+				if(i < l - 1) builder.Append(", ");
+			}
+		}
+
+		builder.Append(" }");
+
+		return builder.ToString();
+	}
+
 	/// <summary>Gets Bit Chain from Integer.</summary>
 	/// <param name="x">Byte to get Bit Chain from.</param>
 	/// <returns>String representing Bit Chain.</returns>
@@ -287,8 +315,11 @@ public static class VString
 	/// <returns>String representing each item of given Collection.</returns>
 	public static string CollectionToString<T>(this ICollection<T> _collection)
 	{
+		if(_collection == null || _collection.Count == 0) return "[EMPTY COLLECTION]";
+
 		StringBuilder builder = new StringBuilder();
 		IEnumerator<T> iterator = _collection.GetEnumerator();
+		int i = 0;
 		
 		builder.Append("Collection<");
 		builder.Append(typeof(T).ToString());
@@ -296,8 +327,12 @@ public static class VString
 
 		while(iterator.MoveNext())
 		{
-			builder.Append("\n");
+			builder.AppendLine();
+			builder.Append("Element #");
+			builder.Append(i.ToString());
+			builder.Append(": ");
 			builder.Append(iterator.Current.ToString());
+			i++;
 		}
 
 		return builder.ToString();
@@ -308,6 +343,8 @@ public static class VString
 	/// <returns>String representing HashSet.</returns>
 	public static string HashSetToString<T>(this HashSet<T> _hashSet)
 	{
+		if(_hashSet == null || _hashSet.Count == 0) return "[EMPTY HASHSET]";
+
 		StringBuilder builder = new StringBuilder();
 		int index = 0;
 
@@ -332,6 +369,8 @@ public static class VString
 	/// <returns>String representing Dictionary.</returns>
 	public static string DictionaryToString<K, V>(this Dictionary<K, V> _dictionary)
 	{
+		if(_dictionary == null || _dictionary.Count == 0) return "[EMPTY DICTIONARY]";
+
 		StringBuilder builder = new StringBuilder();
 		int index = 0;
 

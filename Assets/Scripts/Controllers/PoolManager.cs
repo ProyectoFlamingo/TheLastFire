@@ -114,11 +114,11 @@ public class PoolManager : Singleton<PoolManager>
 		try
 		{
 			if(!Instance.charactersPoolsMap.TryGetValue(_reference, out pool))
-			ShowErrorWindow(_reference, "Character");
+			Game.ShowErrorWindow(_reference, "Character");
 		}
 		catch(Exception e)
 		{
-			ShowErrorWindow(_reference, "Character", e.Message);
+			Game.ShowErrorWindow(_reference, "Character", e.Message);
 			return null;
 		}
 
@@ -141,11 +141,11 @@ public class PoolManager : Singleton<PoolManager>
 		try
 		{
 			if(!Instance.projectilesPoolsMap.TryGetValue(_reference, out pool))
-			ShowErrorWindow(_reference, "Projectile");
+			Game.ShowErrorWindow(_reference, "Projectile");
 		}
 		catch(Exception e)
 		{
-			ShowErrorWindow(_reference, "Projectile", e.Message);
+			Game.ShowErrorWindow(_reference, "Projectile", e.Message);
 			return null;
 		}
 
@@ -237,11 +237,11 @@ public class PoolManager : Singleton<PoolManager>
 		try
 		{
 			if(!Instance.gameObjectsPoolsMap.TryGetValue(_reference, out pool))
-			ShowErrorWindow(_reference, "Pool Object");
+			Game.ShowErrorWindow(_reference, "Pool Object");
 		}
 		catch(Exception e)
 		{
-			ShowErrorWindow(_reference, "Pool Object", e.Message);
+			Game.ShowErrorWindow(_reference, "Pool Object", e.Message);
 			return null;
 		}
 
@@ -263,11 +263,11 @@ public class PoolManager : Singleton<PoolManager>
 		try
 		{
 			if(!Instance.particleEffectsPoolsMap.TryGetValue(_reference, out pool))
-			ShowErrorWindow(_reference, "Particle-Effect");
+			Game.ShowErrorWindow(_reference, "Particle-Effect");
 		}
 		catch(Exception e)
 		{
-			ShowErrorWindow(_reference, "Particle-Effect", e.Message);
+			Game.ShowErrorWindow(_reference, "Particle-Effect", e.Message);
 			return null;
 		}
 
@@ -290,11 +290,11 @@ public class PoolManager : Singleton<PoolManager>
 		try
 		{
 			if(!Instance.explodablesPoolsMap.TryGetValue(_reference, out pool))
-			ShowErrorWindow(_reference, "Explodable");
+			Game.ShowErrorWindow(_reference, "Explodable");
 		}
 		catch(Exception e)
 		{
-			ShowErrorWindow(_reference, "Explodable", e.Message);
+			Game.ShowErrorWindow(_reference, "Explodable", e.Message);
 			return null;
 		}
 
@@ -320,42 +320,6 @@ public class PoolManager : Singleton<PoolManager>
 		builder.AppendLine(charactersPoolsMap.DictionaryToString());
 
 		return builder.ToString();
-	}
-
-	/// <summary>Shows an error window when an AssetReference is not assigned into a ResourcesManager's mapping [Editor only].</summary>
-	/// <param name="_referece">Reference that wasn't assigned into mapping.</param>
-	/// <param name="_objectType">Type of Pool-Object.</param>
-	/// <param name="_additionalMessage">Optional Additional Error Message [empty by default].</param>
-	private static async void ShowErrorWindow(VAssetReference _reference, string _objectType, string _additionalErrorMessage = "")
-	{
-#if UNITY_EDITOR
-		try
-		{
-			UnityEngine.Object obj = await VAddressables.LoadAssetAsync<UnityEngine.Object>(_reference);
-			
-			StringBuilder titleBuilder = new StringBuilder();
-			StringBuilder messageBuilder = new StringBuilder();
-
-			titleBuilder.Append("Error: ");
-			titleBuilder.Append(_objectType);
-			titleBuilder.Append("'s VAssetReference not added into ResourcesManager's Mapping!");
-
-			messageBuilder.Append("Make sure to add ");
-			messageBuilder.Append(obj.name);
-			messageBuilder.Append(" into ResourcesManager ");
-			messageBuilder.Append(_objectType);
-			messageBuilder.Append("'s Mapping.");
-
-			if(!string.IsNullOrEmpty(_additionalErrorMessage))
-			{
-				messageBuilder.Append(" Additional Error Message: ");
-				messageBuilder.Append(_additionalErrorMessage);
-			}
-
-			VDebug.DisplayDialog(titleBuilder.ToString(), messageBuilder.ToString(), "Okay...");
-		}
-		catch(Exception e) { Debug.LogException(e); }
-#endif
 	}
 
 	/// <summary>Debugs Pools.</summary>

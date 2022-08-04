@@ -297,5 +297,11 @@ public static class VExtensionMethods
 			default: return Time.deltaTime;
 		}
 	}
+
+	/// <returns>All GameObjects on Scene.</returns>
+	public static GameObject[] GetAllGameObjectsInScene()
+	{
+		return UnityEngine.Object.FindObjectsOfType<GameObject>();
+	}
 }
 }

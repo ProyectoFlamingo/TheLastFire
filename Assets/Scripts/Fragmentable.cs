@@ -124,6 +124,12 @@ public class Fragmentable : PoolGameObject
 		particleEffect.DrawGizmos();
 	}
 
+	/// <summary>Callback invoked when Fragmentable's instance is enabled.</summary>
+	private void OnEnable()
+	{
+		//Defragmentate();
+	}
+
 	/// <summary>Callback invoked when Fragmentable's instance is disabled.</summary>
 	private void OnDisable()
 	{
@@ -155,7 +161,7 @@ public class Fragmentable : PoolGameObject
 			pieces[i].ID = i;
 		}
 
-		fragmented = true;
+		fragmented = false;
 	}
 
 	/// <summary>Fragmentates Pieces.</summary>
@@ -250,9 +256,14 @@ public class Fragmentable : PoolGameObject
 	/// <summary>Actions made when this Pool Object is being reseted.</summary>
 	public override void OnObjectReset()
 	{
-		Defragmentate();
 		base.OnObjectReset();
+		Defragmentate();
 		impactHandler.ActivateHitBoxes(true);
+
+		foreach(HitCollider2D piece in pieces)
+		{
+			piece.gameObject.SetActive(true);
+		}
 	}
 
 	/// <summary>Fragments pieces for some time.</summary>

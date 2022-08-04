@@ -49,6 +49,9 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	[TabGroup("Show Group", "Dance Show")][SerializeField] private RingMadnessMiniGame[] _stage3RingMadnessMiniGames; 			/// <summary>Available Ring-Madness' Mini-Games for Stage 3.</summary>
 	[Space(5f)]
 	[Header("Loops:")]
+	[TabGroup("Audio")][SerializeField] private AudioLoopData _fireShowPieceLoop; 												/// <summary>Fire Show's Piece's Soun-Effect's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioLoopData _swordShowPieceLoop; 												/// <summary>Sword Show's Piece's Soun-Effect's Data.</summary>
+	[TabGroup("Audio")][SerializeField] private AudioLoopData _danceShowPieceLoop; 												/// <summary>Dance Show's Piece's Soun-Effect's Data.</summary>
 	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _fireShowPieceSoundEffect; 								/// <summary>Fire Show's Piece's Soun-Effect's Data.</summary>
 	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _swordShowPieceSoundEffect; 							/// <summary>Sword Show's Piece's Soun-Effect's Data.</summary>
 	[TabGroup("Audio")][SerializeField] private SoundEffectEmissionData _danceShowPieceSoundEffect; 							/// <summary>Dance Show's Piece's Soun-Effect's Data.</summary>
@@ -92,6 +95,15 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 	/// <summary>Gets stage3RingMadnessMiniGames property.</summary>
 	public RingMadnessMiniGame[] stage3RingMadnessMiniGames { get { return _stage3RingMadnessMiniGames; } }
+
+	/// <summary>Gets fireShowPieceLoop property.</summary>
+	public AudioLoopData fireShowPieceLoop { get { return _fireShowPieceLoop; } }
+
+	/// <summary>Gets swordShowPieceLoop property.</summary>
+	public AudioLoopData swordShowPieceLoop { get { return _swordShowPieceLoop; } }
+
+	/// <summary>Gets danceShowPieceLoop property.</summary>
+	public AudioLoopData danceShowPieceLoop { get { return _danceShowPieceLoop; } }
 
 	/// <summary>Gets fireShowPieceSoundEffect property.</summary>
 	public SoundEffectEmissionData fireShowPieceSoundEffect { get { return _fireShowPieceSoundEffect; } }
@@ -343,7 +355,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
-		clip = fireShowPieceSoundEffect.Play();
+		clip = fireShowPieceLoop.Play();
 		miniGame.timeLimit = clip.length * fireShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnBreakTheTargetsMiniGameEvent);
 
@@ -404,7 +416,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 
 		while(signDisplacement.MoveNext()) yield return null;
 
-		clip = swordShowPieceSoundEffect.Play();
+		clip = swordShowPieceLoop.Play();
 		wait.ChangeDurationAndReset(clip.length * swordShowPieceDurationPercentage);
 
 		/// While the Sword-Show's Piece Keeps Playing Keep Throwing Targets...
@@ -501,7 +513,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 			break;
 		}
 
-		clip = danceShowPieceSoundEffect.Play();
+		clip = danceShowPieceLoop.Play();
 		miniGame.timeLimit = clip.length * danceShowPieceDurationPercentage;
 		miniGame.Initialize(this, OnRingMadnessMiniGameEvent);
 

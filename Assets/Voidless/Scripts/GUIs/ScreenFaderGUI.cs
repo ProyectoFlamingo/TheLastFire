@@ -110,6 +110,11 @@ public class ScreenFaderGUI : BaseGUI<Fade>
 	/// <param name="onFadeEnds">Optional callback invoked when the fade-in effect ends. Null by default.</param>
 	public void FadeIn(Color _color, float _duration, Action onFadeEnds = null)
 	{
+		if(_duration <= 0.0f)
+		{
+			screen.color = _color;
+			return;
+		}
 		this.StartCoroutine(FadeInRoutine(_color, _duration, onFadeEnds));
 	}
 
@@ -126,6 +131,11 @@ public class ScreenFaderGUI : BaseGUI<Fade>
 	/// <param name="onFadeEnds">Optional callback invoked when the fade-in effect ends. Null by default.</param>
 	public void FadeOut(Color _color, float _duration, Action onFadeEnds = null)
 	{
+		if(_duration <= 0.0f)
+		{
+			screen.color = _color;
+			return;
+		}
 		this.StartCoroutine(FadeOutRoutine(_color, _duration, onFadeEnds));
 	}
 

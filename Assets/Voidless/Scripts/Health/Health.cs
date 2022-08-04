@@ -118,10 +118,10 @@ public class Health : MonoBehaviour, IStateMachine
     }
 
     /// <summary>Gets onInvincibility property.</summary>
-    public bool onInvincibility { get { return invincibilityCooldown.onCooldown; } }
+    public bool onInvincibility { get { return invincibilityCooldown != null ? invincibilityCooldown.onCooldown : false; } }
 
     /// <summary>Gets onHitStun property.</summary>
-    public bool onHitStun { get { return hitStunCooldown.onCooldown; } }
+    public bool onHitStun { get { return hitStunCooldown != null ? hitStunCooldown.onCooldown : false; } }
 #endregion
 
     /// <summary>Resets Health's instance to its default values.</summary>
@@ -261,19 +261,21 @@ public class Health : MonoBehaviour, IStateMachine
     {
         StringBuilder builder = new StringBuilder();
 
-        builder.AppendLine("Health:");
-        builder.Append("Current HP: ");
+        builder.AppendLine("Health: \n{");
+        builder.Append("\tCurrent HP: ");
         builder.AppendLine(hp.ToString());
-        builder.Append("Max HP: ");
+        builder.Append("\tMax HP: ");
         builder.AppendLine(maxHP.ToString());
 
         if(Application.isPlaying)
         {
-            builder.Append("On Hit-Stun: ");
+            builder.Append("\tOn Hit-Stun: ");
             builder.AppendLine(onHitStun.ToString());
-            builder.Append("On Invincibility: ");
+            builder.Append("\tOn Invincibility: ");
             builder.AppendLine(onInvincibility.ToString());
         }
+
+        builder.Append("}");
 
         return builder.ToString();
     }

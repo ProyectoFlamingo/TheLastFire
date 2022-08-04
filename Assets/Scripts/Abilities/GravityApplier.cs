@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,21 +26,25 @@ public delegate void OnBoolStateChange(bool _grounded);
 [RequireComponent(typeof(SensorSystem2D))]
 public class GravityApplier : MonoBehaviour
 {
-	public event OnBoolStateChange onGroundedStateChange; 				/// <summary>OnBoolStateChange's event delegate.</summary>
+	public event OnBoolStateChange onGroundedStateChange; 						/// <summary>OnBoolStateChange's event delegate.</summary>
 
-	[SerializeField] private Vector2 _gravity; 								/// <summary>Gravity's Vector.</summary>
-	[SerializeField] private int _groundSensorID; 							/// <summary>Ground Sensor's ID.</summary>
-	[SerializeField] private float _scale; 									/// <summary>Additional Gravity's Scale.</summary>
-	[SerializeField] private int _scaleChangePriority; 						/// <summary>Scale Change's Priority.</summary>
-	[SerializeField] private bool _useGravity; 								/// <summary>Use Gravity? true by default.</summary>
-	private Rigidbody2D _rigidbody; 										/// <summary>Rigidbody2D's Component.</summary>
-	private DisplacementAccumulator2D _accumulator; 						/// <summary>displacementAccumulator's Component.</summary>
-	private SensorSystem2D _sensorSystem; 									/// <summary>SensorSystem's Component.</summary>
-	private Vector2 _velocity; 												/// <summary>Gravity's Velocity.</summary>
-	private float _bestScale; 												/// <summary>Best Gravity's Scalar.</summary>
-	private bool _grounded; 												/// <summary>Current Grounded's State.</summary>
-	private bool _previousGrounded; 										/// <summary>Previous' Grounded State.</summary>
+	[SerializeField] private Vector2 _gravity; 									/// <summary>Gravity's Vector.</summary>
+	[SerializeField] private int _groundSensorID; 								/// <summary>Ground Sensor's ID.</summary>
+	[SerializeField] private float _maxMagnitude; 								/// <summary>Max's Magnitude.</summary>
+	[SerializeField] private float _scale; 										/// <summary>Additional Gravity's Scale.</summary>
+	[SerializeField] private int _scaleChangePriority; 							/// <summary>Scale Change's Priority.</summary>
+	[SerializeField] private bool _useGravity; 									/// <summary>Use Gravity? true by default.</summary>
+	private Rigidbody2D _rigidbody; 											/// <summary>Rigidbody2D's Component.</summary>
+	private DisplacementAccumulator2D _accumulator; 							/// <summary>displacementAccumulator's Component.</summary>
+	private SensorSystem2D _sensorSystem; 										/// <summary>SensorSystem's Component.</summary>
+	private Vector2 _velocity; 													/// <summary>Gravity's Velocity.</summary>
+	private float _bestScale; 													/// <summary>Best Gravity's Scalar.</summary>
+	private bool _grounded; 													/// <summary>Current Grounded's State.</summary>
+	private bool _previousGrounded; 											/// <summary>Previous' Grounded State.</summary>
 	private Dictionary<int, VTuple<FloatWrapper, int>> _scaleChangeRequests; 	/// <summary>HashSet that registers all scale change requests.</summary>
+#if UNITY_EDITOR
+	private SurfaceType groundSensorSurfaceType; 								/// <summary>Surface Type detected on the Ground Sensor.</summary>		
+#endif
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets gravity property.</summary>
@@ -61,6 +66,13 @@ public class GravityApplier : MonoBehaviour
 	{
 		get { return _groundSensorID; }
 		set { _groundSensorID = value; }
+	}
+
+	/// <summary>Gets and Sets maxMagnitude property.</summary>
+	public float maxMagnitude
+	{
+		get { return _maxMagnitude; }
+		set { _maxMagnitude = value; }
 	}
 
 	/// <summary>Gets and Sets scale property.</summary>
@@ -156,13 +168,27 @@ public class GravityApplier : MonoBehaviour
 	private void Update()
 	{
 		RaycastHit2D hitInfo = default(RaycastHit2D);
+		Vector2 sensorOrigin = Vector2.zero;
 
-		if(sensorSystem.GetSubsystemDetection(groundSensorID, out hitInfo))
+		if(sensorSystem.GetSubsystemDetection(groundSensorID, out hitInfo, out sensorOrigin))
 		{
-			SurfaceType surfaceType = Game.EvaluateSurfaceType(hitInfo.normal);
-			grounded = surfaceType == SurfaceType.Floor;
+			if(hitInfo.collider.PointInside(sensorOrigin) && !previousGrounded)
+			{
+				grounded = false;
+			}
+			else
+			{
+				SurfaceType surfaceType = Game.EvaluateSurfaceType(hitInfo.normal);
+				grounded = surfaceType == SurfaceType.Floor;
+			}
 		}
-		else grounded = false;
+		else
+		{
+			grounded = false;
+#if UNITY_EDITOR
+			groundSensorSurfaceType = SurfaceType.Undefined;
+#endif
+		}
 
 		if(grounded != previousGrounded && onGroundedStateChange != null)
 		onGroundedStateChange(grounded);
@@ -177,6 +203,7 @@ public class GravityApplier : MonoBehaviour
 		if(useGravity)
 		{
 			velocity += bestScale != 0.0f ? (gravity * bestScale * Time.fixedDeltaTime) : Vector2.zero;
+			if(maxMagnitude > 0.0f) velocity = Vector2.ClampMagnitude(velocity, maxMagnitude);
 			accumulator.AddDisplacement(velocity);
 		}
 		else ResetVelocity();
@@ -242,6 +269,31 @@ public class GravityApplier : MonoBehaviour
 				bestScale = tuple.Item1.value;
 			}
 		}
+	}
+
+	/// <returns>String representing this GravityApplier's Instance.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.AppendLine("GravityApplier" );
+		builder.AppendLine("{ ");
+		builder.Append("\tGrounded: ");
+		builder.AppendLine(grounded.ToString());
+		builder.Append("\tPrevious Grounded: ");
+		builder.AppendLine(previousGrounded.ToString());
+		builder.Append("\tVelocity: ");
+		builder.AppendLine(velocity.ToString());
+		builder.AppendLine("\tScale-Change Requests: ");
+		builder.Append("\t");
+		builder.AppendLine(scaleChangeRequests.DictionaryToString());
+#if UNITY_EDITOR
+		builder.Append("\tLast Surface-Type: ");
+		builder.AppendLine(groundSensorSurfaceType.ToString());
+#endif
+		builder.Append(" }");
+
+		return builder.ToString();
 	}
 }
 }

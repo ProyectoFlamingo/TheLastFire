@@ -10,9 +10,14 @@ namespace Flamingo
 public class CameraModifierTriggerZone : TriggerZone<CameraModifierTriggerZone>
 {
 	[Space(5f)]
+	[SerializeField] private float _interpolationDuration; 						/// <summary>Interpolation Duration.</summary>
+	[Space(5f)]
 	[Header("Distance Settings:")]
 	[SerializeField] private bool _setDistance; 								/// <summary>Set Camera's Distance?.</summary>
 	[SerializeField] private FloatRange _distanceRange; 						/// <summary>Camera's Distance Range.</summary>
+
+	/// <summary>Gets interpolationDuration property.</summary>
+	public float interpolationDuration { get { return _interpolationDuration; } }
 
 	/// <summary>Gets and Sets setDistance property.</summary>
 	public bool setDistance
@@ -95,8 +100,8 @@ public class CameraModifierTriggerZone : TriggerZone<CameraModifierTriggerZone>
 		{
 			CameraModifierTriggerZone modifier = triggerZones.First() as CameraModifierTriggerZone;
 
-			cameraController.boundariesContainer.Set(modifier.boundariesContainer.ToBoundaries2D());
-			//cameraController.boundariesContainer.InterpolateTowards(modifier.boundariesContainer.ToBoundaries2D(), modifier.interpolationDuration);
+			//cameraController.boundariesContainer.Set(modifier.boundariesContainer.ToBoundaries2D());
+			cameraController.boundariesContainer.InterpolateTowards(modifier.boundariesContainer, modifier.interpolationDuration);
 			
 			if(modifier.setDistance) Game.cameraController.distanceAdjuster.distanceRange = modifier.distanceRange;
 		}

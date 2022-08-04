@@ -332,10 +332,12 @@ public class DeathBehavior : DestinoScriptableCoroutine
 			Vector3 anchoredPosition = scythe.weapon.anchorContainer.GetAnchoredPosition(target, anchorIndex);
 			anchoredPosition = target;
 			Vector3 scythePosition = scythe.transform.position;
+			Vector3 seekForce = (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition);
 
 			if(scythe.state != AnimationCommandState.Active && !animationEnded) RotateScythe(s);
 
-			scythePosition += (Vector3)scythe.vehicle.GetSeekForce(anchoredPosition) * Time.deltaTime * y;
+			seekForce = scythe.vehicle.ApplyForce(seekForce);
+			scythePosition += seekForce * Time.deltaTime * y;
 			scythePosition.y = Mathf.Max(scythePosition.y, clampedHeight);
 			scythePosition.x = Mathf.Clamp(scythePosition.x, slashZone.a.x, slashZone.b.x);
 			scythe.transform.position = scythePosition;

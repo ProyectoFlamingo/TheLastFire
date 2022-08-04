@@ -56,5 +56,12 @@ public struct AudioLoopData
 	{
 		return soundReference != null ? AudioController.Play(GetSourceType(), sourceIndex, soundReference, loop) : null;
 	}
+
+	/// <summary>Stops Loop [using the Source data].</summary>
+	/// <param name="onStopEnds">Optional callback invoked when the stopping reaches an end.</param>
+	public void Stop(Action onStopEnds = null)
+	{
+		AudioController.Stop(GetSourceType(), sourceIndex, onStopEnds);
+	}
 }
 }

@@ -16,9 +16,14 @@ public enum SourceType
 	SFX
 }
 
+/// <summary>Event invoked when the Audio Mapping is loaded.</summary>
+public delegate void OnAudioMappingLoaded();
+
 [RequireComponent(typeof(AudioSource))]
 public class AudioController : Singleton<AudioController>
 {
+	public static event OnAudioMappingLoaded onAudioMappingLoaded; 					/// <summary>OnAudioMappingLoaded's Event Delegate.</summary>
+
 	[Header("Audio's Settings:")]
 	[SerializeField] private string _exposedVolumeParameterName; 					/// <summary>Exposed Volume Parameter's Name.</summary>
 	[SerializeField] private float _fadeOutDuration; 								/// <summary>Fade-Out's Duration.</summary>
@@ -171,14 +176,22 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="onLoopBegins">Optional callback invoked when the FSM Loop begins.</param>
 	public static AudioClip PlayFSMLoop(int _sourceIndex, VAssetReference _reference, bool _loop = true, Action onLoopBegins = null)
 	{
-		if(_reference == null) return null;
+		if(!_reference.IsValid()) return null;
 
 		FiniteStateAudioClip FSMClip = null;
 
-		if(!Instance.FSMLoopsMapping.TryGetValue(_reference, out FSMClip))
+		try
 		{
-			Debug.LogError("[AudioController] FiniteStateAudioClip not found on Mapping.");
-			return null;
+			if(!Instance.FSMLoopsMapping.TryGetValue(_reference, out FSMClip))
+			{
+				Game.ShowErrorWindow(_reference, "FSMClip");
+				return null;
+			}
+
+		}
+		catch(Exception e)
+		{
+			Game.ShowErrorWindow(_reference, "FSMClip", e.Message);
 		}
 
 		return PlayFSMLoop(_sourceIndex, FSMClip,  _loop, onLoopBegins);
@@ -210,10 +223,17 @@ public class AudioController : Singleton<AudioController>
 			AudioSource source = GetLoopSource(loopData.sourceIndex);
 			FiniteStateAudioClip FSMClip = null;
 
-			if(!Instance.FSMLoopsMapping.TryGetValue(loopData.soundReference, out FSMClip))
+			try
 			{
-				Debug.Log("[AudioController] FiniteStateAudioClip not found on Mapping!");
-				return;
+				if(!Instance.FSMLoopsMapping.TryGetValue(loopData.soundReference, out FSMClip))
+				{
+					Game.ShowErrorWindow(loopData.soundReference, "FSMClip");
+					return;
+				}
+			}
+			catch(Exception e)
+			{
+				Game.ShowErrorWindow(loopData.soundReference, "FSMClip", e.Message);
 			}
 
 			AudioClip clip = FSMClip.clip;
@@ -295,6 +315,25 @@ public class AudioController : Singleton<AudioController>
 #endregion
 
 #region Settings:
+	/// <summary>Resets the volume of all sources.</summary>
+	public static void ResetAllSourcesVolume()
+	{
+		for(int i = 0; i < loopSources.Length; i++)
+		{
+			SetVolume(SourceType.Loop, i, 1.0f);
+		}
+
+		for(int i = 0; i < scenarioSources.Length; i++)
+		{
+			SetVolume(SourceType.Scenario, i, 1.0f);
+		}
+
+		for(int i = 0; i < soundEffectSources.Length; i++)
+		{
+			SetVolume(SourceType.SFX, i, 1.0f);
+		}
+	}
+
 	/// <summary>Sets the volume of given AudioMixer located on given SourceIndex.</summary>
 	/// <param name="_type">Source's Type.</param>
 	/// <param name="_sourceIndex">Source's Index.</param>
@@ -377,15 +416,31 @@ public class AudioController : Singleton<AudioController>
 		return _clip;
 	}
 
+	/// <summary>Stops AudioSource, then assigns and plays AudioClip.</summary>
+	/// <param name="_audioSource">AudioSource to play sound.</param>
+	/// <param name="_clipReference">AssetReference of AudioClip to play.</param>
+	/// <param name="_loop">Loop AudioClip? false as default.</param>
+	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip Play(SourceType _type, int _sourceIndex, VAssetReference _clipReference, bool _loop = false)
 	{
-		if(_clipReference == null) return null;
+		if(!_clipReference.IsValid()) return null;
 
 		AudioClip clip = null;
 
-		Instance.audioMapping.TryGetValue(_clipReference, out clip);
+		try
+		{
+			if(!Instance.audioMapping.TryGetValue(_clipReference, out clip))
+			{
+				Game.ShowErrorWindow(_clipReference, "AudioClip");
+				return null;
+			}
+		}
+		catch(Exception e)
+		{
+			Game.ShowErrorWindow(_clipReference, "AudioClip", e.Message);
+		}
 
-		return clip;
+		return Play(_type, _sourceIndex, clip, _loop);
 	}
 #endregion
 
@@ -411,14 +466,21 @@ public class AudioController : Singleton<AudioController>
 	/// <returns>Playing AudioClip.</returns>
 	public static AudioClip PlayOneShot(SourceType _type, int _sourceIndex, VAssetReference _reference, float _volumeScale = 1.0f)
 	{
-		if(_reference == null) return null;
+		if(!_reference.IsValid()) return null;
 		
 		AudioClip clip = null;
 
-		if(!Instance.audioMapping.TryGetValue(_reference, out clip))
+		try
 		{
-			Debug.Log("[AudioController] AudioClip not found on Mapping.");
-			return null;
+			if(!Instance.audioMapping.TryGetValue(_reference, out clip))
+			{
+				Game.ShowErrorWindow(_reference, "Sound-Effect");
+				return null;
+			}
+		}
+		catch(Exception e)
+		{
+			Game.ShowErrorWindow(_reference, "Sound-Effect", e.Message);
 		}
 
 		return PlayOneShot(_type, _sourceIndex, clip, _volumeScale);
@@ -429,12 +491,23 @@ public class AudioController : Singleton<AudioController>
 	/// <param name="_volumeScale">Volume Scale [1.0f by default].</param>
 	public static SoundEffectLooper LoopSoundEffect(VAssetReference _reference, float _volumeScale = 1.0f)
 	{
-		if(_reference == null) return null;
+		if(!_reference.IsValid()) return null;
 
 		SoundEffectLooper looper = PoolManager.RequestSoundEffectLooper();
 		AudioClip clip = null;
 
-		if(!Instance.audioMapping.TryGetValue(_reference, out clip)) return null;
+		try
+		{	
+			if(!Instance.audioMapping.TryGetValue(_reference, out clip))
+			{
+				Game.ShowErrorWindow(_reference, "Sound-Effect");
+				return null;
+			}
+		}
+		catch(Exception e)
+		{
+			Game.ShowErrorWindow(_reference, "Sound-Effect", e.Message);
+		}
 
 		looper.clip = clip;
 		looper.volumeScale = _volumeScale;
@@ -501,7 +574,7 @@ public class AudioController : Singleton<AudioController>
 		if(ResourcesManager.Instance.soundEffectsMap != null)
 		foreach(KeyValuePair<VAssetReference, AudioClip> pair in ResourcesManager.Instance.soundEffectsMap)
 		{
-			audioMapping.Add(pair.Key, pair.Value);
+			if(!audioMapping.ContainsKey(pair.Key)) audioMapping.Add(pair.Key, pair.Value);
 		}
 
 		if(ResourcesManager.Instance.FSMLoopsMap != null)
@@ -509,6 +582,8 @@ public class AudioController : Singleton<AudioController>
 		{
 			FSMLoopsMapping.Add(pair.Key, pair.Value);
 		}
+
+		if(onAudioMappingLoaded != null) onAudioMappingLoaded();
 	}
 #endregion
 

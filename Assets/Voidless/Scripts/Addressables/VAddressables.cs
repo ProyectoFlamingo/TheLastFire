@@ -74,6 +74,8 @@ public static class VAddressables
 	/// <param name="_components">Components' IEnumerable.</param>
 	public static void ReleaseComponents<T>(this IEnumerable<T> _components) where T : MonoBehaviour
 	{
+		if(_components == null) return;
+
 		foreach(T component in _components)
 		{
 			if(component != null) Addressables.Release(component.gameObject);
@@ -84,6 +86,8 @@ public static class VAddressables
 	/// <param name="_objects">Objects' IEnumerable.</param>
 	public static void ReleaseObjects<T>(this IEnumerable<T> _objects) where T : UnityEngine.Object
 	{
+		if(_objects == null) return;
+
 		foreach(T obj in _objects)
 		{
 			if(obj != null) Addressables.Release(obj);
@@ -126,7 +130,7 @@ public static class VAddressables
 			catch(Exception exception) { Debug.LogException(exception); }
 
 			if(obj != null) component = obj.GetComponent<T>();
-			if(component != null) map.Add(reference, component);
+			if(component != null && !map.ContainsKey(reference)) map.Add(reference, component);
 		}
 
 		if(onLoadingEnds != null) onLoadingEnds(map);
@@ -150,7 +154,7 @@ public static class VAddressables
 			try { obj = await VAddressables.LoadAssetAsync<T>(reference); }
 			catch(Exception exception) { Debug.LogException(exception); }
 
-			if(obj != null) map.Add(reference, obj);
+			if(obj != null && !map.ContainsKey(reference)) map.Add(reference, obj);
 		}
 
 		if(onLoadingEnds != null) onLoadingEnds(map);

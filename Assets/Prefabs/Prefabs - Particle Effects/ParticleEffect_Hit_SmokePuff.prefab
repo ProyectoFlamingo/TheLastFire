@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _systems:
-  - {fileID: 0}
+  - {fileID: 8882532867299023788}
 --- !u!1 &8337180870654467490
 GameObject:
   m_ObjectHideFlags: 0

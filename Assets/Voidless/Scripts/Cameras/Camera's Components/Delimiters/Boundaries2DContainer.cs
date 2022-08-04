@@ -39,6 +39,9 @@ public class Boundaries2DContainer : MonoBehaviour
 		set { _center = value; }
 	}
 
+	/// <summary>Gets Non-Offseted Center.</summary>
+	public Vector3 nonOffsetedCenter { get { return _center; } }
+
 	/// <summary>Gets min property.</summary>
 	public Vector3 min { get { return center - (size * 0.5f); } }
 
@@ -185,18 +188,26 @@ public class Boundaries2DContainer : MonoBehaviour
 			switch(_space)
 			{
 				case Space.World:
-				/// Convert from Self to World:
-				c = center;
+					/// Convert from Self to World:
+					c = center;
 				break;
 
 				case Space.Self:
-				/// Convert from World to Self:
-				c = _center;
+					/// Convert from World to Self:
+					c = transform.position + _center;
 				break;
 			}
 		}
 
 		return new Boundaries2D(size, c);
+	}
+
+	/// <summary>Sets Boundaries2D's data.</summary>
+	/// <param name="b">Boundaries2DContainer's reference.</param>
+	public void Set(Boundaries2DContainer b)
+	{
+		size = b.size;
+		center = GetProperCenter(b);
 	}
 
 	/// <summary>Sets Boundaries2D's data.</summary>
@@ -207,12 +218,76 @@ public class Boundaries2DContainer : MonoBehaviour
 		center = b.center;
 	}
 
+	/// <summary>Converts center from provided Boundaries2DContainer for this Coundaries2DContainer.</summary>
+	/// <param name="b">Boundaries2DContainer's reference.</param>
+	/// <returns>Converted center for this Container's Space.</returns>
+	public Vector3 GetProperCenter(Boundaries2DContainer b)
+	{
+		Vector3 c = b.nonOffsetedCenter;
+
+		switch(b.space)
+		{
+			case Space.World:
+				switch(space)
+				{
+					case Space.World:
+						return c;
+					break;
+
+					case Space.Self:
+						return c - transform.position;
+					break;
+				}
+			break;
+
+			case Space.Self:
+				switch(space)
+				{
+					case Space.World:
+						return b.transform.position + c;
+					break;
+
+					case Space.Self:
+						return c;
+					break;
+				}
+			break;
+		}
+
+		return c;
+	}
+
+	/// <summary>Lerps Between Container A and B.</summary>
+	/// <param name="a">Boundaries2DContainer A.</param>
+	/// <param name="b">Boundaries2DContainer B.</param>
+	/// <param name="t">Normalized time t [internally clamped].</param>
+	/// <returns>Interpolation for Container A.</returns>
+	public static Boundaries2D Lerp(Boundaries2DContainer a, Boundaries2DContainer b, float t)
+	{
+		t = Mathf.Clamp(t, 0.0f, 1.0f);
+
+		return new Boundaries2D(
+			Vector3.Lerp(a.size, b.size, t),
+			Vector3.Lerp(a.center, a.GetProperCenter(b), t)
+		);
+	}
+
+	/// \TODO DEPRECATE:
 	/// <summary>Interpolates towards Boundaries2D.</summary>
 	/// <param name="b">Boundaries2D's data.</param>
 	/// <param name="d">Duration.</param>
 	public void InterpolateTowards(Boundaries2D b, float d)
 	{
-		VDebug.Log(LogType.Log, "Invoking InterpolateTowards(", b, ", ", d, ");");
+		//VDebug.Log(LogType.Log, "Invoking InterpolateTowards(", b, ", ", d, ");");
+		this.StartCoroutine(InterpolateTowardsBoundaries(b, d, OnInterpolationEnds), ref boundaries2DInterpolation);
+	}
+
+	/// <summary>Interpolates towards Boundaries2D.</summary>
+	/// <param name="b">Boundaries2D's data.</param>
+	/// <param name="d">Duration.</param>
+	public void InterpolateTowards(Boundaries2DContainer b, float d)
+	{
+		//VDebug.Log(LogType.Log, "Invoking InterpolateTowards(", b, ", ", d, ");");
 		this.StartCoroutine(InterpolateTowardsBoundaries(b, d, OnInterpolationEnds), ref boundaries2DInterpolation);
 	}
 
@@ -222,6 +297,7 @@ public class Boundaries2DContainer : MonoBehaviour
 		this.DispatchCoroutine(ref boundaries2DInterpolation);
 	}
 
+	/// \TODO DEPRECATE:
 	/// <summary>Interpolation's Coroutine.</summary>
 	/// <param name="b">Boundaries2D's data.</param>
 	/// <param name="d">Duration.</param>
@@ -235,6 +311,28 @@ public class Boundaries2DContainer : MonoBehaviour
 		while(t < 1.0f)
 		{
 			Set(Boundaries2D.Lerp(a, b, t));
+
+			t += (iD * Time.deltaTime);
+			yield return null;
+		}
+
+		Set(b);
+		if(onInterpolationEnds != null) onInterpolationEnds();
+	}
+
+	/// <summary>Interpolation's Coroutine.</summary>
+	/// <param name="b">Boundaries2D's data.</param>
+	/// <param name="d">Duration.</param>
+	/// <param name="onInterpolationEnds">Callback invoked when interpolation ends.</param>
+	private IEnumerator InterpolateTowardsBoundaries(Boundaries2DContainer b, float d, Action onInterpolationEnds = null)
+	{
+		Boundaries2DContainer a = this;
+		float t = 0.0f;
+		float iD = 1.0f / d;
+
+		while(t < 1.0f)
+		{
+			Set(Boundaries2DContainer.Lerp(a, b, t));
 
 			t += (iD * Time.deltaTime);
 			yield return null;

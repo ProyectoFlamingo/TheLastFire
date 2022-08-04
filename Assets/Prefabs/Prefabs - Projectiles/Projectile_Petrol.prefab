@@ -269,38 +269,29 @@ MonoBehaviour:
   _destroyedParticleEffectReference:
     m_AssetGUID: 
     m_SubObjectName: 
-  _impactParticleEffectIndex: 7
-  _destroyedParticleEffectIndex: -1
-  _sourceIndex: 0
-  _impactSoundEffectIndex: 45
-  _destroyedSoundEffectIndex: 17
   _impactSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 79db4ee46fe0b2747ad1bde40e187dbb
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
   _destroyedSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: e3e7bc30e323dec41bd5d53e5784412d
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
   _activeLoopingSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
   _repelSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    soundIndex: 0
     volume: 0
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &1614921204212439701

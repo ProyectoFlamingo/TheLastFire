@@ -7,7 +7,7 @@ using Voidless;
 
 namespace Flamingo
 {
-[Serializable] public class MaterialIDParticleEffectEmissionDataDictionary : SerializableDictionary<MaterialID, ParticleEffectEmissionData> { /*...*/ }
+[Serializable] public class MaterialIDParticleEffectEmissionDataDictionary : SerializableDictionary<MaterialID, ParticleEffectEmissionData[]> { /*...*/ }
 
 public class ImpactParticleEffectEmitter : ImpactEffectEmitter
 {
@@ -25,11 +25,14 @@ public class ImpactParticleEffectEmitter : ImpactEffectEmitter
 	/// <param name="t">Normalized t value [calculated from the displacement velocity and the range].</param>
 	protected override void Emit(MaterialID ID, float t)
 	{
-		ParticleEffectEmissionData data = null;
+		ParticleEffectEmissionData[] data = null;
 
 		if(!interactionMatrix.TryGetValue(ID, out data)) return;
 
-		data.EmitParticleEffects(t);
+		foreach(ParticleEffectEmissionData emissionData in data)
+		{
+			emissionData.EmitParticleEffects(t);
+		}
 	}
 }
 }

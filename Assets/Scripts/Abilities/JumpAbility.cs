@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ public delegate void OnJumpStateChange(int _stateID, int _jumpLevel);
 [RequireComponent(typeof(GravityApplier))]
 public class JumpAbility : MonoBehaviour, IStateMachine
 {
+	public static readonly string[] statesNames; 				/// <summary>States' Names [for each flag].</summary>		
+
 	public event OnJumpStateChange onJumpStateChange; 			/// <summary>OnJumpStateChange's event delegate.</summary>
 
 	public const int STATE_FLAG_GROUNDED = 0; 					/// <summary>Grounded State's Flag.</summary>
@@ -197,7 +200,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	}
 
 	/// <summary>Gets grounded property.</summary>
-	public bool grounded { get { return this.HasState(STATE_ID_GROUNDED); } }
+	public bool grounded { get { return gravityApplier.grounded; } }
 
 	/// <summary>Gets and Sets landingCooldown property.</summary>
 	public Cooldown landingCooldown
@@ -236,6 +239,12 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 		}
 	}
 #endregion
+
+	/// <summary>Static's Constructor.</summary>
+	static JumpAbility()
+	{
+		statesNames = new string[] { "Grounded", "Jumping", "Falling", "Landing" };
+	}
 
 	/// <summary>JumpAbility's instance initialization.</summary>
 	private void Awake()
@@ -523,6 +532,21 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 		{
 			CancelForce(i);
 		}
+	}
+
+	/// <returns>String representing JumpAbility.</returns>
+	public override string ToString()
+	{
+		StringBuilder builder = new StringBuilder();
+
+		builder.AppendLine("JumpAbility: \n{");
+		builder.Append("\tStates: ");
+		builder.AppendLine(VString.GetNamedBitChain(state, statesNames));
+		builder.Append("\tCurrent Jump Index: ");
+		builder.AppendLine(currentJumpIndex.ToString());
+		builder.Append("}");
+
+		return builder.ToString();
 	}
 }
 }

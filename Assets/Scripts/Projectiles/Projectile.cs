@@ -424,7 +424,7 @@ public class Projectile : ContactWeapon
 			}
 		}
 
-		if(activeLoopingSoundEffect.soundReference != null)
+		if(activeLoopingSoundEffect.soundReference.IsValid())
 		activeSoundEffectLooper = AudioController.LoopSoundEffect(activeLoopingSoundEffect.soundReference, activeLoopingSoundEffect.volume);
 	}
 #endregion
@@ -574,6 +574,7 @@ public class Projectile : ContactWeapon
 				} else return Vector3.zero; 
 
 				Vector3 steeringForce = SteeringVehicle2D.GetSeekForce(rigidbody.position, targetPosition, ref velocity, speed, maxSteeringForce);
+				steeringForce = SteeringVehicle2D.ApplyForce(steeringForce, ref velocity, speed, maxSteeringForce);
 
 				switch(speedMode)
 				{

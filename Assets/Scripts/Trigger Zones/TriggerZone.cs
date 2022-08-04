@@ -19,9 +19,8 @@ public abstract class TriggerZone<T> : MonoBehaviour/* where T : TriggerZone<T>*
 	protected static HashSet<TriggerZone<T>> triggerZones; 			/// <summary>TriggerZone's static registry.</summary>
 
 	[SerializeField] private GameObjectTag[] _tags; 				/// <summary>GameObject Tags that invoke the trigger.</summary>
-#if UNITY_EDITOR
+	[Space(5f)]
 	[SerializeField] protected Color gizmosColor; 					/// <summary>Gizmos' Color.</summary>
-#endif
 	private Boundaries2DContainer _boundariesContainer; 			/// <summary>Boundaries2DContainer's Component.</summary>
 	private BoxCollider2D _boxCollider; 							/// <summary>BoxCollider2D's Component.</summary>
 	private bool _entered; 											/// <summary>Has an Object entered inside this TriggerZone?.</summary>
@@ -65,6 +64,7 @@ public abstract class TriggerZone<T> : MonoBehaviour/* where T : TriggerZone<T>*
 	/// <summary>Draws Gizmos on Editor mode.</summary>
 	protected virtual void OnDrawGizmos()
 	{
+#if UNITY_EDITOR
 		Vector3 center = boundariesContainer.GetPosition();
 		Vector3 size = boundariesContainer.size;
 
@@ -73,6 +73,7 @@ public abstract class TriggerZone<T> : MonoBehaviour/* where T : TriggerZone<T>*
 		Gizmos.color = gizmosColor.WithAlpha(0.25f);
 
 		Gizmos.DrawCube(center, size);
+#endif
 	}
 
 	/// <summary>TriggerZone's instance initialization.</summary>
@@ -86,7 +87,7 @@ public abstract class TriggerZone<T> : MonoBehaviour/* where T : TriggerZone<T>*
 	protected virtual void UpdateBoxCollider()
 	{
 		boxCollider.size = boundariesContainer.size;
-		boxCollider.offset = boundariesContainer.center;
+		//boxCollider.offset = boundariesContainer.center;
 	}
 
 	/// <summary>Invokes event.</summary>
@@ -94,6 +95,12 @@ public abstract class TriggerZone<T> : MonoBehaviour/* where T : TriggerZone<T>*
 	protected void InvokeEvent(HitColliderEventTypes _eventType)
 	{
 		if(onTriggerZoneEvent != null) onTriggerZoneEvent(this, _eventType);
+	}
+
+	/// <summary>Clears Trigger-Zones' Mapping.</summary>
+	public static void ClearTriggerZonesMapping()
+	{
+		triggerZones.Clear();
 	}
 
 	/// <summary>Event triggered when this Collider2D enters another Collider2D trigger.</summary>

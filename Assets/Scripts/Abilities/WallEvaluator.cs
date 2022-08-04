@@ -130,6 +130,10 @@ public class WallEvaluator : MonoBehaviour
 		{
 			SurfaceType surfaceType = Game.EvaluateSurfaceType(wallInfo.normal);
 			walled = surfaceType == SurfaceType.Wall;
+
+/*#if UNITY_EDITOR
+			Debug.DrawRay(wallInfo.point, wallInfo.normal * 5.0f, Color.magenta, 3.0f);
+#endif*/
 		}
 		else walled = false;
 

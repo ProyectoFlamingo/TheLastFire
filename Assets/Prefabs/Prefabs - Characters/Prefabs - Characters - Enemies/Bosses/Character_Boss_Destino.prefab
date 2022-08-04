@@ -8925,6 +8925,10 @@ GameObject:
   - component: {fileID: 5910270619206661438}
   - component: {fileID: 725201602264834056}
   - component: {fileID: 734502232}
+  - component: {fileID: 5104223484757951584}
+  - component: {fileID: 2704893971461527424}
+  - component: {fileID: 9099581586337683475}
+  - component: {fileID: 5135843920560793744}
   m_Layer: 0
   m_Name: Character_Boss_Destino
   m_TagString: Enemy
@@ -8982,55 +8986,167 @@ MonoBehaviour:
     - _particleEffect:
         _transform: {fileID: 3701848998754718908}
         _particleEffectReference:
-          m_AssetGUID: 
+          m_AssetGUID: e620dee33c3845e40abae550d749a0f0
           m_SubObjectName: 
-        _particleEffectIndex: 5
         _points:
-        - {x: 0, y: 0, z: -1.2}
+        - {x: 0, y: -0.05, z: 0}
       _soundEffect:
         sourceIndex: 0
         soundReference:
-          m_AssetGUID: 
+          m_AssetGUID: e854ce1d95cc4cd4aa2da50a2a27e42d
           m_SubObjectName: 
-        soundIndex: 51
-        volume: 1
+        volume: 0.634
       _cooldown: 0.1
     - _particleEffect:
         _transform: {fileID: 3701848998754718908}
         _particleEffectReference:
-          m_AssetGUID: 
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
           m_SubObjectName: 
-        _particleEffectIndex: 14
-        _points:
-        - {x: 0, y: 1, z: -1.2}
+        _points: []
       _soundEffect:
         sourceIndex: 0
         soundReference:
-          m_AssetGUID: 
+          m_AssetGUID: 01111a7dff3094144b2af30228a6e6f0
           m_SubObjectName: 
-        soundIndex: 14
         volume: 1
-      _cooldown: 1
+      _cooldown: 0
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0, y: 0, z: 0}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 01111a7dff3094144b2af30228a6e6f0
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.5
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0, y: 1.21, z: -1.3}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 01111a7dff3094144b2af30228a6e6f0
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0.47, y: 1, z: -1.2}
+        - {x: 0, y: 0, z: 0}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 01111a7dff3094144b2af30228a6e6f0
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.5
     - _particleEffect:
         _transform: {fileID: 3701848998754718908}
         _particleEffectReference:
           m_AssetGUID: 
           m_SubObjectName: 
-        _particleEffectIndex: 20
         _points:
-        - {x: 0, y: 2, z: -1.2}
+        - {x: 0, y: 0.5, z: -1.65}
+        - {x: -0.68, y: 0.5, z: -1.04}
+        - {x: -0.04, y: 1, z: -1}
       _soundEffect:
         sourceIndex: 0
         soundReference:
-          m_AssetGUID: 
+          m_AssetGUID: 01111a7dff3094144b2af30228a6e6f0
           m_SubObjectName: 
-        soundIndex: 5
         volume: 1
-      _cooldown: 1.5
+      _cooldown: 0.5
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0.71, y: 1, z: -1.26}
+        - {x: 0, y: 1.26, z: -1}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 4fa179c8352ade74c926d2b2eb3fa0a8
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.5
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0.01, y: 1.46, z: -1.26}
+        - {x: 0.31, y: 0.84, z: -2.4}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 3b96299dd5bda444f8df01a77456c60f
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.5
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0, y: 0.13, z: -1.65}
+        - {x: -0.47, y: 0.85, z: -1.04}
+        - {x: 0.14, y: 1, z: -1}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: 6aa999e7b9316484c8aa0f6922b0c060
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.5
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0, y: 0.4, z: -1.3}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: df278aa4e10275842ab4192c1d1aa398
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0.6
+    - _particleEffect:
+        _transform: {fileID: 3701848998754718908}
+        _particleEffectReference:
+          m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
+          m_SubObjectName: 
+        _points:
+        - {x: 0, y: 0.2, z: -1.3}
+      _soundEffect:
+        sourceIndex: 0
+        soundReference:
+          m_AssetGUID: e875075851d3d3a4394194618a245b4e
+          m_SubObjectName: 
+        volume: 1
+      _cooldown: 0
   _healthDistribution:
-  - 1
-  - 1
-  - 1
+  - 12
+  - 8
+  - 5
   forceStageTesting: 0
   testStage: 0
   _emptyCredential:
@@ -9061,19 +9177,84 @@ MonoBehaviour:
   _rigHead: {fileID: 5135843920947809607}
   _removableHead: {fileID: 3963963623717799471}
   _headHurtBox: {fileID: 8965366077207961414}
-  _damageTakenSoundIndex: 16
-  _laughSoundIndex: 66
-  _buildUpSoundIndex: 62
-  _swingSoundIndex: 2
-  _doNoteIndex: 3
-  _faNoteIndex: 4
-  _laNoteIndex: 5
-  _miNoteIndex: 7
-  _reNoteIndex: 8
-  _siNoteIndex: 10
-  _laReNoteIndex: 6
-  _reFaNoteIndex: 9
-  _siMiNoteIndex: 11
+  _damageTakenSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 66b1c41ca5b52a441a1e038bae61e56c
+      m_SubObjectName: 
+    volume: 1
+  _laughSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: b707d8e47f6689148a556b42da7e9645
+      m_SubObjectName: 
+    volume: 1
+  _buildUpSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 50fd67d64f5026f4f898e8a74ab0eecb
+      m_SubObjectName: 
+    volume: 1
+  _swingSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 490f55b066a773f4c85fa7caf9ffba64
+      m_SubObjectName: 
+    volume: 1
+  _doNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 7ad029d78914f1e46a9e9f9079f072b1
+      m_SubObjectName: 
+    volume: 1
+  _faNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 8b425b956413f394094330e1df272de7
+      m_SubObjectName: 
+    volume: 1
+  _laNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 156a48476f799cf4d934b63619873aca
+      m_SubObjectName: 
+    volume: 1
+  _miNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: f5e51fb11fd0aba44a0a158826e5e8d1
+      m_SubObjectName: 
+    volume: 0
+  _reNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 8d0d578f55ff93b49b1613ebc167053c
+      m_SubObjectName: 
+    volume: 1
+  _siNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: ea365bb9c214de848a4dfc525109eb6d
+      m_SubObjectName: 
+    volume: 1
+  _laReNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 3b945713637785543b8c395239e49c83
+      m_SubObjectName: 
+    volume: 1
+  _reFaNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 825ef3399b5342944961517c4bca60e7
+      m_SubObjectName: 
+    volume: 1
+  _siMiNote:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: a02ea38f2f45e6c40bf4effea7a0db1f
+      m_SubObjectName: 
+    volume: 1
   test: 0
   testCardIndex: 2
   headMeshFilter: {fileID: 0}
@@ -9201,6 +9382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gravity: {x: 0, y: -9.81}
   _groundSensorID: 0
+  _maxMagnitude: 0
   _scale: 1
   _scaleChangePriority: 0
   _useGravity: 1
@@ -9225,7 +9407,7 @@ MonoBehaviour:
   _scaleChangePriority: 0
   _progressForExtraJump: 0
   _forcesInfo: []
-  _SFXsIndices: 
+  _SFXs: []
   _landingDuration: 0
   _nonDisplacementTolerance: 0
 --- !u!114 &904884023096708050
@@ -9281,6 +9463,7 @@ MonoBehaviour:
   _maxBrakingSpeed: 0
   _brakingDuration: 0
   _dotTolerance: 0
+  _onSlopeScalar: 0
 --- !u!114 &734502232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9330,16 +9513,96 @@ MonoBehaviour:
     _particleEffectReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    _particleEffectIndex: 8
     _points:
     - {x: 0, y: 2, z: -1.2}
   _hurtSoundEffect:
     sourceIndex: 0
     soundReference:
-      m_AssetGUID: 
+      m_AssetGUID: 4ab62c308ec8d3f4a8ee60c308697fc2
       m_SubObjectName: 
-    soundIndex: 0
-    volume: 0
+    volume: 1
+--- !u!114 &5104223484757951584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701848998754718909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d08e9dda43337e499a8eab4753d0b4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canChangeRelativeNormal: 0
+  _normalToAdjust: 2
+  _relativeNormal: 1
+  _right: {x: 1, y: 0, z: 0}
+  _up: {x: 0, y: 1, z: 0}
+  _forward: {x: 0, y: 0, z: 1}
+  _normal: {x: 1, y: 1, z: 1}
+  _normalLength: 1
+--- !u!114 &2704893971461527424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701848998754718909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e960790cf5d6edf41afc40f96b50a9c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _angleLimit: 45
+  _groundSensorID: 0
+--- !u!114 &9099581586337683475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701848998754718909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: 1
+  _magnitudeToChangePosition:
+    _distance: 0.001
+    _squareDistance: 0.0000010000001
+  _magnitudeToChangeRotation:
+    _distance: 0
+    _squareDistance: 0
+  debug: 0
+  positionRayColor: {r: 0, g: 0, b: 0, a: 0}
+  _rotationColorAlpha: 0
+  _gizmosRadius: 0
+  rayDuration: 0
+--- !u!114 &5135843920560793744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701848998754718909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5b8cfd666b5b74881529adcaa01945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _detectionType: 1
+  _magnitudeToChangePosition:
+    _distance: 0.01
+    _squareDistance: 0.0001
+  _magnitudeToChangeRotation:
+    _distance: 0
+    _squareDistance: 0
+  debug: 1
+  positionRayColor: {r: 0, g: 1, b: 1, a: 1}
+  _rotationColorAlpha: 0
+  _gizmosRadius: 0
+  rayDuration: 0.1
 --- !u!1 &3708148954696123015
 GameObject:
   m_ObjectHideFlags: 0

@@ -35,6 +35,12 @@ public class VAssetReference : AssetReference, IEqualityComparer<VAssetReference
 		return (r == null) ? false : this.GetKey() == r.GetKey();
 	}
 
+	/// <returns>True if VAssetReference is valid [not empty].</returns>
+	public bool IsValid()
+	{
+		return RuntimeKeyIsValid();
+	}
+
 	/// <returns>Generates a number corresponding to the value of the object to support the use of a hash table.</returns>
 	public override int GetHashCode()
 	{

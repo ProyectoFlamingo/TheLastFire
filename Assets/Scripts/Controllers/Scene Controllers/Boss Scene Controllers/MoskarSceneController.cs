@@ -27,6 +27,7 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	[Range(0.0f, 1.0f)] private float _moskarSFXVolume; 					/// <summary>Volume for Moskar's SFXs.</summary>
 	[Space(5f)]
 	[Header("Mandala's Attributes:")]
+	[SerializeField] private float _exitMandalaWaitBeforeEndingScene; 		/// <summary>Wait from Exit-Mandala's spawning to end the scene.</summary>
 	[SerializeField] private Mandala _enterMandala;							/// <summary>Enter Mandala's Reference.</summary>
 	[SerializeField] private Mandala _exitMandala;							/// <summary>Exit Mandala's Reference.</summary>
 	[SerializeField] private Vector3 _enterMandalaSpawnPosition; 			/// <summary>Enter Mandala's spawn Position.</summary>
@@ -53,6 +54,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 		get { return _moskarSFXVolume; }
 		set { _moskarSFXVolume = value; }
 	}
+
+	/// <summary>Gets exitMandalaWaitBeforeEndingScene property.</summary>
+	public float exitMandalaWaitBeforeEndingScene { get { return _exitMandalaWaitBeforeEndingScene; } }
 
 	/// <summary>Gets remainingMoskarsForLastPiece property.</summary>
 	public int remainingMoskarsForLastPiece { get { return _remainingMoskarsForLastPiece; } }
@@ -109,11 +113,11 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	private void Start()
 	{
 		Game.EnablePlayerControl(false);
-		Game.FadeOutScreen(Color.black, fadeOutDuration,
+		/*Game.FadeOutScreen(Color.black, fadeOutDuration,
 		()=>
 		{
 			Game.EnablePlayerControl(true);
-		});	
+		});	*/
 
 		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
 		PoolManager.onPoolsCreated += OnPoolsCreated;
@@ -122,7 +126,9 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 	/// <summary>Callback invoked when MoskarSceneController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
 	private void OnDestroy()
 	{
-		//Game.mateo.eventsHandler.onIDEvent -= OnMateoIDEvent;
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+		PoolManager.onPoolsCreated -= OnPoolsCreated;
+		AudioController.ResetAllSourcesVolume();
 	}
 
 	/// <summary>Updates MoskarSceneController's instance at each frame.</summary>
@@ -148,6 +154,8 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 
 		AudioClip flyLoopClip = ResourcesManager.GetAudioClip(flyLoopReference, SourceType.Loop);
 		AudioController.Play(SourceType.Scenario, 0, flyLoopClip, true);
+
+		this.StartCoroutine(this.WaitSeconds(1.5f, ()=>{ Game.EnablePlayerControl(true); }));
 	}
 
 	/// <summary>Event invoked when all the pools are loaded.</summary>
@@ -205,6 +213,12 @@ public class MoskarSceneController : Singleton<MoskarSceneController>
 			exitMandala.gameObject.SetActive(true);
 			exitMandala.transform.position = exitMandalaSpawnPosition;
 			exitMandala.enabled = true;
+
+			this.StartCoroutine(this.WaitSeconds(exitMandalaWaitBeforeEndingScene, 
+			()=>
+			{
+				Game.LoadScene(Game.data.overworldSceneName);
+			}));
 		}
 	}
 }

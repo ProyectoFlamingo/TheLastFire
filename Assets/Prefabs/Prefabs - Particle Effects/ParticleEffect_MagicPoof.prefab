@@ -42283,7 +42283,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _systems:
-  - {fileID: 0}
   - {fileID: 19800016}
   - {fileID: 19800014}
   - {fileID: 19800008}
@@ -42294,6 +42293,7 @@ MonoBehaviour:
   - {fileID: 19800000}
   - {fileID: 19800020}
   - {fileID: 19800010}
+  - {fileID: 7846878466891494731}
 --- !u!1 &100020
 GameObject:
   m_ObjectHideFlags: 0

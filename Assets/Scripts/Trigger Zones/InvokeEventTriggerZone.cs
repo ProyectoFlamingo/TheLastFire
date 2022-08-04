@@ -9,7 +9,7 @@ using Voidless;
 namespace Flamingo
 {
 [RequireComponent(typeof(BoxCollider2D))]
-public abstract class InvokeEventTriggerZone : TriggerZone<InvokeEventTriggerZone>
+public class InvokeEventTriggerZone : TriggerZone<InvokeEventTriggerZone>
 {
 	[Space(5f)]
 	[Header("(Additional) Events:")]

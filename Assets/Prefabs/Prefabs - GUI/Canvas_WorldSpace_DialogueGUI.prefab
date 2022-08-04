@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 2562750938521300737}
   - component: {fileID: 4453317646928201101}
   - component: {fileID: 529061112819931595}
+  - component: {fileID: 3957919740837802252}
   m_Layer: 5
   m_Name: Canvas_WorldSpace_DialogueGUI
   m_TagString: Untagged
@@ -673,6 +674,24 @@ MonoBehaviour:
   _skipButton: {fileID: 2957920262162872448}
   _scaleDownDuration: 0.35
   _scaleUpDuration: 0.75
+--- !u!114 &3957919740837802252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946793578541362442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 884252873aac96e4599c1a7b35a3e003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weight: 1
+  _space: 0
+  _size: {x: 27, y: 9, z: 0}
+  _centerOffset: {x: 0, y: -4.2, z: 0}
+  _scaleSize: 0
+  gizmosColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &1317873392314967024
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1355,12 +1374,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1316377f09d7d6a42a60f1a4a43f9659, type: 3}
---- !u!224 &3319632242508119368 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5450507572100821792, guid: 1316377f09d7d6a42a60f1a4a43f9659,
-    type: 3}
-  m_PrefabInstance: {fileID: 7328944485940088424}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2957920262162872448 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5528450994463160040, guid: 1316377f09d7d6a42a60f1a4a43f9659,
@@ -1373,3 +1386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c689e89baff74409097c3d2be440f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3319632242508119368 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5450507572100821792, guid: 1316377f09d7d6a42a60f1a4a43f9659,
+    type: 3}
+  m_PrefabInstance: {fileID: 7328944485940088424}
+  m_PrefabAsset: {fileID: 0}

@@ -5,6 +5,7 @@ using UnityEditor;
 
 namespace Voidless
 {
+[CanEditMultipleObjects]
 [CustomEditor(typeof(TransformDeltaCalculator))]
 public class TransformDeltaCalculatorInspector : Editor
 {

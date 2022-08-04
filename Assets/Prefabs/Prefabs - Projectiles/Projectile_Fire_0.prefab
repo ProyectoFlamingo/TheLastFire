@@ -273,21 +273,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 32
   _subID: 0
-  _particleEffectsMatrix:
-  - ID: 1
-    index: 0
-  - ID: 2
-    index: 0
-  - ID: 16
-    index: 0
-  _soundEffectsMatrix:
-  - ID: 1
-    index: 24
-  - ID: 2
-    index: 26
-  - ID: 16
-    index: 27
-  _eventsHandler: {fileID: 0}
 --- !u!114 &-5702162873329405793
 MonoBehaviour:
   m_ObjectHideFlags: 0

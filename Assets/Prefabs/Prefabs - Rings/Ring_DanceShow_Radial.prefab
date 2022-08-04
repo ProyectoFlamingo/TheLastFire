@@ -169,20 +169,16 @@ MonoBehaviour:
   _passedParticleEffect:
     _transform: {fileID: 3526733255350994342}
     _particleEffectReference:
-      m_AssetGUID: 
+      m_AssetGUID: 640bfa6d4bb87454e9923412d9fb2a8e
       m_SubObjectName: 
-    _particleEffectIndex: 12
     _points:
     - {x: 0, y: 0, z: 0}
   _soundEffect:
     sourceIndex: 0
     soundReference:
-      m_AssetGUID: 
+      m_AssetGUID: 6578e6d68ac696648a9ce597be9c21e0
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
-  _particleEffectIndex: 12
-  _soundEffectIndex: 40
   _deactivateWhenPassedOn: 1
   _detectableTags:
   - _tag: Player

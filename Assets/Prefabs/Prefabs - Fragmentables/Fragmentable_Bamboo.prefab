@@ -410,16 +410,13 @@ MonoBehaviour:
     _particleEffectReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    _particleEffectIndex: 0
     _points: []
   _fragmentedSoundEffect:
     sourceIndex: 0
     soundReference:
       m_AssetGUID: 3bf7a74ff182f6848b79406b57705f0a
       m_SubObjectName: 
-    soundIndex: 0
     volume: 1
-  _soundIndex: 41
 --- !u!114 &1120269327644755655
 MonoBehaviour:
   m_ObjectHideFlags: 0

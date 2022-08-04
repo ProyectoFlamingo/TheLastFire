@@ -44,6 +44,7 @@ public static class VMath
 	public const float DEG_TO_RAD = PI / 180.0f; 										/// <summary>Degrees to Radians' conversion.</summary>
 	public const float RAD_TO_DEG = 180.0f / PI; 										/// <summary>Radians to Degrees' conversion</summary>
 	public const float DEGREES_REVOLUTION = 360.0f; 									/// <summary>Degrees that takes a revolution.</summary>
+	public const float EPSILON = 0.000001f; 											/// <summary>Custom-defined Epsilon.</summary>
 
 	public static readonly float[] sinTable; 											/// <summary>Sine's Lookup Table.</summary>
 	public static readonly float[] cosTable; 											/// <summary>Cosine's Lookup Table.</summary>

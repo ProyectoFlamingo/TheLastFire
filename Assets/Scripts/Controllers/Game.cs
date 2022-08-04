@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Voidless;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 
 namespace Flamingo
 {
@@ -76,6 +78,8 @@ public class Game : Singleton<Game>
 	[SerializeField] private GameplayCameraController _cameraController; 	/// <summary>Gameplay's Camera Controller.</summary>
 	[SerializeField] private Camera _UICamera; 								/// <summary>UI's Camera.</summary>
 	[SerializeField] private GameplayGUIController _gameplayGUIController; 	/// <summary>Gameplay's GUI Controller.</summary>
+	[Space(5f)]
+	[SerializeField] private InputSystemUIInputModule _inputModule; 		/// <summary>Input's Module.</summary>
 	[Space(5f)]
 	[SerializeField][Range(0.0f, 1.0f)] private float _timeScale; 			/// <summary>Test Time Scale.</summary>
 	private Boundaries2D _defaultCameraBoundaries; 							/// <summary>Default Camera's Boundaries2D.</summary>
@@ -149,6 +153,13 @@ public class Game : Singleton<Game>
 		set { Instance._gameplayGUIController = value; }
 	}
 
+	/// <summary>Gets and Sets inputModule property.</summary>
+	public static InputSystemUIInputModule inputModule
+	{
+		get { return Instance._inputModule; }
+		set { Instance._inputModule = value; }
+	}
+
 	/// <summary>Gets and Sets defaultCameraBoundaries property.</summary>
 	public static Boundaries2D defaultCameraBoundaries
 	{
@@ -181,6 +192,8 @@ public class Game : Singleton<Game>
 	/// <summary>Callback internally called immediately after Awake.</summary>
 	protected override void OnAwake()
 	{
+		SceneManager.sceneUnloaded += OnSceneUnloaded;
+
 		data.Initialize();
 
 		if(cameraController != null)
@@ -200,9 +213,15 @@ public class Game : Singleton<Game>
 		{
 			gameplayGUIController.canvas.worldCamera = UICamera;
 			gameplayGUIController.onIDEvent += OnGUIIDEvent;
+
+			if(inputModule != null) gameplayGUIController.inputModule = inputModule;
+
+			FadeInScreen(Color.black, 0.0f);
 		}
 
 		state = GameState.Playing;
+
+		//InputActionState.onInputSystemEvent += OnInputSystemEvent;
 	}
 
 	private void Start()
@@ -210,6 +229,14 @@ public class Game : Singleton<Game>
 		if(mateo != null) AddTargetToCamera(mateo.cameraTarget);
 		
 		SetForSinglePlayer();
+
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
+	}
+
+	/// <summary>Callback invoked when Game's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
 	}
 
 #region TEMPORAL
@@ -357,7 +384,7 @@ public class Game : Singleton<Game>
 	/// <param name="_color">Fade Color.</param>
 	/// <param name="_duration">Fade-In's Duration.</param>
 	/// <param name="onFadeEnds">Optional callback invoked when the Fade-In ends.</param>
-	public static void FadeInScreen(Color _color, float _duration, Action onFadeEnds)
+	public static void FadeInScreen(Color _color, float _duration, Action onFadeEnds = null)
 	{
 		gameplayGUIController.screenFaderGUI.FadeIn(_color, _duration, onFadeEnds);
 	}
@@ -366,10 +393,33 @@ public class Game : Singleton<Game>
 	/// <param name="_color">Fade Color.</param>
 	/// <param name="_duration">Fade-Out's Duration.</param>
 	/// <param name="onFadeEnds">Optional callback invoked when the Fade-Out ends.</param>
-	public static void FadeOutScreen(Color _color, float _duration, Action onFadeEnds)
+	public static void FadeOutScreen(Color _color, float _duration, Action onFadeEnds = null)
 	{
 		gameplayGUIController.screenFaderGUI.FadeOut(_color, _duration, onFadeEnds);
 	}
+
+	/// <summary>Callback invoked when Resources are Loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		FadeOutScreen(Color.black.WithAlpha(0.0f), 1.5f);
+	}
+
+	/// <summary>Callback invoked when scene is unloaded.</summary>
+	/// <param name="current">Current Scene.</param>
+	private void OnSceneUnloaded(Scene current)
+    {
+        Debug.Log("OnSceneUnloaded: " + current);
+        TriggerZone<CameraModifierTriggerZone>.ClearTriggerZonesMapping();
+        TriggerZone<InvokeEventTriggerZone>.ClearTriggerZonesMapping();
+    }
+
+    /// <summary>Callback invoked when there is an error in the InputSystem.</summary>
+    private void OnInputSystemEvent()
+    {
+    	/// Since the error tends to happen on pause, I will reset the time scale to 1.0f...
+    	Time.timeScale = 1.0f;
+    	ResetScene();
+    }
 
 	/// <summary>Callback invoked when a Camera2DBoundariesModifier is entered.</summary>
 	/// <param name="_modifier">Camera2DBoundariesModifier that invoked the event.</param>
@@ -542,6 +592,45 @@ public class Game : Singleton<Game>
 			if(_changeAudioPitch) AudioController.SetPitch(Time.timeScale);
 			break;
 		}
+	}
+
+	/// <summary>Shows an error window when an AssetReference is not assigned into a ResourcesManager's mapping [Editor only].</summary>
+	/// <param name="_referece">Reference that wasn't assigned into mapping.</param>
+	/// <param name="_objectType">Type of Pool-Object.</param>
+	/// <param name="_additionalMessage">Optional Additional Error Message [empty by default].</param>
+	public static async void ShowErrorWindow(VAssetReference _reference, string _objectType, string _additionalErrorMessage = "")
+	{
+#if UNITY_EDITOR
+		try
+		{
+			UnityEngine.Object obj = await VAddressables.LoadAssetAsync<UnityEngine.Object>(_reference);
+			
+			StringBuilder titleBuilder = new StringBuilder();
+			StringBuilder messageBuilder = new StringBuilder();
+
+			titleBuilder.Append("Error: ");
+			titleBuilder.Append(_objectType);
+			titleBuilder.Append("'s VAssetReference not added into ResourcesManager's Mapping!");
+
+			messageBuilder.Append("Make sure to add ");
+			messageBuilder.Append(obj.name);
+			messageBuilder.Append(" into ResourcesManager ");
+			messageBuilder.Append(_objectType);
+			messageBuilder.Append("'s Mapping.");
+
+			if(!string.IsNullOrEmpty(_additionalErrorMessage))
+			{
+				messageBuilder.Append(" Additional Error Message: ");
+				messageBuilder.Append(_additionalErrorMessage);
+			}
+
+			VDebug.DisplayDialog(titleBuilder.ToString(), messageBuilder.ToString(), "Okay...");
+		}
+		catch(Exception e)
+		{
+			Debug.LogError("Problem with VAssetReference of type " + _objectType + ": " + _reference.ToString() + "Message: " + e.Message);
+		}
+#endif
 	}
 
 	/// <returns>String representing Game.</returns>

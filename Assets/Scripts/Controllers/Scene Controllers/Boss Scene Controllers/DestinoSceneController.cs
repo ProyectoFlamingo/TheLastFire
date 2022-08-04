@@ -258,14 +258,12 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 	/// <summary>Callback invoked when scene loads, one frame before the first Update's tick.</summary>
 	private void Start()
 	{
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
+
 		destino.transform.position = destinoInitialSpawnPointPair.b;
 
 		Game.mateo.Meditate();
 		Game.mateo.eventsHandler.onIDEvent += OnMateoIDEvent;
-		AudioController.ResetFSMLoopStates();
-
-		//AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
-		AudioClip clip = orchestraTunningSoundEffect.Play();
 		SetCurtainsWeight(WEIGHT_BLENDSHAPE_CURTAIN_CLOSED, 0.0f, null);
 
 		/// Turn-off Player's Control:
@@ -282,7 +280,6 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 		Game.cameraController.enabled = false;
 		Game.EnablePlayerControl(false);
-		this.StartCoroutine(LogoCoroutine());
 	}
 
 	/// <summary>Updates DestinoSceneController's instance at each frame.</summary>
@@ -292,7 +289,24 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		SetSpotlightAbove(destinoSpotLight, destino.transform.position, ref destinoSpotLightVelocity);
 	}
 
+	/// <summary>Callback invoked when DestinoSceneController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+	}
+
 #region Callbacks:
+	/// <summary>Callback invoked by ResourcesManager when its resources have been loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		AudioController.ResetFSMLoopStates();
+
+		//AudioClip clip = AudioController.Play(SourceType.Scenario, 0, orchestraTunningSoundIndex);
+		AudioClip clip = orchestraTunningSoundEffect.Play();
+
+		this.StartCoroutine(LogoCoroutine());
+	}
+
 	/// <summary>Callback invoked when Destino invokes an ID's Event.</summary>
 	/// <param name="_ID">Event's ID.</param>
 	private void OnDestinoIDEvent(int _ID)
@@ -371,7 +385,8 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 					()=>
 					{
 						//Debug.Log("[DestinoSceneController] Now What?");
-						Game.ResetScene();
+						//Game.ResetScene();
+						Game.LoadScene(Game.data.overworldSceneName);
 					});
 				});
 			});
@@ -398,29 +413,7 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 
 				curtainOpened = true;
 				
-				//AudioClip openingClip = AudioController.PlayOneShot(SourceType.Scenario, 1, curtainOpeningSoundIndex);
-				AudioClip openingClip = curtainOpeningSoundEffect.Play();
-
-				AudioController.Stop(SourceType.Scenario, 0);
-				SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
-				{
-//#if UNITY_EDITOR
-					/*if(test)
-					{
-						Game.data.FSMLoops[mainLoopIndex].ChangeState(testLoopState);
-						Game.data.FSMLoops[mainLoopVoiceIndex].ChangeState(testLoopState);
-						//destino.Sing();
-					}*/
-//#endif
-					/*AudioController.PlayFSMLoop(0, mainLoopIndex, true);
-					AudioController.PlayFSMLoop(1, mainLoopVoiceIndex, true, destino.Sing);*/
-					AudioController.PlayFSMLoops(destino.Sing, mainLoopLoopData, mainLoopVoiceLoopData);
-					
-					destinoController.RequestCard();
-
-					// Thunder Test
-					//this.StartCoroutine(thunderLight.StormLightningEffectRoutine(0.25f, 15, 1.5f, 1.0f, 0.7f, 8.5f, 2.0f, 1.3f));
-				});
+				StartCoroutine(OnMateoMeditationEndsRoutine());
 			}
 			break;
 		}
@@ -470,9 +463,10 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		_position.y = lightPosition.y;
 		
 		Vector3 seekForce = (Vector3)SteeringVehicle2D.GetSeekForce(lightPosition, _position, ref velocity, spotLightMaxSpeed, spotLightMaxSteeringForce);
+		Vector3 force = (Vector3)SteeringVehicle2D.ApplyForce(seekForce, ref velocity, spotLightMaxSpeed, spotLightMaxSteeringForce);
 		float weight = SteeringVehicle2D.GetArrivalWeight(lightPosition, _position, spotLightArrivalRadius);
 
-		lightPosition += seekForce * Time.deltaTime * weight;
+		lightPosition += force * Time.deltaTime * weight;
 		lightPosition.z = _position.z;
 
 		_spotLight.transform.position = lightPosition;
@@ -489,6 +483,22 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 #endregion
 
 #region Coroutines:
+	/// <summary>Waits for resources to be loaded to play some sounds.</summary>
+	private IEnumerator OnMateoMeditationEndsRoutine()
+	{
+		while(!ResourcesManager.loaded) yield return null;
+
+		AudioClip openingClip = curtainOpeningSoundEffect.Play();
+
+		AudioController.Stop(SourceType.Scenario, 0);
+		SetCurtainsWeight(stage1CurtainClosure, openingClip.length * openingClipPercentage, ()=>
+		{
+			AudioController.PlayFSMLoops(destino.Sing, mainLoopLoopData, mainLoopVoiceLoopData);
+			
+			destinoController.RequestCard();
+		});
+	}
+
 	/// <summary>Takes Destino into the initial point.</summary>
 	/// <param name="onInterpolationEnds">Optional callback invoked when the interpolation ends [null by default].</param>
 	public static IEnumerator TakeDestinoToInitialPoint(Action onInterpolationEnds = null)
@@ -544,21 +554,21 @@ public class DestinoSceneController : Singleton<DestinoSceneController>
 		SecondsDelayWait wait = new SecondsDelayWait(logoStayDuration);
 		float iD = 1.0f / logoFadeOutDuration;
 		float t = 0.0f;
-		Color a = logo.color;
+		/*Color a = logo.color;
 		Color b = a;
-		b.a = 0.0f;
+		//b.a = 0.0f;*/
 
 		while(wait.MoveNext()) yield return null;
 
 		while(t < 1.0f)
 		{
-			logo.color = Color.Lerp(a, b, t);
+			//logo.color = Color.Lerp(a, b, t);
 			t += (Time.deltaTime * iD);
 
 			yield return null;
 		}
 
-		logo.color = b;
+		//logo.color = b;
 		Game.cameraController.enabled = true;
 		Game.EnablePlayerControl(true);
 	}
