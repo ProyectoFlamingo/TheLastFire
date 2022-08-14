@@ -16,9 +16,9 @@ MonoBehaviour:
   _hurtTimeScale: 0.5
   _timeScaleAcceleration: 0.1
   _timeScaleDeceleration: 3
-  _firstSceneToLoad: Scene_Overworld
+  _firstSceneToLoad: Scene_FleetingOverworld
   _loadingSceneName: Scene_LoadingScreen
-  _overworldSceneName: Scene_Overworld
+  _overworldSceneName: Scene_FleetingOverworld
   _destinoSceneName: Scene_Boss_Destino
   _moskarSceneName: Scene_Boss_Moskar
   _captainShantySceneName: Scene_Boss_CaptainShanty

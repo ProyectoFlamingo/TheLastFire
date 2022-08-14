@@ -42,6 +42,7 @@ public class GravityApplier : MonoBehaviour
 	private bool _grounded; 													/// <summary>Current Grounded's State.</summary>
 	private bool _previousGrounded; 											/// <summary>Previous' Grounded State.</summary>
 	private Dictionary<int, VTuple<FloatWrapper, int>> _scaleChangeRequests; 	/// <summary>HashSet that registers all scale change requests.</summary>
+	private RaycastHit2D groundInfo; 											/// <summary>Ground's Info.</summary>
 #if UNITY_EDITOR
 	private SurfaceType groundSensorSurfaceType; 								/// <summary>Surface Type detected on the Ground Sensor.</summary>		
 #endif
@@ -155,6 +156,7 @@ public class GravityApplier : MonoBehaviour
 		scale = 1.0f;
 		useGravity = true;
 		velocity = Vector2.zero;
+		groundInfo = default(RaycastHit2D);
 	}
 
 	/// <summary>GravityApplier's instance initialization when loaded [Before scene loads].</summary>
@@ -167,18 +169,17 @@ public class GravityApplier : MonoBehaviour
 	/// <summary>Updates GravityApplier's instance at each frame.</summary>
 	private void Update()
 	{
-		RaycastHit2D hitInfo = default(RaycastHit2D);
 		Vector2 sensorOrigin = Vector2.zero;
 
-		if(sensorSystem.GetSubsystemDetection(groundSensorID, out hitInfo, out sensorOrigin))
+		if(sensorSystem.GetSubsystemDetection(groundSensorID, out groundInfo, out sensorOrigin))
 		{
-			if(hitInfo.collider.PointInside(sensorOrigin) && !previousGrounded)
+			if(groundInfo.collider.PointInside(sensorOrigin) && !previousGrounded)
 			{
 				grounded = false;
 			}
 			else
 			{
-				SurfaceType surfaceType = Game.EvaluateSurfaceType(hitInfo.normal);
+				SurfaceType surfaceType = Game.EvaluateSurfaceType(groundInfo.normal);
 				grounded = surfaceType == SurfaceType.Floor;
 			}
 		}
@@ -208,6 +209,9 @@ public class GravityApplier : MonoBehaviour
 		}
 		else ResetVelocity();
 	}
+
+	/// <returns>Ground's Information [if there is any].</returns>
+	public RaycastHit2D GetGroundInfo(){ return groundInfo; }
 
 	/// <summary>Resets Velocity.</summary>
 	public void ResetVelocity()

@@ -272,7 +272,7 @@ public class JudgementBehavior : DestinoScriptableCoroutine
 	{
 		boss.animatorController.CrossFade(boss.idleCredential, boss.clipFadeDuration);
 
-		IEnumerator[] routines = VArray.RandomSet(DanceShowRoutine(boss), FireShowRoutine(boss), SwordShowRoutine(boss));
+		IEnumerator[] routines = VArray.RandomSet(/*DanceShowRoutine(boss), FireShowRoutine(boss), */SwordShowRoutine(boss));
 		IEnumerator routine = routines.Random();
 
 		/*foreach(IEnumerator routine in routines)

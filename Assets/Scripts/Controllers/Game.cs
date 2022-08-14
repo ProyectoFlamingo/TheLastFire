@@ -307,6 +307,7 @@ public class Game : Singleton<Game>
 	public static void EnablePlayerControl(bool _enable = true)
 	{
 		mateoController.enabled = _enable;
+		if(!_enable) mateoController.character.ResetAxes();
 	}
 
 	/// <summary>Gets Mateo's Maximum Jump Force.</summary>

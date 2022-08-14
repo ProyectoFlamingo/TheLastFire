@@ -518,7 +518,7 @@ public class JumpAbility : MonoBehaviour, IStateMachine
 	/// <param name="_index">Force's Index.</param>
 	private void CancelForce(int _index)
 	{
-		if(forcesAppliers == null) return;
+		if(forcesAppliers == null || forcesAppliers.Length == 0) return;
 
 		forcesAppliers[Mathf.Clamp(_index, 0, forcesAppliers.Length - 1)].CancelForce();
 	}

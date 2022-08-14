@@ -28,6 +28,7 @@ public delegate void OnStateChanged(Character _character, int _state, StateChang
 [RequireComponent(typeof(VCameraTarget))]
 [RequireComponent(typeof(HealthEventReceiver))]
 [RequireComponent(typeof(TransformDeltaCalculator))]
+[RequireComponent(typeof(VirtualAnchorContainer))]
 public class Character : PoolGameObject, IStateMachine
 {
 	public event OnStateChanged onStateChanged; 														/// <summary>OnStateChanged event's delegate.</summary>
@@ -70,6 +71,7 @@ public class Character : PoolGameObject, IStateMachine
 	private Rigidbody2D _rigidbody; 																	/// <summary>Rigidbody2D's Component.</summary>
 	private HealthEventReceiver _healthEventReceiver; 													/// <summary>HealthEventReceiver's Component.</summary>
 	private TransformDeltaCalculator _deltaCalculator; 													/// <summary>TransformDeltaCalculator's Component.</summary>
+	private VirtualAnchorContainer _anchorContainer; 													/// <summary>VirtualAnchorContainer's Component.</summary>
 	public Coroutine behaviorCoroutine; 																/// <summary>Main Behavior Coroutine's reference.</summary>
 	public Dictionary<int, Coroutine> coroutinesMap; 													/// <summary>Coroutines' Mapping.</summary>
 
@@ -164,6 +166,16 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			if(_deltaCalculator == null) _deltaCalculator = GetComponent<TransformDeltaCalculator>();
 			return _deltaCalculator;
+		}
+	}
+
+	/// <summary>Gets anchorContainer Component.</summary>
+	public VirtualAnchorContainer anchorContainer
+	{ 
+		get
+		{
+			if(_anchorContainer == null) _anchorContainer = GetComponent<VirtualAnchorContainer>();
+			return _anchorContainer;
 		}
 	}
 

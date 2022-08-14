@@ -12,9 +12,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Scenes - Interfaces/Scene_LoadingScreen.unity
     guid: ec04bc4982c467b419d9f4f94dffdfcd
   - enabled: 1
+    path: Assets/Scenes/Scene_FleetingOverworld.unity
+    guid: c8b5e00df939799469efc531db26d616
+  - enabled: 0
     path: Assets/Scenes/Scenes - Overworld/Scene_Overworld.unity
     guid: 3d5e524340730c14f9684407c5f4f512
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scenes - Bosses/Scene_Boss_Destino.unity
     guid: 1f664745439fb0347a02a9148e3e74d6
   - enabled: 1

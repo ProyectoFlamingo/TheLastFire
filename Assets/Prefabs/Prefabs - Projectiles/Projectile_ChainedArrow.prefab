@@ -172,7 +172,7 @@ MonoBehaviour:
     index: 9
   _speedMode: 1
   _speed: 4
-  _lifespan: 5
+  _lifespan: 2
   _cooldownDuration: 1
   _rotateTowardsDirection: 1
   _maxSteeringForce: 15

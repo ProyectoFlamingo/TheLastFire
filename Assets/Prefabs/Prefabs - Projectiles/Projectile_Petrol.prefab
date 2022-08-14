@@ -243,7 +243,7 @@ MonoBehaviour:
     index: 5
   _impactTags:
   - _tag: Projectile/Player
-    index: 11
+    index: 9
   - _tag: Surface/Ceiling
     index: 15
   _rejectionTags:
@@ -254,7 +254,7 @@ MonoBehaviour:
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
-  _speed: 4
+  _speed: 8
   _lifespan: 0
   _cooldownDuration: 0.25
   _rotateTowardsDirection: 0

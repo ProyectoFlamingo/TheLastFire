@@ -89,7 +89,7 @@ MonoBehaviour:
   _projectileType: 0
   _repelTags: []
   _speedMode: 0
-  _speed: 4
+  _speed: 8
   _lifespan: 0
   _cooldownDuration: 0.25
   _rotateTowardsDirection: 0

@@ -18650,36 +18650,36 @@ MonoBehaviour:
   - m_AssetGUID: 028be9ba5f0684a4cb4619f942c4f6e9
     m_SubObjectName: 
   _swordTargetsWaypoints:
-  - a: {x: -12, y: 19, z: 0}
-    b: {x: -12, y: 12.5, z: 0}
-  - a: {x: -6, y: 19, z: 0}
-    b: {x: -6, y: 12.5, z: 0}
-  - a: {x: -3, y: 19, z: 0}
-    b: {x: -3, y: 12.5, z: 0}
-  - a: {x: 0, y: 19, z: 0}
-    b: {x: 0, y: 12.5, z: 0}
-  - a: {x: 3, y: 19, z: 0}
-    b: {x: 3, y: 12.5, z: 0}
-  - a: {x: 6, y: 19, z: 0}
-    b: {x: 6, y: 12.5, z: 0}
-  - a: {x: 12, y: 19, z: 0}
-    b: {x: 12, y: 12.5, z: 0}
-  - a: {x: 9, y: 19, z: 0}
-    b: {x: 9, y: 12.5, z: 0}
-  - a: {x: -9, y: 19, z: 0}
-    b: {x: -9, y: 12.5, z: 0}
-  - a: {x: 15, y: 19, z: 0}
-    b: {x: 15, y: 12.5, z: 0}
-  - a: {x: -15, y: 19, z: 0}
-    b: {x: -15, y: 12.5, z: 0}
-  - a: {x: 18, y: 19, z: 0}
-    b: {x: 18, y: 12.5, z: 0}
-  - a: {x: -18, y: 19, z: 0}
-    b: {x: -18, y: 12.5, z: 0}
+  - a: {x: -12, y: 30, z: 0}
+    b: {x: -12, y: 19, z: 0}
+  - a: {x: -6, y: 30, z: 0}
+    b: {x: -6, y: 19, z: 0}
+  - a: {x: -3, y: 30, z: 0}
+    b: {x: -3, y: 19, z: 0}
+  - a: {x: 0, y: 30, z: 0}
+    b: {x: 0, y: 19, z: 0}
+  - a: {x: 3, y: 30, z: 0}
+    b: {x: 3, y: 19, z: 0}
+  - a: {x: 6, y: 30, z: 0}
+    b: {x: 6, y: 19, z: 0}
+  - a: {x: 12, y: 30, z: 0}
+    b: {x: 12, y: 19, z: 0}
+  - a: {x: 9, y: 30, z: 0}
+    b: {x: 9, y: 19, z: 0}
+  - a: {x: -9, y: 30, z: 0}
+    b: {x: -9, y: 19, z: 0}
+  - a: {x: 15, y: 30, z: 0}
+    b: {x: 15, y: 19, z: 0}
+  - a: {x: -15, y: 30, z: 0}
+    b: {x: -15, y: 19, z: 0}
+  - a: {x: 18, y: 30, z: 0}
+    b: {x: 18, y: 19, z: 0}
+  - a: {x: -18, y: 30, z: 0}
+    b: {x: -18, y: 19, z: 0}
   _waitBetweenSwordTarget:
     _min: 0.35
     _max: 0.65
-  _swordTargetShakeDuration: 1.5
+  _swordTargetShakeDuration: 0.7
   _swordTargetShakeSpeed: 5
   _swordTargetShakeMagnitude: 0.7
   _swordTargetInterpolationDuration: 0.7

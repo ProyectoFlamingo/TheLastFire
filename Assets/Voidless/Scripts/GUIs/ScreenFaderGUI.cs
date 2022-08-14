@@ -22,6 +22,7 @@ public class ScreenFaderGUI : BaseGUI<Fade>
 	[SerializeField] private float _inDuration; 	/// <summary>Default Fade-In's duration.</summary>
 	[SerializeField] private float _outDuration; 	/// <summary>Default Fade-Out's duration.</summary>
 	private Behavior _fadeEffect; 					/// <summary>Fade Effect's Coroutine controller.</summary>
+	private Coroutine coroutine; 					/// <summary>Coroutine's Reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets screen property.</summary>
@@ -115,7 +116,7 @@ public class ScreenFaderGUI : BaseGUI<Fade>
 			screen.color = _color;
 			return;
 		}
-		this.StartCoroutine(FadeInRoutine(_color, _duration, onFadeEnds));
+		this.StartCoroutine(FadeInRoutine(_color, _duration, onFadeEnds), ref coroutine);
 	}
 
 	/// <summary>Fades Out.</summary>
@@ -136,7 +137,7 @@ public class ScreenFaderGUI : BaseGUI<Fade>
 			screen.color = _color;
 			return;
 		}
-		this.StartCoroutine(FadeOutRoutine(_color, _duration, onFadeEnds));
+		this.StartCoroutine(FadeOutRoutine(_color, _duration, onFadeEnds), ref coroutine);
 	}
 
 	/// <summary>Fades Screen in.</summary>

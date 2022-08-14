@@ -640,6 +640,8 @@ public class Mateo : Character
 			if((_contextFlag | IDs.STATE_JUMPING) == _contextFlag) standingHash = jumpStandingCredential;
 			else standingHash = normalStandingCredential;
 
+			shootProjectile.OnDischarge();
+
 			state |= IDs.STATE_STANDINGUP;
 			animatorController.WaitForCrossFade(standingHash, meditationStandingFadeDuration, mainAnimationLayer, 0.0f,
 			()=>
@@ -933,6 +935,8 @@ public class Mateo : Character
 	/// <summary>Cancels Jump.</summary>
 	public void CancelJump()
 	{
+		extraJumpTrailRenderer.Clear();
+		extraJumpTrailRenderer.enabled = false;
 		jumpAbility.CancelJump();
 	}
 #endregion
@@ -999,7 +1003,7 @@ public class Mateo : Character
 
 #region OtherMethods:
 	/// <summary>Resets Axes.</summary>
-	private void ResetAxes()
+	public void ResetAxes()
 	{
 		leftAxes = Vector2.zero;
 	}
