@@ -5252,18 +5252,8 @@ MonoBehaviour:
   _animation: {fileID: 0}
   _onAnimatorMoveOverrider: {fileID: 0}
   _mainAnimationLayer: 1
+  _locomotionAnimationLayer: 0
   _attackAnimationLayer: 2
-  _clipFadeDuration: 0.1
-  _hurtBoxes:
-  - {fileID: 0}
-  _jointedHitBoxes:
-  - {fileID: 516844558836249816}
-  _physicalColliders:
-  - {fileID: 2898649116605724072}
-  _triggerColliders:
-  - {fileID: 5927417307681350652}
-  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
-  gizmosRadius: 0.25
   _leftAxisXCredential:
     _tag: LeftAxisX
     _ID: -741505348
@@ -5276,6 +5266,17 @@ MonoBehaviour:
   _rightAxisYCredential:
     _tag: RightAxisY
     _ID: -959174837
+  _clipFadeDuration: 0.1
+  _hurtBoxes:
+  - {fileID: 0}
+  _jointedHitBoxes:
+  - {fileID: 516844558836249816}
+  _physicalColliders:
+  - {fileID: 2898649116605724072}
+  _triggerColliders:
+  - {fileID: 5927417307681350652}
+  gizmosColor: {r: 0, g: 1, b: 1, a: 1}
+  gizmosRadius: 0.25
   _fireConjuringAnimationLayer: 2
   _fireConjuringAnimationWeightChangeDuration: 0.3
   _emptyCredential:

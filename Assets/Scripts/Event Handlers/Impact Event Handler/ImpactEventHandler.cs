@@ -201,6 +201,8 @@ public class ImpactEventHandler : MonoBehaviour
 		GameObject obj = _collider.gameObject;
 		Collider2D collider = hitBoxes[Mathf.Clamp(_ID, 0, hitBoxes.Length - 1)].collider;
 		float deltaZ = Mathf.Abs(obj.transform.position.z - collider.transform.position.z);
+		int instanceID = _collider.GetInstanceID();
+		VTuple<Collider2D, Collider2D> tuple = new VTuple<Collider2D, Collider2D>(_collider, collider);
 
 		switch(_eventType)
 		{
@@ -208,18 +210,16 @@ public class ImpactEventHandler : MonoBehaviour
 			if(deltaZ > (zOffsetTolerance * zOffsetTolerance))
 			{
 				/// Store or stack into a registry that will deal with these objects while the trigger stays
-				int instanceID = _collider.GetInstanceID();
-				VTuple<Collider2D, Collider2D> tuple = new VTuple<Collider2D, Collider2D>(_collider, collider);
 				if(!tuples.ContainsKey(instanceID)) tuples.Add(instanceID, tuple);
 
 				if(zEvaluation == null && keepEvaluatingFarColliders) this.StartCoroutine(ZEvaluationRoutine(), ref zEvaluation);
-				Debug.Log("[ImpactEventHandler] Returning for: " + _collider.gameObject.name + " with Delta-Z: " + deltaZ);
+				//Debug.Log("[ImpactEventHandler] Returning for: " + _collider.gameObject.name + " with Delta-Z: " + deltaZ);
 				return;
 			}
 			break;
 
 			case HitColliderEventTypes.Exit:
-
+				if(tuples.ContainsKey(instanceID)) tuples.Remove(instanceID);
 			break;
 		}
 

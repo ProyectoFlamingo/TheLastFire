@@ -9,6 +9,13 @@ using Random = UnityEngine.Random;
 
 namespace Flamingo
 {
+public enum ShantyEvent
+{
+	None,
+	BombDeactivated,
+	BombRepelled
+}
+
 public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 {
 	public const int ID_WAYPOINTSPAIR_HELM = 0; 							/// <summary>Helm's Waypoints' Pair ID.</summary>
@@ -16,6 +23,8 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 						/// <summary>Left Stair's Waypoints' Pair ID.</summary>
 	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 						/// <summary>Right Stair's Waypoints' Pair ID.</summary>
 
+	[Space(5f)]
+	[SerializeField] private float _idleTolerance; 							/// <summary>Idle's Tolerance.</summary>
 	[Space(5f)]
 	[Header("Shanty's Attributes:")]
 	[Space(5f)]
@@ -77,11 +86,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	[SerializeField] private GameObjectTag[] _stage2Inmunities; 			/// <summary>Inmunities on Stage 2.</summary>
 	private Coroutine coroutine; 											/// <summary>Coroutine's Reference.</summary>
 	private Coroutine TNTRotationCoroutine; 								/// <summary>TNT's Rotation Coroutine's Reference.</summary>
+	private Coroutine jumpAttackCoroutine; 									/// <summary>Jump Attack's Coroutine's Reference.</summary>
 	private Behavior attackBehavior; 										/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
 	private Cooldown _normalAttackCooldown; 								/// <summary>Normal Attack's Cooldown.</summary>
 	private Cooldown _strongAttackCooldown; 								/// <summary>Strong Attack's Cooldown.</summary>
 	private Line _line; 													/// <summary>Current Stair's Line.</summary>
 	private bool _tntActive; 												/// <summary>Is the TNT Coroutine's Running?.</summary>
+	private int _staircaseID; 												/// <summary>Staircase's ID.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets ship property.</summary>
@@ -96,6 +107,9 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 	/// <summary>Gets stage2ExplodableReference property.</summary>
 	public VAssetReference stage2ExplodableReference { get { return _stage2ExplodableReference; } }
+
+	/// <summary>Gets idleTolerance property.</summary>
+	public float idleTolerance { get { return _idleTolerance; } }
 
 	/// <summary>Gets bombProjectionTime property.</summary>
 	public float bombProjectionTime { get { return _bombProjectionTime; } }
@@ -211,6 +225,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		get { return _tntActive; }
 		private set { _tntActive = value; }
 	}
+
+	/// <summary>Gets and Sets staircaseID property.</summary>
+	public int staircaseID
+	{
+		get { return _staircaseID; }
+		set { _staircaseID = value; }
+	}
 #endregion
 
 #if UNITY_EDITOR
@@ -231,6 +252,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	protected override void Awake()
 	{
 		character.ActivateSword(false);
+		character.EnablePhysics(false);
 		normalAttackCooldown = new Cooldown(this, normalAttackCooldownDuration);
 		strongAttackCooldown = new Cooldown(this, strongAttackCooldownDuration);
 
@@ -247,7 +269,16 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Performs Jumps.</summary>
 	private void JumpAttack()
 	{
-		this.StartCoroutine(JumpAttackRoutine());
+		this.StartCoroutine(JumpAttackRoutine(), ref jumpAttackCoroutine);
+	}
+
+	/// <summary>Stops Attack's Routine.</summary>
+	public void StopAttackRoutine()
+	{
+		this.DispatchCoroutine(ref behaviorCoroutine);
+		this.DispatchCoroutine(ref coroutine);
+		this.DispatchCoroutine(ref jumpAttackCoroutine);
+		character.Move(Vector3.zero);
 	}
 
 	/// <summary>Begins Attack's Routine.</summary>
@@ -255,44 +286,30 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	{
 		if(Game.state == GameState.Transitioning) return;
 
-		this.RemoveStates(IDs.STATE_IDLE);
-		this.AddStates(IDs.STATE_ATTACKING_0);
-		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
+		character.animatorController.CancelCrossFading(0);
+		character.animatorController.DeactivateLayer(0);
+		character.RemoveStates(IDs.STATE_IDLE);
+		character.AddStates(IDs.STATE_ATTACKING_0);
 
 		switch(character.currentStage)
 		{
 			case Boss.STAGE_1:
-			AnimationState state = null;
-
-			if(character.health.hpRatio <=  stage1HealthPercentageLimit)
-			{
-				state = character.animation.GetAnimationState(character.throwBarrelAnimation);
-				//if(!state.enabled)
-				{
-					BeginTNTThrowingRoutine();
-				}
-			}
-			else
-			{
-				state = character.animation.GetAnimationState(character.throwBombAnimation);
-				//if(!state.enabled)
-				{
-					BeginBombThrowingRoutine();
-				}
-			}
+				this.StartCoroutine(TennisRoutine(), ref behaviorCoroutine);
 			break;
 
 			case Boss.STAGE_2:
-			this.StartCoroutine(WhackAMoleRoutine(), ref behaviorCoroutine);
+				this.StartCoroutine(WhackAMoleRoutine(), ref behaviorCoroutine);
 			break;
 
 			case Boss.STAGE_3:
-			character.ActivateSword(true);
-			character.sword.ActivateHitBoxes(false);
-			this.StartCoroutine(DuelRoutine(), ref behaviorCoroutine);
-			this.StartCoroutine(RotateTowardsMateo(), ref coroutine);
+				character.ActivateSword(true);
+				character.sword.ActivateHitBoxes(false);
+				this.StartCoroutine(DuelRoutine(), ref behaviorCoroutine);
+				this.StartCoroutine(RotateTowardsMateo(), ref coroutine);
 			break;
-		}	
+		}
+
+		Debug.Log("[ShantyBossAIController] Beginning Attack Routine at Stage #" + character.currentStage);
 	}
 #endregion
 
@@ -300,9 +317,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Begins the Bomb Throwing Animations.</summary>
 	public void BeginBombThrowingRoutine()
 	{
+		DeactivateExplosives();
 		character.ActivateSword(false);
-		character.animation.CrossFade(character.throwBombAnimation);
-		character.animation.PlayQueued(character.idleAnimation);
+		character.GoToThrowBombAnimation(()=>
+		{
+			character.AddStates(IDs.STATE_IDLE);
+			character.GoToIdleAnimation();
+		});
 	}
 
 	/// <summary>Picks Bomb.</summary>
@@ -328,6 +349,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		character.bomb.activated = false;
 		character.bomb.ActivateHitBoxes(false);
 		character.bomb.transform.parent = character.skeleton.rightHand;
+		character.bomb.impactTags = character.defaultBombImpactTags;
 	}
 
 	/// <summary>Throws Bomb [called after an specific frame of the Bom-Throwing Animation].</summary>
@@ -379,10 +401,10 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		switch(character.currentStage)
 		{
 			case Boss.STAGE_1:
-				character.bomb.projectileEventsHandler.onProjectileEvent -= OnBombEvent;
-				character.bomb.projectileEventsHandler.onProjectileEvent += OnBombEvent;
-				character.bomb.projectileEventsHandler.onProjectileDeactivated -= OnBombDeactivated;
-				character.bomb.projectileEventsHandler.onProjectileDeactivated += OnBombDeactivated;
+				character.bomb.eventsHandler.onContactWeaponIDEvent -= OnBombEvent;
+				character.bomb.eventsHandler.onContactWeaponIDEvent += OnBombEvent;
+				character.bomb.eventsHandler.onContactWeaponDeactivated -= OnBombDeactivated;
+				character.bomb.eventsHandler.onContactWeaponDeactivated += OnBombDeactivated;
 			break;
 
 			case Boss.STAGE_2:
@@ -400,10 +422,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Begins TNT ThrowingRoutine.</summary>
 	public void BeginTNTThrowingRoutine()
 	{
+		DeactivateExplosives();
 		character.ActivateSword(false);
-		character.animation.Rewind(character.throwBarrelAnimation);
-		character.animation.CrossFade(character.throwBarrelAnimation);
-		character.animation.PlayQueued(character.idleAnimation);
+		character.GoToThrowBarrelAnimation(()=>
+		{
+			character.AddStates(IDs.STATE_IDLE);
+			character.GoToIdleAnimation();
+		});
 	}
 
 	/// <summary>Picks TNT.</summary>
@@ -468,10 +493,10 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		character.TNT.impactTags = impactTags;
 		character.TNT.damage = damage;
 
-		character.TNT.projectileEventsHandler.onProjectileEvent -= OnBombEvent;
-		character.TNT.projectileEventsHandler.onProjectileEvent += OnBombEvent;
-		character.TNT.projectileEventsHandler.onProjectileDeactivated -= OnBombDeactivated;
-		character.TNT.projectileEventsHandler.onProjectileDeactivated += OnBombDeactivated;
+		character.TNT.eventsHandler.onContactWeaponIDEvent -= OnBombEvent;
+		character.TNT.eventsHandler.onContactWeaponIDEvent += OnBombEvent;
+		character.TNT.eventsHandler.onContactWeaponDeactivated -= OnBombDeactivated;
+		character.TNT.eventsHandler.onContactWeaponDeactivated += OnBombDeactivated;
 
 		BombParabolaProjectile TNTBomb = character.TNT as BombParabolaProjectile;
 		TNTBomb.fuseDuration = fuseDuration;
@@ -487,8 +512,8 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 
 			case Boss.STAGE_2:
-			routine = Stage2TNTRoutine();
 			tntActive = true;
+			routine = Stage2TNTRoutine();
 			break;
 		}
 
@@ -519,6 +544,21 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		}
 	}
 
+	/// <summary>Deactivates Explosive.</summary>
+	private void DeactivateExplosives(bool _ignoreIfNotOnHand = false)
+	{
+		if(character.bomb != null && (!_ignoreIfNotOnHand ? character.bomb.transform.parent == character.skeleton.rightHand : true))
+		{
+			character.bomb.OnObjectDeactivation();
+			character.bomb = null;
+		}
+		if(character.TNT != null && (!_ignoreIfNotOnHand ? character.bomb.transform.parent == character.skeleton.rightHand : true))
+		{
+			character.TNT.OnObjectDeactivation();
+			character.TNT = null;
+		}
+	}
+
 #region Callbacks:
 	/// <summary>Callback invoked when a Character's state is changed.</summary>
 	/// <param name="_character">Character that invokes the event.</param>
@@ -537,22 +577,15 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 
 			case StateChange.Added:
-				if((_state | IDs.STATE_IDLE) == _state)
-				{
-					character.animation.CrossFade(character.idleAnimation);
-
-				} else if((_state | IDs.STATE_ATTACKING_0) == _state)
-				{
-					BeginAttackRoutine();
-
-				} else if((_state | IDs.STATE_HURT) == _state)
+				if((_state | IDs.STATE_HURT) == _state)
 				{
 					this.RemoveStates(IDs.STATE_ATTACKING_0);
+					character.RemoveStates(IDs.STATE_ATTACKING_0);
+					DeactivateExplosives();
 				}
 			break;
 
 			case StateChange.Removed:
-				if((_state | IDs.STATE_HURT) == _state) BeginAttackRoutine();
 			break;
 		}
 	}
@@ -564,16 +597,12 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		switch(_ID)
 		{
 			case IDs.EVENT_STAGECHANGED:
-				if(character.bomb != null)
-				{
-					character.bomb.OnObjectDeactivation();
-					character.bomb = null;
-				}
-				if(character.TNT != null)
-				{
-					character.TNT.OnObjectDeactivation();
-					character.TNT = null;
-				}
+				DeactivateExplosives(true);
+
+				this.DispatchCoroutine(ref behaviorCoroutine);
+				this.DispatchCoroutine(ref coroutine);
+				this.DispatchCoroutine(ref TNTRotationCoroutine);
+				this.DispatchCoroutine(ref jumpAttackCoroutine);
 
 				switch(character.currentStage)
 				{
@@ -592,6 +621,52 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 					break;
 				}
 			break;
+
+			case IDs.EVENT_DEATHROUTINE_BEGINS:
+				StopAttackRoutine();
+				character.GoToCryAnimation();
+			break;
+
+			case IDs.EVENT_DEATHROUTINE_ENDS:
+				StopAttackRoutine();
+				character.GoToCryAnimation();
+			break;
+		}
+	}
+
+	/// <summary>Callback invoked when the health of the character is depleted.</summary>
+	/// <param name="_object">GameObject that caused the event, null be default.</param>
+	protected override void OnCharacterHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
+	{
+		base.OnCharacterHealthEvent(_event, _amount, _object);
+
+		switch(_event)
+		{
+			case HealthEvent.Depleted:
+				switch(character.currentStage)
+				{
+					case Boss.STAGE_1:
+						if(_object == null) return;
+						character.AddStates(IDs.STATE_HURT);
+						character.RemoveStates(IDs.STATE_ATTACKING_0);
+						character.GoToDamageAnimation(_object, OnDamageAnimationEnds);
+					break;
+				}
+			break;
+
+			case HealthEvent.HitStunEnds:
+				if(character.health.hp > 0.0f)
+				BeginAttackRoutine();
+			break;
+
+			case HealthEvent.InvincibilityEnds:
+			break;
+
+			case HealthEvent.FullyDepleted:
+				character.RemoveStates(IDs.STATE_ATTACKING_0 | IDs.STATE_ATTACKING_1);
+				character.GoToCryAnimation();
+				StopAttackRoutine();
+			break;
 		}
 	}
 
@@ -600,22 +675,27 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <param name="_tiePosition">Tie Position.</param>
 	public void OnTie(Transform _ship, Vector3 _tiePosition)
 	{
-		transform.position = _tiePosition;
-		transform.parent = _ship;
+		character.transform.position = _tiePosition;
+		character.transform.parent = _ship;
 		this.StartCoroutine(TieRoutine(), ref behaviorCoroutine);
 
 	}
 
-	/// <summary>Callback invoked when Shaanty ought to be untied.</summary>
+	/// <summary>Callback invoked when Shanty ought to be untied.</summary>
 	public void OnUntie()
 	{
 		this.DispatchCoroutine(ref behaviorCoroutine);
 
-		this.StartCoroutine(character.animation.CrossFadeAndWait(character.untiedAnimation, 0.3f, PlayMode.StopSameLayer, 0.0f,
-		()=>
+		character.GoToUntieAnimation(()=>
 		{
-			this.AddStates(IDs.STATE_ATTACKING_0);
-		}));
+			BeginAttackRoutine();
+		});
+	}
+
+	/// <summary>Callback invoked when Damage animation finishes.</summary>
+	private void OnDamageAnimationEnds()
+	{
+		BeginAttackRoutine();
 	}
 
 	/// <summary>Callback invoked when an Animation Event is invoked.</summary>
@@ -624,6 +704,14 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	{
 		switch(_ID)
 		{
+			case IDs.ANIMATIONEVENT_DEACTIVATEHITBOXES:
+				character.sword.ActivateHitBoxes(false);
+			break;
+
+			case IDs.ANIMATIONEVENT_ACTIVATEHITBOXES:
+				character.sword.ActivateHitBoxes(true);
+			break;
+
 			case IDs.ANIMATIONEVENT_PICKBOMB:
 				character.ActivateSword(false);
 				PickBomb();
@@ -642,7 +730,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 
 			case IDs.ANIMATIONEVENT_GOIDLE:
-				character.animation.CrossFade(character.idleAnimation);
+				//character.GoToIdleAnimation();
 			break;
 
 			case IDs.ANIMATIONEVENT_PICKTNT:
@@ -662,16 +750,15 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 
 			default:
-				Debug.Log("[ShantyBossAIController] Default Case #" + _ID);
 			break;
 		}
 	}
 
 	/// <summary>Callback invoked when a Bomb Event occurs.</summary>
-	/// <param name="_projecile">Bomb's reference.</param>
+	/// <param name="_weapon">Bomb's reference.</param>
 	/// <param name="_eventID">Bomb's Event ID.</param>
 	/// <param name="_info">Additional Trigger2DInformation.</param>
-	private void OnBombEvent(Projectile _projectile, int _eventID, Trigger2DInformation _info)
+	private void OnBombEvent(ContactWeapon _weapon, int _eventID, Trigger2DInformation _info)
 	{
 		switch(character.currentStage)
 		{
@@ -679,11 +766,26 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 				switch(_eventID)
 				{
 					case IDs.EVENT_REPELLED:
-					if(_projectile.owner == gameObject) return;
+					if(_weapon.owner == gameObject) return;
 
+					BombParabolaProjectile bombProjectile = character.bomb as BombParabolaProjectile;
+					if(bombProjectile != null && bombProjectile.state == BombState.WickOn) bombProjectile.impactTags = character.wickOnBombImpactTags;
+					
+					character.RemoveStates(IDs.STATE_IDLE);
 					character.ActivateSword(false);
-					character.animation.Stop();
-					this.StartCoroutine(character.animation.PlayAndSincronizeAnimationWithTime(character.tennisHitAnimation, 14, _projectile.parabolaTime * bombProjectionPercentage), ref behaviorCoroutine);
+					character.animatorController.CancelCrossFading(0);
+					character.animatorController.DeactivateLayer(0);
+					this.StartCoroutine(this.WaitSeconds(bombProjectionTime * bombProjectionPercentage, ()=>
+					{
+						character.GoToTennisHitAnimation(()=>
+						{
+							character.AddStates(IDs.STATE_IDLE);
+							character.GoToIdleAnimation();
+						});
+					}), ref coroutine);
+					/// \TODO Make a Syncronization function for Animator's API:
+					/*character.animation.Stop();
+					this.StartCoroutine(character.animation.character.RemoveStates(IDs.STATE_IDLE);PlayAndSincronizeAnimationWithTime(character.tennisHitAnimation, 14, _weapon.parabolaTime * bombProjectionPercentage), ref behaviorCoroutine);*/
 					break;
 				}
 			break;
@@ -694,10 +796,10 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	}
 
 	/// <summary>Event invoked when the projectile is deactivated.</summary>
-	/// <param name="_projectile">Projectile that invoked the event.</param>
+	/// <param name="_weapon">Weapon that invoked the event.</param>
 	/// <param name="_cause">Cause of the deactivation.</param>
 	/// <param name="_info">Additional Trigger2D's information.</param>
-	private void OnBombDeactivated(Projectile _projectile, DeactivationCause _cause, Trigger2DInformation _info)
+	private void OnBombDeactivated(ContactWeapon _weapon, DeactivationCause _cause, Trigger2DInformation _info)
 	{
 		switch(character.currentStage)
 		{
@@ -705,13 +807,16 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			switch(_cause)
 			{
 				default:
-				BeginAttackRoutine();
+					character.RemoveStates(IDs.STATE_ATTACKING_0);
+					BeginAttackRoutine();
 				break;
 			}
 			break;
 
 			case Boss.STAGE_2:
-				if(_projectile == character.TNT)
+				Projectile bomb = _weapon as Projectile;
+
+				if(bomb == character.TNT)
 				{
 					tntActive = false;
 					this.DispatchCoroutine(ref TNTRotationCoroutine);
@@ -721,22 +826,27 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	}
 
 	/// <summary>Callback invoked when a TNT Event occurs.</summary>
-	/// <param name="_projecile">TNT's reference.</param>
+	/// <param name="_weapon">TNT's reference.</param>
 	/// <param name="_eventID">TNT's Event ID.</param>
 	/// <param name="_info">Additional Trigger2DInformation.</param>
-	private void OnTNTEvent(Projectile _projectile, int _eventID, Trigger2DInformation _info)
+	private void OnTNTEvent(ContactWeapon _weapon, int _eventID, Trigger2DInformation _info)
 	{
 		switch(_eventID)
 		{
 			case IDs.EVENT_REPELLED:
-				if(_projectile.owner == null || _projectile.owner == gameObject) return;
+				Projectile TNT = _weapon as Projectile;
 
-				float durationBeforeSwordSwing = _projectile.parabolaTime * windowPercentage;
+				if(TNT == null) return;
+
+				if(_weapon.owner == null || _weapon.owner == gameObject) return;
+				
+				float durationBeforeSwordSwing = TNT.parabolaTime * windowPercentage;
 
 				this.StartCoroutine(this.WaitSeconds(durationBeforeSwordSwing, 
 				()=>
 				{
-					//...
+					character.AddStates(IDs.STATE_IDLE);
+					character.GoToIdleAnimation();
 				}));
 			break;
 		}
@@ -744,22 +854,57 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 #endregion
 
 #region Coroutines:
-	/// <summary>Tie's Coroutine.</summary>
-	private IEnumerator TieRoutine()
+	/// <summary>Stage1's Tennis Routine.</summary>
+	private IEnumerator TennisRoutine()
 	{
-		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-		AnimationState animationState = null;
+		IEnumerator throwRoutine = null;
+		float idleTime = 0.0f;
+		Action attackRoutine = ()=>
+		{
+			character.RemoveStates(IDs.STATE_IDLE);
+
+			if(character.health.hpRatio <=  stage1HealthPercentageLimit)
+			{
+				BeginTNTThrowingRoutine();
+			}
+			else
+			{
+				BeginBombThrowingRoutine();
+			}
+		};
+
+		attackRoutine();
+
 
 		while(true)
 		{
-			foreach(AnimationClip clip in character.tiedAnimations)
+			if(character.HasStates(IDs.STATE_IDLE))
 			{
-				character.animation.CrossFade(clip); /// Update with VAnimation's function (waiting for Zucun to upload his version)
-				animationState = character.animation.GetAnimationState(clip);
-				wait.ChangeDurationAndReset(animationState.clip.length);
+				if(idleTime >= idleTolerance)
+				{
+					attackRoutine();
+				}
 
-				while(wait.MoveNext()) yield return null;
+				idleTime += Time.deltaTime;
 			}
+			else idleTime = 0.0f;
+
+			yield return null;
+		}
+	}
+
+	/// <summary>Tie's Coroutine.</summary>
+	private IEnumerator TieRoutine()
+	{
+		int hash = 0;
+		IEnumerator waitForCrossFade = null;
+
+		while(true)
+		{
+			hash = character.tiedCredentials.Random();
+			waitForCrossFade = character.WaitForCrossFade(hash);
+
+			while(waitForCrossFade.MoveNext()) yield return null;
 		}
 	}
 
@@ -775,7 +920,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		while(wait.MoveNext()) yield return null;
 
 		Game.SetTimeScale(TNTThrowTimeScale);
-		wait.ChangeDurationAndReset(slowDownDuration);
+		wait.ChangeDurationAndReset(slowDownDuration * TNTThrowTimeScale);
 
 		while(wait.MoveNext()) yield return null;
 
@@ -792,14 +937,16 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		float t = 0.0f;
 		float inverseDuration = (1.0f / stairSlideDuration);
 		Line mainDeckPath = ShantySceneController.Instance.mainDeckPath;
+		bool right = (staircaseID == ID_WAYPOINTSPAIR_STAIR_RIGHT);
+		Vector3 orientation = right ? Vector3.right : Vector3.left;
 
 		character.TNT.ActivateHitBoxes(false);
-
+		character.TNT.activated = true;
 		while(wait.MoveNext()) yield return null;
-
-		character.TNT.activated = false;
 		character.TNT.StartCoroutine(character.TNT.meshContainer.transform.RotateOnAxis(Vector3.right, TNTRotationSpeed), ref TNTRotationCoroutine);
+		character.TNT.activated = false;
 
+		/// First  Parabola towards floor
 		while(t < 1.0f)
 		{
 			a = character.TNT.transform.position;
@@ -813,11 +960,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		}
 
 		character.TNT.ActivateHitBoxes(true);
+		character.TNT.activated = false;
 		b = mainDeckPath.Lerp(0.5f);
 		d = b - character.TNT.transform.position;
-		float sqrDistance = (0.1f * 0.1f);
+		float sqrDistance = (0.35f * 0.35f);
 
-		while(d.sqrMagnitude < sqrDistance)
+		/// Lerp towards the center:
+		while(d.sqrMagnitude > sqrDistance)
 		{
 			character.TNT.transform.position += (d * sidewaysMovementSpeed * Time.deltaTime);
 			character.TNT.transform.rotation = Quaternion.LookRotation(d);
@@ -825,21 +974,32 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			yield return null;
 		}
 
-		b = line == ShantySceneController.Instance.leftStairPath ? mainDeckPath.b : mainDeckPath.a;
+		Game.AddTargetToCamera(character.TNT.cameraTarget);
+		b = staircaseID == ID_WAYPOINTSPAIR_STAIR_LEFT ? mainDeckPath.b : mainDeckPath.a;
 		d = b - character.TNT.transform.position;
+		d.Normalize();
 
+		/// Go sideways while the TNT is alive:
 		while(tntActive)
 		{
-			character.TNT.transform.position += (d.normalized * sidewaysMovementSpeed * Time.deltaTime);
+			Vector3 nD = d.normalized;
+			Vector3 position = character.TNT.transform.position + (nD * sidewaysMovementSpeed * Time.deltaTime);
+			position.y = b.y;
+			character.TNT.transform.position = position;
 			character.TNT.transform.rotation = Quaternion.LookRotation(d);
-			d = b - character.TNT.transform.position;
 
 			if(d.sqrMagnitude <= sqrDistance)
-			b = b == mainDeckPath.a ? mainDeckPath.b : mainDeckPath.a;
+			{ // Only do the change of direction once.
+				b = b == mainDeckPath.a ? mainDeckPath.b : mainDeckPath.a;
+				right = !right;
+				orientation = right ? Vector3.right : Vector3.left;
+			}
 
+			d = b - character.TNT.transform.position;
 			yield return null;
 		}
 
+		Game.RemoveTargetToCamera(character.TNT.cameraTarget);
 		character.TNT.DispatchCoroutine(ref TNTRotationCoroutine);
 	}
 
@@ -847,8 +1007,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	private IEnumerator WhackAMoleRoutine()
 	{
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-		AnimationClip clipA = null;
-		AnimationClip clipB = null;
+		AnimatorCredential hash = default(AnimatorCredential);
 		Vector3Pair pair = default(Vector3Pair);
 		Vector3 a = Vector3.zero;
 		Vector3 b = Vector3.zero;
@@ -856,8 +1015,12 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		float t = 0.0f;
 		float inverseDuration = 1.0f / vectorPairInterpolationDuration;
 		bool toggled = false;
+		bool animationEnds = false;
+		Action onAnimationEnds = ()=>{ animationEnds = true; };
+		IEnumerator animationCrossFadeWait = null;
 
 		character.EnableHurtBoxes(false);
+		character.GoToIdleAnimation();
 
 		while(true)
 		{
@@ -871,33 +1034,34 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			{
 				case ID_WAYPOINTSPAIR_HELM:
 					pair = ShantySceneController.Instance.helmWaypointsPair;
-					clipA = character.throwBombAnimation;
+					hash = character.throwBombCredential;
 				break;
 
 				case ID_WAYPOINTSPAIR_DECK:
 					pair = ShantySceneController.Instance.deckWaypointsPair;
-					clipA = character.throwBombAnimation;
+					hash = character.throwBombCredential;
 				break;
 
 				case ID_WAYPOINTSPAIR_STAIR_LEFT:
 					pair = ShantySceneController.Instance.leftStairWaypointsPair;
-					clipA = character.throwBarrelAnimation;
+					hash = character.throwBarrelCredential;
 					line = ShantySceneController.Instance.leftStairPath;
 				break;
 
 				case ID_WAYPOINTSPAIR_STAIR_RIGHT:
 					pair = ShantySceneController.Instance.rightStairWaypointsPair;
-					clipA = character.throwBarrelAnimation;
+					hash = character.throwBarrelCredential;
 					line = ShantySceneController.Instance.rightStairPath;
 				break;
 			}
 
+			staircaseID = pairID;
 			a = ship.transform.TransformPoint(pair.a);
 			b = ship.transform.TransformPoint(pair.b);
 
 			while(t < 1.0f)
 			{
-				transform.position = Vector3.Lerp(a, b, t);
+				character.transform.position = Vector3.Lerp(a, b, t);
 
 				if(!toggled && t >= progressToToggleHurtBoxes)
 				{
@@ -912,20 +1076,25 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 			t = 0.0f;
 			toggled = false;
+			animationEnds = false;
+			character.EnableHurtBoxes(false);
 
-			character.animation.CrossFade(clipA);
-			wait.ChangeDurationAndReset(clipA.length);
+			character.CrossFadeToAnimation(hash, onAnimationEnds);
 
-			while(wait.MoveNext()) yield return null;
+			while(!animationEnds) yield return null;
 
-			character.animation.CrossFade(character.idleAnimation);
+			animationEnds = false;
+			character.GoToIdleAnimation(onAnimationEnds);
+			character.EnableHurtBoxes(true);
+
 			wait.ChangeDurationAndReset(waitBeforeWaypointReturn);
-
 			while(wait.MoveNext()) yield return null;
+
+			//while(!animationEnds) yield return null;
 
 			while(t < 1.0f)
 			{
-				transform.position = Vector3.Lerp(b, a, t);
+				character.transform.position = Vector3.Lerp(b, a, t);
 
 				if(!toggled && t >= progressToToggleHurtBoxes)
 				{
@@ -946,8 +1115,6 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	private IEnumerator DuelRoutine()
 	{
 		IEnumerator attackRoutine = null;
-		AnimationClip clip = null;
-		AnimationState animationState = null;
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 		Vector3 direction = Vector3.zero;
 		float min = attackRadiusRange.Min();
@@ -956,10 +1123,12 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		float maxSqrDistance = max * max;
 		float sqrDistance = 0.0f;
 		bool enteredAttackRadius = false;
+		bool animationEnds = false;
+		Action onAnimationEnds = ()=> { animationEnds = true; };
 
 		while(true)
 		{
-			direction = Game.mateo.transform.position - transform.position;
+			direction = Game.mateo.transform.position - character.transform.position;
 			sqrDistance = direction.sqrMagnitude;
 
 			if(sqrDistance <= maxSqrDistance)
@@ -972,18 +1141,18 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 						enteredAttackRadius = true;
 					}
 
-					if(!wait.MoveNext())
+					if(!wait.MoveNext() && !strongAttackCooldown.onCooldown)
 					{
-						if(!strongAttackCooldown.onCooldown)
 						attackRoutine = StrongAttackRoutine();
 						while(attackRoutine.MoveNext()) yield return null;
 
-						character.animation.CrossFade(character.idleAnimation);
-						wait.ChangeDurationAndReset(strongAttackCooldownDuration);
+						character.GoToIdleAnimation(onAnimationEnds);
 
-						while(wait.MoveNext()) yield return null;
+						//while(animationEnds) yield return null;
 
+						animationEnds = false;
 						enteredAttackRadius = false;
+						character.Move(Vector3.zero);
 					}
 					else
 					{
@@ -997,6 +1166,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 					direction = direction.x > 0.0f ? Vector3.right : Vector3.left;
 					attackRoutine = FrontAttackRoutine(direction);
 					while(attackRoutine.MoveNext()) yield return null;
+
 				}
 			}
 			else
@@ -1018,10 +1188,10 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 		while(true)
 		{
-			x = Game.mateo.transform.position.x - transform.position.x;
+			x = Game.mateo.transform.position.x - character.transform.position.x;
 			direction = x > 0.0f ? Vector3.right : Vector3.left;
 
-			transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
+			character.transform.rotation = Quaternion.RotateTowards(character.transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
 
 			yield return null;
 		}
@@ -1030,52 +1200,54 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Front Attack's routine.</summary>
 	private IEnumerator FrontAttackRoutine(Vector3 direction)
 	{
-		AnimationState animationState = null;
+		bool animationEnds = false;
+		Action onAnimationEnds = ()=> { animationEnds = true; };
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 
-
-		character.animation.CrossFade(character.normalAttackAnimation);
-		animationState = character.animation.GetAnimationState(character.normalAttackAnimation);
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 0.0f);
+		character.GoToNormalAttackAnimation(onAnimationEnds);
 		character.sword.ActivateHitBoxes(true);
-		wait.ChangeDurationAndReset(animationState.length);
 		character.dashAbility.Dash(direction);
 
-		while(wait.MoveNext()) yield return null;
+		while(!animationEnds) yield return null;
 
 		character.sword.ActivateHitBoxes(false);
-
 		wait.ChangeDurationAndReset(regressionDuration);
 
 		while(character.dashAbility.state != DashState.Unactive) yield return null;
 
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 1.0f);
+		
 		while(wait.MoveNext())
 		{
 			character.Move(-direction);
 			yield return null;
 		}
 
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 1.0f);
 		normalAttackCooldown.Begin();
 	}
 
 	/// <summary>Strong Attack's Routine.</summary>
 	private IEnumerator StrongAttackRoutine()
 	{
-		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
-		AnimationState animationState = null;
+		bool animationEnds = false;
+		Action onAnimationEnds = ()=> { animationEnds = true; };
 
-		character.animation.CrossFade(character.strongAttackAnimation);
-		animationState = character.animation.GetAnimationState(character.strongAttackAnimation);
-		wait.ChangeDurationAndReset(character.strongAttackAnimation.length);
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 0.0f);
+		character.GoToStrongAttackAnimation(onAnimationEnds);
 
-		while(wait.MoveNext()) yield return null;
+		while(!animationEnds) yield return null;
+		while(jumpAttackCoroutine !=  null) yield return null;
 
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 0.0f);
 		strongAttackCooldown.Begin();
 	}
 
 	/// <summary>Jump's Routine.</summary>
 	private IEnumerator JumpAttackRoutine()
 	{
-		Vector3 direction = Game.mateo.transform.position - transform.position;
+		Vector3 direction = Game.mateo.transform.position - character.transform.position;
 		direction.y = 0.0f;
 		direction.Normalize();
 		character.sword.ActivateHitBoxes(true);
@@ -1093,24 +1265,18 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			yield return null;
 		}
 
+		/*character.animatorController.CancelCrossFading(0);
+		character.animatorController.DeactivateLayer(0);*/
+		IEnumerator normalAttack = FrontAttackRoutine(direction);
+
+		while(normalAttack.MoveNext()) yield return null;
+
+		character.animatorController.animator.SetLayerWeight(character.locomotionAnimationLayer, 0.0f);
+
 		character.sword.ActivateHitBoxes(false);
+		this.DispatchCoroutine(ref jumpAttackCoroutine);
+		BeginAttackRoutine();
 	}
 #endregion
-
-	/*/// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionEnter2D(Collision2D col)
-	{
-		if(col.gameObject.CompareTag(Game.data.playerTag))
-		rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
-	}
-
-	/// <summary>Event triggered when this Collider/Rigidbody began having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionExit2D(Collision2D col)
-	{
-		if(col.gameObject.CompareTag(Game.data.playerTag))
-		rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-	}*/
 }
 }

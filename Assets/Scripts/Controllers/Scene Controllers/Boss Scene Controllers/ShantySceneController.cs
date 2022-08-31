@@ -236,10 +236,11 @@ public class ShantySceneController : Singleton<ShantySceneController>
 		} 
 	}*/
 
-	/// <summary>ShantySceneController's instance initialization.</summary>
-	private void Awake()
+	/// <summary>Callback called on Awake if this Object is the Singleton's Instance.</summary>
+   	protected override void OnAwake()
 	{
-		AudioController.Play(SourceType.Loop, 0, loopReference);
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
+		AudioController.onAudioMappingLoaded += OnAudioMappingLoaded;
 		
 		if(shanty != null)
 		{
@@ -252,25 +253,47 @@ public class ShantySceneController : Singleton<ShantySceneController>
 	private void Start ()
 	{
 		//Introduction();
-		//StartCoroutine(TEST());	
+		//StartCoroutine(TEST());
+		Game.EnablePlayerControl(false);
+	}
+
+	/// <summary>Callback invoked when ShantySceneController's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+		AudioController.onAudioMappingLoaded -= OnAudioMappingLoaded;
 	}
 
 	/// <summary>Ties Shanty into rope and docks ship.</summary>
 	private void Introduction()
 	{
 		if(shanty == null
-		|| shantyController
-		|| shanty.animator == null
+		|| shantyController == null
+		//|| shanty.animator == null
 		|| shantyShip == null) return;
 
 		shantyShip.ropeHitBox.onTriggerEvent2D -= OnRopeHit; 			/// Just in case...
 		shantyShip.ropeHitBox.onTriggerEvent2D += OnRopeHit;
+
+		Debug.Log("[ShantySceneController] Tying Argel...");
 
 		shantyController.OnTie(shantyShip.transform, stage1ShantyPosition);
 		shantyShip.GoToState(ShantyShip.ID_STATE_DOCKED);
 	}
 
 #region Callbacks:
+	/// <summary>Callback invoked when all resources are loaded.</summary>
+	private void OnResourcesLoaded()
+	{
+		Game.EnablePlayerControl(true);
+	}
+
+	/// <summary>Callback invoked when the Audio's Mapping has been loaded.</summary>
+	private void OnAudioMappingLoaded()
+	{
+		AudioController.Play(SourceType.Loop, 0, loopReference);
+	}
+
 	/// <summary>Callback invoked when Shanty invokes an ID's Event.</summary>
 	/// <param name="_ID">Event's ID.</param>
 	private void OnShantyIDEvent(int _ID)
@@ -293,86 +316,99 @@ public class ShantySceneController : Singleton<ShantySceneController>
 			switch(stageID)
 			{
 				case Boss.STAGE_1:
-				shantyShip.ActivateCannons(true);
-				Game.AddTargetToCamera(shanty.cameraTarget);
-				OnStageChanged(stageID);
-				Introduction();
+					/*
+						- Tie Shanty
+					*/
+					shantyShip.ActivateCannons(true);
+					Game.AddTargetToCamera(shanty.cameraTarget);
+					OnStageChanged(stageID);
+					Introduction();
 				break;
 
 				case Boss.STAGE_2:
-				ParticleEffect effect = null;
-				
-				shanty.ChangeState(IDs.STATE_ALIVE | IDs.STATE_IDLE);
-				Game.EnablePlayerControl(false);
-				Game.state = GameState.Transitioning;
-				Game.RemoveTargetToCamera(shanty.cameraTarget);
+					ParticleEffect effect = null;
+					shanty.ChangeState(IDs.STATE_ALIVE | IDs.STATE_IDLE);
+					Game.EnablePlayerControl(false);
+					Game.state = GameState.Transitioning;
+					Game.RemoveTargetToCamera(shanty.cameraTarget);
+					shantyController.StopAttackRoutine();
+					shanty.GoToCryAnimation();
 
-				foreach(Vector3 position in smokeSpawnPositions)
-				{
-					effect = PoolManager.RequestParticleEffect(smokeEffectReference, position, Quaternion.identity);
-				}
+					foreach(Vector3 position in smokeSpawnPositions)
+					{
+						//effect = PoolManager.RequestParticleEffect(smokeEffectReference, position, Quaternion.identity);
+					}
 
-				this.StartCoroutine(this.WaitSeconds(waitBeforeFade,
-				()=>
-				{
-					Game.gameplayGUIController.screenFaderGUI.FadeIn(Color.white, fadeInDuration,
+					this.StartCoroutine(this.WaitSeconds(waitBeforeFade,
 					()=>
-					{ /// Once the scenario is covered by the faded screen, do this:
-
-						shantyShip.ActivateCannons(false);
-						OnStageChanged(stageID);
-
-						this.StartCoroutine(this.WaitSeconds(waitAfterFade,
+					{
+						Game.gameplayGUIController.screenFaderGUI.FadeIn(Color.white, fadeInDuration,
 						()=>
-						{
-							Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
+						{ /// Once the scenario is covered by the faded screen, do this:
+
+							shantyShip.ActivateCannons(false);
+							OnStageChanged(stageID);
+
+							this.StartCoroutine(this.WaitSeconds(waitAfterFade,
 							()=>
 							{
-								Game.state = GameState.Playing;
-								Game.EnablePlayerControl(true);
-								shantyController.BeginAttackRoutine();
-							});
-						}));
-					});
-				}));
+								Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
+								()=>
+								{
+									Game.state = GameState.Playing;
+									Game.EnablePlayerControl(true);
+									shantyController.BeginAttackRoutine();
+								});
+							}));
+						});
+					}));
 				break;
 
 				case Boss.STAGE_3:
-				Game.state = GameState.Transitioning;
-				Game.AddTargetToCamera(shanty.cameraTarget);
-				this.StartCoroutine(this.WaitSeconds(waitBeforeFade, 
-				()=>
-				{
-					Game.gameplayGUIController.screenFaderGUI.FadeIn(Color.white, fadeInDuration,
+					Game.state = GameState.Transitioning;
+					Game.AddTargetToCamera(shanty.cameraTarget);
+					shanty.GoToCryAnimation();
+					this.StartCoroutine(this.WaitSeconds(waitBeforeFade, 
 					()=>
 					{
-						shantyShip.ActivateCannons(true);
-						OnStageChanged(stageID);
-
-						this.StartCoroutine(this.WaitSeconds(waitAfterFade,
+						Game.gameplayGUIController.screenFaderGUI.FadeIn(Color.white, fadeInDuration,
 						()=>
 						{
-							Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
+							shantyShip.ActivateCannons(true);
+							OnStageChanged(stageID);
+
+							this.StartCoroutine(this.WaitSeconds(waitAfterFade,
 							()=>
 							{
-								Game.state = GameState.Playing;
-								Game.EnablePlayerControl(true);
-								shantyController.BeginAttackRoutine();
-							});
-						}));
-					});
-				}));
+								Game.gameplayGUIController.screenFaderGUI.FadeOut(Color.white, fadeOutDuration,
+								()=>
+								{
+									Game.state = GameState.Playing;
+									Game.EnablePlayerControl(true);
+									shantyController.BeginAttackRoutine();
+								});
+							}));
+						});
+					}));
 				break;
 			}
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_BEGINS:
-			Game.EnablePlayerControl(false);
+				shanty.GoToCryAnimation();
+				Game.EnablePlayerControl(false);
+				Game.mateo.animatorController.CrossFadeAndWait(Game.mateo.bowCredential, Game.mateo.clipFadeDuration, Game.mateo.mainAnimationLayer, 0.0f, 0.0f,
+				()=>
+				{
+					Game.LoadScene(Game.data.overworldSceneName);
+				});
 			break;
 
 			case IDs.EVENT_DEATHROUTINE_ENDS:
 			break;
 		}
+
+		//Debug.Log("[ShantySceneController] On Shanty Event with ID #" + _ID);
 	}
 
 	/// <summary>Event invoked when this Hit Collider2D intersects with another GameObject.</summary>

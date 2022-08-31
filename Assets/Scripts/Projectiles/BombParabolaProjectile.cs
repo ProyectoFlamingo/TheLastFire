@@ -147,15 +147,13 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 			break;
 
 			case BombState.WickOn:
-			//fuseFire = PoolManager.RequestParticleEffect(fireEffectIndex, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
-			fuseFire = PoolManager.RequestParticleEffect(fireEffectReference, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
-			fuseFire.transform.parent = transform;
-			this.StartCoroutine(FuseOnRoutine(), ref fuseRoutine);
+				fuseFire = PoolManager.RequestParticleEffect(fireEffectReference, fuse.transform.position + (fuse.transform.up * fuseLength), fuse.transform.rotation);
+				fuseFire.transform.parent = transform;
+				this.StartCoroutine(FuseOnRoutine(), ref fuseRoutine);
 			break;
 
 			case BombState.Exploding:
-			//explosion = PoolManager.RequestExplodable(explodableIndex, transform.position, transform.rotation);
-			explosion = PoolManager.RequestExplodable(explodableReference, transform.position, transform.rotation);
+				explosion = PoolManager.RequestExplodable(explodableReference, transform.position, transform.rotation);
 			break;
 		}
 	}
@@ -167,13 +165,13 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		switch(_state)
 		{
 			case BombState.WickOn:
-			if(fuseFire != null)
-			{
-				if(gameObject.activeSelf) fuseFire.transform.parent = null;
-				fuseFire.OnObjectDeactivation();
-				fuseFire = null;
-			}
-			this.DispatchCoroutine(ref fuseRoutine);
+				if(fuseFire != null)
+				{
+					if(gameObject.activeSelf) fuseFire.transform.parent = null;
+					fuseFire.OnObjectDeactivation();
+					fuseFire = null;
+				}
+				this.DispatchCoroutine(ref fuseRoutine);
 			break;
 		}
 	}
@@ -218,26 +216,26 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		switch(state)
 		{
 			case BombState.WickOff:
-			if(flamableTags != null) foreach(GameObjectTag tag in flamableTags)
-			{
-				if(obj.CompareTag(tag))
+				if(flamableTags != null) foreach(GameObjectTag tag in flamableTags)
 				{
-					this.ChangeState(BombState.WickOn);
-					break;
+					if(obj.CompareTag(tag))
+					{
+						this.ChangeState(BombState.WickOn);
+						break;
+					}
 				}
-			}
 			break;
 
 			case BombState.WickOn:
-			if(repelTags != null) foreach(GameObjectTag tag in repelTags)
-			{
-				if(obj.CompareTag(tag))
+				/*if(repelTags != null) foreach(GameObjectTag tag in repelTags)
 				{
-					InvokeDeactivationEvent(DeactivationCause.Destroyed, _info);
-					this.ChangeState(BombState.Exploding);
-					break;
-				}
-			}
+					if(obj.CompareTag(tag))
+					{
+						InvokeDeactivationEvent(DeactivationCause.Destroyed, _info);
+						this.ChangeState(BombState.Exploding);
+						break;
+					}
+				}*/
 			break;
 		}
 	}

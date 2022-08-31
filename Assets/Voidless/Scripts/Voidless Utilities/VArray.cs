@@ -9,6 +9,40 @@ namespace Voidless
 {
 public static class VArray
 {
+	/// <summary>Bubble-sorts given array.</summary>
+	/// <param name="_array">Array's reference.</param>
+	public static T[] BubbleSort<T>(this T[] _array, Func<T, T, bool> condition, bool _ascendant = true)
+	{
+		if(_array == null) return null;
+
+		int length = _array.Length;
+
+		if(length == 0) return null;
+
+		T[] array = new T[length];
+
+		for(int i = 0; i < length; i++)
+		{
+			for(int j = 0; j < length; j++)
+			{
+				T elementA = _array[j];
+				T elementB  = _array[j + 1];
+				T a = _ascendant ? elementA : elementB;
+				T b = _ascendant ? elementB : elementA;
+
+				if(condition(a, b))
+				{
+					T temp = a;
+					_array[j] = b;
+					_array[j + 1] = temp;
+					array[j] = _array[j];
+				}
+			}
+		}
+
+		return array;
+	}
+
 	/// <summary>Balances 2 arrays, so they are of the same size.</summary>
 	/// <param name="a">Array A.</param>
 	/// <param name="b">Array B.</param>

@@ -24,10 +24,31 @@ public static class VString
 	public const int SIZE_BITS_INT = sizeof(int) * 8; 														/// <summary>Size in Bits of Integer.</summary>
 	public const int SIZE_BITS_LONG = sizeof(long) * 8; 													/// <summary>Size in Bits of Long.</summary>
 	public const string ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"; 		/// <summary>Abecedary.</summary>
-	public const string PATH_ROOT_VOIDLESS_UTILITIES = "Voidless Utilties"; 								/// <summary>Voidless Utilities' Root.</summary>
+	public const string PATH_ROOT_VOIDLESS = "Voidless Utilties"; 											/// <summary>Voidless Utilities' Root.</summary>
 	public const string PATH_ROOT_VOIDLESS_TOOLS = "Voidless Tools"; 										/// <summary>Voidless Tools' Root Path.</summary>
-	public const string PATH_SCRIPTABLE_OBJECTS = PATH_ROOT_VOIDLESS_UTILITIES + "/Scriptable Objects"; 	/// <summary>Scriptable Objects' Path.</summary>
+	public const string PATH_SCRIPTABLE_OBJECTS = PATH_ROOT_VOIDLESS + "/Scriptable Objects"; 				/// <summary>Scriptable Objects' Path.</summary>
 	public const string EDITOR_DATA_KEY_MAPPING_PATH = "Path_InputMapping_File";  							/// <summary>Input Mapping File's path for Editor's Data.</summary>
+
+	/// <returns>Project's Path [before Assets' Folder].</returns>
+	public static string GetProjectPath()
+	{
+		string projectPath = Application.dataPath;
+
+		return projectPath.Substring(0, projectPath.Length - ("Assets/".Length));
+	}
+
+	/// <summary>Gets Project Name [without the full folder path].</summary>
+	/// <param name="_deleteSpace">Delete Space (so it is given on Pascal Case)? true by default.</param>
+	/// <returns>Project's Name.</returns>
+	public static string GetProjectName(bool _deleteSpace = true)
+	{
+		string[] split = Application.dataPath.Split('/');
+		string projectName = split[split.Length - 2];
+
+		if(_deleteSpace) projectName = projectName.Replace(" ", string.Empty);
+
+		return projectName;
+	}
 
 	/// <summary>Converts Text into Rich Text [also for Debugs].</summary>
 	/// <param name="_text">Text to convert into rich text.</param>

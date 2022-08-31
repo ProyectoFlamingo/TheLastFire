@@ -45,7 +45,14 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Animations")][SerializeField] private OnAnimatorMoveOverrider _onAnimatorMoveOverrider; 	/// <summary>OnAnimatorMoveOverrider component attached to the Animator's GameObject.</summary>
 	[Space(5f)]
 	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 							/// <summary>Main Animations' Layer.</summary>
+	[TabGroup("Animations")][SerializeField] private int _locomotionAnimationLayer; 					/// <summary>Locomotion Animations' Layer.</summary>
 	[TabGroup("Animations")][SerializeField] private int _attackAnimationLayer; 						/// <summary>Attack Animations' Layer.</summary>
+	[Space(5f)]
+	[Header("AnimatorController's Parameters:")]
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisXCredential; 			/// <summary>Left-Axis X's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisYCredential; 			/// <summary>Left-Axis X's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisXCredential; 			/// <summary>Right-Axis X's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisYCredential; 			/// <summary>Right-Axis X's AnimatorCredential.</summary>
 	[Space(5f)]
 	[Range(0.0f, 1.0f)]
 	[TabGroup("Animations")][SerializeField] private float _clipFadeDuration; 							/// <summary>Default's AnimationClip Fade's Duration.</summary>
@@ -199,8 +206,23 @@ public class Character : PoolGameObject, IStateMachine
 	/// <summary>Gets mainAnimationLayer property.</summary>
 	public int mainAnimationLayer { get { return _mainAnimationLayer; } }
 
+	/// <summary>Gets locomotionAnimationLayer property.</summary>
+	public int locomotionAnimationLayer { get { return _locomotionAnimationLayer; } }
+
 	/// <summary>Gets attackAnimationLayer property.</summary>
 	public int attackAnimationLayer { get { return _attackAnimationLayer; } }
+
+	/// <summary>Gets leftAxisXCredential property.</summary>
+	public AnimatorCredential leftAxisXCredential { get { return _leftAxisXCredential; } }
+
+	/// <summary>Gets leftAxisYCredential property.</summary>
+	public AnimatorCredential leftAxisYCredential { get { return _leftAxisYCredential; } }
+
+	/// <summary>Gets rightAxisXCredential property.</summary>
+	public AnimatorCredential rightAxisXCredential { get { return _rightAxisXCredential; } }
+
+	/// <summary>Gets rightAxisYCredential property.</summary>
+	public AnimatorCredential rightAxisYCredential { get { return _rightAxisYCredential; } }
 
 	/// <summary>Gets and Sets state property.</summary>
 	public int state

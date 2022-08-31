@@ -150,6 +150,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8081931510148939189}
     m_Modifications:
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[0]
+      value: 
+      objectReference: {fileID: 2962305432476657612}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[1]
+      value: 
+      objectReference: {fileID: 8903653931372920397}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[2]
+      value: 
+      objectReference: {fileID: 8903653932579406105}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[3]
+      value: 
+      objectReference: {fileID: 2962305434074300382}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[4]
+      value: 
+      objectReference: {fileID: 2530978038007903744}
+    - target: {fileID: 457997331043321993, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+        type: 3}
+      propertyPath: _systems.Array.data[5]
+      value: 
+      objectReference: {fileID: 1731592050104642213}
     - target: {fileID: 721682070875501325, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
         type: 3}
       propertyPath: m_Name
@@ -857,6 +892,12 @@ ParticleSystem:
 --- !u!198 &2530978038007903744 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 5948158942883000267, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 8184109345204345291}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1731592050104642213 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7607729709496709998, guid: 0e83547a5bcf95d40bac9eac6a4758a6,
     type: 3}
   m_PrefabInstance: {fileID: 8184109345204345291}
   m_PrefabAsset: {fileID: 0}

@@ -21,7 +21,7 @@ public struct AngleDotProduct : ISerializationCallbackReceiver
 		get { return _angle; }
 		set
 		{
-			_angle = Mathf.Clamp(value, 0.0f, 180.0f);
+			_angle = Mathf.Clamp(value, -1.0f, 180.0f);
 			dotProduct = Mathf.Cos(_angle * Mathf.Deg2Rad);
 		}
 	}
@@ -113,6 +113,28 @@ public struct AngleDotProduct : ISerializationCallbackReceiver
 		} else if(dotProduct < 0.0f)
 		{
 			return dot >= dotProduct;
+		}
+		else return dot == dotProduct;
+	}
+
+	/// <summary>Evaluates if dot product between 2 vectors is below range.</summary>
+	/// <param name="a">Vector A.</param>
+	/// <param name="b">Vector B.</param>
+	/// <returns>True if the dot product between two vectors is below the defined dot product.</returns>
+	public bool BelowRange(Vector3 a, Vector3 b)
+	{
+		if(a.sqrMagnitude != 1.0f) a.Normalize();
+		if(b.sqrMagnitude != 1.0f) b.Normalize();
+
+		float dot = Vector3.Dot(a, b);
+
+		if(dotProduct > 0.0f)
+		{
+			return dot < dotProduct;
+
+		} else if(dotProduct < 0.0f)
+		{
+			return dot > dotProduct;
 		}
 		else return dot == dotProduct;
 	}

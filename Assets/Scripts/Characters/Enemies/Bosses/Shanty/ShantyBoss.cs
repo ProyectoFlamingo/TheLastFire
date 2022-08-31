@@ -18,23 +18,6 @@ public class ShantyBoss : Boss
 	public const int ID_WAYPOINTSPAIR_DECK = 1; 													/// <summary>Deck's Waypoints' Pair ID.</summary>
 	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 												/// <summary>Left Stair's Waypoints' Pair ID.</summary>
 	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 												/// <summary>Right Stair's Waypoints' Pair ID.</summary>
-	
-	public const int ID_ANIMATIONSTATE_INTRO = 0; 													/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_TIED = 1; 													/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_IDLE = 2; 													/// <summary>Idle's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_ATTACK = 3; 													/// <summary>Attack's State ID [for AnimatorController].</summary>
-	public const int ID_ANIMATIONSTATE_DAMAGE = 4; 													/// <summary>Damage's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_SHOOT_AIR = 0; 														/// <summary>Shoot's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACL_HIT_TENNIS = 1; 														/// <summary>Tennis Hit's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_BOMB_THROW = 2; 														/// <summary>Bomb Throw's State ID [for AnimatorController].</summary>
-	public const int ID_ATTACK_BARREL_THROW = 3; 													/// <summary>Barrel Throw's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_BOMB = 0; 															/// <summary>Bomb Damage's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_SWORD = 1; 															/// <summary>Sword Damage's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_CRY = 2; 															/// <summary>Cry's State ID [for AnimatorController].</summary>
-	public const int ID_DAMAGE_BARREL = 3; 															/// <summary>Barrel Damage's State ID [for AnimatorController].</summary>
-	public const int ID_IDLE = 0; 																	/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_LAUGH = 1; 																	/// <summary>Intro's State ID [for AnimatorController].</summary>
-	public const int ID_TAUNT = 2; 																	/// <summary>Intro's State ID [for AnimatorController].</summary>
 
 	[Space(10f)]
 	[Header("Shanty's Attributes:")]
@@ -102,48 +85,29 @@ public class ShantyBoss : Boss
 	[Header("Inmunities:")]
 	[SerializeField] private GameObjectTag[] _stage1Inmunities; 									/// <summary>Inmunities on Stage 1.</summary>
 	[SerializeField] private GameObjectTag[] _stage2Inmunities; 									/// <summary>Inmunities on Stage 2.</summary>
+	[SerializeField] private GameObjectTag[] _defaultBombImpactTags; 								/// <summary>Default Impact Tags for Bombs.</summary>
+	[SerializeField] private GameObjectTag[] _wickOnBombImpactTags; 								/// <summary>Wick-On Impact Tags for Bombs.</summary>
 	[Space(5f)]
-	[Header("Animator's Attributes:")]
-	[SerializeField] private AnimatorCredential _stateIDCredential; 								/// <summary>State ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _attackIDCredential; 								/// <summary>Attack ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _idleIDCredential; 									/// <summary>Idle ID's AnimatorCredential.</summary>
-	[SerializeField] private AnimatorCredential _vitalityIDCredential; 								/// <summary>Vitality ID's AnimatorCredential.</summary>
-	[Space(5f)]
-	[Header("Animations:")]
-	[SerializeField] public AnimationClip[] tiedAnimations; 										/// <summary>Tied Animations.</summary>
-	[SerializeField] public AnimationClip untiedAnimation; 											/// <summary>Untied's Animation.</summary>
-	[SerializeField] public AnimationClip idleAnimation; 											/// <summary>Idle's Animation.</summary>
-	[SerializeField] public AnimationClip laughAnimation; 											/// <summary>Laugh's Animation.</summary>
-	[SerializeField] public AnimationClip tauntAnimation; 											/// <summary>Taun's Animation.</summary>
-	[SerializeField] public AnimationClip tiredAnimation; 											/// <summary>Tired's Animation.</summary>
-	[SerializeField] public AnimationClip shootAnimation; 											/// <summary>Shoot's Animation.</summary>
-	[SerializeField] public AnimationClip throwBarrelAnimation; 									/// <summary>Throw Barrel's Animation.</summary>
-	[SerializeField] public AnimationClip throwBombAnimation; 										/// <summary>Throw Bomb's Animation.</summary>
-	[SerializeField] public AnimationClip tennisHitAnimation; 										/// <summary>tennis Hit's Animation.</summary>
-	[SerializeField] public AnimationClip hitBombAnimation; 										/// <summary>Hit Bomb's Animation.</summary>
-	[SerializeField] public AnimationClip hitBarrelAnimation; 										/// <summary>Hit Barrel's Animation.</summary>
-	[SerializeField] public AnimationClip hitSwordAnimation; 										/// <summary>Hit Sword's Animation.</summary>
-	[SerializeField] public AnimationClip cryAnimation; 											/// <summary>Cry's Animation.</summary>
-	[SerializeField] public AnimationClip normalAttackAnimation; 									/// <summary>Normal Attack's Animation.</summary>
-	[SerializeField] public AnimationClip strongAttackAnimation; 									/// <summary>Strong Attack's Animation.</summary>
-	[SerializeField] public AnimationClip backStepAnimation; 										/// <summary>Back-Setp Animation.</summary>
+	[Header("Shanty's Animations:")]
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential[] _tiedCredentials; 		/// <summary>Tied Animations.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _untiedCredential; 			/// <summary>Untied's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 			/// <summary>Idle's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 			/// <summary>Laugh's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tauntCredential; 			/// <summary>Taun's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tiredCredential; 			/// <summary>Tired's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootCredential; 			/// <summary>Shoot's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBarrelCredential; 	/// <summary>Throw Barrel's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBombCredential; 		/// <summary>Throw Bomb's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tennisHitCredential; 		/// <summary>tennis Hit's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBombCredential; 		/// <summary>Hit Bomb's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBarrelCredential; 		/// <summary>Hit Barrel's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitSwordCredential; 		/// <summary>Hit Sword's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _cryCredential; 			/// <summary>Cry's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalAttackCredential; 	/// <summary>Normal Attack's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongAttackCredential; 	/// <summary>Strong Attack's Animation.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _backStepCredential; 		/// <summary>Back-Setp Animation.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _untiedCredential; 			/// <summary>Untied's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 			/// <summary>Idle's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 			/// <summary>Laugh's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tauntCredential; 			/// <summary>Taun's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tiredCredential; 			/// <summary>Tired's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootCredential; 			/// <summary>Shoot's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootToAirCredential; 		/// <summary>Shoot To Air's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBarrelCredential; 	/// <summary>Throw Barrel's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBombCredential; 		/// <summary>Throw Bomb's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tennisHitCredential; 		/// <summary>tennis Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBombCredential; 		/// <summary>Hit Bomb's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBarrelCredential; 		/// <summary>Hit Barrel's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitSwordCredential; 		/// <summary>Hit Sword's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _cryCredential; 			/// <summary>Cry's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalAttackCredential; 	/// <summary>Normal Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongAttackCredential; 	/// <summary>Strong Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _walkingCredential; 		/// <summary>Walking AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _backStepCredential; 		/// <summary>Back-Setp AnimatorCredential.</summary>
 	private Coroutine coroutine; 																	/// <summary>Coroutine's Reference.</summary>
 	private Coroutine TNTRotationCoroutine; 														/// <summary>TNT's Rotation Coroutine's Reference.</summary>
 	private Behavior attackBehavior; 																/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
@@ -273,6 +237,12 @@ public class ShantyBoss : Boss
 	/// <summary>Gets stage2Inmunities property.</summary>
 	public GameObjectTag[] stage2Inmunities { get { return _stage2Inmunities; } }
 
+	/// <summary>Gets defaultBombImpactTags property.</summary>
+	public GameObjectTag[] defaultBombImpactTags { get { return _defaultBombImpactTags; } }
+
+	/// <summary>Gets wickOnBombImpactTags property.</summary>
+	public GameObjectTag[] wickOnBombImpactTags { get { return _wickOnBombImpactTags; } }
+
 	/// <summary>Gets tiedCredentials property.</summary>
 	public AnimatorCredential[] tiedCredentials { get { return _tiedCredentials; } }
 
@@ -290,6 +260,9 @@ public class ShantyBoss : Boss
 
 	/// <summary>Gets tiredCredential property.</summary>
 	public AnimatorCredential tiredCredential { get { return _tiredCredential; } }
+
+	/// <summary>Gets shootToAirCredential property.</summary>
+	public AnimatorCredential shootToAirCredential { get { return _shootToAirCredential; } }
 
 	/// <summary>Gets shootCredential property.</summary>
 	public AnimatorCredential shootCredential { get { return _shootCredential; } }
@@ -324,17 +297,8 @@ public class ShantyBoss : Boss
 	/// <summary>Gets backStepCredential property.</summary>
 	public AnimatorCredential backStepCredential { get { return _backStepCredential; } }
 
-	/// <summary>Gets stateIDCredential property.</summary>
-	public AnimatorCredential stateIDCredential { get { return _stateIDCredential; } }
-
-	/// <summary>Gets attackIDCredential property.</summary>
-	public AnimatorCredential attackIDCredential { get { return _attackIDCredential; } }
-
-	/// <summary>Gets idleIDCredential property.</summary>
-	public AnimatorCredential idleIDCredential { get { return _idleIDCredential; } }
-
-	/// <summary>Gets vitalityIDCredential property.</summary>
-	public AnimatorCredential vitalityIDCredential { get { return _vitalityIDCredential; } }
+	/// <summary>Gets walkingCredential property.</summary>
+	public AnimatorCredential walkingCredential { get { return _walkingCredential; } }
 
 	/// <summary>Gets and Sets bomb property.</summary>
 	public Projectile bomb
@@ -425,33 +389,9 @@ public class ShantyBoss : Boss
 	protected override void Awake()
 	{
 		ActivateSword(false);
-
-		if(tiedAnimations != null) foreach(AnimationClip clip in tiedAnimations)
-		{
-			animation.AddClip(clip);
-		}
-
-		animation.AddClips(
-			untiedAnimation,
-			idleAnimation,
-			laughAnimation,
-			tauntAnimation,
-			tiredAnimation,
-			shootAnimation,
-			throwBarrelAnimation,
-			throwBombAnimation,
-			tennisHitAnimation,
-			hitBombAnimation,
-			hitBarrelAnimation,
-			hitSwordAnimation,
-			cryAnimation,
-			normalAttackAnimation,
-			strongAttackAnimation,
-			backStepAnimation
-		);
-
 		normalAttackCooldown = new Cooldown(this, normalAttackCooldownDuration);
 		strongAttackCooldown = new Cooldown(this, strongAttackCooldownDuration);
+		animatorController.animator.SetLayerWeight(locomotionAnimationLayer, 0.0f);
 
 		base.Awake();
 	}
@@ -468,8 +408,13 @@ public class ShantyBoss : Boss
 	/// <param name="scale">Optional movement scalar [1.0f by default].</param>
 	public void Move(Vector3 direction, float scale = 1.0f)
 	{
-		animation.CrossFade(backStepAnimation);
-		movementAbility.Move(direction, scale);
+		Debug.Log("[ShantyBoss] Dude, move (" + direction + ")...");
+
+		bool move = direction.sqrMagnitude > 0.0f && Mathf.Abs(scale) > 0.0f;
+		
+		animatorController.animator.SetLayerWeight(locomotionAnimationLayer, move ? 1.0f : 0.0f);
+		animator.SetFloat(leftAxisXCredential, 1.0f);
+		movementAbility.Move(direction, scale, Space.World);
 	}
 
 	/// <summary>Activates/Deactivates Sword and False Sword.</summary>
@@ -485,6 +430,12 @@ public class ShantyBoss : Boss
 			sword.transform.rotation = skeleton.rightHand.rotation;
 			sword.transform.parent = skeleton.rightHand;
 		}
+		else
+		{
+			sword.transform.parent = meshParent;
+			sword.transform.localPosition = Vector3.zero;
+			sword.transform.rotation = Quaternion.identity;
+		}
 
 		sword.gameObject.SetActive(_activate);
 		falseSword.gameObject.SetActive(!_activate);
@@ -499,217 +450,109 @@ public class ShantyBoss : Boss
 	}
 #endregion
 
-/*#region BombThrowingRoutines:
-	/// <summary>Begins the Bomb Throwing Animations.</summary>
-	public void BeginBombThrowingRoutine()
+#region AnimationCallbacks:
+	/// <summary>CrossFades To Given Animation.</summary>
+	/// <param name="onAnimationEnds">Optional Callback invoked when Animation Ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool CrossFadeToAnimation(AnimatorCredential hash, Action onAnimationEnds = null)
 	{
-		ActivateSword(false);
-		animation.CrossFade(throwBombAnimation);
-		animation.PlayQueued(idleAnimation);
-		/// During the throw animation, a callback will be invoked that will then invoke ThrowBomb()
-		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
-		//animator.SetInteger(attackIDCredential, ID_ATTACK_BOMB_THROW);
+		//Debug.Log("[ShantyBoss] Cross-Fading To: " + hash.tag);
+		animatorController.CancelCrossFading(0);
+		return animatorController.CrossFadeAndWait(hash, clipFadeDuration, 0, 0.0f, 0.0f, onAnimationEnds);
 	}
 
-	/// <summary>Picks Bomb.</summary>
-	public void PickBomb()
+	/// <summary>Goes to Idle Animation.</summary>
+	/// <param name="onIdleEnds">Optional Callback invoked when Idle's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToIdleAnimation(Action onIdleEnds = null)
 	{
-		VAssetReference reference = null;
-		float time = 0.0f;
-
-		switch(currentStage)
-		{
-			case STAGE_1:
-			reference = bombReference;
-			time = bombProjectionTime;
-			break;
-
-			case STAGE_2:
-			reference = bouncingBombReference;
-			time = bouncingBombProjectionTime;
-			break;
-		}
-
-		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, reference, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
-		bomb.activated = false;
-		bomb.ActivateHitBoxes(false);
-		bomb.transform.parent = skeleton.rightHand;
+		return CrossFadeToAnimation(idleCredential, onIdleEnds);
 	}
 
-	/// <summary>Throws Bomb [called after an specific frame of the Bom-Throwing Animation].</summary>
-	public void ThrowBomb()
+	/// <summary>Goes to Untie Animation.</summary>
+	/// <param name="onUntieEnds">Optional Callback invoked when Untie's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToUntieAnimation(Action onUntieEnds = null)
 	{
-		if(bomb == null) return;
+		return CrossFadeToAnimation(untiedCredential, onUntieEnds);
+	}
 
-		VAssetReference reference = null;
-		float time = 0.0f;
+	/// <summary>Goes to TennisHit Animation.</summary>
+	/// <param name="onTennisHitEnds">Optional Callback invoked when TennisHit's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToTennisHitAnimation(Action onTennisHitEnds = null)
+	{
+		return CrossFadeToAnimation(tennisHitCredential, onTennisHitEnds);
+	}
 
-		switch(currentStage)
+	/// <summary>Goes to ThrowBomb Animation.</summary>
+	/// <param name="onThrowBombEnds">Optional Callback invoked when ThrowBomb's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToThrowBombAnimation(Action onThrowBombEnds = null)
+	{
+		return CrossFadeToAnimation(throwBombCredential, onThrowBombEnds);
+	}
+
+	/// <summary>Goes to ThrowBarrel Animation.</summary>
+	/// <param name="onThrowBarrelEnds">Optional Callback invoked when ThrowBarrel's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToThrowBarrelAnimation(Action onThrowBarrelEnds = null)
+	{
+		return CrossFadeToAnimation(throwBarrelCredential, onThrowBarrelEnds);
+	}
+
+	/// <summary>Goes to TennisHit Animation.</summary>
+	/// <param name="obj">Cause of Damage's GameObject, null by  default.</param>
+	/// <param name="onTennisHitEnds">Optional Callback invoked when TennisHit's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToDamageAnimation(GameObject obj = null, Action onTennisHitEnds = null)
+	{
+		AnimatorCredential hash = default(AnimatorCredential);
+
+		if(obj  == null) hash = hitSwordCredential;
+		else
 		{
-			case STAGE_1:
-			reference = bombReference;
-			time = bombProjectionTime;
-			break;
-
-			case STAGE_2:
-			reference = bouncingBombReference;
-			time = bouncingBombProjectionTime;
-
-			this.StartCoroutine(this.WaitSeconds(time,
-			()=>
+			if(obj.CompareTag(Game.data.playerWeaponTag))
 			{
-				if(bomb != null)
-				{
-					Vector3 position = bomb.transform.position;
-					position.z = Game.mateo.transform.position.z;
+				hash = hitSwordCredential;
 
-					bomb.activated = false;
-					bomb.transform.position = position;
-					bomb.rigidbody.bodyType = RigidbodyType2D.Dynamic;
-					bomb.rigidbody.isKinematic = false;
-					bomb.rigidbody.gravityScale = 4.0f;
-					bomb.direction = Vector3.zero;
-					bomb.speed = 0.0f;
-				}
-			}));
-			break;
+			} else if(obj.CompareTag(Game.data.playerProjectileTag))
+			{
+				hash = hitBombCredential;
+
+			} else if(obj.CompareTag(Game.data.explodableTag))
+			{
+				hash = hitBarrelCredential;
+			}
 		}
 
-		bomb.transform.parent = null;
-		bomb.OnObjectDeactivation();
-		bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, reference, skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
-		bomb.rigidbody.bodyType = RigidbodyType2D.Kinematic;
-		bomb.rigidbody.isKinematic = true;
-		bomb.rigidbody.gravityScale = 0.0f;
+		return CrossFadeToAnimation(hash, onTennisHitEnds);
+	}
 
-		switch(currentStage)
-		{
-			case STAGE_1:
-			bomb.projectileEventsHandler.onProjectileEvent -= OnBombEvent;
-			bomb.projectileEventsHandler.onProjectileEvent += OnBombEvent;
-			bomb.projectileEventsHandler.onProjectileDeactivated -= OnBombDeactivated;
-			bomb.projectileEventsHandler.onProjectileDeactivated += OnBombDeactivated;
-			break;
+	/// <summary>Goes to Cry Animation.</summary>
+	/// <param name="onCryEnds">Optional Callback invoked when Cry's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToCryAnimation(Action onCryEnds = null)
+	{
+		return CrossFadeToAnimation(cryCredential, onCryEnds);
+	}
 
-			case STAGE_2:
-			BombParabolaProjectile parabolaBomb = bomb as BombParabolaProjectile;
-			parabolaBomb.ChangeState(BombState.WickOn);
-			break;
-		}
+	/// <summary>Goes to Normal Attack Animation.</summary>
+	/// <param name="onNormalAttackEnds">Optional Callback invoked when Normal Attack's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToNormalAttackAnimation(Action onNormalAttackEnds = null)
+	{
+		return CrossFadeToAnimation(normalAttackCredential, onNormalAttackEnds);
+	}
 
-		bomb.activated = true;
-		bomb.ActivateHitBoxes(true);
-
-		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
+	/// <summary>Goes to Strong Attack Animation.</summary>
+	/// <param name="onStrongAttackEnds">Optional Callback invoked when Strong Attack's animation ends.</param>
+	/// <returns>Whether the Cross-Fade could be made.</returns>
+	public bool GoToStrongAttackAnimation(Action onStrongAttackEnds = null)
+	{
+		return CrossFadeToAnimation(strongAttackCredential, onStrongAttackEnds);
 	}
 #endregion
-
-#region TNTThrowingRoutines:
-	/// <summary>Begins TNT ThrowingRoutine.</summary>
-	public void BeginTNTThrowingRoutine()
-	{
-		/// During the throw animation, a callback will be invoked that will then invoke ThrowTNT()
-		//animator.SetInteger(stateIDCredential, ID_ATTACK_BARREL_THROW);
-		//animator.SetInteger(attackIDCredential, ID_ANIMATIONSTATE_ATTACK);
-		ActivateSword(false);
-		//animation.Stop();
-		animation.Rewind(throwBarrelAnimation);
-		animation.CrossFade(throwBarrelAnimation);
-		animation.PlayQueued(idleAnimation);
-	}
-
-	/// <summary>Picks TNT.</summary>
-	public void PickTNT()
-	{
-		Vector3 anchoredPosition = Vector3.zero;
-
-		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTReference, skeleton.rightHand.position, Game.mateo.transform.position, TNTProjectionTime, gameObject);
-		anchoredPosition = TNT.anchorContainer.GetAnchoredPosition(skeleton.rightHand.position, 0);
-		TNT.transform.position = anchoredPosition;
-		TNT.activated = false;
-		TNT.ActivateHitBoxes(false);
-		TNT.transform.parent = skeleton.rightHand;
-
-		BombParabolaProjectile TNTBomb = TNT as BombParabolaProjectile;
-		//TNTBomb.ChangeState(BombState.WickOn);
-	}
-
-	/// <summary>Throws TNT.</summary>
-	public void ThrowTNT()
-	{
-		if(TNT == null) return;
-
-		Vector3 anchoredPosition = Vector3.zero;
-		Vector3 p = Vector3.zero;
-		GameObjectTag[] impactTags = null;
-		GameObjectTag[] flamableTags = null;
-		float fuseDuration = 0.0f;
-		float damage = 0.0f;
-		float t = 0.0f;
-		VAssetReference reference = null;
-
-		switch(currentStage)
-		{
-			case STAGE_1:
-			p = Game.mateo.transform.position;
-			t = TNTProjectionTime;
-			reference = stage1ExplodableReference;
-			impactTags = new GameObjectTag[] { Game.data.floorTag, Game.data.playerTag, Game.data.playerProjectileTag };
-			flamableTags = new GameObjectTag[] { Game.data.playerProjectileTag };
-			fuseDuration = stage1TNTFuseDuration;
-			damage = Game.DAMAGE_MAX;
-			break;
-
-			case STAGE_2:
-			p = line.a;
-			t = stairParabolaTime;
-			reference = stage2ExplodableReference;
-			impactTags = new GameObjectTag[] { Game.data.playerTag };
-			flamableTags = new GameObjectTag[] { Game.data.playerProjectileTag };
-			fuseDuration = stage2TNTFuseDuration;
-			damage = Game.DAMAGE_MIN;
-			break;
-		}
-
-		TNT.transform.parent = null;
-		TNT.OnObjectDeactivation();
-		TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, TNTReference, skeleton.rightHand.position, p, t, gameObject);
-		anchoredPosition = TNT.anchorContainer.GetAnchoredPosition(skeleton.rightHand.position, 0);
-		TNT.transform.position = anchoredPosition;
-		TNT.ActivateHitBoxes(true);
-		TNT.impactTags = impactTags;
-		TNT.damage = damage;
-		//TNT.flamableTags = flamableTags;
-
-		TNT.projectileEventsHandler.onProjectileEvent -= OnBombEvent;
-		TNT.projectileEventsHandler.onProjectileEvent += OnBombEvent;
-		TNT.projectileEventsHandler.onProjectileDeactivated -= OnBombDeactivated;
-		TNT.projectileEventsHandler.onProjectileDeactivated += OnBombDeactivated;
-		//TNT.activated = true;
-
-		BombParabolaProjectile TNTBomb = TNT as BombParabolaProjectile;
-		TNTBomb.fuseDuration = fuseDuration;
-		TNTBomb.ChangeState(BombState.WickOn);
-		TNTBomb.explodableReference = reference;
-
-		IEnumerator routine = null;
-
-		switch(currentStage)
-		{
-			case STAGE_1:
-			routine = Stage1TNTRoutine();
-			break;
-
-			case STAGE_2:
-			routine = Stage2TNTRoutine();
-			tntActive = true;
-			break;
-		}
-
-		this.StartCoroutine(routine, ref coroutine);
-		//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
-	}
-#endregion*/
 
 #region Callbacks:
 	/// <summary>Callback internally called when the Boss advances stage.</summary>
@@ -752,82 +595,26 @@ public class ShantyBoss : Boss
 	{
 		if((_state | IDs.STATE_IDLE) == _state)
 		{
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
-			animation.CrossFade(idleAnimation);
+			//GoToIdleAnimation();
 
 		} else if((_state | IDs.STATE_ATTACKING_0) == _state)
 		{
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_ATTACK);
 			//BeginAttackRoutine();
 
 		} else if((_state | IDs.STATE_HURT) == _state)
 		{
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_DAMAGE);
-			this.RemoveStates(IDs.STATE_ATTACKING_0);
-			/*this.StartCoroutine(animator.WaitForAnimatorState(0, 0.0f,
-			()=>
-			{
-				this.AddStates(IDs.STATE_ATTACKING_0);
-			}));*/
+			//this.RemoveStates(IDs.STATE_ATTACKING_0);
 		}
+
+		base.OnStatesAdded(_state);
 	}
 
 	/// <summary>Callback invoked when new state's flags are removed.</summary>
 	/// <param name="_state">State's flags that were removed.</param>
 	public override void OnStatesRemoved(int _state)
 	{
-		//if((_state | IDs.STATE_HURT) == _state) BeginAttackRoutine();
+		base.OnStatesRemoved(_state);
 	}
-
-	/*/// <summary>Callback invoked when an Animation Event is invoked.</summary>
-	/// <param name="_ID">Int argument.</param>
-	protected override void OnAnimationIntEvent(int _ID)
-	{
-		switch(_ID)
-		{
-			case IDs.ANIMATIONEVENT_PICKBOMB:
-			ActivateSword(false);
-			PickBomb();
-			break;
-
-			case IDs.ANIMATIONEVENT_THROWBOMB:
-			ThrowBomb();
-			break;
-
-			case IDs.ANIMATIONEVENT_WEAPON_UNSHEATH:
-			ActivateSword(true);
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
-			break;
-
-			case IDs.ANIMATIONEVENT_WEAPON_SHEATH:
-			ActivateSword(false);
-			break;
-
-			case IDs.ANIMATIONEVENT_GOIDLE:
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_IDLE);
-			animation.CrossFade(idleAnimation);
-			break;
-
-			case IDs.ANIMATIONEVENT_PICKTNT:
-			PickTNT();
-			break;
-
-			case IDs.ANIMATIONEVENT_THROWTNT:
-			ThrowTNT();
-			break;
-
-			case IDs.ANIMATIONEVENT_REPELBOMB:
-			if(bomb != null) bomb.RequestRepel(gameObject);
-			break;
-
-			case IDs.ANIMATIONEVENT_JUMP:
-			Jump();
-			break;
-
-			case 99:
-			break;
-		}
-	}*/
 
 	/// <summary>Callback invoked when a Health's event has occured.</summary>
 	/// <param name="_event">Type of Health Event.</param>
@@ -840,77 +627,96 @@ public class ShantyBoss : Boss
 		switch(_event)
 		{
 			case HealthEvent.Depleted:
-			switch(currentStage)
-			{
-				case STAGE_1:
-				//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_DAMAGE);
-
-				if(_object == null) return;
-
-				int damageID = 0;
-				AnimationClip damageClip = null;
-
-				if(_object.CompareTag(Game.data.playerWeaponTag))
+				switch(currentStage)
 				{
-					damageID = ID_DAMAGE_SWORD;
-					damageClip = hitSwordAnimation;
-
-				} else if(_object.CompareTag(Game.data.playerProjectileTag))
-				{
-					damageID = ID_DAMAGE_BOMB;
-					damageClip = hitBombAnimation;
-
-				} else if(_object.CompareTag(Game.data.explodableTag))
-				{
-					damageID = ID_DAMAGE_BARREL;
-					damageClip = hitBarrelAnimation;
+					case STAGE_1:
+						if(_object == null) return;
+						GoToDamageAnimation(_object);
+						this.AddStates(IDs.STATE_HURT);
+					break;
 				}
-
-				//animator.SetInteger(vitalityIDCredential, damageID);
-				animation.CrossFade(damageClip);
-				this.RemoveStates(IDs.STATE_ATTACKING_0);
-				this.AddStates(IDs.STATE_HURT);
-				break;
-			}
 			break;
 
 			case HealthEvent.FullyDepleted:
-			//animator.SetInteger(stateIDCredential, ID_ANIMATIONSTATE_DAMAGE);
-			//animator.SetInteger(vitalityIDCredential, ID_DAMAGE_CRY);
-
-			if(currentStage >= stages)
-			{
-				//eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
-				this.DispatchCoroutine(ref behaviorCoroutine);
-				this.DispatchCoroutine(ref coroutine);
-				animation.CrossFade(cryAnimation);
-				this.ChangeState(IDs.STATE_DEAD);
-				BeginDeathRoutine();
-			}
+				if(currentStage >= stages)
+				{
+					//eventsHandler.InvokeIDEvent(ID_EVENT_BOSS_DEATHROUTINE_BEGINS);
+					this.DispatchCoroutine(ref behaviorCoroutine);
+					this.DispatchCoroutine(ref coroutine);
+					GoToCryAnimation();
+					this.ChangeState(IDs.STATE_DEAD);
+					BeginDeathRoutine();
+				}
 			break;
 
 			case HealthEvent.HitStunEnds:
-				this.RemoveStates(IDs.STATE_HURT);
-				this.ReturnToPreviousState();
+				OnHitStunEnds();
 			break;
 		}
 	}
+
+	/// <summary>Callback invoked when Hit-stun ends.</summary>
+	private void OnHitStunEnds()
+	{
+		this.RemoveStates(IDs.STATE_HURT | IDs.STATE_ATTACKING_0);
+	}
 #endregion
 
-	/*/// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionEnter2D(Collision2D col)
+	[Button("TEST Unsheath Sword")]
+	/// <summary>Tests Sword.</summary>
+	private void TESTUnsheathSword()
 	{
-		if(col.gameObject.CompareTag(Game.data.playerTag))
-		rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+		ActivateSword();
 	}
 
-	/// <summary>Event triggered when this Collider/Rigidbody began having contact with another Collider/Rigidbody.</summary>
-	/// <param name="col">The Collision data associated with this collision Event.</param>
-	private void OnCollisionExit2D(Collision2D col)
+	[Button("TEST Sheath Sword")]
+	/// <summary>Tests Sword.</summary>
+	private void TESTSheathSword()
 	{
-		if(col.gameObject.CompareTag(Game.data.playerTag))
-		rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
-	}*/
+		ActivateSword(false);
+	}
+
+	/// <summary>Waits for Cross-Fade to occur.</summary>
+	/// <param name="hash">Animation's Hash.</param>
+	/// <param name="onCrossFadeEnds">Optional Callback invoked when te cross-fade ends [null by default].</param>
+	public IEnumerator WaitForCrossFade(int hash, Action onCrossFadeEnds = null)
+	{
+		bool crossFadeEnds = false;
+		Action CrossFadeEnds = ()=>
+		{
+			if(onCrossFadeEnds != null) onCrossFadeEnds();
+		};
+
+		if(!animatorController.CrossFadeAndWait(hash, clipFadeDuration, 0, Mathf.NegativeInfinity, 0.0f, CrossFadeEnds)) yield break;
+
+		while(!crossFadeEnds) yield return null;
+	}
+
+	/// <summary>Waits for Normal-Attack's Cross-Fade to occur.</summary>
+	/// <param name="hash">Animation's Hash.</param>
+	/// <param name="onCrossFadeEnds">Optional Callback invoked when te cross-fade ends [null by default].</param>
+	public IEnumerator WaitForNormalAttackCrossFade(Action onCrossFadeEnds = null)
+	{
+		IEnumerator wait = WaitForCrossFade(normalAttackCredential, onCrossFadeEnds);
+		while(wait.MoveNext()) yield return null;
+	}
+
+	/// <summary>Waits for Strong-Attack's Cross-Fade to occur.</summary>
+	/// <param name="hash">Animation's Hash.</param>
+	/// <param name="onCrossFadeEnds">Optional Callback invoked when te cross-fade ends [null by default].</param>
+	public IEnumerator WaitForStrongAttackCrossFade(Action onCrossFadeEnds = null)
+	{
+		IEnumerator wait = WaitForCrossFade(strongAttackCredential, onCrossFadeEnds);
+		while(wait.MoveNext()) yield return null;
+	}
+
+	/// <summary>Death's Routine.</summary>
+	/// <param name="onDeathRoutineEnds">Callback invoked when the routine ends.</param>
+	protected override IEnumerator DeathRoutine(Action onDeathRoutineEnds)
+	{
+		GoToCryAnimation();
+		yield return null;
+		if(onDeathRoutineEnds != null) onDeathRoutineEnds();
+	}
 }
 }

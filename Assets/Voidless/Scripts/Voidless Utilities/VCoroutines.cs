@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -405,8 +406,11 @@ public static class VCoroutines
 	/// <param name="_scaleNormal">Value that will define the regular vector this transform will be scaled to.</param>
 	/// <param name="_duration">Scaling's duration.</param>
 	/// <param name="onScaleEnds">Optional Callback invoked when the scaling ends.</param>
-	public static IEnumerator RegularScale(this Transform _transform, float _scaleNormal, float _duration, Action onScaleEnds = null)
+	/// <param name="f">Optional Normalized Property Function for the scale.</param>
+	public static IEnumerator RegularScale(this Transform _transform, float _scaleNormal, float _duration, Action onScaleEnds = null, Func<float, float> f = null)
 	{
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
+
 		Vector3 originalScale = _transform.localScale;
 		Vector3 destinyScale = VVector3.Regular(_scaleNormal);
 		float inverseDuration = 1.0f / _duration;
@@ -414,10 +418,12 @@ public static class VCoroutines
 
 		while(t < (1.0f + Mathf.Epsilon))
 		{
-			_transform.localScale = Vector3.Lerp(originalScale, destinyScale, t);
+			_transform.localScale = Vector3.Lerp(originalScale, destinyScale, f(t));
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}
+
+		_transform.localScale = destinyScale;
 
 		if(onScaleEnds != null) onScaleEnds();
 	}
@@ -427,18 +433,23 @@ public static class VCoroutines
 	/// <param name="_scaleVector">Vector this transform will be scaled to.</param>
 	/// <param name="_duration">Scaling's duration.</param>
 	/// <param name="onScaleEnds">Optional Callback invoked when the scaling ends.</param>
-	public static IEnumerator IrregularScale(this Transform _transform, Vector3 _scaleVector, float _duration, Action onScaleEnds = null)
+	/// <param name="f">Optional Normalized Property Function for the scale.</param>
+	public static IEnumerator IrregularScale(this Transform _transform, Vector3 _scaleVector, float _duration, Action onScaleEnds = null, Func<float, float> f = null)
 	{
+		if(f == null) f = VMath.DefaultNormalizedPropertyFunction;
+
 		Vector3 originalScale = _transform.localScale;
 		float inverseDuration = 1.0f / _duration;
 		float t = 0.0f;
 
 		while(t < (1.0f + Mathf.Epsilon))
 		{
-			_transform.localScale = Vector3.Lerp(originalScale, _scaleVector, t);
+			_transform.localScale = Vector3.Lerp(originalScale, _scaleVector, f(t));
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}
+
+		_transform.localScale = _scaleVector;
 
 		if(onScaleEnds != null) onScaleEnds();
 	}
@@ -705,6 +716,28 @@ public static class VCoroutines
 		}
 
 		if(onChangeEnds != null) onChangeEnds();
+	}
+
+	/// <summary>Color Oscillation's Routine with Sin function.</summary>
+	/// <param name="a">Color A.</param>
+	/// <param name="b">Color B.</param>
+	/// <param name="_speed">Oscillation's Speed.</param>
+	/// <param name="onColorChange">Callback called each frame when the color changes.</param>
+	public static IEnumerator ColorOscillation(Color a, Color b, float _speed, Action<Color> onColorChange)
+	{
+		if(onColorChange == null) yield break;
+
+		float t = 0.0f;
+		float  time = 0.0f;
+
+		while(true)
+		{
+			t = VMath.RemapValueToNormalizedRange(Mathf.Sin(time), -1.0f, 1.0f);
+			onColorChange(Color.Lerp(a, b, t));
+			time += (Time.unscaledDeltaTime * _speed);
+
+			yield return null;
+		}
 	}
 
 	/// <summary>Oscilates Renderer's Material Main Color between its original and a desired color, interpolating back and forth.</summary>
@@ -1138,6 +1171,25 @@ public static class VCoroutines
 		while(wait.MoveNext()) yield return null;
 
 		if(onAnimationEnds != null) onAnimationEnds();
+	}
+
+	/// <summary>Tests Connection.</summary>
+	/// <param name="onResponse">Callback invoked when there is a response.</param>
+	public static IEnumerator TestInternetConnection(Action<bool> onResponse)
+	{
+		if(onResponse == null) yield break;
+
+		string server = "https://google.com";
+		bool result = false;
+
+		using(var request = UnityWebRequest.Head(server))
+		{
+			request.timeout = 5;
+			yield return request.SendWebRequest();
+			result = !request.isNetworkError && !request.isHttpError && request.responseCode == 200;
+		}
+
+		onResponse(result);
 	}
 
 #endregion

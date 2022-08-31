@@ -127,12 +127,14 @@ public abstract class CharacterAIController<T> : MonoBehaviour, IStateMachine wh
 			_character.eventsHandler.onIDEvent += OnCharacterIDEvent;
 			_character.eventsHandler.onCharacterDeactivated += OnCharacterDeactivated;
 			_character.onStateChanged += OnCharacterStateChanged;
+			_character.health.onHealthEvent += OnCharacterHealthEvent;
 			break;
 
 			case false:
 			_character.eventsHandler.onIDEvent -= OnCharacterIDEvent;
 			_character.eventsHandler.onCharacterDeactivated -= OnCharacterDeactivated;
 			_character.onStateChanged -= OnCharacterStateChanged;
+			_character.health.onHealthEvent -= OnCharacterHealthEvent;
 			break;
 		}
 	}
@@ -166,6 +168,26 @@ public abstract class CharacterAIController<T> : MonoBehaviour, IStateMachine wh
 	/// <param name="_cause">Cause of the deactivation.</param>
 	/// <param name="_info">Additional Trigger2D's information.</param>
 	protected virtual void OnCharacterDeactivated(Character _character, DeactivationCause _cause, Trigger2DInformation _info) { /*...*/ }
+
+	/// <summary>Callback invoked when the health of the character is depleted.</summary>
+	/// <param name="_object">GameObject that caused the event, null be default.</param>
+	protected virtual void OnCharacterHealthEvent(HealthEvent _event, float _amount = 0.0f, GameObject _object = null)
+	{
+		switch(_event)
+		{
+			case HealthEvent.Depleted:
+			break;
+
+			case HealthEvent.HitStunEnds:
+			break;
+
+			case HealthEvent.InvincibilityEnds:
+			break;
+
+			case HealthEvent.FullyDepleted:
+			break;
+		}
+	}
 
 #region IFiniteStateMachine:
 	/// <summary>Enters int State.</summary>

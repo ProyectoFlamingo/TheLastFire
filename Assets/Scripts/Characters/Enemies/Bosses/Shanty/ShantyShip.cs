@@ -22,14 +22,20 @@ public class ShantyShip : MonoBehaviour
 	[Space(5f)]
 	[SerializeField] private VAssetReference _projectileReference; 		/// <summary>Projectile's Reference.</summary>
 	[SerializeField] private Transform[] _cannons; 						/// <summary>Cannons.</summary>
+	[SerializeField] private Transform[] _cannonMuzzles; 				/// <summary>Cannons' Muzzles.</summary>
 	[Space(5f)]
 	[SerializeField] private AnimationClip dockedAnimation; 			/// <summary>Docked's AnimationClip.</summary>
 	[SerializeField] private AnimationClip sail0Animation; 				/// <summary>Docked's AnimationClip.</summary>
 	[SerializeField] private AnimationClip sail1Animation; 				/// <summary>Docked's AnimationClip.</summary>
 	[SerializeField] private AnimationClip cannonAnimation; 			/// <summary>Docked's AnimationClip.</summary>
+	[SerializeField] private AnimatorCredential _dockedCredential; 		/// <summary>Docked's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _sail0Credential; 		/// <summary>Docked's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _sail1Credential; 		/// <summary>Docked's AnimatorCredential.</summary>
+	[SerializeField] private AnimatorCredential _cannonCredential; 		/// <summary>Docked's AnimatorCredential.</summary>
 	private Animator _animator; 										/// <summary>Animator's Component.</summary>
 	private Animation _animation; 										/// <summary>Animation's Component.</summary>
 	private AnimationEventInvoker _animationEventInvoker; 				/// <summary>AnimatorEventInvoker's Component.</summary>
+	private Coroutine coroutine; 										/// <summary>Shooting Coroutine's Reference.</summary>
 
 	/// <summary>Gets stateIDCredential property.</summary>
 	public AnimatorCredential stateIDCredential { get { return _stateIDCredential; } }
@@ -42,6 +48,21 @@ public class ShantyShip : MonoBehaviour
 
 	/// <summary>Gets cannons property.</summary>
 	public Transform[] cannons { get { return _cannons; } }
+
+	/// <summary>Gets cannonMuzzles property.</summary>
+	public Transform[] cannonMuzzles { get { return _cannonMuzzles; } }
+
+	/// <summary>Gets dockedCredential property.</summary>
+	public AnimatorCredential dockedCredential { get { return _dockedCredential; } }
+
+	/// <summary>Gets sail0Credential property.</summary>
+	public AnimatorCredential sail0Credential { get { return _sail0Credential; } }
+
+	/// <summary>Gets sail1Credential property.</summary>
+	public AnimatorCredential sail1Credential { get { return _sail1Credential; } }
+
+	/// <summary>Gets cannonCredential property.</summary>
+	public AnimatorCredential cannonCredential { get { return _cannonCredential; } }
 
 	/// <summary>Gets animator Component.</summary>
 	public Animator animator
@@ -138,6 +159,12 @@ public class ShantyShip : MonoBehaviour
 		}
 	}
 
+	/// <summary>Begins Cannons' Shooting Routine.</summary>
+	private void BeginShootCannonsRoutine(TransformDeltaCalculator _mateoDeltaCaulculator)
+	{
+		this.StartCoroutine(ShootCannonsRoutine(_mateoDeltaCaulculator), ref coroutine);
+	}
+
 	/// <summary>Callback invoked when an Animation Event is invoked.</summary>
 	/// <param name="_ID">Int argument.</param>
 	private void OnAnimationIntEvent(int _ID)
@@ -148,6 +175,19 @@ public class ShantyShip : MonoBehaviour
 			ShootCannons();
 			break;
 		}
+	}
+
+	/// \TODO Finish...
+	private IEnumerator ShootCannonsRoutine(TransformDeltaCalculator _mateoDeltaCaulculator)
+	{
+		/*Queue<int> closestCannons = new Queue<int>();
+		float
+		Vector3 projection = _mateoDeltaCaulculator.ProjectPosition(projectionTime);
+		projection.y = _mateoDeltaCaulculator.transform.position.y;*/
+
+
+
+		yield return null;
 	}
 }
 }

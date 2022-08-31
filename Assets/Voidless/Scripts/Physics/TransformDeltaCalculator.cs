@@ -174,6 +174,13 @@ public class TransformDeltaCalculator : MonoBehaviour
 		angularVelocity = deltaRotation * Application.targetFrameRate;
 	}
 
+	/// <summary>Projects Position given this component's velocity.</summary>
+	/// <param name="t">Projection's Time.</param>
+	public Vector3 ProjectPosition(float t)
+	{
+		return transform.position + (velocity * t);
+	}
+
 #if UNITY_EDITOR
 	/// <summary>Debug TransformDeltaCalculator's Velocities [Only in Editor Mode].</summary>
 	private void DebugTransformDeltaCalculator()

@@ -258,6 +258,8 @@ public class Game : Singleton<Game>
 
 		//Time.timeScale = timeScale;
 #endif
+
+		if(Time.timeScale == 0.0f) Debug.Log("[Game] WTF!?");
 	}
 #endregion
 

@@ -181,7 +181,7 @@ public class EventsHandler : MonoBehaviour
 		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", character.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
-		if(onCharacterDeactivated != null) onCharacterDeactivated(character,_cause, _info);
+		if(onCharacterDeactivated != null) onCharacterDeactivated(character, _cause, _info);
 	}
 
 	/// <summary>Invokes ContactWeapon's OnDeactivation's Event and Deactivates itself [so it can be a free Pool Object resource].</summary>
@@ -195,7 +195,7 @@ public class EventsHandler : MonoBehaviour
 		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", contactWeapon.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
-		if(onContactWeaponDeactivated != null) onContactWeaponDeactivated(contactWeapon,_cause, _info);
+		if(onContactWeaponDeactivated != null) onContactWeaponDeactivated(contactWeapon, _cause, _info);
 	}
 
 	/// <summary>Invokes PoolGameObject's OnDeactivation's Event and Deactivates itself [so it can be a free Pool Object resource].</summary>
@@ -209,7 +209,7 @@ public class EventsHandler : MonoBehaviour
 		if(debug) VDebug.Log(LogType.Log, "[EventsHandler] ", poolObject.gameObject.name, " invoked Deactivation Event. Cause: ", _cause.ToString(), ", ", _info.ToString());
 #endif
 
-		if(onPoolGameObjectDeactivated != null) onPoolGameObjectDeactivated(poolObject,_cause, _info);
+		if(onPoolGameObjectDeactivated != null) onPoolGameObjectDeactivated(poolObject, _cause, _info);
 	}
 
 	/// <summary>Invokes OnHealthInstanceEvent's Event.</summary>

@@ -156,9 +156,12 @@ public class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCall
     }
 }
 
+[Serializable] public struct StringArray { public string[] array; }
+
 // String Key Dictionaries:
 [Serializable] public class StringStringDictionary : StringKeyDictionary<string> { /*...*/ }
-[Serializable] public class StringStringArrayDictionary : StringKeyDictionary<string[]> { /*...*/ }
+//[Serializable] public class StringStringArrayDictionary : StringKeyDictionary<string[]> { /*...*/ }
+[Serializable] public class StringStringArrayDictionary : StringKeyDictionary<StringArray> { /*...*/ }
 [Serializable] public class StringBoolDictionary : StringKeyDictionary<bool> { /*...*/ }
 [Serializable] public class StringIntDictionary : StringKeyDictionary<int> { /*...*/ }
 [Serializable] public class StringFloatDictionary : StringKeyDictionary<float> { /*...*/ }
@@ -167,6 +170,11 @@ public class SerializableDictionary<K, V> : Dictionary<K, V>, ISerializationCall
 [Serializable] public class StringQuaternionDictionary : StringKeyDictionary<Quaternion> { /*...*/ }
 [Serializable] public class StringEulerRotationDictionary : StringKeyDictionary<EulerRotation> { /*...*/ }
 [Serializable] public class StringAudioClipDictionary : StringKeyDictionary<AudioClip> { /*...*/ }
+[Serializable] public class StringColorDictionary : StringKeyDictionary<Color> { /*...*/ }
+[Serializable] public class StringTransformDictionary : StringKeyDictionary<Transform> { /*...*/ }
+[Serializable] public class StringRendererDictionary : StringKeyDictionary<Renderer> { /*...*/ }
+[Serializable] public class StringSkinnedMeshRendererDictionary : StringKeyDictionary<SkinnedMeshRenderer> { /*...*/ }
+[Serializable] public class StringMaterialDictionary : StringKeyDictionary<Material> { /*...*/ }
 
 // Int Key Dictionaries:
 [Serializable] public class IntStringDictionary : SerializableDictionary<int, string> { /*...*/ }

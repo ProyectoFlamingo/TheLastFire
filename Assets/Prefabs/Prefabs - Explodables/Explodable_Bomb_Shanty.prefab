@@ -53,7 +53,7 @@ MonoBehaviour:
   - _tag: Enemy
     index: 8
   _particleEffectReference:
-    m_AssetGUID: 
+    m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
     m_SubObjectName: 
   _soundEffect:
     sourceIndex: 0

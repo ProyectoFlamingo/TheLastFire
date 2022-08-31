@@ -78,7 +78,6 @@ public class Projectile : ContactWeapon
 	private SoundEffectLooper _activeSoundEffectLooper; 							/// <summary>Sound-Effect Looper reference for the active state.</summary>
 	private Transform _target; 														/// <summary>Homing Target.</summary>
 	private Rigidbody2D _rigidbody; 												/// <summary>Rigidbody2D's Component.</summary>
-	private ProjectileEventsHandler _projectileEventsHandler; 						/// <summary>ProjectileEventsHandler's Component.</summary>
 	private Projectile _parentProjectile; 											/// <summary>Parent Projectile.</summary>
 	protected Vector2 velocity; 													/// <summary>Velocity's Vector.</summary>
 	protected Coroutine loopíngSoundEffectRoutine;	 								/// <summary>Looping's Sound Effect's Coroutine reference.</summary>
@@ -269,16 +268,6 @@ public class Projectile : ContactWeapon
 		}
 	}
 
-	/// <summary>Gets projectileEventsHandler Component.</summary>
-	public ProjectileEventsHandler projectileEventsHandler
-	{ 
-		get
-		{
-			if(_projectileEventsHandler == null) _projectileEventsHandler = GetComponent<ProjectileEventsHandler>();
-			return _projectileEventsHandler;
-		}
-	}
-
 	/// <summary>Gets and Sets sword hashset property.</summary>
 	public HashSet<int> swordSet
 	{
@@ -301,8 +290,9 @@ public class Projectile : ContactWeapon
 	/// <summary>Callback invoked when Projectile's instance is disabled.</summary>
 	private void OnDisable()
 	{
+	
 	}
-
+	
 	/// <summary>Resets Projectile's instance to its default values.</summary>
 	protected virtual void Reset()
 	{
@@ -478,9 +468,6 @@ public class Projectile : ContactWeapon
 		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_REPELLED, _info);
 
 		repelSoundEffect.Play();
-
-		/// \TODO Deprecate this call (and delete ProjectileEventsHandler's Component)
-		projectileEventsHandler.InvokeProjectileEvent(this, IDs.EVENT_REPELLED);
 	}
 
 	/// <returns>Projectile's Position.</returns>
@@ -602,20 +589,15 @@ public class Projectile : ContactWeapon
 		switch(_cause)
 		{
 			case DeactivationCause.Impacted:
-			//PoolManager.RequestParticleEffect(impactParticleEffectIndex, transform.position, Quaternion.identity);
-			PoolManager.RequestParticleEffect(impactParticleEffectReference, transform.position, Quaternion.identity);
-			impactSoundEffect.Play();
+				PoolManager.RequestParticleEffect(impactParticleEffectReference, transform.position, Quaternion.identity);
+				impactSoundEffect.Play();
 			break;
 
 			case DeactivationCause.Destroyed:
-			//PoolManager.RequestParticleEffect(destroyedParticleEffectIndex, transform.position, Quaternion.identity);
-			PoolManager.RequestParticleEffect(destroyedParticleEffectReference, transform.position, Quaternion.identity);
-			destroyedSoundEffect.Play();
+				PoolManager.RequestParticleEffect(destroyedParticleEffectReference, transform.position, Quaternion.identity);
+				destroyedSoundEffect.Play();
 			break;
 		}
-
-		//projectileEventsHandler.InvokeProjectileDeactivationEvent(this, _cause, _info);
-		//Debug.Log("[Projectile] OnDeactivated...");
 
 		eventsHandler.InvokeContactWeaponDeactivationEvent(_cause, _info);
 		OnObjectDeactivation();

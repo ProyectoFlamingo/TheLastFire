@@ -27,12 +27,6 @@ namespace Flamingo
 public class Mateo : Character
 {
 	[Space(5f)]
-	[Header("AnimatorController's Parameters:")]
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisXCredential; 										/// <summary>Left Axis X's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _leftAxisYCredential; 										/// <summary>Left Axis Y's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisXCredential; 										/// <summary>Right Axis X's Animator Credential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _rightAxisYCredential; 										/// <summary>Right Axis Y's Animator Credential.</summary>
-	[Space(5f)]
 	[Header("Animation Layers:")]
 	[TabGroup("Animations")][SerializeField] private int _fireConjuringAnimationLayer; 												/// <summary>Fire Conjuring's Animation Layer.</summary>
 	[Space(5f)]
@@ -238,18 +232,6 @@ public class Mateo : Character
 
 	/// <summary>Gets swordSlashSoundEffect property.</summary>
 	public SoundEffectEmissionData swordSlashSoundEffect { get { return _swordSlashSoundEffect; } }
-
-	/// <summary>Gets leftAxisXCredential property.</summary>
-	public AnimatorCredential leftAxisXCredential { get { return _leftAxisXCredential; } }
-
-	/// <summary>Gets leftAxisYCredential property.</summary>
-	public AnimatorCredential leftAxisYCredential { get { return _leftAxisYCredential; } }
-
-	/// <summary>Gets rightAxisXCredential property.</summary>
-	public AnimatorCredential rightAxisXCredential { get { return _rightAxisXCredential; } }
-
-	/// <summary>Gets rightAxisYCredential property.</summary>
-	public AnimatorCredential rightAxisYCredential { get { return _rightAxisYCredential; } }
 
 	/// <summary>Gets emptyCredential property.</summary>
 	public AnimatorCredential emptyCredential { get { return _emptyCredential; } }

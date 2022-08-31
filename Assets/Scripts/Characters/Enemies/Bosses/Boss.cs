@@ -71,11 +71,7 @@ public class Boss : Enemy
 		else VDebug.Log(LogType.Error, "Health Distribution not setted!");
 		currentStage = 0;
 
-#if UNITY_EDITOR
-		if(forceStageTesting) currentStage =  Mathf.Clamp(testStage - 1, -1, stages);
-#endif
-		
-		AdvanceStage();
+		ResourcesManager.onResourcesLoaded += OnResourcesLoaded;
 	}
 
 	/// <summary>Callback internally called right after Start.</summary>
@@ -95,6 +91,16 @@ public class Boss : Enemy
 		currentStage = Mathf.Min(currentStage, stages);
 		health.SetMaxHP(healthDistribution[currentStage++], true);
 		OnStageChanged();
+	}
+
+	/// <summary>Callback invoked when resources are loaded.</summary>
+	protected virtual void OnResourcesLoaded()
+	{
+#if UNITY_EDITOR
+		if(forceStageTesting) currentStage =  Mathf.Clamp(testStage - 1, -1, stages);
+#endif
+		
+		AdvanceStage();
 	}
 
 	/// <summary>Callback internally called when the Boss advances stage.</summary>

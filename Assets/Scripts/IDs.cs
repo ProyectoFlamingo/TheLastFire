@@ -3,11 +3,14 @@ using System.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Voidless;
 
 namespace Flamingo
 {
 public static class IDs
 {
+	public static readonly string[] statesNames; 				/// <summary>States' Names.</summary>
+
 #region EventsIDs:
 	public const int EVENT_NONE = 0; 							/// <summary>Non-Assigned Event's ID.</summary>
 	public const int EVENT_STAGECHANGED = 1; 					/// <summary>Stage Changed's Event's ID.</summary>
@@ -39,7 +42,13 @@ public static class IDs
 	public const int ANIMATIONEVENT_THROWTNT = 15; 				/// <summary>Throw TNT's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_REPELBOMB = 16; 			/// <summary>Repel Bomb's Animation Event's ID.</summary>
 	public const int ANIMATIONEVENT_ATTACKEND = 17; 			/// <summary>Attack End's Animation Event's ID.</summary>
-	public const int ANIMATIONEVENT_ATTACKWINDOW = 18; 			/// <summary>Attack Window's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_ATTACKWINDOW = 18; 			/// <summary>Weapon Un-Sheath's Animation Event's ID.</summary>
+	public const int ANIMATIONEVENT_WEAPON_UNSHEATH_0 = 19; 	/// <summary>Weapon Un-Sheath's Animation Event's ID with Sub-index argument 0.</summary>
+	public const int ANIMATIONEVENT_WEAPON_UNSHEATH_1 = 20; 	/// <summary>Weapon Un-Sheath's Animation Event's ID with Sub-index argument 1.</summary>
+	public const int ANIMATIONEVENT_WEAPON_UNSHEATH_2 = 21; 	/// <summary>Weapon Un-Sheath's Animation Event's ID with Sub-index argument 2.</summary>
+	public const int ANIMATIONEVENT_WEAPON_SHEATH_0 = 22; 		/// <summary>Weapon Sheath's Animation Event's ID with Sub-index argument 0.</summary>
+	public const int ANIMATIONEVENT_WEAPON_SHEATH_1 = 23; 		/// <summary>Weapon Sheath's Animation Event's ID with Sub-index argument 1.</summary>
+	public const int ANIMATIONEVENT_WEAPON_SHEATH_2 = 24; 		/// <summary>Weapon Sheath's Animation Event's ID with Sub-index argument 2.</summary>
 #endregion
 
 #region StateFlagsIDs:
@@ -75,44 +84,43 @@ public static class IDs
 	public const int COROUTINE_ROTATION = 2; 					/// <summary>Rotation Coroutine's ID.</summary>
 #endregion
 
+	/// <summary>Static Constructor.</summary>
+	static IDs()
+	{
+		statesNames = new string[]
+		{
+			"ALIVE",
+			"IDLE",
+			"MOVING",
+			"HURT",
+			"COLLIDED",
+			"ATTACKING_0",
+			"ATTACKING_1",
+			"ATTACKING_2",
+			"ATTACKING_3",
+			"ATTACKING_4",
+			"VULNERABLE",
+			"MEDITATING",
+			"SWORDEQUIPPED",
+			"FIRECONJURINGCAPACITY",
+			"JUMPING",
+			"CHARGINGFIRE",
+			"CROUCHING",
+			"BRAKING",
+			"STANDINGUP",
+			"TARGETONSIGHT",
+			"FOLLOWTARGET",
+			"ATTACKWINDOW",
+			"EVADE"
+		};
+	}
+
 	/// <returns>States contained on integer.</returns>
 	public static string GetStates(int _state)
 	{
 		if(_state == 0) return "DEAD";
 
-		StringBuilder builder = new StringBuilder();
-
-		builder.Append("{ ");
-
-		if((_state | STATE_ALIVE) == _state) builder.Append("ALIVE, ");
-		else builder.Append("DEAD [ALIVE is not turned on], ");
-		if((_state | STATE_IDLE) == _state) builder.Append("IDLE, ");
-		if((_state | STATE_MOVING) == _state) builder.Append("MOVING, ");
-		if((_state | STATE_HURT) == _state) builder.Append("HURT, ");
-		if((_state | STATE_COLLIDED) == _state) builder.Append("COLLIDED, ");
-		if((_state | STATE_ATTACKING_0) == _state) builder.Append("ATTACKING_0, ");
-		if((_state | STATE_ATTACKING_1) == _state) builder.Append("ATTACKING_1, ");
-		if((_state | STATE_ATTACKING_2) == _state) builder.Append("ATTACKING_2, ");
-		if((_state | STATE_ATTACKING_3) == _state) builder.Append("ATTACKING_3, ");
-		if((_state | STATE_ATTACKING_4) == _state) builder.Append("ATTACKING_4, ");
-		if((_state | STATE_VULNERABLE) == _state) builder.Append("VULNERABLE, ");
-		if((_state | STATE_MEDITATING) == _state) builder.Append("MEDITATING, ");
-		if((_state | STATE_SWORDEQUIPPED) == _state) builder.Append("SWORDEQUIPPED, ");
-		if((_state | STATE_FIRECONJURINGCAPACITY) == _state) builder.Append("FIRECONJURINGCAPACITY, ");
-		if((_state | STATE_JUMPING) == _state) builder.Append("JUMPING, ");
-		if((_state | STATE_CHARGINGFIRE) == _state) builder.Append("CHARGINGFIRE, ");
-		if((_state | STATE_CROUCHING) == _state) builder.Append("CROUCHING, ");
-		if((_state | STATE_BRAKING) == _state) builder.Append("BRAKING, ");
-		if((_state | STATE_STANDINGUP) == _state) builder.Append("STANDINGUP, ");
-		if((_state | STATE_TARGETONSIGHT) == _state) builder.Append("TARGETONSIGHT, ");
-		if((_state | STATE_FOLLOWTARGET) == _state) builder.Append("FOLLOWTARGET, ");
-		if((_state | STATE_ATTACKWINDOW) == _state) builder.Append("ATTACKWINDOW, ");
-		if((_state | STATE_EVADE) == _state) builder.Append("EVADE, ");
-
-		builder.Remove(builder.Length - 2, 2); 	/// Remove ", "
-		builder.Append(" }");
-
-		return builder.ToString();
+		return VString.GetNamedBitChain(_state, statesNames);
 	}
 }
 }
