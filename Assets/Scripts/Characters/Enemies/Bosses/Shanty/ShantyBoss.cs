@@ -14,112 +14,105 @@ namespace Flamingo
 [RequireComponent(typeof(RigidbodyMovementAbility))]
 public class ShantyBoss : Boss
 {
-	public const int ID_WAYPOINTSPAIR_HELM = 0; 													/// <summary>Helm's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_DECK = 1; 													/// <summary>Deck's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 												/// <summary>Left Stair's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 												/// <summary>Right Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_HELM = 0; 																					/// <summary>Helm's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_DECK = 1; 																					/// <summary>Deck's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 																				/// <summary>Left Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 																				/// <summary>Right Stair's Waypoints' Pair ID.</summary>
 
 	[Space(10f)]
 	[Header("Shanty's Attributes:")]
 	[Space(5f)]
-	[SerializeField] private ShantyShip _ship; 														/// <summary>Shanty's Ship.</summary>
+	[SerializeField] private ShantyShip _ship; 																						/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
 	[Header("Weapons' Atrributes:")]
-	[SerializeField] private ContactWeapon _sword; 													/// <summary>Shanty's Sword.</summary>
-	[SerializeField] private Transform _falseSword; 												/// <summary>False Sword's Reference (the one stuck to the rigging).</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private ContactWeapon _sword; 												/// <summary>Shanty's Sword.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private Transform _falseSword; 											/// <summary>False Sword's Reference (the one stuck to the rigging).</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private VAssetReference _TNTReference; 									/// <summary>TNT's Reference.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private VAssetReference _bombReference; 									/// <summary>Bomb's Reference.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private VAssetReference _bouncingBombReference; 							/// <summary>Bouncing Bomb's Reference.</summary>
 	[Space(5f)]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _windowPercentage; 											/// <summary>Time-window before swinging sword (to hit bomb).</summary>
+	[Header("Tennis' Attributes:")]
+	[TabGroup("BattleGroup", "Tennis' Phase")][SerializeField][Range(0.0f, 1.0f)] private float _windowPercentage; 					/// <summary>Time-window before swinging sword (to hit bomb).</summary>
 	[Space(5f)]
 	[Header("Stage 1 Bomb's Attributes:")]
-	[SerializeField] private VAssetReference _bombReference; 										/// <summary>Bomb's Reference.</summary>
-	[SerializeField] private float _bombProjectionTime; 											/// <summary>Bomb's Projection Time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 									/// <summary>Bomb Projection Time's Percentage.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bombProjectionTime; 							/// <summary>Bomb's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 	/// <summary>Bomb Projection Time's Percentage.</summary>
 	[Space(5f)]
 	[Header("Stage 2 Bomb's Attributes:")]
-	[SerializeField] private VAssetReference _bouncingBombReference; 								/// <summary>Bouncing Bomb's Reference.</summary>
-	[SerializeField] private float _bouncingBombProjectionTime; 									/// <summary>Bouncing Bomb's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bouncingBombProjectionTime; 					/// <summary>Bouncing Bomb's Projection Time.</summary>
 	[Space(5f)]
 	[Header("Stage 1 TNT's Attributes:")]
-	[SerializeField] private VAssetReference _TNTReference; 										/// <summary>TNT's Reference.</summary>
-	[SerializeField] private VAssetReference _stage1ExplodableReference; 							/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
-	[SerializeField] private float _stage1TNTFuseDuration; 											/// <summary>Fuse Duration for TNT on Stage 1.</summary>
-	[SerializeField] private float _TNTProjectionTime; 												/// <summary>TNT's Projection Time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 									/// <summary>TNT Projection Time's Percentage.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 									/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 											/// <summary>Time Scale when throwing TNT.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private VAssetReference _stage1ExplodableReference; 			/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTFuseDuration; 							/// <summary>Fuse Duration for TNT on Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _TNTProjectionTime; 								/// <summary>TNT's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 	/// <summary>TNT Projection Time's Percentage.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 	/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 			/// <summary>Time Scale when throwing TNT.</summary>
 	[Space(5f)]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 								/// <summary>Health Limit's Percentage for TNT.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 								/// <summary>Health Limit's Percentage for TNT.</summary>
+	[TabGroup("Health")][SerializeField][Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 							/// <summary>Health Limit's Percentage for TNT.</summary>
+	[TabGroup("Health")][SerializeField][Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 							/// <summary>Health Limit's Percentage for TNT.</summary>
 	[Space(5f)]
 	[Header("Stage 2's TNT's Attributes:")]
-	[SerializeField] private VAssetReference _stage2ExplodableReference; 							/// <summary>Explodable's Reference for TNT on Stage 2.</summary>
-	[SerializeField] private float _stage2TNTFuseDuration; 											/// <summary>Fuse Duration for TNT on Stage 2.</summary>
-	[SerializeField] private float _stairParabolaTime; 												/// <summary>Duration from throw to beginning of stair.</summary>
-	[SerializeField] private float _stairSlideDuration; 											/// <summary>Stair Slide's Duration.</summary>
-	[SerializeField] private float _sidewaysMovementSpeed; 											/// <summary>Sideways' Movement Speed.</summary>
-	[SerializeField] private float _TNTRotationSpeed; 												/// <summary>TNT's Rotation Angular Speed.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private VAssetReference _stage2ExplodableReference; 						/// <summary>Explodable's Reference for TNT on Stage 2.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private float _stage2TNTFuseDuration; 										/// <summary>Fuse Duration for TNT on Stage 2.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private float _stairParabolaTime; 											/// <summary>Duration from throw to beginning of stair.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private float _stairSlideDuration; 										/// <summary>Stair Slide's Duration.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private float _sidewaysMovementSpeed; 										/// <summary>Sideways' Movement Speed.</summary>
+	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private float _TNTRotationSpeed; 											/// <summary>TNT's Rotation Angular Speed.</summary>
 	[Space(5f)]
 	[Header("Whack-A-Mole's Attributes:")]
-	[SerializeField] private float _vectorPairInterpolationDuration; 								/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
-	[SerializeField] private float _waitBeforeWaypointReturn; 										/// <summary>Wait before Waypoint's Return.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 									/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField] private float _vectorPairInterpolationDuration; 						/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField] private float _waitBeforeWaypointReturn; 								/// <summary>Wait before Waypoint's Return.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField][Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 			/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
 	[Space(5f)]
 	[Header("Duel's Attributes:")]
-	[SerializeField] private FloatRange _attackRadiusRange; 										/// <summary>Attacks' Radius Range.</summary>
-	[SerializeField] private FloatRange _strongAttackWaitInterval; 									/// <summary>Strong Attack's Wait Interval.</summary>
-	[SerializeField] private float _movementSpeed; 													/// <summary>Movement's Speed.</summary>
-	[SerializeField] private float _rotationSpeed; 													/// <summary>Rotation's Speed.</summary>
-	[SerializeField] private float _regressionDuration; 											/// <summary>Regression's Duration.</summary>
-	[SerializeField] private float _attackDistance; 												/// <summary>Attack's Distance.</summary>
-	[SerializeField] private float _normalAttackCooldownDuration; 									/// <summary>Normal Attack Cooldown's Duration.</summary>
-	[SerializeField] private float _strongAttackCooldownDuration; 									/// <summary>Strong Attack Cooldown's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private FloatRange _attackRadiusRange; 										/// <summary>Attacks' Radius Range.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private FloatRange _strongAttackWaitInterval; 								/// <summary>Strong Attack's Wait Interval.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _movementSpeed; 												/// <summary>Movement's Speed.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _rotationSpeed; 												/// <summary>Rotation's Speed.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _regressionDuration; 											/// <summary>Regression's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _attackDistance; 												/// <summary>Attack's Distance.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _normalAttackCooldownDuration; 									/// <summary>Normal Attack Cooldown's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _strongAttackCooldownDuration; 									/// <summary>Strong Attack Cooldown's Duration.</summary>
 	[Space(5f)]
 	[Header("Inmunities:")]
-	[SerializeField] private GameObjectTag[] _stage1Inmunities; 									/// <summary>Inmunities on Stage 1.</summary>
-	[SerializeField] private GameObjectTag[] _stage2Inmunities; 									/// <summary>Inmunities on Stage 2.</summary>
-	[SerializeField] private GameObjectTag[] _defaultBombImpactTags; 								/// <summary>Default Impact Tags for Bombs.</summary>
-	[SerializeField] private GameObjectTag[] _wickOnBombImpactTags; 								/// <summary>Wick-On Impact Tags for Bombs.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage1Inmunities; 												/// <summary>Inmunities on Stage 1.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage2Inmunities; 												/// <summary>Inmunities on Stage 2.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _defaultBombImpactTags; 											/// <summary>Default Impact Tags for Bombs.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _wickOnBombImpactTags; 											/// <summary>Wick-On Impact Tags for Bombs.</summary>
 	[Space(5f)]
 	[Header("Shanty's Animations:")]
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential[] _tiedCredentials; 		/// <summary>Tied Animations.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _untiedCredential; 			/// <summary>Untied's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 			/// <summary>Idle's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 			/// <summary>Laugh's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tauntCredential; 			/// <summary>Taun's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tiredCredential; 			/// <summary>Tired's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootCredential; 			/// <summary>Shoot's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootToAirCredential; 		/// <summary>Shoot To Air's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBarrelCredential; 	/// <summary>Throw Barrel's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBombCredential; 		/// <summary>Throw Bomb's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tennisHitCredential; 		/// <summary>tennis Hit's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBombCredential; 		/// <summary>Hit Bomb's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBarrelCredential; 		/// <summary>Hit Barrel's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitSwordCredential; 		/// <summary>Hit Sword's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _cryCredential; 			/// <summary>Cry's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalAttackCredential; 	/// <summary>Normal Attack's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongAttackCredential; 	/// <summary>Strong Attack's AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _walkingCredential; 		/// <summary>Walking AnimatorCredential.</summary>
-	[TabGroup("Animations")][SerializeField] private AnimatorCredential _backStepCredential; 		/// <summary>Back-Setp AnimatorCredential.</summary>
-	private Coroutine coroutine; 																	/// <summary>Coroutine's Reference.</summary>
-	private Coroutine TNTRotationCoroutine; 														/// <summary>TNT's Rotation Coroutine's Reference.</summary>
-	private Behavior attackBehavior; 																/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
-	private Projectile _bomb; 																		/// <summary>Bomb's Reference.</summary>
-	private Projectile _TNT; 																		/// <summary>TNT's Reference.</summary>
-	private JumpAbility _jumpAbility; 																/// <summary>JumpAbility's Component.</summary>
-	private DashAbility _dashAbility; 																/// <summary>DashAbility's Component.</summary>
-	private RigidbodyMovementAbility _movementAbility; 												/// <summary>MovementAbility's Component.</summary>
-	private Cooldown _normalAttackCooldown; 														/// <summary>Normal Attack's Cooldown.</summary>
-	private Cooldown _strongAttackCooldown; 														/// <summary>Strong Attack's Cooldown.</summary>
-	private Line _line; 																			/// <summary>Current Stair's Line.</summary>
-	private bool _tntActive; 																		/// <summary>Is the TNT Coroutine's Running?.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential[] _tiedCredentials; 										/// <summary>Tied Animations.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _untiedCredential; 											/// <summary>Untied's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _idleCredential; 											/// <summary>Idle's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _laughCredential; 											/// <summary>Laugh's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tauntCredential; 											/// <summary>Taun's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tiredCredential; 											/// <summary>Tired's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootCredential; 											/// <summary>Shoot's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _shootToAirCredential; 										/// <summary>Shoot To Air's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBarrelCredential; 									/// <summary>Throw Barrel's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _throwBombCredential; 										/// <summary>Throw Bomb's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _tennisHitCredential; 										/// <summary>tennis Hit's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBombCredential; 										/// <summary>Hit Bomb's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitBarrelCredential; 										/// <summary>Hit Barrel's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _hitSwordCredential; 										/// <summary>Hit Sword's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _cryCredential; 											/// <summary>Cry's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _normalAttackCredential; 									/// <summary>Normal Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongAttackCredential; 									/// <summary>Strong Attack's AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _walkingCredential; 										/// <summary>Walking AnimatorCredential.</summary>
+	[TabGroup("Animations")][SerializeField] private AnimatorCredential _backStepCredential; 										/// <summary>Back-Setp AnimatorCredential.</summary>
+	private Coroutine coroutine; 																									/// <summary>Coroutine's Reference.</summary>
+	private Coroutine TNTRotationCoroutine; 																						/// <summary>TNT's Rotation Coroutine's Reference.</summary>
+	private Behavior attackBehavior; 																								/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
+	private Projectile _bomb; 																										/// <summary>Bomb's Reference.</summary>
+	private Projectile _TNT; 																										/// <summary>TNT's Reference.</summary>
+	private JumpAbility _jumpAbility; 																								/// <summary>JumpAbility's Component.</summary>
+	private DashAbility _dashAbility; 																								/// <summary>DashAbility's Component.</summary>
+	private RigidbodyMovementAbility _movementAbility; 																				/// <summary>MovementAbility's Component.</summary>
+	private Cooldown _normalAttackCooldown; 																						/// <summary>Normal Attack's Cooldown.</summary>
+	private Cooldown _strongAttackCooldown; 																						/// <summary>Strong Attack's Cooldown.</summary>
+	private Line _line; 																											/// <summary>Current Stair's Line.</summary>
+	private bool _tntActive; 																										/// <summary>Is the TNT Coroutine's Running?.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets ship property.</summary>

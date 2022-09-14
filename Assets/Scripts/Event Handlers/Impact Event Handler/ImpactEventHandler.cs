@@ -20,6 +20,7 @@ public class ImpactEventHandler : MonoBehaviour
 	private Dictionary<int, VTuple<Collider2D, Collider2D>> _tuples; 		/// <summary>Collider2Ds' Tuples.</summary>
 	private Coroutine zEvaluation; 											/// <summary>Z-Axis' Evaluation Coroutine's reference.</summary>
 
+#region Getters/Setters:
 	/// <summary>Gets and Sets deltaCalculator property.</summary>
 	public TransformDeltaCalculator deltaCalculator
 	{
@@ -71,6 +72,7 @@ public class ImpactEventHandler : MonoBehaviour
 		get { return _tuples; }
 		set { _tuples = value; }
 	}
+#endregion
 
 	/// <summary>ImpactEventHandler's instance initialization when loaded [Before scene loads].</summary>
 	private void Awake()
@@ -200,22 +202,23 @@ public class ImpactEventHandler : MonoBehaviour
 	{
 		GameObject obj = _collider.gameObject;
 		Collider2D collider = hitBoxes[Mathf.Clamp(_ID, 0, hitBoxes.Length - 1)].collider;
-		float deltaZ = Mathf.Abs(obj.transform.position.z - collider.transform.position.z);
 		int instanceID = _collider.GetInstanceID();
-		VTuple<Collider2D, Collider2D> tuple = new VTuple<Collider2D, Collider2D>(_collider, collider);
 
 		switch(_eventType)
 		{
 			case HitColliderEventTypes.Enter:
-			if(deltaZ > (zOffsetTolerance * zOffsetTolerance))
-			{
+				float deltaZ = Mathf.Abs(obj.transform.position.z - collider.transform.position.z);
+					
 				/// Store or stack into a registry that will deal with these objects while the trigger stays
-				if(!tuples.ContainsKey(instanceID)) tuples.Add(instanceID, tuple);
+				if(!tuples.ContainsKey(instanceID)) tuples.Add(instanceID, new VTuple<Collider2D, Collider2D>(_collider, collider));
 
-				if(zEvaluation == null && keepEvaluatingFarColliders) this.StartCoroutine(ZEvaluationRoutine(), ref zEvaluation);
-				//Debug.Log("[ImpactEventHandler] Returning for: " + _collider.gameObject.name + " with Delta-Z: " + deltaZ);
-				return;
-			}
+				if(deltaZ > (zOffsetTolerance * zOffsetTolerance))
+				{
+					if((zEvaluation == null && keepEvaluatingFarColliders))
+					this.StartCoroutine(ZEvaluationRoutine(), ref zEvaluation);
+					
+					return;
+				}
 			break;
 
 			case HitColliderEventTypes.Exit:
@@ -223,23 +226,7 @@ public class ImpactEventHandler : MonoBehaviour
 			break;
 		}
 
-/*#if UNITY_EDITOR
-		VDebug.Log(
-			"[ImpactEventHandler]",
-			gameObject.name, 
-			" Had Interaction with ",
-			obj.name,
-			", with tag: ",
-			obj.tag,
-			", Event's ID: ",
-			_ID,
-			"."
-		);
-#endif*/
-
-		Trigger2DInformation info = new Trigger2DInformation(collider, _collider, deltaCalculator != null ? deltaCalculator.velocity : Vector3.zero);
-		eventsHandler.InvokeTriggerEvent(info, _eventType, _ID);
-		return;
+		InvokeTriggerEvent(collider, _collider, deltaCalculator, _eventType);
 	}
 
 	/// <summary>Evaluates Objects on Z-Axis.</summary>
@@ -249,7 +236,6 @@ public class ImpactEventHandler : MonoBehaviour
 
 		while(keepEvaluatingFarColliders)
 		{
-
 			if(tuples != null && tuples.Count > 0) foreach(KeyValuePair<int, VTuple<Collider2D, Collider2D>> pair in tuples)
 			{
 				VTuple<Collider2D, Collider2D> colliderTuple = pair.Value;
@@ -260,13 +246,12 @@ public class ImpactEventHandler : MonoBehaviour
 
 				if(deltaZ <= tolerance)
 				{
-					Trigger2DInformation info = new Trigger2DInformation(b, a, deltaCalculator != null ? deltaCalculator.velocity : Vector3.zero);
-					eventsHandler.InvokeTriggerEvent(info, HitColliderEventTypes.Enter, 0);
-
+					InvokeTriggerEvent(b, a, deltaCalculator, HitColliderEventTypes.Enter);
 					indices.Add(pair.Key);
 				}
 			}
 
+			/// At the end of the foreach iteration, remove from HashSet items by the registered indices:
 			if(indices.Count > 0)
 			{
 				foreach(int index in indices)
@@ -281,6 +266,18 @@ public class ImpactEventHandler : MonoBehaviour
 		}
 
 		this.DispatchCoroutine(ref zEvaluation);
+	}
+
+	/// <summary>Invokes EventHandler's TriggerEvent delegate.</summary>
+	/// <param name="a">Collider A [for Trigger2DInformation].</param>
+	/// <param name="b">Collider B [for Trigger2DInformation].</param>
+	/// <param name="deltaCalculator">TransformDeltaCalculator's reference [optional for Trigger2DInformation].</param>
+	/// <param name="eventType">Collider Event Type.</param>
+	/// <param name="ID [0 by default]">varDesc.</param>
+	private void InvokeTriggerEvent(Collider2D a, Collider2D b, TransformDeltaCalculator deltaCalculator, HitColliderEventTypes eventType, int ID = 0)
+	{
+		Trigger2DInformation info = new Trigger2DInformation(a, b, deltaCalculator != null ? deltaCalculator.velocity  : Vector3.zero);
+		eventsHandler.InvokeTriggerEvent(info, eventType, ID);
 	}
 }
 }

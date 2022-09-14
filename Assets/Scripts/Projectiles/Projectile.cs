@@ -51,6 +51,7 @@ public class Projectile : ContactWeapon
 	[SerializeField] private float _lifespan; 										/// <summary>Projectile's Lifespan.</summary>
 	[SerializeField] private float _cooldownDuration; 								/// <summary>Cooldown's Duration.</summary>
 	[SerializeField] private bool _rotateTowardsDirection; 							/// <summary>Make Projectile Rotate towards direction?.</summary>
+	[SerializeField] private float _gravityScale; 									/// <summary>Gravity's Scale [applied only for Parabola mode].</summary>
 	[Space(5f)]
 	[Header("Steering Attributes:")]
 	[SerializeField] private float _maxSteeringForce; 								/// <summary>Maximum's Steering Force.</summary>
@@ -126,6 +127,13 @@ public class Projectile : ContactWeapon
 	{
 		get { return _lifespan; }
 		set { _lifespan = value; }
+	}
+
+	/// <summary>Gets and Sets gravityScale property.</summary>
+	public float gravityScale
+	{
+		get { return _gravityScale == 0.0f ? 1.0f : _gravityScale; }
+		set { _gravityScale = value; }
 	}
 
 	/// <summary>Gets and Sets cooldownDuration property.</summary>
@@ -448,7 +456,12 @@ public class Projectile : ContactWeapon
 			
 			} else if(newOwner != owner)
 			{
-				Vector3 velocity = VPhysics.ProjectileDesiredVelocity(parabolaTime, transform.position, owner.transform.position, Physics.gravity);
+				Vector3 velocity = VPhysics.ProjectileDesiredVelocity(
+					parabolaTime,
+					transform.position,
+					owner.transform.position,
+					Physics.gravity * gravityScale
+				);
 				float magnitude = velocity.magnitude;
 
 				velocity /= magnitude; // Normalize
@@ -504,6 +517,7 @@ public class Projectile : ContactWeapon
 	protected virtual Vector3 CalculateDisplacement()
 	{
 		Vector3 displacement = Vector3.zero;
+		Vector3 g = Physics.gravity * gravityScale;
 
 		switch(projectileType)
 		{
@@ -526,11 +540,11 @@ public class Projectile : ContactWeapon
 				switch(speedMode)
 				{
 					case SpeedMode.Lineal:
-					accumulatedVelocity = Physics.gravity;
+					accumulatedVelocity = g;
 					break;
 
 					case SpeedMode.Accelerating:
-					accumulatedVelocity += (Physics.gravity * Time.fixedDeltaTime);
+					accumulatedVelocity += (g * Time.fixedDeltaTime);
 					break;
 				}
 

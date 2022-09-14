@@ -17,20 +17,28 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 {
 	[Space(5f)]
 	[Header("Bomb's Attributes:")]
-	[SerializeField] private GameObjectTag[] _flamableTags; 		/// <summary>Tags of GameObjects that are considered flamable.</summary>
-	[SerializeField] private VAssetReference _explodableReference; 	/// <summary>Explodable's Reference.</summary>
+	[SerializeField] private GameObjectTag[] _flamableTags; 			/// <summary>Tags of GameObjects that are considered flamable.</summary>
+	[SerializeField] private VAssetReference _explodableReference; 		/// <summary>Explodable's Reference.</summary>
 	[Space(5f)]
 	[Header("Fuse's Attributes:")]
-	[SerializeField] private VAssetReference _fireEffectReference; 	/// <summary>Fire Particle-Effect's Reference.</summary>
-	[SerializeField] private LineRenderer _fuse; 					/// <summary>Bomb's Fuse.</summary>
-	[SerializeField] private float _fuseDuration; 					/// <summary>Fuse's Duration.</summary>
-	[SerializeField] private float _fuseLength; 					/// <summary>Fuse's Length.</summary>
-	private float _currentFuseLength; 								/// <summary>Current Fuse's Length.</summary>
-	private BombState _state; 										/// <summary>Current Bomb's State.</summary>
-	private BombState _previousState; 								/// <summary>Current Bomb's Previous State.</summary>
-	private ParticleEffect _fuseFire; 								/// <summary>Fuse Fire's ParticleEffect.</summary>
-	private Coroutine fuseRoutine; 									/// <summary>Fuse Coroutines' Reference.</summary>
-	private Explodable _explosion; 									/// <summary>Explosion's Reference.</summary>
+	[SerializeField] private VAssetReference _fireEffectReference; 		/// <summary>Fire Particle-Effect's Reference.</summary>
+	[SerializeField] private LineRenderer _fuse; 						/// <summary>Bomb's Fuse.</summary>
+	[SerializeField] private float _fuseDuration; 						/// <summary>Fuse's Duration.</summary>
+	[SerializeField] private float _fuseLength; 						/// <summary>Fuse's Length.</summary>
+	[Space(5f)]
+	[Header("Explosion Containment's Attributes:")]
+	[SerializeField]
+	[Range(0.0f, 1.0f)] private float _containmentPhaseThreshold; 		/// <summary>Normalized value that determines when does the bomb enter a containment phase [relative to its fuse duration].</summary>
+	[SerializeField] private float _containmentOscillationMagnitude; 	/// <summary>Containment Oscillation's Manitude.</summary>
+	[SerializeField] private float _containmentOscillationCycles; 		/// <summary>Containmet Oscillation's Cycles.</summary>
+	[SerializeField] private FloatRange _containmentOscillationSpeed; 	/// <summary>Containment Oscillation's Speed.</summary>
+	private float _currentFuseLength; 									/// <summary>Current Fuse's Length.</summary>
+	private BombState _state; 											/// <summary>Current Bomb's State.</summary>
+	private BombState _previousState; 									/// <summary>Current Bomb's Previous State.</summary>
+	private ParticleEffect _fuseFire; 									/// <summary>Fuse Fire's ParticleEffect.</summary>
+	private Coroutine fuseRoutine; 										/// <summary>Fuse Coroutines' Reference.</summary>
+	private Coroutine containmentPhase; 								/// <summary>Containment Phase Coroutine's Reference.</summary>
+	private Explodable _explosion; 										/// <summary>Explosion's Reference.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets flamableTags property.</summary>
@@ -75,11 +83,39 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		set { _fuseLength = value; }
 	}
 
+	/// <summary>Gets and Sets containmentPhaseThreshold property.</summary>
+	public float containmentPhaseThreshold
+	{
+		get { return _containmentPhaseThreshold; }
+		set { _containmentPhaseThreshold = value; }
+	}
+
+	/// <summary>Gets and Sets containmentOscillationMagnitude property.</summary>
+	public float containmentOscillationMagnitude
+	{
+		get { return _containmentOscillationMagnitude; }
+		set { _containmentOscillationMagnitude = value; }
+	}
+
+	/// <summary>Gets and Sets containmentOscillationCycles property.</summary>
+	public float containmentOscillationCycles
+	{
+		get { return _containmentOscillationCycles; }
+		set { _containmentOscillationCycles = value; }
+	}
+
 	/// <summary>Gets and Sets currentFuseLength property.</summary>
 	public float currentFuseLength
 	{
 		get { return _currentFuseLength; }
 		set { _currentFuseLength = value; }
+	}
+
+	/// <summary>Gets and Sets containmentOscillationSpeed property.</summary>
+	public FloatRange containmentOscillationSpeed
+	{
+		get { return _containmentOscillationSpeed; }
+		set { _containmentOscillationSpeed = value; }
 	}
 
 	/// <summary>Gets and Sets state property.</summary>
@@ -182,6 +218,7 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		base.OnObjectDeactivation();
 		rigidbody.Sleep();
 		this.DispatchCoroutine(ref fuseRoutine);
+		this.DispatchCoroutine(ref containmentPhase);
 
 		if(fuseFire != null && gameObject.activeSelf)
 		{
@@ -197,6 +234,8 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		base.OnObjectReset();
 		state = BombState.WickOff;
 		this.DispatchCoroutine(ref fuseRoutine);
+		this.DispatchCoroutine(ref containmentPhase);
+		meshContainer.transform.localScale = Vector3.one;
 		if(fuseFire != null) fuseFire.gameObject.SetActive(false);
 	}
 
@@ -275,6 +314,10 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		while(t < 1.0f)
 		{
 			currentFuseLength = Mathf.Lerp(fuseLength, 0.0f, t);
+
+			if(t >= containmentPhaseThreshold && containmentPhase == null)
+			this.StartCoroutine(ContainmentPhase(), ref containmentPhase);
+
 			t += (inverseDuration * Time.deltaTime);
 			yield return null;
 		}
@@ -282,6 +325,29 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		currentFuseLength = 0.0f;
 		this.ChangeState(BombState.Exploding);
 		InvokeDeactivationEvent(DeactivationCause.LifespanOver);
+	}
+
+	/// <summary>Containment's Phase.</summary>
+	private IEnumerator ContainmentPhase()
+	{
+		if(meshContainer == null) yield break;
+
+		float t = 0.0f;
+		float x = 360.0f * Mathf.Deg2Rad * containmentOscillationCycles;
+		float sin = 0.0f;
+		float inverseDuration = 1.0f / (fuseDuration * (1.0f - containmentPhaseThreshold));
+		float s = 0.0f;
+		Vector3 a = Vector3.one;
+		Vector3 b = a * containmentOscillationMagnitude;
+
+		while(t < 1.0f)
+		{
+			s = containmentOscillationSpeed.Lerp(t);
+			sin = VMath.RemapValueToNormalizedRange(Mathf.Sin(t * x) * s, -1.0f, 1.0f);
+			meshContainer.transform.localScale = Vector3.Lerp(a, (a * sin), t);
+			t += (Time.deltaTime * inverseDuration);
+			yield return null;
+		}
 	}
 }
 }

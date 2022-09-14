@@ -12,6 +12,29 @@ public enum GizmosDrawType 								/// <summary>Gizmos' Draw Types.</summary>
 
 public static class VGizmos
 {
+	/// <summary>Draws Parabola's Projection.</summary>
+	/// <param name="p0">Initial Position.</param>
+	/// <param name="v0">Initial Velocity.</param>
+	/// <param name="g">Gravity.</param>
+	/// <param name="t">Time.</param>
+	/// <param name="s">Time Splits [line segments]. 50.0f by default.</param>
+	public static Vector3 DrawParabolaProjection(Vector3 p0, Vector3 v0, Vector3 g, float t, float s = 50.0f)
+	{
+		float ts = 1.0f / s;
+
+		for(float i = 0.0f; i < s; i++)
+		{
+			Vector3 a = VPhysics.ProjectileProjection(i * ts * t, v0, p0, g);
+			Vector3 b = VPhysics.ProjectileProjection((i + 1.0f) * ts * t, v0, p0, g);
+
+			Gizmos.DrawLine(a, b);
+		}
+
+		return VPhysics.ProjectileProjection(t, v0, p0, g);
+	}
+
+	//public static Vector3 DrawParabolaVelocity(Vector3 p0, Vector3 pf,)
+
 	/// <summary>Draws TransformData into the Gizmos' thread.</summary>
 	/// <param name="_data">TransformData to draw.</param>
 	/// <param name="r">Gizmos' Radius [0.5f as default].</param>

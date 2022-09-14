@@ -58,9 +58,9 @@ MonoBehaviour:
   _soundEffect:
     sourceIndex: 0
     soundReference:
-      m_AssetGUID: 
+      m_AssetGUID: 095801a34f42d244188bd09c68542017
       m_SubObjectName: 
-    volume: 0
+    volume: 1
   _radius: 2
   _expansionDuration: 0.3
   _maxRadiusDuration: 0.4

@@ -18,7 +18,7 @@ public class Boss : Enemy
 
 	[Space(5f)]
 	[Header("Boss' Attributes:")]
-	[SerializeField] private float[] _healthDistribution; 															/// <summary>Health Distribution across the Stages.</summary>
+	[TabGroup("Health")][SerializeField] private float[] _healthDistribution; 										/// <summary>Health Distribution across the Stages.</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
 	[Header("Boss' Tests:")]

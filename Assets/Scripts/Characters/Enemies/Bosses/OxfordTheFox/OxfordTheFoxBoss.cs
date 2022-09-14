@@ -20,7 +20,7 @@ public class OxfordTheFoxBoss : Boss
 	/// <summary>OxfordTheFoxBoss's instance initialization.</summary>
 	private void Awake()
 	{
-		animation.AddClips(animations);
+		//animation.AddClips(animations);
 	}
 
 	/// <summary>OxfordTheFoxBoss's starting actions before 1st Update frame.</summary>
@@ -38,7 +38,7 @@ public class OxfordTheFoxBoss : Boss
 
 	private IEnumerator AnimationTest()
 	{
-		AnimationState state = null;
+		/*AnimationState state = null;
 		SecondsDelayWait wait = new SecondsDelayWait(0.0f);
 
 		foreach(AnimationClip clip in animations)
@@ -53,7 +53,8 @@ public class OxfordTheFoxBoss : Boss
 				state.speed = speed;
 				yield return null;
 			}
-		}
+		}*/
+		yield return null;
 	}
 #endregion
 }

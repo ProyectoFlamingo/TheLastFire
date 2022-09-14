@@ -16,7 +16,7 @@ public class PoolManager : Singleton<PoolManager>
 {
 	public static event OnResourcesLoaded onPoolsCreated; 											/// <summary>OnResourcesLoaded's Event Delegate.</summary>
 
-	private Dictionary<VAssetReference, GameObjectPool<Character>> _charactersPoolsMap; 				/// <summary>Mapping of Characters' Pools.</summary>
+	private Dictionary<VAssetReference, GameObjectPool<Character>> _charactersPoolsMap; 			/// <summary>Mapping of Characters' Pools.</summary>
 	private Dictionary<VAssetReference, GameObjectPool<Projectile>> _projectilesPoolsMap; 			/// <summary>Mapping of Projectiles' Pools.</summary>
 	private Dictionary<VAssetReference, GameObjectPool<PoolGameObject>> _gameObjectsPoolsMap; 		/// <summary>Mapping of Pool-GameObjects' Pools.</summary>
 	private Dictionary<VAssetReference, GameObjectPool<ParticleEffect>> _particleEffectsPoolsMap; 	/// <summary>Mapping of Particle-Effects' Pools.</summary>
@@ -202,7 +202,7 @@ public class PoolManager : Singleton<PoolManager>
 	/// <param name="t">Time it should take the projectile to reach from its position to the given target.</param>
 	/// <param name="_object">GameObject that requests the Parabola [treated as the shooter]. Null by default.</param>
 	/// <returns>Requested Parabola Projectile.</returns>
-	public static Projectile RequestParabolaProjectile(Faction _faction, VAssetReference _reference, Vector3 _position, Vector3 _target, float t, GameObject _object = null)
+	public static Projectile RequestParabolaProjectile(Faction _faction, VAssetReference _reference, Vector3 _position, Vector3 _target, float t, GameObject _object = null, float _gravityScale = 1.0f)
 	{
 		if(_reference.Empty()) return null;
 
@@ -210,7 +210,14 @@ public class PoolManager : Singleton<PoolManager>
 
 		if(projectile == null) return null;
 
-		Vector3 velocity = VPhysics.ProjectileDesiredVelocity(t, _position, _target, Physics.gravity, projectile.speedMode == SpeedMode.Accelerating);
+		projectile.gravityScale = _gravityScale;
+		Vector3 velocity = VPhysics.ProjectileDesiredVelocity(
+			t,
+			_position,
+			_target,
+			Physics.gravity * projectile.gravityScale,
+			projectile.speedMode == SpeedMode.Accelerating
+		);
 		float magnitude = velocity.magnitude;
 
 		projectile.projectileType = ProjectileType.Parabola;

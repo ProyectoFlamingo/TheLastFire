@@ -18,81 +18,80 @@ public enum ShantyEvent
 
 public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 {
-	public const int ID_WAYPOINTSPAIR_HELM = 0; 							/// <summary>Helm's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_DECK = 1; 							/// <summary>Deck's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 						/// <summary>Left Stair's Waypoints' Pair ID.</summary>
-	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 						/// <summary>Right Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_HELM = 0; 																					/// <summary>Helm's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_DECK = 1; 																					/// <summary>Deck's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_LEFT = 2; 																				/// <summary>Left Stair's Waypoints' Pair ID.</summary>
+	public const int ID_WAYPOINTSPAIR_STAIR_RIGHT = 3; 																				/// <summary>Right Stair's Waypoints' Pair ID.</summary>
 
 	[Space(5f)]
-	[SerializeField] private float _idleTolerance; 							/// <summary>Idle's Tolerance.</summary>
+	[SerializeField] private float _idleTolerance; 																					/// <summary>Idle's Tolerance.</summary>
 	[Space(5f)]
 	[Header("Shanty's Attributes:")]
 	[Space(5f)]
-	[SerializeField] private ShantyShip _ship; 								/// <summary>Shanty's Ship.</summary>
+	[SerializeField] private ShantyShip _ship; 																						/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _windowPercentage; 					/// <summary>Time-window before swinging sword (to hit bomb).</summary>
+	[Header("Tennis' Attributes:")]
+	[TabGroup("BattleGroup", "Tennis' Phase")][SerializeField][Range(0.0f, 1.0f)] private float _windowPercentage; 					/// <summary>Time-window before swinging sword (to hit bomb).</summary>
 	[Space(5f)]
 	[Header("Stage 1 Bomb's Attributes:")]
-	[SerializeField] private float _bombProjectionTime; 					/// <summary>Bomb's Projection Time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 			/// <summary>Bomb Projection Time's Percentage.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _stage1BombGravityScale; 						/// <summary>Bomb's Gravity Scale for Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _stage2BombGravityScale; 						/// <summary>Bomb's Gravity Scale for Stage 2.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bombProjectionTime; 							/// <summary>Bomb's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 	/// <summary>Bomb Projection Time's Percentage.</summary>
 	[Space(5f)]
-	[Header("Stage 2 Bomb's Attributes:")]
-	[SerializeField] private float _bouncingBombProjectionTime; 			/// <summary>Bouncing Bomb's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][Header("Stage 2 Bomb's Attributes:")]
+	[SerializeField] private float _bouncingBombProjectionTime; 																	/// <summary>Bouncing Bomb's Projection Time.</summary>
 	[Space(5f)]
 	[Header("Stage 1 TNT's Attributes:")]
-	[SerializeField] private VAssetReference _stage1ExplodableReference; 	/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
-	[SerializeField] private float _stage1TNTFuseDuration; 					/// <summary>Fuse Duration for TNT on Stage 1.</summary>
-	[SerializeField] private float _TNTProjectionTime; 						/// <summary>TNT's Projection Time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 			/// <summary>TNT Projection Time's Percentage.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 			/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 					/// <summary>Time Scale when throwing TNT.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTGravityScale; 						/// <summary>TNT's Gravity Scale for Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private VAssetReference _stage1ExplodableReference; 			/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTFuseDuration; 							/// <summary>Fuse Duration for TNT on Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _TNTProjectionTime; 								/// <summary>TNT's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTProjectionPercentage; 	/// <summary>TNT Projection Time's Percentage.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTTimeScaleChangeProgress; 	/// <summary>TNT parabolas' progress necessary to slow down time.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _TNTThrowTimeScale; 			/// <summary>Time Scale when throwing TNT.</summary>
 	[Space(5f)]
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 		/// <summary>Health Limit's Percentage for TNT.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 		/// <summary>Health Limit's Percentage for TNT.</summary>
+	[TabGroup("Health")][SerializeField][Range(0.0f, 1.0f)] private float _stage1HealthPercentageLimit; 							/// <summary>Health Limit's Percentage for TNT.</summary>
+	[TabGroup("Health")][SerializeField][Range(0.0f, 1.0f)] private float _stage2HealthPercentageLimit; 							/// <summary>Health Limit's Percentage for TNT.</summary>
 	[Space(5f)]
 	[Header("Stage 2's TNT's Attributes:")]
-	[SerializeField] private VAssetReference _stage2ExplodableReference; 	/// <summary>Explodable's Reference for TNT on Stage 2.</summary>
-	[SerializeField] private float _stage2TNTFuseDuration; 					/// <summary>Fuse Duration for TNT on Stage 2.</summary>
-	[SerializeField] private float _stairParabolaTime; 						/// <summary>Duration from throw to beginning of stair.</summary>
-	[SerializeField] private float _stairSlideDuration; 					/// <summary>Stair Slide's Duration.</summary>
-	[SerializeField] private float _sidewaysMovementSpeed; 					/// <summary>Sideways' Movement Speed.</summary>
-	[SerializeField] private float _TNTRotationSpeed; 						/// <summary>TNT's Rotation Angular Speed.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private VAssetReference _stage2ExplodableReference; 			/// <summary>Explodable's Reference for TNT on Stage 2.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage2TNTFuseDuration; 							/// <summary>Fuse Duration for TNT on Stage 2.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stairParabolaTime; 								/// <summary>Duration from throw to beginning of stair.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stairSlideDuration; 							/// <summary>Stair Slide's Duration.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _sidewaysMovementSpeed; 							/// <summary>Sideways' Movement Speed.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _TNTRotationSpeed; 								/// <summary>TNT's Rotation Angular Speed.</summary>
 	[Space(5f)]
 	[Header("Whack-A-Mole's Attributes:")]
-	[SerializeField] private float _vectorPairInterpolationDuration; 		/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
-	[SerializeField] private float _waitBeforeWaypointReturn; 				/// <summary>Wait before Waypoint's Return.</summary>
-	[SerializeField]
-	[Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 			/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField] private float _vectorPairInterpolationDuration; 						/// <summary>Interpolation duration for Whack-A-Mole's Waypoints.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField] private float _waitBeforeWaypointReturn; 								/// <summary>Wait before Waypoint's Return.</summary>
+	[TabGroup("BattleGroup", "Whack-A-Mole")][SerializeField][Range(0.0f, 1.0f)] private float _progressToToggleHurtBoxes; 			/// <summary>Process percentage on the interpolation to toggle the Hurt-Boxes.</summary>
 	[Space(5f)]
 	[Header("Duel's Attributes:")]
-	[SerializeField] private FloatRange _attackRadiusRange; 				/// <summary>Attacks' Radius Range.</summary>
-	[SerializeField] private FloatRange _strongAttackWaitInterval; 			/// <summary>Strong Attack's Wait Interval.</summary>
-	[SerializeField] private float _movementSpeed; 							/// <summary>Movement's Speed.</summary>
-	[SerializeField] private float _rotationSpeed; 							/// <summary>Rotation's Speed.</summary>
-	[SerializeField] private float _regressionDuration; 					/// <summary>Regression's Duration.</summary>
-	[SerializeField] private float _attackDistance; 						/// <summary>Attack's Distance.</summary>
-	[SerializeField] private float _normalAttackCooldownDuration; 			/// <summary>Normal Attack Cooldown's Duration.</summary>
-	[SerializeField] private float _strongAttackCooldownDuration; 			/// <summary>Strong Attack Cooldown's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private FloatRange _attackRadiusRange; 										/// <summary>Attacks' Radius Range.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private FloatRange _strongAttackWaitInterval; 								/// <summary>Strong Attack's Wait Interval.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _movementSpeed; 												/// <summary>Movement's Speed.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _rotationSpeed; 												/// <summary>Rotation's Speed.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _regressionDuration; 											/// <summary>Regression's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _attackDistance; 												/// <summary>Attack's Distance.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _normalAttackCooldownDuration; 									/// <summary>Normal Attack Cooldown's Duration.</summary>
+	[TabGroup("BattleGroup", "Duel")][SerializeField] private float _strongAttackCooldownDuration; 									/// <summary>Strong Attack Cooldown's Duration.</summary>
 	[Space(5f)]
 	[Header("Inmunities:")]
-	[SerializeField] private GameObjectTag[] _stage1Inmunities; 			/// <summary>Inmunities on Stage 1.</summary>
-	[SerializeField] private GameObjectTag[] _stage2Inmunities; 			/// <summary>Inmunities on Stage 2.</summary>
-	private Coroutine coroutine; 											/// <summary>Coroutine's Reference.</summary>
-	private Coroutine TNTRotationCoroutine; 								/// <summary>TNT's Rotation Coroutine's Reference.</summary>
-	private Coroutine jumpAttackCoroutine; 									/// <summary>Jump Attack's Coroutine's Reference.</summary>
-	private Behavior attackBehavior; 										/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
-	private Cooldown _normalAttackCooldown; 								/// <summary>Normal Attack's Cooldown.</summary>
-	private Cooldown _strongAttackCooldown; 								/// <summary>Strong Attack's Cooldown.</summary>
-	private Line _line; 													/// <summary>Current Stair's Line.</summary>
-	private bool _tntActive; 												/// <summary>Is the TNT Coroutine's Running?.</summary>
-	private int _staircaseID; 												/// <summary>Staircase's ID.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage1Inmunities; 												/// <summary>Inmunities on Stage 1.</summary>
+	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage2Inmunities; 												/// <summary>Inmunities on Stage 2.</summary>
+	[Space(5f)]
+	[TabGroup("Audio")][SerializeField] private VAssetReference _throwSFXReference; 												/// <summary>Throw's Sound-Effect's Reference.</summary>
+	[TabGroup("Audio")][SerializeField] private VAssetReference _bombRepelledSFXReference; 											/// <summary>Bomb-Repelled's Sound-Effect's Reference.</summary>
+	private Coroutine coroutine; 																									/// <summary>Coroutine's Reference.</summary>
+	private Coroutine TNTRotationCoroutine; 																						/// <summary>TNT's Rotation Coroutine's Reference.</summary>
+	private Coroutine jumpAttackCoroutine; 																							/// <summary>Jump Attack's Coroutine's Reference.</summary>
+	private Behavior attackBehavior; 																								/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
+	private Cooldown _normalAttackCooldown; 																						/// <summary>Normal Attack's Cooldown.</summary>
+	private Cooldown _strongAttackCooldown; 																						/// <summary>Strong Attack's Cooldown.</summary>
+	private Line _line; 																											/// <summary>Current Stair's Line.</summary>
+	private bool _tntActive; 																										/// <summary>Is the TNT Coroutine's Running?.</summary>
+	private int _staircaseID; 																										/// <summary>Staircase's ID.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets ship property.</summary>
@@ -108,14 +107,29 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Gets stage2ExplodableReference property.</summary>
 	public VAssetReference stage2ExplodableReference { get { return _stage2ExplodableReference; } }
 
+	/// <summary>Gets throwSFXReference property.</summary>
+	public VAssetReference throwSFXReference { get { return _throwSFXReference; } }
+
+	/// <summary>Gets bombRepelledSFXReference property.</summary>
+	public VAssetReference bombRepelledSFXReference { get { return _bombRepelledSFXReference; } }
+
 	/// <summary>Gets idleTolerance property.</summary>
 	public float idleTolerance { get { return _idleTolerance; } }
+
+	/// <summary>Gets stage1BombGravityScale property.</summary>
+	public float stage1BombGravityScale { get { return _stage1BombGravityScale; } }
+
+	/// <summary>Gets stage2BombGravityScale property.</summary>
+	public float stage2BombGravityScale { get { return _stage2BombGravityScale; } }
 
 	/// <summary>Gets bombProjectionTime property.</summary>
 	public float bombProjectionTime { get { return _bombProjectionTime; } }
 
 	/// <summary>Gets bombProjectionPercentage property.</summary>
 	public float bombProjectionPercentage { get { return _bombProjectionPercentage; } }
+
+	/// <summary>Gets stage1TNTGravityScale property.</summary>
+	public float stage1TNTGravityScale { get { return _stage1TNTGravityScale; } }
 
 	/// <summary>Gets bouncingBombProjectionTime property.</summary>
 	public float bouncingBombProjectionTime { get { return _bouncingBombProjectionTime; } }
@@ -359,17 +373,20 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 		VAssetReference reference = null;
 		float time = 0.0f;
+		float gravityScale = 0.0f;
 
 		switch(character.currentStage)
 		{
 			case Boss.STAGE_1:
 			reference = character.bombReference;
 			time = bombProjectionTime;
+			gravityScale = stage1BombGravityScale;
 			break;
 
 			case Boss.STAGE_2:
 			reference = character.bouncingBombReference;
 			time = bouncingBombProjectionTime;
+			gravityScale = stage2BombGravityScale;
 
 			this.StartCoroutine(this.WaitSeconds(time,
 			()=>
@@ -391,9 +408,18 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 		}
 
+		character.EnableHurtBoxes(false);
 		character.bomb.transform.parent = null;
 		character.bomb.OnObjectDeactivation();
-		character.bomb = PoolManager.RequestParabolaProjectile(Faction.Enemy, reference, character.skeleton.rightHand.position, Game.mateo.transform.position, time, gameObject);
+		character.bomb = PoolManager.RequestParabolaProjectile(
+			Faction.Enemy,
+			reference,
+			character.skeleton.rightHand.position,
+			Game.mateo.transform.position,
+			time,
+			gameObject,
+			gravityScale
+		);
 		character.bomb.rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		character.bomb.rigidbody.isKinematic = true;
 		character.bomb.rigidbody.gravityScale = 0.0f;
@@ -415,6 +441,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 		character.bomb.activated = true;
 		character.bomb.ActivateHitBoxes(true);
+		AudioController.Play(SourceType.SFX, 0, throwSFXReference);
 	}
 #endregion
 
@@ -459,6 +486,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		float fuseDuration = 0.0f;
 		float damage = 0.0f;
 		float t = 0.0f;
+		float gravityScale = 1.0f;
 		VAssetReference reference = null;
 
 		switch(character.currentStage)
@@ -471,6 +499,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 				flamableTags = new GameObjectTag[] { Game.data.playerProjectileTag };
 				fuseDuration = stage1TNTFuseDuration;
 				damage = Game.DAMAGE_MAX;
+				gravityScale = stage1TNTGravityScale;
 			break;
 
 			case Boss.STAGE_2:
@@ -484,9 +513,18 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 		}
 
+		character.EnableHurtBoxes(true);
 		character.TNT.transform.parent = null;
 		character.TNT.OnObjectDeactivation();
-		character.TNT = PoolManager.RequestParabolaProjectile(Faction.Enemy, character.TNTReference, character.skeleton.rightHand.position, p, t, gameObject);
+		character.TNT = PoolManager.RequestParabolaProjectile(
+			Faction.Enemy,
+			character.TNTReference,
+			character.skeleton.rightHand.position,
+			p,
+			t,
+			gameObject,
+			gravityScale
+		);
 		anchoredPosition = character.TNT.anchorContainer.GetAnchoredPosition(character.skeleton.rightHand.position, 0);
 		character.TNT.transform.position = anchoredPosition;
 		character.TNT.ActivateHitBoxes(true);
@@ -517,6 +555,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 		}
 
+		AudioController.Play(SourceType.SFX, 0, throwSFXReference);
 		this.StartCoroutine(routine, ref coroutine);
 	}
 #endregion
@@ -742,7 +781,16 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 
 			case IDs.ANIMATIONEVENT_REPELBOMB:
-				if(character.bomb != null) character.bomb.RequestRepel(gameObject);
+				if(character.bomb != null)
+				{
+					BombParabolaProjectile parabolaBomb = character.bomb as BombParabolaProjectile;
+
+					if(parabolaBomb != null && parabolaBomb.state == BombState.WickOff)
+					{
+						AudioController.Play(SourceType.SFX, 0, bombRepelledSFXReference);
+						character.bomb.RequestRepel(gameObject);
+					}
+				}
 			break;
 
 			case IDs.ANIMATIONEVENT_JUMP:
@@ -766,7 +814,11 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 				switch(_eventID)
 				{
 					case IDs.EVENT_REPELLED:
-					if(_weapon.owner == gameObject) return;
+					bool shantyRepels = _weapon.owner == gameObject;
+
+					character.EnableHurtBoxes(!shantyRepels);
+
+					if(shantyRepels) return;
 
 					BombParabolaProjectile bombProjectile = character.bomb as BombParabolaProjectile;
 					if(bombProjectile != null && bombProjectile.state == BombState.WickOn) bombProjectile.impactTags = character.wickOnBombImpactTags;

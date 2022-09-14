@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &730217798935185213
 Transform:
   m_ObjectHideFlags: 0
@@ -435,7 +435,6 @@ MonoBehaviour:
   _animator: {fileID: 3932427943488157001}
   _animatorController: {fileID: 4653872259428839986}
   _animationEventInvoker: {fileID: 6812356352716838448}
-  _animation: {fileID: 0}
   _onAnimatorMoveOverrider: {fileID: 0}
   _mainAnimationLayer: 0
   _locomotionAnimationLayer: 1
@@ -464,27 +463,27 @@ MonoBehaviour:
   _deadFXs:
     _FXsPairs: []
   _healthDistribution:
+  - 3
   - 5
   - 15
-  - 25
   forceStageTesting: 0
-  testStage: 0
+  testStage: 2
   _ship: {fileID: 0}
   _sword: {fileID: 791472592297698801}
   _falseSword: {fileID: 2354407796838385610}
-  _windowPercentage: 0.05
-  _bombReference:
-    m_AssetGUID: 2ad02a0b9d3e89248ba013e0175113d2
-    m_SubObjectName: 
-  _bombProjectionTime: 1.5
-  _bombProjectionPercentage: 0.45
-  _bouncingBombReference:
-    m_AssetGUID: 679901165b16f984c96a28bfb1cb3396
-    m_SubObjectName: 
-  _bouncingBombProjectionTime: 1.5
   _TNTReference:
     m_AssetGUID: 725cffea4e893ff489930583db4101d6
     m_SubObjectName: 
+  _bombReference:
+    m_AssetGUID: 2ad02a0b9d3e89248ba013e0175113d2
+    m_SubObjectName: 
+  _bouncingBombReference:
+    m_AssetGUID: 679901165b16f984c96a28bfb1cb3396
+    m_SubObjectName: 
+  _windowPercentage: 0.05
+  _bombProjectionTime: 1.5
+  _bombProjectionPercentage: 0.45
+  _bouncingBombProjectionTime: 1.5
   _stage1ExplodableReference:
     m_AssetGUID: 510f45f4d87997d48933833abca64959
     m_SubObjectName: 

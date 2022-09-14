@@ -41,7 +41,6 @@ public class Character : PoolGameObject, IStateMachine
 	[TabGroup("Animations")][SerializeField] private Animator _animator; 								/// <summary>Animator's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private VAnimatorController _animatorController; 			/// <summary>VAnimatorController's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimationEventInvoker _animationEventInvoker; 		/// <summary>AnimationEventInvoker's Component.</summary>
-	[TabGroup("Animations")][SerializeField] private Animation _animation; 								/// <summary>Animation's Component.</summary>
 	[TabGroup("Animations")][SerializeField] private OnAnimatorMoveOverrider _onAnimatorMoveOverrider; 	/// <summary>OnAnimatorMoveOverrider component attached to the Animator's GameObject.</summary>
 	[Space(5f)]
 	[TabGroup("Animations")][SerializeField] private int _mainAnimationLayer; 							/// <summary>Main Animations' Layer.</summary>
@@ -183,16 +182,6 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			if(_anchorContainer == null) _anchorContainer = GetComponent<VirtualAnchorContainer>();
 			return _anchorContainer;
-		}
-	}
-
-	/// <summary>Gets animation Component.</summary>
-	public Animation animation
-	{ 
-		get
-		{
-			if(_animation == null) _animation = GetComponent<Animation>();
-			return _animation;
 		}
 	}
 
