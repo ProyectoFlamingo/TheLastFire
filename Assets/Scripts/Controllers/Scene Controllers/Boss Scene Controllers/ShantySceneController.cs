@@ -421,6 +421,8 @@ public class ShantySceneController : Singleton<ShantySceneController>
 
 		if(obj.CompareTag(Game.data.playerWeaponTag) || obj.CompareTag(Game.data.playerProjectileTag))
 		{
+			/// \TODO Cool disolving effect for the rope?
+			shantyShip.ropeRenderer.gameObject.SetActive(false);
 			shantyShip.ropeHitBox.onTriggerEvent2D -= OnRopeHit; 		/// Just in case...
 			shantyShip.ropeHitBox.gameObject.SetActive(false);
 

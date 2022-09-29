@@ -293,6 +293,13 @@ public class Character : PoolGameObject, IStateMachine
 	protected virtual void OnDrawGizmos()
 	{
 		Gizmos.color = gizmosColor;
+
+		foreach(HitCollider2D hurtBox in hurtBoxes)
+		{
+			if(!hurtBox.gameObject.activeSelf) continue;
+
+			Gizmos.DrawCube(hurtBox.transform.position + hurtBox.collider.bounds.center, hurtBox.collider.bounds.size.WithZ(0.1f));
+		}
 	}
 
 //---------------------------------------
@@ -411,6 +418,8 @@ public class Character : PoolGameObject, IStateMachine
 		{
 			collider.gameObject.SetActive(_enable);
 		}
+
+		//Debug.Log("[Character] Enabling Hurt-Boxes? " + _enable);
 	}
 #endregion
 

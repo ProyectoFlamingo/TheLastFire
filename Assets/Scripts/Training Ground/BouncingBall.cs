@@ -79,7 +79,7 @@ public class BouncingBall : MonoBehaviour
 	/// <param name="_ID">Optional ID of the HitCollider2D.</param>
 	private void OnImpactEvent(Trigger2DInformation _info, HitColliderEventTypes _eventType, int _ID = 0)
 	{
-		if(impactTags == null || impactTags.Length == 0 || _eventType != HitColliderEventTypes.Enter) return;
+		/*if(impactTags == null || impactTags.Length == 0 || _eventType != HitColliderEventTypes.Enter) return;
 
 		GameObject obj = _info.collider.gameObject;
 
@@ -88,11 +88,41 @@ public class BouncingBall : MonoBehaviour
 			if(obj.CompareTag(tag))
 			{
 				Debug.DrawRay(_info.contactPoint, _info.direction * 5.0f, Color.magenta, 5.0f);
+				//RaycastHit2D[] hitInfos = Physics2D.SphereCastAll(transform.position, )
+
 				rigidbody.Sleep();
 				rigidbody.AddForce(Vector2.Scale(-_info.direction.normalized, force), ForceMode2D.Impulse);
 				break;
 			}
+		}*/
+	}
+
+	/// <summary>Event triggered when this Collider/Rigidbody begun having contact with another Collider/Rigidbody.</summary>
+	/// <param name="col">The Collision data associated with this collision Event.</param>
+	private void OnCollisionEnter2D(Collision2D col)
+	{
+		Debug.Log("[BouncingBall] Collided");
+		if(impactTags == null || impactTags.Length == 0) return;
+
+		GameObject obj = col.gameObject;
+		Vector2 f = Vector2.zero;
+
+		foreach(GameObjectTag tag in impactTags)
+		{
+			if(obj.CompareTag(tag))
+			{
+				foreach(ContactPoint2D point in col.contacts)
+				{
+					f += point.normal;
+				}
+				break;
+			}
 		}
+
+		if(f.sqrMagnitude == 0.0f) return;
+
+		rigidbody.Sleep();
+		rigidbody.AddForce(f.normalized * force.magnitude, ForceMode2D.Impulse);
 	}
 }
 }

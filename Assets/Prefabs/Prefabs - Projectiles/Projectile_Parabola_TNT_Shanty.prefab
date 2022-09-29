@@ -153,7 +153,7 @@ Transform:
   m_GameObject: {fileID: 7401751605910770433}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 7890409840483429378}
   - {fileID: 6971073445984021269}
@@ -272,6 +272,8 @@ MonoBehaviour:
   _gravityScale: 0
   _maxSteeringForce: 5
   _distance: 5
+  _rotate: 0
+  _rotationAxis: {x: 0, y: 0, z: 0}
   _spawnParticleEffectReference:
     m_AssetGUID: 
     m_SubObjectName: 
@@ -279,6 +281,9 @@ MonoBehaviour:
     m_AssetGUID: e7243693850bc6b40aee35a31f1288b6
     m_SubObjectName: 
   _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _repelledParticleEffectReference:
     m_AssetGUID: 
     m_SubObjectName: 
   _impactSoundEffect:
@@ -318,12 +323,12 @@ MonoBehaviour:
   _fuse: {fileID: 8190695335403940318}
   _fuseDuration: 5
   _fuseLength: 0.5
-  _containmentPhaseThreshold: 0
-  _containmentOscillationMagnitude: 0
-  _containmentOscillationCycles: 0
+  _containmentPhaseThreshold: 0.75
+  _containmentOscillationMagnitude: 1.5
+  _containmentOscillationCycles: 10
   _containmentOscillationSpeed:
-    _min: 0
-    _max: 0
+    _min: 1
+    _max: 1.7
 --- !u!114 &5775410925392439032
 MonoBehaviour:
   m_ObjectHideFlags: 0

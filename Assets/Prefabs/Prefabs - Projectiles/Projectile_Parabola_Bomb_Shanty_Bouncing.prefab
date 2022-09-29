@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 635576735816140419}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5170179748477949909}
   - {fileID: 8110943407800850407}
@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _deltaCalculator: {fileID: 0}
-  _keepEvaluatingFarColliders: 0
+  _keepEvaluatingFarColliders: 1
   _hitBoxes:
   - {fileID: 5170179748477949867}
   _externalHitBoxes: []
@@ -350,8 +350,10 @@ MonoBehaviour:
   _cooldownDuration: 0
   _rotateTowardsDirection: 0
   _gravityScale: 0
-  _maxSteeringForce: 5
+  _maxSteeringForce: 0.7
   _distance: 5
+  _rotate: 0
+  _rotationAxis: {x: 0, y: 0, z: 0}
   _spawnParticleEffectReference:
     m_AssetGUID: 
     m_SubObjectName: 
@@ -359,6 +361,9 @@ MonoBehaviour:
     m_AssetGUID: 0f1a7f88bd0342e41992914b4d34b29f
     m_SubObjectName: 
   _destroyedParticleEffectReference:
+    m_AssetGUID: 
+    m_SubObjectName: 
+  _repelledParticleEffectReference:
     m_AssetGUID: 
     m_SubObjectName: 
   _impactSoundEffect:
@@ -384,7 +389,7 @@ MonoBehaviour:
     soundReference:
       m_AssetGUID: 
       m_SubObjectName: 
-    volume: 0
+    volume: 1
   gizmosColor: {r: 1, g: 1, b: 1, a: 1}
   _flamableTags:
   - _tag: Projectile/Player
@@ -398,12 +403,12 @@ MonoBehaviour:
   _fuse: {fileID: 6623463429808312841}
   _fuseDuration: 15
   _fuseLength: 0.5
-  _containmentPhaseThreshold: 0
-  _containmentOscillationMagnitude: 0
-  _containmentOscillationCycles: 0
+  _containmentPhaseThreshold: 0.75
+  _containmentOscillationMagnitude: 1.5
+  _containmentOscillationCycles: 10
   _containmentOscillationSpeed:
-    _min: 0
-    _max: 0
+    _min: 1
+    _max: 1.7
 --- !u!114 &5051148109742244880
 MonoBehaviour:
   m_ObjectHideFlags: 0

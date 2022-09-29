@@ -14,6 +14,8 @@ public class Collider2DAlligner : MonoBehaviour
 	[SerializeField] private Vector3 _b; 					/// <summary>Vector B [relative to transform].</summary>
 #if UNITY_EDITOR
 	[Space(5f)]
+	[SerializeField] private bool debug; 					/// <summary>Debug?.</summary>
+	[Space(5f)]
 	[Header("Gizmos' Attributes:")]
 	[SerializeField] private Color gizmosColor; 			/// <summary>Gizmos' Color.</summary>
 	[SerializeField] private float gizmosRadius; 			/// <summary>Gizmos' Radius.</summary>
@@ -72,6 +74,14 @@ public class Collider2DAlligner : MonoBehaviour
 	private void Update ()
 	{
 		UpdateCollider();
+
+#if UNITY_EDITOR
+		Vector3 A = relativeTo.TransformPoint(a);
+		Vector3 B = secondRelativeTo != null ? secondRelativeTo.TransformPoint(b) : relativeTo.TransformPoint(b);
+		Vector3 d = B - A;
+
+		if(debug) Debug.DrawRay(A, d, Color.magenta, 0.3f);
+#endif
 	}
 
 	/// <summary>Updates Collider2D.</summary>

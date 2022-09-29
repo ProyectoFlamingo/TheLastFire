@@ -57,10 +57,15 @@ public class Projectile : ContactWeapon
 	[SerializeField] private float _maxSteeringForce; 								/// <summary>Maximum's Steering Force.</summary>
 	[SerializeField] private float _distance; 										/// <summary>Distance from Parent's Projectile.</summary>
 	[Space(5f)]
+	[Header("Rotation's Attributes:")]
+	[SerializeField] private bool _rotate; 											/// <summary>Rotate on given axis.</summary>
+	[SerializeField] private Vector3 _rotationAxis; 								/// <summary>Rotation's Axis.</summary>
+	[Space(5f)]
 	[Header("Particle Effects' Attributes:")]
 	[SerializeField] private VAssetReference _spawnParticleEffectReference; 		/// <summary>Reference of ParticleEffect to emit when the projectile impacts.</summary>
 	[SerializeField] private VAssetReference _impactParticleEffectReference; 		/// <summary>Reference of ParticleEffect to emit when the projectile impacts.</summary>
 	[SerializeField] private VAssetReference _destroyedParticleEffectReference; 	/// <summary>Reference of ParticleEffect to emit when the projectile is destroyed.</summary>
+	[SerializeField] private VAssetReference _repelledParticleEffectReference; 		/// <summary>Reference of ParticleEffect to emit when the projectile is repelled.</summary>
 	[Space(5f)]
 	[Header("Sound Effects' Attributes:")]
 	[SerializeField] private SoundEffectEmissionData _impactSoundEffect; 			/// <summary>Impact's Sound-Effect.</summary>
@@ -217,6 +222,20 @@ public class Projectile : ContactWeapon
 		set { _rotateTowardsDirection = value; }
 	}
 
+	/// <summary>Gets and Sets rotate property.</summary>
+	public bool rotate
+	{
+		get { return _rotate; }
+		set { _rotate = value; }
+	}
+
+	/// <summary>Gets and Sets rotationAxis property.</summary>
+	public Vector3 rotationAxis
+	{
+		get { return _rotationAxis; }
+		set { _rotationAxis = value; }
+	}
+
 	/// <summary>Gets and Sets spawnParticleEffectReference property.</summary>
 	public VAssetReference spawnParticleEffectReference
 	{
@@ -236,6 +255,13 @@ public class Projectile : ContactWeapon
 	{
 		get { return _destroyedParticleEffectReference; }
 		set { _destroyedParticleEffectReference = value; }
+	}
+
+	/// <summary>Gets and Sets repelledParticleEffectReference property.</summary>
+	public VAssetReference repelledParticleEffectReference
+	{
+		get { return _repelledParticleEffectReference; }
+		set { _repelledParticleEffectReference = value; }
 	}
 
 	/// <summary>Gets and Sets impactSoundEffect property.</summary>
@@ -323,7 +349,16 @@ public class Projectile : ContactWeapon
 		Vector3 displacement = CalculateDisplacement();
 
 		rigidbody.MoveIn3D(displacement);
-		if(rotateTowardsDirection) rigidbody.MoveRotation(VQuaternion.RightLookRotation(displacement));
+		
+		if(rotateTowardsDirection)
+		{
+			rigidbody.MoveRotation(VQuaternion.RightLookRotation(displacement));
+		
+		} else if(rotate && direction.sqrMagnitude > 0.0f)
+		{
+			float s = direction.x < 0.0f ? 1.0f : -1.0f;
+			transform.Rotate(rotationAxis * s * Time.fixedDeltaTime, Space.World);
+		}
 
 		//if(projectileType  == ProjectileType.Homing) HomingProjectileUpdate();
 		
@@ -338,14 +373,14 @@ public class Projectile : ContactWeapon
 	{
 		GameObject obj = _info.collider.gameObject;
 
-#region OutOfBoundsShiat:
+		/// Out of Bounds' Shiat:
 		int layerMask = 1 << obj.layer;
 		int outOfBoundsMask = Game.data.outOfBoundsLayer.ToLayerMask();
 		
 		/// \TODO Make an Out of Bounds Module...
 		if((outOfBoundsMask | layerMask) == outOfBoundsMask)
 		eventsHandler.InvokeContactWeaponDeactivationEvent(DeactivationCause.LeftBoundaries);
-#endregion
+		/// End of Out of Bounds' Shiat.
 
 		base.OnTriggerEvent(_info, _eventType, _ID);
 
@@ -411,6 +446,7 @@ public class Projectile : ContactWeapon
 		activated = true;
 		currentLifeTime = 0.0f;
 		lastPosition = transform.position;
+		rigidbody.angularVelocity = 0.0f;
 		velocity = Vector2.zero;
 		target = null;
 		if(spawnParticleEffectReference != null) PoolManager.RequestParticleEffect(spawnParticleEffectReference, transform.position, Quaternion.identity);
@@ -426,6 +462,19 @@ public class Projectile : ContactWeapon
 		activeSoundEffectLooper = AudioController.LoopSoundEffect(activeLoopingSoundEffect.soundReference, activeLoopingSoundEffect.volume);
 	}
 #endregion
+
+	/// <returns>Velocity's Value.</returns>
+	public Vector2 GetVelocity()
+	{
+		return velocity;
+	}
+
+	/// <summary>Sets Velocity.</summary>
+	/// <param name="v">New Velocity's Value.</param>
+	public void SetVelocity(Vector2 v)
+	{
+		velocity = v;
+	}
 
 	/// <summary>Request the projectile ro be repelled [without physical interaction].</summary>
 	/// <param name="_requester">Requester and potential new owner.</param>
@@ -481,6 +530,7 @@ public class Projectile : ContactWeapon
 		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_REPELLED, _info);
 
 		repelSoundEffect.Play();
+		PoolManager.RequestParticleEffect(repelledParticleEffectReference, _info.contactPoint, Quaternion.identity);
 	}
 
 	/// <returns>Projectile's Position.</returns>

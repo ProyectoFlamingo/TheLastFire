@@ -155,7 +155,7 @@ public abstract class CharacterAIController<T> : MonoBehaviour, IStateMachine wh
 		builder.Append(" the following state(s): ");
 		builder.Append(IDs.GetStates(_state));
 
-		Debug.Log(builder.ToString());
+		//Debug.Log(builder.ToString());
 #endif
 	}
 

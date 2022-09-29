@@ -61,8 +61,8 @@ MonoBehaviour:
       m_AssetGUID: 095801a34f42d244188bd09c68542017
       m_SubObjectName: 
     volume: 1
-  _radius: 2
+  _radius: 2.5
   _expansionDuration: 0.3
   _maxRadiusDuration: 0.4
   _damage: 1
-  gizmosColor: {r: 1, g: 1, b: 1, a: 0.19607843}
+  gizmosColor: {r: 1, g: 0, b: 0, a: 0.19607843}

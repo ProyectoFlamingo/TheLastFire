@@ -568,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4856799841563905680}
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0.39999998, z: 0}
+  m_LocalPosition: {x: 0, y: 0.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7545231183503381837}
@@ -588,7 +588,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.85, y: 1.3}
+  m_Size: {x: 0.85, y: 1.75}
   m_Direction: 0
 --- !u!50 &2938288581062902435
 Rigidbody2D:
@@ -638,8 +638,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _relativeTo: {fileID: 8840420173171027375}
-  _a: {x: 0, y: 1.05, z: 0}
+  _secondRelativeTo: {fileID: 0}
+  _a: {x: 0, y: 1.5, z: 0}
   _b: {x: 0, y: -0.25, z: 0}
+  debug: 1
   gizmosColor: {r: 1, g: 0, b: 0.5448122, a: 1}
   gizmosRadius: 0.05
   _capsuleCollider: {fileID: 8898830500098771382}
@@ -986,7 +988,7 @@ GameObject:
   - component: {fileID: 266581773272846551}
   - component: {fileID: 6241600806474794663}
   m_Layer: 12
-  m_Name: Sword_Mateo
+  m_Name: Weapon_Sword_Mateo
   m_TagString: Weapon/Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1023,6 +1025,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dontDestroyOnLoad: 0
+  _name: 
   _meshContainer: {fileID: 8062208582379255188}
   _damage: 1
   _healthAffectableTags:
@@ -1045,6 +1048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d3693714633eaa44bf44973488f9e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _deltaCalculator: {fileID: 0}
   _keepEvaluatingFarColliders: 0
   _hitBoxes:
   - {fileID: 1732267340365805233}
@@ -1080,13 +1084,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ID: 1
   _subID: 0
-  _particleEffectsMatrix:
-  - ID: 1
-    index: 0
-  _soundEffectsMatrix:
-  - ID: 1
-    index: 0
-  _eventsHandler: {fileID: 5395243699079717940}
 --- !u!114 &266581773272846551
 MonoBehaviour:
   m_ObjectHideFlags: 0

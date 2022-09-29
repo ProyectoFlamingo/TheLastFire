@@ -33,17 +33,22 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	[Header("Tennis' Attributes:")]
 	[TabGroup("BattleGroup", "Tennis' Phase")][SerializeField][Range(0.0f, 1.0f)] private float _windowPercentage; 					/// <summary>Time-window before swinging sword (to hit bomb).</summary>
 	[Space(5f)]
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bombThrowTorque; 								/// <summary>Bomb Throw's Torque.</summary>
+	[Space(5f)]
 	[Header("Stage 1 Bomb's Attributes:")]
 	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _stage1BombGravityScale; 						/// <summary>Bomb's Gravity Scale for Stage 1.</summary>
 	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _stage2BombGravityScale; 						/// <summary>Bomb's Gravity Scale for Stage 2.</summary>
 	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bombProjectionTime; 							/// <summary>Bomb's Projection Time.</summary>
 	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField][Range(0.0f, 1.0f)] private float _bombProjectionPercentage; 	/// <summary>Bomb Projection Time's Percentage.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private GameObjectTag[] _stage2BombImpactTags; 				/// <summary>Impact tags for Bomb on Stage 2.</summary>
 	[Space(5f)]
-	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][Header("Stage 2 Bomb's Attributes:")]
-	[SerializeField] private float _bouncingBombProjectionTime; 																	/// <summary>Bouncing Bomb's Projection Time.</summary>
+	[Header("Stage 2 Bomb's Attributes:")]
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bouncingBombProjectionTime; 					/// <summary>Bouncing Bomb's Projection Time.</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bouncingBombMaxSpeed; 							/// <summary>Bouncing Bomb's Max Speed [for steering behavior].</summary>
+	[TabGroup("ExplosiveGroup", "Bombs' Attributes")][SerializeField] private float _bouncingBombMaxSteeringForce; 					/// <summary>Bouncing Bomb's Max Steering Force [for steering behavior].</summary>
 	[Space(5f)]
 	[Header("Stage 1 TNT's Attributes:")]
-	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTGravityScale; 						/// <summary>TNT's Gravity Scale for Stage 1.</summary>
+	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTGravityScale; 							/// <summary>TNT's Gravity Scale for Stage 1.</summary>
 	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private VAssetReference _stage1ExplodableReference; 			/// <summary>Explodable's Reference for TNT on Stage 1.</summary>
 	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _stage1TNTFuseDuration; 							/// <summary>Fuse Duration for TNT on Stage 1.</summary>
 	[TabGroup("ExplosiveGroup", "TNT's Attributes")][SerializeField] private float _TNTProjectionTime; 								/// <summary>TNT's Projection Time.</summary>
@@ -81,16 +86,21 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage1Inmunities; 												/// <summary>Inmunities on Stage 1.</summary>
 	[TabGroup("Health")][SerializeField] private GameObjectTag[] _stage2Inmunities; 												/// <summary>Inmunities on Stage 2.</summary>
 	[Space(5f)]
-	[TabGroup("Audio")][SerializeField] private VAssetReference _throwSFXReference; 												/// <summary>Throw's Sound-Effect's Reference.</summary>
-	[TabGroup("Audio")][SerializeField] private VAssetReference _bombRepelledSFXReference; 											/// <summary>Bomb-Repelled's Sound-Effect's Reference.</summary>
+	[TabGroup("EffectsGroup", "Particle Effects")][SerializeField] private VAssetReference _throwParticleEffectReference; 			/// <summary>Thros Particle-Effect's Reference.</summary>
+	[Space(5f)]
+	[TabGroup("EffectsGroup", "Audio")][SerializeField] private VAssetReference _throwSFXReference; 								/// <summary>Throw's Sound-Effect's Reference.</summary>
+	[TabGroup("EffectsGroup", "Audio")][SerializeField] private VAssetReference _bombRepelledSFXReference; 							/// <summary>Bomb-Repelled's Sound-Effect's Reference.</summary>
+	private HashSet<BombParabolaProjectile> _bombs; 																				/// <summary>Set of bombs thrown at Stage 2.</summary>
 	private Coroutine coroutine; 																									/// <summary>Coroutine's Reference.</summary>
 	private Coroutine TNTRotationCoroutine; 																						/// <summary>TNT's Rotation Coroutine's Reference.</summary>
 	private Coroutine jumpAttackCoroutine; 																							/// <summary>Jump Attack's Coroutine's Reference.</summary>
+	private Coroutine steerBombsCoroutine; 																							/// <summary>Steer Bombs' Coroutine's Reference.</summary>
 	private Behavior attackBehavior; 																								/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
 	private Cooldown _normalAttackCooldown; 																						/// <summary>Normal Attack's Cooldown.</summary>
 	private Cooldown _strongAttackCooldown; 																						/// <summary>Strong Attack's Cooldown.</summary>
 	private Line _line; 																											/// <summary>Current Stair's Line.</summary>
 	private bool _tntActive; 																										/// <summary>Is the TNT Coroutine's Running?.</summary>
+	private bool _mateoRepelled; 																									/// <summary>Did Mateo Repelled?.</summary>
 	private int _staircaseID; 																										/// <summary>Staircase's ID.</summary>
 
 #region Getters/Setters:
@@ -106,6 +116,9 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 	/// <summary>Gets stage2ExplodableReference property.</summary>
 	public VAssetReference stage2ExplodableReference { get { return _stage2ExplodableReference; } }
+
+	/// <summary>Gets throwParticleEffectReference property.</summary>
+	public VAssetReference throwParticleEffectReference { get { return _throwParticleEffectReference; } }
 
 	/// <summary>Gets throwSFXReference property.</summary>
 	public VAssetReference throwSFXReference { get { return _throwSFXReference; } }
@@ -134,6 +147,12 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Gets bouncingBombProjectionTime property.</summary>
 	public float bouncingBombProjectionTime { get { return _bouncingBombProjectionTime; } }
 
+	/// <summary>Gets bouncingBombMaxSpeed property.</summary>
+	public float bouncingBombMaxSpeed { get { return _bouncingBombMaxSpeed; } }
+
+	/// <summary>Gets bouncingBombMaxSteeringForce property.</summary>
+	public float bouncingBombMaxSteeringForce { get { return _bouncingBombMaxSteeringForce; } }
+
 	/// <summary>Gets stage1TNTFuseDuration property.</summary>
 	public float stage1TNTFuseDuration { get { return _stage1TNTFuseDuration; } }
 
@@ -148,6 +167,9 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 	/// <summary>Gets TNTThrowTimeScale property.</summary>
 	public float TNTThrowTimeScale { get { return _TNTThrowTimeScale; } }
+
+	/// <summary>Gets bombThrowTorque property.</summary>
+	public float bombThrowTorque { get { return _bombThrowTorque; } }
 
 	/// <summary>Gets windowPercentage property.</summary>
 	public float windowPercentage { get { return _windowPercentage; } }
@@ -206,11 +228,21 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <summary>Gets strongAttackWaitInterval property.</summary>
 	public FloatRange strongAttackWaitInterval { get { return _strongAttackWaitInterval; } }
 
+	/// <summary>Gets stage2BombImpactTags property.</summary>
+	public GameObjectTag[] stage2BombImpactTags { get { return _stage2BombImpactTags; } }
+
 	/// <summary>Gets stage1Inmunities property.</summary>
 	public GameObjectTag[] stage1Inmunities { get { return _stage1Inmunities; } }
 
 	/// <summary>Gets stage2Inmunities property.</summary>
 	public GameObjectTag[] stage2Inmunities { get { return _stage2Inmunities; } }
+
+	/// <summary>Gets and Sets bombs property.</summary>
+	public HashSet<BombParabolaProjectile> bombs
+	{
+		get { return _bombs; }
+		set { _bombs = value; }
+	}
 
 	/// <summary>Gets and Sets normalAttackCooldown property.</summary>
 	public Cooldown normalAttackCooldown
@@ -238,6 +270,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	{
 		get { return _tntActive; }
 		private set { _tntActive = value; }
+	}
+
+	/// <summary>Gets and Sets mateoRepelled property.</summary>
+	public bool mateoRepelled
+	{
+		get { return _mateoRepelled; }
+		private set { _mateoRepelled = value; }
 	}
 
 	/// <summary>Gets and Sets staircaseID property.</summary>
@@ -269,6 +308,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		character.EnablePhysics(false);
 		normalAttackCooldown = new Cooldown(this, normalAttackCooldownDuration);
 		strongAttackCooldown = new Cooldown(this, strongAttackCooldownDuration);
+		bombs = new HashSet<BombParabolaProjectile>();
 
 		base.Awake();
 	}
@@ -292,6 +332,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		this.DispatchCoroutine(ref behaviorCoroutine);
 		this.DispatchCoroutine(ref coroutine);
 		this.DispatchCoroutine(ref jumpAttackCoroutine);
+		this.DispatchCoroutine(ref steerBombsCoroutine);
 		character.Move(Vector3.zero);
 	}
 
@@ -303,7 +344,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		character.animatorController.CancelCrossFading(0);
 		character.animatorController.DeactivateLayer(0);
 		character.RemoveStates(IDs.STATE_IDLE);
-		character.AddStates(IDs.STATE_ATTACKING_0);
+		character.AddStates(IDs.STATE_ATTACKING_0); 
 
 		switch(character.currentStage)
 		{
@@ -323,11 +364,22 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 		}
 
-		Debug.Log("[ShantyBossAIController] Beginning Attack Routine at Stage #" + character.currentStage);
+		//Debug.Log("[ShantyBossAIController] Beginning Attack Routine at Stage #" + character.currentStage);
 	}
 #endregion
 
 #region BombThrowingRoutines:
+	/// <summary>Deactivates Bombs.</summary>
+	private void DeactivateBombs()
+	{
+		if(bombs != null) foreach(BombParabolaProjectile bombProjectile in bombs)
+		{
+			bombProjectile.OnObjectDeactivation();
+		}
+
+		bombs.Clear();
+	}
+
 	/// <summary>Begins the Bomb Throwing Animations.</summary>
 	public void BeginBombThrowingRoutine()
 	{
@@ -378,36 +430,45 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		switch(character.currentStage)
 		{
 			case Boss.STAGE_1:
-			reference = character.bombReference;
-			time = bombProjectionTime;
-			gravityScale = stage1BombGravityScale;
+			{
+				reference = character.bombReference;
+				time = bombProjectionTime;
+				gravityScale = stage1BombGravityScale;
+			}
 			break;
 
 			case Boss.STAGE_2:
-			reference = character.bouncingBombReference;
-			time = bouncingBombProjectionTime;
-			gravityScale = stage2BombGravityScale;
-
-			this.StartCoroutine(this.WaitSeconds(time,
-			()=>
 			{
-				if(character.bomb != null)
-				{
-					Vector3 position = character.bomb.transform.position;
-					position.z = Game.mateo.transform.position.z;
+				reference = character.bouncingBombReference;
+				time = bouncingBombProjectionTime;
+				gravityScale = stage2BombGravityScale;
 
-					character.bomb.activated = false;
-					character.bomb.transform.position = position;
-					character.bomb.rigidbody.bodyType = RigidbodyType2D.Dynamic;
-					character.bomb.rigidbody.isKinematic = false;
-					character.bomb.rigidbody.gravityScale = 4.0f;
-					character.bomb.direction = Vector3.zero;
-					character.bomb.speed = 0.0f;
-				}
-			}));
+				if(steerBombsCoroutine == null) this.StartCoroutine(SteerBombsTowardsMateo(), ref steerBombsCoroutine);
+
+				this.StartCoroutine(this.WaitSeconds(time - Time.deltaTime,
+				()=>
+				{
+					if(character.bomb != null)
+					{
+						Vector3 position = character.bomb.transform.position;
+						position.z = Game.mateo.transform.position.z;
+
+						character.bomb.activated = false;
+						character.bomb.transform.position = position;
+						character.bomb.rigidbody.bodyType = RigidbodyType2D.Dynamic;
+						character.bomb.rigidbody.isKinematic = false;
+						character.bomb.rigidbody.gravityScale = 4.0f;
+						character.bomb.direction = Vector3.zero;
+						character.bomb.speed = bouncingBombMaxSpeed;
+						character.bomb.maxSteeringForce = bouncingBombMaxSteeringForce;
+						bombs.Add(character.bomb as BombParabolaProjectile);
+					}
+				}));
+			}
 			break;
 		}
 
+		mateoRepelled = false;
 		character.EnableHurtBoxes(false);
 		character.bomb.transform.parent = null;
 		character.bomb.OnObjectDeactivation();
@@ -420,9 +481,16 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			gameObject,
 			gravityScale
 		);
+
+		Vector2 direction = Game.mateo.transform.position - character.skeleton.rightHand.position;
+		float sign = direction.x < 0.0f ? 1.0f : -1.0f;
+
 		character.bomb.rigidbody.bodyType = RigidbodyType2D.Kinematic;
 		character.bomb.rigidbody.isKinematic = true;
 		character.bomb.rigidbody.gravityScale = 0.0f;
+		character.bomb.rigidbody.sleepMode = RigidbodySleepMode2D.StartAwake;
+		character.bomb.rigidbody.WakeUp();
+		character.bomb.rigidbody.AddTorque(bombThrowTorque * sign, ForceMode2D.Impulse);
 
 		switch(character.currentStage)
 		{
@@ -431,16 +499,19 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 				character.bomb.eventsHandler.onContactWeaponIDEvent += OnBombEvent;
 				character.bomb.eventsHandler.onContactWeaponDeactivated -= OnBombDeactivated;
 				character.bomb.eventsHandler.onContactWeaponDeactivated += OnBombDeactivated;
+				character.bomb.impactTags = new GameObjectTag[] { Game.data.floorTag, Game.data.playerTag };
 			break;
 
 			case Boss.STAGE_2:
 				BombParabolaProjectile parabolaBomb = character.bomb as BombParabolaProjectile;
 				parabolaBomb.ChangeState(BombState.WickOn);
+				parabolaBomb.impactTags = stage2BombImpactTags;
 			break;
 		}
 
 		character.bomb.activated = true;
 		character.bomb.ActivateHitBoxes(true);
+		PoolManager.RequestParticleEffect(throwParticleEffectReference, character.skeleton.rightHand.position, Quaternion.identity);
 		AudioController.Play(SourceType.SFX, 0, throwSFXReference);
 	}
 #endregion
@@ -451,6 +522,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	{
 		DeactivateExplosives();
 		character.ActivateSword(false);
+		//character.EnableHurtBoxes(false);
 		character.GoToThrowBarrelAnimation(()=>
 		{
 			character.AddStates(IDs.STATE_IDLE);
@@ -513,7 +585,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			break;
 		}
 
-		character.EnableHurtBoxes(true);
+		character.EnableHurtBoxes(character.currentStage != Boss.STAGE_1);
 		character.TNT.transform.parent = null;
 		character.TNT.OnObjectDeactivation();
 		character.TNT = PoolManager.RequestParabolaProjectile(
@@ -531,8 +603,8 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		character.TNT.impactTags = impactTags;
 		character.TNT.damage = damage;
 
-		character.TNT.eventsHandler.onContactWeaponIDEvent -= OnBombEvent;
-		character.TNT.eventsHandler.onContactWeaponIDEvent += OnBombEvent;
+		character.TNT.eventsHandler.onContactWeaponIDEvent -= OnTNTEvent;
+		character.TNT.eventsHandler.onContactWeaponIDEvent += OnTNTEvent;
 		character.TNT.eventsHandler.onContactWeaponDeactivated -= OnBombDeactivated;
 		character.TNT.eventsHandler.onContactWeaponDeactivated += OnBombDeactivated;
 
@@ -596,6 +668,19 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 			character.TNT.OnObjectDeactivation();
 			character.TNT = null;
 		}
+
+		/// For safe measure, deactivate everything parented to the right hand:
+		foreach(Transform child in character.skeleton.rightHand)
+		{
+			child.gameObject.SetActive(false);
+		}
+	}
+
+	/// <summary>Cancels Stage-1's Routine.</summary>
+	private void CancelStage1TNTRoutine()
+	{
+		Game.SetTimeScale(1.0f);
+		this.DispatchCoroutine(ref coroutine);
 	}
 
 #region Callbacks:
@@ -637,11 +722,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		{
 			case IDs.EVENT_STAGECHANGED:
 				DeactivateExplosives(true);
+				DeactivateBombs();
 
 				this.DispatchCoroutine(ref behaviorCoroutine);
 				this.DispatchCoroutine(ref coroutine);
 				this.DispatchCoroutine(ref TNTRotationCoroutine);
 				this.DispatchCoroutine(ref jumpAttackCoroutine);
+				this.DispatchCoroutine(ref steerBombsCoroutine);
 
 				switch(character.currentStage)
 				{
@@ -788,7 +875,9 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 					if(parabolaBomb != null && parabolaBomb.state == BombState.WickOff)
 					{
 						AudioController.Play(SourceType.SFX, 0, bombRepelledSFXReference);
-						character.bomb.RequestRepel(gameObject);
+						Trigger2DInformation info = default(Trigger2DInformation);
+						info.contactPoint = character.skeleton.rightHand.position;
+						character.bomb.RequestRepel(gameObject, info);
 					}
 				}
 			break;
@@ -811,33 +900,62 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		switch(character.currentStage)
 		{
 			case Boss.STAGE_1:
+				BombParabolaProjectile bombProjectile = _weapon as BombParabolaProjectile;
+
 				switch(_eventID)
 				{
-					case IDs.EVENT_REPELLED:
-					bool shantyRepels = _weapon.owner == gameObject;
-
-					character.EnableHurtBoxes(!shantyRepels);
-
-					if(shantyRepels) return;
-
-					BombParabolaProjectile bombProjectile = character.bomb as BombParabolaProjectile;
-					if(bombProjectile != null && bombProjectile.state == BombState.WickOn) bombProjectile.impactTags = character.wickOnBombImpactTags;
-					
-					character.RemoveStates(IDs.STATE_IDLE);
-					character.ActivateSword(false);
-					character.animatorController.CancelCrossFading(0);
-					character.animatorController.DeactivateLayer(0);
-					this.StartCoroutine(this.WaitSeconds(bombProjectionTime * bombProjectionPercentage, ()=>
-					{
-						character.GoToTennisHitAnimation(()=>
+					case IDs.EVENT_STATECHANGED:
+						if(bombProjectile != null) switch(bombProjectile.state)
 						{
-							character.AddStates(IDs.STATE_IDLE);
-							character.GoToIdleAnimation();
-						});
-					}), ref coroutine);
-					/// \TODO Make a Syncronization function for Animator's API:
-					/*character.animation.Stop();
-					this.StartCoroutine(character.animation.character.RemoveStates(IDs.STATE_IDLE);PlayAndSincronizeAnimationWithTime(character.tennisHitAnimation, 14, _weapon.parabolaTime * bombProjectionPercentage), ref behaviorCoroutine);*/
+							case BombState.WickOn:
+								character.GoToIdleAnimation();
+								//bombProjectile.impactTags = character.wickOnBombImpactTags;
+							break;
+
+							case BombState.Exploding:
+								if(mateoRepelled) character.EnableHurtBoxes(true);
+							break;
+						}
+					break;
+
+					case IDs.EVENT_REPELLED:
+						bool shantyRepels = _weapon.owner == gameObject;
+						mateoRepelled = !shantyRepels;
+
+						/// Enable if Mateo Repels and if the bomb is on
+						character.EnableHurtBoxes(bombProjectile.state == BombState.WickOn && !shantyRepels);
+
+						if(shantyRepels) return;
+
+						if(bombProjectile != null && bombProjectile.state == BombState.WickOn) bombProjectile.impactTags = character.wickOnBombImpactTags;
+						
+						character.RemoveStates(IDs.STATE_IDLE);
+						character.ActivateSword(false);
+						character.animatorController.CancelCrossFading(0);
+						character.animatorController.DeactivateLayer(0);
+						
+						switch(bombProjectile.state)
+						{
+							case BombState.WickOff:
+								this.StartCoroutine(this.WaitSeconds(bombProjectionTime * bombProjectionPercentage, ()=>
+								{
+									/// Yup, check again...
+									if(bombProjectile.state == BombState.WickOff) character.GoToTennisHitAnimation(()=>
+									{
+										character.AddStates(IDs.STATE_IDLE);
+										character.GoToIdleAnimation();
+									});
+								}), ref coroutine);
+								/// \TODO Make a Syncronization function for Animator's API:
+								/*character.animation.Stop();
+								this.StartCoroutine(character.animation.character.RemoveStates(IDs.STATE_IDLE);PlayAndSincronizeAnimationWithTime(character.tennisHitAnimation, 14, _weapon.parabolaTime * bombProjectionPercentage), ref behaviorCoroutine);*/
+							break;
+
+							case BombState.WickOn:
+								bombProjectile.impactTags = character.wickOnBombImpactTags;
+								character.EnableHurtBoxes(true);
+							break;
+						}
 					break;
 				}
 			break;
@@ -883,13 +1001,22 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 	/// <param name="_info">Additional Trigger2DInformation.</param>
 	private void OnTNTEvent(ContactWeapon _weapon, int _eventID, Trigger2DInformation _info)
 	{
+		BombParabolaProjectile TNT = _weapon as BombParabolaProjectile;
+
+		if(TNT == null) return;
+
 		switch(_eventID)
 		{
+			case IDs.EVENT_STATECHANGED:
+				if(TNT.state == BombState.Exploding && character.currentStage == Boss.STAGE_1)
+				{
+					Debug.Log("[ShantyBossAIController] Exploding! Enabling Hurt-Boxes...");
+					character.EnableHurtBoxes(true);
+					CancelStage1TNTRoutine();
+				}
+			break;
+
 			case IDs.EVENT_REPELLED:
-				Projectile TNT = _weapon as Projectile;
-
-				if(TNT == null) return;
-
 				if(_weapon.owner == null || _weapon.owner == gameObject) return;
 				
 				float durationBeforeSwordSwing = TNT.parabolaTime * windowPercentage;
@@ -914,6 +1041,7 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		Action attackRoutine = ()=>
 		{
 			character.RemoveStates(IDs.STATE_IDLE);
+			//character.EnableHurtBoxes(false);
 
 			if(character.health.hpRatio <=  stage1HealthPercentageLimit)
 			{
@@ -966,11 +1094,13 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 		float waitDuration = TNTProjectionTime * TNTTimeScaleChangeProgress;
 		float slowDownDuration = TNTProjectionTime - waitDuration;
 
+		//character.EnableHurtBoxes(false);
 		character.TNT.activated = true;
 		SecondsDelayWait wait = new SecondsDelayWait(waitDuration);
 
 		while(wait.MoveNext()) yield return null;
 
+		//character.EnableHurtBoxes(true);
 		Game.SetTimeScale(TNTThrowTimeScale);
 		wait.ChangeDurationAndReset(slowDownDuration * TNTThrowTimeScale);
 
@@ -1084,22 +1214,26 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 
 			switch(pairID)
 			{
+				// (0)
 				case ID_WAYPOINTSPAIR_HELM:
 					pair = ShantySceneController.Instance.helmWaypointsPair;
 					hash = character.throwBombCredential;
 				break;
 
+				// (1)
 				case ID_WAYPOINTSPAIR_DECK:
 					pair = ShantySceneController.Instance.deckWaypointsPair;
 					hash = character.throwBombCredential;
 				break;
 
+				// (2)
 				case ID_WAYPOINTSPAIR_STAIR_LEFT:
 					pair = ShantySceneController.Instance.leftStairWaypointsPair;
 					hash = character.throwBarrelCredential;
 					line = ShantySceneController.Instance.leftStairPath;
 				break;
 
+				// (3)
 				case ID_WAYPOINTSPAIR_STAIR_RIGHT:
 					pair = ShantySceneController.Instance.rightStairWaypointsPair;
 					hash = character.throwBarrelCredential;
@@ -1226,6 +1360,30 @@ public class ShantyBossAIController : CharacterAIController<ShantyBoss>
 				enteredAttackRadius = false;
 				direction = direction.x > 0.0f ? Vector3.right : Vector3.left;
 				character.Move(direction);
+			}
+
+			yield return null;
+		}
+	}
+
+	/// <summary>Steers thrown Bombs towards Mateo [Stage 2].</summary>
+	private IEnumerator SteerBombsTowardsMateo()
+	{
+		while(true)
+		{
+			Vector3 p = Game.mateo.transform.position;
+
+			foreach(BombParabolaProjectile bombProjectile in bombs)
+			{
+				float speed = bombProjectile.speed;
+				float maxSteeringForce = bombProjectile.maxSteeringForce;
+				Vector2 velocity = bombProjectile.GetVelocity();
+				p.y = bombProjectile.transform.position.y;
+				p.z = 0.0f;
+				Vector3 steeringForce = SteeringVehicle2D.GetSeekForce(bombProjectile.rigidbody.position, p, ref velocity, speed, maxSteeringForce);
+				steeringForce = SteeringVehicle2D.ApplyForce(steeringForce, ref velocity, speed, maxSteeringForce);
+				bombProjectile.SetVelocity(velocity);
+				bombProjectile.rigidbody.MoveIn3D(steeringForce * Time.deltaTime);
 			}
 
 			yield return null;

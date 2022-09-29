@@ -13,14 +13,15 @@ public static class IDs
 
 #region EventsIDs:
 	public const int EVENT_NONE = 0; 							/// <summary>Non-Assigned Event's ID.</summary>
-	public const int EVENT_STAGECHANGED = 1; 					/// <summary>Stage Changed's Event's ID.</summary>
-	public const int EVENT_DEATHROUTINE_BEGINS = 2; 			/// <summary>Death-Routine Begins' Event's ID.</summary>
-	public const int EVENT_DEATHROUTINE_ENDS = 3; 				/// <summary>Death-Routine Ends' Event's ID.</summary>
-	public const int EVENT_MEDITATION_BEGINS = 4; 				/// <summary>Meditation Begins' Event's ID.</summary>
-	public const int EVENT_MEDITATION_ENDS = 5; 				/// <summary>Meditation Ends' Event's ID.</summary>
-	public const int EVENT_HURT = 6; 							/// <summary>Mateo's Hurt Event's ID.</summary>
-	public const int EVENT_DEAD = 7; 							/// <summary>Mateo's Dead Event's ID.</summary>
-	public const int EVENT_REPELLED = 8; 						/// <summary>Repelled's Event's ID.</summary>
+	public const int EVENT_STATECHANGED = 1; 					/// <summary>State Changed's Event's ID.</summary>
+	public const int EVENT_STAGECHANGED = 2; 					/// <summary>Stage Changed's Event's ID.</summary>
+	public const int EVENT_DEATHROUTINE_BEGINS = 3; 			/// <summary>Death-Routine Begins' Event's ID.</summary>
+	public const int EVENT_DEATHROUTINE_ENDS = 4; 				/// <summary>Death-Routine Ends' Event's ID.</summary>
+	public const int EVENT_MEDITATION_BEGINS = 5; 				/// <summary>Meditation Begins' Event's ID.</summary>
+	public const int EVENT_MEDITATION_ENDS = 6; 				/// <summary>Meditation Ends' Event's ID.</summary>
+	public const int EVENT_HURT = 7; 							/// <summary>Mateo's Hurt Event's ID.</summary>
+	public const int EVENT_DEAD = 8; 							/// <summary>Mateo's Dead Event's ID.</summary>
+	public const int EVENT_REPELLED = 9; 						/// <summary>Repelled's Event's ID.</summary>
 #endregion
 
 #region AnimationEventsIDS:

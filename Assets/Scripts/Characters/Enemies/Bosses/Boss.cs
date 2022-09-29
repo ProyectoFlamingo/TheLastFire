@@ -81,6 +81,12 @@ public class Boss : Enemy
 
 		if(animationEventInvoker != null) animationEventInvoker.AddIntActionListener(OnAnimationIntEvent);
 	}
+
+	/// <summary>Callback invoked when Boss's instance is going to be destroyed and passed to the Garbage Collector.</summary>
+	private void OnDestroy()
+	{
+		ResourcesManager.onResourcesLoaded -= OnResourcesLoaded;
+	}
 #endregion
 
 	/// <summary>Advances Stage.</summary>

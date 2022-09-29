@@ -24,7 +24,7 @@ public struct Trigger2DInformation
 	public Vector3 contactPoint
 	{
 		get { return _contactPoint; }
-		private set { _contactPoint = value; }
+		set { _contactPoint = value; }
 	}
 
 	/// <summary>Gets and Sets direction property.</summary>

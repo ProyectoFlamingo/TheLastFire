@@ -39,6 +39,7 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 	private Coroutine fuseRoutine; 										/// <summary>Fuse Coroutines' Reference.</summary>
 	private Coroutine containmentPhase; 								/// <summary>Containment Phase Coroutine's Reference.</summary>
 	private Explodable _explosion; 										/// <summary>Explosion's Reference.</summary>
+	private Vector3 _originalScale; 									/// <summary>Original MeshContainer's Scale.</summary>
 
 #region Getters/Setters:
 	/// <summary>Gets and Sets flamableTags property.</summary>
@@ -145,6 +146,13 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		get { return _explosion; }
 		set { _explosion = value; }
 	}
+
+	/// <summary>Gets and Sets originalScale property.</summary>
+	public Vector3 originalScale
+	{
+		get { return _originalScale; }
+		set { _originalScale = value; }
+	}
 #endregion
 
 #if UNITY_EDITOR
@@ -163,6 +171,7 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 	{
 		base.Awake();
 		currentFuseLength = fuseLength;
+		originalScale = meshContainer.transform.localScale;
 	}
 
 	/// <summary>Updates BombParabolaProjectile's instance at each frame.</summary>
@@ -189,9 +198,12 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 			break;
 
 			case BombState.Exploding:
+				ActivateHitBoxes(false);
 				explosion = PoolManager.RequestExplodable(explodableReference, transform.position, transform.rotation);
 			break;
 		}
+
+		eventsHandler.InvokeContactWeaponIDEvent(IDs.EVENT_STATECHANGED);
 	}
 
 	/// <summary>Exits T State.</summary>
@@ -235,7 +247,8 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		state = BombState.WickOff;
 		this.DispatchCoroutine(ref fuseRoutine);
 		this.DispatchCoroutine(ref containmentPhase);
-		meshContainer.transform.localScale = Vector3.one;
+		//meshContainer.transform.localScale = Vector3.one;
+		meshContainer.transform.localScale = originalScale;
 		if(fuseFire != null) fuseFire.gameObject.SetActive(false);
 	}
 
@@ -337,14 +350,16 @@ public class BombParabolaProjectile : Projectile, IFiniteStateMachine<BombState>
 		float sin = 0.0f;
 		float inverseDuration = 1.0f / (fuseDuration * (1.0f - containmentPhaseThreshold));
 		float s = 0.0f;
-		Vector3 a = Vector3.one;
+		//Vector3 a = Vector3.one;
+		Vector3 a = originalScale;
 		Vector3 b = a * containmentOscillationMagnitude;
 
 		while(t < 1.0f)
 		{
 			s = containmentOscillationSpeed.Lerp(t);
-			sin = VMath.RemapValueToNormalizedRange(Mathf.Sin(t * x) * s, -1.0f, 1.0f);
-			meshContainer.transform.localScale = Vector3.Lerp(a, (a * sin), t);
+			sin = VMath.RemapValueToNormalizedRange(Mathf.Sin(t * x * s), -1.0f, 1.0f);
+			meshContainer.transform.localScale = Vector3.Lerp(a, (b * sin), t);
+			meshContainer.transform.localScale = (b * sin);
 			t += (Time.deltaTime * inverseDuration);
 			yield return null;
 		}

@@ -82,8 +82,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.75}
-  m_Size: {x: 3, y: 3}
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 4.5, y: 6}
   m_Direction: 0
 --- !u!114 &2006140374
 MonoBehaviour:
@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &730217798935185213
 Transform:
   m_ObjectHideFlags: 0
@@ -142,8 +142,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.7000003, y: 4}
+  m_Offset: {x: 0, y: 1}
+  m_Size: {x: 3.75, y: 6}
   m_Direction: 0
 --- !u!1 &2426833828106942119
 GameObject:
@@ -315,8 +315,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.69}
-  m_Size: {x: 2.5, y: 3}
+  m_Offset: {x: 0, y: 0.25}
+  m_Size: {x: 3.75, y: 4.5}
   m_Direction: 0
 --- !u!114 &8107734077871071952
 MonoBehaviour:
@@ -469,6 +469,7 @@ MonoBehaviour:
   forceStageTesting: 0
   testStage: 2
   _ship: {fileID: 0}
+  _duelHitCollider: {fileID: 2959797962918251771}
   _sword: {fileID: 791472592297698801}
   _falseSword: {fileID: 2354407796838385610}
   _TNTReference:
@@ -592,6 +593,12 @@ MonoBehaviour:
   _backStepCredential:
     _tag: BackStep
     _ID: -2129205218
+  _hurtSoundEffect:
+    sourceIndex: 0
+    soundReference:
+      m_AssetGUID: 710680325428706448f8c2ad45548b60
+      m_SubObjectName: 
+    volume: 1
 --- !u!114 &57488059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2365,6 +2372,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881861536263629668, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881861536263629668, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5881861536263629668, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5929728532929710049, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
@@ -9459,23 +9481,38 @@ PrefabInstance:
     - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
       propertyPath: m_AABB.m_Center.z
-      value: -0.7062409
+      value: -1.0593613
       objectReference: {fileID: 0}
     - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
       propertyPath: m_AABB.m_Extent.x
-      value: 1.3094604
+      value: 1.9641906
       objectReference: {fileID: 0}
     - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
       propertyPath: m_AABB.m_Extent.z
-      value: 0.99391997
+      value: 1.4908799
       objectReference: {fileID: 0}
     - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f36d39659a40b864b96899c4a092da4e, type: 2}
+    - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_AABB.m_Center.x
+      value: -0.000041484833
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 2.6797755
+      objectReference: {fileID: 0}
+    - target: {fileID: 7663341703397261624, guid: fe373787ff0759b448086cf50027d997,
+        type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 2.5407126
+      objectReference: {fileID: 0}
     - target: {fileID: 7704311446680926708, guid: fe373787ff0759b448086cf50027d997,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

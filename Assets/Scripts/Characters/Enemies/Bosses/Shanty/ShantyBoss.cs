@@ -24,6 +24,8 @@ public class ShantyBoss : Boss
 	[Space(5f)]
 	[SerializeField] private ShantyShip _ship; 																						/// <summary>Shanty's Ship.</summary>
 	[Space(5f)]
+	[TabGroup("Colliders & Hurt-Boxes")][SerializeField] private HitCollider2D _duelHitCollider; 									/// <summary>Duel's HitCollider.</summary>
+	[Space(5f)]
 	[Header("Weapons' Atrributes:")]
 	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private ContactWeapon _sword; 												/// <summary>Shanty's Sword.</summary>
 	[TabGroup("WeaponGroup", "Weapons")][SerializeField] private Transform _falseSword; 											/// <summary>False Sword's Reference (the one stuck to the rigging).</summary>
@@ -101,6 +103,8 @@ public class ShantyBoss : Boss
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _strongAttackCredential; 									/// <summary>Strong Attack's AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _walkingCredential; 										/// <summary>Walking AnimatorCredential.</summary>
 	[TabGroup("Animations")][SerializeField] private AnimatorCredential _backStepCredential; 										/// <summary>Back-Setp AnimatorCredential.</summary>
+	[Space(5f)]
+	[TabGroup("EffectsGroup", "Audio")][SerializeField] private SoundEffectEmissionData _hurtSoundEffect; 							/// <summary>Hurt's Sound Effect.</summary>
 	private Coroutine coroutine; 																									/// <summary>Coroutine's Reference.</summary>
 	private Coroutine TNTRotationCoroutine; 																						/// <summary>TNT's Rotation Coroutine's Reference.</summary>
 	private Behavior attackBehavior; 																								/// <summary>Attack's Behavior [it is behavior so it can be paused].</summary>
@@ -121,6 +125,9 @@ public class ShantyBoss : Boss
 		get { return _ship; }
 		set { _ship = value; }
 	}
+
+	/// <summary>Gets duelHitCollider property.</summary>
+	public HitCollider2D duelHitCollider { get { return _duelHitCollider; } }
 
 	/// <summary>Gets bombReference property.</summary>
 	public VAssetReference bombReference { get { return _bombReference; } }
@@ -293,6 +300,9 @@ public class ShantyBoss : Boss
 	/// <summary>Gets walkingCredential property.</summary>
 	public AnimatorCredential walkingCredential { get { return _walkingCredential; } }
 
+	/// <summary>Gets hurtSoundEffect property.</summary>
+	public SoundEffectEmissionData hurtSoundEffect { get { return _hurtSoundEffect; } }
+
 	/// <summary>Gets and Sets bomb property.</summary>
 	public Projectile bomb
 	{
@@ -385,6 +395,7 @@ public class ShantyBoss : Boss
 		normalAttackCooldown = new Cooldown(this, normalAttackCooldownDuration);
 		strongAttackCooldown = new Cooldown(this, strongAttackCooldownDuration);
 		animatorController.animator.SetLayerWeight(locomotionAnimationLayer, 0.0f);
+		duelHitCollider.gameObject.SetActive(false);
 
 		base.Awake();
 	}
@@ -519,6 +530,8 @@ public class ShantyBoss : Boss
 			}
 		}
 
+		hurtSoundEffect.Play();
+
 		return CrossFadeToAnimation(hash, onTennisHitEnds);
 	}
 
@@ -578,6 +591,7 @@ public class ShantyBoss : Boss
 
 			case STAGE_3:
 			EnablePhysics(true);
+			duelHitCollider.gameObject.SetActive(true);
 			break;
 		}
 	}

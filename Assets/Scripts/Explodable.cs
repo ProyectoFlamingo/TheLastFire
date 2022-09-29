@@ -150,6 +150,7 @@ public class Explodable : PoolGameObject
 			{
 				if(obj.CompareTag(tag))
 				{
+					Debug.Log("[Explodable] " + gameObject.name + " detects " + tag);
 					health = obj.GetComponentInParent<Health>();
 
 					if(health == null)

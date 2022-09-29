@@ -356,7 +356,7 @@ public class ResourcesManager : Singleton<ResourcesManager>
 			if(!referenceSet.Contains(reference)) list.Add(reference);
 		}
 
-		Debug.Log("[ResourcesManager] Collection A: " + a.CollectionToString() + ". Collection B: " + b.CollectionToString() + ". Union: " + list.CollectionToString());
+		//Debug.Log("[ResourcesManager] Collection A: " + a.CollectionToString() + ". Collection B: " + b.CollectionToString() + ". Union: " + list.CollectionToString());
 
 		return list.ToArray();
 	}

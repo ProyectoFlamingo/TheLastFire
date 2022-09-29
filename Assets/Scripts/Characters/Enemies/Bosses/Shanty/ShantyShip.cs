@@ -18,6 +18,8 @@ public class ShantyShip : MonoBehaviour
 	public const int ID_STATE_SAIL_1 = 3; 								/// <summary>Sail 1's State ID.</summary>
 
 	[SerializeField] private AnimatorCredential _stateIDCredential; 	/// <summary>State ID's Animator Credential.</summary>
+	[Space(5f)]
+	[SerializeField] private Renderer _ropeRenderer; 					/// <summary>Rope's Renderer.</summary>
 	[SerializeField] private HitCollider2D _ropeHitBox; 				/// <summary>Rope's HitBox.</summary>
 	[Space(5f)]
 	[SerializeField] private VAssetReference _projectileReference; 		/// <summary>Projectile's Reference.</summary>
@@ -39,6 +41,9 @@ public class ShantyShip : MonoBehaviour
 
 	/// <summary>Gets stateIDCredential property.</summary>
 	public AnimatorCredential stateIDCredential { get { return _stateIDCredential; } }
+
+	/// <summary>Gets ropeRenderer property.</summary>
+	public Renderer ropeRenderer { get { return _ropeRenderer; } }
 
 	/// <summary>Gets ropeHitBox property.</summary>
 	public HitCollider2D ropeHitBox { get { return _ropeHitBox; } }
